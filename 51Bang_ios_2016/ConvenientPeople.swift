@@ -30,8 +30,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     let FMArr1 = ["baishihuitong","yundakuaidi","zhongtongkuaidi","shentongkuaidi","tiantiankuaidi","yuantongkuaidi","shunfengkuaidi","quanfengkuaidi","zhaijisong","ems"]
     
     override func viewWillAppear(animated: Bool) {
-        //        getData()
-        headerRefresh()
+        getData()
+        
     }
     override func viewDidAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = false
@@ -145,37 +145,35 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     
     
-    //    func getData(){
-    //
-    //        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-    //        hud.animationType = .Zoom
-    //        hud.labelText = "正在努力加载"
-    //        mainHelper.GetTchdList("1", beginid: beginmid) { (success, response) in
-    //            if !success {
-    //                return
-    //            }
-    //            hud.hide(true)
-    //            print(response)
-    //            self.dataSource = response as? Array<TCHDInfo> ?? []
-    //            print("---------------------------")
-    //            print(self.dataSource![0].mid)
-    //            print(self.dataSource![1].mid)
-    //            print(self.dataSource![2].mid)
-    //            print(self.dataSource![3].mid)
-    //            print(self.dataSource![4].mid)
-    //            print(self.dataSource![5].mid)
-    //            print(self.dataSource![6].mid)
-    //            print("---------------------------")
-    //            print(self.dataSource?.count)
-    //            print(self.dataSource)
-    //            print(self.dataSource![0].pic)
-    //            print(self.dataSource![0].record)
-    //
-    //            self.convenienceTable.reloadData()
-    //
-    //        }
-    //
-    //    }
+    func getData(){
+        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+        mainHelper.GetTchdList("1", beginid: beginmid) { (success, response) in
+            if !success {
+                return
+            }
+            hud.hide(true)
+            print(response)
+            self.dataSource = response as? Array<TCHDInfo> ?? []
+            print("---------------------------")
+            print(self.dataSource![0].mid)
+            print(self.dataSource![1].mid)
+            print(self.dataSource![2].mid)
+            print(self.dataSource![3].mid)
+            print(self.dataSource![4].mid)
+            print("---------------------------")
+            print(self.dataSource?.count)
+            print(self.dataSource)
+            print(self.dataSource![0].pic)
+            print(self.dataSource![0].record)
+            
+            self.convenienceTable.reloadData()
+            
+        }
+        
+    }
     
     
     func setConvenienceTable()
@@ -187,30 +185,29 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         convenienceTable.dataSource = self
         
         //--------------------
-        //        let header:MJRefreshGifHeader = MJRefreshGifHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
-        //        header.setImages(idleImages as [AnyObject], forState: MJRefreshState.Idle)
-        //        header.setImages(refreshingImages as [AnyObject], forState: MJRefreshState.Pulling)
-        //        header.setImages(idleImages as [AnyObject], forState: MJRefreshState.Refreshing)
-        //        self.convenienceTable.mj_header = header
-        self.convenienceTable.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
-        self.convenienceTable.mj_footer = MJRefreshAutoFooter(refreshingTarget: self, refreshingAction: #selector(self.footerRefresh))
+        
+        convenienceTable.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            self.convenienceTable.mj_header.endRefreshing()
+        })
+        convenienceTable.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
+            print("MJ:(上拉加载)")
+            self.footerRefresh()
+            self.convenienceTable.mj_footer.endRefreshing()
+        })
         //---------------------
         self.view.addSubview(convenienceTable)
     }
     
     func headerRefresh(){
-        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        hud.animationType = .Zoom
-        hud.labelText = "正在努力加载"
-        self.convenienceTable.mj_footer.beginRefreshing()
         mainHelper.GetTchdList("1", beginid: "0") { (success, response) in
             if !success {
                 return
             }
-            self.dataSource?.removeAll()
-            hud.hide(true)
+            
+            self.dataSource2.removeAllObjects()
             self.dataSource = response as? Array<TCHDInfo> ?? []
-            self.convenienceTable.mj_header.endRefreshing()
             
             for data in self.dataSource!{
                 self.dataSource2.addObject(data)
@@ -222,7 +219,6 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     
     func footerRefresh(){
-        self.convenienceTable.mj_footer.beginRefreshing()
         print(self.beginmid)
         
         beginmid = (dataSource2.lastObject as! TCHDInfo).mid!
@@ -239,7 +235,6 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 self.dataSource2.addObject(data)
             }
             
-            self.convenienceTable.mj_footer.endRefreshing()
             self.convenienceTable.reloadData()
             
         }
@@ -323,7 +318,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func boFangButtonActions(sender:UIButton){
         
-        mainHelper.downloadRecond(self.dataSource![sender.tag].record!)
+        mainHelper.downloadRecond((self.dataSource2[sender.tag] as! TCHDInfo).record!)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

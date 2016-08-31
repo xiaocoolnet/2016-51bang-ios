@@ -69,8 +69,8 @@ class ConveniceCell: UITableViewCell{
         timeLabel.textColor = UIColor.grayColor()
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let dateStr = dateFormatter.stringFromDate(NSDate())
-        timeLabel.text = dateStr
+        let date = NSDate(timeIntervalSince1970: Double(myinfo.add_time!)!)
+        timeLabel.text = dateFormatter.stringFromDate(date)
         
         contenLabel.sd_layout()
             .leftSpaceToView(self,10)
@@ -120,8 +120,8 @@ class ConveniceCell: UITableViewCell{
         timeLabel.textColor = UIColor.grayColor()
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let dateStr = dateFormatter.stringFromDate(NSDate())
-        timeLabel.text = dateStr
+        let date = NSDate(timeIntervalSince1970: Double(info.create_time!)!)
+        timeLabel.text = dateFormatter.stringFromDate(date)
         
         
         phone.sd_layout()
