@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="329" id="KGk-i7-Jjw" customClass="ShopHeaderViewCell" customModule="_1Bang_ios_2016" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="329"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="328"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YFB-rV-xUP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="200" id="kcA-9z-E6h"/>
+                            <constraint firstAttribute="height" constant="87" id="yTo-vX-4Ku"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="yTo-vX-4Ku"/>
+                            </mask>
+                        </variation>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="好声音KTV，价值173元的超值5小时欢唱套餐！海量曲库，先进配套设施，包间装修豪华舒适，服务热情细致" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HhS-6R-zuM">
+                        <rect key="frame" x="8" y="208" width="304" height="58"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="58" id="A0w-G8-t0b"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥66" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvR-p5-SfY">
+                        <rect key="frame" x="8" y="274" width="252" height="46"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                        <color key="textColor" red="1" green="0.19245298929999999" blue="0.18740622069999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wsf-HQ-gdh">
+                        <rect key="frame" x="0.0" y="270" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.79804488849999999" green="0.79804488849999999" blue="0.79804488849999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="KyR-IC-vlU"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnZ-CR-HvA">
+                        <rect key="frame" x="293" y="286" width="17" height="22"/>
+                        <state key="normal" image="ic_weishoucang"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="YFB-rV-xUP" secondAttribute="trailing" id="62G-BF-Xzo"/>
+                    <constraint firstAttribute="trailing" secondItem="nnZ-CR-HvA" secondAttribute="trailing" constant="10" id="CjT-4b-trh"/>
+                    <constraint firstItem="HhS-6R-zuM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="DA3-7h-38Q"/>
+                    <constraint firstItem="HhS-6R-zuM" firstAttribute="top" secondItem="YFB-rV-xUP" secondAttribute="bottom" constant="8" symbolic="YES" id="FSw-gQ-LhS"/>
+                    <constraint firstAttribute="trailing" secondItem="HhS-6R-zuM" secondAttribute="trailing" constant="8" id="IAL-aD-mb3"/>
+                    <constraint firstItem="nnZ-CR-HvA" firstAttribute="centerY" secondItem="bvR-p5-SfY" secondAttribute="centerY" id="NjP-r0-ZBQ"/>
+                    <constraint firstAttribute="trailing" secondItem="bvR-p5-SfY" secondAttribute="trailing" constant="60" id="QQW-ga-Kxs"/>
+                    <constraint firstItem="YFB-rV-xUP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="aAc-Iq-FbH"/>
+                    <constraint firstItem="bvR-p5-SfY" firstAttribute="top" secondItem="HhS-6R-zuM" secondAttribute="bottom" constant="8" id="d1B-bJ-jKg"/>
+                    <constraint firstAttribute="trailing" secondItem="Wsf-HQ-gdh" secondAttribute="trailing" id="fO7-oO-L88"/>
+                    <constraint firstItem="bvR-p5-SfY" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="gV1-bs-rkd"/>
+                    <constraint firstItem="YFB-rV-xUP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="n0F-ea-CVg"/>
+                    <constraint firstItem="Wsf-HQ-gdh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="yYJ-Wu-lPi"/>
+                    <constraint firstItem="bvR-p5-SfY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="ydr-tZ-pal"/>
+                    <constraint firstItem="Wsf-HQ-gdh" firstAttribute="top" secondItem="HhS-6R-zuM" secondAttribute="bottom" constant="4" id="ymi-Fi-cez"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="desciption" destination="HhS-6R-zuM" id="NBe-8U-Sa6"/>
+                <outlet property="favorite" destination="nnZ-CR-HvA" id="GwY-XC-HLA"/>
+                <outlet property="headerImage" destination="YFB-rV-xUP" id="Ids-Yw-ZmG"/>
+                <outlet property="price" destination="bvR-p5-SfY" id="kht-io-ffL"/>
+            </connections>
+            <point key="canvasLocation" x="395" y="451.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_weishoucang" width="17" height="15"/>
+    </resources>
+</document>

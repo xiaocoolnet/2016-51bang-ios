@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="118" id="KGk-i7-Jjw" customClass="OrderDetailAlertTableViewCell" customModule="_1Bang_ios_2016" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="118"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="骑士正在赶来的路上，您真的要离开吗？" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Mt-e4-wYw">
+                        <rect key="frame" x="0.0" y="0.0" width="316" height="60"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="60" id="dy4-j0-cKY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.13696810139999999" green="0.74238782049999996" blue="0.58327240130000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7bV-Zk-mjh">
+                        <rect key="frame" x="0.0" y="75" width="320" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="7Fq-2y-had"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAZ-gq-rdv">
+                        <rect key="frame" x="8" y="76" width="144" height="41"/>
+                        <state key="normal" title="立即离开">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oVj-MA-j6P">
+                        <rect key="frame" x="160" y="76" width="1" height="41"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="R8a-dz-yin"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p61-2v-wVt">
+                        <rect key="frame" x="161" y="76" width="159" height="41"/>
+                        <state key="normal" title="再等一会">
+                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="7bV-Zk-mjh" firstAttribute="top" secondItem="8Mt-e4-wYw" secondAttribute="bottom" constant="15" id="4eN-qb-r0K"/>
+                    <constraint firstAttribute="trailing" secondItem="7bV-Zk-mjh" secondAttribute="trailing" id="5nc-Cl-Un8"/>
+                    <constraint firstItem="oVj-MA-j6P" firstAttribute="leading" secondItem="VAZ-gq-rdv" secondAttribute="trailing" constant="8" symbolic="YES" id="6wk-DV-LZj"/>
+                    <constraint firstItem="p61-2v-wVt" firstAttribute="height" secondItem="VAZ-gq-rdv" secondAttribute="height" id="9Np-jR-2Hd"/>
+                    <constraint firstItem="oVj-MA-j6P" firstAttribute="centerX" secondItem="7bV-Zk-mjh" secondAttribute="centerX" id="BQ7-sF-z0X"/>
+                    <constraint firstItem="oVj-MA-j6P" firstAttribute="top" secondItem="7bV-Zk-mjh" secondAttribute="bottom" id="BpE-7L-rmW"/>
+                    <constraint firstItem="VAZ-gq-rdv" firstAttribute="top" secondItem="7bV-Zk-mjh" secondAttribute="bottom" id="ERj-Ll-4dP"/>
+                    <constraint firstItem="8Mt-e4-wYw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Krc-X5-EJ3"/>
+                    <constraint firstAttribute="bottom" secondItem="VAZ-gq-rdv" secondAttribute="bottom" id="Mhc-pY-aXx"/>
+                    <constraint firstItem="oVj-MA-j6P" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="NQe-Bi-uWw"/>
+                    <constraint firstItem="p61-2v-wVt" firstAttribute="width" secondItem="VAZ-gq-rdv" secondAttribute="width" id="OrN-0w-FwZ"/>
+                    <constraint firstItem="p61-2v-wVt" firstAttribute="leading" secondItem="oVj-MA-j6P" secondAttribute="trailing" id="P09-ol-oWa"/>
+                    <constraint firstItem="8Mt-e4-wYw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="R6J-3k-JNC"/>
+                    <constraint firstAttribute="trailing" secondItem="p61-2v-wVt" secondAttribute="trailing" id="RGb-eI-YTY"/>
+                    <constraint firstItem="p61-2v-wVt" firstAttribute="leading" secondItem="oVj-MA-j6P" secondAttribute="trailing" id="XTk-C4-qJp"/>
+                    <constraint firstAttribute="trailing" secondItem="8Mt-e4-wYw" secondAttribute="trailing" constant="4" id="Z4x-H3-1iV"/>
+                    <constraint firstAttribute="bottom" secondItem="oVj-MA-j6P" secondAttribute="bottom" id="ipB-rx-lbj"/>
+                    <constraint firstItem="p61-2v-wVt" firstAttribute="top" secondItem="VAZ-gq-rdv" secondAttribute="top" id="j67-93-Xau"/>
+                    <constraint firstItem="7bV-Zk-mjh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="kRA-Y9-Kef"/>
+                    <constraint firstItem="oVj-MA-j6P" firstAttribute="leading" secondItem="VAZ-gq-rdv" secondAttribute="trailing" constant="8" id="vCB-sT-2RD"/>
+                    <constraint firstAttribute="trailing" secondItem="p61-2v-wVt" secondAttribute="trailing" id="wy1-Ng-L6c"/>
+                    <constraint firstItem="VAZ-gq-rdv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="y8q-mO-eSa"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="NQe-Bi-uWw"/>
+                        <exclude reference="vCB-sT-2RD"/>
+                        <exclude reference="OrN-0w-FwZ"/>
+                        <exclude reference="P09-ol-oWa"/>
+                        <exclude reference="wy1-Ng-L6c"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="leave" destination="VAZ-gq-rdv" id="SgC-8r-x2h"/>
+                <outlet property="title" destination="8Mt-e4-wYw" id="9el-CI-v5j"/>
+                <outlet property="wait" destination="p61-2v-wVt" id="yLM-Mt-CPH"/>
+            </connections>
+            <point key="canvasLocation" x="511" y="484"/>
+        </tableViewCell>
+    </objects>
+</document>

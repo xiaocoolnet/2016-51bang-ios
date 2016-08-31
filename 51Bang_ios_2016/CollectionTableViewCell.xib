@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="93" id="KGk-i7-Jjw" customClass="CollectionTableViewCell" customModule="_1Bang_ios_2016" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="93"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="92"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="01" translatesAutoresizingMaskIntoConstraints="NO" id="mD4-Hs-ZgZ">
+                        <rect key="frame" x="10" y="10" width="80" height="72"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="nbf-I4-MCl"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="海鲜自助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJ0-12-Cpq">
+                        <rect key="frame" x="98" y="10" width="64" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="自助自助自助自助自助自助自助自助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxu-UZ-66c">
+                        <rect key="frame" x="98" y="35" width="192" height="20"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="0.67000000000000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Qd-NI-REl">
+                        <rect key="frame" x="98" y="61" width="28" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="1" green="0.19245298929999999" blue="0.18740622069999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fCH-Jo-Ea9">
+                        <rect key="frame" x="256" y="53" width="56" height="29"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="立即购买"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.4km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t32-uq-NF2">
+                        <rect key="frame" x="271" y="10" width="41" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.67000000000000004" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="7Qd-NI-REl" firstAttribute="leading" secondItem="tJ0-12-Cpq" secondAttribute="leading" id="4GW-fB-cJj"/>
+                    <constraint firstAttribute="trailing" secondItem="t32-uq-NF2" secondAttribute="trailing" constant="8" id="JHR-xG-jWz"/>
+                    <constraint firstItem="Mxu-UZ-66c" firstAttribute="top" secondItem="tJ0-12-Cpq" secondAttribute="bottom" constant="5" id="Lbk-Bm-zV1"/>
+                    <constraint firstItem="tJ0-12-Cpq" firstAttribute="top" secondItem="mD4-Hs-ZgZ" secondAttribute="top" id="OuO-13-cH6"/>
+                    <constraint firstItem="fCH-Jo-Ea9" firstAttribute="bottom" secondItem="mD4-Hs-ZgZ" secondAttribute="bottom" id="PXw-hS-cAW"/>
+                    <constraint firstItem="mD4-Hs-ZgZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Qbm-FQ-lO8"/>
+                    <constraint firstItem="t32-uq-NF2" firstAttribute="trailing" secondItem="fCH-Jo-Ea9" secondAttribute="trailing" id="T5t-kj-4yx"/>
+                    <constraint firstAttribute="bottom" secondItem="mD4-Hs-ZgZ" secondAttribute="bottom" constant="10" id="amq-KV-C1H"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mxu-UZ-66c" secondAttribute="trailing" constant="30" id="bLP-Rn-0bZ"/>
+                    <constraint firstItem="t32-uq-NF2" firstAttribute="top" secondItem="mD4-Hs-ZgZ" secondAttribute="top" id="cz7-yd-LtM"/>
+                    <constraint firstItem="tJ0-12-Cpq" firstAttribute="leading" secondItem="mD4-Hs-ZgZ" secondAttribute="trailing" constant="8" id="eMm-Fo-lEp"/>
+                    <constraint firstItem="7Qd-NI-REl" firstAttribute="bottom" secondItem="mD4-Hs-ZgZ" secondAttribute="bottom" id="geF-wy-WY4"/>
+                    <constraint firstItem="Mxu-UZ-66c" firstAttribute="leading" secondItem="tJ0-12-Cpq" secondAttribute="leading" id="h8E-f9-flp"/>
+                    <constraint firstItem="mD4-Hs-ZgZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="nDA-rD-Ils"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="buy" destination="fCH-Jo-Ea9" id="iRr-6T-qsd"/>
+                <outlet property="desc" destination="Mxu-UZ-66c" id="dcd-O1-AFl"/>
+                <outlet property="distance" destination="t32-uq-NF2" id="dCX-UY-7mT"/>
+                <outlet property="iconImage" destination="mD4-Hs-ZgZ" id="aLA-WS-g5r"/>
+                <outlet property="price" destination="7Qd-NI-REl" id="Qvu-yu-g64"/>
+                <outlet property="title" destination="tJ0-12-Cpq" id="WZf-F1-2kz"/>
+            </connections>
+            <point key="canvasLocation" x="444" y="482.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="01" width="2560" height="1600"/>
+    </resources>
+</document>

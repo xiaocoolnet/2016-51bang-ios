@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditInfoViewController" customModule="_1Bang_ios_2016" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vyw-hN-Iv6">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <state key="normal" title="点击"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="vyw-hN-Iv6" secondAttribute="trailing" constant="79" id="3fg-yg-ZQk"/>
+                <constraint firstItem="vyw-hN-Iv6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="95" id="49j-7C-5VE"/>
+                <constraint firstAttribute="bottom" secondItem="vyw-hN-Iv6" secondAttribute="bottom" constant="220" id="Muf-gi-rqb"/>
+                <constraint firstItem="vyw-hN-Iv6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="57" id="cuI-c4-QyE"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="vyw-hN-Iv6"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="3fg-yg-ZQk"/>
+                    <exclude reference="49j-7C-5VE"/>
+                    <exclude reference="Muf-gi-rqb"/>
+                    <exclude reference="cuI-c4-QyE"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="vyw-hN-Iv6"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="3fg-yg-ZQk"/>
+                    <include reference="49j-7C-5VE"/>
+                    <include reference="Muf-gi-rqb"/>
+                    <include reference="cuI-c4-QyE"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="214" y="403.5"/>
+        </view>
+    </objects>
+</document>

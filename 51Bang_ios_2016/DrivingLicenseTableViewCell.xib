@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="DrivingLicenseTableViewCell" customModule="_1Bang_ios_2016" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="134"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xtb-7r-U5Y">
+                        <rect key="frame" x="187" y="0.0" width="1" height="135"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="1" id="XIC-RT-9lz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iMt-lZ-5Rv">
+                        <rect key="frame" x="10" y="10" width="173" height="115"/>
+                        <color key="backgroundColor" red="0.6244546567" green="1" blue="0.70968457750000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <state key="normal" backgroundImage="驾照"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="10i-Uy-QDl">
+                        <rect key="frame" x="192" y="10" width="173" height="115"/>
+                        <color key="backgroundColor" red="0.86049832770000001" green="1" blue="0.63749878900000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <state key="normal" backgroundImage="ic_lansexiangji"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Xtb-7r-U5Y" firstAttribute="leading" secondItem="iMt-lZ-5Rv" secondAttribute="trailing" constant="4" id="7zi-dt-YEF"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Xtb-7r-U5Y" secondAttribute="bottom" constant="-8.5" id="FgU-ds-TSn"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="iMt-lZ-5Rv" secondAttribute="bottom" constant="1.5" id="JdP-19-IHE"/>
+                    <constraint firstItem="Xtb-7r-U5Y" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="KnV-e4-TrB"/>
+                    <constraint firstItem="Xtb-7r-U5Y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="L9z-GB-IDI"/>
+                    <constraint firstItem="Xtb-7r-U5Y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="Rj8-Pt-dvP"/>
+                    <constraint firstItem="iMt-lZ-5Rv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="Vvg-NZ-hiD"/>
+                    <constraint firstItem="iMt-lZ-5Rv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="YZF-3u-dAY"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="10i-Uy-QDl" secondAttribute="trailing" constant="2" id="cph-t2-0Jk"/>
+                    <constraint firstItem="10i-Uy-QDl" firstAttribute="leading" secondItem="Xtb-7r-U5Y" secondAttribute="trailing" constant="4" id="hI3-Rp-H3b"/>
+                    <constraint firstItem="10i-Uy-QDl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="jZ2-48-oBo"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="10i-Uy-QDl" secondAttribute="bottom" constant="1.5" id="uPf-wr-03H"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="Camera" destination="10i-Uy-QDl" id="n1P-H3-yrL"/>
+                <outlet property="Driving" destination="iMt-lZ-5Rv" id="6J6-mp-IjW"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_lansexiangji" width="173" height="115"/>
+        <image name="驾照" width="174" height="116"/>
+    </resources>
+</document>

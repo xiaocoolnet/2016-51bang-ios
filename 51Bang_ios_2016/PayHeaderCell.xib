@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="88" id="KGk-i7-Jjw" customClass="PayHeaderCell" customModule="_1Bang_ios_2016" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F2k-ei-lTS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="托管金额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSr-OW-s09">
+                        <rect key="frame" x="132" y="51" width="56" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¥ 400" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BEj-g9-45g">
+                        <rect key="frame" x="105" y="8" width="110" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="110" id="haH-zt-IrY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                        <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="BEj-g9-45g" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="105" id="2Yp-7P-hMM"/>
+                    <constraint firstAttribute="trailing" secondItem="F2k-ei-lTS" secondAttribute="trailing" id="5qK-q7-gHH"/>
+                    <constraint firstItem="F2k-ei-lTS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6X4-CO-DKe"/>
+                    <constraint firstItem="qSr-OW-s09" firstAttribute="centerX" secondItem="BEj-g9-45g" secondAttribute="centerX" id="6wx-m2-9md"/>
+                    <constraint firstItem="qSr-OW-s09" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="126" id="BDI-ba-FgJ"/>
+                    <constraint firstAttribute="trailing" secondItem="BEj-g9-45g" secondAttribute="trailing" constant="105" id="D9l-av-0bf"/>
+                    <constraint firstAttribute="trailing" secondItem="qSr-OW-s09" secondAttribute="trailing" constant="126" id="NOV-OM-3d3"/>
+                    <constraint firstItem="qSr-OW-s09" firstAttribute="top" secondItem="BEj-g9-45g" secondAttribute="bottom" id="fFd-7H-19r"/>
+                    <constraint firstItem="BEj-g9-45g" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="fl1-xX-mbD"/>
+                    <constraint firstAttribute="bottom" secondItem="F2k-ei-lTS" secondAttribute="bottom" id="gQu-fi-Ypd"/>
+                    <constraint firstItem="qSr-OW-s09" firstAttribute="top" secondItem="BEj-g9-45g" secondAttribute="bottom" constant="7" id="gZz-L4-qkU"/>
+                    <constraint firstItem="F2k-ei-lTS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="i0s-ly-8oM"/>
+                    <constraint firstItem="qSr-OW-s09" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="92" id="oos-Lp-i56"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="BDI-ba-FgJ"/>
+                        <exclude reference="NOV-OM-3d3"/>
+                        <exclude reference="fFd-7H-19r"/>
+                        <exclude reference="oos-Lp-i56"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="backView" destination="F2k-ei-lTS" id="73I-D1-Emf"/>
+                <outlet property="desc" destination="qSr-OW-s09" id="Stg-u6-jen"/>
+                <outlet property="price" destination="BEj-g9-45g" id="dEq-Oe-U4I"/>
+            </connections>
+            <point key="canvasLocation" x="371" y="361"/>
+        </tableViewCell>
+    </objects>
+</document>
