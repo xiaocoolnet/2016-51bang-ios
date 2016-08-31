@@ -48,6 +48,7 @@
 #import "FZJWeiXinPayMainController.h"
 #import "UPLoadSound.h"//上传声音
 #import "UpLoadModel.h"
+#import "APOpenAPI.h"//支付宝分享
 //#import "ApiXml.h"
 /*百度地图*/
 

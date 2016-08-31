@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         // Override point for customization after application launch.
        //WXApi.registerApp("wxe61df5d7fee96861")
         WXApi.registerApp("wx765b8c5e082532b4", withDescription: "51bang")
+        APOpenAPI.registerApp("2016083001821606", withDescription: "51bang")
 //        WXApi.registerApp("wx5bbd35eed5255733", withDescription: "51bang")//第二次
         
 //         WXApi.registerApp("wx765b8c5e08253264", withDescription: "51bang")
@@ -100,12 +101,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 //                let vc = OrderDetailViewController()
                 
             })
+//
           
         }
         
         
         
-        
+        if APOpenAPI.handleOpenURL(url, delegate: nil) {
+            
+        }
         
         
         

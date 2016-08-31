@@ -434,6 +434,7 @@
 		F25289BA1D6AE16700B8E6DC /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F25289B41D6AE16700B8E6DC /* lame.framework */; };
 		F25289BB1D6AE16700B8E6DC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F25289B51D6AE16700B8E6DC /* LICENSE */; };
 		F25289BC1D6AE16700B8E6DC /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F25289B61D6AE16700B8E6DC /* README.md */; };
+		F2DAD9971D76C13C00200B5D /* libAPOpenSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2DAD9961D76C13C00200B5D /* libAPOpenSdk.a */; };
 		F2EF8DA31D6EC060008C495E /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2EF8DA01D6EC060008C495E /* libWeChatSDK.a */; };
 		F2F189F31D6D6BCA00843120 /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F189E11D6D6BCA00843120 /* TZAssetCell.m */; };
 		F2F189F41D6D6BCA00843120 /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F189E31D6D6BCA00843120 /* TZAssetModel.m */; };
@@ -1060,6 +1061,9 @@
 		F25289B41D6AE16700B8E6DC /* lame.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lame.framework; sourceTree = "<group>"; };
 		F25289B51D6AE16700B8E6DC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		F25289B61D6AE16700B8E6DC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F2DAD9941D76C13C00200B5D /* APOpenAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPI.h; sourceTree = "<group>"; };
+		F2DAD9951D76C13C00200B5D /* APOpenAPIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPIObject.h; sourceTree = "<group>"; };
+		F2DAD9961D76C13C00200B5D /* libAPOpenSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPOpenSdk.a; sourceTree = "<group>"; };
 		F2EF8DA01D6EC060008C495E /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		F2EF8DA11D6EC060008C495E /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		F2EF8DA21D6EC060008C495E /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -1125,6 +1129,7 @@
 				1FACE66C1D2F3CC10005282E /* libz.tbd in Frameworks */,
 				1F7D5A0D1D4A033600536BD1 /* ShareSDKExtension.framework in Frameworks */,
 				1F7D5A0C1D4A033600536BD1 /* ShareSDK.framework in Frameworks */,
+				F2DAD9971D76C13C00200B5D /* libAPOpenSdk.a in Frameworks */,
 				1F7D5A111D4A033600536BD1 /* libAPOpenSdk.a in Frameworks */,
 				C4065D2B4CD2ABEC6F149D76 /* Pods_51Bang_ios_2016.framework in Frameworks */,
 			);
@@ -1152,6 +1157,7 @@
 		0D10A6241D50AE550004903C /* ThirdPackage */ = {
 			isa = PBXGroup;
 			children = (
+				F2DAD9931D76C13C00200B5D /* SocialSDK */,
 				F25289B01D6AE16700B8E6DC /* mp3lame-for-iOS-master */,
 				F23C55931D6577000094E2B7 /* ThirdPackage */,
 				0DEFF3C11D60280400BC7BF1 /* SDAutoLayout */,
@@ -2225,6 +2231,16 @@
 			path = "mp3lame-for-iOS-master";
 			sourceTree = "<group>";
 		};
+		F2DAD9931D76C13C00200B5D /* SocialSDK */ = {
+			isa = PBXGroup;
+			children = (
+				F2DAD9941D76C13C00200B5D /* APOpenAPI.h */,
+				F2DAD9951D76C13C00200B5D /* APOpenAPIObject.h */,
+				F2DAD9961D76C13C00200B5D /* libAPOpenSdk.a */,
+			);
+			path = SocialSDK;
+			sourceTree = "<group>";
+		};
 		F2EF8D9F1D6EC060008C495E /* SDKExport */ = {
 			isa = PBXGroup;
 			children = (
@@ -3028,7 +3044,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "819eadb5-1f17-4745-b44d-71d15920bc1f";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3068,7 +3084,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "819eadb5-1f17-4745-b44d-71d15920bc1f";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3081,8 +3097,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3125,6 +3141,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/YiXinSDK",
+					"$(PROJECT_DIR)/51Bang_ios_2016/SocialSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -3144,10 +3161,11 @@
 					"-framework",
 					"\"TPKeyboardAvoiding\"",
 					"-lxml2",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "819eadb5-1f17-4745-b44d-71d15920bc1f";
 				SWIFT_OBJC_BRIDGING_HEADER = "${ROOT}51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -3161,8 +3179,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3205,6 +3223,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/YiXinSDK",
+					"$(PROJECT_DIR)/51Bang_ios_2016/SocialSDK",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -3224,10 +3243,11 @@
 					"-framework",
 					"\"TPKeyboardAvoiding\"",
 					"-lxml2",
+					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "819eadb5-1f17-4745-b44d-71d15920bc1f";
 				SWIFT_OBJC_BRIDGING_HEADER = "${ROOT}51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
