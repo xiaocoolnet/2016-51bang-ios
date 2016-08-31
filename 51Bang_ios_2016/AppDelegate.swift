@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     var _mapManager: BMKMapManager?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
         // Override point for customization after application launch.
        //WXApi.registerApp("wxe61df5d7fee96861")
         WXApi.registerApp("wx765b8c5e082532b4", withDescription: "51bang")
