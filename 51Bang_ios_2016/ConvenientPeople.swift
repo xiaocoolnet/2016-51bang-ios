@@ -19,18 +19,19 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     var myindexRow = NSInteger()
     var boFangButton = UIButton()
     var dataSource : Array<TCHDInfo>?
-    var dataSource2 : Array<TCHDInfo>?
+    var dataSource2 = NSMutableArray()
     let mainHelper = MainHelper()
     var isShow = Bool()
     let coverView = UIView()
     let leftTableView = UITableView()
     var headerView = ConvenienceHeaderViewCell()
-    var mid = String()
+    var beginmid = "0"
     let FMArr = ["百世汇通","韵达快递","中通快递","申通快递","天天快递","圆通快递","顺丰速运","全峰快递","宅急送","EMS"]
     let FMArr1 = ["baishihuitong","yundakuaidi","zhongtongkuaidi","shentongkuaidi","tiantiankuaidi","yuantongkuaidi","shunfengkuaidi","quanfengkuaidi","zhaijisong","ems"]
     
     override func viewWillAppear(animated: Bool) {
-        getData()
+        //        getData()
+        headerRefresh()
     }
     override func viewDidAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = false
@@ -144,29 +145,37 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     
     
-    func getData(){
-        
-        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        hud.animationType = .Zoom
-        hud.labelText = "正在努力加载"
-        mainHelper.GetTchdList("1", beginid: mid) { (success, response) in
-            if !success {
-                return
-            }
-            hud.hide(true)
-            print(response)
-            self.dataSource = response as? Array<TCHDInfo> ?? []
-            
-            print(self.dataSource?.count)
-            print(self.dataSource)
-            print(self.dataSource![0].pic)
-            print(self.dataSource![0].record)
-            
-            self.convenienceTable.reloadData()
-            
-        }
-        
-    }
+    //    func getData(){
+    //
+    //        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    //        hud.animationType = .Zoom
+    //        hud.labelText = "正在努力加载"
+    //        mainHelper.GetTchdList("1", beginid: beginmid) { (success, response) in
+    //            if !success {
+    //                return
+    //            }
+    //            hud.hide(true)
+    //            print(response)
+    //            self.dataSource = response as? Array<TCHDInfo> ?? []
+    //            print("---------------------------")
+    //            print(self.dataSource![0].mid)
+    //            print(self.dataSource![1].mid)
+    //            print(self.dataSource![2].mid)
+    //            print(self.dataSource![3].mid)
+    //            print(self.dataSource![4].mid)
+    //            print(self.dataSource![5].mid)
+    //            print(self.dataSource![6].mid)
+    //            print("---------------------------")
+    //            print(self.dataSource?.count)
+    //            print(self.dataSource)
+    //            print(self.dataSource![0].pic)
+    //            print(self.dataSource![0].record)
+    //
+    //            self.convenienceTable.reloadData()
+    //
+    //        }
+    //
+    //    }
     
     
     func setConvenienceTable()
@@ -178,40 +187,56 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         convenienceTable.dataSource = self
         
         //--------------------
-        let header:MJRefreshGifHeader = MJRefreshGifHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
-        header.setImages(idleImages as [AnyObject], forState: MJRefreshState.Idle)
-        header.setImages(refreshingImages as [AnyObject], forState: MJRefreshState.Pulling)
-        header.setImages(idleImages as [AnyObject], forState: MJRefreshState.Refreshing)
-        self.convenienceTable.mj_header = header
+        //        let header:MJRefreshGifHeader = MJRefreshGifHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
+        //        header.setImages(idleImages as [AnyObject], forState: MJRefreshState.Idle)
+        //        header.setImages(refreshingImages as [AnyObject], forState: MJRefreshState.Pulling)
+        //        header.setImages(idleImages as [AnyObject], forState: MJRefreshState.Refreshing)
+        //        self.convenienceTable.mj_header = header
         self.convenienceTable.mj_header = MJRefreshNormalHeader(refreshingTarget: self, refreshingAction: #selector(self.headerRefresh))
-        self.convenienceTable.mj_footer = MJRefreshAutoNormalFooter(refreshingTarget: self, refreshingAction: #selector(self.footerRefresh))
+        self.convenienceTable.mj_footer = MJRefreshAutoFooter(refreshingTarget: self, refreshingAction: #selector(self.footerRefresh))
         //---------------------
         self.view.addSubview(convenienceTable)
     }
     
     func headerRefresh(){
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
         self.convenienceTable.mj_footer.beginRefreshing()
-        mainHelper.GetTchdList("1", beginid: mid) { (success, response) in
+        mainHelper.GetTchdList("1", beginid: "0") { (success, response) in
             if !success {
                 return
             }
+            self.dataSource?.removeAll()
+            hud.hide(true)
             self.dataSource = response as? Array<TCHDInfo> ?? []
             self.convenienceTable.mj_header.endRefreshing()
+            
+            for data in self.dataSource!{
+                self.dataSource2.addObject(data)
+            }
             self.convenienceTable.reloadData()
+            
         }
         
     }
     
     func footerRefresh(){
         self.convenienceTable.mj_footer.beginRefreshing()
+        print(self.beginmid)
         
-        mainHelper.GetTchdList("1", beginid: mid) { (success, response) in
+        beginmid = (dataSource2.lastObject as! TCHDInfo).mid!
+        var myID:Int = Int(beginmid)!
+        myID = myID - 5
+        self.beginmid = String(myID)
+        print(beginmid)
+        mainHelper.GetTchdList("1", beginid: beginmid) { (success, response) in
             if !success {
                 return
             }
-            self.dataSource2 = response as? Array<TCHDInfo> ?? []
-            for num in self.dataSource2!{
-                self.dataSource?.append(num)
+            self.dataSource = response as? Array<TCHDInfo> ?? []
+            for data in self.dataSource!{
+                self.dataSource2.addObject(data)
             }
             
             self.convenienceTable.mj_footer.endRefreshing()
@@ -227,8 +252,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         //            return FMArr.count
         //        }
         
-        if(self.dataSource?.count != nil){
-            return ((self.dataSource?.count)!+1)
+        if(self.dataSource2.count > 0){
+            return ((self.dataSource2.count)+1)
         }else{
             return 0
             
@@ -268,12 +293,12 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             }else{
                 
                 
-                print( self.dataSource )
-                if(self.dataSource?.count != nil )
+                print( self.dataSource2 )
+                if(self.dataSource2.count > 0 )
                 {
-                    print(self.dataSource![indexPath.row-1].record)
+                    print((dataSource2[indexPath.row-1] as! TCHDInfo).record)
                     self.boFangButton.removeFromSuperview()
-                    let cell = ConveniceCell.init(info: self.dataSource![indexPath.row-1] )
+                    let cell = ConveniceCell.init(info: self.dataSource2[indexPath.row-1] as! TCHDInfo )
                     //                    if self.dataSource![indexPath.row-1].record != nil || self.dataSource![indexPath.row-1].record != "" {
                     //
                     //
@@ -324,8 +349,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 return CGFloat(tableView.frame.height/CGFloat(FMArr.count))
             }else{
                 
-                let str = dataSource![indexPath.row-1].content
-                let piccount = dataSource![indexPath.row-1].pic.count
+                let str = (dataSource2[indexPath.row-1] as! TCHDInfo).content
+                let piccount = (dataSource2[indexPath.row-1] as! TCHDInfo).pic.count
                 
                 let height = calculateHeight( str!, size: 15, width: WIDTH - 10 )
                 
@@ -346,7 +371,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 {
                     picHeight = 0
                 }
-                if self.dataSource![indexPath.row-1].record != nil && self.dataSource![indexPath.row-1].record != "" {
+                if (dataSource2[indexPath.row-1] as! TCHDInfo).record != nil && (dataSource2[indexPath.row-1] as! TCHDInfo).record != "" {
                     return 75 + picHeight + height + 20+80
                 }else{
                     return 75 + picHeight + height + 20
