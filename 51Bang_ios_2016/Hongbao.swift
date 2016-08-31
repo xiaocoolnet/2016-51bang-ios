@@ -18,8 +18,8 @@ class Hongbao: UIViewController {
     let titleArray = ["微信好友","朋友圈"]
     var btn1 = UIButton()
     var btn2 = UIButton()
-//    var btn3 = UIButton()
-//    var btn4 = UIButton()
+    var btn3 = UIButton()
+    var btn4 = UIButton()
 //    var btn5 = UIButton()
     var cancelBtn = UIButton()
     override func viewWillAppear(animated: Bool) {
@@ -67,7 +67,7 @@ class Hongbao: UIViewController {
     
     func SetBottomView()
     {
-        bottom.frame = CGRectMake(0, self.view.frame.size.height - 250 , WIDTH , 250)
+        bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250 , WIDTH , 500)
         bottom.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(bottom)
         
@@ -91,6 +91,30 @@ class Hongbao: UIViewController {
         btn2.layer.masksToBounds = true
         btn2.layer.cornerRadius = WIDTH / 10
         bottom.addSubview(btn2)
+        
+        btn3.frame = CGRectMake(WIDTH / 5, bottom_title.frame.size.height+WIDTH / 5+50, WIDTH / 5, WIDTH / 5)
+//        btn3.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
+        btn3.tag = 3
+        btn3.backgroundColor = UIColor.redColor()
+        btn3.setTitle(" 支付宝好友", forState: UIControlState.Normal)
+        btn3.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        
+        btn3.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn3.layer.masksToBounds = true
+        btn3.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn3)
+        
+        btn4.frame = CGRectMake(WIDTH / 5 * 3, bottom_title.frame.size.height+WIDTH / 5+50, WIDTH / 5, WIDTH / 5)
+        //        btn3.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
+        btn4.tag = 4
+        btn4.backgroundColor = UIColor.redColor()
+        btn4.setTitle(" 支付宝生活圈", forState: UIControlState.Normal)
+        btn4.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        
+        btn4.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn4.layer.masksToBounds = true
+        btn4.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn4)
         
 //        btn3.frame = CGRectMake(WIDTH * 2 / 5, bottom_title.frame.size.height, WIDTH / 5, WIDTH / 5)
 //        btn3.tag = 3
@@ -129,7 +153,7 @@ class Hongbao: UIViewController {
             bottom.addSubview(label)
         }
         cancelBtn.tag = 6
-        cancelBtn.frame = CGRectMake(0, btn1.origin.y + WIDTH / 5 + 30, WIDTH , 250 - 35 - WIDTH / 5 - 75 )
+        cancelBtn.frame = CGRectMake(0, btn1.origin.y + WIDTH / 5 + 30+100, WIDTH , 250 - 35 - WIDTH / 5 - 75 )
         cancelBtn.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cancelBtn.setTitle("取消", forState: UIControlState.Normal)
         cancelBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
@@ -171,9 +195,52 @@ class Hongbao: UIViewController {
             WXApi.sendReq(sendReq)
 
         case 3:
-            print("qq")
+            //支付宝分享
+            let message = APMediaMessage()
+            let webObj = APShareWebObject()
+//            let textObj = APShareTextObject()
+            webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+            
+            message.title = "红包";
+            message.desc = "红包";
+//            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
+            message.mediaObject = webObj
+            
+            
+            
+            let request = APSendMessageToAPReq()
+            
+            request.message = message
+            
+            request.scene = APSceneSession
+            let result = APOpenAPI.sendReq(request)
+            if !result {
+                alert("分享失败", delegate: self)
+            }
+//
         case 4:
-            print("空间")
+            //支付宝分享
+            let message = APMediaMessage()
+            let webObj = APShareWebObject()
+            //            let textObj = APShareTextObject()
+            webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+            
+            message.title = "红包";
+            message.desc = "红包";
+            //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
+            message.mediaObject = webObj
+            
+            
+            
+            let request = APSendMessageToAPReq()
+            
+            request.message = message
+            
+            request.scene = APSceneTimeLine
+            let result = APOpenAPI.sendReq(request)
+            if !result {
+                alert("分享失败", delegate: self)
+            }
         case 6:
             print("取消")
             bottom.hidden = true

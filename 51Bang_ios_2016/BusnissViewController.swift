@@ -16,8 +16,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     let myTableView = UITableView()
     let shopHelper = ShopHelper()
     var headerView = ShopHeaderViewCell()
-    let buttonImageArr = ["ic_weixin-1","ic_pengyouquan"];
-    let nameArr = ["微信好友","微信朋友圈"]
+    let buttonImageArr = ["ic_weixin-1","ic_pengyouquan","ic_weixin-1","ic_pengyouquan"];
+    let nameArr = ["微信好友","微信朋友圈","支付宝好友","支付宝生活圈"]
     var dataSource : Array<commentlistInfo>?
     var geocoder = CLGeocoder()
     var photoArr = NSMutableArray()
@@ -358,29 +358,30 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         backView.backgroundColor = UIColor.grayColor()
         backView.alpha = 0.8
         backView.tag = 100
-        let shareView = UIView.init(frame: CGRectMake(0, HEIGHT-WIDTH*150/375-64,WIDTH , WIDTH*150/375))
+        let shareView = UIView.init(frame: CGRectMake(0, HEIGHT-WIDTH*150/375-64-100,WIDTH , WIDTH*150/375+100))
         shareView.backgroundColor = UIColor.whiteColor()
         shareView.tag = 101
         let margin:CGFloat = (WIDTH-CGFloat(2) * WIDTH*80/375)/(CGFloat(5)+1);
-        for i in 0..<2 {
-            let row:Int = i / 5;//行号
+        for i in 0..<4 {
+            let row:Int = i / 2;//行号
             //1/3=0,2/3=0,3/3=1;
-            let loc:Int = i % 5;//列号
+            let loc:Int = i % 2;//列号
             let appviewx:CGFloat = margin+(margin+WIDTH/CGFloat(2))*CGFloat(loc)
-            let appviewy:CGFloat = margin+(margin+WIDTH*40/375) * CGFloat(row)
+            let appviewy:CGFloat = margin+(margin+WIDTH*40/375+30) * CGFloat(row)
             
-            let button = UIButton.init(frame: CGRectMake(appviewx+5, 5, WIDTH*70/375, WIDTH*70/375))
+            let button = UIButton.init(frame: CGRectMake(appviewx+5, appviewy, WIDTH*70/375, WIDTH*70/375))
+            
             button.tag = i
             button.addTarget(self, action: #selector(self.goToShare(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             button.setImage(UIImage(named: self.buttonImageArr[i]), forState: UIControlState.Normal)
-            let title = UILabel.init(frame: CGRectMake(appviewx+5, 5+WIDTH*70/375, WIDTH*70/375, 30))
+            let title = UILabel.init(frame: CGRectMake(appviewx+5, 5+WIDTH*70/375+appviewy, WIDTH*70/375, 30))
             title.textAlignment = .Center
             title.font = UIFont.systemFontOfSize(14)
             title.text = nameArr[i]
             shareView.addSubview(button)
             shareView.addSubview(title)
         }
-        let cancle = UIButton.init(frame: CGRectMake(0, WIDTH*150/375-50, WIDTH, 50))
+        let cancle = UIButton.init(frame: CGRectMake(0, WIDTH*150/375-50+100, WIDTH, 50))
         cancle.setTitle("取消", forState: UIControlState.Normal)
         cancle.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
         cancle.addTarget(self, action: #selector(self.cancle), forControlEvents: UIControlEvents.TouchUpInside)
@@ -463,10 +464,53 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                         break
                     }
                 }
-            }else{
-                let alertView = UIAlertView.init(title:"提示" , message: "没有安装微信", delegate: self, cancelButtonTitle: "确定")
-                alertView.show()
+            }else if btn.tag == 2{
+                let message = APMediaMessage()
+                let webObj = APShareWebObject()
+                //            let textObj = APShareTextObject()
+                webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
                 
+                message.title = "红包";
+                message.desc = "红包";
+                //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
+                message.mediaObject = webObj
+                
+                
+                
+                let request = APSendMessageToAPReq()
+                
+                request.message = message
+                
+                request.scene = APSceneSession
+                let result = APOpenAPI.sendReq(request)
+                if !result {
+                    alert("分享失败", delegate: self)
+                }
+                //
+
+                
+            }else if btn.tag == 3{
+                let message = APMediaMessage()
+                let webObj = APShareWebObject()
+                //            let textObj = APShareTextObject()
+                webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+                
+                message.title = "红包";
+                message.desc = "红包";
+                //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
+                message.mediaObject = webObj
+                
+                
+                
+                let request = APSendMessageToAPReq()
+                
+                request.message = message
+                
+                request.scene = APSceneTimeLine
+                let result = APOpenAPI.sendReq(request)
+                if !result {
+                    alert("分享失败", delegate: self)
+                }
             }
             
         }

@@ -37,6 +37,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         
             button5.setTitle("已上门", forState: UIControlState.Normal)
             button5.backgroundColor = COLOR
+            button5.addTarget(self, action: #selector(self.button5Action), forControlEvents: UIControlEvents.TouchUpInside)
         }else{
         
             button5.setTitle("完成服务", forState: UIControlState.Normal)
@@ -52,6 +53,15 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         self.view.addSubview(button4)
         self.view.addSubview(button5)
         // Do any additional setup after loading the view.
+    }
+    
+    func button5Action() {
+        
+        alert("已通知对方,请等待对方确认", delegate: self)
+        
+//        let vc = FaDanDetailViewController()
+//        vc.info = self.info
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
