@@ -28,9 +28,16 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     private var mTable = UITableView()
     private let rect  = UIApplication.sharedApplication().statusBarFrame
     private let selectDate = UIButton()
-    var dataSource1 : Array<MyGetOrderInfo>?
+    var taskInfo = TaskInfo()
+    var dataSource1 : Array<TaskInfo>?
+//    var dataSource : Array<TaskInfo>?
 //    var dataSource1 = NSArray()
     let mainHelper = MainHelper()
+//    var qiangdanButton = true
+    override func viewWillAppear(animated: Bool) {
+            self.navigationController?.navigationBar.hidden = true
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
@@ -76,7 +83,8 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                     return
                 }
 //                self.dataSource1.removeAll()
-                self.dataSource1 = response as? Array<MyGetOrderInfo> ?? []
+                self.dataSource1 = response as? Array<TaskInfo> ?? []
+//                self.dataSource = response as? Array<TaskInfo> ?? []
                 print(self.dataSource1?.count)
                 print(self.dataSource1)
                 self.createTableView()
@@ -125,7 +133,7 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         
         
-        let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height + 10, 20,20 ))
+        let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height + 10, 50,50 ))
         BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Normal)
         BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Selected)
         BackButton.addTarget(self, action: #selector(self.backAction), forControlEvents: UIControlEvents.TouchUpInside)
@@ -194,6 +202,16 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 170
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        (self.dataSource1?.count)!-1-
+        let vc = TaskDetailViewController()
+        let taskInfo = dataSource1![indexPath.row]
+        vc.taskInfo = taskInfo
+        vc.qiangdanBut = true
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
 //    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

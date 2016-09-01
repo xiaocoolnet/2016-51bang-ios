@@ -587,7 +587,7 @@
             if(error != nil){
                 handle(success: false, response: error?.description)
             }else{
-                let result = MyGetModel(JSONDecoder(json!))
+                let result = TaskModel(JSONDecoder(json!))
                 print("---")
                 print(result)
                 print("---")

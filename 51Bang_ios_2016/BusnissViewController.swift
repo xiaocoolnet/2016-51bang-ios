@@ -65,10 +65,12 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         if indexPath.row == 0 {
             return 80
         }else if indexPath.row == 1{
-            return 125
+            return 60
+        }else if indexPath.row == 2{
+            return 50
         }else {
             
-            let str = dataSource![indexPath.row-2].content
+            let str = dataSource![indexPath.row-3].content
             let height = calculateHeight( str!, size: 15, width: WIDTH - 10 )
             return 75 + height + 20
         }
@@ -81,7 +83,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             return 1
         }else{
             if dataSource?.count>0 {
-                return 2+(dataSource?.count)!
+                return 3+(dataSource?.count)!
             }else{
                 
                 return 2
@@ -106,9 +108,11 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 
                 let before = CLLocation.init(latitude: CLLocationDegrees(self.goodsInfo.latitude!)!, longitude: CLLocationDegrees(self.goodsInfo.longitude!)!)
                 let meters = current.distanceFromLocation(before)/1000
-                let meter:String = "\(meters)"
-                let array = meter.componentsSeparatedByString(".")
-                cell.distance.text = array[0]+"km"
+//                let meter:String = "\(meters)"
+//                let array = meter.componentsSeparatedByString(".")
+                let distance = String(format:"%.2f",meters)
+                print(distance)
+                cell.distance.text = "\(distance)km"
                 
             }else{
                 cell.distance.text = ""
@@ -126,6 +130,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             view.backgroundColor = UIColor.whiteColor()
             cell.addSubview(view)
             
+            return cell
+        }else if (indexPath.row == 2){
+            let cell = UITableViewCell()
             let view1 = UIView.init(frame: CGRectMake(0, 60, WIDTH, 10))
             view1.backgroundColor = RGREY
             view1.userInteractionEnabled = false
@@ -137,7 +144,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             cell.addSubview(labelcomment)
             
             return cell
-        }else{
+        }
+        else{
             //            let cell = CommentListCell.init()
             //            let contenLabel = UILabel.init(frame: CGRectMake(0, cell.userImage.height, WIDTH, 100))
             //            contenLabel.text = "  位置很好，离我们单位特别近，不过就是等了一会时间，不过还好啦，因为披萨确实特别特别好吃，肉超级多..."
@@ -182,13 +190,13 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //            }
             
             if self.dataSource?.count>0 {
-                let cell = ConveniceCell.init(myinfo: self.dataSource![indexPath.row-2] )
-                print(self.dataSource![indexPath.row-2].add_time)
-                print(self.dataSource![indexPath.row-2].id)
-                print(self.dataSource![indexPath.row-2].content)
-                print(self.dataSource![indexPath.row-2].name)
-                print(self.dataSource![indexPath.row-2].userid)
-                print(self.dataSource![indexPath.row-2].photo)
+                let cell = ConveniceCell.init(myinfo: self.dataSource![indexPath.row-3] )
+                print(self.dataSource![indexPath.row-3].add_time)
+                print(self.dataSource![indexPath.row-3].id)
+                print(self.dataSource![indexPath.row-3].content)
+                print(self.dataSource![indexPath.row-3].name)
+                print(self.dataSource![indexPath.row-3].userid)
+                print(self.dataSource![indexPath.row-3].photo)
 //                print(self.dataSource![indexPath.row-2].add_time)
                 return cell
             }else{

@@ -18,7 +18,7 @@ class MyReceiveDanCell: UITableViewCell{
     
     }
     
-    init(Data:MyGetOrderInfo)
+    init(Data:TaskInfo)
     {
         super.init(style: UITableViewCellStyle.Default, reuseIdentifier: "MyReceiveDanCell")
         
@@ -98,8 +98,6 @@ class MyReceiveDanCell: UITableViewCell{
         ST.adjustsFontSizeToFitWidth = true
         bottomView.addSubview(ST)
         
-        
-    
     }
     
 }

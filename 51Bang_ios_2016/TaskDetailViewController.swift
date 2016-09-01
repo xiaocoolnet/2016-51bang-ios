@@ -15,10 +15,13 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     var taskInfo = TaskInfo()
     let mainHelper = MainHelper()
     var soundName = NSURL()
+    var btn = UIButton()
+    var qiangdanBut=Bool()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = true
-    }
+        self.navigationController?.navigationBar.hidden = false
+            }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +32,18 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         myTableView.dataSource = self
         myTableView.registerNib(UINib(nibName: "TaskDetailTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
         myTableView.registerNib(UINib(nibName: "TaskDetailTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
-        let btn = UIButton(frame: CGRectMake(15, myTableView.frame.size.height-118, WIDTH-30, 40))
+        btn = UIButton(frame: CGRectMake(15, myTableView.frame.size.height-118, WIDTH-30, 40))
         btn.layer.cornerRadius = 8
         btn.setTitle("立即抢单", forState: .Normal)
         btn.addTarget(self, action: #selector(self.qiangdan), forControlEvents: UIControlEvents.TouchUpInside)
         btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         btn.backgroundColor = COLOR
+        if qiangdanBut{
+            btn.hidden = true
+        }else {
+            btn.hidden = false
+        }
+
 //        btn.addTarget(self, action: #selector(self.nextToView), forControlEvent
         let view = UIView()
         myTableView.tableFooterView = view
