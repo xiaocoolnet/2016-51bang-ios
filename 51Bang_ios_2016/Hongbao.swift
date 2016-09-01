@@ -280,6 +280,8 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             
             _ = QQApiInterface.sendReq(req)
             bottom.hidden = true
+        case 6:
+            bottom.hidden = true
         case 9:
             //            var newsObj = QQApiNewsObject()
             

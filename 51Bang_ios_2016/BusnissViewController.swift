@@ -602,6 +602,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             _ = QQApiInterface.SendReqToQZone(req)
             bottom.hidden = true
+            case 6:
+            bottom.hidden = true
         default:
             print("微博")
         }
