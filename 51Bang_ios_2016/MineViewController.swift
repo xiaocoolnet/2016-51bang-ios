@@ -33,7 +33,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let top = UIView()
     let myTableView = UITableView()
     let foot:[String] = ["我是买家","我是卖家","",""]
-    let team:[String] = ["我的发单","我的订单","我的收藏","我的地址","分享二维码"]
+    let team:[String] = ["我的发单","我的订单","我的收藏","卷码验证","分享二维码"]
     let teamImg:[String] = ["ic_wodefadan","ic_youhuiquan","ic_wodedingdan","wodeshoucang","ic_weizhi拷贝2","ic_fenxiang"]
     
     let busness:[String] = ["我的接单","我的投保"]

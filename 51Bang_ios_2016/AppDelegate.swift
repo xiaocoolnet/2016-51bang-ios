@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDelegate,BMKGeneralDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDelegate,BMKGeneralDelegate,TencentApiInterfaceDelegate {
 
     var window: UIWindow?
     var _mapManager: BMKMapManager?
@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         WXApi.registerApp("wx765b8c5e082532b4", withDescription: "51bang")
         APOpenAPI.registerApp("2016083001821606", withDescription: "51bang")
 //        WXApi.registerApp("wx5bbd35eed5255733", withDescription: "51bang")//第二次
-        
+        TencentOAuth(appId: "1105589363", andDelegate: nil)
 //         WXApi.registerApp("wx765b8c5e08253264", withDescription: "51bang")
          //WXApi.registerApp("wxe61df5d7fee96861", withDescription: "51bang1")
         
@@ -110,6 +110,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         if APOpenAPI.handleOpenURL(url, delegate: nil) {
             
         }
+        if TencentApiInterface.canOpenURL(url, delegate: self){
+            TencentApiInterface.handleOpenURL(url, delegate: self)
+        }
         
         
         
@@ -119,7 +122,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     
     
     
-    
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        if TencentApiInterface.canOpenURL(url, delegate: self) {
+            TencentApiInterface.handleOpenURL(url, delegate: self)
+        }
+        return true
+    }
     
     
     

@@ -185,9 +185,10 @@ class ConveniceCell: UITableViewCell{
             myPhotoArray.addObject(imview)
         }
         
+        print(info.pic.count)
         
-        
-        switch (info.pic.count) / 3 {
+        switch (info.pic.count+2) / 3 {
+            
         case 0:
             picHeight = 0
         case 1:
@@ -200,14 +201,14 @@ class ConveniceCell: UITableViewCell{
         
         if self.info!.record != nil && self.info!.record != "" {
             print(self.info?.record)
+            
             if self.info?.pic.count>0 {
                 boFangButton = UIButton.init(frame: CGRectMake(20,
-                    80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + picHeight+60,114, 30))
+                    calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + picHeight+20,114, 30))
             }else{
                 boFangButton = UIButton.init(frame: CGRectMake(20,
-                    80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + picHeight-60,114, 30))
+                    80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20)-60,114, 30))
             }
-            
             
             boFangButton.backgroundColor = UIColor.clearColor()
             boFangButton.setTitle(" 点击播放", forState: UIControlState.Normal)
@@ -228,8 +229,15 @@ class ConveniceCell: UITableViewCell{
             imshow.frame = CGRectMake(0, 80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) , WIDTH, picHeight)
         }
         
+//        if self.info?.pic.count>0 {
+//            boFangButton.frame =  CGRectMake(20,
+//                80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + picHeight+60,114, 30)
+//        }else{
+//            boFangButton.frame =  CGRectMake(20,
+//                calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20)-60,114, 30)
+//        }
         
-        
+//        imshow.backgroundColor = UIColor.redColor()
         
         
         

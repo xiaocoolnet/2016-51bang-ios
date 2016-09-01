@@ -49,6 +49,14 @@
 #import "UPLoadSound.h"//上传声音
 #import "UpLoadModel.h"
 #import "APOpenAPI.h"//支付宝分享
+#import <TencentOpenAPI/TencentOAuth.h>//qq分享
+#import <TencentOpenAPI/TencentApiInterface.h>
+#import <ShareSDK/ShareSDK.h>
+#import <TencentOpenAPI/QQApiInterfaceObject.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/QQApiInterfaceObject.h>
+
+
 //#import "ApiXml.h"
 /*百度地图*/
 

@@ -827,12 +827,16 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! LianXiDianHuaTableViewCell
         cell.phone.delegate = self
         cell.phone.tag = 10
+        cell.phone.keyboardType = UIKeyboardType.NumberPad
         cell.phone.borderStyle = .None
+        
         return cell
     }
     
     //MARK:发布便民信息
     func fabu(){
+        let textfiled = self.myTableViw.viewWithTag(10)as! UITextField
+        textfiled.resignFirstResponder()
         let textView = self.view.viewWithTag(1)as! PlaceholderTextView
         if textView.text == "" || self.phone.characters.count<4{
             let aletView = UIAlertView.init(title: "提示", message:"请填写相关信息", delegate: self, cancelButtonTitle: "确定")

@@ -1314,6 +1314,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             cell.salary.tag = 99
             cell.salary.delegate = self
             self.salar = cell.salary.text!
+            cell.salary.keyboardType = UIKeyboardType.NumberPad
             self.mysalary = cell.salary.text!
             
             cell.selectionStyle = .None
