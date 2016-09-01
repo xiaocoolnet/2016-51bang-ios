@@ -10,6 +10,25 @@ import UIKit
 
 var isFavorite = Bool()
 class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate {
+    
+    
+    var bottom = UIView()
+    var ShareButton = UIButton()
+    var shareImage = UIImageView(image: UIImage(named: "57b017f4a9f26"))
+    //    var TipLabel    = UILabel()
+    var bottom_title = UILabel()
+    let titleArray = ["微信好友","朋友圈"]
+    var btn1 = UIButton()
+    var btn2 = UIButton()
+    var btn3 = UIButton()
+    var btn4 = UIButton()
+    var btn5 = UIButton()
+    var btn6 = UIButton()
+    var cancelBtn = UIButton()
+    
+    
+    
+    
     var goodsInfo = GoodsInfo()
     var isdetails = Bool()
     var footView : ShopFootViewCell!
@@ -204,6 +223,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewDidLoad()
         //        isFavorite = false
         self.view.backgroundColor = RGREY
+        
         self.dataSource = self.goodsInfo.commentlist
 //        let ud = NSUserDefaults.standardUserDefaults()
 //        let userid = ud.objectForKey("userid")as! String
@@ -326,6 +346,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         footView?.frame = CGRectMake(0, HEIGHT-WIDTH*50/375 - 64, WIDTH, WIDTH*50/375)
         self.view.addSubview(myTableView)
         self.view.addSubview(footView!)
+        self.getBottom()
+        bottom.hidden = true
         // Do any additional setup after loading the view.
     }
     
@@ -349,48 +371,232 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.myfabu()
         }
     }
-    
+    func share(){
+       bottom.hidden = false
+    }
     
     //MARK:分享
-    func share(){
+    func getBottom(){
         
-        let backView = UIView.init(frame: CGRectMake(0, 0, WIDTH, HEIGHT))
-        backView.backgroundColor = UIColor.grayColor()
-        backView.alpha = 0.8
-        backView.tag = 100
-        let shareView = UIView.init(frame: CGRectMake(0, HEIGHT-WIDTH*150/375-64-100,WIDTH , WIDTH*150/375+100))
-        shareView.backgroundColor = UIColor.whiteColor()
-        shareView.tag = 101
-        let margin:CGFloat = (WIDTH-CGFloat(2) * WIDTH*80/375)/(CGFloat(5)+1);
-        for i in 0..<4 {
-            let row:Int = i / 2;//行号
-            //1/3=0,2/3=0,3/3=1;
-            let loc:Int = i % 2;//列号
-            let appviewx:CGFloat = margin+(margin+WIDTH/CGFloat(2))*CGFloat(loc)
-            let appviewy:CGFloat = margin+(margin+WIDTH*40/375+30) * CGFloat(row)
+        bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250-50 , WIDTH , 500+50)
+        bottom.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(bottom)
+        
+        bottom_title.frame = CGRectMake(0, 0, WIDTH, 35)
+        bottom_title.text = "分享到"
+        bottom.addSubview(bottom_title)
+        bottom_title.textAlignment = NSTextAlignment.Center
+        
+        btn1.frame = CGRectMake(WIDTH / 5, bottom_title.frame.size.height, WIDTH / 5, WIDTH / 5)
+        btn1.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
+        btn1.tag = 1
+        btn1.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn1.layer.masksToBounds = true
+        btn1.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn1)
+        
+        btn2.frame = CGRectMake(WIDTH / 5 * 3, bottom_title.frame.size.height, WIDTH / 5, WIDTH / 5)
+        btn2.tag = 2
+        btn2.setImage(UIImage.init(named: "ic_pengyouquan"), forState: UIControlState.Normal )
+        btn2.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn2.layer.masksToBounds = true
+        btn2.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn2)
+        
+        btn3.frame = CGRectMake(WIDTH / 5, bottom_title.frame.size.height+WIDTH / 5+50, WIDTH / 5, WIDTH / 5)
+        //        btn3.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
+        btn3.tag = 3
+        //        btn3.backgroundColor = UIColor.redColor()
+        //        btn3.setTitle(" 支付宝好友", forState: UIControlState.Normal)
+        //        btn3.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        btn3.setImage(UIImage.init(named: "zhifubao"), forState: UIControlState.Normal )
+        
+        btn3.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn3.layer.masksToBounds = true
+        btn3.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn3)
+        let label = UILabel()
+        label.text = "支付宝好友"
+        label.textAlignment = NSTextAlignment.Center
+        label.frame = CGRectMake(WIDTH / 5-15, btn3.origin.y + WIDTH / 5 + 10, WIDTH / 5+30, 20)
+        bottom.addSubview(label)
+        
+        btn4.frame = CGRectMake(WIDTH / 5 * 3, bottom_title.frame.size.height+WIDTH / 5+50, WIDTH / 5, WIDTH / 5)
+        //        btn3.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
+        btn4.tag = 4
+        //        btn4.backgroundColor = UIColor.redColor()
+        //        btn4.setTitle(" 支付宝生活圈", forState: UIControlState.Normal)
+        //        btn4.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        btn4.setImage(UIImage.init(named: "ic_支付宝shenghuoquan"), forState: UIControlState.Normal )
+        
+        btn4.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn4.layer.masksToBounds = true
+        btn4.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn4)
+        let label4 = UILabel()
+        label4.text = "支付宝生活圈"
+        label4.textAlignment = NSTextAlignment.Center
+        label4.frame = CGRectMake(WIDTH / 5*3-15, btn3.origin.y + WIDTH / 5 + 10, WIDTH / 5+30, 20)
+        bottom.addSubview(label4)
+        
+        //
+        
+        btn5.frame = CGRectMake(WIDTH  / 5, bottom_title.frame.size.height+WIDTH / 5*2+50+50, WIDTH / 5, WIDTH / 5)
+        btn5.tag = 5
+        btn5.setImage(UIImage.init(named: "ic_QQ"), forState: UIControlState.Normal)
+        btn5.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn5.layer.masksToBounds = true
+        btn5.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn5)
+        
+        let label5 = UILabel()
+        label5.text = "QQ好友"
+        label5.textAlignment = NSTextAlignment.Center
+        label5.frame = CGRectMake(WIDTH / 5-15, btn5.origin.y + WIDTH / 5 + 10, WIDTH / 5+30, 20)
+        bottom.addSubview(label5)
+        
+        btn6.frame = CGRectMake(WIDTH / 5 * 3, bottom_title.frame.size.height+WIDTH / 5*2+50+50, WIDTH / 5, WIDTH / 5)
+        //        btn3.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
+        btn6.tag = 9
+        //        btn4.backgroundColor = UIColor.redColor()
+        //        btn4.setTitle(" 支付宝生活圈", forState: UIControlState.Normal)
+        //        btn4.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        btn6.setImage(UIImage.init(named: "ic_kongjianF"), forState: UIControlState.Normal )
+        
+        btn6.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn6.layer.masksToBounds = true
+        btn6.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn6)
+        let label6 = UILabel()
+        label6.text = "QQ空间"
+        label6.textAlignment = NSTextAlignment.Center
+        label6.frame = CGRectMake(WIDTH / 5*3-15, btn5.origin.y + WIDTH / 5 + 10, WIDTH / 5+30, 20)
+        bottom.addSubview(label6)
+        
+        
+        var count:CGFloat = 0
+        for title in titleArray {
             
-            let button = UIButton.init(frame: CGRectMake(appviewx+5, appviewy, WIDTH*70/375, WIDTH*70/375))
-            
-            button.tag = i
-            button.addTarget(self, action: #selector(self.goToShare(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            button.setImage(UIImage(named: self.buttonImageArr[i]), forState: UIControlState.Normal)
-            let title = UILabel.init(frame: CGRectMake(appviewx+5, 5+WIDTH*70/375+appviewy, WIDTH*70/375, 30))
-            title.textAlignment = .Center
-            title.font = UIFont.systemFontOfSize(14)
-            title.text = nameArr[i]
-            shareView.addSubview(button)
-            shareView.addSubview(title)
+            let label = UILabel()
+            label.text = title
+            label.textAlignment = NSTextAlignment.Center
+            label.frame = CGRectMake( (count+1) * WIDTH / 5, btn1.origin.y + WIDTH / 5 + 10, WIDTH / 5, 20)
+            count += 2
+            bottom.addSubview(label)
         }
-        let cancle = UIButton.init(frame: CGRectMake(0, WIDTH*150/375-50+100, WIDTH, 50))
-        cancle.setTitle("取消", forState: UIControlState.Normal)
-        cancle.setTitleColor(UIColor.blueColor(), forState: UIControlState.Normal)
-        cancle.addTarget(self, action: #selector(self.cancle), forControlEvents: UIControlEvents.TouchUpInside)
+        cancelBtn.tag = 6
+        cancelBtn.frame = CGRectMake(0, btn1.origin.y + WIDTH / 5 + 30+100+100+20+50, WIDTH , 250 - 35 - WIDTH / 5 - 75 )
+        cancelBtn.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        cancelBtn.setTitle("取消", forState: UIControlState.Normal)
+        cancelBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        cancelBtn.backgroundColor = COLOR
+        cancelBtn.layer.masksToBounds = true
+        cancelBtn.layer.cornerRadius = 10
+        bottom.addSubview(cancelBtn)
+        
+    }
+    
+    func btnAction(btn:UIButton)
+    {
+        let img = UIImagePNGRepresentation(UIImage(named: "57b017f4a9f26")!)
+        let newsObj = QQApiNewsObject(URL: NSURL(string: "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"), title: "红包", description: "红包", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
         
         
-        shareView.addSubview(cancle)
-        self.view.addSubview(backView)
-        self.view.addSubview(shareView)
-        
+        let req = SendMessageToQQReq(content: newsObj)
+        switch btn.tag {
+        case 1:
+            print("微信")
+            let sendReq = SendMessageToWXReq.init()
+            sendReq.bText = false
+            sendReq.scene = 0
+            let urlMessage = WXMediaMessage.init()
+            urlMessage.title = "红包"
+            urlMessage.description = "红包"
+            let webObj = WXWebpageObject.init()
+            webObj.webpageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"
+            urlMessage.mediaObject = webObj
+            sendReq.message = urlMessage
+            WXApi.sendReq(sendReq)
+            
+        case 2:
+            print("朋友圈")
+            let sendReq = SendMessageToWXReq.init()
+            sendReq.bText = false
+            sendReq.scene = 1
+            //sendReq.text = "测试，请忽略"
+            let urlMessage = WXMediaMessage.init()
+            urlMessage.title = "红包"
+            urlMessage.description = "红包"
+            let webObj = WXWebpageObject.init()
+            webObj.webpageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"
+            urlMessage.mediaObject = webObj
+            sendReq.message = urlMessage
+            WXApi.sendReq(sendReq)
+            
+        case 3:
+            //支付宝分享
+            let message = APMediaMessage()
+            let webObj = APShareWebObject()
+            //            let textObj = APShareTextObject()
+            webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+            
+            message.title = "红包";
+            message.desc = "红包";
+            //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
+            message.mediaObject = webObj
+            
+            
+            
+            let request = APSendMessageToAPReq()
+            
+            request.message = message
+            
+            request.scene = APSceneSession
+            let result = APOpenAPI.sendReq(request)
+            if !result {
+                alert("分享失败", delegate: self)
+            }
+        //
+        case 4:
+            //支付宝分享
+            let message = APMediaMessage()
+            let webObj = APShareWebObject()
+            //            let textObj = APShareTextObject()
+            webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+            
+            message.title = "红包";
+            message.desc = "红包";
+            //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
+            message.mediaObject = webObj
+            
+            
+            
+            let request = APSendMessageToAPReq()
+            
+            request.message = message
+            
+            request.scene = APSceneTimeLine
+            let result = APOpenAPI.sendReq(request)
+            if !result {
+                alert("分享失败", delegate: self)
+            }
+        case 5:
+            //            var newsObj = QQApiNewsObject()
+            
+            
+            
+            _ = QQApiInterface.sendReq(req)
+            bottom.hidden = true
+        case 9:
+            //            var newsObj = QQApiNewsObject()
+            
+            
+            
+            _ = QQApiInterface.SendReqToQZone(req)
+            bottom.hidden = true
+        default:
+            print("微博")
+        }
     }
     
     func cancle(){

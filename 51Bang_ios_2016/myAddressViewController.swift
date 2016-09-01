@@ -8,8 +8,10 @@
 
 import UIKit
 
-class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate{
+class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UITextFieldDelegate{
     var row = Int()
+    let textfile = UITextField()
+    var button = UIButton()
     var userid = NSString()
     let myTableView = UITableView()
     let mainHelper = TCVMLogModel()
@@ -18,18 +20,74 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
-        self.getData()
+//        self.getData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "我的地址"
+        self.title = "卷码验证"
         self.view.backgroundColor = RGREY
         let ud = NSUserDefaults.standardUserDefaults()
         self.userid = ud.objectForKey("userid")as!String
         
+        let backview = UIView()
+        backview.frame = CGRectMake(0, 50, WIDTH, 50)
+        backview.backgroundColor = UIColor.whiteColor()
+        backview.layer.masksToBounds = true
+        backview.layer.cornerRadius = 10
+        backview.layer.borderColor = COLOR.CGColor
+        backview.layer.borderWidth = 1
+        
+        self.textfile.frame = CGRectMake(20, 0, WIDTH-20, 50)
+        self.textfile.delegate = self
+        backview.addSubview(self.textfile)
+        
+        self.view.addSubview(backview)
+        
+        button = UIButton.init(frame: CGRectMake(0, HEIGHT-118, WIDTH, 50))
+        button.backgroundColor = COLOR
+        button.setTitle("开始验证", forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        button.addTarget(self, action: #selector(self.nextView), forControlEvents: UIControlEvents.TouchUpInside)
+        let view = UIView()
+        self.myTableView.tableFooterView = view
+        self.view.addSubview(myTableView)
+        self.view.addSubview(button)
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTap)))
+        
         
         // Do any additional setup after loading the view.
     }
+    
+    
+    func textFieldDidEndEditing(textField: UITextField){
+        if (self.textfile.text == nil) {
+            alert("请输入正确格式的卷码", delegate: self)
+        }
+        UIView.animateWithDuration(0.4) {
+            self.button.frame = CGRectMake(0, HEIGHT-118, WIDTH, 50)
+        }
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    func handleTap(sender: UITapGestureRecognizer) {
+        if sender.state == .Ended {
+            print("收回键盘")
+            self.textfile.resignFirstResponder()
+        }
+        sender.cancelsTouchesInView = false
+        UIView.animateWithDuration(0.4) {
+            self.button.frame = CGRectMake(0, HEIGHT-118, WIDTH, 50)
+        }
+    }
+    func textFieldDidBeginEditing(textField: UITextField){
+        UIView.animateWithDuration(0.4) { 
+            self.button.frame = CGRectMake(0, 240, WIDTH, 50)
+        }
+    }
+    
+
     
     
     func getData(){
@@ -50,8 +108,8 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
             }
             
         }
-        self.createTableView()
-        self.myTableView.reloadData()
+//        self.createTableView()
+//        self.myTableView.reloadData()
     }
 
     
@@ -61,15 +119,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         myTableView.dataSource = self
         myTableView.registerNib(UINib(nibName: "MyAddressTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         
-        let button = UIButton.init(frame: CGRectMake(0, HEIGHT-118, WIDTH, 50))
-        button.backgroundColor = COLOR
-        button.setTitle("添加新地址", forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(self.nextView), forControlEvents: UIControlEvents.TouchUpInside)
-        let view = UIView()
-        self.myTableView.tableFooterView = view
-        self.view.addSubview(myTableView)
-        self.view.addSubview(button)
+        
         
     
     }
@@ -78,7 +128,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
     
         let vc = AddAddressViewController()
         vc.userid = self.userid as String
-        self.navigationController?.pushViewController(vc, animated: true)
+//        self.navigationController?.pushViewController(vc, animated: true)
     
     
     }

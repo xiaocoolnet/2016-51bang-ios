@@ -448,6 +448,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             {
                 CommitOrderViewController.FirstLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
                 LocationViewController.firstAddress = result.address
+                CommitOrderViewController.SecondLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
+                LocationViewController.secondAddress = result.address
                 MainViewController.BMKname =  (result.poiList[0] as! BMKPoiInfo).name
                 MainViewController.city = (result.poiList[0] as! BMKPoiInfo).city
                 address = MainViewController.BMKname

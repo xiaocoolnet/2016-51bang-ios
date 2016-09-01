@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class Hongbao: UIViewController {
+class Hongbao: UIViewController,TencentApiInterfaceDelegate {
     
     
     var bottom = UIView()
@@ -20,7 +20,8 @@ class Hongbao: UIViewController {
     var btn2 = UIButton()
     var btn3 = UIButton()
     var btn4 = UIButton()
-//    var btn5 = UIButton()
+    var btn5 = UIButton()
+    var btn6 = UIButton()
     var cancelBtn = UIButton()
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBar.hidden = false
@@ -61,13 +62,16 @@ class Hongbao: UIViewController {
     {
     
         print("分享")
-        bottom.hidden = false
+        UIView.animateWithDuration(0.4) { 
+            self.bottom.hidden = false
+        }
+        
     }
     
     
     func SetBottomView()
     {
-        bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250 , WIDTH , 500)
+        bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250-50 , WIDTH , 500+50)
         bottom.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(bottom)
         
@@ -95,52 +99,73 @@ class Hongbao: UIViewController {
         btn3.frame = CGRectMake(WIDTH / 5, bottom_title.frame.size.height+WIDTH / 5+50, WIDTH / 5, WIDTH / 5)
 //        btn3.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
         btn3.tag = 3
-        btn3.backgroundColor = UIColor.redColor()
-        btn3.setTitle(" 支付宝好友", forState: UIControlState.Normal)
-        btn3.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//        btn3.backgroundColor = UIColor.redColor()
+//        btn3.setTitle(" 支付宝好友", forState: UIControlState.Normal)
+//        btn3.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        btn3.setImage(UIImage.init(named: "zhifubao"), forState: UIControlState.Normal )
         
         btn3.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btn3.layer.masksToBounds = true
         btn3.layer.cornerRadius = WIDTH / 10
         bottom.addSubview(btn3)
+        let label = UILabel()
+        label.text = "支付宝好友"
+        label.textAlignment = NSTextAlignment.Center
+        label.frame = CGRectMake(WIDTH / 5-15, btn3.origin.y + WIDTH / 5 + 10, WIDTH / 5+30, 20)
+        bottom.addSubview(label)
         
         btn4.frame = CGRectMake(WIDTH / 5 * 3, bottom_title.frame.size.height+WIDTH / 5+50, WIDTH / 5, WIDTH / 5)
         //        btn3.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
         btn4.tag = 4
-        btn4.backgroundColor = UIColor.redColor()
-        btn4.setTitle(" 支付宝生活圈", forState: UIControlState.Normal)
-        btn4.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//        btn4.backgroundColor = UIColor.redColor()
+//        btn4.setTitle(" 支付宝生活圈", forState: UIControlState.Normal)
+//        btn4.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        btn4.setImage(UIImage.init(named: "ic_支付宝shenghuoquan"), forState: UIControlState.Normal )
         
         btn4.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         btn4.layer.masksToBounds = true
         btn4.layer.cornerRadius = WIDTH / 10
         bottom.addSubview(btn4)
+        let label4 = UILabel()
+        label4.text = "支付宝生活圈"
+        label4.textAlignment = NSTextAlignment.Center
+        label4.frame = CGRectMake(WIDTH / 5*3-15, btn3.origin.y + WIDTH / 5 + 10, WIDTH / 5+30, 20)
+        bottom.addSubview(label4)
+
+//        
         
-//        btn3.frame = CGRectMake(WIDTH * 2 / 5, bottom_title.frame.size.height, WIDTH / 5, WIDTH / 5)
-//        btn3.tag = 3
-//        btn3.setImage(UIImage.init(named: "ic_QQ"), forState: UIControlState.Normal)
-//        btn3.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        btn3.layer.masksToBounds = true
-//        btn3.layer.cornerRadius = WIDTH / 10
-//        bottom.addSubview(btn3)
-//        
-//        
-//        btn4.frame = CGRectMake(WIDTH * 3 / 5, bottom_title.frame.size.height, WIDTH / 5, WIDTH / 5)
-//        btn4.tag = 4
-//        btn4.setImage(UIImage.init(named: "ic_kongjian"), forState: UIControlState.Normal)
-//        btn4.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        btn4.layer.masksToBounds = true
-//        btn4.layer.cornerRadius = WIDTH / 10
-//        bottom.addSubview(btn4)
-//        
-//        
-//        btn5.frame = CGRectMake(WIDTH * 4 / 5, bottom_title.frame.size.height, WIDTH / 5, WIDTH / 5)
-//        btn5.tag = 5
-//        btn5.setImage(UIImage.init(named: "ic_weibo"), forState: UIControlState.Normal)
-//        btn5.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//        btn5.layer.masksToBounds = true
-//        btn5.layer.cornerRadius = WIDTH / 10
-//        bottom.addSubview(btn5)
+        btn5.frame = CGRectMake(WIDTH  / 5, bottom_title.frame.size.height+WIDTH / 5*2+50+50, WIDTH / 5, WIDTH / 5)
+        btn5.tag = 5
+        btn5.setImage(UIImage.init(named: "ic_QQ"), forState: UIControlState.Normal)
+        btn5.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn5.layer.masksToBounds = true
+        btn5.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn5)
+        
+        let label5 = UILabel()
+        label5.text = "QQ好友"
+        label5.textAlignment = NSTextAlignment.Center
+        label5.frame = CGRectMake(WIDTH / 5-15, btn5.origin.y + WIDTH / 5 + 10, WIDTH / 5+30, 20)
+        bottom.addSubview(label5)
+        
+        btn6.frame = CGRectMake(WIDTH / 5 * 3, bottom_title.frame.size.height+WIDTH / 5*2+50+50, WIDTH / 5, WIDTH / 5)
+        //        btn3.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
+        btn6.tag = 9
+        //        btn4.backgroundColor = UIColor.redColor()
+        //        btn4.setTitle(" 支付宝生活圈", forState: UIControlState.Normal)
+        //        btn4.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        btn6.setImage(UIImage.init(named: "ic_kongjianF"), forState: UIControlState.Normal )
+        
+        btn6.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        btn6.layer.masksToBounds = true
+        btn6.layer.cornerRadius = WIDTH / 10
+        bottom.addSubview(btn6)
+        let label6 = UILabel()
+        label6.text = "QQ空间"
+        label6.textAlignment = NSTextAlignment.Center
+        label6.frame = CGRectMake(WIDTH / 5*3-15, btn5.origin.y + WIDTH / 5 + 10, WIDTH / 5+30, 20)
+        bottom.addSubview(label6)
+
         
         var count:CGFloat = 0
         for title in titleArray {
@@ -153,17 +178,24 @@ class Hongbao: UIViewController {
             bottom.addSubview(label)
         }
         cancelBtn.tag = 6
-        cancelBtn.frame = CGRectMake(0, btn1.origin.y + WIDTH / 5 + 30+100, WIDTH , 250 - 35 - WIDTH / 5 - 75 )
+        cancelBtn.frame = CGRectMake(0, btn1.origin.y + WIDTH / 5 + 30+100+100+20+50, WIDTH , 250 - 35 - WIDTH / 5 - 75 )
         cancelBtn.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cancelBtn.setTitle("取消", forState: UIControlState.Normal)
         cancelBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        cancelBtn.backgroundColor = COLOR
+        cancelBtn.layer.masksToBounds = true
+        cancelBtn.layer.cornerRadius = 10
         bottom.addSubview(cancelBtn)
     }
     
     
     func btnAction(btn:UIButton)
     {
+        let img = UIImagePNGRepresentation(UIImage(named: "57b017f4a9f26")!)
+        let newsObj = QQApiNewsObject(URL: NSURL(string: "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"), title: "红包", description: "红包", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
         
+        
+        let req = SendMessageToQQReq(content: newsObj)
         switch btn.tag {
         case 1:
             print("微信")
@@ -241,8 +273,19 @@ class Hongbao: UIViewController {
             if !result {
                 alert("分享失败", delegate: self)
             }
-        case 6:
-            print("取消")
+        case 5:
+//            var newsObj = QQApiNewsObject()
+            
+            
+            
+            _ = QQApiInterface.sendReq(req)
+            bottom.hidden = true
+        case 9:
+            //            var newsObj = QQApiNewsObject()
+            
+            
+            
+            _ = QQApiInterface.SendReqToQZone(req)
             bottom.hidden = true
         default:
             print("微博")

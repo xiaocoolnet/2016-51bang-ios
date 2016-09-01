@@ -434,6 +434,7 @@
 		F25289BA1D6AE16700B8E6DC /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F25289B41D6AE16700B8E6DC /* lame.framework */; };
 		F25289BB1D6AE16700B8E6DC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F25289B51D6AE16700B8E6DC /* LICENSE */; };
 		F25289BC1D6AE16700B8E6DC /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F25289B61D6AE16700B8E6DC /* README.md */; };
+		F255A8DD1D77F2C10037856E /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F255A8DC1D77F2C10037856E /* TencentOpenAPI.framework */; };
 		F2DAD9971D76C13C00200B5D /* libAPOpenSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2DAD9961D76C13C00200B5D /* libAPOpenSdk.a */; };
 		F2EF8DA31D6EC060008C495E /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2EF8DA01D6EC060008C495E /* libWeChatSDK.a */; };
 		F2F189F31D6D6BCA00843120 /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F189E11D6D6BCA00843120 /* TZAssetCell.m */; };
@@ -1061,6 +1062,7 @@
 		F25289B41D6AE16700B8E6DC /* lame.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lame.framework; sourceTree = "<group>"; };
 		F25289B51D6AE16700B8E6DC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		F25289B61D6AE16700B8E6DC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F255A8DC1D77F2C10037856E /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		F2DAD9941D76C13C00200B5D /* APOpenAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPI.h; sourceTree = "<group>"; };
 		F2DAD9951D76C13C00200B5D /* APOpenAPIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPIObject.h; sourceTree = "<group>"; };
 		F2DAD9961D76C13C00200B5D /* libAPOpenSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPOpenSdk.a; sourceTree = "<group>"; };
@@ -1118,6 +1120,7 @@
 				1FACE6761D2F3D640005282E /* CoreText.framework in Frameworks */,
 				1F7D5A101D4A033600536BD1 /* ShareSDKUI.framework in Frameworks */,
 				1FACE6741D2F3D5A0005282E /* QuartzCore.framework in Frameworks */,
+				F255A8DD1D77F2C10037856E /* TencentOpenAPI.framework in Frameworks */,
 				1FACE6721D2F3D4F0005282E /* CoreTelephony.framework in Frameworks */,
 				1FACE6701D2F3D460005282E /* SystemConfiguration.framework in Frameworks */,
 				1FACE66E1D2F3CD30005282E /* libc++.tbd in Frameworks */,
@@ -2169,6 +2172,7 @@
 		F206247F1D743EEA00B795F5 /* 上传音频 */ = {
 			isa = PBXGroup;
 			children = (
+				F255A8DC1D77F2C10037856E /* TencentOpenAPI.framework */,
 				F20624801D743F0F00B795F5 /* UPLoadSound.h */,
 				F20624811D743F0F00B795F5 /* UPLoadSound.m */,
 				F20624831D74440200B795F5 /* UpLoadModel.h */,
@@ -3097,7 +3101,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3113,6 +3117,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/RenRenSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/51Bang_ios_2016/mp3lame-for-iOS-master",
+					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/上传音频",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -3179,7 +3184,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3195,6 +3200,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/RenRenSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/51Bang_ios_2016/mp3lame-for-iOS-master",
+					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/上传音频",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
