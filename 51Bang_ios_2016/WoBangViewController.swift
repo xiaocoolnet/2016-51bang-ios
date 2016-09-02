@@ -210,7 +210,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
             self.getAddressWithString((self.dataSource?.count)!-1-indexPath.row)
            
             let distance = self.distance.componentsSeparatedByString(".")
-             cell.distnce.text = distance[0]+"米"
+             cell.distnce.text = distance[0]
         }
         
         return cell

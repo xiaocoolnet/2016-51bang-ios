@@ -298,6 +298,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     //
                     //
                     //                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.boFangButton.addTarget(self, action: #selector(self.boFangButtonActions(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.boFangButton.tag = indexPath.row-1
                     cell.myDelegate = self

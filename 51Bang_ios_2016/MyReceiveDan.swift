@@ -192,12 +192,21 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
 //        return (self.dataSource1?.count)!
 //    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.dataSource1?.count)!
+        if dataSource1?.count > 0 {
+            return (self.dataSource1?.count)!
+        }else{
+            return 0
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if dataSource1?.count > 0 {
+            return MyReceiveDanCell.init(Data: dataSource1![indexPath.row])
+        }else{
+            let cell = UITableViewCell()
+            return cell
+        }
         
-        return MyReceiveDanCell.init(Data: dataSource1![indexPath.row])
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

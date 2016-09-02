@@ -232,24 +232,37 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         
         if(sign == 1)
         {
-            print(self.dataSource!)
-            print(indexPath.section)
-            print(self.dataSource![indexPath.section])
-            let cell = MyFaDanCell.init(model: self.dataSource![indexPath.section])
-            cell.payBtn.tag = indexPath.row
-//            let payBtn = cell.viewWithTag(10)as! UIButton
-            cell.payBtn.addTarget(self, action: #selector(self.pay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            return cell
-            
+           
+            if dataSource?.count != 0{
+                print(self.dataSource!)
+                print(indexPath.section)
+                print(self.dataSource![indexPath.section])
+                let cell = MyFaDanCell.init(model: self.dataSource![indexPath.section])
+                cell.payBtn.tag = indexPath.row
+                //            let payBtn = cell.viewWithTag(10)as! UIButton
+                cell.payBtn.addTarget(self, action: #selector(self.pay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                 return cell
+            }else{
+                let cell = UITableViewCell()
+                 return cell
+            }
+           
         }else{
-            print(self.dataSource1)
-            print(indexPath.section)
-            print(self.dataSource1![indexPath.section])
-            let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! YwcTableViewCell
-            cell.setValueWithInfo(self.dataSource1![indexPath.section])
-            cell.selectionStyle = .None
-            cell.pingjia.addTarget(self, action: #selector(self.goPingJia), forControlEvents: UIControlEvents.TouchUpInside)
-            return cell
+            if dataSource1?.count != 0 {
+                print(self.dataSource1)
+                print(indexPath.section)
+                print(self.dataSource1![indexPath.section])
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! YwcTableViewCell
+                cell.setValueWithInfo(self.dataSource1![indexPath.section])
+                cell.selectionStyle = .None
+                cell.pingjia.addTarget(self, action: #selector(self.goPingJia), forControlEvents: UIControlEvents.TouchUpInside)
+                return cell
+            }else{
+                let cell = UITableViewCell()
+                return cell
+            }
+            
             
         }
         
