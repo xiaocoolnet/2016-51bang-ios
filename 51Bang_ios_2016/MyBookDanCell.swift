@@ -16,7 +16,11 @@ class MyBookDanCell: UITableViewCell {
     let  Btn = UIButton()
     var idStr = String()
     var sign = Int()
+    var data = Array<MyOrderInfo>?()
+    var  zhifubaoprice = String()
     var targets:UIViewController!
+    let mainHelp = MainHelper()
+    var id = String()
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -30,15 +34,22 @@ class MyBookDanCell: UITableViewCell {
         setLayout(Data)
         self.idStr = Data.id!
         
-        
     }
     
     func setLayout(Data:MyOrderInfo)
     {
         
         showImage.frame = CGRectMake(5, 5, 100, 90)
-        showImage.sd_setImageWithURL(NSURL(string: Data.picture!),placeholderImage: UIImage(named: "01"))
+        if Data.pic.count>0 {
+            let imageUrl = Bang_Image_Header+Data.pic[0].pictureurl!
+            
+            showImage.sd_setImageWithURL(NSURL(string:imageUrl), placeholderImage: UIImage(named: ("01")))
+        }else{
+            showImage.image = UIImage(named:("01"))
+        }
+
 //        showImage.image = Data.DshowImage
+        
         self.addSubview(showImage)
         
         Statue.frame = CGRectMake(WIDTH - 50, 5, 45, 30)
@@ -55,11 +66,12 @@ class MyBookDanCell: UITableViewCell {
         if self.sign == 0 {
             Statue.text = "待评价"
             Btn.setTitle("评价", forState: UIControlState.Normal)
-            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
             
         }else if self.sign == 1{
             Statue.text = "待付款"
             Btn.setTitle("付款", forState: UIControlState.Normal)
+            Btn.addTarget(self, action: #selector(self.pay), forControlEvents: UIControlEvents.TouchUpInside)
         }else if self.sign == 2{
 //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待消费"
@@ -68,7 +80,7 @@ class MyBookDanCell: UITableViewCell {
         }else{
             Statue.text = "待评价"
             Btn.setTitle("评价", forState: UIControlState.Normal)
-            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
         }
         
 //        }
@@ -98,6 +110,7 @@ class MyBookDanCell: UITableViewCell {
         Price.frame = CGRectMake(titleLabel.frame.origin.x,  tipLabel.frame.origin.y + 30, 100, 30)
         Price.text = "￥" + Data.price!
         Price.textColor = UIColor.redColor()
+        zhifubaoprice = Data.price!
         self.addSubview(Price)
         
         
@@ -135,8 +148,36 @@ class MyBookDanCell: UITableViewCell {
         
         
     }
+//    
+//    func onClick(btn:UIButton){
+//        
+//        self.row = btn.tag
+//        if self.dataSource?.count == 0 {
+//            return
+//        }
+//        let info = self.dataSource![btn.tag]
+//        print(info.id)
+//        shopHelper.XiaJia(info.id!) { (success, response) in
+//            if !success {
+//                
+//                return
+//            }else{
+//                self.dataSource?.removeAtIndex(self.row)
+//                let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
+//                self.myTableView.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
+//                self.myTableView.reloadData()
+//                
+//                alert("商品已下架", delegate: self)
+//            }
+//            
+//            
+//        }
+//        
+//        
+//    }
+//
     
-    func Comment(button: UIButton)
+    func Comment()
     {
         print("评价")
         let orderCommentViewController = OrderCommentViewController()
@@ -147,13 +188,34 @@ class MyBookDanCell: UITableViewCell {
     func pay()
     {
         print("付款")
+        let vc = PayViewController()
+//        let xiaoji = self.view.viewWithTag(99)as! UILabel
+//        print(xiaoji)
+//        print(xiaoji.text!)
+//        vc.price = ((xiaoji.text)! as NSString).doubleValue
+//        vc.subject = self.info.goodsname!
+//        vc.body = self.info.description!
+        vc.price = ((zhifubaoprice) as NSString).doubleValue
+        targets.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     func Cancel()
     {
         print("取消订单")
+        mainHelp.quXiaoDingdan(idStr, userid: "") { (success, response) in
+            if !success {
+                
+                return
+            }else{
+                self.removeFromSuperview()
+                alert("商品已下架", delegate: self)
+            }
+            
+            
+        }
+        
     }
-    
     
     func imdiaBuy()
     {

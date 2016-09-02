@@ -711,5 +711,39 @@
             
         }
     }
+    //取消订单
+    func quXiaoDingdan(ordernum:NSString,userid:NSString,handle:ResponseBlock){
+        
+        let url = Bang_URL_Header+"cancelorder"
+        let param = [
+            
+            "ordernum":ordernum,
+            "userid":userid
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+        
+    }
     
+
  }

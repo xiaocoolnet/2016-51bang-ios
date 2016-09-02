@@ -165,48 +165,6 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             return cell
         }
         else{
-            //            let cell = CommentListCell.init()
-            //            let contenLabel = UILabel.init(frame: CGRectMake(0, cell.userImage.height, WIDTH, 100))
-            //            contenLabel.text = "  位置很好，离我们单位特别近，不过就是等了一会时间，不过还好啦，因为披萨确实特别特别好吃，肉超级多..."
-            //            //            contenLabel.adjustsFontSizeToFitWidth = true
-            //            contenLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
-            //            contenLabel.numberOfLines = 0
-            //            cell.addSubview(contenLabel)
-            //
-            //            cell.userName.text = "小小鱼"
-            //
-            //            let image1 = UIImageView()
-            //            image1.frame = CGRectMake(5, cell.userImage.height+contenLabel.height, (WIDTH-20)/3, (WIDTH-20)/3)
-            //            image1.image = UIImage(named: "01")
-            //            cell.addSubview(image1)
-            //            let image2 = UIImageView()
-            //            image2.frame = CGRectMake(10+(WIDTH-20)/3, cell.userImage.height+contenLabel.height, (WIDTH-20)/3, (WIDTH-20)/3)
-            //            image2.image = UIImage(named: "02")
-            //            cell.addSubview(image2)
-            //            let image3 = UIImageView()
-            //            image3.frame = CGRectMake(15+2*(WIDTH-20)/3, cell.userImage.height+contenLabel.height, (WIDTH-20)/3, (WIDTH-20)/3)
-            //            image3.image = UIImage(named: "03")
-            //            cell.addSubview(image3)
-            //            photoArr.addObject(image1.image!)
-            //            photoArr.addObject(image2.image!)
-            //            photoArr.addObject(image3.image!)
-            //            for count in 0...photoArr.count-1 {
-            //                let mybutton = UIButton()
-            //                let a = CGFloat (count%3)
-            //                mybutton.frame = CGRectMake( (WIDTH-20)/3*a+5*(a+1), cell.userImage.height+contenLabel.height, (WIDTH-20)/3, (WIDTH-20)/3)
-            //                mybutton.tag = count
-            //                mybutton.addTarget(self, action: #selector(self.lookPhotos(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            //                cell.addSubview(mybutton)
-            //
-            //            }
-//            if(dataSource?.count>0){
-//                let cell = shopCommentTableViewCell.init(goodsInfo: dataSource![indexPath.row-3], num: indexPath.row-3)
-//                return cell
-//            }else{
-//                let cell = UITableViewCell()
-//                cell.backgroundColor = UIColor.clearColor()
-//                return cell
-//            }
             
             if self.dataSource?.count>0 {
                 let cell = ConveniceCell.init(myinfo: self.dataSource![indexPath.row-3] )

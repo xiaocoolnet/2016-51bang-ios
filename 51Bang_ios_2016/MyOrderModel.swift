@@ -61,36 +61,71 @@ class MyOrderList: JSONJoy {
 }
 
 class MyOrderInfo: JSONJoy {
-    
-    var id:String?
- 
-
-    var price:String?
-    var number:String?
-    var picture:String?
-    var mobile:String?
     var order_num:String?
     var gid:String?
-    var money:String?
     var goodsname:String?
+    var id:String?
+    var time:String?
+    var state:String?
+    var peoplename:String?
+    var mobile:String?
+    var price:String?
+    var number:String?
+    var money:String?
+    var remarks:String?
+    var username:String?
+    var statusname:String?
+    var statusend:String?
+    var commentlist:[commentlistInfo]
+    var pic:[PicInfos]
+    
     //    var apply:applyModel?
     init(){
-        
+        pic = Array<PicInfos>()
+        commentlist = Array<commentlistInfo>()
     }
     required init(_ decoder: JSONDecoder){
         
-        id = decoder["id"].string
-        price = decoder["price"].string
         order_num = decoder["order_num"].string
-        number = decoder["number"].string
-        mobile = decoder["mobile"].string
-        money = decoder["money"].string
-        goodsname = decoder["goodsname"].string
-        picture = decoder["picture"].string
         gid = decoder["gid"].string
-        //        apply = decoder["apply"] as? applyModel
+        goodsname = decoder["goodsname"].string
+        id = decoder["id"].string
+        time = decoder["time"].string
+        state = decoder["state"].string
+        peoplename = decoder["peaplename"].string
+        mobile = decoder["mobile"].string
+        price = decoder["price"].string
+        number = decoder["number"].string
+        money = decoder["money"].string
+        remarks = decoder["remarks"].string
+        username = decoder["username"].string
+        statusname = decoder["statusname"].string
+        statusend = decoder["statusend"].string
+        commentlist = Array<commentlistInfo>()
+        pic = Array<PicInfos>()
+        
+        if decoder["picture"].array != nil {
+            for childs: JSONDecoder in decoder["picture"].array!{
+                self.pic.append(PicInfos(childs))
+            }
+        }
+
+        if decoder["commentlist"].array != nil {
+            for childs: JSONDecoder in decoder["commentlist"].array!{
+                self.commentlist.append(commentlistInfo(childs))
+            }
+        }
+
     }
     
+    func addpend(list: [PicInfos]){
+        self.pic = list + self.pic
+    }
+    
+    func addpend(list1: [commentlistInfo]){
+        self.commentlist = list1 + self.commentlist
+    }
+
 }
 
 

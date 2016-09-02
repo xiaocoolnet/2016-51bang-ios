@@ -158,6 +158,7 @@ class PicInfos:JSONJoy{
     
 }
 
+
 class commentlistInfo:JSONJoy{
     var id :String?
     var content:String?
@@ -173,7 +174,6 @@ class commentlistInfo:JSONJoy{
     }
     required init(_ decoder: JSONDecoder){
         
-        //        pictureurl = decoder["file"].string
         content = decoder["content"].string
         add_time = decoder["add_time"].string
         name = decoder["name"].string

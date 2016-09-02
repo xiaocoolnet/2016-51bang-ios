@@ -40,12 +40,12 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         view?.removeFromSuperview()
 //        xiaofeiview = self.view.viewWithTag(23)
         xiaofeiview.removeFromSuperview()
-
+        sign = 1
     }
     
     
     override func viewDidLoad() {
-        sign = 1
+        
         GetWWCData("0,1,2,3")
         GetYWCData("4")
         self.title = "我的发单"
@@ -141,11 +141,26 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         finshTable.dataSource = self
         finshTable.tag = 1
 //        self.view.addSubview(finshTable)
+        
+        let HeaderView = UIView.init(frame: CGRectMake(0, 0, WIDTH, 0.01))
+        mTable.tableHeaderView = HeaderView
     
+        //划动手势
+        //右划
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleRight))
+        self.view.addGestureRecognizer(swipeGesture)
+        //左划
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleLeft))
+        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left //不设置是右
+        self.view.addGestureRecognizer(swipeLeftGesture)
+    }
+    func handleRight(){
+        finshBtnAction()
     }
     
-    
-    
+    func handleLeft(){
+        weiBtnAction()
+    }
     func setButton()
     {
         weiBtn.frame = CGRectMake(0, 0, WIDTH / 2, 35)

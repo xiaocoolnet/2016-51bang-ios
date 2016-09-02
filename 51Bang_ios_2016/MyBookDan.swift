@@ -33,12 +33,12 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     var Data4:[BookDanDataModel] = []
     var Source:[BookDanDataModel] = []
     var mTable = UITableView()
-    let mainHelper = MainHelper()
     var sign = Int()
     var AllDataSource : Array<MyOrderInfo>?
     var DFKDataSource : Array<MyOrderInfo>?
     var DXFDataSource : Array<MyOrderInfo>?
     var DPJDataSource : Array<MyOrderInfo>?
+    let mainHelper = MainHelper()
     let rect = UIApplication.sharedApplication().statusBarFrame
     override func viewDidLoad() {
         sign = 0
@@ -101,6 +101,8 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         
     }
+    
+    
     
     func createTableView(){
         mTableview = UITableView.init(frame: CGRectMake(0, 45, WIDTH, self.view.frame.size.height - 45.1 - rect.height )
@@ -303,4 +305,6 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
     }
+    
+    
 }
