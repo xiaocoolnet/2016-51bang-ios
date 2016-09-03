@@ -102,6 +102,12 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Ua-95-68s">
+                        <rect key="frame" x="253" y="58" width="63" height="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.17776659761182645" green="0.66950261780104714" blue="0.020592097946395778" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="oHb-hf-Rzm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="0Nd-Jg-ITm"/>
@@ -129,6 +135,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="comment" destination="4Ua-95-68s" id="o6S-EK-0EU"/>
                 <outlet property="context" destination="YzU-cq-l0E" id="12A-M2-Uf6"/>
                 <outlet property="distance" destination="geg-Zv-mwW" id="Zid-9c-wXQ"/>
                 <outlet property="myimage" destination="oHb-hf-Rzm" id="jy4-MK-Q6H"/>

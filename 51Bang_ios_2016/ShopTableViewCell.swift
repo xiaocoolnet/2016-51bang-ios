@@ -19,6 +19,7 @@ class ShopTableViewCell: UITableViewCell {
     @IBOutlet weak var distance: UILabel!
     @IBOutlet weak var sales: UILabel!
     
+    @IBOutlet weak var comment: UILabel!
     
     
     
@@ -31,6 +32,7 @@ class ShopTableViewCell: UITableViewCell {
         self.title.text = goodsInfo.goodsname
         self.context.text = goodsInfo.description
         //        self.distance.text = "现在没有"
+        self.comment.text = "评论\(goodsInfo.commentlist.count)条"
         self.oldPrice.text = goodsInfo.oprice!
         self.price.text = "¥"+goodsInfo.price!
         self.sales.text = "已售"+goodsInfo.sellnumber!

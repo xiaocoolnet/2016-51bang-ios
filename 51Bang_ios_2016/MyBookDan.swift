@@ -39,8 +39,10 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     var DXFDataSource : Array<MyOrderInfo>?
     var DPJDataSource : Array<MyOrderInfo>?
     let mainHelper = MainHelper()
+    let Btn = UIButton()
     let rect = UIApplication.sharedApplication().statusBarFrame
     override func viewDidLoad() {
+        Btn.tag = 1
         sign = 0
         self.getAllData()
         self.getDFKData()
@@ -99,10 +101,32 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         Source = Data
         
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleRight))
+        self.view.addGestureRecognizer(swipeGesture)
+        //左划
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleLeft))
+        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left //不设置是右
+        self.view.addGestureRecognizer(swipeLeftGesture)
         
     }
     
+    func handleRight(){
+        if Btn.tag>1 {
+            Btn.tag = Btn.tag - 1
+            self.changeColorAndDeView(Btn)
+        }else{
+            self.changeColorAndDeView(Btn)
+        }
+    }
     
+    func handleLeft(){
+        if Btn.tag < 4 {
+            Btn.tag = Btn.tag + 1
+            self.changeColorAndDeView(Btn)
+        }else{
+            self.changeColorAndDeView(Btn)
+        }
+    }
     
     func createTableView(){
         mTableview = UITableView.init(frame: CGRectMake(0, 45, WIDTH, self.view.frame.size.height - 45.1 - rect.height )

@@ -18,7 +18,7 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
         self.getData()
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
-         myTableView.frame = CGRectMake(0, 0, WIDTH, self.view.frame.size.height)
+        
    
     }
     
@@ -37,9 +37,10 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
     
     }
     func createTableView(){
-       
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.delegate = self
         myTableView.dataSource = self
+        myTableView.backgroundColor = UIColor.whiteColor()
         myTableView.registerNib(UINib(nibName: "CollectionTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         
         self.view.addSubview(myTableView)
@@ -52,6 +53,11 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
   
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        
+//        let nextController = BusnissViewController()
+//        dataSource![indexPath.row].id = nextController.goodsInfo.id
+//        dataSource![indexPath.row].description = nextController.goodsInfo.description
+//        dataSource![indexPath.row].price = nextController.goodsInfo.price
+//        self.navigationController?.pushViewController(nextController, animated: true)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

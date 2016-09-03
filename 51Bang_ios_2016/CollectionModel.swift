@@ -64,10 +64,12 @@ class CollectionInfo: JSONJoy {
     var id:String?
     var userid:String?
     var title:String?
+    var description:String?
+    var type:String?
+    var object_id:String?
     var price:String?
     var createtime:String?
-    var description:String?
-    var object_id:String?
+
     init(){
         
     }
@@ -76,10 +78,12 @@ class CollectionInfo: JSONJoy {
         id = decoder["id"].string
         userid = decoder["userid"].string
         title = decoder["title"].string
-        price = decoder["price"].string
         description = decoder["description"].string
-        createtime = decoder["createtime"].string
+        type = decoder["type"].string
         object_id = decoder["object_id"].string
+        price = decoder["price"].string
+        createtime = decoder["createtime"].string
+        
     }
     
 }

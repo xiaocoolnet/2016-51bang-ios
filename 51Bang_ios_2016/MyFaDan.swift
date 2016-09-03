@@ -155,11 +155,13 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         self.view.addGestureRecognizer(swipeLeftGesture)
     }
     func handleRight(){
-        finshBtnAction()
+        
+       weiBtnAction()
     }
     
     func handleLeft(){
-        weiBtnAction()
+        
+         finshBtnAction()
     }
     func setButton()
     {

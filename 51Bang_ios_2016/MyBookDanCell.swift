@@ -21,6 +21,10 @@ class MyBookDanCell: UITableViewCell {
     var targets:UIViewController!
     let mainHelp = MainHelper()
     var id = String()
+    var order_num = String()
+    var DXFDataSource : Array<MyOrderInfo>?
+    var tableView = UITableView()
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -33,6 +37,7 @@ class MyBookDanCell: UITableViewCell {
         self.sign = sign
         setLayout(Data)
         self.idStr = Data.id!
+        self.order_num = Data.order_num!
         
     }
     
@@ -76,6 +81,7 @@ class MyBookDanCell: UITableViewCell {
 //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待消费"
             Btn.setTitle("取消订单", forState: UIControlState.Normal)
+            Btn.addTarget(self, action: #selector(self.Cancel), forControlEvents: UIControlEvents.TouchUpInside)
             
         }else{
             Statue.text = "待评价"
@@ -189,12 +195,6 @@ class MyBookDanCell: UITableViewCell {
     {
         print("付款")
         let vc = PayViewController()
-//        let xiaoji = self.view.viewWithTag(99)as! UILabel
-//        print(xiaoji)
-//        print(xiaoji.text!)
-//        vc.price = ((xiaoji.text)! as NSString).doubleValue
-//        vc.subject = self.info.goodsname!
-//        vc.body = self.info.description!
         vc.price = ((zhifubaoprice) as NSString).doubleValue
         targets.navigationController?.pushViewController(vc, animated: true)
 
@@ -203,13 +203,24 @@ class MyBookDanCell: UITableViewCell {
     func Cancel()
     {
         print("取消订单")
-        mainHelp.quXiaoDingdan(idStr, userid: "") { (success, response) in
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
+        mainHelp.quXiaoDingdan(self.order_num, userid: userid) { (success, response) in
             if !success {
-                
+                print("..........")
+                print(self.order_num)
                 return
             }else{
                 self.removeFromSuperview()
-                alert("商品已下架", delegate: self)
+
+                self.tableView.reloadData()
+//                self.dataSource?.removeAtIndex(self.row)
+//                let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
+//                self.myTableView.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
+//                self.myTableView.reloadData()
+
+
+                alert("取消订单", delegate: self)
             }
             
             

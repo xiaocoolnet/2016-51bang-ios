@@ -140,13 +140,13 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if tableView.tag == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)as!ShopTableViewCell
             
-            let commentButton = UIButton()
-            commentButton.frame = CGRectMake(WIDTH/2, 60, WIDTH/2-80, 10)
-            commentButton.backgroundColor = UIColor.whiteColor()
-            commentButton.setTitle("评论"+String(indexPath.row)+"条", forState: UIControlState.Normal)
-            commentButton.setTitleColor(COLOR, forState: UIControlState.Normal)
-            commentButton.titleLabel?.font = UIFont.systemFontOfSize(10)
-            cell.addSubview(commentButton)
+//            let commentButton = UIButton()
+//            commentButton.frame = CGRectMake(WIDTH/2, 60, WIDTH/2-80, 10)
+//            commentButton.backgroundColor = UIColor.whiteColor()
+//            commentButton.setTitle("评论"+String(indexPath.row)+"条", forState: UIControlState.Normal)
+//            commentButton.setTitleColor(COLOR, forState: UIControlState.Normal)
+//            commentButton.titleLabel?.font = UIFont.systemFontOfSize(10)
+//            cell.addSubview(commentButton)
             
             let viewzhegai = UIView()
             viewzhegai.frame = CGRectMake(WIDTH/2, 60, WIDTH/2-80, 10)
@@ -193,8 +193,10 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let next = BusnissViewController()
             if type == ""{
                 next.goodsInfo = self.dataSource![dataSource!.count - 1 - indexPath.row]
+//                print(next.id)
             }else{
                 next.goodsInfo = self.dataSource2[dataSource2.count - 1 - indexPath.row] as! GoodsInfo
+//                print(next.id)
             }
             self.navigationController?.pushViewController(next, animated: true)
             //            next.title = "风景自助"

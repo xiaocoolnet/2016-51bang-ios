@@ -93,7 +93,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailsVC = BusnissViewController()
         detailsVC.isdetails = true
-        detailsVC.goodsInfo = self.dataSource![indexPath.row]
+        detailsVC.goodsInfo.id = self.dataSource![indexPath.row].id
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     

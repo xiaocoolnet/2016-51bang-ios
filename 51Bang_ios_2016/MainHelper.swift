@@ -745,5 +745,32 @@
         
     }
     
+    //获取商品详细信息
+    
+    func getshowshopping(id:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"showshoppinginfo"
+        let paramDic = ["id":id]
+        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
+            print(request)
+            let result = GoodsModel2(JSONDecoder(json!))
+            print(result)
+            print(result.data)
+            print(result.status)
+            if result.status == "success"{
+                print(result.data)
+                handle(success: true, response: result.data)
+            }else{
+                handle(success: false, response: result.data)
+                print(result.data)
+                
+            }
+            
+            
+        }
+        
+        
+    }
 
- }
+    
+
+}

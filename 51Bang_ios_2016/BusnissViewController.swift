@@ -129,9 +129,14 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 let meters = current.distanceFromLocation(before)/1000
 //                let meter:String = "\(meters)"
 //                let array = meter.componentsSeparatedByString(".")
-                let distance = String(format:"%.2f",meters)
-                print(distance)
-                cell.distance.text = "\(distance)km"
+                if meters > 1000{
+                    cell.distance.text = "1000+km"
+                }else{
+                    let distance = String(format:"%.2f",meters)
+                    print(distance)
+                    cell.distance.text = "\(distance)km"
+
+                }
                 
             }else{
                 cell.distance.text = ""
@@ -152,15 +157,21 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             return cell
         }else if (indexPath.row == 2){
             let cell = UITableViewCell()
-            let view1 = UIView.init(frame: CGRectMake(0, 60, WIDTH, 10))
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            let view1 = UIView.init(frame: CGRectMake(0, 0, WIDTH, 10))
             view1.backgroundColor = RGREY
             view1.userInteractionEnabled = false
             cell.addSubview(view1)
             
-            let labelcomment = UILabel.init(frame: CGRectMake(20, 75, 60, 40))
+            let labelcomment = UILabel.init(frame: CGRectMake(20, 35, 60, 38))
             labelcomment.text = "评价"
             labelcomment.userInteractionEnabled = true
             cell.addSubview(labelcomment)
+            
+            let view2 = UIView.init(frame: CGRectMake(0, 48, WIDTH, 2))
+            view2.backgroundColor = RGREY
+            view2.userInteractionEnabled = false
+            cell.addSubview(view2)
             
             return cell
         }
@@ -252,6 +263,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         //        headerView.headerImage.setImageWithURL(NSURL.init(string:Bang_Image_Header+arrayphoto[1])!, placeholderImage: UIImage.init(named: "01"))
         headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*360/375)
+        print(goodsInfo.price)
         headerView.price.text = "¥"+goodsInfo.price!
         headerView.desciption.text = goodsInfo.description
         headerView.desciption.adjustsFontSizeToFitWidth = true

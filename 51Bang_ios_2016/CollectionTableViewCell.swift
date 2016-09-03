@@ -13,8 +13,6 @@ class CollectionTableViewCell: UITableViewCell {
     
 
     @IBOutlet weak var iconImage: UIImageView!
-    
-    
     @IBOutlet weak var title: UILabel!
     
     
@@ -28,7 +26,8 @@ class CollectionTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var distance: UILabel!
-    
+    let id = String()
+    let userid = String()
     
     var targetView = UIViewController()
     
@@ -45,9 +44,16 @@ class CollectionTableViewCell: UITableViewCell {
     }
 
     func setValueWithInfo(info:CollectionInfo){
-    
+        self.iconImage.image = UIImage(named: "01")
         self.title.text = info.title
         self.desc.text = info.description
+        if info.price == nil{
+            self.price.text = "0¥"
+        }else{
+            self.price.text = "\(info.price)¥"
+        }
+        
+        self.distance.text = "1.4km"
     
     
     }
