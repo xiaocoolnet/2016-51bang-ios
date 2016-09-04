@@ -44,7 +44,6 @@ class CollectionTableViewCell: UITableViewCell {
     }
 
     func setValueWithInfo(info:CollectionInfo){
-        self.iconImage.image = UIImage(named: "01")
         self.title.text = info.title
         self.desc.text = info.description
         if info.price == nil{
@@ -54,6 +53,14 @@ class CollectionTableViewCell: UITableViewCell {
         }
         
         self.distance.text = "1.4km"
+        if info.pic.count>0 {
+            let imageUrl = Bang_Image_Header+info.pic[0].pictureurl!
+            
+            iconImage.sd_setImageWithURL(NSURL(string:imageUrl), placeholderImage: UIImage(named: ("01")))
+        }else{
+            iconImage.image = UIImage(named:("01"))
+        }
+
     
     
     }

@@ -49,16 +49,35 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         //        self.navigationController?.navigationBar.hidden = true
         //        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         createRightNavi()
+        
     }
     
     func orderList(){
         
         let vc = AffirmOrderViewController()
-        vc.info = self.goodsInfo
+//        vc.info = self.goodsInfo
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
+//    func getData(){
+//        mainHelper.getshowshopping(id, handle: { [unowned self] (success, response) in
+//            dispatch_async(dispatch_get_main_queue(), {
+//                if success == false {
+//                    
+//                    return
+//                }else{
+//                    print(response)
+////                    Http(JSONDecoder(data))
+//                    self.goodsInfo = response as! GoodsInfo2
+//                    print(self.goodsInfo)
+//                }
+//            })
+//            })
+//
+//        
+//    }
+
     
     func click(){
         
@@ -117,15 +136,18 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let cell = tableView.dequeueReusableCellWithIdentifier("site")as! SiteTableViewCell
             cell.callPhone.addTarget(self, action: #selector(self.call), forControlEvents: UIControlEvents.TouchUpInside)
             let ud = NSUserDefaults.standardUserDefaults()
-            let longitude = ud.objectForKey("longitude")as! String
-            let latitude = ud.objectForKey("latitude")as! String
-            let myLongitude = removeOptionWithString(longitude)
-            let myLatitude = removeOptionWithString(latitude)
-            let current = CLLocation.init(latitude: CLLocationDegrees(myLatitude)!, longitude: CLLocationDegrees(myLongitude)!)
+            let myLongitude = ud.objectForKey("longitude")as! String
+            let myLatitude = ud.objectForKey("latitude")as! String
+            let longitude = removeOptionWithString(myLongitude)
+            let latitude = removeOptionWithString(myLatitude)
+            print(longitude)
+            print(latitude)
+            let current = CLLocation.init(latitude: CLLocationDegrees(latitude)!, longitude: CLLocationDegrees(longitude)!)
             if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
                 print(goodsInfo.latitude,goodsInfo.longitude,"00000000")
                 
                 let before = CLLocation.init(latitude: CLLocationDegrees(self.goodsInfo.latitude!)!, longitude: CLLocationDegrees(self.goodsInfo.longitude!)!)
+               
                 let meters = current.distanceFromLocation(before)/1000
 //                let meter:String = "\(meters)"
 //                let array = meter.componentsSeparatedByString(".")
@@ -200,7 +222,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewDidLoad()
         //        isFavorite = false
         self.view.backgroundColor = RGREY
-        
+//        getData()
         self.dataSource = self.goodsInfo.commentlist
 //        let ud = NSUserDefaults.standardUserDefaults()
 //        let userid = ud.objectForKey("userid")as! String

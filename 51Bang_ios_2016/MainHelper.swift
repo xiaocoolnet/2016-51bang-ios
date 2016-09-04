@@ -201,7 +201,7 @@
         return pathUrl
     }
     //发布便民信息
-    func upLoadMessage(userid:NSString,type:NSString,title:NSString,content:NSString,photoArray:NSArray,sound:NSString,soundtime:String,phone:String, handle:ResponseBlock){
+    func upLoadMessage(userid:NSString,phone:String,type:NSString,title:NSString,content:NSString,photoArray:NSArray,sound:NSString,soundtime:String, handle:ResponseBlock){
         let url = Bang_URL_Header+"addbbsposts"
         let photoUrl = NSMutableString()
         for i in 0..<photoArray.count {
@@ -255,7 +255,7 @@
     }
     //发布评论
     func upLoadevaluate(userid:NSString,type:NSString,id:NSString,content:NSString,photoArray:NSArray,photo:UIImage,handle:ResponseBlock){
-        let url = Bang_URL_Header+"addbbsposts"
+        let url = Bang_URL_Header+"SetComment"
         let photoUrl = NSMutableString()
         for i in 0..<photoArray.count {
             if i == photoArray.count-1{

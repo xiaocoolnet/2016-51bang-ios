@@ -31,6 +31,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     override func viewWillAppear(animated: Bool) {
         getData()
+        headerRefresh()
         
     }
     override func viewDidAppear(animated: Bool) {
@@ -55,6 +56,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         //        headerView?.tag = 5
         //        convenienceTable.tableHeaderView = headerView
         createRightNavi()
+        
         
     }
     

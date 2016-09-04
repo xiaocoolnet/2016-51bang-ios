@@ -69,8 +69,11 @@ class CollectionInfo: JSONJoy {
     var object_id:String?
     var price:String?
     var createtime:String?
-
+    var longitude:String?
+    var latitude:String?
+    var pic:[PicInfos]
     init(){
+        pic = Array<PicInfos>()
         
     }
     required init(_ decoder: JSONDecoder){
@@ -83,7 +86,19 @@ class CollectionInfo: JSONJoy {
         object_id = decoder["object_id"].string
         price = decoder["price"].string
         createtime = decoder["createtime"].string
+        longitude = decoder["longitude"].string
+        latitude = decoder["latitude"].string
+        pic = Array<PicInfos>()
         
+        if decoder["goodspicture"].array != nil {
+            for childs: JSONDecoder in decoder["goodspicture"].array!{
+                self.pic.append(PicInfos(childs))
+            }
+        }
+
     }
-    
+    func addpend(list: [PicInfos]){
+        self.pic = list + self.pic
+    }
+
 }

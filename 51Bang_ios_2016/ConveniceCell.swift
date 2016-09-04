@@ -256,11 +256,14 @@ class ConveniceCell: UITableViewCell{
     
     
     func callPhone(){
+        print(self.info?.phone)
         if self.info?.phone == nil || self.info!.phone!.characters.count<0 {
             alert("未发布电话", delegate: self)
             return
+        }else{
+             UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://"+self.info!.phone!)!)
         }
-        UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://"+self.info!.phone!)!)
+    
     }
     
     

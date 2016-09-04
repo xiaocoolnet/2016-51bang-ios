@@ -195,7 +195,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 next.goodsInfo = self.dataSource![dataSource!.count - 1 - indexPath.row]
 //                print(next.id)
             }else{
-                next.goodsInfo = self.dataSource2[dataSource2.count - 1 - indexPath.row] as! GoodsInfo
+                next.goodsInfo = (self.dataSource2[dataSource2.count - 1 - indexPath.row] as! GoodsInfo)
 //                print(next.id)
             }
             self.navigationController?.pushViewController(next, animated: true)

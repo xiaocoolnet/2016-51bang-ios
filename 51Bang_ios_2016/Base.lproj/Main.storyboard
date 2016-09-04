@@ -62,11 +62,11 @@
             </objects>
             <point key="canvasLocation" x="-2664" y="1419"/>
         </scene>
-        <!--抢单-->
+        <!--认证-->
         <scene sceneID="m97-4R-qcv">
             <objects>
                 <navigationController id="gu0-oF-2gl" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="抢单" image="ic_qiangdan-hui" selectedImage="ic_qiangdan-lv" id="O1j-Dj-8FI"/>
+                    <tabBarItem key="tabBarItem" title="认证" image="ic_qiangdan-hui" selectedImage="ic_qiangdan-lv" id="O1j-Dj-8FI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mhb-f3-4qx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
