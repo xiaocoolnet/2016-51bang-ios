@@ -142,7 +142,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     
     func helpWithWho(btn:UIButton) {
-        print(nameArr[btn.tag])
+       
         if btn.tag == 0 {
             
             if loginSign == 0 {
@@ -169,7 +169,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 
                 let vc = CommitOrderViewController()
                 //let string = self.administrativeArea+self.cityName+self.thoroughfare
-                print(address)
+               
 //                vc.cityName = self.cityName
 //                vc.longitude = self.longitude
 //                vc.latitude = self.latitude
@@ -205,6 +205,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     }
     func selectCity(city: String) {
         print(city)
+        self.city = city
         self.backView.removeFromSuperview()
         self.backMHView.removeFromSuperview()
         location.setTitle(city, forState: UIControlState.Normal)
@@ -229,7 +230,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         geoCodeSearchOption.address = quName
         let flog = searcher.geoCode(geoCodeSearchOption)
         print(flog)
-        self.city = city
+        
         mainHelper.checkCity(city) { (success, response) in
             print(response)
             if !success{
@@ -476,10 +477,14 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             return
         }
         pointAnmation.coordinate = result.location
-        pointAnmation.title = self.city
+        pointAnmation.title = result.address
         mapView.addAnnotation(pointAnmation)
-        
+        print(result.location.latitude)
+        print(result.location.longitude)
+        print(result.address)
+        print(result.description)
         mapView.selectAnnotation(pointAnmation, animated: true)
+//        self.WillShowName(result.location.longitude, longtitude: result.location.latitude)
     }
     
     //MARK: - BMKGeoCodeSearchDelegate

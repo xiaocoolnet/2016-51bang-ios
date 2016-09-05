@@ -205,30 +205,30 @@ class MyBookDanCell: UITableViewCell {
     
     func Cancel()
     {
-        print("取消订单")
-        let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid")as! String
-        mainHelp.quXiaoDingdan(self.order_num, userid: userid) { (success, response) in
-            if !success {
-                print("..........")
-                print(self.order_num)
-                return
-            }else{
-                self.removeFromSuperview()
-
-                self.tableView.reloadData()
-//                self.dataSource?.removeAtIndex(self.row)
-//                let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
-//                self.myTableView.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
-//                self.myTableView.reloadData()
-
-
-//                alert("取消订单", delegate: self)
-            }
-            
-            
-        }
-        
+//        print("取消订单")
+//        let ud = NSUserDefaults.standardUserDefaults()
+//        let userid = ud.objectForKey("userid")as! String
+//        mainHelp.quXiaoDingdan(self.order_num, userid: userid) { (success, response) in
+//            if !success {
+//                print("..........")
+//                print(self.order_num)
+//                return
+//            }else{
+//                self.removeFromSuperview()
+//
+//                self.tableView.reloadData()
+////                self.dataSource?.removeAtIndex(self.row)
+////                let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
+////                self.myTableView.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
+////                self.myTableView.reloadData()
+//
+//
+////                alert("取消订单", delegate: self)
+//            }
+//            
+//            
+//        }
+//        
     }
     
     func imdiaBuy()

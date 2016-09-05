@@ -407,6 +407,7 @@
 		81FD72021D3E3E190020890A /* MyReveiveDanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD72011D3E3E190020890A /* MyReveiveDanCell.swift */; };
 		A4A26F441D75BD7C00A84360 /* RenZhengBangTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A26F431D75BD7C00A84360 /* RenZhengBangTableViewCell.xib */; };
 		A4F8D7D01D748C7A00B26536 /* shopCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8D7CF1D748C7A00B26536 /* shopCommentTableViewCell.swift */; };
+		A4F8E8CE1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8E8CD1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift */; };
 		C4065D2B4CD2ABEC6F149D76 /* Pods_51Bang_ios_2016.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 981FB3CC478FBF0CBC3F8AA5 /* Pods_51Bang_ios_2016.framework */; };
 		ED567BBF13357E44F5D01C92 /* Pods_51Bang_ios_2016UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 591108C65AE6727C545701B1 /* Pods_51Bang_ios_2016UITests.framework */; };
 		EEB3FB03F47A008396DD5963 /* Pods_51Bang_ios_2016Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AE63D29126A11F15C68BE5 /* Pods_51Bang_ios_2016Tests.framework */; };
@@ -1025,6 +1026,7 @@
 		9F80179E64739F048E551101 /* Pods-51Bang_ios_2016.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-51Bang_ios_2016.debug.xcconfig"; path = "Pods/Target Support Files/Pods-51Bang_ios_2016/Pods-51Bang_ios_2016.debug.xcconfig"; sourceTree = "<group>"; };
 		A4A26F431D75BD7C00A84360 /* RenZhengBangTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RenZhengBangTableViewCell.xib; sourceTree = "<group>"; };
 		A4F8D7CF1D748C7A00B26536 /* shopCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shopCommentTableViewCell.swift; sourceTree = "<group>"; };
+		A4F8E8CD1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageButtonActionViewController.swift; sourceTree = "<group>"; };
 		B9ECAA33232173BDA28FB9A8 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8518ABE72957E4193773BA2 /* Pods-51Bang_ios_2016.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-51Bang_ios_2016.release.xcconfig"; path = "Pods/Target Support Files/Pods-51Bang_ios_2016/Pods-51Bang_ios_2016.release.xcconfig"; sourceTree = "<group>"; };
 		E8B39D784D5CA034E6E3F327 /* Pods-51Bang_ios_2016UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-51Bang_ios_2016UITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-51Bang_ios_2016UITests/Pods-51Bang_ios_2016UITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1762,6 +1764,7 @@
 			isa = PBXGroup;
 			children = (
 				18D881621D15299C0067218F /* MainViewController.swift */,
+				A4F8E8CD1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift */,
 				F253E6DC1D7D496A009D2AF5 /* CityNameViewController.swift */,
 				0DAA4C691D618FFF00901EEB /* ConvenientPeople.swift */,
 				0DAA4C6B1D6192E000901EEB /* ConveniceCell.swift */,
@@ -2882,6 +2885,7 @@
 				189CFB7A1D1566C600B29001 /* ShopViewController.swift in Sources */,
 				1F83AE061D40FA200031975C /* ChangePhoneController.swift in Sources */,
 				1FACE7671D2FA3DE0005282E /* LianXiDianHuaTableViewCell.swift in Sources */,
+				A4F8E8CE1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift in Sources */,
 				F2F189FA1D6D6BCA00843120 /* TZPhotoPreviewController.m in Sources */,
 				F247452C1D6D51CF00870363 /* SGTip.m in Sources */,
 				1FDA706D1D3DF8B800822D18 /* OrderDetailViewController.swift in Sources */,

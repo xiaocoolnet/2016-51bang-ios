@@ -304,7 +304,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     cell.boFangButton.addTarget(self, action: #selector(self.boFangButtonActions(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.boFangButton.tag = indexPath.row-1
                     cell.myDelegate = self
-                    
+                    cell.messageButton.addTarget(self, action: #selector(self.messageButtonAction(_:)), forControlEvents:
+                    UIControlEvents.TouchUpInside)
                     return cell
                 }else{
                     let cell = UITableViewCell()
@@ -317,6 +318,10 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         }
         
         
+    }
+    func messageButtonAction(sender:UIButton) {
+        let messageVC = MessageButtonActionViewController()
+        self.navigationController?.pushViewController(messageVC, animated: true)
     }
     
     func boFangButtonActions(sender:UIButton){

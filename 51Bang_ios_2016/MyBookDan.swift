@@ -338,6 +338,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         print(self.row)
         if DXFDataSource?.count != 0{
             print("取消订单")
+            
             let MyOrderInfo = self.DXFDataSource![btn.tag]
             let ud = NSUserDefaults.standardUserDefaults()
             let userid = ud.objectForKey("userid")as! String
@@ -348,19 +349,28 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                     return
                 }else{
                     
+                let alertController = UIAlertController(title: "系统提示",
+                                                            message: "您确定要取消订单吗？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                handler: { action in
                 self.DXFDataSource?.removeAtIndex(self.row)
                 let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
-                    print(myindexPaths)
-                
+                                                    
                 self.mTableview.deleteRowsAtIndexPaths([myindexPaths],       withRowAnimation: UITableViewRowAnimation.Right)
-                
+                                                    
 //                self.mTableview.reloadData()
-                    
+                                                    
                 self.Btn.tag = 3
+                                  
+                    })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
                     
-                    alert("取消订单", delegate: self)
+//                    alert("取消订单", delegate: self)
 //                    let myindexPaths = NSIndexPath.init(forRow:0 inSection: 0)
-//                    self.mTableview.deleteRowsAtIndexPaths(<#T##indexPaths: [NSIndexPath]##[NSIndexPath]#>, withRowAnimation: <#T##UITableViewRowAnimation#>)
+
                 }
                 
                 
