@@ -434,6 +434,8 @@
 		F25289BA1D6AE16700B8E6DC /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F25289B41D6AE16700B8E6DC /* lame.framework */; };
 		F25289BB1D6AE16700B8E6DC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F25289B51D6AE16700B8E6DC /* LICENSE */; };
 		F25289BC1D6AE16700B8E6DC /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F25289B61D6AE16700B8E6DC /* README.md */; };
+		F253E6DB1D7D1982009D2AF5 /* area副本.plist in Resources */ = {isa = PBXBuildFile; fileRef = F253E6DA1D7D1982009D2AF5 /* area副本.plist */; };
+		F253E6DD1D7D496A009D2AF5 /* CityNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F253E6DC1D7D496A009D2AF5 /* CityNameViewController.swift */; };
 		F255A8DD1D77F2C10037856E /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F255A8DC1D77F2C10037856E /* TencentOpenAPI.framework */; };
 		F2DAD9971D76C13C00200B5D /* libAPOpenSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2DAD9961D76C13C00200B5D /* libAPOpenSdk.a */; };
 		F2EF8DA31D6EC060008C495E /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2EF8DA01D6EC060008C495E /* libWeChatSDK.a */; };
@@ -1062,6 +1064,8 @@
 		F25289B41D6AE16700B8E6DC /* lame.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lame.framework; sourceTree = "<group>"; };
 		F25289B51D6AE16700B8E6DC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		F25289B61D6AE16700B8E6DC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F253E6DA1D7D1982009D2AF5 /* area副本.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "area副本.plist"; sourceTree = "<group>"; };
+		F253E6DC1D7D496A009D2AF5 /* CityNameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityNameViewController.swift; sourceTree = "<group>"; };
 		F255A8DC1D77F2C10037856E /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		F2DAD9941D76C13C00200B5D /* APOpenAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPI.h; sourceTree = "<group>"; };
 		F2DAD9951D76C13C00200B5D /* APOpenAPIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPIObject.h; sourceTree = "<group>"; };
@@ -1611,6 +1615,7 @@
 				18D8812E1D151D820067218F /* Main.storyboard */,
 				18D881311D151D820067218F /* Assets.xcassets */,
 				18D881331D151D820067218F /* LaunchScreen.storyboard */,
+				F253E6DA1D7D1982009D2AF5 /* area副本.plist */,
 				18D5963D1D17F23800BDBCD6 /* citydict.plist */,
 				18D881361D151D820067218F /* Info.plist */,
 				18D881641D152A860067218F /* 51Bang_ios_2016-Bridging-Header.h */,
@@ -1757,6 +1762,7 @@
 			isa = PBXGroup;
 			children = (
 				18D881621D15299C0067218F /* MainViewController.swift */,
+				F253E6DC1D7D496A009D2AF5 /* CityNameViewController.swift */,
 				0DAA4C691D618FFF00901EEB /* ConvenientPeople.swift */,
 				0DAA4C6B1D6192E000901EEB /* ConveniceCell.swift */,
 				1F0DF1831D2B4AB500D45390 /* SameCityViewController.swift */,
@@ -2448,6 +2454,7 @@
 				1FF43B661D2A34DC00091F79 /* ShopHeaderView.xib in Resources */,
 				18D881591D151E080067218F /* Podfile in Resources */,
 				0DD511011D51D16E00FE88C2 /* btn_selected.png in Resources */,
+				F253E6DB1D7D1982009D2AF5 /* area副本.plist in Resources */,
 				189757D41D162D550083FE46 /* CouponTableViewCell.xib in Resources */,
 				1FACE7681D2FA3DE0005282E /* LianXiDianHuaTableViewCell.xib in Resources */,
 				188D4C591D168867005334D2 /* ThreeTableViewCell.xib in Resources */,
@@ -2953,6 +2960,7 @@
 				F23C55991D65774E0094E2B7 /* ZuberImage.swift in Sources */,
 				1F0DF18B1D2B5D5F00D45390 /* ConvenienceHeaderViewCell.swift in Sources */,
 				1FFE54191D2C9166000891EB /* PayMethodTableViewCell.swift in Sources */,
+				F253E6DD1D7D496A009D2AF5 /* CityNameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

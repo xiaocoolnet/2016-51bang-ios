@@ -13,7 +13,7 @@ var address:String  = ""
 class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCodeSearchDelegate,BMKLocationServiceDelegate,BMKMapViewDelegate{
     
     let mainHelper = MainHelper()
-    
+    var city = String()
     var longitude = String()
     var latitude = String()
     let backView = UIView()
@@ -81,6 +81,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        //接受通知
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)
         locationService = BMKLocationService()
         locationService.delegate = self
         locationService.startUserLocationService()
@@ -96,6 +99,12 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         self.BeingBackMyPositonBtn = button
 //        self.mapView.addSubview(BeingBackMyPositonBtn)
     
+    }
+    func getMyName(notification:NSNotification){
+        let name = notification.object?.valueForKey("name") as? String
+        self.selectCity(name!)
+//        NSNotificationCenter.defaultCenter().removeObserver(self, name: "NotificationIdentifier", object: nil)
+//        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
 
@@ -199,9 +208,31 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         self.backMHView.removeFromSuperview()
         location.setTitle(city, forState: UIControlState.Normal)
         location.sizeToFit()
+//        let cityNsstring = city as NSString
+        var count = Int()
+        for a in city.characters{
+            if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
+                break
+            }
+            count = count + 1
+        }
+        let cutyName = city.substringToIndex(city.startIndex.advancedBy(count+1))
+        
+        let quName = city.substringFromIndex(city.startIndex.advancedBy(count+1))
+        print(cutyName)
+        print(quName)
+        let searcher = BMKGeoCodeSearch()
+        searcher.delegate = self
+        let geoCodeSearchOption = BMKGeoCodeSearchOption()
+        geoCodeSearchOption.city = cutyName
+        geoCodeSearchOption.address = quName
+        let flog = searcher.geoCode(geoCodeSearchOption)
+        print(flog)
+        self.city = city
         mainHelper.checkCity(city) { (success, response) in
             print(response)
             if !success{
+                
                 self.backMHView.frame = CGRectMake(0, 0, WIDTH, self.view.bounds.height+15)
                 self.backMHView.backgroundColor = UIColor.grayColor()
                 self.backMHView.alpha = 0.5
@@ -271,8 +302,10 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     func backCityVc(){
         backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
+        
         cityController = CityViewController(nibName: "CityViewController", bundle: nil)
         cityController.delegate = self
+        
         self.navigationController?.pushViewController(cityController, animated: true)
         
         cityController.title = "定位"
@@ -437,7 +470,16 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         print("用户定位停止")
     }
-
+    func onGetGeoCodeResult(searcher: BMKGeoCodeSearch!, result: BMKGeoCodeResult!, errorCode error: BMKSearchErrorCode) {
+        if result == nil {
+            return
+        }
+        pointAnmation.coordinate = result.location
+        pointAnmation.title = self.city
+        mapView.addAnnotation(pointAnmation)
+        
+        mapView.selectAnnotation(pointAnmation, animated: true)
+    }
     
     //MARK: - BMKGeoCodeSearchDelegate
     //接收反向地理编码结果
