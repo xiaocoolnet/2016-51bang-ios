@@ -207,8 +207,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         print(city)
         self.backView.removeFromSuperview()
         self.backMHView.removeFromSuperview()
-        location.setTitle(city, forState: UIControlState.Normal)
-        location.sizeToFit()
+        
 //        let cityNsstring = city as NSString
         var count = Int()
         for a in city.characters{
@@ -222,6 +221,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         let quName = city.substringFromIndex(city.startIndex.advancedBy(count+1))
         print(cutyName)
         print(quName)
+        location.setTitle(quName, forState: UIControlState.Normal)
+        location.sizeToFit()
         let searcher = BMKGeoCodeSearch()
         searcher.delegate = self
         let geoCodeSearchOption = BMKGeoCodeSearchOption()
