@@ -16,10 +16,14 @@ class Wallect: UIViewController {
     let mainHelper = TCVMLogModel()
     var info = walletInfo()
     var dataSource = NSMutableArray()
+    
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.navigationBar.hidden = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
-        
+        self.title = "钱包"
         self.getData()
     }
     
@@ -44,34 +48,19 @@ class Wallect: UIViewController {
     
     func setTopView()
     {
-        TopView.frame = CGRectMake(0, 0, WIDTH, 180)
+        TopView.frame = CGRectMake(0, 0, WIDTH, 180 - 44)
         TopView.backgroundColor = COLOR
         self.view.addSubview(TopView)
-        let TitileLabel = UILabel()
-        
-        
-        let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height + 10, 50,50 ))
-        BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Normal)
-        BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Selected)
-        BackButton.addTarget(self, action: #selector(self.backAction), forControlEvents: UIControlEvents.TouchUpInside)
-        TopView.addSubview(BackButton)
-        
-        TitileLabel.text = "钱包"
-        TitileLabel.frame = CGRectMake(WIDTH / 2 - 50, statuFrame.height + 10 , 100, 30)
-        TitileLabel.textColor = UIColor.whiteColor()
-        TitileLabel.adjustsFontSizeToFitWidth = true
-        TitileLabel.textAlignment = NSTextAlignment.Center
-        TopView.addSubview(TitileLabel)
         
         let dayTip = UILabel()
-        dayTip.frame = CGRectMake(5, statuFrame.height + 40 + 70 + 10, 100, 30)
+        dayTip.frame = CGRectMake(5, statuFrame.height + 40 + 70 + 10 - 44 , 100, 30)
         dayTip.text = "账户余额"
         dayTip.textColor = UIColor.whiteColor()
         dayTip.adjustsFontSizeToFitWidth  = true
         dayTip.font = UIFont.systemFontOfSize(15)
         TopView.addSubview(dayTip)
         
-        leftMoney.frame = CGRectMake(5, statuFrame.height + 40 + 10, WIDTH - 5, 60)
+        leftMoney.frame = CGRectMake(5, statuFrame.height + 40 + 10 - 44, WIDTH - 5, 60)
         if info.availablemoney == nil {
             leftMoney.text = "0.00"
         }else{
@@ -88,7 +77,7 @@ class Wallect: UIViewController {
     
     func setSecondView(){
     
-        SecondView.frame = CGRectMake(0, 180, WIDTH, 110)
+        SecondView.frame = CGRectMake(0, 180 - 44 , WIDTH, 110)
         SecondView.backgroundColor = UIColor.whiteColor()
         let label1 = UILabel.init(frame: CGRectMake(10, 10, 100, 20))
         label1.text = "本月接单数"
@@ -122,15 +111,15 @@ class Wallect: UIViewController {
         self.view.addSubview(SecondView)
     }
     
-    func backAction()
-    {
-        self.navigationController?.popViewControllerAnimated(true)
-    }
+//    func backAction()
+//    {
+//        self.navigationController?.popViewControllerAnimated(true)
+//    }
     
     
     func setThirdView(){
     
-        thirdView.frame = CGRectMake(0, 300, WIDTH, 120)
+        thirdView.frame = CGRectMake(0, 300 - 44, WIDTH, 120)
         thirdView.backgroundColor = UIColor.whiteColor()
         let headerImageView1  = UIImageView()
         headerImageView1.frame = CGRectMake(5, (50-17)/2, 18, 17)
@@ -158,6 +147,23 @@ class Wallect: UIViewController {
         let button2Back = UIButton.init(frame: CGRectMake(0, 70, WIDTH, 50))
         button2Back.backgroundColor = UIColor.clearColor()
         button2Back.addTarget(self, action: #selector(self.nextView2), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        
+        let TixianButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 50, 470 - 44 , 100, 40))
+        TixianButton.backgroundColor = COLOR
+        TixianButton.setTitle("提现", forState: UIControlState.Normal)
+        TixianButton.clipsToBounds = true
+        TixianButton.layer.cornerRadius = 8
+        TixianButton.layer.masksToBounds = true
+        self.view.addSubview(TixianButton)
+        let TixianXiangJieButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 100, 520 - 44, 200, 40))
+        TixianXiangJieButton.backgroundColor = RGREY
+        TixianXiangJieButton.setTitle("欲了解提现详解请点击此处", forState: UIControlState.Normal)
+        TixianXiangJieButton.titleLabel?.font = UIFont.systemFontOfSize(13)
+        TixianXiangJieButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        TixianXiangJieButton.addTarget(self, action: #selector(self.TixianXiangJie), forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(TixianXiangJieButton)
+        
 //        button2.addTarget(self, action: #selector(self.nextView2), forControlEvents: UIControlEvents.TouchUpInside)
         self.thirdView.addSubview(headerImageView1)
         self.thirdView.addSubview(headerImageView2)
@@ -171,6 +177,13 @@ class Wallect: UIViewController {
         self.view.addSubview(thirdView)
         
     }
+    
+    func TixianXiangJie(){
+        let vc = JiaoChengViewController()
+        vc.sign = 2
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func nextView(){
         
         let vc = WallectDetailViewController()

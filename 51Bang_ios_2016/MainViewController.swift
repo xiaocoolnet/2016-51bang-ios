@@ -24,7 +24,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     static var renZhengStatue = 0
     @IBOutlet var location: UIButton!
     @IBOutlet weak var topView: UIView!
-    let nameArr:[String] = ["帮我","我帮","便民圈"]
+    let nameArr:[String] = ["帮我","抢单","便民圈"]
     let imageArr = ["ic_bangwo","ic_wobang","ic_tongchenghudong"]
     let anPoin = MKPointAnnotation.init()
     var loadtag = true
@@ -159,7 +159,6 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 
                 let vc = CommitOrderViewController()
                 //let string = self.administrativeArea+self.cityName+self.thoroughfare
-                
                 print(address)
 //                vc.cityName = self.cityName
 //                vc.longitude = self.longitude

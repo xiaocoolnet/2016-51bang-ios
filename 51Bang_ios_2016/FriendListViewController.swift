@@ -59,7 +59,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
                 print(self.rzbDataSource)
                 print(self.rzbDataSource!.count)
-                self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+                self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
                 self.myTableView.delegate = self
                 self.myTableView.dataSource = self
                 self.myTableView.backgroundColor = RGREY

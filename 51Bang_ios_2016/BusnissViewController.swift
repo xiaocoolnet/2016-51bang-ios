@@ -49,16 +49,35 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         //        self.navigationController?.navigationBar.hidden = true
         //        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         createRightNavi()
+        
     }
     
     func orderList(){
         
         let vc = AffirmOrderViewController()
-        vc.info = self.goodsInfo
+//        vc.info = self.goodsInfo
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
+//    func getData(){
+//        mainHelper.getshowshopping(id, handle: { [unowned self] (success, response) in
+//            dispatch_async(dispatch_get_main_queue(), {
+//                if success == false {
+//                    
+//                    return
+//                }else{
+//                    print(response)
+////                    Http(JSONDecoder(data))
+//                    self.goodsInfo = response as! GoodsInfo2
+//                    print(self.goodsInfo)
+//                }
+//            })
+//            })
+//
+//        
+//    }
+
     
     func click(){
         
@@ -84,10 +103,12 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         if indexPath.row == 0 {
             return 80
         }else if indexPath.row == 1{
-            return 125
+            return 60
+        }else if indexPath.row == 2{
+            return 50
         }else {
             
-            let str = dataSource![indexPath.row-2].content
+            let str = dataSource![indexPath.row-3].content
             let height = calculateHeight( str!, size: 15, width: WIDTH - 10 )
             return 75 + height + 20
         }
@@ -100,7 +121,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             return 1
         }else{
             if dataSource?.count>0 {
-                return 2+(dataSource?.count)!
+                return 3+(dataSource?.count)!
             }else{
                 
                 return 2
@@ -115,19 +136,29 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let cell = tableView.dequeueReusableCellWithIdentifier("site")as! SiteTableViewCell
             cell.callPhone.addTarget(self, action: #selector(self.call), forControlEvents: UIControlEvents.TouchUpInside)
             let ud = NSUserDefaults.standardUserDefaults()
-            let longitude = ud.objectForKey("longitude")as! String
-            let latitude = ud.objectForKey("latitude")as! String
-            let myLongitude = removeOptionWithString(longitude)
-            let myLatitude = removeOptionWithString(latitude)
-            let current = CLLocation.init(latitude: CLLocationDegrees(myLatitude)!, longitude: CLLocationDegrees(myLongitude)!)
+            let myLongitude = ud.objectForKey("longitude")as! String
+            let myLatitude = ud.objectForKey("latitude")as! String
+            let longitude = removeOptionWithString(myLongitude)
+            let latitude = removeOptionWithString(myLatitude)
+            print(longitude)
+            print(latitude)
+            let current = CLLocation.init(latitude: CLLocationDegrees(latitude)!, longitude: CLLocationDegrees(longitude)!)
             if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
                 print(goodsInfo.latitude,goodsInfo.longitude,"00000000")
                 
                 let before = CLLocation.init(latitude: CLLocationDegrees(self.goodsInfo.latitude!)!, longitude: CLLocationDegrees(self.goodsInfo.longitude!)!)
+               
                 let meters = current.distanceFromLocation(before)/1000
-                let meter:String = "\(meters)"
-                let array = meter.componentsSeparatedByString(".")
-                cell.distance.text = array[0]+"km"
+//                let meter:String = "\(meters)"
+//                let array = meter.componentsSeparatedByString(".")
+                if meters > 1000{
+                    cell.distance.text = "1000+km"
+                }else{
+                    let distance = String(format:"%.2f",meters)
+                    print(distance)
+                    cell.distance.text = "\(distance)km"
+
+                }
                 
             }else{
                 cell.distance.text = ""
@@ -145,69 +176,37 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             view.backgroundColor = UIColor.whiteColor()
             cell.addSubview(view)
             
-            let view1 = UIView.init(frame: CGRectMake(0, 60, WIDTH, 10))
+            return cell
+        }else if (indexPath.row == 2){
+            let cell = UITableViewCell()
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            let view1 = UIView.init(frame: CGRectMake(0, 0, WIDTH, 10))
             view1.backgroundColor = RGREY
             view1.userInteractionEnabled = false
             cell.addSubview(view1)
             
-            let labelcomment = UILabel.init(frame: CGRectMake(20, 75, 60, 40))
+            let labelcomment = UILabel.init(frame: CGRectMake(20, 35, 60, 38))
             labelcomment.text = "评价"
             labelcomment.userInteractionEnabled = true
             cell.addSubview(labelcomment)
             
+            let view2 = UIView.init(frame: CGRectMake(0, 48, WIDTH, 2))
+            view2.backgroundColor = RGREY
+            view2.userInteractionEnabled = false
+            cell.addSubview(view2)
+            
             return cell
-        }else{
-            //            let cell = CommentListCell.init()
-            //            let contenLabel = UILabel.init(frame: CGRectMake(0, cell.userImage.height, WIDTH, 100))
-            //            contenLabel.text = "  位置很好，离我们单位特别近，不过就是等了一会时间，不过还好啦，因为披萨确实特别特别好吃，肉超级多..."
-            //            //            contenLabel.adjustsFontSizeToFitWidth = true
-            //            contenLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
-            //            contenLabel.numberOfLines = 0
-            //            cell.addSubview(contenLabel)
-            //
-            //            cell.userName.text = "小小鱼"
-            //
-            //            let image1 = UIImageView()
-            //            image1.frame = CGRectMake(5, cell.userImage.height+contenLabel.height, (WIDTH-20)/3, (WIDTH-20)/3)
-            //            image1.image = UIImage(named: "01")
-            //            cell.addSubview(image1)
-            //            let image2 = UIImageView()
-            //            image2.frame = CGRectMake(10+(WIDTH-20)/3, cell.userImage.height+contenLabel.height, (WIDTH-20)/3, (WIDTH-20)/3)
-            //            image2.image = UIImage(named: "02")
-            //            cell.addSubview(image2)
-            //            let image3 = UIImageView()
-            //            image3.frame = CGRectMake(15+2*(WIDTH-20)/3, cell.userImage.height+contenLabel.height, (WIDTH-20)/3, (WIDTH-20)/3)
-            //            image3.image = UIImage(named: "03")
-            //            cell.addSubview(image3)
-            //            photoArr.addObject(image1.image!)
-            //            photoArr.addObject(image2.image!)
-            //            photoArr.addObject(image3.image!)
-            //            for count in 0...photoArr.count-1 {
-            //                let mybutton = UIButton()
-            //                let a = CGFloat (count%3)
-            //                mybutton.frame = CGRectMake( (WIDTH-20)/3*a+5*(a+1), cell.userImage.height+contenLabel.height, (WIDTH-20)/3, (WIDTH-20)/3)
-            //                mybutton.tag = count
-            //                mybutton.addTarget(self, action: #selector(self.lookPhotos(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            //                cell.addSubview(mybutton)
-            //
-            //            }
-//            if(dataSource?.count>0){
-//                let cell = shopCommentTableViewCell.init(goodsInfo: dataSource![indexPath.row-3], num: indexPath.row-3)
-//                return cell
-//            }else{
-//                let cell = UITableViewCell()
-//                cell.backgroundColor = UIColor.clearColor()
-//                return cell
-//            }
+        }
+        else{
             
             if self.dataSource?.count>0 {
-                let cell = ConveniceCell.init(myinfo: self.dataSource![indexPath.row-2] )
-                print(self.dataSource![indexPath.row-2].add_time)
-                print(self.dataSource![indexPath.row-2].id)
-                print(self.dataSource![indexPath.row-2].content)
-                print(self.dataSource![indexPath.row-2].name)
-                print(self.dataSource![indexPath.row-2].userid)
-                print(self.dataSource![indexPath.row-2].photo)
+                let cell = ConveniceCell.init(myinfo: self.dataSource![indexPath.row-3] )
+                print(self.dataSource![indexPath.row-3].add_time)
+                print(self.dataSource![indexPath.row-3].id)
+                print(self.dataSource![indexPath.row-3].content)
+                print(self.dataSource![indexPath.row-3].name)
+                print(self.dataSource![indexPath.row-3].userid)
+                print(self.dataSource![indexPath.row-3].photo)
 //                print(self.dataSource![indexPath.row-2].add_time)
                 return cell
             }else{
@@ -223,7 +222,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewDidLoad()
         //        isFavorite = false
         self.view.backgroundColor = RGREY
-        
+//        getData()
         self.dataSource = self.goodsInfo.commentlist
 //        let ud = NSUserDefaults.standardUserDefaults()
 //        let userid = ud.objectForKey("userid")as! String
@@ -286,6 +285,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         //        headerView.headerImage.setImageWithURL(NSURL.init(string:Bang_Image_Header+arrayphoto[1])!, placeholderImage: UIImage.init(named: "01"))
         headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*360/375)
+        print(goodsInfo.price)
         headerView.price.text = "¥"+goodsInfo.price!
         headerView.desciption.text = goodsInfo.description
         headerView.desciption.adjustsFontSizeToFitWidth = true
@@ -593,6 +593,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             
             _ = QQApiInterface.SendReqToQZone(req)
+            bottom.hidden = true
+            case 6:
             bottom.hidden = true
         default:
             print("微博")

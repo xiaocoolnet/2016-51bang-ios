@@ -88,27 +88,39 @@ class TaskList: JSONJoy {
 class TaskInfo: JSONJoy {
     
     var id:String?
+    var order_num:String?
     var userid:String?
     var title:String?
-    var price:String?
+    var sound:String?
+    var soundtime:String?
     var type:String?
+    var price:String?
+    var unit:String?
     var description:String?
-    var time:String?
+    var address:String?
     var longitude:String?
     var latitude:String?
-    var expirydate:String?
-    var address:String?
     var saddress:String?
     var slongitude:String?
     var slatitude:String?
-    var order_num:String?
-    var status:String?
-    var phone:String?
+    var expirydate:String?
+    var paytype:String?
+    var paytime:String?
+    var paystatus:String?
+    var time:String?
+    var hot:String?
     var name:String?
+    var phone:String?
+    var status:String?
+    var photo:String?
+    var idcard:String?
+    var files:String?
+    var evaluate:String?
+    var commentlist:String?
     var apply:applyModel?
     var pic:[PicInfos]?
     var record:String?
-    var soundtime:String?
+   
     
     init(){
         pic = Array<PicInfos>()
@@ -116,25 +128,37 @@ class TaskInfo: JSONJoy {
     required init(_ decoder: JSONDecoder){
         
         id = decoder["id"].string
-        record = decoder["sound"].string
-        price = decoder["price"].string
-        description = decoder["description"].string
+        order_num = decoder["order_num"].string
         userid = decoder["userid"].string
         title = decoder["title"].string
+        title = decoder["title"].string
+        sound = decoder["sound"].string
+        soundtime = decoder["soundtime"].string
         type = decoder["type"].string
-        time = decoder["time"].string
+        price = decoder["price"].string
+        unit = decoder["unit"].string
+        description = decoder["description"].string
+        address = decoder["address"].string
         longitude = decoder["longitude"].string
         latitude = decoder["latitude"].string
+        saddress = decoder["saddress"].string
         slongitude = decoder["slongitude"].string
         slatitude = decoder["slatitude"].string
         expirydate = decoder["expirydate"].string
-        address = decoder["address"].string
-        saddress = decoder["saddress"].string
-        order_num = decoder["order_num"].string
-        status = decoder["status"].string
-        phone = decoder["phone"].string
+        paytype = decoder["paytype"].string
+        paytime = decoder["paytime"].string
+        paystatus = decoder["paystatus"].string
+        time = decoder["time"].string
+        hot = decoder["hot"].string
         name = decoder["name"].string
-        soundtime = decoder["soundtime"].string
+        phone = decoder["phone"].string
+        status = decoder["status"].string
+        photo = decoder["photo"].string
+        idcard = decoder["idcard"].string
+        files = decoder["files"].string
+        evaluate = decoder["evaluate"].string
+
+
         apply = decoder["apply"] as? applyModel
         pic = Array<PicInfos>()
         if decoder["files"].array != nil {

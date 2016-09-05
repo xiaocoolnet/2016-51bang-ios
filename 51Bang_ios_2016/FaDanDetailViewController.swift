@@ -50,7 +50,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func createTableView(){
     
-        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-108)
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.registerNib(UINib(nibName: "TaskDetailTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell")

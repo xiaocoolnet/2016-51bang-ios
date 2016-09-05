@@ -40,12 +40,12 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         view?.removeFromSuperview()
 //        xiaofeiview = self.view.viewWithTag(23)
         xiaofeiview.removeFromSuperview()
-
+        sign = 1
     }
     
     
     override func viewDidLoad() {
-        sign = 1
+        
         GetWWCData("0,1,2,3")
         GetYWCData("4")
         self.title = "我的发单"
@@ -141,11 +141,28 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         finshTable.dataSource = self
         finshTable.tag = 1
 //        self.view.addSubview(finshTable)
+        
+        let HeaderView = UIView.init(frame: CGRectMake(0, 0, WIDTH, 0.01))
+        mTable.tableHeaderView = HeaderView
     
+        //划动手势
+        //右划
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleRight))
+        self.view.addGestureRecognizer(swipeGesture)
+        //左划
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleLeft))
+        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left //不设置是右
+        self.view.addGestureRecognizer(swipeLeftGesture)
+    }
+    func handleRight(){
+        
+       weiBtnAction()
     }
     
-    
-    
+    func handleLeft(){
+        
+         finshBtnAction()
+    }
     func setButton()
     {
         weiBtn.frame = CGRectMake(0, 0, WIDTH / 2, 35)
@@ -232,24 +249,37 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         
         if(sign == 1)
         {
-            print(self.dataSource!)
-            print(indexPath.section)
-            print(self.dataSource![indexPath.section])
-            let cell = MyFaDanCell.init(model: self.dataSource![indexPath.section])
-            cell.payBtn.tag = indexPath.row
-//            let payBtn = cell.viewWithTag(10)as! UIButton
-            cell.payBtn.addTarget(self, action: #selector(self.pay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            return cell
-            
+           
+            if dataSource?.count != 0{
+                print(self.dataSource!)
+                print(indexPath.section)
+                print(self.dataSource![indexPath.section])
+                let cell = MyFaDanCell.init(model: self.dataSource![indexPath.section])
+                cell.payBtn.tag = indexPath.row
+                //            let payBtn = cell.viewWithTag(10)as! UIButton
+                cell.payBtn.addTarget(self, action: #selector(self.pay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                 return cell
+            }else{
+                let cell = UITableViewCell()
+                 return cell
+            }
+           
         }else{
-            print(self.dataSource1)
-            print(indexPath.section)
-            print(self.dataSource1![indexPath.section])
-            let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! YwcTableViewCell
-            cell.setValueWithInfo(self.dataSource1![indexPath.section])
-            cell.selectionStyle = .None
-            cell.pingjia.addTarget(self, action: #selector(self.goPingJia), forControlEvents: UIControlEvents.TouchUpInside)
-            return cell
+            if dataSource1?.count != 0 {
+                print(self.dataSource1)
+                print(indexPath.section)
+                print(self.dataSource1![indexPath.section])
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! YwcTableViewCell
+                cell.setValueWithInfo(self.dataSource1![indexPath.section])
+                cell.selectionStyle = .None
+                cell.pingjia.addTarget(self, action: #selector(self.goPingJia), forControlEvents: UIControlEvents.TouchUpInside)
+                return cell
+            }else{
+                let cell = UITableViewCell()
+                return cell
+            }
+            
             
         }
         

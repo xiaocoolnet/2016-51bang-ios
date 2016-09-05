@@ -42,7 +42,7 @@ extension CommitOrderViewController{
     
     func DistanceForShow()
     {
-        let point1:BMKMapPoint = BMKMapPointForCoordinate( CommitOrderViewController.FirstLocation.coordinate )
+        let point1:BMKMapPoint = BMKMapPointForCoordinate( CommitOrderViewController.FirstLocation.coordinate)
         let point2:BMKMapPoint = BMKMapPointForCoordinate( CommitOrderViewController.SecondLocation.coordinate )
          BMKdistance = BMKMetersBetweenMapPoints( point1 , point2)
         var distanceString = String(BMKdistance / 1000)

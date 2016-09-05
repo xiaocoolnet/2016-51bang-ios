@@ -735,16 +735,20 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         let userid = ud.objectForKey("userid")as! String
         print(userid)
         print(self.photoNameArr)
-        mainHelper.upLoadMessage(userid, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime),phone:self.phone) { (success, response) in
+        mainHelper.upLoadMessage(userid,phone:self.phone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime)) { (success, response) in
             print(response)
-            self.hud1.hide(true)
+            if !success{
+                return
+            }
+//            self.hud1.hide(true)
+           
             //                let aletView = UIAlertView.init(title: "提示", message:"发布成功", delegate: self, cancelButtonTitle: "确定")
             //                aletView.show()
             self.navigationController?.popViewControllerAnimated(true)
             
         }
         
-        
+        self.navigationController?.popViewControllerAnimated(true)
         
         
     }
@@ -843,9 +847,9 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             aletView.show()
             return
         }
-        hud1 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        hud1.animationType = .Zoom
-        hud1.labelText = "正在努力加载"
+//        hud1 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+//        hud1.animationType = .Zoom
+//        hud1.labelText = "正在努力加载"
         print(mp3FilePath.absoluteString)
         if (self.photoArray.count == 0) && (mp3FilePath.absoluteString == "" ){
             self.fabuAction()

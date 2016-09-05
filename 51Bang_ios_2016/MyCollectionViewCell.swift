@@ -16,8 +16,6 @@ class MyCollectionViewCell: UITableViewCell {
     var Price  = UILabel()
     var Button = UIButton()
     
-    
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

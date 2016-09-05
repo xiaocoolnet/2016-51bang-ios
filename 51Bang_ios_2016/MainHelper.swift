@@ -201,7 +201,7 @@
         return pathUrl
     }
     //发布便民信息
-    func upLoadMessage(userid:NSString,type:NSString,title:NSString,content:NSString,photoArray:NSArray,sound:NSString,soundtime:String,phone:String, handle:ResponseBlock){
+    func upLoadMessage(userid:NSString,phone:String,type:NSString,title:NSString,content:NSString,photoArray:NSArray,sound:NSString,soundtime:String, handle:ResponseBlock){
         let url = Bang_URL_Header+"addbbsposts"
         let photoUrl = NSMutableString()
         for i in 0..<photoArray.count {
@@ -255,7 +255,7 @@
     }
     //发布评论
     func upLoadevaluate(userid:NSString,type:NSString,id:NSString,content:NSString,photoArray:NSArray,photo:UIImage,handle:ResponseBlock){
-        let url = Bang_URL_Header+"addbbsposts"
+        let url = Bang_URL_Header+"SetComment"
         let photoUrl = NSMutableString()
         for i in 0..<photoArray.count {
             if i == photoArray.count-1{
@@ -587,7 +587,7 @@
             if(error != nil){
                 handle(success: false, response: error?.description)
             }else{
-                let result = MyGetModel(JSONDecoder(json!))
+                let result = TaskModel(JSONDecoder(json!))
                 print("---")
                 print(result)
                 print("---")
@@ -711,5 +711,66 @@
             
         }
     }
+    //取消订单
+    func quXiaoDingdan(ordernum:NSString,userid:NSString,handle:ResponseBlock){
+        
+        let url = Bang_URL_Header+"cancelorder"
+        let param = [
+            
+            "ordernum":ordernum,
+            "userid":userid
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+        
+    }
     
- }
+    //获取商品详细信息
+    
+    func getshowshopping(id:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"showshoppinginfo"
+        let paramDic = ["id":id]
+        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
+            print(request)
+            let result = GoodsModel2(JSONDecoder(json!))
+            print(result)
+            print(result.data)
+            print(result.status)
+            if result.status == "success"{
+                print(result.data)
+                handle(success: true, response: result.data)
+            }else{
+                handle(success: false, response: result.data)
+                print(result.data)
+                
+            }
+            
+            
+        }
+        
+        
+    }
+
+    
+
+}

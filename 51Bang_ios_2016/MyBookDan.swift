@@ -33,56 +33,59 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     var Data4:[BookDanDataModel] = []
     var Source:[BookDanDataModel] = []
     var mTable = UITableView()
-    let mainHelper = MainHelper()
     var sign = Int()
     var AllDataSource : Array<MyOrderInfo>?
     var DFKDataSource : Array<MyOrderInfo>?
     var DXFDataSource : Array<MyOrderInfo>?
     var DPJDataSource : Array<MyOrderInfo>?
+    let mainHelper = MainHelper()
+    let Btn = UIButton()
+    var row = Int()
     let rect = UIApplication.sharedApplication().statusBarFrame
     override func viewDidLoad() {
+        Btn.tag = 1
         sign = 0
         self.getAllData()
         self.getDFKData()
         self.getDXFData()
         self.getDPJData()
-        let da = BookDanDataModel()
-        da.DshowImage = UIImage.init(named: "01")!
-        da.Dflag = 1
-        da.DPrice = "123"
-        da.DtitleLabel = "哈哈哈海鲜自助"
-        da.DtipLabel = "在注册呢"
-        da.DStatue = "待评价"
-        let da1 = BookDanDataModel()
-        da1.DshowImage = UIImage.init(named: "01")!
-        da1.Dflag = 2
-        da1.DPrice = "123"
-        da1.DtitleLabel = "哈哈哈海鲜自助"
-        da1.DtipLabel = "在注册呢"
-        da1.DStatue = "待付款"
-        
-        let da2 = BookDanDataModel()
-        da2.DshowImage = UIImage.init(named: "01")!
-        da2.Dflag = 3
-        da2.DPrice = "123"
-        da2.DtitleLabel = "哈哈哈海鲜自助"
-        da2.DtipLabel = "在注册呢"
-        da2.DStatue = "待评价"
-        
-        let da3 = BookDanDataModel()
-        da3.DshowImage = UIImage.init(named: "01")!
-        da3.Dflag = 4
-        da3.DPrice = "123"
-        da3.DtitleLabel = "哈哈哈海鲜自助"
-        da3.DtipLabel = "在注册呢"
-        da3.DStatue = "待评价"
-        
-        
-        
-        Data = [da,da1,da2,da3,da2,da3,da3,da,da,da,da]
-        Data2 = [da1,da1]
-        Data3 = [da2,da2,da2]
-        Data4 = [da3]
+//        let da = BookDanDataModel()
+//        da.DshowImage = UIImage.init(named: "01")!
+//        da.Dflag = 1
+//        da.DPrice = "123"
+//        da.DtitleLabel = "哈哈哈海鲜自助"
+//        da.DtipLabel = "在注册呢"
+//        da.DStatue = "待评价"
+//        let da1 = BookDanDataModel()
+//        da1.DshowImage = UIImage.init(named: "01")!
+//        da1.Dflag = 2
+//        da1.DPrice = "123"
+//        da1.DtitleLabel = "哈哈哈海鲜自助"
+//        da1.DtipLabel = "在注册呢"
+//        da1.DStatue = "待付款"
+//        
+//        let da2 = BookDanDataModel()
+//        da2.DshowImage = UIImage.init(named: "01")!
+//        da2.Dflag = 3
+//        da2.DPrice = "123"
+//        da2.DtitleLabel = "哈哈哈海鲜自助"
+//        da2.DtipLabel = "在注册呢"
+//        da2.DStatue = "待评价"
+//        
+//        let da3 = BookDanDataModel()
+//        da3.DshowImage = UIImage.init(named: "01")!
+//        da3.Dflag = 4
+//        da3.DPrice = "123"
+//        da3.DtitleLabel = "哈哈哈海鲜自助"
+//        da3.DtipLabel = "在注册呢"
+//        da3.DStatue = "待评价"
+//        
+//        
+//        
+//        Data = [da,da1,da2,da3,da2,da3,da3,da,da,da,da]
+//        Data2 = [da1,da1]
+//        Data3 = [da2,da2,da2]
+//        Data4 = [da3]
         
         self.navigationController?.navigationBar.hidden = false
         self.view.backgroundColor = RGREY
@@ -99,12 +102,36 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         Source = Data
         
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleRight))
+        self.view.addGestureRecognizer(swipeGesture)
+        //左划
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleLeft))
+        swipeLeftGesture.direction = UISwipeGestureRecognizerDirection.Left //不设置是右
+        self.view.addGestureRecognizer(swipeLeftGesture)
         
+    }
+    
+    func handleRight(){
+        if Btn.tag>1 {
+            Btn.tag = Btn.tag - 1
+            self.changeColorAndDeView(Btn)
+        }else{
+            self.changeColorAndDeView(Btn)
+        }
+    }
+    
+    func handleLeft(){
+        if Btn.tag < 4 {
+            Btn.tag = Btn.tag + 1
+            self.changeColorAndDeView(Btn)
+        }else{
+            self.changeColorAndDeView(Btn)
+        }
     }
     
     func createTableView(){
         mTableview = UITableView.init(frame: CGRectMake(0, 45, WIDTH, self.view.frame.size.height - 45.1 - rect.height )
-            , style: UITableViewStyle.Grouped)
+            )
         mTableview.delegate = self
         mTableview.dataSource  = self
         self.view.addSubview(mTableview)
@@ -240,11 +267,10 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
     }
     
+//    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 1
+//    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if(sign == 0)
         {
             print(self.AllDataSource?.count)
@@ -264,10 +290,10 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             return (self.DXFDataSource?.count
                 )!
         }
-        
 
     }
     
+        
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         
@@ -286,6 +312,8 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }else if sign == 2{
             let cell = MyBookDanCell.init(Data: self.DXFDataSource![indexPath.section],sign: sign)
             cell.targets = self
+            cell.Btn.tag = indexPath.row
+            cell.Btn.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             return  cell
         }else{
             let cell = MyBookDanCell.init(Data: self.DPJDataSource![indexPath.section],sign: sign)
@@ -303,4 +331,41 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
     }
+    
+    func Cancel(btn:UIButton)
+    {
+        self.row = btn.tag
+        print(self.row)
+        if DXFDataSource?.count != 0{
+            print("取消订单")
+            let MyOrderInfo = self.DXFDataSource![btn.tag]
+            let ud = NSUserDefaults.standardUserDefaults()
+            let userid = ud.objectForKey("userid")as! String
+            mainHelper.quXiaoDingdan(MyOrderInfo.order_num!, userid: userid) { (success, response) in
+                if !success {
+                    print("..........")
+                    print(MyOrderInfo.order_num)
+                    return
+                }else{
+                    
+//                self.DXFDataSource?.removeAtIndex(self.row)
+                let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
+                    print(myindexPaths)
+                
+//                self.mTableview.deleteRowsAtIndexPaths([myindexPaths],       withRowAnimation: UITableViewRowAnimation.Right)
+                
+                self.mTableview.reloadData()
+                self.Btn.tag = 3
+                    
+                    alert("取消订单", delegate: self)
+                }
+                
+                
+            }
+            
+        }
+        
+    }
+
+    
 }

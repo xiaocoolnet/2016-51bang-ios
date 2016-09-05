@@ -31,6 +31,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     override func viewWillAppear(animated: Bool) {
         getData()
+        headerRefresh()
         
     }
     override func viewDidAppear(animated: Bool) {
@@ -55,6 +56,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         //        headerView?.tag = 5
         //        convenienceTable.tableHeaderView = headerView
         createRightNavi()
+        
         
     }
     
@@ -298,6 +300,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     //
                     //
                     //                    }
+                    cell.selectionStyle = UITableViewCellSelectionStyle.None
                     cell.boFangButton.addTarget(self, action: #selector(self.boFangButtonActions(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.boFangButton.tag = indexPath.row-1
                     cell.myDelegate = self

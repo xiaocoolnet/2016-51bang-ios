@@ -33,6 +33,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         self.view.backgroundColor = RGREY
         SetBottomView()
         bottom.hidden = true
+        
     }
     
     func setShareButton()
@@ -47,14 +48,14 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         ShareButton.layer.cornerRadius = 10
         self.view.addSubview(ShareButton)
         
-        shareImage.frame = CGRectMake(WIDTH/2-100, self.view.frame.size.height/2-200, 200, 200)
-        self.view.addSubview(shareImage)
-        
-//        TipLabel.frame = CGRectMake( WIDTH / 2 - 100, self.view.frame.size.height - 400, 200, 40)
-//        TipLabel.text = "分享邀请有红包"
-//        TipLabel.textColor  = UIColor.grayColor()
-//        TipLabel.textAlignment = NSTextAlignment.Center
-//        self.view.addSubview(TipLabel)
+//        shareImage.frame = CGRectMake(WIDTH/2-100, self.view.frame.size.height/2-200, 200, 200)
+//        self.view.addSubview(shareImage)
+        let web = UIWebView()
+        web.frame = CGRectMake(WIDTH/2-150, self.view.frame.size.height/2-250, 300, 300)
+        web.backgroundColor = RGREY
+        web.loadRequest(NSURLRequest(URL: NSURL(string: "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7")!))
+        self.view.addSubview(web)
+
     }
     
     
@@ -279,6 +280,8 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             
             
             _ = QQApiInterface.sendReq(req)
+            bottom.hidden = true
+        case 6:
             bottom.hidden = true
         case 9:
             //            var newsObj = QQApiNewsObject()

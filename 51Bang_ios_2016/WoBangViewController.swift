@@ -19,6 +19,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
     var dataSource : Array<TaskInfo>?
     var geocoder = CLGeocoder()
     var distance = NSString()
+//    var qiangdanButton = true
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
 //        self.title = ""
@@ -209,7 +210,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
             self.getAddressWithString((self.dataSource?.count)!-1-indexPath.row)
            
             let distance = self.distance.componentsSeparatedByString(".")
-             cell.distnce.text = distance[0]+"米"
+             cell.distnce.text = distance[0]
         }
         
         return cell
@@ -354,6 +355,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         let vc = TaskDetailViewController()
         let taskInfo = dataSource![(self.dataSource?.count)!-1-indexPath.row]
         vc.taskInfo = taskInfo
+        vc.qiangdanBut = false
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
