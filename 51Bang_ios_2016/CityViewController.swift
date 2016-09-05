@@ -48,10 +48,13 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "选择城市";
-        
+        //接受通知
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)
         cityArray = NSMutableArray();
         citySpell = NSMutableArray();
-        searchCityArray = NSArray();
+        self.tableview.delegate = self
+        self.tableview.dataSource = self
+        searchCityArray = NSArray()
         dataHistoryCitys = SpecifyArray(max: 1);
         
         getCityData();
@@ -80,18 +83,22 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         
         self.historyCitys = self.dataHistoryCitys.getaArray() as! [String];
         
-        let path = NSBundle.mainBundle().pathForResource("citydict", ofType: "plist");
+        let path = NSBundle.mainBundle().pathForResource("area副本", ofType: "plist");
         self.dict = NSMutableDictionary(contentsOfFile: path!);
-        let key:NSArray = self.dict.allKeys;
-        self.citySpell.addObjectsFromArray(key.sortedArrayUsingSelector(#selector(NSNumber.compare(_:))));
+//        let key:NSArray = self.dict.allKeys;
+//        self.citySpell.addObjectsFromArray(key.sortedArrayUsingSelector(#selector(NSNumber.compare(_:))));
         self.sectionCitySpell = NSMutableArray();
-        self.sectionCitySpell.addObjectsFromArray(["定位城市","最近访问城市","热门城市"]);
-        self.sectionCitySpell.addObjectsFromArray(self.citySpell as [AnyObject]);
+        self.sectionCitySpell.addObjectsFromArray(["定位城市","最近访问城市","热门城市","省份列表"]);
+//        self.sectionCitySpell.addObjectsFromArray(self.citySpell as [AnyObject]);
         let allValue:NSArray = self.dict.allValues;
+        print(allValue)
+        
         for oneArr in allValue{
-            for cityName in oneArr as! NSArray{
+            for cityName in (oneArr as! NSDictionary).allKeys {
                 self.cityArray.addObject(cityName);
+                print(cityName)
             }
+            
         }
         
     }
@@ -106,13 +113,37 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         }
         
         //判断是否清空数据
-        if(searchString!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 0){
-            let array:NSArray = self.cityArray;
+        let mycityNmmeAndQu = NSMutableArray()
+            if(searchString!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 0){
+            for city in self.dict.allValues {
+                let mycity = city as! NSDictionary
+                for citynames in mycity.allValues {
+                    for cityname1dic in citynames.allValues {
+                        for cityname2dic in cityname1dic.allKeys {
+                            
+                            let  quname = (cityname1dic.objectForKey(cityname2dic)) as! NSArray
+                            for quName in quname {
+                                mycityNmmeAndQu.addObject((cityname2dic as! String)+(quName as! String))
+//                                print(mycityNmmeAndQu)
+                            }
+                        }
+                    }
+                }
+                
+            }
+            let array:NSArray = mycityNmmeAndQu;
             let result:NSArray = ZYPinYinSearch.searchWithOriginalArray(array as [AnyObject], andSearchText: searchString, andSearchByPropertyName: "");
             self.searchCityArray = result.sortedArrayUsingSelector(#selector(NSNumber.compare(_:)));
         }else{ //清空数据
             
         }
+    }
+    
+    
+    func getMyName(notification:NSNotification){
+        let name = notification.object?.valueForKey("name") as? String
+        dataHistoryCitys.addObject(name!);
+        NSUserDefaults.standardUserDefaults().setObject(dataHistoryCitys.getaArray(), forKey: keyHistory);
     }
     
     /**
@@ -144,8 +175,10 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         if(section < 3){
             return 1;
         }
-        let key:NSString = self.sectionCitySpell.objectAtIndex(section) as! NSString;
-        return self.dict.objectForKey(key)!.count;
+//        let key:NSString = self.sectionCitySpell.objectAtIndex(section) as! NSString;
+        print(self.cityArray.count)
+        return self.cityArray.count;
+        
     }
     
     func numberOfSectionsInTableView(table: UITableView) -> Int {
@@ -153,31 +186,38 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         if(!self.tableview.isEqual(table)){ //搜索结果时
             return 1;
         }
-        return self.sectionCitySpell.count;
+        return 4;
     }
     
-    func sectionIndexTitlesForTableView(table: UITableView) -> [String]? {
-        if(!self.tableview.isEqual(table)){ //搜索结果时
-            return nil;
-        }
-        let arr01:NSArray = self.citySpell;
-        let arr02:NSArray = NSArray(array: ["#","$"," *"]).arrayByAddingObjectsFromArray(arr01 as [AnyObject]);
-        
-        return arr02 as? [String];
-    }
+//    func sectionIndexTitlesForTableView(table: UITableView) -> [String]? {
+//        if(!self.tableview.isEqual(table)){ //搜索结果时
+//            return nil;
+//        }
+//        let arr01:NSArray = self.citySpell;
+//        let arr02:NSArray = NSArray(array: ["#","$"," *"]).arrayByAddingObjectsFromArray(arr01 as [AnyObject]);
+//        
+//        return arr02 as? [String];
+//    }
     
     func tableView(table: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view:SectionView = SectionView.viewFromNibNamed();
         if(!self.tableview.isEqual(table)){ //搜索结果时
             view.addData(self.citySpell.objectAtIndex(section) as! String);
         }else{
+            if section<4 {
             view.addData(self.sectionCitySpell.objectAtIndex(section) as! String);
+            }
+            
         }
         
         return view;
     }
     
     func tableView(tableView: UITableView, section: Int) -> CGFloat {
+        if section == 3 {
+            return 0
+        }
+        print(section)
         return 30;
     }
     
@@ -244,12 +284,14 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             let nib:UINib = UINib(nibName: "TableViewCell", bundle: NSBundle.mainBundle());
             table.registerNib(nib, forCellReuseIdentifier: identifier);
             cell = table.dequeueReusableCellWithIdentifier(identifier) as? TableViewCell;
+            
         }
+        cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         //添加数据
-        var key:NSString = "";
+//        var key:NSString = "";
         if(self.tableview.isEqual(table)){
-            key = self.sectionCitySpell.objectAtIndex(indexPath.section) as! NSString;
-            cell!.setData(self.dict.objectForKey(key)!.objectAtIndex(indexPath.row) as! String);
+//            key = self.sectionCitySpell.objectAtIndex(indexPath.section) as! NSString;
+            cell!.setData(self.cityArray.objectAtIndex(indexPath.row) as! String);
         }else{
             cell!.setData(self.searchCityArray.objectAtIndex(indexPath.row) as! String);
         }
@@ -264,14 +306,15 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             var cityName:String = "";
             if(table != self.tableview){
                 cityName = self.searchCityArray.objectAtIndex(indexPath.row) as! String;
+                self.selectCity(cityName);
             }else{
-                let section = indexPath.section;
-                if(section > 2){//列表城市
-                    let key:NSString = self.sectionCitySpell.objectAtIndex(section) as! NSString;
-                    cityName = self.dict.objectForKey(key)!.objectAtIndex(indexPath.row) as! String;
-                }
+                let citynameVC = CityNameViewController()
+                citynameVC.title = "城市选择"
+                citynameVC.myinfo = self.dict.allValues[indexPath.row].allValues[0] as! NSDictionary
+                
+                    self.navigationController?.pushViewController(citynameVC, animated: true)
             }
-            self.selectCity(cityName);
+//
         }
     }
     

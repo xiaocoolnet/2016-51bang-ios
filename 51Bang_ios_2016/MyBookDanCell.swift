@@ -77,12 +77,12 @@ class MyBookDanCell: UITableViewCell {
         }else if self.sign == 1{
             Statue.text = "待付款"
             Btn.setTitle("付款", forState: UIControlState.Normal)
-            Btn.addTarget(self, action: #selector(self.pay), forControlEvents: UIControlEvents.TouchUpInside)
+//            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }else if self.sign == 2{
 //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待消费"
             Btn.setTitle("取消订单", forState: UIControlState.Normal)
-            Btn.addTarget(self, action: #selector(self.Cancel), forControlEvents: UIControlEvents.TouchUpInside)
+//            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
         }else{
             Statue.text = "待评价"
