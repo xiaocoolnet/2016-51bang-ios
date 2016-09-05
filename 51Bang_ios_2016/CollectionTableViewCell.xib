@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -23,7 +24,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="海鲜自助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tJ0-12-Cpq">
                         <rect key="frame" x="98" y="10" width="64" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="自助自助自助自助自助自助自助自助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxu-UZ-66c">
@@ -49,15 +50,24 @@
                         <color key="textColor" white="0.67000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="29c-Ip-Eul">
+                        <rect key="frame" x="252" y="53" width="64" height="29"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="29" id="ZUT-8g-vLL"/>
+                            <constraint firstAttribute="width" constant="64" id="cd6-Ls-sdy"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="7Qd-NI-REl" firstAttribute="leading" secondItem="tJ0-12-Cpq" secondAttribute="leading" id="4GW-fB-cJj"/>
                     <constraint firstAttribute="trailing" secondItem="t32-uq-NF2" secondAttribute="trailing" constant="8" id="JHR-xG-jWz"/>
                     <constraint firstItem="Mxu-UZ-66c" firstAttribute="top" secondItem="tJ0-12-Cpq" secondAttribute="bottom" constant="5" id="Lbk-Bm-zV1"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="29c-Ip-Eul" secondAttribute="trailing" constant="-4" id="LjN-Mo-2Fo"/>
                     <constraint firstItem="tJ0-12-Cpq" firstAttribute="top" secondItem="mD4-Hs-ZgZ" secondAttribute="top" id="OuO-13-cH6"/>
                     <constraint firstItem="fCH-Jo-Ea9" firstAttribute="bottom" secondItem="mD4-Hs-ZgZ" secondAttribute="bottom" id="PXw-hS-cAW"/>
                     <constraint firstItem="mD4-Hs-ZgZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Qbm-FQ-lO8"/>
                     <constraint firstItem="t32-uq-NF2" firstAttribute="trailing" secondItem="fCH-Jo-Ea9" secondAttribute="trailing" id="T5t-kj-4yx"/>
+                    <constraint firstItem="29c-Ip-Eul" firstAttribute="top" secondItem="t32-uq-NF2" secondAttribute="bottom" constant="25" id="Tra-Dq-GPR"/>
                     <constraint firstAttribute="bottom" secondItem="mD4-Hs-ZgZ" secondAttribute="bottom" constant="10" id="amq-KV-C1H"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mxu-UZ-66c" secondAttribute="trailing" constant="30" id="bLP-Rn-0bZ"/>
                     <constraint firstItem="t32-uq-NF2" firstAttribute="top" secondItem="mD4-Hs-ZgZ" secondAttribute="top" id="cz7-yd-LtM"/>

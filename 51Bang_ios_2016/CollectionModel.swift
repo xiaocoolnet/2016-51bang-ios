@@ -84,7 +84,7 @@ class CollectionInfo: JSONJoy {
         description = decoder["description"].string
         type = decoder["type"].string
         object_id = decoder["object_id"].string
-        price = decoder["price"].string
+        price = decoder["price"].string 
         createtime = decoder["createtime"].string
         longitude = decoder["longitude"].string
         latitude = decoder["latitude"].string

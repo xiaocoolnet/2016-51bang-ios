@@ -13,6 +13,7 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
     let helper = TCVMLogModel()
     let myTableView = UITableView()
     var dataSource : Array<CollectionInfo>?
+    var tag = Int()
     override func viewWillAppear(animated: Bool) {
         self.title = "我的收藏"
         self.getData()
@@ -33,7 +34,7 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
             self.createTableView()
         }
         
-        
+        self.myTableView.reloadData()
     
     }
     func createTableView(){
@@ -53,11 +54,10 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
   
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        
-//        let nextController = BusnissViewController()
-//        dataSource![indexPath.row].id = nextController.goodsInfo.id
-//        dataSource![indexPath.row].description = nextController.goodsInfo.description
-//        dataSource![indexPath.row].price = nextController.goodsInfo.price
-//        self.navigationController?.pushViewController(nextController, animated: true)
+        let nextController = BusnissViewController()
+        nextController.id = (dataSource![(dataSource?.count)! - indexPath.row - 1].object_id)! as String
+        print(nextController.id)
+        self.navigationController?.pushViewController(nextController, animated: true)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -68,12 +68,20 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)as!CollectionTableViewCell
         cell.targetView = self
         cell.selectionStyle = .None
-        let info = self.dataSource![indexPath.row]
+        let info = self.dataSource![(dataSource?.count)! - indexPath.row - 1]
         cell.setValueWithInfo(info)
+        cell.buy.addTarget(self,action: #selector(self.buttonaction), forControlEvents: UIControlEvents.TouchUpInside)
+        tag = indexPath.row
         return cell
         
     }
     
+    func buttonaction(){
+        let nextController = BusnissViewController()
+        nextController.id = (dataSource![(dataSource?.count)! - tag - 1].object_id)! as String
+        print(nextController.id)
+        self.navigationController?.pushViewController(nextController, animated: true)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

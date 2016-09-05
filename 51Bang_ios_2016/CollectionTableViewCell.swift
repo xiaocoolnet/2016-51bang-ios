@@ -39,7 +39,8 @@ class CollectionTableViewCell: UITableViewCell {
         self.buy.layer.borderColor = UIColor.orangeColor().CGColor
         self.buy.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
         self.buy.layer.cornerRadius = 5
-        buy.addTarget(self, action: #selector(self.buttonaction), forControlEvents: UIControlEvents.TouchUpInside)
+        
+//        buy.addTarget(self, action: #selector(self.buttonaction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         // Initialization code
     }
 
@@ -49,10 +50,41 @@ class CollectionTableViewCell: UITableViewCell {
         if info.price == nil{
             self.price.text = "0¥"
         }else{
-            self.price.text = "\(info.price)¥"
+            self.price.text = "\(info.price! as String)¥"
         }
         
-        self.distance.text = "1.4km"
+//        self.distance.text = "1.4km"
+        let ud = NSUserDefaults.standardUserDefaults()
+        let longitude = ud.objectForKey("longitude")as! String
+        let latitude = ud.objectForKey("latitude")as! String
+        let myLongitude = removeOptionWithString(longitude)
+        let myLatitude = removeOptionWithString(latitude)
+        let current = CLLocation.init(latitude: CLLocationDegrees(myLongitude)!, longitude: CLLocationDegrees(myLatitude)!)
+        
+        if info.latitude != "0.0"&&info.latitude != "" && info.longitude != "0.0"&&info.longitude != ""  && info.latitude != nil&&info.longitude != nil{
+            print(info.latitude! as String,info.longitude! as String,"00000000")
+            
+            let before = CLLocation.init(latitude: CLLocationDegrees(info.latitude! as String)!, longitude: CLLocationDegrees(info.longitude! as String)!)
+            
+            let meters = current.distanceFromLocation(before)/1000
+            //                let meter:String = "\(meters)"
+            //                let array = meter.componentsSeparatedByString(".")
+            print(meters)
+            if meters > 1000{
+                distance.text = "1000+km"
+            }else{
+                let distance = String(format:"%.2f",meters)
+                print(distance)
+                self.distance.text = "\(distance)km"
+                
+            }
+            
+            }else{
+               distance.text = ""
+        }
+
+        
+        
         if info.pic.count>0 {
             let imageUrl = Bang_Image_Header+info.pic[0].pictureurl!
             
@@ -70,12 +102,9 @@ class CollectionTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func buttonaction()
-    {
-    
-    let vc = BuyView()
-    targetView.navigationController?.pushViewController(vc, animated: true)
-        
-    }
+//    func buttonaction( )
+//    {
+//        
+//    }
     
 }

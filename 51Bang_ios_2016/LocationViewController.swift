@@ -320,6 +320,9 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
     
     func onGetSuggestionResult(searcher: BMKSuggestionSearch!, result: BMKSuggestionResult!, errorCode error: BMKSearchErrorCode) {
         print("建议代理")
+        if result.keyList == nil{
+            return
+        }
         
         for ( var count = 1 ; count < result.keyList.count ; count++ )
             {
@@ -401,7 +404,7 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
         
         if( result.poiList.first != nil)
         {
-            
+        
 //                createPointAnmation( LocationForView, Title: (result.poiList[0] as! BMKPoiInfo).name)
             
             if( ViewTag == 1 )

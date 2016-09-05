@@ -192,10 +192,10 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if tableView.tag == 0 {
             let next = BusnissViewController()
             if type == ""{
-                next.goodsInfo = self.dataSource![dataSource!.count - 1 - indexPath.row]
+                next.id = self.dataSource![dataSource!.count - 1 - indexPath.row].id!
 //                print(next.id)
             }else{
-                next.goodsInfo = (self.dataSource2[dataSource2.count - 1 - indexPath.row] as! GoodsInfo)
+                next.id = (self.dataSource2[dataSource2.count - 1 - indexPath.row] as! GoodsInfo).id!
 //                print(next.id)
             }
             self.navigationController?.pushViewController(next, animated: true)

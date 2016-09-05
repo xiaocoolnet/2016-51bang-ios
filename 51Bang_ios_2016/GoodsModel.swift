@@ -131,7 +131,7 @@ class GoodsModel2: JSONJoy {
     var status:String?
     //    var datas ＝ Array<GoodsList>()
 //    var datas = Array<GoodsInfo2>()
-    var data:GoodsInfo2?
+    var data = GoodsInfo2()
     var errorData:String?
     init(){
     }
@@ -173,27 +173,27 @@ class GoodsModel2: JSONJoy {
 //}
 
 class GoodsInfo2: JSONJoy {
-    var id:String?
-    var userid:String?
-    var goodsname:String?
-    var type:String?
-    var price:String?
-    var oprice:String?
-    var unit:String?
-    var description:String?
-    var picture:String?
-    var sound:String?
-    var showid:String?
-    var address:String?
-    var longitude:String?
-    var latitude:String?
-    var status:String?
-    var racking:String?
-    var delivery:String?
-    var time:String?
-    var sellnumber:String?
-    var name:String?
-    var phone:String?
+    var id:String!
+    var userid:String!
+    var goodsname:String!
+    var type:String!
+    var price:String!
+    var oprice:String!
+    var unit:String!
+    var description:String!
+    var picture:String!
+    var sound:String!
+    var showid:String!
+    var address:String!
+    var longitude:String!
+    var latitude:String!
+    var status:String!
+    var racking:String!
+    var delivery:String!
+    var time:String!
+    var sellnumber:String!
+    var name:String!
+    var phone:String!
     var pic:[PicInfos]
     var commentlist:[commentlistInfo]
     

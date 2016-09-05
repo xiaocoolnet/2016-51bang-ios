@@ -146,7 +146,7 @@ class PicInfo:JSONJoy{
 
 class PicInfos:JSONJoy{
     
-    var pictureurl:String?
+    var pictureurl:String!
     init(){
         
     }
