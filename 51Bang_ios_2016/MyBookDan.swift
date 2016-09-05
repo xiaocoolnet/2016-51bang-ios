@@ -348,16 +348,19 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                     return
                 }else{
                     
-//                self.DXFDataSource?.removeAtIndex(self.row)
+                self.DXFDataSource?.removeAtIndex(self.row)
                 let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
                     print(myindexPaths)
                 
-//                self.mTableview.deleteRowsAtIndexPaths([myindexPaths],       withRowAnimation: UITableViewRowAnimation.Right)
+                self.mTableview.deleteRowsAtIndexPaths([myindexPaths],       withRowAnimation: UITableViewRowAnimation.Right)
                 
-                self.mTableview.reloadData()
+//                self.mTableview.reloadData()
+                    
                 self.Btn.tag = 3
                     
                     alert("取消订单", delegate: self)
+//                    let myindexPaths = NSIndexPath.init(forRow:0 inSection: 0)
+//                    self.mTableview.deleteRowsAtIndexPaths(<#T##indexPaths: [NSIndexPath]##[NSIndexPath]#>, withRowAnimation: <#T##UITableViewRowAnimation#>)
                 }
                 
                 

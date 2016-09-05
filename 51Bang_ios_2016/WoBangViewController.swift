@@ -32,7 +32,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         print(self.latitude)
         print(self.longitude)
 
-        self.title = "我帮"
+        self.title = "抢单"
         self.createRightItemWithTitle("任务(0)")
 //        self.createTableView()
         self.GetData()

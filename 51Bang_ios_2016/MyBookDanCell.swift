@@ -223,7 +223,7 @@ class MyBookDanCell: UITableViewCell {
 //                self.myTableView.reloadData()
 
 
-                alert("取消订单", delegate: self)
+//                alert("取消订单", delegate: self)
             }
             
             
