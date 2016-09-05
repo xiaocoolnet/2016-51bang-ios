@@ -66,6 +66,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     override func viewWillDisappear(animated: Bool) {
         userLocationCenter.setObject(String(MainViewController.userLocationForChange.coordinate.latitude), forKey: "latitude")
         userLocationCenter.setObject(String(MainViewController.userLocationForChange.coordinate.longitude), forKey: "longitude")
+       print(String(MainViewController.userLocationForChange.coordinate.latitude))
         userLocationCenter.setObject(MainViewController.BMKname, forKey: "myAddress")
         userLocationCenter.setObject(MainViewController.city, forKey: "subLocality")
         geocodeSearch.delegate = nil

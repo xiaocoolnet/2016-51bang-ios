@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 var isFavorite = Bool()
 class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate {
@@ -29,7 +30,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     
     
-    var goodsInfo = GoodsInfo()
+    var goodsInfo = GoodsInfo2()
     var isdetails = Bool()
     var footView : ShopFootViewCell!
     let myTableView = UITableView()
@@ -41,8 +42,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var geocoder = CLGeocoder()
     var photoArr = NSMutableArray()
     let mainHelper = MainHelper()
+    var id = String()
     override func viewWillAppear(animated: Bool) {
-        
+        getData()
         self.view.backgroundColor = RGREY
         self.title="特卖详情"
         self.tabBarController?.tabBar.hidden = true
@@ -55,28 +57,42 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     func orderList(){
         
         let vc = AffirmOrderViewController()
-//        vc.info = self.goodsInfo
+        vc.info = self.goodsInfo
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
-//    func getData(){
-//        mainHelper.getshowshopping(id, handle: { [unowned self] (success, response) in
-//            dispatch_async(dispatch_get_main_queue(), {
-//                if success == false {
-//                    
-//                    return
-//                }else{
-//                    print(response)
-////                    Http(JSONDecoder(data))
-//                    self.goodsInfo = response as! GoodsInfo2
-//                    print(self.goodsInfo)
-//                }
-//            })
-//            })
-//
-//        
-//    }
+    func getData(){
+        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+        mainHelper.getshowshopping(id, handle: { [unowned self] (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if success == false {
+                    
+                    return
+                }else{
+                    hud.hide(true)
+                    print(response)
+//                  Http(JSONDecoder(data))
+                    self.goodsInfo = response as! GoodsInfo2
+                    print(self.goodsInfo)
+                    print(self.goodsInfo.id)
+                    print(self.goodsInfo.price)
+                    print(self.goodsInfo.pic)
+                    print(self.goodsInfo.goodsname)
+                    print(self.goodsInfo.address)
+                    print(self.goodsInfo.longitude)
+                    print(self.goodsInfo.latitude)
+                    self.viewDidLoad()
+                    self.myTableView.reloadData()
+                }
+            })
+            })
+
+        
+    }
 
     
     func click(){
@@ -136,21 +152,22 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let cell = tableView.dequeueReusableCellWithIdentifier("site")as! SiteTableViewCell
             cell.callPhone.addTarget(self, action: #selector(self.call), forControlEvents: UIControlEvents.TouchUpInside)
             let ud = NSUserDefaults.standardUserDefaults()
-            let myLongitude = ud.objectForKey("longitude")as! String
-            let myLatitude = ud.objectForKey("latitude")as! String
-            let longitude = removeOptionWithString(myLongitude)
-            let latitude = removeOptionWithString(myLatitude)
-            print(longitude)
-            print(latitude)
-            let current = CLLocation.init(latitude: CLLocationDegrees(latitude)!, longitude: CLLocationDegrees(longitude)!)
+            let longitude = ud.objectForKey("longitude")as! String
+            let latitude = ud.objectForKey("latitude")as! String
+            let myLongitude = removeOptionWithString(longitude)
+            let myLatitude = removeOptionWithString(latitude)
+            print(myLongitude)
+            print(myLatitude)
+            let current = CLLocation.init(latitude: CLLocationDegrees(myLongitude)!, longitude: CLLocationDegrees(myLatitude)!)
             if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
-                print(goodsInfo.latitude,goodsInfo.longitude,"00000000")
+                print(goodsInfo.latitude! as String,goodsInfo.longitude! as String,"00000000")
                 
-                let before = CLLocation.init(latitude: CLLocationDegrees(self.goodsInfo.latitude!)!, longitude: CLLocationDegrees(self.goodsInfo.longitude!)!)
+                let before = CLLocation.init(latitude: CLLocationDegrees(self.goodsInfo.latitude! as String)!, longitude: CLLocationDegrees(self.goodsInfo.longitude! as String)!)
                
                 let meters = current.distanceFromLocation(before)/1000
 //                let meter:String = "\(meters)"
 //                let array = meter.componentsSeparatedByString(".")
+                print(meters)
                 if meters > 1000{
                     cell.distance.text = "1000+km"
                 }else{
@@ -163,7 +180,11 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             }else{
                 cell.distance.text = ""
             }
+            if self.goodsInfo.address != nil{
+            print(self.goodsInfo.address)
             cell.title.text = self.goodsInfo.address
+            }
+            print(cell.title.text)
             cell.title.adjustsFontSizeToFitWidth = true
             cell.selectionStyle = .None
             return cell
@@ -185,7 +206,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             view1.userInteractionEnabled = false
             cell.addSubview(view1)
             
-            let labelcomment = UILabel.init(frame: CGRectMake(20, 35, 60, 38))
+            let labelcomment = UILabel.init(frame: CGRectMake(20, 15, 60, 38))
             labelcomment.text = "评价"
             labelcomment.userInteractionEnabled = true
             cell.addSubview(labelcomment)
@@ -285,11 +306,15 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         //        headerView.headerImage.setImageWithURL(NSURL.init(string:Bang_Image_Header+arrayphoto[1])!, placeholderImage: UIImage.init(named: "01"))
         headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*360/375)
-        print(goodsInfo.price)
-        headerView.price.text = "¥"+goodsInfo.price!
-        headerView.desciption.text = goodsInfo.description
+//        print(goodsInfo.price)
+        if goodsInfo.price != nil {
+            headerView.price.text = "¥"+goodsInfo.price!
+        }
+        if goodsInfo.description !=  nil{
+            headerView.desciption.text = goodsInfo.description
+        }
         headerView.desciption.adjustsFontSizeToFitWidth = true
-        if goodsInfo.description == "" {
+        if goodsInfo.description == nil {
             headerView.desciption.removeFromSuperview()
             headerView.frame.size.height = 250
             
@@ -340,7 +365,10 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         }else{
             footView?.buy.hidden = false
         }
-        footView?.price.text = "¥"+goodsInfo.price!
+        if goodsInfo.price != nil{
+            footView?.price.text = "¥"+goodsInfo.price!
+        }
+        
         //        myTableView.tableFooterView = footView
         //        myTableView.tableFooterView?.frame.size.height = WIDTH*50/375
         footView?.frame = CGRectMake(0, HEIGHT-WIDTH*50/375 - 64, WIDTH, WIDTH*50/375)

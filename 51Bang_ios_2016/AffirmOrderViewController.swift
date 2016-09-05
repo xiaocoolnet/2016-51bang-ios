@@ -15,7 +15,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     let addButton = UIButton()
     let deleteButton = UIButton()
     var num = 1
-    var info = GoodsInfo()
+    var info = GoodsInfo2()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.hidden = false

@@ -18,6 +18,7 @@ class MyBookDanCell: UITableViewCell {
     var sign = Int()
     var data = Array<MyOrderInfo>?()
     var  zhifubaoprice = String()
+    var  zhifubaosubject = String()
     var targets:UIViewController!
     let mainHelp = MainHelper()
     var id = String()
@@ -117,6 +118,7 @@ class MyBookDanCell: UITableViewCell {
         Price.text = "￥" + Data.price!
         Price.textColor = UIColor.redColor()
         zhifubaoprice = Data.price!
+        zhifubaosubject = Data.goodsname!
         self.addSubview(Price)
         
         
@@ -196,6 +198,7 @@ class MyBookDanCell: UITableViewCell {
         print("付款")
         let vc = PayViewController()
         vc.price = ((zhifubaoprice) as NSString).doubleValue
+        vc.subject = zhifubaosubject as NSString
         targets.navigationController?.pushViewController(vc, animated: true)
 
     }
