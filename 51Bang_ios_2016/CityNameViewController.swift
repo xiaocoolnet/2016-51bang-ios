@@ -56,7 +56,7 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
             self.navigationController?.pushViewController(myVc, animated: true)
         }else{
 //           let mainVC =  MainViewController()
-            print(self.mycityStr)
+//            print(self.mycityStr)
             
             let cityStr = self.mycityStr+(self.mydataSource[indexPath.row] as! String)
             let dic = ["name":cityStr];

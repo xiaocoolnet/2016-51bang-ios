@@ -91,12 +91,12 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         self.sectionCitySpell.addObjectsFromArray(["定位城市","最近访问城市","热门城市","省份列表"]);
 //        self.sectionCitySpell.addObjectsFromArray(self.citySpell as [AnyObject]);
         let allValue:NSArray = self.dict.allValues;
-        print(allValue)
+        
         
         for oneArr in allValue{
             for cityName in (oneArr as! NSDictionary).allKeys {
                 self.cityArray.addObject(cityName);
-                print(cityName)
+//                print(cityName)
             }
             
         }
@@ -176,7 +176,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             return 1;
         }
 //        let key:NSString = self.sectionCitySpell.objectAtIndex(section) as! NSString;
-        print(self.cityArray.count)
+//        print(self.cityArray.count)
         return self.cityArray.count;
         
     }
