@@ -838,7 +838,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             }else if indexPath.row == 3{
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell2")as! FabuTableViewCell2
                 cell.title.text = "位置"
-                if LocationViewController.myAddressOfpoint == "" {
+                if !self.ishaveNext{
                     cell.textField.text = MainViewController.BMKname
                     address1 = MainViewController.BMKname
                     self.myLiction = MainViewController.locationForUser.coordinate
@@ -986,7 +986,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 })
                 
             }
-            print(indexPath.row)
+//            print(indexPath.row)
         }else {
             coverView.removeFromSuperview()
             leftTableView.removeFromSuperview()

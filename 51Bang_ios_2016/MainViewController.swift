@@ -14,6 +14,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     let mainHelper = MainHelper()
     var city = String()
+    var dingWeiStr = String()
     var longitude = String()
     var latitude = String()
     let backView = UIView()
@@ -68,7 +69,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         userLocationCenter.setObject(String(MainViewController.userLocationForChange.coordinate.longitude), forKey: "longitude")
        print(String(MainViewController.userLocationForChange.coordinate.latitude))
         userLocationCenter.setObject(MainViewController.BMKname, forKey: "myAddress")
-        userLocationCenter.setObject(MainViewController.city, forKey: "subLocality")
+        userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
         geocodeSearch.delegate = nil
         locationService.delegate = nil
         mapView.viewWillDisappear()
@@ -500,6 +501,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 LocationViewController.secondAddress = result.address
                 MainViewController.BMKname =  (result.poiList[0] as! BMKPoiInfo).name
                 MainViewController.city = (result.poiList[0] as! BMKPoiInfo).city
+                self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
                 address = MainViewController.BMKname
                 print(result.addressDetail.city)
                 print(result.addressDetail.streetName)
