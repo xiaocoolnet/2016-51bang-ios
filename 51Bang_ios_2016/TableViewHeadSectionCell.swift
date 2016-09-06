@@ -65,7 +65,7 @@ class TableViewHeadSectionCell: UITableViewCell,UICollectionViewDelegate,UIColle
 //        }else{
 //            return CGSizeMake(widht / 3 - 20,40);
 //        }
-        return CGSizeMake(widht / 3 - 20,40);
+        return CGSizeMake(widht,40);
     }
 
     /** 设置每组的cell的边界 **/

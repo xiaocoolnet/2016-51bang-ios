@@ -129,7 +129,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
 
     func createTableView(){
         
-        mTable = UITableView.init(frame: CGRectMake(0, 40, WIDTH, self.view.frame.size.height - 45 - rect.height ), style: UITableViewStyle.Grouped)
+        mTable = UITableView.init(frame: CGRectMake(0, 40, WIDTH, self.view.frame.size.height  - rect.height ), style: UITableViewStyle.Grouped)
         self.view.addSubview(mTable)
         mTable.delegate = self
         mTable.dataSource = self

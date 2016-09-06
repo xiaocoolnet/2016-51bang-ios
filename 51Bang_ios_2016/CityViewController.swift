@@ -37,7 +37,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     //当前定位城市名称
     var cityName:String = "正在获取...";
     //最近访问城市
-    var historyCitys = [""];
+    var historyCitys = ["北京市朝阳区"];
     //热门城市
     let hotCitys = ["上海","北京","广州","深圳","武汉","天津","西安","南京","杭州"];
     //最近访问城市数据
@@ -279,8 +279,15 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                 break;
             case 1: // 最近使用城市
                 
-                cellHead!.addData(historyCitys, city: selectCity);
                 
+                if historyCitys[0] == "北京" {
+                    cellHead!.addData(["北京市朝阳区"], city: selectCity);
+                }else{
+                    cellHead!.addData(historyCitys, city: selectCity);
+                }
+                
+                print(historyCitys)
+                print(selectCity)
                 break;
                 
             default:

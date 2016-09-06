@@ -298,7 +298,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         opt.appScheme = "a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
-        if dataSource![sender.tag].latitude != nil && self.dataSource![sender.tag].longitude != nil{
+        if dataSource![sender.tag].latitude != nil && self.dataSource![sender.tag].longitude != nil && dataSource![sender.tag].latitude != "" && self.dataSource![sender.tag].longitude != ""{
             coor1.latitude = CLLocationDegrees(self.dataSource![sender.tag].latitude! as String)!
             coor1.longitude = CLLocationDegrees(self.dataSource![sender.tag].longitude! as String)!
         }else{
@@ -307,7 +307,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         
         //指定起点名称
-        if self.dataSource![sender.tag].address != nil {
+        if self.dataSource![sender.tag].address != nil && self.dataSource![sender.tag].address != ""{
             start.name = self.dataSource![sender.tag].address!
         }else{
             alert("地址不能为空", delegate: self)
@@ -322,7 +322,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         let end = BMKPlanNode.init()
         
         var coor2 = CLLocationCoordinate2D.init()
-        if dataSource![sender.tag].slatitude != nil && self.dataSource![sender.tag].slongitude != nil{
+        if dataSource![sender.tag].slatitude != nil && self.dataSource![sender.tag].slongitude != nil && dataSource![sender.tag].slatitude != "" && self.dataSource![sender.tag].slongitude != ""{
             coor2.latitude = CLLocationDegrees(self.dataSource![sender.tag].slatitude! as String)!
             coor2.longitude = CLLocationDegrees(self.dataSource![sender.tag].slongitude! as String)!
         }else{
@@ -331,7 +331,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         end.pt = coor2
         //指定终点名称
-        if self.dataSource![sender.tag].saddress != nil {
+        if self.dataSource![sender.tag].saddress != nil && self.dataSource![sender.tag].saddress != "" {
             end.name = self.dataSource![sender.tag].saddress!
         }else{
             alert("地址不能为空", delegate: self)
@@ -373,7 +373,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         opt.appScheme = "a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
-        if dataSource![sender.tag].latitude != nil && self.dataSource![sender.tag].longitude != nil{
+        if dataSource![sender.tag].latitude != nil && self.dataSource![sender.tag].longitude != nil && dataSource![sender.tag].latitude != "" && self.dataSource![sender.tag].longitude != ""{
             coor1.latitude = CLLocationDegrees(self.dataSource![sender.tag].latitude! as String)!
             coor1.longitude = CLLocationDegrees(self.dataSource![sender.tag].longitude! as String)!
         }else{
@@ -382,7 +382,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         
         //指定起点名称
-        if self.dataSource![sender.tag].address != nil {
+        if self.dataSource![sender.tag].address != nil && self.dataSource![sender.tag].address != ""{
             start.name = self.dataSource![sender.tag].address!
         }else{
             alert("地址不能为空", delegate: self)
@@ -397,7 +397,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         let end = BMKPlanNode.init()
         
         var coor2 = CLLocationCoordinate2D.init()
-        if dataSource![sender.tag].slatitude != nil && self.dataSource![sender.tag].slongitude != nil{
+        if dataSource![sender.tag].slatitude != nil && self.dataSource![sender.tag].slongitude != nil && dataSource![sender.tag].slatitude != "" && self.dataSource![sender.tag].slongitude != ""{
             coor2.latitude = CLLocationDegrees(self.dataSource![sender.tag].slatitude! as String)!
             coor2.longitude = CLLocationDegrees(self.dataSource![sender.tag].slongitude! as String)!
         }else{
@@ -406,7 +406,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         }
         end.pt = coor2
         //指定终点名称
-        if self.dataSource![sender.tag].saddress != nil {
+        if self.dataSource![sender.tag].saddress != nil && self.dataSource![sender.tag].saddress != "" {
             end.name = self.dataSource![sender.tag].saddress!
         }else{
             alert("地址不能为空", delegate: self)

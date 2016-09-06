@@ -102,7 +102,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         opt.appScheme = "a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
-        if info.latitude != nil && info.longitude != nil{
+        if info.latitude != nil && info.longitude != nil && info.latitude != "" && info.longitude != ""{
             coor1.latitude = CLLocationDegrees(info.latitude! as String)!
             coor1.longitude = CLLocationDegrees(info.longitude! as String)!
         }else{
@@ -111,7 +111,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         }
         
         //指定起点名称
-        if self.info.address != nil {
+        if self.info.address != nil && self.info.address != ""{
             start.name = self.info.address!
         }else{
             alert("地址不能为空", delegate: self)
@@ -127,7 +127,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         let end = BMKPlanNode.init()
         
         var coor2 = CLLocationCoordinate2D.init()
-        if info.slatitude != nil && info.slongitude != nil{
+        if info.slatitude != nil && info.slongitude != nil && info.slatitude != "" && info.slongitude != ""{
             coor2.latitude = CLLocationDegrees(info.slatitude! as String)!
             coor2.longitude = CLLocationDegrees(info.slongitude! as String)!
         }else{
@@ -136,7 +136,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         }
         end.pt = coor2
         //指定终点名称
-        if self.info.saddress != nil {
+        if self.info.saddress != nil && self.info.saddress != ""{
             end.name = self.info.saddress!
         }else{
             alert("地址不能为空", delegate: self)
@@ -178,7 +178,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         opt.appScheme = "a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
-        if info.latitude != nil && info.longitude != nil{
+        if info.latitude != nil && info.longitude != nil && info.latitude != "" && info.longitude != ""{
             coor1.latitude = CLLocationDegrees(info.latitude! as String)!
             coor1.longitude = CLLocationDegrees(info.longitude! as String)!
         }else{
@@ -187,13 +187,13 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         }
         
         //指定起点名称
-        if self.info.address != nil {
+        if self.info.address != nil && self.info.address != ""{
             start.name = self.info.address!
         }else{
             alert("地址不能为空", delegate: self)
             return
         }
-//        start.name = self.info.address!
+        //        start.name = self.info.address!
         start.pt = coor1
         //指定起点
         opt.startPoint = start
@@ -203,7 +203,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         let end = BMKPlanNode.init()
         
         var coor2 = CLLocationCoordinate2D.init()
-        if info.slatitude != nil && info.slongitude != nil{
+        if info.slatitude != nil && info.slongitude != nil && info.slatitude != "" && info.slongitude != ""{
             coor2.latitude = CLLocationDegrees(info.slatitude! as String)!
             coor2.longitude = CLLocationDegrees(info.slongitude! as String)!
         }else{
@@ -212,7 +212,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         }
         end.pt = coor2
         //指定终点名称
-        if self.info.saddress != nil {
+        if self.info.saddress != nil && self.info.saddress != ""{
             end.name = self.info.saddress!
         }else{
             alert("地址不能为空", delegate: self)
