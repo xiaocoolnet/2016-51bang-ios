@@ -43,6 +43,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var photoArr = NSMutableArray()
     let mainHelper = MainHelper()
     var id = String()
+    var myPhotoArray = NSMutableArray()
     override func viewWillAppear(animated: Bool) {
         getData()
         self.view.backgroundColor = RGREY
@@ -183,6 +184,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             if self.goodsInfo.address != nil{
             print(self.goodsInfo.address)
             cell.title.text = self.goodsInfo.address
+            cell.title.adjustsFontSizeToFitWidth = true
             }
             print(cell.title.text)
             cell.title.adjustsFontSizeToFitWidth = true
@@ -191,7 +193,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
         }else if (indexPath.row == 1){
             let cell = tableView.dequeueReusableCellWithIdentifier("cell2")as!EditTableViewCell2
-            cell.title.text = "我的发布"
+            cell.title.text = "商家发布"
             cell.selectionStyle = .None
             let view = UIView.init(frame: CGRectMake(0, 59, WIDTH, 1))
             view.backgroundColor = UIColor.whiteColor()
@@ -278,21 +280,33 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         headerView =  (NSBundle.mainBundle().loadNibNamed("ShopHeaderViewCell", owner: nil, options: nil).first as? ShopHeaderViewCell)!
         
-        let scrollView = UIScrollView.init(frame:CGRectMake(0, 0, WIDTH, 200))
+        let scrollView = UIScrollView.init(frame:CGRectMake(0, 0, WIDTH, 220))
         scrollView.backgroundColor = UIColor.clearColor()
         //
         if goodsInfo.pic.count > 0  {
             for num in 0...goodsInfo.pic.count-1{
                 let headerPhotoView = UIImageView()
-                headerPhotoView.frame = CGRectMake(CGFloat(num) * WIDTH, 0, WIDTH, 200)
-                headerPhotoView.setImageWithURL(NSURL.init(string:Bang_Image_Header+goodsInfo.pic[num].pictureurl!), placeholderImage: UIImage.init(named: "01"))
+                headerPhotoView.frame = CGRectMake(CGFloat(num) * WIDTH, 0, WIDTH, 220)
+                headerPhotoView.sd_setImageWithURL(NSURL(string:Bang_Image_Header+goodsInfo.pic[num].pictureurl!), placeholderImage: UIImage.init(named: "01"))
                 scrollView.addSubview(headerPhotoView)
-                
+                headerPhotoView.userInteractionEnabled = true
+                headerPhotoView.tag = num
+//                
+//                let backButton = UIButton()
+//                backButton.frame = CGRectMake(CGFloat(num) * WIDTH, 0, WIDTH, 220)
+////                backButton.frame.origin.y = headerPhotoView.frame.origin.y + 98
+//                backButton.backgroundColor = UIColor.clearColor()
+//                backButton.tag = num
+//                headerView.addSubview(backButton)
+//                backButton .addTarget(self, action:#selector(self.lookImage(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                let tapGR = UITapGestureRecognizer(target: self, action: #selector(BusnissViewController.lookImage(_:)))
+                headerPhotoView.addGestureRecognizer(tapGR)
+                myPhotoArray.addObject(headerPhotoView)
             }
             
         }else{
             let headerPhotoView1 = UIImageView()
-            headerPhotoView1.frame = CGRectMake(0, 0, WIDTH, 200)
+            headerPhotoView1.frame = CGRectMake(0, 0, WIDTH, 220)
             headerPhotoView1.image = UIImage(named: "01")
             scrollView.addSubview(headerPhotoView1)
         }
@@ -309,22 +323,34 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        print(goodsInfo.price)
         if goodsInfo.price != nil {
             headerView.price.text = "¥"+goodsInfo.price!
+        }else{
+            headerView.price.text = "¥"
         }
         if goodsInfo.description !=  nil{
+//            if goodsInfo.description.characters.count > 60 {
+//              
+//              let newDescription = (goodsInfo.description as NSString).substringToIndex(60)
+//              headerView.desciption.text = newDescription
+//            }
             headerView.desciption.text = goodsInfo.description
-        }
-        headerView.desciption.adjustsFontSizeToFitWidth = true
-        if goodsInfo.description == nil {
-            headerView.desciption.removeFromSuperview()
-            headerView.frame.size.height = 250
-            
-        }else{
+//            headerView.desciption.adjustsFontSizeToFitWidth = true
             let height = calculateHeight(goodsInfo.description!, size: 15, width:WIDTH-16)
             print(height)
             headerView.desciption.frame.size.height = height+10
             headerView.frame.size.height = WIDTH*350/375
+        }else{
+            headerView.desciption.text = ""
+            headerView.desciption.removeFromSuperview()
+            headerView.frame.size.height = 250
         }
         
+//        if goodsInfo.description == nil {
+//            
+//            
+//        }else{
+//            
+//        }
+//        
         
         headerView.favorite.addTarget(self, action: #selector(self.favorite), forControlEvents: UIControlEvents.TouchUpInside)
         headerView.favorite.tag = 10
@@ -385,10 +411,21 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
     }
     
+    func lookImage(sender:UITapGestureRecognizer) {
+        
+        let myVC = LookPhotoVC()
+        myVC.myPhotoArray =  myPhotoArray
+        print(myPhotoArray)
+        myVC.title = "查看图片"
+        myVC.count = headerView.tag
+        self.navigationController?.pushViewController(myVC, animated: true)
+        
+    }
     
     func myfabu(){
         
         let vc = MenuViewController()
+        vc.userid = self.goodsInfo.userid as String!
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

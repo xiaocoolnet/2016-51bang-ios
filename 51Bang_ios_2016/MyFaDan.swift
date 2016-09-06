@@ -47,7 +47,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     override func viewDidLoad() {
         
         GetWWCData("0,1,2,3")
-        GetYWCData("4")
+        
         self.title = "我的发单"
         self.navigationController?.navigationBar.hidden = false
         decorView.frame = CGRectMake(0, 35, WIDTH / 2, 5)
@@ -119,7 +119,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 self.dataSource = response as? Array<TaskInfo> ?? []
                 self.Data = self.dataSource!
 //                self.GetYWCData("4")
-//                self.createTableView()
+                self.createTableView()
                 print(self.dataSource?.count)
                 
             })
@@ -157,6 +157,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func handleRight(){
         
        weiBtnAction()
+    
     }
     
     func handleLeft(){
@@ -186,6 +187,9 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func finshBtnAction()
     {
         sign = 0
+        GetYWCData("4")
+        self.dataSource?.removeAll()
+        
 //        self.GetYWCData("4")
 //        self.GetWWCData("0,1,2,3")
         weiBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
@@ -201,6 +205,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func weiBtnAction()
     {
         sign = 1
+        self.dataSource1?.removeAll()
         self.GetWWCData("0,1,2,3")
         weiBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
         finshBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)

@@ -14,6 +14,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let myTableView = UITableView()
     let  shopHelper = ShopHelper()
     var dataSource : Array<GoodsInfo>?
+    var userid = String()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -25,7 +26,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "我的发布"
+        self.title = "商家发布"
         self.view.backgroundColor = RGREY
         
         
@@ -43,8 +44,8 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
             hud.animationType = .Zoom
             hud.labelText = "正在努力加载"
-            let ud = NSUserDefaults.standardUserDefaults()
-            let userid = ud.objectForKey("userid")as! String
+//            let ud = NSUserDefaults.standardUserDefaults()
+//            let userid = ud.objectForKey("userid")as! String
             
             shopHelper.getMyFaBu(userid) { (success, response) in
                 if !success {
@@ -82,10 +83,10 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyFabuTableViewCell")as! MyFabuTableViewCell
-        cell.delete.tag = indexPath.row
-        cell.delete.addTarget(self, action:#selector(self.onClick(_:)) , forControlEvents: UIControlEvents.TouchUpInside)
-        cell.edit.tag = indexPath.row+100
-        cell.edit.addTarget(self, action:#selector(self.editAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        cell.delete.tag = indexPath.row
+//        cell.delete.addTarget(self, action:#selector(self.onClick(_:)) , forControlEvents: UIControlEvents.TouchUpInside)
+//        cell.edit.tag = indexPath.row+100
+//        cell.edit.addTarget(self, action:#selector(self.editAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.setValueWithInfo(self.dataSource![indexPath.row])
         return cell
     }
@@ -93,7 +94,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let detailsVC = BusnissViewController()
         detailsVC.isdetails = true
-        detailsVC.goodsInfo.id = self.dataSource![indexPath.row].id
+        detailsVC.id = self.dataSource![indexPath.row].id!
         self.navigationController?.pushViewController(detailsVC, animated: true)
     }
     

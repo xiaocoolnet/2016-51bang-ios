@@ -24,9 +24,9 @@ class MyFabuTableViewCell: UITableViewCell {
     
     @IBOutlet weak var sell: UILabel!
     
-    @IBOutlet weak var delete: UIButton!
+//    @IBOutlet weak var delete: UIButton!
     
-    @IBOutlet weak var edit: UIButton!
+//    @IBOutlet weak var edit: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

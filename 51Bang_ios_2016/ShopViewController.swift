@@ -11,7 +11,8 @@ import MBProgressHUD
 
 class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate,ViewControllerDelegate {
     
-    @IBOutlet weak var myTableView: UITableView!
+//    @IBOutlet weak var myTableView: UITableView!
+    var myTableView = UITableView()
     var showLogin = false
     var type = String()
     let shopHelper = ShopHelper()
@@ -36,14 +37,16 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 //    var array = ["餐饮美食","休闲/娱乐/酒店","服饰/箱包","运动户外/休闲/健身","日用百货","培训机构/教育器材","汽车用品/买卖","二手买卖","家纺家饰/家装建材","美装日化/美容美发","代购进口产品","黄金珠宝","数码家电/安全防护/电工电气","印刷广告/包装市场/行政采购","照明/电子/五金工具/机械/仪器仪表","橡塑/精细/钢材","纺织、皮革市场","医药保健","货运/物流","食品/海鲜/果蔬/农产品/茶叶","婚纱摄影/个人写真","其他"]
     override func viewWillAppear(animated: Bool) {
         self.GetData()
-        viewDidLoad()
+
         self.tabBarController?.tabBar.hidden = false
         self.navigationController?.navigationBar.hidden = false
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "特卖"
+        self.view.backgroundColor = UIColor.whiteColor()
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]
         
         isShow = false
@@ -100,12 +103,15 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func createTableView(){
-        
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64-49)
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.registerNib(UINib(nibName: "ShopTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         myTableView.rowHeight = WIDTH*80/375
         myTableView.tag = 0
+        
+        self.view.addSubview(myTableView)
+//
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tableView.tag == 0 {
@@ -128,7 +134,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }else if tableView.tag == 1{
             
-            return myDic!.count
+            return myDic!.count + 1
         }else{
             
             return self.rightArr.count
@@ -156,10 +162,10 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             cell.selectionStyle = .None
             //            if type == dataSource![indexPath.row].type {
             if type == ""{
-                let goodsInfo = self.dataSource![dataSource!.count - 1 - indexPath.row]
+                let goodsInfo = self.dataSource![indexPath.row]
                 cell.setValueWithModel(goodsInfo)
             }else{
-                let goodsInfo = self.dataSource2[dataSource2.count - 1 - indexPath.row]
+                let goodsInfo = self.dataSource2[indexPath.row]
                 cell.setValueWithModel(goodsInfo as! GoodsInfo)
             }
             //            }
@@ -168,7 +174,12 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }else if tableView.tag == 1{
             //            tableView.separatorStyle = .None
             let cell = tableView.dequeueReusableCellWithIdentifier("leftTableView")
-            cell?.textLabel?.text = self.myDic![indexPath.row].name
+            if indexPath.row == 0{
+                cell?.textLabel?.text = "全部"
+            }else{
+                 cell?.textLabel?.text = self.myDic![indexPath.row - 1].name
+            }
+           
             cell?.selectionStyle = .None
             //            cell!.accessoryType = .DisclosureIndicator
             cell?.selectedBackgroundView = UIView.init(frame: (cell?.frame)!)
@@ -192,10 +203,10 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if tableView.tag == 0 {
             let next = BusnissViewController()
             if type == ""{
-                next.id = self.dataSource![dataSource!.count - 1 - indexPath.row].id!
+                next.id = self.dataSource![indexPath.row].id!
 //                print(next.id)
             }else{
-                next.id = (self.dataSource2[dataSource2.count - 1 - indexPath.row] as! GoodsInfo).id!
+                next.id = (self.dataSource2[indexPath.row] as! GoodsInfo).id!
 //                print(next.id)
             }
             self.navigationController?.pushViewController(next, animated: true)
@@ -204,17 +215,24 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             coverView.removeFromSuperview()
             leftTableView.removeFromSuperview()
             rightTableView.removeFromSuperview()
-            self.type = self.myDic![indexPath.row].id!
-            dataSource2.removeAllObjects()
-            for myInfo in self.dataSource! {
-                if self.type == myInfo.type {
+            if indexPath.row == 0{
+                self.type = ""
+            }else{
+                self.type = self.myDic![indexPath.row - 1].id!
+                dataSource2.removeAllObjects()
+                for myInfo in self.dataSource! {
+                    if self.type == myInfo.type {
+                        
+                        self.dataSource2.addObject(myInfo)
+                    }
+                    //                self.dataSource = self.dataSource2
+                    self.myTableView.reloadData()
                     
-                    self.dataSource2.addObject(myInfo)
                 }
-                //                self.dataSource = self.dataSource2
-                self.myTableView.reloadData()
-                
             }
+            
+            
+            
             myTableView.reloadData()
             self.tabBarController?.tabBar.hidden = false
             //

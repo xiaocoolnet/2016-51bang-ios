@@ -55,7 +55,7 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        
         let nextController = BusnissViewController()
-        nextController.id = (dataSource![(dataSource?.count)! - indexPath.row - 1].object_id)! as String
+        nextController.id = (dataSource![indexPath.row].object_id)! as String
         print(nextController.id)
         self.navigationController?.pushViewController(nextController, animated: true)
     }
@@ -68,7 +68,7 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)as!CollectionTableViewCell
         cell.targetView = self
         cell.selectionStyle = .None
-        let info = self.dataSource![(dataSource?.count)! - indexPath.row - 1]
+        let info = self.dataSource![indexPath.row]
         cell.setValueWithInfo(info)
         cell.buy.addTarget(self,action: #selector(self.buttonaction), forControlEvents: UIControlEvents.TouchUpInside)
         tag = indexPath.row

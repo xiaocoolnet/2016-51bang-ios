@@ -126,41 +126,7 @@
                     <view key="view" contentMode="scaleToFill" id="XLF-bQ-eqP">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YEU-lt-BWR">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" red="0.9356608971" green="1" blue="0.87805881230000005" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="YEU-lt-BWR" firstAttribute="top" secondItem="XLF-bQ-eqP" secondAttribute="topMargin" id="01L-r8-2eX"/>
-                            <constraint firstItem="YEU-lt-BWR" firstAttribute="leading" secondItem="XLF-bQ-eqP" secondAttribute="leadingMargin" constant="-20" id="VGJ-id-rHM"/>
-                            <constraint firstItem="YEU-lt-BWR" firstAttribute="bottom" secondItem="XLF-bQ-eqP" secondAttribute="bottomMargin" id="p8p-OX-agz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="YEU-lt-BWR" secondAttribute="trailing" constant="-20" id="tgc-RD-BfR"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="YEU-lt-BWR"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="01L-r8-2eX"/>
-                                <exclude reference="VGJ-id-rHM"/>
-                                <exclude reference="p8p-OX-agz"/>
-                                <exclude reference="tgc-RD-BfR"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="YEU-lt-BWR"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="01L-r8-2eX"/>
-                                <include reference="VGJ-id-rHM"/>
-                                <include reference="p8p-OX-agz"/>
-                                <include reference="tgc-RD-BfR"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="特卖" id="xSo-bs-JT1">
                         <barButtonItem key="leftBarButtonItem" image="ic_fenlei" id="wgB-s1-C6L">
@@ -174,9 +140,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="myTableView" destination="YEU-lt-BWR" id="5R9-dd-WX8"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zoi-gy-f9H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
