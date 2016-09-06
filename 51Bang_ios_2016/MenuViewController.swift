@@ -83,11 +83,41 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyFabuTableViewCell")as! MyFabuTableViewCell
-//        cell.delete.tag = indexPath.row
-//        cell.delete.addTarget(self, action:#selector(self.onClick(_:)) , forControlEvents: UIControlEvents.TouchUpInside)
-//        cell.edit.tag = indexPath.row+100
-//        cell.edit.addTarget(self, action:#selector(self.editAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+
         cell.setValueWithInfo(self.dataSource![indexPath.row])
+        let ud = NSUserDefaults.standardUserDefaults()
+        let longitude = ud.objectForKey("longitude")as! String
+        let latitude = ud.objectForKey("latitude")as! String
+        let myLongitude = removeOptionWithString(longitude)
+        let myLatitude = removeOptionWithString(latitude)
+        print(myLongitude)
+        print(myLatitude)
+        let current = CLLocation.init(latitude: CLLocationDegrees(myLatitude)!, longitude: CLLocationDegrees(myLongitude)!)
+        print(current)
+        let goodsInfo = dataSource![indexPath.row] as GoodsInfo
+        if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
+            print(goodsInfo.latitude! as String,goodsInfo.longitude! as String,"00000000")
+            
+            let before = CLLocation.init(latitude: CLLocationDegrees(goodsInfo.latitude! as String)!, longitude: CLLocationDegrees(goodsInfo.longitude! as String)!)
+            print(myLongitude)
+            print(myLatitude)
+            print(before)
+            let meters = (current.distanceFromLocation(before))/1000
+            //                let meter:String = "\(meters)"
+            //                let array = meter.componentsSeparatedByString(".")
+            print(meters)
+            if meters > 1000{
+                cell.distance.text = "1000+km"
+            }else{
+                let distance = String(format:"%.2f",meters)
+                print(distance)
+                cell.distance.text = "\(distance)km"
+                
+            }
+            
+        }else{
+            cell.distance.text = ""
+        }
         return cell
     }
     

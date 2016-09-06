@@ -92,7 +92,8 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
         userDatas.removeObjectForKey("userid");
         
         loginSign = 0
-        self.navigationController?.popViewControllerAnimated(true)
+        let a = MineViewController()
+        self.navigationController?.pushViewController(a, animated: true)
     }
 
    

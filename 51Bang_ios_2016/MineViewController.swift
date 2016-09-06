@@ -55,7 +55,10 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         }
         
+        print(loginSign)
+        
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

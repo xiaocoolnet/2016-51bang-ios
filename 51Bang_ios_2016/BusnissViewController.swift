@@ -28,8 +28,6 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var cancelBtn = UIButton()
     
     
-    
-    
     var goodsInfo = GoodsInfo2()
     var isdetails = Bool()
     var footView : ShopFootViewCell!
@@ -46,6 +44,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var myPhotoArray = NSMutableArray()
     override func viewWillAppear(animated: Bool) {
         getData()
+       
         self.view.backgroundColor = RGREY
         self.title="特卖详情"
         self.tabBarController?.tabBar.hidden = true
@@ -293,7 +292,6 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 headerPhotoView.sd_setImageWithURL(NSURL(string:Bang_Image_Header+goodsInfo.pic[num].pictureurl!), placeholderImage: UIImage.init(named: "01"))
                 scrollView.addSubview(headerPhotoView)
                 headerPhotoView.userInteractionEnabled = true
-                headerPhotoView.tag = num
 //                
 //                let backButton = UIButton()
 //                backButton.frame = CGRectMake(CGFloat(num) * WIDTH, 0, WIDTH, 220)
@@ -313,7 +311,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             headerPhotoView1.image = UIImage(named: "01")
             scrollView.addSubview(headerPhotoView1)
         }
-        scrollView.contentSize = CGSizeMake(WIDTH * CGFloat (goodsInfo.pic.count) , 200)
+        scrollView.contentSize = CGSizeMake(WIDTH * CGFloat (goodsInfo.pic.count) , 220)
         scrollView.contentOffset = CGPoint(x: 0,y: 0)
         scrollView.pagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
@@ -322,7 +320,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         
         //        headerView.headerImage.setImageWithURL(NSURL.init(string:Bang_Image_Header+arrayphoto[1])!, placeholderImage: UIImage.init(named: "01"))
-        headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*360/375)
+        headerView.frame = CGRectMake(0, 0, WIDTH, 250)
 //        print(goodsInfo.price)
         if goodsInfo.price != nil {
             headerView.price.text = "¥"+goodsInfo.price!
@@ -340,7 +338,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let height = calculateHeight(goodsInfo.description!, size: 15, width:WIDTH-16)
             print(height)
             headerView.desciption.frame.size.height = height+10
-            headerView.frame.size.height = WIDTH*350/375
+            headerView.frame.size.height = 345
         }else{
             headerView.desciption.text = ""
             headerView.desciption.removeFromSuperview()

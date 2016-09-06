@@ -34,11 +34,26 @@ class MyFabuTableViewCell: UITableViewCell {
 
     func setValueWithInfo(goodsInfo:GoodsInfo){
         
-        self.title.text = goodsInfo.goodsname
+        if goodsInfo.goodsname != nil{
+            self.title.text = goodsInfo.goodsname
+        }else{
+            self.title.text = "无商品名"
+        }
+        
+        if goodsInfo.goodsname != nil{
+            self.desc.text = goodsInfo.description
+        }else{
+            self.title.text = "无介绍"
+        }
         self.desc.text = goodsInfo.description
         self.distance.text = "现在没有"
         self.price.text = "￥"+goodsInfo.price!
-        self.sell.text = "已售10"
+        if goodsInfo.sellnumber != nil{
+             self.sell.text = "已售"+goodsInfo.sellnumber!
+        }else{
+            self.sell.text = "已售0"
+        }
+        
         
         if goodsInfo.pic.count>0 {
             let imageUrl = Bang_Image_Header+goodsInfo.pic[0].pictureurl!

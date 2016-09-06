@@ -8,7 +8,7 @@
 
 import UIKit
 import MBProgressHUD
-
+import MJRefresh
 class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate,ViewControllerDelegate {
     
 //    @IBOutlet weak var myTableView: UITableView!
@@ -109,10 +109,20 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myTableView.registerNib(UINib(nibName: "ShopTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         myTableView.rowHeight = WIDTH*80/375
         myTableView.tag = 0
+        myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            self.myTableView.mj_header.endRefreshing()
+        })
         
         self.view.addSubview(myTableView)
 //
     }
+    
+    func headerRefresh(){
+        GetData()
+    }
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tableView.tag == 0 {
             return 80
