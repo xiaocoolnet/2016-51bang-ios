@@ -65,11 +65,12 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
         mapView.viewWillDisappear()
         mapView.delegate = nil
         searcher.delegate = nil
+        self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tabBarController?.tabBar.hidden = true
         self.view.backgroundColor = UIColor.whiteColor()
         showRegion.span.latitudeDelta = 0.05
         showRegion.span.longitudeDelta = 0.05
@@ -381,7 +382,7 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
     
     func onGetReverseGeoCodeResult(searcher: BMKGeoCodeSearch!, result: BMKReverseGeoCodeResult!, errorCode error: BMKSearchErrorCode) {
         
-        if !isWobangPush {
+        if isWobangPush {
             LocationViewController.myAddressOfpoint = result.address
             LocationViewController.pointOfSelected = result.location
         }

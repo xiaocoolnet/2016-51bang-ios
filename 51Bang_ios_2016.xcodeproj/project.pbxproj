@@ -428,6 +428,8 @@
 		F247452A1D6D51CF00870363 /* SGImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = F247451F1D6D51CF00870363 /* SGImagePickerController.m */; };
 		F247452B1D6D51CF00870363 /* SGPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = F24745211D6D51CF00870363 /* SGPhotoBrowser.m */; };
 		F247452C1D6D51CF00870363 /* SGTip.m in Sources */ = {isa = PBXBuildFile; fileRef = F24745231D6D51CF00870363 /* SGTip.m */; };
+		F24CAE401D7E9D2400B23FAC /* BaiduMapAPI_Base.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F24CAE3E1D7E9D2400B23FAC /* BaiduMapAPI_Base.framework */; };
+		F24CAE411D7E9D2400B23FAC /* BaiduMapAPI_Location.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F24CAE3F1D7E9D2400B23FAC /* BaiduMapAPI_Location.framework */; };
 		F25289AE1D6ADF2D00B8E6DC /* AudioWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F25289AD1D6ADF2D00B8E6DC /* AudioWrapper.m */; };
 		F25289B71D6AE16700B8E6DC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F25289B11D6AE16700B8E6DC /* .gitignore */; };
 		F25289B81D6AE16700B8E6DC /* build-lame-framework.sh in Resources */ = {isa = PBXBuildFile; fileRef = F25289B21D6AE16700B8E6DC /* build-lame-framework.sh */; };
@@ -1058,6 +1060,8 @@
 		F24745211D6D51CF00870363 /* SGPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPhotoBrowser.m; sourceTree = "<group>"; };
 		F24745221D6D51CF00870363 /* SGTip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGTip.h; sourceTree = "<group>"; };
 		F24745231D6D51CF00870363 /* SGTip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGTip.m; sourceTree = "<group>"; };
+		F24CAE3E1D7E9D2400B23FAC /* BaiduMapAPI_Base.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Base.framework; sourceTree = "<group>"; };
+		F24CAE3F1D7E9D2400B23FAC /* BaiduMapAPI_Location.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI_Location.framework; sourceTree = "<group>"; };
 		F25289AC1D6ADF2D00B8E6DC /* AudioWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioWrapper.h; sourceTree = "<group>"; };
 		F25289AD1D6ADF2D00B8E6DC /* AudioWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioWrapper.m; sourceTree = "<group>"; };
 		F25289B11D6AE16700B8E6DC /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -1120,6 +1124,7 @@
 				1FACE7571D2F50770005282E /* libssl.a in Frameworks */,
 				1FACE67C1D2F3D890005282E /* Foundation.framework in Frameworks */,
 				1FACE67A1D2F3D7A0005282E /* UIKit.framework in Frameworks */,
+				F24CAE411D7E9D2400B23FAC /* BaiduMapAPI_Location.framework in Frameworks */,
 				1F7D5A1E1D4A033600536BD1 /* MOBFoundation.framework in Frameworks */,
 				1FACE6781D2F3D700005282E /* CoreGraphics.framework in Frameworks */,
 				1F7D5A1D1D4A033600536BD1 /* libYixinSDK.a in Frameworks */,
@@ -1140,6 +1145,7 @@
 				1F7D5A0C1D4A033600536BD1 /* ShareSDK.framework in Frameworks */,
 				F2DAD9971D76C13C00200B5D /* libAPOpenSdk.a in Frameworks */,
 				1F7D5A111D4A033600536BD1 /* libAPOpenSdk.a in Frameworks */,
+				F24CAE401D7E9D2400B23FAC /* BaiduMapAPI_Base.framework in Frameworks */,
 				C4065D2B4CD2ABEC6F149D76 /* Pods_51Bang_ios_2016.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2193,6 +2199,7 @@
 		F23C55931D6577000094E2B7 /* ThirdPackage */ = {
 			isa = PBXGroup;
 			children = (
+				F24CAE3D1D7E9D2400B23FAC /* BaiduMap_IOSSDK_v3 */,
 				F206247F1D743EEA00B795F5 /* 上传音频 */,
 				F2075A721D6FF20B00BF45E9 /* FZJWeiXinPayMainController.h */,
 				F2075A731D6FF20B00BF45E9 /* FZJWeiXinPayMainController.m */,
@@ -2229,6 +2236,15 @@
 				F24745231D6D51CF00870363 /* SGTip.m */,
 			);
 			path = SGImagePickerController;
+			sourceTree = "<group>";
+		};
+		F24CAE3D1D7E9D2400B23FAC /* BaiduMap_IOSSDK_v3 */ = {
+			isa = PBXGroup;
+			children = (
+				F24CAE3E1D7E9D2400B23FAC /* BaiduMapAPI_Base.framework */,
+				F24CAE3F1D7E9D2400B23FAC /* BaiduMapAPI_Location.framework */,
+			);
+			path = BaiduMap_IOSSDK_v3;
 			sourceTree = "<group>";
 		};
 		F25289B01D6AE16700B8E6DC /* mp3lame-for-iOS-master */ = {
@@ -3060,7 +3076,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "b4242df9-f842-4111-b629-f248073fe61a";
+				PROVISIONING_PROFILE = "cdd8a010-2a42-4472-ae18-87197a10c18b";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3100,7 +3116,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "b4242df9-f842-4111-b629-f248073fe61a";
+				PROVISIONING_PROFILE = "cdd8a010-2a42-4472-ae18-87197a10c18b";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3130,6 +3146,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/51Bang_ios_2016/mp3lame-for-iOS-master",
 					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/上传音频",
+					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/BaiduMap_IOSSDK_v3",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -3182,7 +3199,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cdd8a010-2a42-4472-ae18-87197a10c18b";
 				SWIFT_OBJC_BRIDGING_HEADER = "${ROOT}51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -3213,6 +3230,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/51Bang_ios_2016/mp3lame-for-iOS-master",
 					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/上传音频",
+					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/BaiduMap_IOSSDK_v3",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -3265,7 +3283,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "cdd8a010-2a42-4472-ae18-87197a10c18b";
 				SWIFT_OBJC_BRIDGING_HEADER = "${ROOT}51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

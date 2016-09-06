@@ -159,13 +159,16 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let myLatitude = removeOptionWithString(latitude)
             print(myLongitude)
             print(myLatitude)
-            let current = CLLocation.init(latitude: CLLocationDegrees(myLongitude)!, longitude: CLLocationDegrees(myLatitude)!)
+            let current = CLLocation.init(latitude: CLLocationDegrees(myLatitude)!, longitude: CLLocationDegrees(myLongitude)!)
+            print(current)
             if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
                 print(goodsInfo.latitude! as String,goodsInfo.longitude! as String,"00000000")
                 
                 let before = CLLocation.init(latitude: CLLocationDegrees(self.goodsInfo.latitude! as String)!, longitude: CLLocationDegrees(self.goodsInfo.longitude! as String)!)
-               
-                let meters = current.distanceFromLocation(before)/1000
+               print(myLongitude)
+                print(myLatitude)
+                print(before)
+                let meters = (current.distanceFromLocation(before))/1000
 //                let meter:String = "\(meters)"
 //                let array = meter.componentsSeparatedByString(".")
                 print(meters)
@@ -434,6 +437,62 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         if(indexPath.row == 1)
         {
             self.myfabu()
+        }
+        if indexPath.row == 0 {
+            let opt = BMKOpenTransitRouteOption()
+            opt.appScheme = "a51bang"
+            let start = BMKPlanNode()
+            var coor1 = CLLocationCoordinate2D.init()
+            let ud = NSUserDefaults.standardUserDefaults()
+            let longitude = ud.objectForKey("longitude")
+            let latitude = ud.objectForKey("latitude")
+            let address = ud.objectForKey("myAddress")
+            
+            if latitude != nil && longitude != nil{
+                coor1.latitude = CLLocationDegrees(latitude as! String)!
+                coor1.longitude = CLLocationDegrees(longitude as! String)!
+            }else{
+                alert("地址不能为空", delegate: self)
+                return
+            }
+            
+            //指定起点名称
+            if address != nil {
+                start.name = address as! String
+            }else{
+                alert("地址不能为空", delegate: self)
+                return
+            }
+//            start.name = self.info.address!
+            start.pt = coor1
+            //指定起点
+            opt.startPoint = start
+            
+            
+            //初始化终点节点
+            let end = BMKPlanNode.init()
+            
+            var coor2 = CLLocationCoordinate2D.init()
+            if goodsInfo.latitude != nil && goodsInfo.longitude != nil{
+                coor2.latitude = CLLocationDegrees(goodsInfo.latitude! as String)!
+                coor2.longitude = CLLocationDegrees(goodsInfo.longitude! as String)!
+            }else{
+                alert("地址不能为空", delegate: self)
+                return
+            }
+            end.pt = coor2
+            //指定终点名称
+            if self.goodsInfo.address != nil {
+                end.name = self.goodsInfo.address!
+            }else{
+                alert("地址不能为空", delegate: self)
+                return
+            }
+            
+            opt.endPoint = end
+            
+            
+            BMKOpenRoute.openBaiduMapTransitRoute(opt)
         }
     }
     func share(){

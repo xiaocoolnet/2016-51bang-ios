@@ -132,7 +132,7 @@
     
 }
 -(NSString *)timeStamp{
-    return [NSString stringWithFormat:@"%ld",(long)[[NSDate date] timeIntervalSince1970]];
+    return [NSString stringWithFormat:@"%@%ld%s",@"51bang",(long)[[NSDate date] timeIntervalSince1970],"weixin"];
 }
 #pragma mark ---  获取prePayid
 -(NSString *)getPrePayId:(NSMutableDictionary *)pakeParams{

@@ -122,7 +122,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             return
         }else if self.payMode == "支付宝"{
             //支付宝支付
-            let userDufault = NSUserDefaults.standardUserDefaults()
+//            let userDufault = NSUserDefaults.standardUserDefaults()
             var orderNum = String()
             //            if (userDufault.objectForKey("ordernumber") == nil) {
             //                print("0000000000")
@@ -169,10 +169,10 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             if String(self.price) == "" {
                 order.totalFee = "0.01"
             }else{
-                order.totalFee = String(self.price); //商品价格
+                order.totalFee = "0.01"; //商品价格
             }
             
-            order.notifyURL =  "http://bang.xiaocool.net/api/alipay_app/notify_url.php"; //回调URL，这个URL是在支付之后，支付宝通知后台服务器，使数据同步更新，必须填，不然支付无法成功
+            order.notifyURL =  "http://www.my51bang.com/index.php?g=apps&m=index&a=AlipayNotify"; //回调URL，这个URL是在支付之后，支付宝通知后台服务器，使数据同步更新，必须填，不然支付无法成功
             //下面的参数是固定的，不需要改变
             order.service = "mobile.securitypay.pay";
             order.paymentType = "1";
@@ -236,7 +236,11 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("金额不能为0", delegate: self)
                 return
             }
-            aa.testStart(String(Int(price*100)) ,orderName: body as String);
+//            aa.testStart(String(Int(price*100)) ,orderName: body as String);
+            aa.testStart("1" ,orderName: body as String);
+            
+            let vc = MyBookDan()
+            self.navigationController?.pushViewController(vc, animated: true)
             
             //            //随机数
             //            let orderNO   = CommonUtil.genOutTradNo()

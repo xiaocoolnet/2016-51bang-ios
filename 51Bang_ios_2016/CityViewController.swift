@@ -37,7 +37,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     //当前定位城市名称
     var cityName:String = "正在获取...";
     //最近访问城市
-    var historyCitys = ["北京"];
+    var historyCitys = [""];
     //热门城市
     let hotCitys = ["上海","北京","广州","深圳","武汉","天津","西安","南京","杭州"];
     //最近访问城市数据
@@ -50,6 +50,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         self.title = "选择城市";
         //接受通知
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)
+        self.tabBarController?.tabBar.hidden = true
         cityArray = NSMutableArray();
         citySpell = NSMutableArray();
         self.tableview.delegate = self
@@ -60,6 +61,18 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         getCityData();
         
     }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(true)
+        self.tabBarController?.tabBar.hidden = false
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(true)
+        self.tabBarController?.tabBar.hidden = true
+
+    }
+    
     
     /**
      装在城市数据信息
@@ -88,7 +101,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
 //        let key:NSArray = self.dict.allKeys;
 //        self.citySpell.addObjectsFromArray(key.sortedArrayUsingSelector(#selector(NSNumber.compare(_:))));
         self.sectionCitySpell = NSMutableArray();
-        self.sectionCitySpell.addObjectsFromArray(["定位城市","最近访问城市","热门城市","省份列表"]);
+        self.sectionCitySpell.addObjectsFromArray(["定位城市","最近访问城市","省份列表"]);
 //        self.sectionCitySpell.addObjectsFromArray(self.citySpell as [AnyObject]);
         let allValue:NSArray = self.dict.allValues;
         
@@ -172,9 +185,10 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             return self.searchCityArray.count;
         }
         
-        if(section < 3){
+        if(section < 2){
             return 1;
         }
+        
 //        let key:NSString = self.sectionCitySpell.objectAtIndex(section) as! NSString;
 //        print(self.cityArray.count)
         return self.cityArray.count;
@@ -186,7 +200,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         if(!self.tableview.isEqual(table)){ //搜索结果时
             return 1;
         }
-        return 4;
+        return 3;
     }
     
 //    func sectionIndexTitlesForTableView(table: UITableView) -> [String]? {
@@ -226,9 +240,9 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         if((indexPath.section == 0 || indexPath.section == 1) && self.tableview.isEqual(table)){
             return 70;
         }
-        if(indexPath.section == 2 && self.tableview.isEqual(table)){
-            return 175;
-        }
+//        if(indexPath.section == 2 && self.tableview.isEqual(table)){
+//            return 0;
+//        }
         return 50;
     }
     
@@ -240,7 +254,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         var cell:TableViewCell? = table.dequeueReusableCellWithIdentifier(identifier) as? TableViewCell;
         let section = indexPath.section;
         
-        if((section == 2 || section == 0 || section == 1) && self.tableview.isEqual(table)){  //如果为头部Section
+        if((section == 0 || section == 1) && self.tableview.isEqual(table)){  //如果为头部Section
             
             if(cellHead == nil){
                 let nib:UINib = UINib(nibName: "TableViewHeadSectionCell", bundle: NSBundle.mainBundle());
@@ -267,9 +281,6 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                 
                 cellHead!.addData(historyCitys, city: selectCity);
                 
-                break;
-            case 2: // 热门城市
-                cellHead!.addData(hotCitys, city: selectCity)
                 break;
                 
             default:

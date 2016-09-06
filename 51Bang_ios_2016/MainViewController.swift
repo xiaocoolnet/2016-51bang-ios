@@ -14,6 +14,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     let mainHelper = MainHelper()
     var city = String()
+    var dingWeiStr = String()
     var longitude = String()
     var latitude = String()
     let backView = UIView()
@@ -64,11 +65,18 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     
     override func viewWillDisappear(animated: Bool) {
-        userLocationCenter.setObject(String(MainViewController.userLocationForChange.coordinate.latitude), forKey: "latitude")
-        userLocationCenter.setObject(String(MainViewController.userLocationForChange.coordinate.longitude), forKey: "longitude")
+        
        print(String(MainViewController.userLocationForChange.coordinate.latitude))
-        userLocationCenter.setObject(MainViewController.BMKname, forKey: "myAddress")
-        userLocationCenter.setObject(MainViewController.city, forKey: "subLocality")
+        if (userLocationCenter.objectForKey("myAddress") == nil) {
+            
+            
+        }
+        
+        
+        if (userLocationCenter.objectForKey("subLocality") == nil) {
+            userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
+        }
+        
         geocodeSearch.delegate = nil
         locationService.delegate = nil
         mapView.viewWillDisappear()
@@ -453,6 +461,14 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             mapView.addAnnotation(pointAnmation)
             
             mapView.selectAnnotation(pointAnmation, animated: true)
+            
+            userLocationCenter.setObject(String(userLocation.location.coordinate.latitude), forKey: "latitude")
+            userLocationCenter.setObject(String(userLocation.location.coordinate.longitude), forKey: "longitude")
+            if userLocation.title != nil {
+                userLocationCenter.setObject(userLocation.title, forKey: "myAddress")
+            }
+            
+            
         locationService.stopUserLocationService()
         print("用户的位置已经更新")
         }
@@ -477,6 +493,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if result == nil {
             return
         }
+        var showRegion = BMKCoordinateRegion.init()
+        showRegion.center = result.location
+        self.mapView.setRegion(showRegion, animated: true)
         pointAnmation.coordinate = result.location
         pointAnmation.title = result.address
         mapView.addAnnotation(pointAnmation)
@@ -500,6 +519,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 LocationViewController.secondAddress = result.address
                 MainViewController.BMKname =  (result.poiList[0] as! BMKPoiInfo).name
                 MainViewController.city = (result.poiList[0] as! BMKPoiInfo).city
+                self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
                 address = MainViewController.BMKname
                 print(result.addressDetail.city)
                 print(result.addressDetail.streetName)
