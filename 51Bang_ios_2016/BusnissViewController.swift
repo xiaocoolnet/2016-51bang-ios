@@ -438,7 +438,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         }
         if indexPath.row == 0 {
             let opt = BMKOpenTransitRouteOption()
-            opt.appScheme = "a51bang"
+            opt.appScheme = "a51bang://a51bang"
             let start = BMKPlanNode()
             var coor1 = CLLocationCoordinate2D.init()
             let ud = NSUserDefaults.standardUserDefaults()

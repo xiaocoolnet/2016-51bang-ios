@@ -295,7 +295,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func dingwei(sender:UIButton){
         let opt = BMKOpenTransitRouteOption()
-        opt.appScheme = "a51bang"
+        opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
         if dataSource![sender.tag].latitude != nil && self.dataSource![sender.tag].longitude != nil && dataSource![sender.tag].latitude != "" && self.dataSource![sender.tag].longitude != ""{
@@ -370,7 +370,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     func nextView1(sender:UIButton){
         
         let opt = BMKOpenTransitRouteOption()
-        opt.appScheme = "a51bang"
+        opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
         if dataSource![sender.tag].latitude != nil && self.dataSource![sender.tag].longitude != nil && dataSource![sender.tag].latitude != "" && self.dataSource![sender.tag].longitude != ""{

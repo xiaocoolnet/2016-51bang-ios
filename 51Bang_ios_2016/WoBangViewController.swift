@@ -221,7 +221,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         
         
         let opt = BMKOpenTransitRouteOption()
-        opt.appScheme = "a51bang"
+        opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
         if dataSource![sender.tag].latitude != nil && dataSource![sender.tag].longitude != nil && dataSource![sender.tag].latitude! as String != "" && dataSource![sender.tag].longitude! as String != ""{
@@ -301,7 +301,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         
         
         let opt = BMKOpenTransitRouteOption()
-        opt.appScheme = "a51bang"
+        opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
         if dataSource![sender.tag].latitude != nil && dataSource![sender.tag].longitude != nil && dataSource![sender.tag].latitude! as String != "" && dataSource![sender.tag].longitude! as String != ""{

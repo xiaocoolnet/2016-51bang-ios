@@ -99,7 +99,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     func nextView(){
         
         let opt = BMKOpenTransitRouteOption()
-        opt.appScheme = "a51bang"
+        opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
         if info.latitude != nil && info.longitude != nil && info.latitude != "" && info.longitude != ""{
@@ -175,7 +175,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
 
     func nextView1(){
         let opt = BMKOpenTransitRouteOption()
-        opt.appScheme = "a51bang"
+        opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
         if info.latitude != nil && info.longitude != nil && info.latitude != "" && info.longitude != ""{
