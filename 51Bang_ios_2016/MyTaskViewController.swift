@@ -294,56 +294,153 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
      }
     
     func dingwei(sender:UIButton){
-        
-        let locationVc = LocationViewController()
-        //        LocationViewController.myAddressOfpoint = self.dataSource![sender.tag].address!
-        //        let latitudeStr1 = self.dataSource![sender.tag].latitude! as NSString
-        //        let longitudeStr1 = self.dataSource![sender.tag].longitude! as NSString
-        //        LocationViewController.pointOfSelected = CLLocationCoordinate2D.init(latitude: latitudeStr1.doubleValue, longitude: longitudeStr1.doubleValue)
-//        print(self.info.latitude)
-//        print(self.dataSource![sender.tag].longitude)
-        locationVc.isWobangPush = true
-        locationVc.addressPoint = self.myDataSource![sender.tag].address!
-        if info.latitude == nil {
-            locationVc.latitudeStr = ""
+        let opt = BMKOpenTransitRouteOption()
+        opt.appScheme = "a51bang"
+        let start = BMKPlanNode()
+        var coor1 = CLLocationCoordinate2D.init()
+        if dataSource![sender.tag].latitude != nil && self.dataSource![sender.tag].longitude != nil{
+            coor1.latitude = CLLocationDegrees(self.dataSource![sender.tag].latitude! as String)!
+            coor1.longitude = CLLocationDegrees(self.dataSource![sender.tag].longitude! as String)!
         }else{
-            locationVc.latitudeStr = self.myDataSource![sender.tag].latitude!
-        }
-        if info.longitude == nil{
-            locationVc.longitudeStr = ""
-        }else{
-            locationVc.longitudeStr = self.myDataSource![sender.tag].longitude!
+            alert("地址不能为空", delegate: self)
+            return
         }
         
+        //指定起点名称
+        if self.dataSource![sender.tag].address != nil {
+            start.name = self.dataSource![sender.tag].address!
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        start.pt = coor1
+        //指定起点
+        opt.startPoint = start
         
-        self.navigationController?.pushViewController(locationVc, animated: true)
+        
+        //初始化终点节点
+        let end = BMKPlanNode.init()
+        
+        var coor2 = CLLocationCoordinate2D.init()
+        if dataSource![sender.tag].slatitude != nil && self.dataSource![sender.tag].slongitude != nil{
+            coor2.latitude = CLLocationDegrees(self.dataSource![sender.tag].slatitude! as String)!
+            coor2.longitude = CLLocationDegrees(self.dataSource![sender.tag].slongitude! as String)!
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        end.pt = coor2
+        //指定终点名称
+        if self.dataSource![sender.tag].saddress != nil {
+            end.name = self.dataSource![sender.tag].saddress!
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        
+        opt.endPoint = end
+        
+        
+        BMKOpenRoute.openBaiduMapTransitRoute(opt)
+        
+//        let locationVc = LocationViewController()
+//        //        LocationViewController.myAddressOfpoint = self.dataSource![sender.tag].address!
+//        //        let latitudeStr1 = self.dataSource![sender.tag].latitude! as NSString
+//        //        let longitudeStr1 = self.dataSource![sender.tag].longitude! as NSString
+//        //        LocationViewController.pointOfSelected = CLLocationCoordinate2D.init(latitude: latitudeStr1.doubleValue, longitude: longitudeStr1.doubleValue)
+////        print(self.info.latitude)
+////        print(self.dataSource![sender.tag].longitude)
+//        locationVc.isWobangPush = true
+//        locationVc.addressPoint = self.myDataSource![sender.tag].address!
+//        if info.latitude == nil {
+//            locationVc.latitudeStr = ""
+//        }else{
+//            locationVc.latitudeStr = self.myDataSource![sender.tag].latitude!
+//        }
+//        if info.longitude == nil{
+//            locationVc.longitudeStr = ""
+//        }else{
+//            locationVc.longitudeStr = self.myDataSource![sender.tag].longitude!
+//        }
+//        
+//        
+//        self.navigationController?.pushViewController(locationVc, animated: true)
         
     }
     func nextView1(sender:UIButton){
         
-        let locationVc = LocationViewController()
-        //        LocationViewController.myAddressOfpoint = self.dataSource![sender.tag].address!
-        //        let latitudeStr1 = self.dataSource![sender.tag].latitude! as NSString
-        //        let longitudeStr1 = self.dataSource![sender.tag].longitude! as NSString
-        //        LocationViewController.pointOfSelected = CLLocationCoordinate2D.init(latitude: latitudeStr1.doubleValue, longitude: longitudeStr1.doubleValue)
-        print(self.info.latitude)
-        //        print(self.dataSource![sender.tag].longitude)
-        locationVc.isWobangPush = true
-        locationVc.addressPoint = self.myDataSource![sender.tag-100].saddress!
-        if info.slatitude == nil {
-            locationVc.latitudeStr = ""
+        let opt = BMKOpenTransitRouteOption()
+        opt.appScheme = "a51bang"
+        let start = BMKPlanNode()
+        var coor1 = CLLocationCoordinate2D.init()
+        if dataSource![sender.tag].latitude != nil && self.dataSource![sender.tag].longitude != nil{
+            coor1.latitude = CLLocationDegrees(self.dataSource![sender.tag].latitude! as String)!
+            coor1.longitude = CLLocationDegrees(self.dataSource![sender.tag].longitude! as String)!
         }else{
-            locationVc.latitudeStr = self.myDataSource![sender.tag-100].slatitude!
-        }
-        if info.longitude == nil{
-            locationVc.longitudeStr = ""
-        }else{
-            locationVc.longitudeStr = self.myDataSource![sender.tag-100].slongitude!
+            alert("地址不能为空", delegate: self)
+            return
         }
         
+        //指定起点名称
+        if self.dataSource![sender.tag].address != nil {
+            start.name = self.dataSource![sender.tag].address!
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        start.pt = coor1
+        //指定起点
+        opt.startPoint = start
         
-        self.navigationController?.pushViewController(locationVc, animated: true)
         
+        //初始化终点节点
+        let end = BMKPlanNode.init()
+        
+        var coor2 = CLLocationCoordinate2D.init()
+        if dataSource![sender.tag].slatitude != nil && self.dataSource![sender.tag].slongitude != nil{
+            coor2.latitude = CLLocationDegrees(self.dataSource![sender.tag].slatitude! as String)!
+            coor2.longitude = CLLocationDegrees(self.dataSource![sender.tag].slongitude! as String)!
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        end.pt = coor2
+        //指定终点名称
+        if self.dataSource![sender.tag].saddress != nil {
+            end.name = self.dataSource![sender.tag].saddress!
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        
+        opt.endPoint = end
+        
+        
+        BMKOpenRoute.openBaiduMapTransitRoute(opt)
+        
+//        let locationVc = LocationViewController()
+//        //        LocationViewController.myAddressOfpoint = self.dataSource![sender.tag].address!
+//        //        let latitudeStr1 = self.dataSource![sender.tag].latitude! as NSString
+//        //        let longitudeStr1 = self.dataSource![sender.tag].longitude! as NSString
+//        //        LocationViewController.pointOfSelected = CLLocationCoordinate2D.init(latitude: latitudeStr1.doubleValue, longitude: longitudeStr1.doubleValue)
+//        print(self.info.latitude)
+//        //        print(self.dataSource![sender.tag].longitude)
+//        locationVc.isWobangPush = true
+//        locationVc.addressPoint = self.myDataSource![sender.tag-100].saddress!
+//        if info.slatitude == nil {
+//            locationVc.latitudeStr = ""
+//        }else{
+//            locationVc.latitudeStr = self.myDataSource![sender.tag-100].slatitude!
+//        }
+//        if info.longitude == nil{
+//            locationVc.longitudeStr = ""
+//        }else{
+//            locationVc.longitudeStr = self.myDataSource![sender.tag-100].slongitude!
+//        }
+//        
+//        
+//        self.navigationController?.pushViewController(locationVc, animated: true)
+//        
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         

@@ -51,6 +51,7 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
         if !self.istwo {
             let myVc = CityNameViewController()
             myVc.istwo = true
+            myVc.title = "县区选择"
             myVc.mycityStr = self.mydataSource[indexPath.row] as! String
             myVc.mydataSource = self.mydataSourcequ[indexPath.row] as! NSMutableArray
             self.navigationController?.pushViewController(myVc, animated: true)

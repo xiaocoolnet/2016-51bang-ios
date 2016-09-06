@@ -841,7 +841,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 if !self.ishaveNext{
                     cell.textField.text = MainViewController.BMKname
                     address1 = MainViewController.BMKname
-                    self.myLiction = MainViewController.locationForUser.coordinate
+                    print(MainViewController.userLocationForChange)
+                    self.myLiction = MainViewController.userLocationForChange.coordinate
                 }else{
                     cell.textField.text = LocationViewController.myAddressOfpoint
                     address1 = LocationViewController.myAddressOfpoint
@@ -858,7 +859,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     isAdressEdit = true
                 }
                 print(address)
-                if address == "" {
+                if self.ishaveNext {
                     //SVProgressHUD.showSuccessWithStatus("登录成功")
                     
                 }else{
@@ -952,6 +953,10 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     func dingWeiAction()  {
         self.ishaveNext = true;
         let vc = LocationViewController()
+        vc.isWobangPush = true
+        vc.latitudeStr = String(self.myLiction.latitude)
+        vc.longitudeStr = String(self.myLiction.longitude)
+        vc.addressPoint = self.address1
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
