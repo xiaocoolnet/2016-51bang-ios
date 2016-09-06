@@ -19,6 +19,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     var latitude = String()
     let backView = UIView()
     let backMHView = UIView()
+    var isDingwei = Bool()
     static var locationForUser = CLLocation.init()
     @IBOutlet weak var scrollView: UIScrollView!
     var cityController:CityViewController!
@@ -73,7 +74,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         }
         
         
-        if (userLocationCenter.objectForKey("subLocality") == nil) {
+        if (isDingwei) {
             userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
         }
         
@@ -360,6 +361,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         mapView.showsUserLocation = true
         mapView.zoomLevel = 19
         mapView.gesturesEnabled = true
+        //交通实况
+        mapView.trafficEnabled = true
 //        mapView.updateLocationData
         scrollView.addSubview(mapView)
         
@@ -461,7 +464,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             mapView.addAnnotation(pointAnmation)
             
             mapView.selectAnnotation(pointAnmation, animated: true)
-            
+            isDingwei = true
             userLocationCenter.setObject(String(userLocation.location.coordinate.latitude), forKey: "latitude")
             userLocationCenter.setObject(String(userLocation.location.coordinate.longitude), forKey: "longitude")
             if userLocation.title != nil {

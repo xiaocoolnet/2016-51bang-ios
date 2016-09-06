@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class BookDanDataModel {
     var  DshowImage = UIImage()
@@ -43,8 +44,12 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     var row = Int()
     let rect = UIApplication.sharedApplication().statusBarFrame
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+       
         Btn.tag = 1
         sign = 0
+        self.createTableView()
         self.getAllData()
         self.getDFKData()
         self.getDXFData()
@@ -87,6 +92,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
 //        Data3 = [da2,da2,da2]
 //        Data4 = [da3]
         
+        
         self.navigationController?.navigationBar.hidden = false
         self.view.backgroundColor = RGREY
         super.viewDidLoad()
@@ -111,6 +117,21 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
     }
     
+    func headerRefresh(){
+        if sign == 0 {
+            self.getAllData()
+        }else if sign == 1{
+            self.getDFKData()
+        }else if sign == 2{
+            self.getDXFData()
+        }else{
+            self.getDPJData()
+        }
+        
+        
+    }
+    
+    
     func handleRight(){
         if Btn.tag>1 {
             Btn.tag = Btn.tag - 1
@@ -130,23 +151,38 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     }
     
     func createTableView(){
+        
+        
         mTableview = UITableView.init(frame: CGRectMake(0, 45, WIDTH, self.view.frame.size.height - 45.1 - rect.height )
             )
         mTableview.delegate = self
         mTableview.dataSource  = self
         self.view.addSubview(mTableview)
+        mTableview.separatorStyle = UITableViewCellSeparatorStyle.None
     
+        mTableview.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            self.mTableview.mj_header.beginRefreshing()
+            
+        })
     }
     
     func getAllData(){
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "0,1,2,3,4") { (success, response) in
+        mainHelper.getMyOrder(uid, state: "-1,0,1,2,3,4") { (success, response) in
             print(response)
+            if !success{
+                self.mTableview.mj_header.endRefreshing()
+                alert("加载失败", delegate: self)
+                return
+            }
             self.AllDataSource = response as? Array<MyOrderInfo> ?? []
             print(self.AllDataSource?.count)
             print(self.AllDataSource)
-            self.createTableView()
+            
+            self.mTableview.mj_header.endRefreshing()
             
         }
     
@@ -160,9 +196,16 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         let uid = ud.objectForKey("userid")as! String
         mainHelper.getMyOrder(uid, state: "0") { (success, response) in
             print(response)
+            if !success{
+                self.mTableview.mj_header.endRefreshing()
+                alert("加载失败", delegate: self)
+                return
+            }
             self.DFKDataSource = response as? Array<MyOrderInfo> ?? []
             print(self.DFKDataSource)
             print(self.DFKDataSource?.count)
+            self.reloadMTableviwe(self.sign+1)
+            self.mTableview.mj_header.endRefreshing()
         }
     
     }
@@ -172,9 +215,16 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         let uid = ud.objectForKey("userid")as! String
         mainHelper.getMyOrder(uid, state: "1") { (success, response) in
             print(response)
+            if !success{
+                self.mTableview.mj_header.endRefreshing()
+                alert("加载失败", delegate: self)
+                return
+            }
             self.DXFDataSource = response as? Array<MyOrderInfo> ?? []
             print(self.DXFDataSource)
             print(self.DXFDataSource?.count)
+            self.reloadMTableviwe(self.sign+1)
+            self.mTableview.mj_header.endRefreshing()
         }
     
     }
@@ -184,9 +234,16 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         let uid = ud.objectForKey("userid")as! String
         mainHelper.getMyOrder(uid, state: "3") { (success, response) in
             print(response)
+            if !success{
+                self.mTableview.mj_header.endRefreshing()
+                alert("加载失败", delegate: self)
+                return
+            }
             self.DPJDataSource = response as? Array<MyOrderInfo> ?? []
             print(self.DPJDataSource)
             print(self.DPJDataSource?.count)
+            self.reloadMTableviwe(self.sign+1)
+            self.mTableview.mj_header.endRefreshing()
         }
     
     }
@@ -217,12 +274,11 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         topView.addSubview(willPayBtn)
         topView.addSubview(willUserBtn)
         topView.addSubview(willCommentBtn)
-        
+//        self.changeColorAndDeView(<#T##Btn: UIButton##UIButton#>)
     }
     
-    func changeColorAndDeView(Btn:UIButton)
-    {
-        switch Btn.tag {
+    func reloadMTableviwe(count:Int){
+        switch count {
         case 1:
             sign = 0
             allBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
@@ -263,7 +319,12 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
         
         mTableview.reloadData()
-        
+
+    }
+    
+    func changeColorAndDeView(Btn:UIButton)
+    {
+        self.reloadMTableviwe(Btn.tag)
         
     }
     
@@ -273,21 +334,33 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(sign == 0)
         {
-            print(self.AllDataSource?.count)
+//            print(self.AllDataSource?.count)
+            if self.AllDataSource == nil {
+                return 0
+            }
             return (self.AllDataSource?.count)!
             
         }else if sign == 1{
-            print(self.DFKDataSource?.count)
-            return (self.DXFDataSource?.count
+//            print(self.DFKDataSource?.count)
+            if self.self.DFKDataSource == nil {
+                return 0
+            }
+            return (self.self.DFKDataSource?.count
                 )!
             
         }else if sign == 2{
-            print(self.DXFDataSource?.count)
+            if self.DXFDataSource == nil {
+                return 0
+            }
+//            print(self.DXFDataSource?.count)
             return (self.DXFDataSource?.count
                 )!
         }else{
-            print(self.DPJDataSource?.count)
-            return (self.DXFDataSource?.count
+            if self.DPJDataSource == nil {
+                return 0
+            }
+//            print(self.DPJDataSource?.count)
+            return (self.DPJDataSource?.count
                 )!
         }
 
@@ -296,28 +369,46 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        
+        let cell = UITableViewCell()
         if(sign == 0)
         {
-            print(self.AllDataSource!)
-            print(self.AllDataSource!.count)
-            print(self.AllDataSource![indexPath.section])
-            let cell = MyBookDanCell.init(Data: self.AllDataSource![indexPath.section],sign: sign)
-            cell.targets = self
+//            print(self.AllDataSource!)
+//            print(self.AllDataSource!.count)
+//            print(self.AllDataSource![indexPath.section])
+            
+            if self.AllDataSource != nil {
+                let cell = MyBookDanCell.init(Data: self.AllDataSource![indexPath.section],sign: sign)
+                cell.targets = self
+                
+            }
             return  cell
+            
         }else if sign == 1{
-            let cell = MyBookDanCell.init(Data: self.DFKDataSource![indexPath.section],sign: sign)
-            cell.targets = self
+            if self.DFKDataSource != nil {
+                let cell = MyBookDanCell.init(Data: self.DFKDataSource![indexPath.section],sign: sign)
+                cell.targets = self
+            }
+            
             return  cell
         }else if sign == 2{
-            let cell = MyBookDanCell.init(Data: self.DXFDataSource![indexPath.section],sign: sign)
-            cell.targets = self
-            cell.Btn.tag = indexPath.row
-            cell.Btn.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            
+             if self.DXFDataSource != nil {
+                let cell = MyBookDanCell.init(Data: self.DXFDataSource![indexPath.section],sign: sign)
+                cell.targets = self
+                cell.Btn.tag = indexPath.row
+                cell.Btn.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            }
+            
+            
             return  cell
         }else{
-            let cell = MyBookDanCell.init(Data: self.DPJDataSource![indexPath.section],sign: sign)
-            cell.targets = self
+            if self.DPJDataSource != nil {
+                let cell = MyBookDanCell.init(Data: self.DPJDataSource![indexPath.section],sign: sign)
+                cell.targets = self
+                
+            }
+            
+            
             return  cell
         }
 

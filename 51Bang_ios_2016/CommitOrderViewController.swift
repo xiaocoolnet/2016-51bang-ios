@@ -175,8 +175,16 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         secondTag = 0
         self.tabBarController?.tabBar.hidden = true
         setback()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.calculDistence), name: UIKeyboardDidHideNotification, object: nil)
-             calculDistence()
+        if self.latitude as String == "0" || self.longitude as String == "0" || self.slatitude as String == "0" || self.slongitude as String == "0" || self.latitude as String == "" || self.longitude as String == "" || self.slatitude as String == "" || self.slongitude as String == ""{
+            
+        }else{
+            let dic = ["latitude":self.latitude,"longitude":self.longitude,"slatitude":self.slatitude,"slongitude":self.slongitude]
+            print(dic)
+//            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.calculDistence(_:)), name: UIKeyboardDidHideNotification, object: dic)
+            calculDistence(dic)
+        }
+        
+//             calculDistence(notification:NSNotification)
        
     }
     

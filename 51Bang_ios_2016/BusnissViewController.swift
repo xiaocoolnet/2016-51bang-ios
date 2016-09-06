@@ -473,7 +473,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let end = BMKPlanNode.init()
             
             var coor2 = CLLocationCoordinate2D.init()
-            if goodsInfo.latitude != nil && goodsInfo.longitude != nil{
+            if goodsInfo.latitude != nil && goodsInfo.longitude != nil && goodsInfo.latitude != "" && goodsInfo.longitude != ""{
                 coor2.latitude = CLLocationDegrees(goodsInfo.latitude! as String)!
                 coor2.longitude = CLLocationDegrees(goodsInfo.longitude! as String)!
             }else{

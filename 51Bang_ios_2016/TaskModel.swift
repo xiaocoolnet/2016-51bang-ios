@@ -120,6 +120,8 @@ class TaskInfo: JSONJoy {
     var apply:applyModel?
     var pic:[PicInfos]?
     var record:String?
+    var state :String?
+    
    
     
     init(){
@@ -153,6 +155,7 @@ class TaskInfo: JSONJoy {
         name = decoder["name"].string
         phone = decoder["phone"].string
         status = decoder["status"].string
+        state = decoder["state"].string
         photo = decoder["photo"].string
         idcard = decoder["idcard"].string
         files = decoder["files"].string

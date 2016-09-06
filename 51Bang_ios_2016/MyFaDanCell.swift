@@ -35,8 +35,14 @@ class MyFaDanCell: UITableViewCell {
         self.addSubview(Bottom)
         setTop()
         print(model.phone!)
-        setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: "12345678")
-        setBottomDan(model.price!)
+        setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: "无人接单")
+        if model.state! == "0" {
+            setBottomDan("未接单")
+        }else if model.state! == "1"{
+            setBottomDan("未付款")
+        }
+        
+        
 ////        print(model.apply!.phone)
 //        if  model.apply!.phone != nil || model.title == "" {
 //            print(model.price!)
@@ -101,12 +107,13 @@ class MyFaDanCell: UITableViewCell {
         
         let payMoney = UILabel()
         payMoney.text = " 支付状态："+Money
+        payMoney.font = UIFont.systemFontOfSize(12)
         payMoney.frame = CGRectMake(0, 0, 130, 40)
         let Tip = UILabel()
         Tip.text = "未完成（请确认付款）"
         Tip.textColor = UIColor.orangeColor()
         Tip.adjustsFontSizeToFitWidth = true
-        Tip.frame = CGRectMake(130, 0, 130, 40)
+        Tip.frame = CGRectMake(180, 0, 130, 40)
         Bottom.addSubview(Tip)
        
         payBtn.frame = CGRectMake(WIDTH - 60, 5,50 , 30)
