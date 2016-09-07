@@ -437,7 +437,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.myfabu()
         }
         if indexPath.row == 0 {
-            let opt = BMKOpenTransitRouteOption()
+            let opt = BMKOpenWalkingRouteOption()
             opt.appScheme = "a51bang://a51bang"
             let start = BMKPlanNode()
             var coor1 = CLLocationCoordinate2D.init()
@@ -490,7 +490,10 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             opt.endPoint = end
             
             
-            BMKOpenRoute.openBaiduMapTransitRoute(opt)
+            BMKOpenRoute.openBaiduMapWalkingRoute(opt)
+            
+           
+            
         }
     }
     func share(){

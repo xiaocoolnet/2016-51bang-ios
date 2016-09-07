@@ -9,10 +9,11 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDelegate,BMKGeneralDelegate,TencentApiInterfaceDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDelegate,BMKGeneralDelegate,TencentApiInterfaceDelegate,WXApiDelegate {
 
     var window: UIWindow?
     var _mapManager: BMKMapManager?
+    let mainhelper = MainHelper()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -123,19 +124,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     
     
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        WXApi.handleOpenURL(url, delegate: self)
         if TencentApiInterface.canOpenURL(url, delegate: self) {
             TencentApiInterface.handleOpenURL(url, delegate: self)
         }
         return true
     }
     
-    
+    func onResp(resp:BaseResp){
+//        print(resp)
+//        
+//        print(resp.type)
+//        print(resp.errCode)
+//        print(resp.errStr)
+        if resp.errCode == 0 {
+            NSNotificationCenter.defaultCenter().postNotificationName("backForPAy", object: "success", userInfo: nil)
+        }
+        
+        
+    }
     
     
     
     
     //ios9以后使用
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        WXApi.handleOpenURL(url, delegate: self)
         if url.host == "safepay"{
             
             AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: { (resultDic:[NSObject : AnyObject]!) in
@@ -144,7 +158,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 if let Alipayjson = resultDic as? NSDictionary{
                     let resultStatus = Alipayjson.valueForKey("resultStatus") as! String
                     if resultStatus == "9000"{
+                        
                         print("OK")
+//                        NSNotificationCenter.defaultCenter().postNotificationName("payBack", object: nil)
 //                        let vc = OrderDetailViewController()
                         NSNotificationCenter.defaultCenter().postNotificationName("payResult", object: "success", userInfo: nil)
 //                        self.navigationController?.pushViewController(vc, animated: true)
@@ -168,6 +184,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         }
         return true
     }
+    
+    func payback(notification:NSNotification){
+        let isRenwu = notification.object?.valueForKey("isRenwu") as? Bool
+        let numForGoodS = notification.object?.valueForKey("numForGoodS") as? String
+            }
     
     
     func applicationWillResignActive(application: UIApplication) {

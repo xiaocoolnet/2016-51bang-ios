@@ -19,7 +19,11 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     var body = NSString()
     var xiaofei = String()
     let shopHelper = ShopHelper()
+    var numForGoodS = String()//订单号（由服务器返回）
     var mydata = NSMutableDictionary()
+    var isRenwu = Bool()
+    let mainhelper = MainHelper()
+    
     /**
      *  微信开放平台申请得到的 appid, 需要同时添加在 URL schema
      */
@@ -49,6 +53,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         isAgree = false
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.nextView(_:)),
                                                          name: "payResult", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.backpayForweixin(_:)),
+                                                         name: "backForPAy", object: nil)
         self.title = "订单支付"
         self.createTableView()
         // Do any additional setup after loading the view.
@@ -126,10 +132,14 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             var orderNum = String()
             //            if (userDufault.objectForKey("ordernumber") == nil) {
             //                print("0000000000")
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
-            let dateStr = dateFormatter.stringFromDate(NSDate())
-            orderNum  = "51bang" + dateStr + "zhifubao"
+//            let dateFormatter = NSDateFormatter()
+//            dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+//            let dateStr = dateFormatter.stringFromDate(NSDate())
+            if  self.numForGoodS.characters.count < 0{
+                alert("订单错误", delegate: self)
+                return
+            }
+            orderNum  = self.numForGoodS
             
             
             //            }else{
@@ -151,7 +161,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             
             //let privateKey = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAL9MUaZqnb8XrhMxURZmhnhPN8JsgWURnAkOoqdiZZZl6IqXyhWqldFTCACDZt/j8gcfCt7PFTjshD13i+jm1VoRexEntVU1cn5qQ06lnCEOmBDQX1VEP1lzpYYqvbWiUtqzLxDloVpkgArlrzJB0mScwNE1AaChZ1i01ULH+uB1AgMBAAECgYAL15SiYa08PCIJjB8B7PzcC8Ne5Mqp0ApBwUcuZ3f0dICNu9HFv5agq6wuI/RFXd4ItNI+csFUkcep6nGdzFResIWzcyrSypHN8o8Cue2Yov5yjA7Fu4MEjTsy/hI9ch78GP+bfA4Ovx9Z+e1BWMMhgoNoBPoxgg1zld54sC5N7QJBAO7nVEOY+6q8n6tLTEmQHGjxJWpWyairYf40UV4n2aJrlJMCeuWXnKrsC5lUYvYljTpB+eEg2AQZ8ADKGzdfFCMCQQDM/N2V6V3vIRveJKqnPiXNBYlfAk/FLVxXW90yux6MVrI36y7aBGPbpXhO3TjMj1spZP/QbPaJTU4+a4mVFtaHAkEAjnwbrqFcYA1VsYUcP7eaqiBA73ZJmbZ1oHY1nVFpJMzC9RcCk1JkVzCnDlDdIO9ulrNoxBOhoniRwvbHWrPzPwJAbr2Iw+0f5wje8kKiwtkLONht3xrzl1UrFrK1LCv0k+JeQ2FVnUhT3hxlg0112uTzXciHfsTu5zwRMh2MZTPCTwJBAMXMksxezoK4wPEscWwEwzEJRB7bklVEMpcOf4QR90HQAFRH4bDffISI4RUc8I8FLMCGdDzkNFoI4LdwE9hGeZI="
             let order = Order()
-            //            order.appID = "2016083001821606"
+            order.appID = "2016083001821606"
             order.partner = partner;
             order.sellerID = seller;
             order.outTradeNO = orderNum; //订单ID（由商家自行制定）
@@ -181,7 +191,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             order.showURL = "m.alipay.com";
             
             //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
-            let appScheme = "51bang";
+            let appScheme = "a51bang";
             let orderSpec = order.description;
             
             let signer = CreateRSADataSigner(privateKey);
@@ -212,9 +222,20 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //                    }
                 //                })
                 
+//                let dic = ["isRenwu":self.isRenwu,"numForGoodS":self.numForGoodS];
+                //            发送通知
+//                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.payback(_:)), name:"payBack", object: nil)
+                
                 
                 AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme) { (dic)-> Void in
+                    
                     print(dic)
+                    
+                    let diss = dic as NSDictionary
+                    if diss["resultStatus"]?.intValue == 9000{
+                        
+                    }
+
                     
                     let vc = MyBookDan()
                     self.navigationController?.pushViewController(vc, animated: true)
@@ -236,11 +257,15 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("金额不能为0", delegate: self)
                 return
             }
-//            aa.testStart(String(Int(price*100)) ,orderName: body as String);
-            aa.testStart("1" ,orderName: body as String);
+            if  self.numForGoodS.characters.count < 0{
+                alert("订单错误", delegate: self)
+                return
+            }
+//            aa.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS);
+            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
             
-            let vc = MyBookDan()
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = MyBookDan()
+//            self.navigationController?.pushViewController(vc, animated: true)
             
             //            //随机数
             //            let orderNO   = CommonUtil.genOutTradNo()
@@ -388,9 +413,41 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
     }
     
-    
+    func backpayForweixin(notification: NSNotification)  {
+        if isRenwu == true {
+            self.mainhelper.upALPState(numForGoodS, state: "2", type: "1", handle: { (success, response) in
+                if !success{
+                    print("成功")
+                }
+            })
+        }else{
+            self.mainhelper.upALPState(numForGoodS, state: "2", type: "2", handle: { (success, response) in
+                if !success{
+                    print("成功")
+                }
+            })
+        }
+        let vc = OrderDetailViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     func nextView(notification: NSNotification){
+        
+        if isRenwu == true {
+            self.mainhelper.upALPState(numForGoodS, state: "1", type: "1", handle: { (success, response) in
+                if !success{
+                    print("成功")
+                }
+            })
+        }else{
+            self.mainhelper.upALPState(numForGoodS, state: "1", type: "2", handle: { (success, response) in
+                if !success{
+                    print("成功")
+                }
+            })
+        }
+        
+
         
         let vc = OrderDetailViewController()
         self.navigationController?.pushViewController(vc, animated: true)

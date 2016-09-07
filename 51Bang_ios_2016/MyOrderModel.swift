@@ -76,6 +76,7 @@ class MyOrderInfo: JSONJoy {
     var username:String?
     var statusname:String?
     var statusend:String?
+    var delivery:String?
     var commentlist:[commentlistInfo]
     var pic:[PicInfos]
     
@@ -101,6 +102,7 @@ class MyOrderInfo: JSONJoy {
         username = decoder["username"].string
         statusname = decoder["statusname"].string
         statusend = decoder["statusend"].string
+        delivery = decoder["delivery"].string
         commentlist = Array<commentlistInfo>()
         pic = Array<PicInfos>()
         

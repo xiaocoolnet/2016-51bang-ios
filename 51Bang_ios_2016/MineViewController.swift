@@ -59,6 +59,10 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     
+//    override func viewDidDisappear(animated: Bool) {
+//        self.tabBarController?.tabBar.hidden = true
+//    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

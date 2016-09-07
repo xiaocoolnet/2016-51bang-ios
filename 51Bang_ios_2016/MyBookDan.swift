@@ -153,12 +153,12 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func createTableView(){
         
         
-        mTableview = UITableView.init(frame: CGRectMake(0, 45, WIDTH, self.view.frame.size.height - 45.1 - rect.height )
+        mTableview = UITableView.init(frame: CGRectMake(0, 45, WIDTH, HEIGHT - 45.1 - rect.height - 48 )
             )
         mTableview.delegate = self
         mTableview.dataSource  = self
         self.view.addSubview(mTableview)
-        mTableview.separatorStyle = UITableViewCellSeparatorStyle.None
+//        mTableview.separatorStyle = UITableViewCellSeparatorStyle.None
     
         mTableview.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
@@ -181,7 +181,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             self.AllDataSource = response as? Array<MyOrderInfo> ?? []
             print(self.AllDataSource?.count)
             print(self.AllDataSource)
-            
+            self.reloadMTableviwe(self.sign+1)
             self.mTableview.mj_header.endRefreshing()
             
         }
@@ -286,7 +286,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             willUserBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
             willCommentBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
             deView.frame = CGRectMake(0, 35, WIDTH / 4, 5)
-            Source = Data
+            
             
         case 2:
             sign = 1
@@ -295,7 +295,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             willUserBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
             willCommentBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
             deView.frame = CGRectMake(WIDTH / 4, 35, WIDTH / 4, 5)
-            Source = Data2
+            
             
         case 3:
             sign = 2
@@ -304,7 +304,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             willUserBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
             willCommentBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
             deView.frame = CGRectMake(WIDTH  * 2 / 4, 35, WIDTH / 4, 5)
-            Source = Data3
+            
             
         default:
             sign = 3
@@ -313,12 +313,13 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             willUserBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
             willCommentBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
             deView.frame = CGRectMake(WIDTH  * 3 / 4, 35, WIDTH / 4, 5)
-            Source = Data4
+            
             
             
         }
         
         mTableview.reloadData()
+        mTable.reloadData()
 
     }
     
@@ -369,7 +370,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
+        
         if(sign == 0)
         {
 //            print(self.AllDataSource!)
@@ -377,39 +378,63 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
 //            print(self.AllDataSource![indexPath.section])
             
             if self.AllDataSource != nil {
-                let cell = MyBookDanCell.init(Data: self.AllDataSource![indexPath.section],sign: sign)
+                let cell = MyBookDanCell.init(Data: self.AllDataSource![indexPath.row],sign: sign)
                 cell.targets = self
-                
+                if self.AllDataSource![indexPath.row].state == "1" {
+                    cell.Btn.tag = 100 + indexPath.row
+                    cell.Btn.addTarget(self, action: #selector(self.payMeony(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                }else if self.AllDataSource![indexPath.row].state == "2"{
+                    cell.tag = indexPath.row
+                    cell.Btn.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                }
+                return  cell
+            }else{
+                let cell = UITableViewCell()
+                return cell
             }
-            return  cell
+            
             
         }else if sign == 1{
             if self.DFKDataSource != nil {
-                let cell = MyBookDanCell.init(Data: self.DFKDataSource![indexPath.section],sign: sign)
-                cell.targets = self
+                let cell = MyBookDanCell.init(Data: self.DFKDataSource![indexPath.row],sign: sign)
+//                cell.targets = self
+                cell.Btn.tag = indexPath.row+100
+                cell.Btn.addTarget(self, action: #selector(self.payMeony(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                return  cell
+            }else{
+                let cell = UITableViewCell()
+                return cell
             }
             
-            return  cell
+            
         }else if sign == 2{
             
              if self.DXFDataSource != nil {
-                let cell = MyBookDanCell.init(Data: self.DXFDataSource![indexPath.section],sign: sign)
+                let cell = MyBookDanCell.init(Data: self.DXFDataSource![indexPath.row],sign: sign)
                 cell.targets = self
                 cell.Btn.tag = indexPath.row
                 cell.Btn.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                return  cell
+             }else{
+                let cell = UITableViewCell()
+                return cell
             }
             
             
-            return  cell
+            
         }else{
             if self.DPJDataSource != nil {
-                let cell = MyBookDanCell.init(Data: self.DPJDataSource![indexPath.section],sign: sign)
+                let cell = MyBookDanCell.init(Data: self.DPJDataSource![indexPath.row],sign: sign)
                 cell.targets = self
+                return  cell
                 
+            }else{
+                let cell = UITableViewCell()
+                return cell
             }
             
             
-            return  cell
+            
         }
 
 //        return MyBookDanCell.init(Data: Source[indexPath.row])
@@ -422,52 +447,153 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
     }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        
+        let vc = MyDingDanXiangQingViewController()
+        vc.sign = sign
+        if(sign == 0)
+        {
+            if self.AllDataSource != nil {
+                vc.info = self.AllDataSource![indexPath.row]
+            }
+            
+            
+        }else if sign == 1{
+
+            if self.self.DFKDataSource != nil {
+                vc.info = self.DFKDataSource![indexPath.row]
+            }
+            
+        }else if sign == 2{
+            if self.DXFDataSource != nil {
+                vc.info = self.DXFDataSource![indexPath.row]
+            }
+            
+        }else{
+            if self.DPJDataSource != nil {
+                vc.info = self.DPJDataSource![indexPath.row]
+            }
+            
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    func payMeony(sender:UIButton){
+        if sign == 0 {
+            let vc = PayViewController()
+            if self.AllDataSource![sender.tag-100].order_num == "" {
+                alert("订单错误", delegate: self)
+                return
+            }
+            vc.numForGoodS = self.AllDataSource![sender.tag-100].order_num!
+            vc.price = ((self.AllDataSource![sender.tag-100].money!) as NSString).doubleValue
+            vc.subject = self.AllDataSource![sender.tag-100].goodsname! as NSString
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else if sign == 1{
+            let vc = PayViewController()
+            if self.DFKDataSource![sender.tag-100].order_num == "" {
+                alert("订单错误", delegate: self)
+                return
+            }
+            vc.numForGoodS = self.DFKDataSource![sender.tag-100].order_num!
+            vc.price = ((self.DFKDataSource![sender.tag-100].money!) as NSString).doubleValue
+            vc.subject = self.DFKDataSource![sender.tag-100].goodsname! as NSString
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     func Cancel(btn:UIButton)
     {
         self.row = btn.tag
         print(self.row)
-        if DXFDataSource?.count != 0{
-            print("取消订单")
-            
-            let MyOrderInfo = self.DXFDataSource![btn.tag]
-            let ud = NSUserDefaults.standardUserDefaults()
-            let userid = ud.objectForKey("userid")as! String
-            mainHelper.quXiaoDingdan(MyOrderInfo.order_num!, userid: userid) { (success, response) in
-                if !success {
-                    print("..........")
-                    print(MyOrderInfo.order_num)
-                    return
-                }else{
+        if sign == 2 {
+            if DXFDataSource?.count != 0{
+                print("取消订单")
+                
+                let MyOrderInfo = self.DXFDataSource![btn.tag]
+                let ud = NSUserDefaults.standardUserDefaults()
+                let userid = ud.objectForKey("userid")as! String
+                mainHelper.quXiaoDingdan(MyOrderInfo.order_num!, userid: userid) { (success, response) in
+                    if !success {
+                        print("..........")
+                        print(MyOrderInfo.order_num)
+                        return
+                    }else{
+                        
+                        let alertController = UIAlertController(title: "系统提示",
+                                                                message: "您确定要取消订单吗？", preferredStyle: .Alert)
+                        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                                     handler: { action in
+                                                        self.DXFDataSource?.removeAtIndex(self.row)
+                                                        let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
+                                                        
+                                                        self.mTableview.deleteRowsAtIndexPaths([myindexPaths],       withRowAnimation: UITableViewRowAnimation.Right)
+                                                        
+                                                        //                self.mTableview.reloadData()
+                                                        
+                                                        self.Btn.tag = 3
+                                                        
+                        })
+                        alertController.addAction(cancelAction)
+                        alertController.addAction(okAction)
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                        
+                        //                    alert("取消订单", delegate: self)
+                        //                    let myindexPaths = NSIndexPath.init(forRow:0 inSection: 0)
+                        
+                    }
                     
-                let alertController = UIAlertController(title: "系统提示",
-                                                            message: "您确定要取消订单吗？", preferredStyle: .Alert)
-                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-                let okAction = UIAlertAction(title: "确定", style: .Default,
-                handler: { action in
-                self.DXFDataSource?.removeAtIndex(self.row)
-                let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
-                                                    
-                self.mTableview.deleteRowsAtIndexPaths([myindexPaths],       withRowAnimation: UITableViewRowAnimation.Right)
-                                                    
-//                self.mTableview.reloadData()
-                                                    
-                self.Btn.tag = 3
-                                  
-                    })
-                alertController.addAction(cancelAction)
-                alertController.addAction(okAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
                     
-//                    alert("取消订单", delegate: self)
-//                    let myindexPaths = NSIndexPath.init(forRow:0 inSection: 0)
-
                 }
                 
+            }
+        }else if sign == 0{
+            if AllDataSource?.count != 0{
+                print("取消订单")
+                
+                let MyOrderInfo = self.AllDataSource![btn.tag]
+                let ud = NSUserDefaults.standardUserDefaults()
+                let userid = ud.objectForKey("userid")as! String
+                mainHelper.quXiaoDingdan(MyOrderInfo.order_num!, userid: userid) { (success, response) in
+                    if !success {
+                        print("..........")
+                        print(MyOrderInfo.order_num)
+                        return
+                    }else{
+                        
+                        let alertController = UIAlertController(title: "系统提示",
+                                                                message: "您确定要取消订单吗？", preferredStyle: .Alert)
+                        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                                     handler: { action in
+                                                        self.AllDataSource?.removeAtIndex(self.row)
+                                                        let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
+                                                        
+                                                        self.mTableview.deleteRowsAtIndexPaths([myindexPaths],       withRowAnimation: UITableViewRowAnimation.Right)
+                                                        
+                                                        //                self.mTableview.reloadData()
+                                                        
+                                                        self.Btn.tag = 3
+                                                        
+                        })
+                        alertController.addAction(cancelAction)
+                        alertController.addAction(okAction)
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                        
+                        //                    alert("取消订单", delegate: self)
+                        //                    let myindexPaths = NSIndexPath.init(forRow:0 inSection: 0)
+                        
+                    }
+                    
+                    
+                }
                 
             }
-            
         }
+        
+        
         
     }
 

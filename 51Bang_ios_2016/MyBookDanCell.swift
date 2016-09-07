@@ -19,6 +19,7 @@ class MyBookDanCell: UITableViewCell {
     var data = Array<MyOrderInfo>?()
     var  zhifubaoprice = String()
     var  zhifubaosubject = String()
+    var  zhifubaoNum = String()
     var targets:UIViewController!
     let mainHelp = MainHelper()
     var id = String()
@@ -69,26 +70,31 @@ class MyBookDanCell: UITableViewCell {
 //        
 //        }else{
         Statue.textColor = COLOR
-        if self.sign == 0 {
+        if Data.state == "3" {
             Statue.text = "待评价"
             Btn.setTitle("评价", forState: UIControlState.Normal)
             Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
             
-        }else if self.sign == 1{
+        }else if Data.state == "1"{
             Statue.text = "待付款"
             Btn.setTitle("付款", forState: UIControlState.Normal)
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        }else if self.sign == 2{
+        }else if Data.state == "2"{
 //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待消费"
             Btn.setTitle("取消订单", forState: UIControlState.Normal)
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
-        }else{
-            Statue.text = "待评价"
-            Btn.setTitle("评价", forState: UIControlState.Normal)
-            Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
+        }else if Data.state == "-1"{
+            Statue.text = "已取消"
+            Btn.setTitle("已取消", forState: UIControlState.Normal)
+            Btn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        }else if Data.state == "4"{
+            Statue.text = "已完成"
+            Btn.setTitle("已完成", forState: UIControlState.Normal)
+            Btn.setTitleColor(COLOR, forState: UIControlState.Normal)
         }
+
         
 //        }
         
@@ -119,6 +125,7 @@ class MyBookDanCell: UITableViewCell {
         Price.textColor = UIColor.redColor()
         zhifubaoprice = Data.price!
         zhifubaosubject = Data.goodsname!
+        zhifubaoNum = Data.order_num!
         self.addSubview(Price)
         
         
@@ -196,10 +203,7 @@ class MyBookDanCell: UITableViewCell {
     func pay()
     {
         print("付款")
-        let vc = PayViewController()
-        vc.price = ((zhifubaoprice) as NSString).doubleValue
-        vc.subject = zhifubaosubject as NSString
-        targets.navigationController?.pushViewController(vc, animated: true)
+        
 
     }
     

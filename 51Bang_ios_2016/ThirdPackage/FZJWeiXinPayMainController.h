@@ -11,5 +11,5 @@
 #import "WXApi.h"
 
 @interface FZJWeiXinPayMainController : UIViewController
--(void)testStart:(NSString*)price orderName:(NSString*)orderName;
+-(void)testStart:(NSString*)price orderName:(NSString*)orderName numOfGoods:(NSString*)numOfGoods;
 @end

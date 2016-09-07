@@ -294,7 +294,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
      }
     
     func dingwei(sender:UIButton){
-        let opt = BMKOpenTransitRouteOption()
+        let opt = BMKOpenWalkingRouteOption()
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
@@ -341,7 +341,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapTransitRoute(opt)
+        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
         
 //        let locationVc = LocationViewController()
 //        //        LocationViewController.myAddressOfpoint = self.dataSource![sender.tag].address!
@@ -369,7 +369,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     func nextView1(sender:UIButton){
         
-        let opt = BMKOpenTransitRouteOption()
+        let opt = BMKOpenWalkingRouteOption()
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
@@ -416,7 +416,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapTransitRoute(opt)
+        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
         
 //        let locationVc = LocationViewController()
 //        //        LocationViewController.myAddressOfpoint = self.dataSource![sender.tag].address!
