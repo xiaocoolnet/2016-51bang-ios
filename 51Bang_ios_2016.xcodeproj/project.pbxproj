@@ -452,6 +452,8 @@
 		F2F189FA1D6D6BCA00843120 /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F189EE1D6D6BCA00843120 /* TZPhotoPreviewController.m */; };
 		F2F189FB1D6D6BCA00843120 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F189F01D6D6BCA00843120 /* TZVideoPlayerController.m */; };
 		F2F189FC1D6D6BCA00843120 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F189F21D6D6BCA00843120 /* UIView+Layout.m */; };
+		F2F8BEC71D7FC2E2004D3F97 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F8BEC61D7FC2E2004D3F97 /* WXApiManager.m */; };
+		F2F8BEC91D7FF717004D3F97 /* MyDingDanXiangQingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F8BEC81D7FF717004D3F97 /* MyDingDanXiangQingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1098,6 +1100,9 @@
 		F2F189F01D6D6BCA00843120 /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
 		F2F189F11D6D6BCA00843120 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		F2F189F21D6D6BCA00843120 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		F2F8BEC51D7FC2E2004D3F97 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		F2F8BEC61D7FC2E2004D3F97 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		F2F8BEC81D7FF717004D3F97 /* MyDingDanXiangQingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDingDanXiangQingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1519,6 +1524,7 @@
 				8190BAA51D38CD3800468D4D /* MyFaDanCell.swift */,
 				819778211D3CF68C00CB5BC0 /* MyFaDanFinshCell.swift */,
 				81FD71F81D3E13D30020890A /* MyBookDan.swift */,
+				F2F8BEC81D7FF717004D3F97 /* MyDingDanXiangQingViewController.swift */,
 				81FD71FA1D3E14120020890A /* MyBookDanCell.swift */,
 				81FD71FC1D3E17FC0020890A /* MyCollectonView.swift */,
 				0DEFF3BF1D60250000BC7BF1 /* MyCollectionViewCell.swift */,
@@ -2203,6 +2209,8 @@
 				F206247F1D743EEA00B795F5 /* 上传音频 */,
 				F2075A721D6FF20B00BF45E9 /* FZJWeiXinPayMainController.h */,
 				F2075A731D6FF20B00BF45E9 /* FZJWeiXinPayMainController.m */,
+				F2F8BEC51D7FC2E2004D3F97 /* WXApiManager.h */,
+				F2F8BEC61D7FC2E2004D3F97 /* WXApiManager.m */,
 				F2075A741D6FF20B00BF45E9 /* WeiXinPay.pch */,
 				F2F189DF1D6D6BCA00843120 /* TZImagePickerController */,
 				F24745131D6D51CF00870363 /* SGImagePickerController */,
@@ -2840,6 +2848,7 @@
 				1F9B0E001D36491200C7CA52 /* TCMoreInfoHelper.swift in Sources */,
 				189757D01D162AAA0083FE46 /* MoreServiceViewController.swift in Sources */,
 				1FD8C7F01D49133D008BCE96 /* walletDetailModel.swift in Sources */,
+				F2F8BEC91D7FF717004D3F97 /* MyDingDanXiangQingViewController.swift in Sources */,
 				F2F189FB1D6D6BCA00843120 /* TZVideoPlayerController.m in Sources */,
 				0D0B1E971D53610200DF1440 /* setPlacehoder.m in Sources */,
 				1FFE54211D2CDCAF000891EB /* PayHeaderCell.swift in Sources */,
@@ -2856,6 +2865,7 @@
 				0DD511191D51D16E00FE88C2 /* ZLSelectPhotoModel.m in Sources */,
 				1FECB3EB1D3C832200588A8D /* CountTableViewCell.swift in Sources */,
 				1F9B0DF11D36307B00C7CA52 /* MineHeaderCell.swift in Sources */,
+				F2F8BEC71D7FC2E2004D3F97 /* WXApiManager.m in Sources */,
 				189757DF1D1665A40083FE46 /* DrivingLicenseTableViewCell.swift in Sources */,
 				1FF073CA1D30E7370074C477 /* FuWuHomePageTableViewCell.swift in Sources */,
 				8190BAAE1D38EBE400468D4D /* SexCell.swift in Sources */,
@@ -3076,7 +3086,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "cdd8a010-2a42-4472-ae18-87197a10c18b";
+				PROVISIONING_PROFILE = "7ae3a751-1558-4ac1-8e45-baa59dab4755";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3116,7 +3126,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "cdd8a010-2a42-4472-ae18-87197a10c18b";
+				PROVISIONING_PROFILE = "7ae3a751-1558-4ac1-8e45-baa59dab4755";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

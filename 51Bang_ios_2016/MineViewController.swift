@@ -59,6 +59,10 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     
+//    override func viewDidDisappear(animated: Bool) {
+//        self.tabBarController?.tabBar.hidden = true
+//    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -512,6 +516,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(userInfo.name, forKey: "name")
                     ud.setObject(self.phoneNum, forKey: "phone")
                     ud.setObject(self.pwd, forKey: "pwd")
+                    ud.setObject(userInfo.photo, forKey: "photo")
+                    ud.setObject(userInfo.sex, forKey: "sex")
                     //强制写入
                     ud.synchronize()
                     password.resignFirstResponder()

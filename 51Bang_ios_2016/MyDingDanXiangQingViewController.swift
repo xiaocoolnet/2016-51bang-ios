@@ -1,15 +1,17 @@
 //
-//  AffirmOrderViewController.swift
+//  MyDingDanXiangQingViewController.swift
 //  51Bang_ios_2016
 //
-//  Created by zhang on 16/7/18.
+//  Created by 815785047 on 16/9/7.
 //  Copyright © 2016年 校酷网络科技公司. All rights reserved.
 //
 
 import UIKit
 
-class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
+class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate{
     
+    var sign = Int()
+
     let myTableView = TPKeyboardAvoidingTableView()
     let textField = UITextField()
     var remark = String()
@@ -17,17 +19,32 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     let deleteButton = UIButton()
     let mainHelper = MainHelper()
     var num = 1
-    var info = GoodsInfo2()
+    var info = MyOrderInfo()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.hidden = false
+        self.tabBarController?.tabBar.hidden = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
-        self.title = "确认订单"
+        self.title = "订单详情"
         self.createTableView()
+        if self.info.state! == "2" && self.info.delivery == "卷码消费"{
+            let juanma = UILabel()
+            juanma.frame = CGRectMake(10, 10, WIDTH-20, 50)
+            juanma.text = "您的卷码为"+self.info.order_num!
+            juanma.textAlignment = NSTextAlignment.Center
+            juanma.textColor = COLOR
+            juanma.layer.masksToBounds = true
+            juanma.layer.cornerRadius = 10
+            juanma.layer.borderColor = COLOR.CGColor
+            juanma.layer.borderWidth = 1
+            
+            self.myTableView.tableFooterView = juanma
+            
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -53,7 +70,10 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         submit.addTarget(self, action: #selector(self.goToBuy), forControlEvents: UIControlEvents.TouchUpInside)
         submit.backgroundColor = UIColor.orangeColor()
         view.addSubview(submit)
-        self.view.addSubview(view)
+        if self.info.state == "1" {
+            self.view.addSubview(view)
+        }
+        
         
         
     }
@@ -145,7 +165,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 textField.frame = CGRectMake(WIDTH-50, 10, 30, cell.CNEE.frame.size.height)
                 textField.borderStyle = .Line
                 
-                textField.text = "1"
+                textField.text = self.info.number!
                 addButton.frame = CGRectMake(textField.frame.origin.x+32, 10, 20, cell.CNEE.frame.size.height)
                 //                addButton.backgroundColor = UIColor.redColor()
                 addButton.setTitle("加", forState: UIControlState.Normal)
@@ -160,8 +180,13 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 //                textField.rightView = addButton
                 cell.name.removeFromSuperview()
                 cell.addSubview(textField)
-                cell.addSubview(deleteButton)
-                cell.addSubview(addButton)
+                textField.userInteractionEnabled = false
+                if self.info.state == "1" {
+                    cell.addSubview(deleteButton)
+                    cell.addSubview(addButton)
+                    textField.userInteractionEnabled = true
+                }
+                
                 return cell
                 
             }else{
@@ -192,6 +217,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             }else{
                 let cell = myTableView.dequeueReusableCellWithIdentifier("LiuYan")as! LiuYanTableViewCell
                 cell.liuyan.tag = 10
+                cell.liuyan.text = self.info.remarks!
                 cell.liuyan.delegate = self
                 cell.selectionStyle = .None
                 tableView.separatorStyle = .None
@@ -302,30 +328,30 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         let textview  = self.myTableView.viewWithTag(10) as!UITextField
         textview.resignFirstResponder()
         
-        let userDufault = NSUserDefaults.standardUserDefaults()
-        let userid = userDufault.objectForKey("userid") as! String
-        let phone = userDufault.objectForKey("phone") as! String
-        let price = String( Float(self.num)*Float(self.info.price!)!)
-        mainHelper.buyGoods(userid, roomname: self.info.goodsname, goodsid: self.info.id, goodnum: String(self.num), mobile: phone, remark: self.remark, money: price,delivery:self.info.delivery!) { (success, response) in
-            if !success{
-                alert("订单提交失败", delegate: self)
-                return
-            }
-            print(response!)
+//        let userDufault = NSUserDefaults.standardUserDefaults()
+//        let userid = userDufault.objectForKey("userid") as! String
+//        let phone = userDufault.objectForKey("phone") as! String
+//        let price = String( Float(self.num)*Float(self.info.price!)!)
+//        mainHelper.buyGoods(userid, roomname: self.info.goodsname!, goodsid: self.info.id!, goodnum: String(self.num), mobile: phone, remark:self.remark, money: price,delivery:self.info.delivery!) { (success, response) in
+//            if !success{
+//                alert("订单提交失败", delegate: self)
+//                return
+//            }
+//            print(response!)
             let vc = PayViewController()
             
-            vc.numForGoodS = response! as! String
+            vc.numForGoodS = self.info.order_num!
             let xiaoji = self.view.viewWithTag(99)as! UILabel
             print(xiaoji)
             print(xiaoji.text!)
             vc.price = ((xiaoji.text)! as NSString).doubleValue
             vc.subject = self.info.goodsname!
-            vc.body = self.info.description!
+//            vc.body = self.info.description!
             self.navigationController?.pushViewController(vc, animated: true)
-        }
+//        }
         
         
-//        print(myTableView.height)
+        //        print(myTableView.height)
     }
     
     
@@ -334,15 +360,5 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         // Dispose of any resources that can be recreated.
     }
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+
 }

@@ -98,8 +98,8 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
 
     func nextView(){
         
-        let opt = BMKOpenTransitRouteOption()
-        opt.appScheme = "a51bang"
+        let opt = BMKOpenWalkingRouteOption()
+        opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
         if info.latitude != nil && info.longitude != nil && info.latitude != "" && info.longitude != ""{
@@ -146,7 +146,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapTransitRoute(opt)
+        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
         
 //        let locationVc = LocationViewController()
 //        //        LocationViewController.myAddressOfpoint = self.dataSource![sender.tag].address!
@@ -174,8 +174,8 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     }
 
     func nextView1(){
-        let opt = BMKOpenTransitRouteOption()
-        opt.appScheme = "a51bang"
+        let opt = BMKOpenWalkingRouteOption()
+        opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
         if info.latitude != nil && info.longitude != nil && info.latitude != "" && info.longitude != ""{
@@ -222,7 +222,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapTransitRoute(opt)
+        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
 
     
     }

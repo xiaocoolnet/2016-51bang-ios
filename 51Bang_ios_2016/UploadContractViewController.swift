@@ -17,6 +17,8 @@ class UploadContractViewController: UIViewController,UINavigationControllerDeleg
     var salary = String()
     var  price = NSString()
     var goodName = String()
+    var numofGoods = String()
+    
     
     
     override func viewDidLoad() {
@@ -46,6 +48,8 @@ class UploadContractViewController: UIViewController,UINavigationControllerDeleg
     
     func tiaoguo(){
         let vc = PayViewController()
+        vc.isRenwu = true
+        vc.numForGoodS = self.numofGoods
         if self.salary == "" {
             vc.price = 0
         }else{

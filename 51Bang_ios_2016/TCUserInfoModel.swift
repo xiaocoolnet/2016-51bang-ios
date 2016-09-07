@@ -29,11 +29,11 @@ class UserInfo: JSONJoy {
     var id:String
     var address:String
     var idcard:String
-//    var sex:String
+    var sex:String
 //    var qq:String
     var time:String
     var status:String
-//    var photo:String
+    var photo:String
 //    var weixin:String
     var from:String
     var city:String
@@ -47,11 +47,11 @@ class UserInfo: JSONJoy {
         id = decoder["id"].string!
         address = decoder["address"].string!
         idcard = decoder["idcard"].string!
-//        sex = decoder["sex"].string!
+        sex = decoder["sex"].string!
 //        qq = decoder["qq"].string!
         time = decoder["time"].string!
         status = decoder["status"].string!
-//        photo = decoder["photo"].string!
+        photo = decoder["photo"].string!
 //        weixin = decoder["weixin"].string!
         from = decoder["from"].string!
         city = decoder["city"].string!

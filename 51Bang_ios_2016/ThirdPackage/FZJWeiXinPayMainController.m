@@ -33,7 +33,7 @@
 
 #define HTTP @"https://api.mch.weixin.qq.com/pay/unifiedorder"//
 
-@interface FZJWeiXinPayMainController()
+@interface FZJWeiXinPayMainController()<WXApiDelegate>
 @end
 @implementation FZJWeiXinPayMainController
 -(void)viewDidLoad{
@@ -48,7 +48,7 @@
     [self.view addSubview:testBtn];
     
 }
--(void)testStart:(NSString*)price orderName:(NSString*)orderName{
+-(void)testStart:(NSString*)price orderName:(NSString*)orderName numOfGoods:(NSString*)numOfGoods{
     //    https://pay.weixin.qq.com/wiki/doc/api/app.php?chapter=9_1
     
 /**************************************************** 订单信息 *******************************************************************/
@@ -74,7 +74,7 @@
     //随机数串
     srand( (unsigned)time(0) );
     NSString *noncestr  = [NSString stringWithFormat:@"%d", rand()];
-    NSString *orderNO   = [self timeStamp];//订单号。(随机的可以直接用时间戳)
+    NSString *orderNO   = numOfGoods;//订单号。(随机的可以直接用时间戳)
     NSLog(@"orderNO===%@",orderNO);
     
     //================================
@@ -133,6 +133,9 @@
 }
 -(NSString *)timeStamp{
     return [NSString stringWithFormat:@"%@%ld%s",@"51bang",(long)[[NSDate date] timeIntervalSince1970],"weixin"];
+}
+- (void)onResp:(BaseResp *)resp{
+    NSLog(@"%@",resp);
 }
 #pragma mark ---  获取prePayid
 -(NSString *)getPrePayId:(NSMutableDictionary *)pakeParams{

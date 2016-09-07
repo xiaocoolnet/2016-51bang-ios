@@ -89,7 +89,6 @@
             
         }
     }
-    
     //发布任务
     func upLoadOrder(userid:String,title:String,description:String,address:String,longitude:String,latitude:String,saddress:String,slongitude:String,slatitude:String, expirydate:String,price:String,type:String,sound:String,picurl:NSArray,soundtime:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"publishTask"
@@ -118,6 +117,55 @@
             "type":type,
             "price":price,
             "picurl":photoUrl
+        ];
+        //        let param1 = [
+        //
+        //            "userid":userid,
+        //            "title":title,
+        //            "description":description,
+        //            "address":address,
+        //            "longitude":longitude,
+        //            "latitude":latitude,
+        //            "price":price
+        //        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    //                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+
+    
+    //商品购买
+    func buyGoods(userid:String,roomname:String,goodsid:String,goodnum:String,mobile:String,remark:String,money:String,delivery:String, handle:ResponseBlock){
+        let url = Bang_URL_Header+"bookingshopping"
+        
+        let param = [
+            "userid":userid,
+            "roomname":roomname,
+            "goodsid":goodsid,
+            "goodnum":goodnum,
+            "mobile":mobile,
+            "remark":remark,
+            "money":money,
+            "delivery":delivery
+            
         ];
         //        let param1 = [
         //
@@ -645,6 +693,62 @@
         
         
     }
+    
+    //支付宝上传支付状态
+    /*
+     state:微信支付还是支付宝支付。1-支付宝，2－微信
+     type:任务的支付还是商品的支付 1- 任务，2-商品
+  */
+    func upALPState(order_num:String,state:String,type:String, handle:ResponseBlock){
+        
+        let url = Bang_URL_Header
+        
+        var typeNum = String()
+        if type == "1" {
+            typeNum = "UpdataTaskPaySuccess"
+        }else{
+            typeNum = "UpdataShoppingPaySuccess"
+        }
+        var paytype = String()
+        if state == "1" {
+            paytype = "alipay"
+        }else{
+            paytype = "weixin"
+        }
+        let param = [
+            "a":typeNum,
+            "order_num":order_num,
+            "paytype":paytype
+            
+        ];
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = MyOrderModel(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.datas)
+                    print(result.datas.count)
+                    handle(success: true, response: result.datas)
+                    
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+        
+    }
+
     //发表评论
     //  static  func AddConmment(parm:Dictionary<String,String>,url:String)
     //    {

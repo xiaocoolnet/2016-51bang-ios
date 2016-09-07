@@ -12,6 +12,8 @@ class MessageButtonActionViewController: UIViewController,UITableViewDelegate,UI
     let myMessageTableView = UITableView()
     var messageData = NSArray()
     let messagePushView = UIView()
+    var data = TCHDInfo()
+    
     
     override func viewDidDisappear(animated: Bool) {
         
@@ -71,6 +73,20 @@ class MessageButtonActionViewController: UIViewController,UITableViewDelegate,UI
         let cell = UITableViewCell()
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         if indexPath.row%2 == 1 {
+            let headerImage = UIImageView()
+            headerImage.frame = CGRectMake(10, 10, 40, 40)
+            if data.photo != nil && data.photo! != "" {
+                let url = Bang_Image_Header+data.photo!
+                
+                headerImage.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "1.png"))
+            }else{
+                headerImage.image = UIImage(named:"1.png" )
+            }
+            
+            headerImage.layer.cornerRadius = 20
+            cell.addSubview(headerImage)
+            
+            
             let messageLabel = UITextView()
             messageLabel.endEditing(false)
             messageLabel.userInteractionEnabled = false
@@ -85,6 +101,22 @@ class MessageButtonActionViewController: UIViewController,UITableViewDelegate,UI
             cell.addSubview(messageLabel)
             return cell
         }else{
+            
+            let headerImage = UIImageView()
+            headerImage.frame = CGRectMake(WIDTH-50, 10, 40, 40)
+            let ud = NSUserDefaults.standardUserDefaults()
+            let photo = ud.objectForKey("photo")
+            if photo != nil {
+                let url = Bang_Image_Header+(photo! as! String)
+                
+                headerImage.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "1.png"))
+            }else{
+                headerImage.image = UIImage(named:"1.png" )
+            }
+            
+            headerImage.layer.cornerRadius = 20
+            cell.addSubview(headerImage)
+            
             let messageLabel = UITextView()
             messageLabel.endEditing(false)
             messageLabel.userInteractionEnabled = false

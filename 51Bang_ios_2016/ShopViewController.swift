@@ -55,18 +55,18 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 if !success {
                     return
                 }
-                print(response)
+//                print(response)
                 
                 self.myDic?.removeAll()
                 self.myDic = response as? Array<DicInfo> ?? []
-                for name in self.myDic!{
-                    print(name.id)
-                    print(name.name)
-                }
+//                for name in self.myDic!{
+//                    print(name.id)
+//                    print(name.name)
+//                }
                 self.leftTableView.reloadData()
-                print(self.myDic![0].id)
-                
-                print(self.myDic?.count)
+//                print(self.myDic![0].id)
+//                
+//                print(self.myDic?.count)
                 
                 //                }
             })
@@ -88,11 +88,11 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     return
                 }
                 hud.hide(true)
-                print(response)
+//                print(response)
                 self.dataSource?.removeAll()
                 self.dataSource = response as? Array<GoodsInfo> ?? []
-                print(self.dataSource)
-                print(self.dataSource?.count)
+//                print(self.dataSource)
+//                print(self.dataSource?.count)
                 self.createTableView()
                 //                self.ClistdataSource = response as? ClistList ?? []
                 self.myTableView.reloadData()
@@ -209,7 +209,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        print(indexPath.row)
+//        print(indexPath.row)
         if tableView.tag == 0 {
             let next = BusnissViewController()
             if type == ""{
