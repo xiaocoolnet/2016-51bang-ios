@@ -158,7 +158,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         mTableview.delegate = self
         mTableview.dataSource  = self
         self.view.addSubview(mTableview)
-//        mTableview.separatorStyle = UITableViewCellSeparatorStyle.None
+        mTableview.separatorStyle = UITableViewCellSeparatorStyle.None
     
         mTableview.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
@@ -171,7 +171,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func getAllData(){
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "-1,0,1,2,3,4") { (success, response) in
+        mainHelper.getMyOrder(uid, state: "") { (success, response) in
             print(response)
             if !success{
                 self.mTableview.mj_header.endRefreshing()
@@ -194,7 +194,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "0") { (success, response) in
+        mainHelper.getMyOrder(uid, state: "1") { (success, response) in
             print(response)
             if !success{
                 self.mTableview.mj_header.endRefreshing()
@@ -213,7 +213,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func getDXFData(){
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "1") { (success, response) in
+        mainHelper.getMyOrder(uid, state: "2") { (success, response) in
             print(response)
             if !success{
                 self.mTableview.mj_header.endRefreshing()

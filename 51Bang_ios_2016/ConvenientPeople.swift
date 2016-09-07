@@ -15,7 +15,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     var idleImages:NSMutableArray = []
     var refreshingImages:NSMutableArray = []
     //---------
-    let convenienceTable = UITableView.init()
+    var convenienceTable = UITableView.init()
     var myindexRow = NSInteger()
     var boFangButton = UIButton()
     var dataSource : Array<TCHDInfo>?
@@ -321,6 +321,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     func messageButtonAction(sender:UIButton) {
         let messageVC = MessageButtonActionViewController()
+        messageVC.data = self.dataSource![sender.tag]
         self.navigationController?.pushViewController(messageVC, animated: true)
     }
     
