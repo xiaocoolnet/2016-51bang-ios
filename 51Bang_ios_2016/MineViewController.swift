@@ -33,8 +33,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let top = UIView()
     let myTableView = UITableView()
     let foot:[String] = ["我是买家","我是卖家","",""]
-    let team:[String] = ["我的发单","我的订单","我的收藏","卷码验证","分享二维码"]
-    let teamImg:[String] = ["ic_wodefadan","ic_youhuiquan","ic_wodedingdan","wodeshoucang","ic_weizhi拷贝2","ic_fenxiang"]
+    let team:[String] = ["我的发单","我的订单","我的发布","我的收藏","卷码验证","分享二维码"]
+    let teamImg:[String] = ["ic_wodefadan","ic_youhuiquan","ic_wodedingdan","ic_wodedingdan","wodeshoucang","ic_weizhi拷贝2","ic_fenxiang"]
     
     let busness:[String] = ["我的接单","我的投保"]
     let busnissImg:[String] = ["ic_wodejiedan","ic_woyaotoubao"]
@@ -371,15 +371,25 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.hidesBottomBarWhenPushed = false
             case 2:
                 self.hidesBottomBarWhenPushed = true
+                let vc = MenuViewController()
+                let userid = NSUserDefaults.standardUserDefaults()
+                let id = userid.objectForKey("userid")
+                vc.userid = id as! String
+                let isShow = true
+                vc.isShow = isShow
+                vc.title = "我的发布"
+                self.navigationController?.pushViewController(vc, animated: true)
+            case 3:
+                self.hidesBottomBarWhenPushed = true
                 let collection = CollectionViewController()
                 self.navigationController?.pushViewController(collection, animated: true)
                 self.hidesBottomBarWhenPushed = false
-            case 3:
+            case 4:
                 self.hidesBottomBarWhenPushed = true
                 let collection = myAddressViewController()
                 self.navigationController?.pushViewController(collection, animated: true)
                 self.hidesBottomBarWhenPushed = false
-            case 4:
+            case 5:
                 self.hidesBottomBarWhenPushed = true
                 let bao = Hongbao()
                 self.navigationController?.pushViewController(bao, animated: true)

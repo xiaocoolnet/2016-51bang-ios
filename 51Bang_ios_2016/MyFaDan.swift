@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 class DanModel {
     var taskid:String = ""
     var taskName:String = ""
@@ -37,6 +38,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     override func  viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         let view = self.view.viewWithTag(48)
+        self.tabBarController?.tabBar.hidden = true
         view?.removeFromSuperview()
 //        xiaofeiview = self.view.viewWithTag(23)
         xiaofeiview.removeFromSuperview()
@@ -74,7 +76,9 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     func GetYWCData(state:NSString){
     
-        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         mainHelper.GetTaskList (userid,state: state,handle: {[unowned self] (success, response) in
@@ -83,7 +87,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                     return
                 }
                 print(response)
-                
+                    hud.hidden = true
 //                self.dataSource?.removeAll()
 //                self.dataSource = response as? Array<TaskInfo> ?? []
 //                self.Data = self.dataSource!
@@ -106,7 +110,9 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     }
     
     func GetWWCData(state:NSString){
-        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         mainHelper.GetTaskList (userid,state: state,handle: {[unowned self] (success, response) in
@@ -114,6 +120,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 if !success {
                     return
                 }
+                hud.hidden = true
                 print(response)
 //                self.dataSource?.removeAll()
                 self.dataSource = response as? Array<TaskInfo> ?? []

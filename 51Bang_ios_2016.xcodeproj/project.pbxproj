@@ -3199,7 +3199,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cdd8a010-2a42-4472-ae18-87197a10c18b";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "${ROOT}51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -3283,7 +3283,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cdd8a010-2a42-4472-ae18-87197a10c18b";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "${ROOT}51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};

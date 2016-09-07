@@ -42,6 +42,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     let mainHelper = MainHelper()
     var id = String()
     var myPhotoArray = NSMutableArray()
+    var isShow = false
     override func viewWillAppear(animated: Bool) {
         getData()
        
@@ -427,6 +428,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         let vc = MenuViewController()
         vc.userid = self.goodsInfo.userid as String!
+        vc.isShow = self.isShow
+        vc.title = "商家发布"
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

@@ -113,7 +113,7 @@ class MyFaDanCell: UITableViewCell {
         Tip.text = "未完成（请确认付款）"
         Tip.textColor = UIColor.orangeColor()
         Tip.adjustsFontSizeToFitWidth = true
-        Tip.frame = CGRectMake(180, 0, 130, 40)
+        Tip.frame = CGRectMake(payMoney.width + 10, 0, 130, 40)
         Bottom.addSubview(Tip)
        
         payBtn.frame = CGRectMake(WIDTH - 60, 5,50 , 30)

@@ -1531,7 +1531,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 //            let view = UIView()
             let view2 = UIView()
             view2.tag = 51
-            view2.frame = CGRectMake(0, HEIGHT-400, WIDTH, 350)
+            view2.frame = CGRectMake(0, HEIGHT-340, WIDTH, 290)
             view2.backgroundColor = UIColor.whiteColor()
             let label = UILabel.init(frame: CGRectMake(0, 0, WIDTH, 30))
             label.text = "选择服务时间"
@@ -1539,6 +1539,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 //            pickerView=UIDatePicker()
             datePicker = UIDatePicker()
             datePicker.tag = 101
+            datePicker.minimumDate = NSDate()
             datePicker.frame = CGRectMake(0, 30, WIDTH, 180)
 //            datePicker.backgroundColor = UIColor.redColor()
             datePicker.locale = NSLocale(localeIdentifier: "zh_CN")
@@ -1693,6 +1694,8 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             isShow = false
         }else if btn.tag == 202{
             let datestr = formatter.stringFromDate(datePicker.date)
+//            datePicker.minimumDate = datestr
+        
             self.time = datestr
             self.expirydate = datestr
             let button = self.view.viewWithTag(12)as! UIButton

@@ -24,9 +24,9 @@ class MyFabuTableViewCell: UITableViewCell {
     
     @IBOutlet weak var sell: UILabel!
     
-//    @IBOutlet weak var delete: UIButton!
+    @IBOutlet weak var delete: UIButton!
     
-//    @IBOutlet weak var edit: UIButton!
+    @IBOutlet weak var edit: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -45,7 +45,6 @@ class MyFabuTableViewCell: UITableViewCell {
         }else{
             self.title.text = "无介绍"
         }
-        self.desc.text = goodsInfo.description
         self.distance.text = "现在没有"
         self.price.text = "￥"+goodsInfo.price!
         if goodsInfo.sellnumber != nil{

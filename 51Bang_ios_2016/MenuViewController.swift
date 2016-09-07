@@ -15,6 +15,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let  shopHelper = ShopHelper()
     var dataSource : Array<GoodsInfo>?
     var userid = String()
+    var  isShow = Bool()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -26,7 +27,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "商家发布"
+//        self.title = "商家发布"
         self.view.backgroundColor = RGREY
         
         
@@ -56,8 +57,16 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.dataSource = response as? Array<GoodsInfo> ?? []
                 print(self.dataSource)
                 print(self.dataSource?.count)
-                
+                print(self.dataSource![0].id)
+                print(self.dataSource![0].price)
+                print(self.dataSource![0].oprice)
+                print(self.dataSource![0].delivery)
+                print(self.dataSource![0].address)
+                print(self.dataSource![0].id)
+                print(self.dataSource![0].id)
+                print(self.dataSource![0].id)
                 self.createTableView()
+                self.myTableView.reloadData()
             }
         }
         
@@ -83,7 +92,18 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyFabuTableViewCell")as! MyFabuTableViewCell
-
+        
+        if isShow{
+            cell.delete.hidden = false
+            cell.edit.hidden = false
+        }else{
+            cell.delete.hidden = true
+            cell.edit.hidden = true
+        }
+        cell.delete.tag = indexPath.row
+        cell.delete.addTarget(self, action:#selector(self.onClick(_:)) , forControlEvents: UIControlEvents.TouchUpInside)
+        cell.edit.tag = indexPath.row+100
+        cell.edit.addTarget(self, action:#selector(self.editAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.setValueWithInfo(self.dataSource![indexPath.row])
         let ud = NSUserDefaults.standardUserDefaults()
         let longitude = ud.objectForKey("longitude")as! String
@@ -95,7 +115,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let current = CLLocation.init(latitude: CLLocationDegrees(myLatitude)!, longitude: CLLocationDegrees(myLongitude)!)
         print(current)
         let goodsInfo = dataSource![indexPath.row] as GoodsInfo
-        if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
+                if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
             print(goodsInfo.latitude! as String,goodsInfo.longitude! as String,"00000000")
             
             let before = CLLocation.init(latitude: CLLocationDegrees(goodsInfo.latitude! as String)!, longitude: CLLocationDegrees(goodsInfo.longitude! as String)!)
@@ -116,7 +136,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
             
         }else{
-            cell.distance.text = ""
+            cell.distance.text = "123.km"
         }
         return cell
     }
