@@ -887,7 +887,7 @@
             let result = favoriteModel(JSONDecoder(json!))
             print(result)
             print(result.data)
-            print(result.status)
+            print(result.status!)
             if result.status == "success"{
                 print(result.data)
                 handle(success: true, response: result.data)

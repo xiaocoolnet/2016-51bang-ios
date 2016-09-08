@@ -872,15 +872,11 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         let userid = ud.objectForKey("userid") as! String
         mainHelper.getCheckHadFavorite(userid, refid: id, type: "3") { (success, response) in
             if success == false {
-                
+               isFavorite = false
                 return
             }else{
 
-                print(response)
-                
-                self.favoriteInfo = response as! String
-                print(self.favoriteInfo)
-                self.myTableView.reloadData()
+                isFavorite = true
                 
             }
         }
