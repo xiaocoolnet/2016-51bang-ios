@@ -876,12 +876,15 @@
     }
 
     //获取是否收藏
-    func getCheckHadFavorite(id:String,handle:ResponseBlock){
+    func getCheckHadFavorite(userid:String,refid:String,type:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"CheckHadFavorite"
-        let paramDic = ["id":id]
+        let paramDic = ["userid":userid,
+                        "refid":refid,
+                        "type":type
+        ]
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
-            let result = GoodsModel2(JSONDecoder(json!))
+            let result = favoriteModel(JSONDecoder(json!))
             print(result)
             print(result.data)
             print(result.status)

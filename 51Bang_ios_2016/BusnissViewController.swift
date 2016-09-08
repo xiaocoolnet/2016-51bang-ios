@@ -29,6 +29,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     
     var goodsInfo = GoodsInfo2()
+    var favoriteInfo = String()
     var isdetails = Bool()
     var footView : ShopFootViewCell!
     let myTableView = UITableView()
@@ -47,7 +48,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var current = CLLocation()
     override func viewWillAppear(animated: Bool) {
         getData()
-       
+        getIsfavorite()
         self.view.backgroundColor = RGREY
         self.title="特卖详情"
         self.tabBarController?.tabBar.hidden = true
@@ -865,6 +866,26 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     
     //MARK:收藏
+    
+    func getIsfavorite(){
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid") as! String
+        mainHelper.getCheckHadFavorite(userid, refid: id, type: "3") { (success, response) in
+            if success == false {
+                
+                return
+            }else{
+
+                print(response)
+                
+                self.favoriteInfo = response as! String
+                print(self.favoriteInfo)
+                self.myTableView.reloadData()
+                
+            }
+        }
+    }
+    
     func favorite(){
         
         print(loginSign)
