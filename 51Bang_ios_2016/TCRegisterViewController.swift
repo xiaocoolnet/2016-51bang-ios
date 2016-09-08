@@ -208,6 +208,8 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     
     @IBAction func completeButtonAction(sender: AnyObject) {
         
+        
+        
         if avatarImageName.isEmpty {
             SVProgressHUD.showErrorWithStatus("请选择头像！")
             return

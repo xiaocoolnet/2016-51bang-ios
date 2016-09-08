@@ -24,22 +24,22 @@ class TCUserInfoModel: JSONJoy{
     }
 }
 class UserInfo: JSONJoy {
-    var name:String
-    var phone:String
-    var id:String
-    var address:String
-    var idcard:String
-    var sex:String
+    var name:String?
+    var phone:String?
+    var id:String?
+    var address:String?
+    var idcard:String?
+    var sex:String?
 //    var qq:String
-    var time:String
-    var status:String
-    var photo:String
+    var time:String?
+    var status:String?
+    var photo:String?
 //    var weixin:String
-    var from:String
-    var city:String
-    var password:String
-    var xgtoken:String
-    var usertype:String
+    var from:String?
+    var city:String?
+    var password:String?
+    var xgtoken:String?
+    var usertype:String?
     
     required init(_ decoder:JSONDecoder){
         name = decoder["name"].string!
@@ -47,11 +47,19 @@ class UserInfo: JSONJoy {
         id = decoder["id"].string!
         address = decoder["address"].string!
         idcard = decoder["idcard"].string!
+        
         sex = decoder["sex"].string!
 //        qq = decoder["qq"].string!
         time = decoder["time"].string!
+        
         status = decoder["status"].string!
-        photo = decoder["photo"].string!
+        print(decoder["photo"].string)
+        if decoder["photo"].string == nil {
+            photo = ""
+        }else{
+            photo = decoder["photo"].string!
+        }
+        
 //        weixin = decoder["weixin"].string!
         from = decoder["from"].string!
         city = decoder["city"].string!

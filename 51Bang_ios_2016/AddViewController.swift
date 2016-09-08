@@ -892,7 +892,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 self.myPhone = ud.objectForKey("phone")as! String
                 cell.phone.text = self.myPhone as String
                 return cell
-            }else if(indexPath.row == 5) {
+            }else {
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell1")as! FabuTableViewCell1
                 myLabel2.removeFromSuperview()
                 cell.title.text = "配送方式"
@@ -911,22 +911,23 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 cell.button.addTarget(self, action: #selector(self.onClick), forControlEvents: .TouchUpInside)
                 //            cell.accessoryType = .DisclosureIndicator
                 return cell
-            }else{
-                let cell = mytableView.dequeueReusableCellWithIdentifier("cell1")as! FabuTableViewCell1
-                myLabel2.removeFromSuperview()
-                cell.title.text = "配送方式"
-                myLabel2 = UILabel.init(frame: CGRectMake(108, 8, 200, 30))
-                myLabel2.textColor = UIColor.blackColor()
-                myLabel2.font = UIFont.systemFontOfSize(13)
-                myLabel2.text = typeLabelStr
-                cell.addSubview(myLabel2)
-                cell.selectionStyle = .None
-                tableView.separatorStyle = .None
-                //cell.button.addTarget(self, action: #selector(self.goToCamera(_:)), forControlEvents: .TouchUpInside)
-                cell.button.addTarget(self, action: #selector(self.onClick), forControlEvents: .TouchUpInside)
-                //            cell.accessoryType = .DisclosureIndicator
-                return cell
             }
+//            else{
+//                let cell = mytableView.dequeueReusableCellWithIdentifier("cell1")as! FabuTableViewCell1
+//                myLabel2.removeFromSuperview()
+//                cell.title.text = "配送方式"
+//                myLabel2 = UILabel.init(frame: CGRectMake(108, 8, 200, 30))
+//                myLabel2.textColor = UIColor.blackColor()
+//                myLabel2.font = UIFont.systemFontOfSize(13)
+//                myLabel2.text = typeLabelStr
+//                cell.addSubview(myLabel2)
+//                cell.selectionStyle = .None
+//                tableView.separatorStyle = .None
+//               
+//                cell.button.addTarget(self, action: #selector(self.onClick), forControlEvents: .TouchUpInside)
+//                return cell
+//            }
+           
             
         }else if tableView == leftTableView {
             //            tableView.separatorStyle = .None

@@ -34,14 +34,14 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.GetWKSData(String(sign))
         self.title = "我的任务"
         self.view.backgroundColor = RGREY
-        leftTableView.frame = CGRectMake(0,62, WIDTH, HEIGHT)
+        leftTableView.frame = CGRectMake(0,62, WIDTH, HEIGHT - 64 - 50)
         leftTableView.tag = 0
 //        leftTableView.hidden = true
         leftTableView.registerNib(UINib(nibName: "myOrderLocationTableViewCell",bundle: nil), forCellReuseIdentifier: "location")
         leftTableView.registerNib(UINib(nibName: "MyTaskTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
         leftTableView.registerNib(UINib(nibName: "MyTaskTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
         leftTableView.backgroundColor = UIColor.redColor()
-        rightTableView.frame = CGRectMake(0, 62, WIDTH, HEIGHT)
+        rightTableView.frame = CGRectMake(0, 62, WIDTH, HEIGHT - 64 - 50)
         rightTableView.tag = 2
 //        rightTableView.hidden = true
         rightTableView.backgroundColor = UIColor.blueColor()
@@ -127,7 +127,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     func createTableView(){
     
         
-        myTableView.frame = CGRectMake(0, 62, WIDTH, HEIGHT)
+        myTableView.frame = CGRectMake(0, 62, WIDTH, HEIGHT - 64 - 50 )
         myTableView.tag = 1
         myTableView.backgroundColor = RGREY
         myTableView.delegate = self

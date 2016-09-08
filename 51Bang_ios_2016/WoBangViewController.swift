@@ -25,6 +25,8 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
 //        self.title = ""
 //        self.navigationController!.title = "我帮"
         self.tabBarController?.tabBar.hidden = true
+        
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,7 +141,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
     
     func createTableView(){
         myTableView.backgroundColor = RGREY
-        self.myTableView = UITableView.init(frame: CGRectMake(0, -38, WIDTH, self.view.frame.size.height), style: .Grouped)
+        self.myTableView = UITableView.init(frame: CGRectMake(0, -38, WIDTH, HEIGHT - 64 + 38), style: .Grouped)
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.separatorStyle = .None

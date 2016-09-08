@@ -94,6 +94,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
         
             print(response)
             alert("取消成功", delegate: self)
+            self.navigationController?.popViewControllerAnimated(true)
         }
     
     }
