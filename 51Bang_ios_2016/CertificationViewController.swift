@@ -110,7 +110,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         if section == 0 {
             return 1
         }else {
-            return 4
+            return 6
         }
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -176,6 +176,8 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                 let cell = tableView.dequeueReusableCellWithIdentifier("picture", forIndexPath: indexPath)as!IdentityPicTableViewCell
                 cell.selectionStyle = .None
                 cell.Driving.setBackgroundImage(UIImage(named: "手持身份证"), forState: .Normal)
+                cell.aaaa.hidden = true
+                cell.bbbb.hidden = true
                 if self.tagOfButton == indexPath.row && self.imageOfRenzheng.count != 0 {
                     cell.Camera.setBackgroundImage(self.imageOfRenzheng[0] as? UIImage, forState: .Normal)
                 }else{
@@ -185,7 +187,15 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                 cell.Camera.tag = indexPath.row
                 cell.Camera.addTarget(self, action: #selector(self.goToCamera(_:)), forControlEvents: .TouchUpInside)
                 return cell
-            }else if indexPath.row == 2{
+            } else if indexPath.row == 2{
+                let cell = tableView.dequeueReusableCellWithIdentifier("Indentity", forIndexPath: indexPath)
+                cell.selectionStyle = .None
+                cell.textLabel?.font = UIFont.systemFontOfSize(12)
+                cell.textLabel?.textColor = UIColor(red: 1, green: 59/255.0, blue: 0, alpha: 1.0)
+                cell.textLabel?.numberOfLines = 0
+                cell.textLabel?.text = "＊特卖商户请上传营业执照"
+                return cell
+            }else if indexPath.row == 3{
                 let cell = tableView.dequeueReusableCellWithIdentifier("picture", forIndexPath: indexPath)as!IdentityPicTableViewCell
                 cell.selectionStyle = .None
                 if self.tagOfButton == indexPath.row && self.imageOfRenzheng.count != 0 {
@@ -195,8 +205,17 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                 }
                 cell.Driving.setBackgroundImage(UIImage(named: "身份证正面"), forState: .Normal)
                 
+                
                 cell.Camera.tag = indexPath.row
                 cell.Camera.addTarget(self, action: #selector(CertificationViewController.goToCamera(_:)), forControlEvents: .TouchUpInside)
+                return cell
+            }else if indexPath.row == 4{
+                let cell = tableView.dequeueReusableCellWithIdentifier("Indentity", forIndexPath: indexPath)
+                cell.selectionStyle = .None
+                cell.textLabel?.font = UIFont.systemFontOfSize(12)
+                cell.textLabel?.textColor = UIColor(red: 1, green: 59/255.0, blue: 0, alpha: 1.0)
+                cell.textLabel?.numberOfLines = 0
+                cell.textLabel?.text = "＊有技能证书者请上传技能证书"
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("picture", forIndexPath: indexPath)as!IdentityPicTableViewCell
@@ -207,7 +226,8 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                     
                 }
                 cell.Driving.setBackgroundImage(UIImage(named: "驾照"), forState: .Normal)
-                
+                cell.aaaa.hidden = true
+                cell.bbbb.text = "技能证书"
                 
                 cell.Camera.tag = indexPath.row
                 cell.Camera.addTarget(self, action: #selector(self.goToCamera(_:)), forControlEvents: .TouchUpInside)

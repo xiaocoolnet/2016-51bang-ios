@@ -218,7 +218,6 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
             alert("地址不能为空", delegate: self)
             return
         }
-        
         opt.endPoint = end
         
         

@@ -55,6 +55,7 @@
 #import <TencentOpenAPI/QQApiInterfaceObject.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/QQApiInterfaceObject.h>
+#import "ChetViewController.h"//聊天界面
 
 
 //#import "ApiXml.h"
