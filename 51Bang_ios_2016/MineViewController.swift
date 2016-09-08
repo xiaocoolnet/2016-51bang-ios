@@ -516,8 +516,15 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(userInfo.name, forKey: "name")
                     ud.setObject(self.phoneNum, forKey: "phone")
                     ud.setObject(self.pwd, forKey: "pwd")
-                    ud.setObject(userInfo.photo, forKey: "photo")
-                    ud.setObject(userInfo.sex, forKey: "sex")
+                    print(userInfo.photo)
+                    print(userInfo.sex)
+                    if userInfo.photo != "" {
+                        ud.setObject(userInfo.photo, forKey: "userphoto")
+                    }
+                    if userInfo.sex != ""{
+                        ud.setObject(userInfo.sex, forKey: "sex")
+                    }
+                    
                     //强制写入
                     ud.synchronize()
                     password.resignFirstResponder()
