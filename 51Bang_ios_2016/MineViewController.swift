@@ -514,7 +514,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(userInfo.id, forKey: "userid")
                     ud.setObject(userInfo.xgtoken, forKey: "token")
                     ud.setObject(userInfo.name, forKey: "name")
-                    ud.setObject(self.phoneNum, forKey: "phone")
+                    ud.setObject(self.phoneNum, forKey: "userphone")
                     ud.setObject(self.pwd, forKey: "pwd")
                     print(userInfo.photo)
                     print(userInfo.sex)
