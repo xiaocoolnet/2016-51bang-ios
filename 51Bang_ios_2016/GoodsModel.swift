@@ -256,7 +256,7 @@ class GoodsInfo2: JSONJoy {
 
 class favoriteModel: JSONJoy {
     var status:String?
-    var data :favoriteInfo?
+    var data :String?
     var errorData:String?
     init(){
     }
@@ -264,7 +264,7 @@ class favoriteModel: JSONJoy {
         
         status = decoder["status"].string
         if status == "success"{
-            data = favoriteInfo(decoder["data"])
+            data = decoder["data"].string
         }else{
             errorData = decoder["data"].string
         }
@@ -274,16 +274,9 @@ class favoriteModel: JSONJoy {
     
 }
 
-class favoriteInfo: JSONJoy {
-    var isfavoreite:String
+
     
-    required init(_ decoder: JSONDecoder){
-        
-        isfavoreite = decoder["id"].string!
-        
-    }
-    
-}
+
 
 
 
