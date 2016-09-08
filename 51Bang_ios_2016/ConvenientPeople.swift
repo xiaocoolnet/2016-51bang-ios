@@ -321,8 +321,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
     }
     func messageButtonAction(sender:UIButton) {
-        let messageVC = MessageButtonActionViewController()
-        messageVC.data = self.dataSource![sender.tag]
+        let messageVC = ChetViewController()
+//        messageVC.data = self.dataSource![sender.tag]
         self.navigationController?.pushViewController(messageVC, animated: true)
     }
     

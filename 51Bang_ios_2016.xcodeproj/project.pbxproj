@@ -441,6 +441,12 @@
 		F253E6DD1D7D496A009D2AF5 /* CityNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F253E6DC1D7D496A009D2AF5 /* CityNameViewController.swift */; };
 		F255A8DD1D77F2C10037856E /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F255A8DC1D77F2C10037856E /* TencentOpenAPI.framework */; };
 		F2DAD9971D76C13C00200B5D /* libAPOpenSdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2DAD9961D76C13C00200B5D /* libAPOpenSdk.a */; };
+		F2EEFA111D814318008FD274 /* ChetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EEFA0F1D814318008FD274 /* ChetViewController.m */; };
+		F2EEFA1C1D81455B008FD274 /* dataPlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = F2EEFA141D81455B008FD274 /* dataPlist.plist */; };
+		F2EEFA1D1D81455B008FD274 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EEFA151D81455B008FD274 /* Foundation+Log.m */; };
+		F2EEFA1E1D81455B008FD274 /* messModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EEFA171D81455B008FD274 /* messModel.m */; };
+		F2EEFA1F1D81455B008FD274 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EEFA191D81455B008FD274 /* CustomTableViewCell.m */; };
+		F2EEFA201D81455B008FD274 /* modelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = F2EEFA1B1D81455B008FD274 /* modelFrame.m */; };
 		F2EF8DA31D6EC060008C495E /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F2EF8DA01D6EC060008C495E /* libWeChatSDK.a */; };
 		F2F189F31D6D6BCA00843120 /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F189E11D6D6BCA00843120 /* TZAssetCell.m */; };
 		F2F189F41D6D6BCA00843120 /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F189E31D6D6BCA00843120 /* TZAssetModel.m */; };
@@ -1078,6 +1084,16 @@
 		F2DAD9941D76C13C00200B5D /* APOpenAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPI.h; sourceTree = "<group>"; };
 		F2DAD9951D76C13C00200B5D /* APOpenAPIObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APOpenAPIObject.h; sourceTree = "<group>"; };
 		F2DAD9961D76C13C00200B5D /* libAPOpenSdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPOpenSdk.a; sourceTree = "<group>"; };
+		F2EEFA0E1D814318008FD274 /* ChetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChetViewController.h; sourceTree = "<group>"; };
+		F2EEFA0F1D814318008FD274 /* ChetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChetViewController.m; sourceTree = "<group>"; };
+		F2EEFA141D81455B008FD274 /* dataPlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = dataPlist.plist; sourceTree = "<group>"; };
+		F2EEFA151D81455B008FD274 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
+		F2EEFA161D81455B008FD274 /* messModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messModel.h; sourceTree = "<group>"; };
+		F2EEFA171D81455B008FD274 /* messModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messModel.m; sourceTree = "<group>"; };
+		F2EEFA181D81455B008FD274 /* modelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modelFrame.h; sourceTree = "<group>"; };
+		F2EEFA191D81455B008FD274 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
+		F2EEFA1A1D81455B008FD274 /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		F2EEFA1B1D81455B008FD274 /* modelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = modelFrame.m; sourceTree = "<group>"; };
 		F2EF8DA01D6EC060008C495E /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		F2EF8DA11D6EC060008C495E /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		F2EF8DA21D6EC060008C495E /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -1177,6 +1193,7 @@
 		0D10A6241D50AE550004903C /* ThirdPackage */ = {
 			isa = PBXGroup;
 			children = (
+				F2EEFA131D81454F008FD274 /* 聊天界面 */,
 				F2DAD9931D76C13C00200B5D /* SocialSDK */,
 				F25289B01D6AE16700B8E6DC /* mp3lame-for-iOS-master */,
 				F23C55931D6577000094E2B7 /* ThirdPackage */,
@@ -1777,6 +1794,8 @@
 			children = (
 				18D881621D15299C0067218F /* MainViewController.swift */,
 				A4F8E8CD1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift */,
+				F2EEFA0E1D814318008FD274 /* ChetViewController.h */,
+				F2EEFA0F1D814318008FD274 /* ChetViewController.m */,
 				F253E6DC1D7D496A009D2AF5 /* CityNameViewController.swift */,
 				0DAA4C691D618FFF00901EEB /* ConvenientPeople.swift */,
 				0DAA4C6B1D6192E000901EEB /* ConveniceCell.swift */,
@@ -2278,6 +2297,22 @@
 			path = SocialSDK;
 			sourceTree = "<group>";
 		};
+		F2EEFA131D81454F008FD274 /* 聊天界面 */ = {
+			isa = PBXGroup;
+			children = (
+				F2EEFA141D81455B008FD274 /* dataPlist.plist */,
+				F2EEFA151D81455B008FD274 /* Foundation+Log.m */,
+				F2EEFA161D81455B008FD274 /* messModel.h */,
+				F2EEFA171D81455B008FD274 /* messModel.m */,
+				F2EEFA181D81455B008FD274 /* modelFrame.h */,
+				F2EEFA191D81455B008FD274 /* CustomTableViewCell.m */,
+				F2EEFA1A1D81455B008FD274 /* CustomTableViewCell.h */,
+				F2EEFA1B1D81455B008FD274 /* modelFrame.m */,
+			);
+			name = "聊天界面";
+			path = "ThirdPackage/聊天界面";
+			sourceTree = "<group>";
+		};
 		F2EF8D9F1D6EC060008C495E /* SDKExport */ = {
 			isa = PBXGroup;
 			children = (
@@ -2547,6 +2582,7 @@
 				1F0DF1881D2B4E1000D45390 /* ConvenienceTableViewCell.xib in Resources */,
 				1F81FACF1D2371410085C404 /* area.plist in Resources */,
 				1FFE54221D2CDCAF000891EB /* PayHeaderCell.xib in Resources */,
+				F2EEFA1C1D81455B008FD274 /* dataPlist.plist in Resources */,
 				1F0DF19A1D2BA64300D45390 /* TaskDetailTableViewCell2.xib in Resources */,
 				1F9B0DDF1D35DEDB00C7CA52 /* LoginPwdTableViewCell.xib in Resources */,
 				0DD5110F1D51D16E00FE88C2 /* ZLThumbnailViewController.xib in Resources */,
@@ -2720,6 +2756,7 @@
 				1FC544C21D375BB000493BD5 /* CollectionModel.swift in Sources */,
 				1FACE7581D2F50770005282E /* Order.m in Sources */,
 				F20624821D743F0F00B795F5 /* UPLoadSound.m in Sources */,
+				F2EEFA201D81455B008FD274 /* modelFrame.m in Sources */,
 				1FD8C7EE1D49123B008BCE96 /* WallectDetailViewController.swift in Sources */,
 				1FE4892A1D489E3400D2E684 /* MessageDetailViewController.swift in Sources */,
 				1FE1D6AE1D4AE5C7006F6CC7 /* SkillSubitemViewController.swift in Sources */,
@@ -2732,6 +2769,7 @@
 				81FD71F91D3E13D30020890A /* MyBookDan.swift in Sources */,
 				81FD72001D3E1E370020890A /* MyReceiveDan.swift in Sources */,
 				0D10A6311D50AE6D0004903C /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
+				F2EEFA1E1D81455B008FD274 /* messModel.m in Sources */,
 				0D10A62E1D50AE6D0004903C /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				0DEACE331D5F279A00AA42CA /* Hittestfunc.swift in Sources */,
 				1FF43B751D2A55D400091F79 /* FabuTableViewCell2.swift in Sources */,
@@ -2846,6 +2884,7 @@
 				F24745261D6D51CF00870363 /* SGAssetModel.m in Sources */,
 				0DD511131D51D16E00FE88C2 /* ZLNoAuthorityViewController.m in Sources */,
 				1F9B0E001D36491200C7CA52 /* TCMoreInfoHelper.swift in Sources */,
+				F2EEFA111D814318008FD274 /* ChetViewController.m in Sources */,
 				189757D01D162AAA0083FE46 /* MoreServiceViewController.swift in Sources */,
 				1FD8C7F01D49133D008BCE96 /* walletDetailModel.swift in Sources */,
 				F2F8BEC91D7FF717004D3F97 /* MyDingDanXiangQingViewController.swift in Sources */,
@@ -2967,6 +3006,7 @@
 				184053B41D15301F008A2BAB /* Http.swift in Sources */,
 				1FF073C01D30CAA80074C477 /* QuanBuFenLeiTableViewCell.swift in Sources */,
 				1FF43B5D1D2A0B7F00091F79 /* SiteTableViewCell.swift in Sources */,
+				F2EEFA1D1D81455B008FD274 /* Foundation+Log.m in Sources */,
 				8190BA9E1D38C5BC00468D4D /* MyFaDan.swift in Sources */,
 				1F9B0DF51D36359300C7CA52 /* EditUserInfoViewController.swift in Sources */,
 				1FD8C7E31D48E7FD008BCE96 /* YwcTableViewCell.swift in Sources */,
@@ -2978,6 +3018,7 @@
 				1FD8C7DD1D48BAB5008BCE96 /* faDanDetailHeaderTableViewCell.swift in Sources */,
 				1FF43B581D29EF5D00091F79 /* ShopHelper.swift in Sources */,
 				18D5961C1D17F06400BDBCD6 /* TableViewCell.swift in Sources */,
+				F2EEFA1F1D81455B008FD274 /* CustomTableViewCell.m in Sources */,
 				0DD511171D51D16E00FE88C2 /* ZLPhotoTool.m in Sources */,
 				1FE122021D224FC600C0BE0B /* RushHelper.swift in Sources */,
 				1FF073C71D30E6320074C477 /* FuWuHomePageViewController.swift in Sources */,

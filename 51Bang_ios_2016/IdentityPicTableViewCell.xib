@@ -33,27 +33,55 @@
                         <rect key="frame" x="10" y="10" width="173" height="115"/>
                         <color key="backgroundColor" red="0.86049832770000001" green="1" blue="0.63749878900000001" alpha="1" colorSpace="calibratedRGB"/>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务者实名认证" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="no3-xC-5xi">
+                        <rect key="frame" x="29" y="31" width="134" height="27"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="27" id="Tpa-dK-Sab"/>
+                            <constraint firstAttribute="width" constant="134" id="nPr-TY-ocQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="营业执照认证" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="exi-ug-CmO">
+                        <rect key="frame" x="29" y="66" width="134" height="27"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="27" id="ICg-yw-LxE"/>
+                            <constraint firstAttribute="width" constant="134" id="Pcc-WO-J6N"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Pi6-be-Qdb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="29o-Y4-r1D"/>
                     <constraint firstItem="Pi6-be-Qdb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="2r2-km-1IJ"/>
                     <constraint firstItem="DZK-sE-mVT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="66U-TC-3L4"/>
+                    <constraint firstItem="no3-xC-5xi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="21" id="8ZJ-ci-0ig"/>
+                    <constraint firstItem="no3-xC-5xi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="23" id="D0M-aI-p6d"/>
                     <constraint firstItem="Pi6-be-Qdb" firstAttribute="leading" secondItem="SeV-ae-NXl" secondAttribute="trailing" constant="4" id="DTu-im-Spd"/>
                     <constraint firstAttribute="bottomMargin" secondItem="SeV-ae-NXl" secondAttribute="bottom" constant="-8.5" id="SNi-ci-qQ1"/>
                     <constraint firstItem="SeV-ae-NXl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="TNb-4Y-Oif"/>
+                    <constraint firstItem="exi-ug-CmO" firstAttribute="top" secondItem="no3-xC-5xi" secondAttribute="bottom" constant="8" id="Yi0-f9-ZAc"/>
                     <constraint firstItem="SeV-ae-NXl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="ffY-Pf-pBa"/>
                     <constraint firstAttribute="bottomMargin" secondItem="DZK-sE-mVT" secondAttribute="bottom" constant="-8.5" id="gFw-oN-kml"/>
                     <constraint firstItem="Pi6-be-Qdb" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ktL-En-ZJo"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Pi6-be-Qdb" secondAttribute="bottom" constant="-8.5" id="lb6-ZN-Xt8"/>
                     <constraint firstItem="DZK-sE-mVT" firstAttribute="leading" secondItem="Pi6-be-Qdb" secondAttribute="trailing" constant="4" id="mIT-xG-LqT"/>
+                    <constraint firstItem="exi-ug-CmO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="21" id="wFg-8X-EfR"/>
                     <constraint firstAttribute="trailingMargin" secondItem="DZK-sE-mVT" secondAttribute="trailing" constant="2" id="xlr-Cf-zOc"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="Camera" destination="DZK-sE-mVT" id="pYF-fX-mFb"/>
                 <outlet property="Driving" destination="SeV-ae-NXl" id="ZaN-Ie-uX1"/>
+                <outlet property="aaaa" destination="no3-xC-5xi" id="k0S-2b-nul"/>
+                <outlet property="bbbb" destination="exi-ug-CmO" id="kVo-qj-knD"/>
             </connections>
-            <point key="canvasLocation" x="246" y="197"/>
+            <point key="canvasLocation" x="248.5" y="195.5"/>
         </tableViewCell>
     </objects>
     <resources>

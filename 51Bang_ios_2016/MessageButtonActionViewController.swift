@@ -106,8 +106,8 @@ class MessageButtonActionViewController: UIViewController,UITableViewDelegate,UI
             let headerImage = UIImageView()
             headerImage.frame = CGRectMake(WIDTH-50, 10, 40, 40)
             let ud = NSUserDefaults.standardUserDefaults()
-            let photo = ud.objectForKey("userphoto")
-            if photo != nil {
+            let photo = ud.objectForKey("photo")
+            if photo != nil && photo as! String != "" {
                 let url = Bang_Image_Header+(photo! as! String)
                 
                 headerImage.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "01"))
