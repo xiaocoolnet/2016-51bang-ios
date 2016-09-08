@@ -78,12 +78,13 @@ class MessageButtonActionViewController: UIViewController,UITableViewDelegate,UI
             if data.photo != nil && data.photo! != "" {
                 let url = Bang_Image_Header+data.photo!
                 
-                headerImage.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "1.png"))
+                headerImage.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "01"))
             }else{
-                headerImage.image = UIImage(named:"1.png" )
+                headerImage.image = UIImage(named:"01" )
             }
-            
+            headerImage.layer.masksToBounds = true
             headerImage.layer.cornerRadius = 20
+            headerImage.backgroundColor = UIColor.redColor()
             cell.addSubview(headerImage)
             
             
@@ -105,16 +106,17 @@ class MessageButtonActionViewController: UIViewController,UITableViewDelegate,UI
             let headerImage = UIImageView()
             headerImage.frame = CGRectMake(WIDTH-50, 10, 40, 40)
             let ud = NSUserDefaults.standardUserDefaults()
-            let photo = ud.objectForKey("photo")
+            let photo = ud.objectForKey("userphoto")
             if photo != nil {
                 let url = Bang_Image_Header+(photo! as! String)
                 
-                headerImage.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "1.png"))
+                headerImage.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "01"))
             }else{
-                headerImage.image = UIImage(named:"1.png" )
+                headerImage.image = UIImage(named:"01" )
             }
-            
+            headerImage.layer.masksToBounds = true
             headerImage.layer.cornerRadius = 20
+            headerImage.backgroundColor = UIColor.redColor()
             cell.addSubview(headerImage)
             
             let messageLabel = UITextView()
