@@ -109,9 +109,9 @@ class MessageButtonActionViewController: UIViewController,UITableViewDelegate,UI
             if photo != nil {
                 let url = Bang_Image_Header+(photo! as! String)
                 
-                headerImage.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "1.png"))
+                headerImage.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "01"))
             }else{
-                headerImage.image = UIImage(named:"1.png" )
+                headerImage.image = UIImage(named:"01" )
             }
             
             headerImage.layer.cornerRadius = 20
