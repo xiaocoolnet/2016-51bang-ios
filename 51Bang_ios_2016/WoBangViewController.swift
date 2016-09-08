@@ -226,15 +226,15 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
-        print(dataSource![sender.tag].latitude)
-        print(dataSource![sender.tag].longitude)
-        print(dataSource![sender.tag].slatitude)
-        print(dataSource![sender.tag].slongitude)
+        print(dataSource![sender.tag].latitude!)
+        print(dataSource![sender.tag].longitude!)
+        print(dataSource![sender.tag].slatitude!)
+        print(dataSource![sender.tag].slongitude!)
         
-        print(self.dataSource![sender.tag].address)
-         print(self.dataSource![sender.tag].saddress)
+        print(self.dataSource![sender.tag].address!)
+         print(self.dataSource![sender.tag].saddress!)
         if dataSource![sender.tag].latitude != nil && dataSource![sender.tag].longitude != nil && dataSource![sender.tag].latitude! as String != "" && dataSource![sender.tag].longitude! as String != ""{
-            print(dataSource![sender.tag].latitude)
+            print(dataSource![sender.tag].latitude!)
             coor1.latitude = CLLocationDegrees(dataSource![sender.tag].latitude! as String)!
             coor1.longitude = CLLocationDegrees(dataSource![sender.tag].longitude! as String)!
         }else{

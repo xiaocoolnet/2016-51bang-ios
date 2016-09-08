@@ -966,7 +966,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             coverView.removeFromSuperview()
             leftTableView.removeFromSuperview()
             rightTableView.removeFromSuperview()
-        }else if tableView.tag == 0{
+        }else if tableView == mytableView{
             
             if indexPath.row == 0 {
                 (self.view.viewWithTag(5)as! UITextField).resignFirstResponder()
@@ -975,8 +975,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 (self.view.viewWithTag(1)as! PlaceholderTextView).resignFirstResponder()
                 self.onClick()
                 isLeftTableViewHiden = true
-            }
-            if indexPath.row == 4 {
+                self.leftTableView.hidden = false
+            }else if indexPath.row == 4 {
                 
                 (self.view.viewWithTag(5)as! UITextField).resignFirstResponder()
                 (self.view.viewWithTag(6)as!UITextField).resignFirstResponder()
@@ -990,10 +990,19 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 UIView.animateWithDuration(0.2, animations: {
                     self.pickerViewFromDownBackView.frame = CGRectMake(0, self.view.bounds.size.height-240, WIDTH, 240)
                 })
+                self.leftTableView.hidden = true
                 
             }
 //            print(indexPath.row)
-        }else {
+        }else if tableView == leftTableView {
+            let myindexPaths = NSIndexPath.init(forRow: 0, inSection: 0)
+            print(valueLabelStr)
+            valueLabelStr = array[indexPath.row].name!
+            print(valueLabelStr)
+            mytableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Middle)
+            isLeftTableViewHiden = true
+            self.hidenLeftTableView()
+        }else{
             coverView.removeFromSuperview()
             leftTableView.removeFromSuperview()
             rightTableView.removeFromSuperview()
@@ -1002,15 +1011,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             self.tabBarController?.tabBar.hidden = true
             
         }
-        if tableView == leftTableView {
-            let myindexPaths = NSIndexPath.init(forRow: 0, inSection: 0)
-            print(valueLabelStr)
-            valueLabelStr = array[indexPath.row].name!
-            print(valueLabelStr)
-            mytableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Middle)
-            isLeftTableViewHiden = true
-            self.hidenLeftTableView()
-        }
+        
         
     }
     
