@@ -421,6 +421,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         let userid = ud.objectForKey("userid")as! String
         //        let longitude = ud.objectForKey("longitude")as! String
         //        let latitude = ud.objectForKey("latitude")as! String
+        
         let myLongitude = String(self.myLiction.longitude)
         let myLatitude = String(self.myLiction.latitude)
         //        let myLongitude = removeOptionWithString(longitude)
@@ -843,6 +844,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     address1 = MainViewController.BMKname
                     print(MainViewController.userLocationForChange)
                     self.myLiction = MainViewController.userLocationForChange.coordinate
+                    print(self.myLiction)
                 }else{
                     cell.textField.text = LocationViewController.myAddressOfpoint
                     address1 = LocationViewController.myAddressOfpoint
@@ -886,14 +888,10 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //            cell.accessoryType = .DisclosureIndicator
                 return cell
                 
-            }else if indexPath.row == 5{
-                let cell = mytableView.dequeueReusableCellWithIdentifier("phone")as!ShopPhoneTableViewCell
-                let ud = NSUserDefaults.standardUserDefaults()
-                self.myPhone = ud.objectForKey("phone")as! String
-                cell.phone.text = self.myPhone as String
-                return cell
-            }else {
+            }else if indexPath.row == 4{
+                
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell1")as! FabuTableViewCell1
+                
                 myLabel2.removeFromSuperview()
                 cell.title.text = "配送方式"
                 myLabel2 = UILabel.init(frame: CGRectMake(108, 8, 200, 30))
@@ -908,10 +906,19 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     isTypeEdit = true
                 }
                 //cell.button.addTarget(self, action: #selector(self.goToCamera(_:)), forControlEvents: .TouchUpInside)
-                cell.button.addTarget(self, action: #selector(self.onClick), forControlEvents: .TouchUpInside)
-                //            cell.accessoryType = .DisclosureIndicator
+//                cell.button.addTarget(self, action: #selector(self.onClick), forControlEvents: .TouchUpInside)
+//                cell.accessoryType = .DisclosureIndicator
                 return cell
-            }
+                
+                
+               
+            }else {
+                let cell = mytableView.dequeueReusableCellWithIdentifier("phone")as!ShopPhoneTableViewCell
+                let ud = NSUserDefaults.standardUserDefaults()
+                self.myPhone = ud.objectForKey("phone")as! String
+                cell.phone.text = self.myPhone as String
+                return cell
+                            }
 //            else{
 //                let cell = mytableView.dequeueReusableCellWithIdentifier("cell1")as! FabuTableViewCell1
 //                myLabel2.removeFromSuperview()

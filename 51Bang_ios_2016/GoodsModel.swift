@@ -254,36 +254,36 @@ class GoodsInfo2: JSONJoy {
 }
 
 
-//class favoriteModel: JSONJoy {
-//    var status:String?
-////    var data = favoriteInfo
-//    var errorData:String?
-//    init(){
-//    }
-//    required init(_ decoder:JSONDecoder){
-//        
-//        status = decoder["status"].string
-//        if status == "success"{
-//            data = favoriteInfo(decoder["data"])
-//        }else{
-//            errorData = decoder["data"].string
-//        }
-//        
-//        
-//    }
-//    
-//}
-//
-//class favoriteInfo: JSONJoy {
-//    var isfavoreite:String
-//    
-//    required init(_ decoder: JSONDecoder){
-//        
-//        isfavoreite = decoder["id"].string!
-//        
-//    }
-//    
-//}
+class favoriteModel: JSONJoy {
+    var status:String?
+    var data :favoriteInfo?
+    var errorData:String?
+    init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success"{
+            data = favoriteInfo(decoder["data"])
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+        
+    }
+    
+}
+
+class favoriteInfo: JSONJoy {
+    var isfavoreite:String
+    
+    required init(_ decoder: JSONDecoder){
+        
+        isfavoreite = decoder["id"].string!
+        
+    }
+    
+}
 
 
 

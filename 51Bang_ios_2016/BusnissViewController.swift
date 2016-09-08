@@ -43,6 +43,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var id = String()
     var myPhotoArray = NSMutableArray()
     var isShow = false
+    
+    var current = CLLocation()
     override func viewWillAppear(animated: Bool) {
         getData()
        
@@ -153,20 +155,27 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let cell = tableView.dequeueReusableCellWithIdentifier("site")as! SiteTableViewCell
             cell.callPhone.addTarget(self, action: #selector(self.call), forControlEvents: UIControlEvents.TouchUpInside)
             let ud = NSUserDefaults.standardUserDefaults()
-            let longitude = ud.objectForKey("longitude")as! String
-            let latitude = ud.objectForKey("latitude")as! String
-            let myLongitude = removeOptionWithString(longitude)
-            let myLatitude = removeOptionWithString(latitude)
-            print(myLongitude)
-            print(myLatitude)
-            let current = CLLocation.init(latitude: CLLocationDegrees(myLatitude)!, longitude: CLLocationDegrees(myLongitude)!)
+//            print(ud.objectForKey("longitude"))
+            if ud.objectForKey("longitude") == nil || ud.objectForKey("latitude") == nil{
+                
+            }else{
+                let longitude = ud.objectForKey("longitude")as! String
+                let latitude = ud.objectForKey("latitude")as! String
+                let myLongitude = removeOptionWithString(longitude)
+                let myLatitude = removeOptionWithString(latitude)
+                self.current = CLLocation.init(latitude: CLLocationDegrees(myLatitude)!, longitude: CLLocationDegrees(myLongitude)!)
+            }
+//            let longitude = ud.objectForKey("longitude")as! String
+//            let latitude = ud.objectForKey("latitude")as! String
+    
+            
             print(current)
             if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
                 print(goodsInfo.latitude! as String,goodsInfo.longitude! as String,"00000000")
                 
                 let before = CLLocation.init(latitude: CLLocationDegrees(self.goodsInfo.latitude! as String)!, longitude: CLLocationDegrees(self.goodsInfo.longitude! as String)!)
-               print(myLongitude)
-                print(myLatitude)
+              
+          
                 print(before)
                 let meters = (current.distanceFromLocation(before))/1000
 //                let meter:String = "\(meters)"
