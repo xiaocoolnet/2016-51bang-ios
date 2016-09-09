@@ -104,7 +104,10 @@ class OrderDetailViewController: UIViewController,UINavigationControllerDelegate
 
             cell.title.text = "上门地点"
             let ud = NSUserDefaults.standardUserDefaults()
-            cell.desc.text = ud.objectForKey("shangMenLocation")as?String
+            if ud.objectForKey("shangMenLocation") != nil {
+                cell.desc.text = ud.objectForKey("shangMenLocation")as?String
+            }
+            
             return cell
             
         }else if indexPath.row == 7{
@@ -113,7 +116,10 @@ class OrderDetailViewController: UIViewController,UINavigationControllerDelegate
             cell.location.addTarget(self, action: #selector(self.location(_:)), forControlEvents: UIControlEvents.TouchUpInside)
              let ud = NSUserDefaults.standardUserDefaults()
             cell.title.text = "服务地点"
-            cell.desc.text = ud.objectForKey("FuWuLocation")as?String
+            if ud.objectForKey("FuWuLocation") != nil {
+                cell.desc.text = ud.objectForKey("FuWuLocation")as?String
+            }
+            
             return cell
         }else if indexPath.row == 8{
         

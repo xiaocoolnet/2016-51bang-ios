@@ -288,7 +288,11 @@ class ChangePhoneController: UIViewController {
 //            return
 //        }
         let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid") as! String
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid")as! String
+        }
+//        let userid = ud.objectForKey("userid") as! String
         changeVM?.ChangePhone(userid,phone:phoneNumFiled.text!,code:checkNumFiled.text! , handle: { [unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 

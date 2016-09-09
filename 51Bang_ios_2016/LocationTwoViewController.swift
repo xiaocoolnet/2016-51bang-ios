@@ -104,9 +104,18 @@ class LocationTwoViewController: UIViewController,CLLocationManagerDelegate,MKMa
     func createAnnotation(latitude:Double,longitude:Double){
         
         let ud = NSUserDefaults.standardUserDefaults()
-        self.cityName = ud.objectForKey("cityName")as! String
-        self.thoroughfare = ud.objectForKey("thoroughfare")as! String
-        self.subLocality = ud.objectForKey("subLocality")as! String
+        if ud.objectForKey("cityName") != nil {
+            self.cityName = ud.objectForKey("cityName")as! String
+        }
+        if (ud.objectForKey("thoroughfare") != nil) {
+            self.thoroughfare = ud.objectForKey("thoroughfare")as! String
+        }
+        if (ud.objectForKey("subLocality") != nil) {
+            self.subLocality = ud.objectForKey("subLocality")as! String
+        }
+//        self.cityName = ud.objectForKey("cityName")as! String
+//        self.thoroughfare = ud.objectForKey("thoroughfare")as! String
+//        self.subLocality = ud.objectForKey("subLocality")as! String
         //获取上一次比例，重新赋值
         let latdelta = 0.06
         let longdelta = 0.06

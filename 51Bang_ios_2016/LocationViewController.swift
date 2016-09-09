@@ -382,6 +382,10 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
     
     func onGetReverseGeoCodeResult(searcher: BMKGeoCodeSearch!, result: BMKReverseGeoCodeResult!, errorCode error: BMKSearchErrorCode) {
         
+        if result == nil || result.poiList == nil || result.poiList.count == 0{
+            return
+        }
+        
         if isWobangPush {
             LocationViewController.myAddressOfpoint = (result.poiList[0] as! BMKPoiInfo).name
             LocationViewController.pointOfSelected = result.location

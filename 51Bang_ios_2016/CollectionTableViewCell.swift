@@ -55,8 +55,16 @@ class CollectionTableViewCell: UITableViewCell {
         
 //        self.distance.text = "1.4km"
         let ud = NSUserDefaults.standardUserDefaults()
-        let longitude = ud.objectForKey("longitude")as! String
-        let latitude = ud.objectForKey("latitude")as! String
+        var longitude = String()
+        if ud.objectForKey("longitude") != nil {
+            longitude = ud.objectForKey("longitude")as! String
+        }
+        var latitude = String()
+        if ud.objectForKey("latitude") != nil {
+            latitude = ud.objectForKey("latitude")as! String
+        }
+//        let longitude = ud.objectForKey("longitude")as! String
+//        let latitude = ud.objectForKey("latitude")as! String
         let myLongitude = removeOptionWithString(longitude)
         let myLatitude = removeOptionWithString(latitude)
         let current = CLLocation.init(latitude: CLLocationDegrees(myLongitude)!, longitude: CLLocationDegrees(myLatitude)!)

@@ -17,7 +17,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
     var tagOfButton = Int()
     var imageOfRenzheng:NSMutableArray = []
     
-    var array = NSMutableArray()
+    var array = NSMutableDictionary()
     var cellIndexpath = Int()
     var imagenameArray = NSMutableArray()
     var butTag = 2
@@ -151,6 +151,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
             cell.city.addGestureRecognizer(gesture)
             cell.selectionStyle = .None
             let city = NSUserDefaults.standardUserDefaults()
+            
             let cityName = city.objectForKey("city")
             if cityName==nil {
                 
@@ -258,6 +259,101 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
+        if self.tagOfButton == 1 {
+            let data:NSData = UIImageJPEGRepresentation(photos[0] , 1.0)!
+//            let data = UIImageJPEGRepresentation((info[UIImagePickerControllerEditedImage] as? UIImage)!, 0.1)!
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            let dateStr = dateFormatter.stringFromDate(NSDate())
+            let imageName = "avatar" + dateStr
+            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    let result = Http(JSONDecoder(data))
+                    if result.status != nil {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            if result.status! == "success"{
+                                self.array.setValue(result.data!, forKey: "positive_pic")
+                                //                            self.imagenameArray.addObject(result.data!)
+                                //                            self.imagename = result.data!
+                                
+                            }else{
+                                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                                hud.mode = MBProgressHUDMode.Text;
+                                hud.labelText = "图片上传失败"
+                                hud.margin = 10.0
+                                hud.removeFromSuperViewOnHide = true
+                                hud.hide(true, afterDelay: 1)
+                            }
+                        })
+                    }
+                })
+            }
+            
+        }else if self.tagOfButton == 3{
+            let data:NSData = UIImageJPEGRepresentation(photos[0] , 1.0)!
+            //            let data = UIImageJPEGRepresentation((info[UIImagePickerControllerEditedImage] as? UIImage)!, 0.1)!
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            let dateStr = dateFormatter.stringFromDate(NSDate())
+            let imageName = "avatar" + dateStr
+            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    let result = Http(JSONDecoder(data))
+                    if result.status != nil {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            if result.status! == "success"{
+                                self.array.setValue(result.data!, forKey: "opposite_pic")
+                                //                            self.imagenameArray.addObject(result.data!)
+                                //                            self.imagename = result.data!
+                                
+                            }else{
+                                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                                hud.mode = MBProgressHUDMode.Text;
+                                hud.labelText = "图片上传失败"
+                                hud.margin = 10.0
+                                hud.removeFromSuperViewOnHide = true
+                                hud.hide(true, afterDelay: 1)
+                            }
+                        })
+                    }
+                })
+            }
+
+        }else{
+            let data:NSData = UIImageJPEGRepresentation(photos[0] , 1.0)!
+            //            let data = UIImageJPEGRepresentation((info[UIImagePickerControllerEditedImage] as? UIImage)!, 0.1)!
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            let dateStr = dateFormatter.stringFromDate(NSDate())
+            let imageName = "avatar" + dateStr
+            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    let result = Http(JSONDecoder(data))
+                    if result.status != nil {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            if result.status! == "success"{
+                                self.array.setValue(result.data!, forKey: "driver_pic")
+                                //                            self.imagenameArray.addObject(result.data!)
+                                //                            self.imagename = result.data!
+                                
+                            }else{
+                                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                                hud.mode = MBProgressHUDMode.Text;
+                                hud.labelText = "图片上传失败"
+                                hud.margin = 10.0
+                                hud.removeFromSuperViewOnHide = true
+                                hud.hide(true, afterDelay: 1)
+                            }
+                        })
+                    }
+                })
+            }
+
+            
+        }
         
         imageOfRenzheng.removeAllObjects()
         imageOfRenzheng.addObjectsFromArray(photos)
@@ -337,11 +433,15 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         //        if name?.text==""||presonId?.text==""||emergency?.text==""||emergencyPhone?.text=="" {
         //            print("请完善信息")
         //        }else{
-        array.addObject((city?.text)!)
-        array.addObject((name?.text)!)
-        array.addObject((presonId?.text)!)
-        array.addObject((emergency?.text)!)
-        array.addObject((emergencyPhone?.text)!)
+        array.setValue(name?.text, forKey: "name")
+         array.setValue(city?.text, forKey: "city")
+        array.setValue((presonId?.text)!, forKey: "idcard")
+        array.setValue((emergency?.text)!, forKey: "contactperson")
+        array.setValue((emergencyPhone?.text)!, forKey: "contactphone")
+//        array.addObject((name?.text)!)
+//        array.addObject((presonId?.text)!)
+//        array.addObject((emergency?.text)!)
+//        array.addObject((emergencyPhone?.text)!)
         //        array.addObject(data1)
         //        array.addObject(data2)
         //        array.addObject(data3)
@@ -356,6 +456,19 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         
         
         
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        let city = self.view.viewWithTag(10) as? UILabel
+        let name = self.view.viewWithTag(11) as? UITextField
+        let presonId = self.view.viewWithTag(12) as? UITextField
+        let emergency = self.view.viewWithTag(13) as? UITextField
+        let emergencyPhone = self.view.viewWithTag(14) as? UITextField
+        city?.resignFirstResponder()
+        name?.resignFirstResponder()
+        presonId?.resignFirstResponder()
+        emergency?.resignFirstResponder()
+        emergencyPhone?.resignFirstResponder()
     }
     
     func setScrolView()
@@ -549,7 +662,11 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
     {
         
         let userData = NSUserDefaults.standardUserDefaults()
-        let phoneNum = userData.objectForKey("phone") as! String
+        var phoneNum = String()
+        if userData.objectForKey("phone") != nil {
+            phoneNum = userData.objectForKey("phone")as! String
+        }
+//        let phoneNum = userData.objectForKey("phone") as! String
         let temp1 = (phoneNum as NSString).substringWithRange(NSMakeRange(0, 4))
         let temp2 = (phoneNum as NSString).substringWithRange(NSMakeRange(7, 4))
         return "您当前绑定的手机号码：" + temp1 + "****" + temp2
@@ -611,7 +728,11 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
     func action()
     {
         let userData = NSUserDefaults.standardUserDefaults()
-        let phoneNum = userData.objectForKey("phone") as! String
+        var phoneNum = String()
+        if userData.objectForKey("phone") != nil {
+            phoneNum = userData.objectForKey("phone")as! String
+        }
+//        let phoneNum = userData.objectForKey("phone") as! String
         let vc = CommitOrderViewController()
         vc.cityName = self.cityName
         vc.longitude =   self.longitude
@@ -638,7 +759,11 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         
         print("开始发送")
         let userData = NSUserDefaults.standardUserDefaults()
-        let phoneNum = userData.objectForKey("phone") as! String
+        var phoneNum = String()
+        if userData.objectForKey("phone") != nil {
+            phoneNum = userData.objectForKey("phone")as! String
+        }
+//        let phoneNum = userData.objectForKey("phone") as! String
         let getphoneMessage = BankUpLoad()
         getphoneMessage.requestMessage(phoneNum)
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(CertificationViewController.timego), userInfo: nil, repeats: true)
@@ -717,7 +842,7 @@ extension CertificationViewController: UIImagePickerControllerDelegate{
                 if result.status != nil {
                     dispatch_async(dispatch_get_main_queue(), {
                         if result.status! == "success"{
-                            self.array.addObject(result.data!)
+//                            self.array.addObject(result.data!)
                             //                            self.imagenameArray.addObject(result.data!)
                             //                            self.imagename = result.data!
                             

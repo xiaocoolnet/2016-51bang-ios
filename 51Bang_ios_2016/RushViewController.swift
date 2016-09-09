@@ -35,7 +35,8 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         {certiBtn.hidden = true
         certifyImage.hidden = true
         self.GetData()
-            }}
+            }
+        }
         self.tabBarController?.selectedIndex = 1
         if(ud.objectForKey("userid")==nil)
         {
@@ -144,9 +145,18 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         }else{
             let ud = NSUserDefaults.standardUserDefaults()
             let userid = ud.objectForKey("userid")as! String
-            self.cityName = ud.objectForKey("cityName")as! String
-            self.longitude = ud.objectForKey("longitude")as! String
-            self.latitude = ud.objectForKey("latitude")as! String
+            if ud.objectForKey("cityName") != nil {
+                self.cityName = ud.objectForKey("cityName")as! String
+            }
+            if (ud.objectForKey("longitude") != nil) {
+                self.longitude = ud.objectForKey("longitude")as! String
+            }
+            if (ud.objectForKey("latitude") != nil) {
+                self.latitude = ud.objectForKey("latitude")as! String
+            }
+//            self.cityName = ud.objectForKey("cityName")as! String
+//            self.longitude = ud.objectForKey("longitude")as! String
+//            self.latitude = ud.objectForKey("latitude")as! String
             mainHelper.getTaskList (userid,cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {

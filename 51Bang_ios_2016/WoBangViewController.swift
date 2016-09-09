@@ -104,14 +104,20 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
             mainHelper.getTaskList (userid,cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
+                        print(success)
                         return
+//                        alert("暂无数据", delegate: self)
                     }
                     hud.hide(true)
                     print(response)
                     self.dataSource?.removeAll()
-                    print(self.dataSource?.count)
+                   
                     self.dataSource = response as? Array<TaskInfo> ?? []
                     print(self.dataSource)
+                    print(self.dataSource?.count)
+                    if self.dataSource?.count == 0{
+                        alert("暂无数据", delegate: self)
+                    }
                     print(self.dataSource?.count)
                     self.createTableView()
                     //                self.ClistdataSource = response as? ClistList ?? []
@@ -405,17 +411,24 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         let str6 = array4[0]
         print(str6)
         
-        
-        mainHelper.qiangDan(userid, taskid: dataSource![sender.tag].id!, longitude: str3, latitude: str6) { (success, response) in
-            print(response)
+        mainHelper.gaiBianRenWu(dataSource![sender.tag].order_num! as String, state: "2") { (success, response) in
             if !success {
                 return
             }
             let vc = MyTaskViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-            
-            
         }
+        
+//        mainHelper.qiangDan(userid, taskid: dataSource![sender.tag].id!, longitude: str3, latitude: str6) { (success, response) in
+//            print(response)
+//            if !success {
+//                return
+//            }
+//            let vc = MyTaskViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            
+//            
+//        }
         
     }
     

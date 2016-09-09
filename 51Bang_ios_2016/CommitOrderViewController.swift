@@ -371,8 +371,11 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         
         
         let ud = NSUserDefaults.standardUserDefaults()
-        
-        let userid = ud.objectForKey("userid") as! String
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid")as! String
+        }
+//        let userid = ud.objectForKey("userid") as! String
     
         if(willShowLocationCell.textView.text.characters.count == 0 || willShowLocationCell1.textView.text.characters.count == 0||self.price == ""||self.price == "0")
         {
@@ -569,7 +572,11 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     func fabuAction(){
         
         let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid") as! String
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid")as! String
+        }
+//        let userid = ud.objectForKey("userid") as! String
         print(self.saddress)
         print(self.slatitude)
         print(self.slongitude)
@@ -1121,7 +1128,11 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         tableView.separatorStyle = .None
         let ud = NSUserDefaults.standardUserDefaults()
-        let phone = ud.objectForKey("phone")as!String
+        var phone = String()
+        if ud.objectForKey("phone") != nil {
+            phone = ud.objectForKey("phone")as! String
+        }
+//        let phone = ud.objectForKey("phone")as!String
         print(phone)
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("phone", forIndexPath: indexPath)as! PhoneTableViewCell

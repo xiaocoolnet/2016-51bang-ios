@@ -70,7 +70,7 @@ class MyBookDanCell: UITableViewCell {
 //        
 //        }else{
         Statue.textColor = COLOR
-        if Data.state == "3" {
+        if Data.state == "4" {
             Statue.text = "待评价"
             Btn.setTitle("评价", forState: UIControlState.Normal)
             Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
@@ -89,7 +89,7 @@ class MyBookDanCell: UITableViewCell {
             Statue.text = "已取消"
             Btn.setTitle("已取消", forState: UIControlState.Normal)
             Btn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
-        }else if Data.state == "4"{
+        }else if Data.state == "10"{
             Statue.text = "已完成"
             Btn.setTitle("已完成", forState: UIControlState.Normal)
             Btn.setTitleColor(COLOR, forState: UIControlState.Normal)

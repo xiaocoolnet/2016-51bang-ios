@@ -22,7 +22,7 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     let skillHelper = RushHelper()
     var dataSource : Array<SkillModel>?
     var ClistdataSource = ClistList()
-    var array = NSMutableArray()
+//    var array = NSMutableArray()
     var selectAllArray = NSMutableArray()
     var selectArr = NSMutableArray()
     var cellMarkArray:NSMutableArray?
@@ -380,20 +380,37 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             
             print("立即提交")
             let info = NSUserDefaults.standardUserDefaults()
-            let array = info.objectForKey("infomation")as! NSArray
-            print(array)
-            print(array.count)
+            let array = info.objectForKey("infomation")as! NSDictionary
+//            print(array)
+//            print(array.count)
+            
             
             self.createView()
             let ud = NSUserDefaults.standardUserDefaults()
             let userid = ud.objectForKey("userid")as! String
             //测试方便，以后打开
-            if array.count<8 {
+            print(array)
+            var positive_pic = String()
+            var opposite_pic = String()
+            var driver_pic = String()
+            if array["positive_pic"] == nil {
+                positive_pic = ""
+            }
+            if array["opposite_pic"] == nil {
+                opposite_pic = ""
+            }
+            if array["driver_pic"] == nil {
+                driver_pic = ""
+            }
+
+            
+            if array.count<6 {
                 let alert = UIAlertView.init(title: "温馨提示", message: "请完善信息", delegate: self, cancelButtonTitle: "确定")
                 alert.show()
             }else{
+                print(array)
                 
-                skillHelper.identityAffirm(userid, city: array[3] as! String, realname:array[4] as! String, idcard: array[5] as! String, contactperson: array[6] as! String, contactphone: array[7] as! String, positive_pic:array[0] as! String, opposite_pic:array[1] as! String, driver_pic: array[2] as! String) { (success, response) in
+                skillHelper.identityAffirm(userid, city: array["city"] as! String, realname:array["name"] as! String, idcard: array["idcard"] as! String, contactperson: array["contactperson"] as! String, contactphone: array["contactphone"] as! String, positive_pic:positive_pic, opposite_pic:opposite_pic, driver_pic: driver_pic) { (success, response) in
                     if success{
                         
                         print(response)

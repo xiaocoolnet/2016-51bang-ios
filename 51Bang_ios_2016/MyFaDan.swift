@@ -48,7 +48,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     override func viewDidLoad() {
         
-        GetWWCData("0,1,2,3")
+        GetWWCData("0,1,2,3,4")
         
         self.title = "我的发单"
         self.navigationController?.navigationBar.hidden = false
@@ -96,7 +96,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                     self.dataSource1 = response as? Array<TaskInfo> ?? []
                 if self.dataSource1?.count == 0{
                 
-                    alert("还没有已完成的任务", delegate: self)
+//                    alert("还没有已完成的任务", delegate: self)
                 }
 //                    self.Data = self.dataSource1!
                 
@@ -194,7 +194,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func finshBtnAction()
     {
         sign = 0
-        GetYWCData("4")
+        GetYWCData("5")
         self.dataSource?.removeAll()
         
 //        self.GetYWCData("4")
@@ -213,7 +213,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     {
         sign = 1
         self.dataSource1?.removeAll()
-        self.GetWWCData("0,1,2,3")
+        self.GetWWCData("0,1,2,3,4")
         weiBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
         finshBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         decorView.frame = CGRectMake( 0, 35, WIDTH / 2, 5)

@@ -278,7 +278,11 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                     }
 
                 }else{
-                    let th = ud.objectForKey("subLocality")as! String
+                    var th = String()
+                    if ud.objectForKey("subLocality") != nil {
+                        th = ud.objectForKey("subLocality")as! String
+                    }
+                    
                     if th.isEmpty {
                         cellHead!.addData([self.cityName+th], city: selectCity)
                         cellHead!.reloadData();

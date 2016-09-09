@@ -39,7 +39,11 @@ class BankUpLoad {
     func bankMessageUpload(name:String,idCard:String,bankName:String,bankNum:String,Phone:String,Code:String,Target:UIViewController,pushVc:UIViewController )
     {
         let urlForBank = Bang_URL_Header + "UpdateUserBank"
-        let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
+        var id = String()
+        if( NSUserDefaults.standardUserDefaults().objectForKey("userid") != nil){
+            id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
+        }
+        
 
         let param = ["userid":id,"realname":name,"idcard":idCard,"bank":bankName,"bankno":bankNum,"phone":Phone,"code":Code]
         //let hud = MBProgressHUD.showHUDAddedTo(Target.view, animated: true)

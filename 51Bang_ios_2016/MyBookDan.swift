@@ -232,7 +232,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func getDPJData(){
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "3") { (success, response) in
+        mainHelper.getMyOrder(uid, state: "4") { (success, response) in
             print(response)
             if !success{
                 self.mTableview.mj_header.endRefreshing()
@@ -511,21 +511,23 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             if DXFDataSource?.count != 0{
                 print("取消订单")
                 
-                let MyOrderInfo = self.DXFDataSource![btn.tag]
-                let ud = NSUserDefaults.standardUserDefaults()
-                let userid = ud.objectForKey("userid")as! String
-                mainHelper.quXiaoDingdan(MyOrderInfo.order_num!, userid: userid) { (success, response) in
-                    if !success {
-                        print("..........")
-                        print(MyOrderInfo.order_num)
-                        return
-                    }else{
-                        
-                        let alertController = UIAlertController(title: "系统提示",
-                                                                message: "您确定要取消订单吗？", preferredStyle: .Alert)
-                        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-                        let okAction = UIAlertAction(title: "确定", style: .Default,
-                                                     handler: { action in
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "您确定要取消订单吗？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                                             handler: { action in
+                                                
+                                                let MyOrderInfo = self.DXFDataSource![btn.tag]
+                                                //                let ud = NSUserDefaults.standardUserDefaults()
+                                                //                let userid = ud.objectForKey("userid")as! String
+                                                self.mainHelper.gaiBianDingdan(MyOrderInfo.order_num!, state: "-1") { (success, response) in
+                                                    if !success {
+                                                        print("..........")
+                                                        print(MyOrderInfo.order_num)
+                                                        return
+                                                    }else{
+                                                        
+                                                        
                                                         self.DXFDataSource?.removeAtIndex(self.row)
                                                         let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
                                                         
@@ -535,39 +537,46 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                                         
                                                         self.Btn.tag = 3
                                                         
-                        })
-                        alertController.addAction(cancelAction)
-                        alertController.addAction(okAction)
-                        self.presentViewController(alertController, animated: true, completion: nil)
-                        
-                        //                    alert("取消订单", delegate: self)
-                        //                    let myindexPaths = NSIndexPath.init(forRow:0 inSection: 0)
-                        
-                    }
-                    
-                    
-                }
+                                                        //                    alert("取消订单", delegate: self)
+                                                        //                    let myindexPaths = NSIndexPath.init(forRow:0 inSection: 0)
+                                                        
+                                                    }
+                                                    
+                                                    
+                                                }
+                                                
+                                                
+                                                
+                                                
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
                 
             }
+           
         }else if sign == 0{
             if AllDataSource?.count != 0{
                 print("取消订单")
                 
-                let MyOrderInfo = self.AllDataSource![btn.tag]
-                let ud = NSUserDefaults.standardUserDefaults()
-                let userid = ud.objectForKey("userid")as! String
-                mainHelper.quXiaoDingdan(MyOrderInfo.order_num!, userid: userid) { (success, response) in
-                    if !success {
-                        print("..........")
-                        print(MyOrderInfo.order_num)
-                        return
-                    }else{
-                        
-                        let alertController = UIAlertController(title: "系统提示",
-                                                                message: "您确定要取消订单吗？", preferredStyle: .Alert)
-                        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-                        let okAction = UIAlertAction(title: "确定", style: .Default,
-                                                     handler: { action in
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "您确定要取消订单吗？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                                            handler: { action in
+                                                
+                                                let MyOrderInfo = self.AllDataSource![btn.tag]
+                                                //                let ud = NSUserDefaults.standardUserDefaults()
+                                                //                let userid = ud.objectForKey("userid")as! String
+                                                self.mainHelper.gaiBianDingdan(MyOrderInfo.order_num!, state: "-1") { (success, response) in
+                                                    if !success {
+                                                        print("..........")
+                                                        print(MyOrderInfo.order_num)
+                                                        return
+                                                    }else{
+                                                        
+                                                        
                                                         self.AllDataSource?.removeAtIndex(self.row)
                                                         let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
                                                         
@@ -577,18 +586,22 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                                         
                                                         self.Btn.tag = 3
                                                         
-                        })
-                        alertController.addAction(cancelAction)
-                        alertController.addAction(okAction)
-                        self.presentViewController(alertController, animated: true, completion: nil)
-                        
-                        //                    alert("取消订单", delegate: self)
-                        //                    let myindexPaths = NSIndexPath.init(forRow:0 inSection: 0)
-                        
-                    }
-                    
-                    
-                }
+                                                        //                    alert("取消订单", delegate: self)
+                                                        //                    let myindexPaths = NSIndexPath.init(forRow:0 inSection: 0)
+                                                        
+                                                    }
+                                                    
+                                                    
+                                                }
+
+                                                
+                                                
+                                                
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
                 
             }
         }

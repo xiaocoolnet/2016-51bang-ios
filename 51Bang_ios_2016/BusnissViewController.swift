@@ -869,7 +869,11 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func getIsfavorite(){
         let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid") as! String
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid")as! String
+        }
+//        let userid = ud.objectForKey("userid") as! String
         mainHelper.getCheckHadFavorite(userid, refid: id, type: "3") { (success, response) in
             if success == false {
                isFavorite = false
@@ -896,7 +900,11 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             print("收藏商品")
             print(isFavorite)
             let ud = NSUserDefaults.standardUserDefaults()
-            let uid = ud.objectForKey("userid")as! String
+            var uid = String()
+            if ud.objectForKey("userid") != nil {
+                uid = ud.objectForKey("userid")as! String
+            }
+//            let uid = ud.objectForKey("userid")as! String
             print(uid)
             if isFavorite == false {
                 
