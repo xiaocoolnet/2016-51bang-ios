@@ -10,7 +10,8 @@ import UIKit
 
 class LianXiDianHuaTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var phone: UITextField!
+    @IBOutlet weak var phone: UILabel!
+//    @IBOutlet weak var phone: UITextField!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
