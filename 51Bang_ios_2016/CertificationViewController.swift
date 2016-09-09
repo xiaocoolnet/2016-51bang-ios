@@ -258,6 +258,9 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
+        if self.tagOfButton == 1 {
+//            self.array
+        }
         
         imageOfRenzheng.removeAllObjects()
         imageOfRenzheng.addObjectsFromArray(photos)
