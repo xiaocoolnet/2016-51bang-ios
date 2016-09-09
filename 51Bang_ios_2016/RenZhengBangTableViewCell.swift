@@ -66,10 +66,13 @@ class RenZhengBangTableViewCell: UITableViewCell {
             
         }
 
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let date = NSDate(timeIntervalSince1970: Double(info.time)!)
-        time.text = dateFormatter.stringFromDate(date)
+//        let dateFormatter = NSDateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//        if info.time != ""{
+//            let date = NSDate(timeIntervalSince1970: Double(info.time)!)
+//            time.text = dateFormatter.stringFromDate(date)
+//        }
+        
         
     }
     
