@@ -48,7 +48,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     override func viewDidLoad() {
         
-        GetWWCData("")
+        GetWWCData("0,1,2,3,4")
         
         self.title = "我的发单"
         self.navigationController?.navigationBar.hidden = false
