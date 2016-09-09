@@ -85,24 +85,24 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         hud.labelText = "正在努力加载"
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
-        mainHelper.GetTaskList (userid,state: state,handle: {[unowned self] (success, response) in
+        mainHelper.getMyGetOrder (userid,state: state,handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     return
                 }
                 print(response)
                 hud.hidden = true
-                if state == "0"{
+                if state == "2"{
                     self.dataSource?.removeAll()
                     self.dataSource = response as? Array<TaskInfo> ?? []
                     print(self.dataSource?.count)
-                    alert("还没有未开始的任务", delegate: self)
+//                    alert("还没有未开始的任务", delegate: self)
 //                    if self.dataSource!.count == 0{
 //                        alert("还没有未开始的任务", delegate: self)
 //                        self.myTableView.reloadData()
 //                        return
 //                    }
-                }else if state == "1"{
+                }else if state == "3"{
                     self.dataSource1?.removeAll()
                     self.dataSource1 = response as? Array<TaskInfo> ?? []
                      print(self.dataSource1?.count)

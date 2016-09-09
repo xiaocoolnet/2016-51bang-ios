@@ -104,13 +104,21 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 let cell = tableView.dequeueReusableCellWithIdentifier("CNEE")as! CNEETableViewCell
                 cell.selectionStyle = .None
                 let ud = NSUserDefaults.standardUserDefaults()
-                let name = ud.objectForKey("name")as!String
+                var name = String()
+                if ud.objectForKey("name") != nil {
+                    name = ud.objectForKey("name")as! String
+                }
+//                let name = ud.objectForKey("name")as!String
                 cell.name.text = name
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("CNEE")as! CNEETableViewCell
                 let ud = NSUserDefaults.standardUserDefaults()
-                let phone = ud.objectForKey("phone")as!String
+                var phone = String()
+                if ud.objectForKey("phone") != nil {
+                    phone = ud.objectForKey("phone")as! String
+                }
+//                let phone = ud.objectForKey("phone")as!String
                 cell.CNEE.text = "联系电话"
                 cell.selectionStyle = .None
                 cell.name.text = phone
@@ -303,8 +311,16 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         textview.resignFirstResponder()
         
         let userDufault = NSUserDefaults.standardUserDefaults()
-        let userid = userDufault.objectForKey("userid") as! String
-        let phone = userDufault.objectForKey("phone") as! String
+        var userid = String()
+        if userDufault.objectForKey("userid") != nil {
+            userid = userDufault.objectForKey("userid")as! String
+        }
+        var phone = String()
+        if userDufault.objectForKey("phone") != nil {
+            phone = userDufault.objectForKey("phone")as! String
+        }
+//        let userid = userDufault.objectForKey("userid") as! String
+//        let phone = userDufault.objectForKey("phone") as! String
         let price = String( Float(self.num)*Float(self.info.price!)!)
         mainHelper.buyGoods(userid, roomname: self.info.goodsname, goodsid: self.info.id, goodnum: String(self.num), mobile: phone, remark: self.remark, money: price,delivery:self.info.delivery!) { (success, response) in
             if !success{

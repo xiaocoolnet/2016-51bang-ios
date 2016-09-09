@@ -286,17 +286,13 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         print(str6)
         
         
-        mainHelper.qiangDan(userid, taskid: taskInfo.id!, longitude: str3, latitude: str6) { (success, response) in
-            print(response)
+        mainHelper.gaiBianRenWu(taskInfo.order_num! as String, state: "2") { (success, response) in
             if !success {
                 return
             }
             let vc = MyTaskViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-            
-            
         }
-    
     }
     
     func callPhone(){

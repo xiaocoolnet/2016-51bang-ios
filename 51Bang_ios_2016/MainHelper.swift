@@ -678,8 +678,8 @@
                 print("---")
                 //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.datas)
-                    print(result.datas.count)
+//                    print(result.datas)
+//                    print(result.datas.count)
                     handle(success: true, response: result.datas)
                     
                     
@@ -724,17 +724,20 @@
         
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)
+            print(error)
+            print(json)
             if(error != nil){
                 handle(success: false, response: error?.description)
             }else{
-                let result = MyOrderModel(JSONDecoder(json!))
+                print(JSONDecoder(json!).value)
+                let result = ZHIFUfankui(JSONDecoder(json!))
                 print("---")
                 print(result)
                 print("---")
                 //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.datas)
-                    print(result.datas.count)
+//                    print(result.datas)
+//                    print(result.datas.count)
                     handle(success: true, response: result.datas)
                     
                     
@@ -816,13 +819,13 @@
         }
     }
     //取消订单
-    func quXiaoDingdan(ordernum:NSString,userid:NSString,handle:ResponseBlock){
+    func gaiBianDingdan(ordernum:NSString,state:NSString,handle:ResponseBlock){
         
-        let url = Bang_URL_Header+"cancelorder"
+        let url = Bang_URL_Header+"UpdataShoppingState"
         let param = [
             
-            "ordernum":ordernum,
-            "userid":userid
+            "order_num":ordernum,
+            "state":state
         ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)
@@ -848,6 +851,41 @@
         
         
     }
+    
+    //取消任务
+    func gaiBianRenWu(ordernum:NSString,state:NSString,handle:ResponseBlock){
+        
+        let url = Bang_URL_Header+"UpdataTaskState"
+        let param = [
+            
+            "order_num":ordernum,
+            "state":state
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+        
+    }
+
     
     //获取商品详细信息
     

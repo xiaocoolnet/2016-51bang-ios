@@ -418,7 +418,10 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func fabuAction(){
         let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid")as! String
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid")as! String
+        }
         //        let longitude = ud.objectForKey("longitude")as! String
         //        let latitude = ud.objectForKey("latitude")as! String
         
@@ -915,7 +918,11 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             }else {
                 let cell = mytableView.dequeueReusableCellWithIdentifier("phone")as!ShopPhoneTableViewCell
                 let ud = NSUserDefaults.standardUserDefaults()
-                self.myPhone = ud.objectForKey("phone")as! String
+//                var userid = String()
+                if ud.objectForKey("phone") != nil {
+                    self.myPhone = ud.objectForKey("phone")as! String
+                }
+                
                 cell.phone.text = self.myPhone as String
                 return cell
                             }

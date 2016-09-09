@@ -25,7 +25,12 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
     
     func getData(){
        let ud = NSUserDefaults.standardUserDefaults()
-       let uid = ud.objectForKey("userid")as!String
+        var uid = String()
+        if ud.objectForKey("userid") != nil {
+            uid = ud.objectForKey("userid")as! String
+        }
+        
+//       let uid = ud.objectForKey("userid")as!String
        helper.getCollectionList(uid) { (success, response) in
             print(response)
             self.dataSource = response as? Array<CollectionInfo> ?? []

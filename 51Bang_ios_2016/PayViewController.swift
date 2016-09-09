@@ -416,13 +416,13 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     func backpayForweixin(notification: NSNotification)  {
         if isRenwu == true {
             self.mainhelper.upALPState(numForGoodS, state: "2", type: "1", handle: { (success, response) in
-                if !success{
+                if success{
                     print("成功")
                 }
             })
         }else{
             self.mainhelper.upALPState(numForGoodS, state: "2", type: "2", handle: { (success, response) in
-                if !success{
+                if success{
                     print("成功")
                 }
             })
@@ -435,13 +435,13 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         if isRenwu == true {
             self.mainhelper.upALPState(numForGoodS, state: "1", type: "1", handle: { (success, response) in
-                if !success{
+                if success{
                     print("成功")
                 }
             })
         }else{
             self.mainhelper.upALPState(numForGoodS, state: "1", type: "2", handle: { (success, response) in
-                if !success{
+                if success{
                     print("成功")
                 }
             })
@@ -459,7 +459,10 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     func getWeChatPayWithOrderName(name:NSString,price:NSString){
         
         let userDufault = NSUserDefaults.standardUserDefaults()
-        let orderNum = userDufault.objectForKey("ordernumber") as! String
+        var orderNum = String()
+        if userDufault.objectForKey("ordernumber") != nil {
+            orderNum = userDufault.objectForKey("ordernumber") as! String
+        }
         print(orderNum)
         
         //----------------------------获取prePayId配置------------------------------

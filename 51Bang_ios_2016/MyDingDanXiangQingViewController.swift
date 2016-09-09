@@ -31,6 +31,8 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         self.view.backgroundColor = RGREY
         self.title = "订单详情"
         self.createTableView()
+        print(self.info.state)
+        print(self.info.delivery)
         if self.info.state! == "2" && self.info.delivery == "卷码消费"{
             let juanma = UILabel()
             juanma.frame = CGRectMake(10, 10, WIDTH-20, 50)
@@ -124,7 +126,11 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 let cell = tableView.dequeueReusableCellWithIdentifier("CNEE")as! CNEETableViewCell
                 cell.selectionStyle = .None
                 let ud = NSUserDefaults.standardUserDefaults()
-                let name = ud.objectForKey("name")as!String
+                var name = String()
+                if ud.objectForKey("name") != nil {
+                    name = ud.objectForKey("name")as!String
+                }
+//                let name = ud.objectForKey("name")as!String
                 cell.name.text = name
                 return cell
             }else{
@@ -207,6 +213,8 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 let cell = tableView.dequeueReusableCellWithIdentifier("Mothed")as! MothedTableViewCell
                 if self.info.delivery != nil && self.info.delivery != ""{
                     cell.typeLabel.text = self.info.delivery
+                }else{
+                    cell.typeLabel.text = ""
                 }
                 //                cell.title.frame.origin.y = 20
                 //                cell.mode.frame.origin.y = 20

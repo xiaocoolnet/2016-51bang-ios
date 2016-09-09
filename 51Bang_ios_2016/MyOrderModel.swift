@@ -60,6 +60,27 @@ class MyOrderList: JSONJoy {
     
 }
 
+class ZHIFUfankui: NSObject {
+    var status:String?
+    var data: String?
+    //    var datas ＝ Array<GoodsList>()
+    var datas = String()
+    var errorData:String?
+    override init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success" {
+            data = decoder["data"].string
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+    }
+    
+}
+
 class MyOrderInfo: JSONJoy {
     var order_num:String?
     var gid:String?

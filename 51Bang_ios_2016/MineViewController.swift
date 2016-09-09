@@ -605,8 +605,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     {
         
         let userData = NSUserDefaults.standardUserDefaults()
-        print(NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
-        if NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String == "" {
+//        print(NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
+        if NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String == "" || NSUserDefaults.standardUserDefaults().objectForKey("photo") == nil{
             print("下载失败")
             image = UIImage.init(named: "ic_moren-da")!
             let photodata = NSData.init(data: UIImageJPEGRepresentation(image, 1)!)
@@ -680,10 +680,13 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     //MARK: - MainDelegte
     func editePictureInMain() {
-        let UsrImageData = NSUserDefaults.standardUserDefaults().objectForKey("userphoto")
-        let userImage = UIImage.init(data: UsrImageData as! NSData)
-        headerView.iconBtn.setImage(userImage, forState: UIControlState.Normal)
-        headerView.iconBtn.setImage(userImage, forState: UIControlState.Selected)
+        if NSUserDefaults.standardUserDefaults().objectForKey("userphoto") != nil {
+            let UsrImageData = NSUserDefaults.standardUserDefaults().objectForKey("userphoto")
+            let userImage = UIImage.init(data: UsrImageData as! NSData)
+            headerView.iconBtn.setImage(userImage, forState: UIControlState.Normal)
+            headerView.iconBtn.setImage(userImage, forState: UIControlState.Selected)
+        }
+        
     }
     
     func updateName(name:String) {
