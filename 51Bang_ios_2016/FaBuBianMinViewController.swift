@@ -17,7 +17,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     var timer:NSTimer!
     var timer1:NSTimer!
     var timer2:NSTimer!
-    var phone = String()
+//    var phone = String()
     
     var deletebutton = UIButton()
     let boFangButton = UIButton()
@@ -733,9 +733,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
+        let userPhone = ud.objectForKey("phone")as! String
+        
         print(userid)
         print(self.photoNameArr)
-        mainHelper.upLoadMessage(userid,phone:self.phone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime)) { (success, response) in
+        mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime)) { (success, response) in
             print(response)
             if !success{
                 return
@@ -829,24 +831,33 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! LianXiDianHuaTableViewCell
-        cell.phone.delegate = self
-        cell.phone.tag = 10
-        cell.phone.keyboardType = UIKeyboardType.NumberPad
-        cell.phone.borderStyle = .None
+//        cell.phone.delegate = self
+//        cell.phone.tag = 10
+//        cell.phone.keyboardType = UIKeyboardType.NumberPad
+//        cell.phone.borderStyle = .None
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userPhone = ud.objectForKey("phone")as! String
+        cell.phone.text = userPhone
         
         return cell
     }
     
     //MARK:发布便民信息
     func fabu(){
-        let textfiled = self.myTableViw.viewWithTag(10)as! UITextField
-        textfiled.resignFirstResponder()
+//        let textfiled = self.myTableViw.viewWithTag(10)as! UITextField
+//        textfiled.resignFirstResponder()
         let textView = self.view.viewWithTag(1)as! PlaceholderTextView
-        if textView.text == "" || self.phone.characters.count<4{
+//        if textView.text == "" || self.phone.characters.count<4{
+//            let aletView = UIAlertView.init(title: "提示", message:"请填写相关信息", delegate: self, cancelButtonTitle: "确定")
+//            aletView.show()
+//            return
+//        }
+        if textView.text == ""{
             let aletView = UIAlertView.init(title: "提示", message:"请填写相关信息", delegate: self, cancelButtonTitle: "确定")
             aletView.show()
             return
         }
+
 //        hud1 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
 //        hud1.animationType = .Zoom
 //        hud1.labelText = "正在努力加载"
@@ -933,7 +944,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func textFieldDidEndEditing(textField: UITextField) {
         if textField.tag == 10 {
-            self.phone = textField.text!
+//            self.phone = textField.text!
         }
         self.myTableViw.frame.origin.y = 0
         self.myTableViw.frame.size.height = HEIGHT-64
