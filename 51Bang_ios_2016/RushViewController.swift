@@ -23,6 +23,8 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     
     override func viewWillAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = false
+        let function = BankUpLoad()
+        function.CheckRenzheng()
         let ud = NSUserDefaults.standardUserDefaults()
         print(ud.objectForKey("ss"))
         if(ud.objectForKey("ss") != nil){
@@ -52,6 +54,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         sign = 0
         self.createRightItemWithTitle("任务(0)")
         self.createLeftItem()

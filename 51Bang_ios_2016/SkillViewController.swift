@@ -400,7 +400,7 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                         //let homepage = RushHomePageViewController()
                         //self.presentViewController(homepage, animated: true, completion: nil)
                         let ud = NSUserDefaults.standardUserDefaults()
-                        ud.setObject("no", forKey: "ss")
+//                        ud.setObject("no", forKey: "ss")
                         ud.synchronize()
                         //self.navigationController?.pushViewController(homepage, animated: true)
                         self.navigationController?.popToRootViewControllerAnimated(true)

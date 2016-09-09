@@ -367,27 +367,27 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         headerView.favorite.addTarget(self, action: #selector(self.favorite), forControlEvents: UIControlEvents.TouchUpInside)
         headerView.favorite.tag = 10
         print(isFavorite)
-        if loginSign == 1 {
-            
-            let ud = NSUserDefaults.standardUserDefaults()
-            let uid = ud.objectForKey("userid")as! String
-            let shoucang = ud.objectForKey(uid)
-            print(shoucang)
-            if shoucang == nil {
-                print("sdf")
-            }
-            if shoucang != nil && shoucang as! Bool == true {
-                headerView.favorite.setImage(UIImage(named: "ic_yishoucang"), forState: UIControlState.Normal)
-                isFavorite = true
-            }else{
-                headerView.favorite.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
-                isFavorite = false
-            }
-            //
-        }else{
-            headerView.favorite.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
-            
-        }
+//        if loginSign == 1 {
+//            
+//            let ud = NSUserDefaults.standardUserDefaults()
+//            let uid = ud.objectForKey("userid")as! String
+//            let shoucang = ud.objectForKey(uid)
+//            print(shoucang)
+//            if shoucang == nil {
+//                print("sdf")
+//            }
+//            if shoucang != nil && shoucang as! Bool == true {
+//                
+//                isFavorite = true
+//            }else{
+//                
+//                isFavorite = false
+//            }
+//            //
+//        }else{
+//            headerView.favorite.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
+//            
+//        }
         
         
         
@@ -873,11 +873,12 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         mainHelper.getCheckHadFavorite(userid, refid: id, type: "3") { (success, response) in
             if success == false {
                isFavorite = false
+               self.headerView.favorite.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
                 return
             }else{
 
                 isFavorite = true
-                
+                self.headerView.favorite.setImage(UIImage(named: "ic_yishoucang"), forState: UIControlState.Normal)
             }
         }
     }

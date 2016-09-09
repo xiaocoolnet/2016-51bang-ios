@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self someSet];
-    [self messModelArr];
+//    [self messModelArr];
     self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-10-3) style:UITableViewStylePlain];
 //    self.customTableView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     self.customTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -54,7 +54,7 @@
     [self.view addSubview:self.bgView];
     
     NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
-    [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
+//    [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
     
     
     
@@ -128,12 +128,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     static NSString *strId=@"cellId";
     CustomTableViewCell *customCell=[tableView dequeueReusableCellWithIdentifier:strId];
     if (customCell==nil) {
         customCell=[[CustomTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:strId];
     }
-    [customCell setBackgroundColor:[UIColor colorWithRed:222.0/255.0f green:222.0/255.0f blue:221.0/255.0f alpha:1.0f]];
+//    [customCell setBackgroundColor:[UIColor colorWithRed:222.0/255.0f green:222.0/255.0f blue:221.0/255.0f alpha:1.0f]];
+    [customCell setBackgroundColor:[UIColor whiteColor]];
     customCell.selectionStyle=UITableViewCellSelectionStyleNone;
     customCell.frameModel=self.arrModelData[indexPath.row];
     return customCell;
@@ -158,7 +160,7 @@
         
     }];
     NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
-    [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];//将tableView的行滚到最下面的一行
+//    [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];//将tableView的行滚到最下面的一行
 }
 #pragma mark 滚动TableView去除键盘
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -185,7 +187,7 @@
     dicValues[@"imageName"]=@"girl";
     dicValues[@"desc"]=messValues;
     dicValues[@"time"]=nowTime; //当前的时间
-    dicValues[@"person"]=[NSNumber numberWithBool:0]; //转为Bool类型
+    dicValues[@"person"]=[NSNumber numberWithBool:1]; //转为Bool类型
     messModel *mess=[[messModel alloc]initWithModel:dicValues];
     modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:[self timeIsEqual:nowTime]]; //判断前后时候是否一致
     [self.arrModelData addObject:frameModel];
@@ -204,7 +206,7 @@
     dicAuto[@"imageName"]=@"boy";
     dicAuto[@"desc"]=[arrayAutoData objectAtIndex:num];
     dicAuto[@"time"]=nowTime;
-    dicAuto[@"person"]=[NSNumber numberWithBool:1]; //转为Bool类型
+    dicAuto[@"person"]=[NSNumber numberWithBool:0]; //转为Bool类型
     messModel *messAuto=[[messModel alloc]initWithModel:dicAuto];
     modelFrame *frameModelAuto=[modelFrame modelFrame:messAuto timeIsEqual:[self timeIsEqual:nowTime]];//判断前后时候是否一致
     [self.arrModelData addObject:frameModelAuto];

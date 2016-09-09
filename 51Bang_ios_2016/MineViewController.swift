@@ -55,6 +55,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         }
         
+        if ud.objectForKey("ss") as! String == "no"{
+            self.headerView.renzheng.hidden = true
+        }else{
+            self.headerView.renzheng.hidden = false
+        }
+        
         print(loginSign)
         
     }
@@ -525,6 +531,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         ud.setObject(userInfo.sex, forKey: "sex")
                     }
                     
+                    let function = BankUpLoad()
+                    function.CheckRenzheng()
+                    
                     //强制写入
                     ud.synchronize()
                     password.resignFirstResponder()
@@ -533,12 +542,47 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     self.headerView.phone.text = self.phoneNum
                     self.loginSuccess()
                     self.getuserData()
+                    self.Checktoubao()
+                    
                     
                 }
             })
             })
         
         
+        
+    }
+    
+    
+    func Checktoubao()
+    {
+        
+        let checkUrl = Bang_URL_Header + "CheckInsurance"
+        if( NSUserDefaults.standardUserDefaults().objectForKey("userid") == nil)
+        {
+            return
+        }
+        let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
+        let param = ["userid":id]
+        
+        Alamofire.request(.GET, checkUrl, parameters: param ).response{
+            request, response , json , error in
+            
+            let result = Http(JSONDecoder(json!))
+            let ud = NSUserDefaults.standardUserDefaults()
+            
+            if result.status == "success"{
+                ud .setObject("yes", forKey: "baoxiangrenzheng")
+                print("已经认证")
+                self.headerView.baoxianRenZheng.hidden = false
+                            }else{
+                ud .setObject("no", forKey: "baoxiangrenzheng")
+                self.headerView.baoxianRenZheng.hidden = true
+                print("未进行认证")
+                
+            }
+            
+        }
         
     }
     
