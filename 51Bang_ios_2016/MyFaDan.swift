@@ -8,6 +8,8 @@
 
 import UIKit
 import MBProgressHUD
+import MJRefresh
+
 class DanModel {
     var taskid:String = ""
     var taskName:String = ""
@@ -43,6 +45,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
 //        xiaofeiview = self.view.viewWithTag(23)
         xiaofeiview.removeFromSuperview()
         sign = 1
+        headerRefresh()
     }
     
     
@@ -152,6 +155,12 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         let HeaderView = UIView.init(frame: CGRectMake(0, 0, WIDTH, 0.01))
         mTable.tableHeaderView = HeaderView
     
+        mTable.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            self.mTable.mj_header.endRefreshing()
+        })
+        
         //划动手势
         //右划
         let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleRight))
@@ -169,8 +178,18 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     func handleLeft(){
         
-         finshBtnAction()
+        finshBtnAction()
     }
+    
+    func headerRefresh(){
+        if(sign == 1){
+            GetWWCData("0,1,2,3,4")
+        }else{
+            GetYWCData("5")
+        }
+    }
+        
+    
     func setButton()
     {
         weiBtn.frame = CGRectMake(0, 0, WIDTH / 2, 35)

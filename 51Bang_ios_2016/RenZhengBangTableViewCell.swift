@@ -66,14 +66,24 @@ class RenZhengBangTableViewCell: UITableViewCell {
             
         }
 
-//        let dateFormatter = NSDateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//        if info.time != ""{
-//            let date = NSDate(timeIntervalSince1970: Double(info.time)!)
-//            time.text = dateFormatter.stringFromDate(date)
-//        }
+
+        let todayDate: NSDate = NSDate()
+        print(todayDate)
+        let date = NSDate(timeIntervalSince1970: Double(info.time)!)
+        print(date)
+        let second = todayDate.timeIntervalSinceDate(date)
+        print(second)
+        if second/3600 < 1 {
+                       
+        }
         
+        if second/3600 > 1 && second/86400 < 1 {
+            
+        }
         
+        if second/86400 > 1 {
+            
+        }
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

@@ -55,12 +55,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         }
         
-        if ud.objectForKey("ss") as! String == "no"{
-            self.headerView.renzheng.hidden = true
-        }else{
-            self.headerView.renzheng.hidden = false
-        }
-        
+//        if ud.objectForKey("ss") as! String == "no"{
+//            self.headerView.renzheng.hidden = true
+//        }else{
+//            self.headerView.renzheng.hidden = false
+//        }
+        self.headerView.renzheng.hidden = false
         print(loginSign)
         
     }
@@ -110,23 +110,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
             getuserData()
             
-            image = UIImage()
             
-            loginSign = 1
-            if(NSUserDefaults.standardUserDefaults().objectForKey("userphoto") == nil)
-            {
-                image = UIImage.init(named: "ic_moren-da")!
-            }else
-            {
-                image = UIImage.init(data: NSUserDefaults.standardUserDefaults().objectForKey("userphoto") as! NSData)!
-  
-            }
-            headerView.name.text = ud.objectForKey("name")as? String
-            //NSUserDefaults.standardUserDefaults().objectForKey("userphoto")
-            headerView.iconBtn.setImage(image, forState: UIControlState.Normal)
-            headerView.iconBtn.setImage(image, forState: UIControlState.Selected)
-            self.headerView.iconBtn.layer.cornerRadius = 55 / 2
-            self.headerView.iconBtn.layer.masksToBounds = true
         }
         
         // Do any additional setup after loading the view.
@@ -520,12 +504,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(userInfo.id, forKey: "userid")
                     ud.setObject(userInfo.xgtoken, forKey: "token")
                     ud.setObject(userInfo.name, forKey: "name")
-                    ud.setObject(self.phoneNum, forKey: "userphone")
+                    ud.setObject(self.phoneNum, forKey: "phone")
                     ud.setObject(self.pwd, forKey: "pwd")
                     print(userInfo.photo)
                     print(userInfo.sex)
                     if userInfo.photo != "" {
-                        ud.setObject(userInfo.photo, forKey: "userphoto")
+                        ud.setObject(userInfo.photo, forKey: "photo")
                     }
                     if userInfo.sex != ""{
                         ud.setObject(userInfo.sex, forKey: "sex")
@@ -636,8 +620,33 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         userData.synchronize()
                         //回调函数
                         self.downloadPic()
-                       
                         
+                        let ud = NSUserDefaults.standardUserDefaults()
+                        
+                        self.image = UIImage()
+                        
+                        loginSign = 1
+                        if(NSUserDefaults.standardUserDefaults().objectForKey("userphoto") == nil)
+                        {
+                            self.image = UIImage.init(named: "ic_moren-da")!
+                        }else
+                        {
+                            self.image = UIImage.init(data: NSUserDefaults.standardUserDefaults().objectForKey("userphoto") as! NSData)!
+                            
+                        }
+                        self.headerView.name.text = ud.objectForKey("name")as? String
+                        //NSUserDefaults.standardUserDefaults().objectForKey("userphoto")
+                        self.headerView.iconBtn.setImage(self.image, forState: UIControlState.Normal)
+                        self.headerView.iconBtn.setImage(self.image, forState: UIControlState.Selected)
+                        self.headerView.iconBtn.layer.cornerRadius = 55 / 2
+                        self.headerView.iconBtn.layer.masksToBounds = true
+                        
+                        
+//                        if NSUserDefaults.standardUserDefaults().objectForKey("photo") != nil{
+//                            let a = MainHelper()
+//                            a.downloadImage(NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
+//                        }
+                       
                     }
                 })
                 
@@ -671,6 +680,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 {
                     let imageData = UIImageJPEGRepresentation(imview.image!, 1)
                     userData.setObject(imageData, forKey: "userphoto")
+                    print(imageData)
                     userData.synchronize()
                     print("图片下载成功")
                     print(self.image)

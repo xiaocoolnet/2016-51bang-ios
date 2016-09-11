@@ -322,6 +322,8 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
             //            self.addCollectionViewPicture()
             self.InsureBtn.hidden = false
             self.InsureBtn.backgroundColor = COLOR
+            self.InsureBtn.userInteractionEnabled = true
+            self.photoPushButton.hidden = true
         }
         
     }
@@ -512,6 +514,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         
         if photoArray.count != 0 {
             self.Statue.text = "准备上传"
+            self.InsureBtn.userInteractionEnabled = false
         }
         //        self.setFrameForImage()
         InsureBtn.hidden = true
@@ -524,6 +527,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
             photoPushButton.backgroundColor = COLOR
             photoPushButton.layer.masksToBounds = true
             photoPushButton.layer.cornerRadius = 5
+            photoPushButton.hidden = false
             photoPushButton.setTitle("上传图片", forState: UIControlState.Normal)
             photoPushButton.addTarget(self, action: #selector(self.pushPhotoAction), forControlEvents: UIControlEvents.TouchUpInside)
             //            self.headerView.addSubview(photoPushButton)

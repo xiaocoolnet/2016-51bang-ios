@@ -84,8 +84,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         btn.backgroundColor = COLOR
         btn.addTarget(self, action: #selector(self.pay), forControlEvents: .TouchUpInside)
-        bottom.addSubview(button)
-        bottom.addSubview(selectBtn)
+//        bottom.addSubview(button)
+//        bottom.addSubview(selectBtn)
         bottom.addSubview(btn)
         
         let headerView =  NSBundle.mainBundle().loadNibNamed("PayHeaderCell", owner: nil, options: nil).first as? PayHeaderCell
@@ -179,7 +179,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             if String(self.price) == "" {
                 order.totalFee = "0.01"
             }else{
-                order.totalFee = "0.01"; //商品价格
+                order.totalFee = String(self.price); //商品价格
             }
             
             order.notifyURL =  "http://www.my51bang.com/index.php?g=apps&m=index&a=AlipayNotify"; //回调URL，这个URL是在支付之后，支付宝通知后台服务器，使数据同步更新，必须填，不然支付无法成功
@@ -261,8 +261,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("订单错误", delegate: self)
                 return
             }
-//            aa.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS);
-            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
+            aa.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS);
+//            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
             
 //            let vc = MyBookDan()
 //            self.navigationController?.pushViewController(vc, animated: true)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TCRegisterViewController" customModule="_1Bang_ios_2016" customModuleProvider="target">
             <connections>
                 <outlet property="address" destination="a0h-m0-ysr" id="NXI-dU-2GM"/>
+                <outlet property="agreeBut" destination="IO9-ek-Qos" id="it8-11-eJU"/>
                 <outlet property="areaCodeBtn" destination="KIQ-yW-Aao" id="qcv-OK-97u"/>
                 <outlet property="avatarBtn" destination="25w-BE-UX4" id="q0L-Us-eya"/>
                 <outlet property="backViewHeight" destination="m2k-Iv-bVa" id="eiR-WN-VWP"/>
@@ -22,6 +23,7 @@
                 <outlet property="secretBtn" destination="qBB-Rb-Qre" id="05W-DK-3hP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="womenBtn" destination="9Eg-G8-QNn" id="zm8-Ac-XYy"/>
+                <outlet property="xieyiButton" destination="lYy-fb-nOp" id="J1l-zw-hKd"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -42,7 +44,7 @@
                                         <constraint firstAttribute="height" constant="80" id="7lL-ji-qqW"/>
                                         <constraint firstAttribute="width" constant="80" id="UE7-Ik-azZ"/>
                                     </constraints>
-                                    <state key="normal" image="avatar_nan"/>
+                                    <state key="normal" image="ic_weisxuanze"/>
                                     <connections>
                                         <action selector="avatarBtnClicked:" destination="-1" eventType="touchUpInside" id="ct1-VN-EWz"/>
                                     </connections>
@@ -220,7 +222,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdC-ES-Cqh">
-                                    <rect key="frame" x="15" y="519" width="290" height="40"/>
+                                    <rect key="frame" x="15" y="523" width="290" height="40"/>
                                     <color key="backgroundColor" red="0.18431372549019609" green="0.69803921568627447" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="VXj-YE-1Cn"/>
@@ -399,10 +401,30 @@
                                         <constraint firstAttribute="trailing" secondItem="vlM-OU-BE2" secondAttribute="trailing" id="xGv-oN-lbU"/>
                                     </constraints>
                                 </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IO9-ek-Qos">
+                                    <rect key="frame" x="114" y="495" width="17" height="22"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="17" id="NWV-FD-rlL"/>
+                                        <constraint firstAttribute="height" constant="22" id="tLo-Aq-Ade"/>
+                                    </constraints>
+                                    <state key="normal" image="ic_weixuanze"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYy-fb-nOp">
+                                    <rect key="frame" x="139" y="495" width="173" height="23"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="23" id="2dD-Dc-90T"/>
+                                        <constraint firstAttribute="width" constant="173" id="DvX-hB-exV"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="我同意《51帮托管协议》"/>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="Ppo-vp-96a" firstAttribute="leading" secondItem="KDe-jP-Jo6" secondAttribute="leading" id="2ay-TV-ZvS"/>
+                                <constraint firstItem="IO9-ek-Qos" firstAttribute="top" secondItem="FEB-53-OWP" secondAttribute="bottom" constant="6" id="70i-B5-XXg"/>
+                                <constraint firstItem="lYy-fb-nOp" firstAttribute="leading" secondItem="IO9-ek-Qos" secondAttribute="trailing" constant="8" id="74Z-Oy-Dvr"/>
+                                <constraint firstItem="lYy-fb-nOp" firstAttribute="top" secondItem="FEB-53-OWP" secondAttribute="bottom" constant="6" id="9jI-Cv-OoL"/>
                                 <constraint firstItem="Ppo-vp-96a" firstAttribute="top" secondItem="25w-BE-UX4" secondAttribute="bottom" constant="25" id="F6C-oj-5lt"/>
                                 <constraint firstItem="MdC-ES-Cqh" firstAttribute="leading" secondItem="KDe-jP-Jo6" secondAttribute="leading" constant="15" id="FT8-ab-akb"/>
                                 <constraint firstItem="FEB-53-OWP" firstAttribute="top" secondItem="Ppo-vp-96a" secondAttribute="bottom" constant="10" id="SUu-xJ-VKW"/>
@@ -410,8 +432,9 @@
                                 <constraint firstItem="25w-BE-UX4" firstAttribute="top" secondItem="KDe-jP-Jo6" secondAttribute="top" constant="24" id="dy9-9j-aS1"/>
                                 <constraint firstItem="25w-BE-UX4" firstAttribute="centerX" secondItem="KDe-jP-Jo6" secondAttribute="centerX" id="eFl-XF-3Mo"/>
                                 <constraint firstAttribute="trailing" secondItem="MdC-ES-Cqh" secondAttribute="trailing" constant="15" id="esg-zI-quf"/>
-                                <constraint firstItem="MdC-ES-Cqh" firstAttribute="top" secondItem="FEB-53-OWP" secondAttribute="bottom" constant="30" id="gVf-mT-Ra1"/>
+                                <constraint firstItem="MdC-ES-Cqh" firstAttribute="top" secondItem="FEB-53-OWP" secondAttribute="bottom" constant="34" id="gVf-mT-Ra1"/>
                                 <constraint firstAttribute="height" constant="568" id="m2k-Iv-bVa"/>
+                                <constraint firstAttribute="trailing" secondItem="lYy-fb-nOp" secondAttribute="trailing" constant="8" id="tKt-Vl-hZY"/>
                                 <constraint firstAttribute="trailing" secondItem="Ppo-vp-96a" secondAttribute="trailing" id="tmX-QJ-jCk"/>
                                 <constraint firstItem="FEB-53-OWP" firstAttribute="leading" secondItem="KDe-jP-Jo6" secondAttribute="leading" id="v4U-rj-3Hh"/>
                             </constraints>
@@ -439,9 +462,10 @@
         </view>
     </objects>
     <resources>
-        <image name="avatar_nan" width="171" height="171"/>
         <image name="ic_biyan" width="22" height="10"/>
         <image name="ic_tongyixuanzhong" width="18" height="18"/>
+        <image name="ic_weisxuanze" width="15" height="15"/>
+        <image name="ic_weixuanze" width="17" height="17"/>
         <image name="ic_weixuanzhong" width="15" height="15"/>
     </resources>
 </document>

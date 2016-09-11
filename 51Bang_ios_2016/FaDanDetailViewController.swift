@@ -13,6 +13,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
     let myTableView = UITableView()
     let mainHelper = MainHelper()
     var dataSource = NSMutableArray()
+    var dataSource1 = fadanDetaiInfo()
     var info = TaskInfo()
     var helper = TCVMLogModel()
     override func viewWillAppear(animated: Bool) {
@@ -39,10 +40,8 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
             let myinfo1:fadanDetaiInfo = response as! fadanDetaiInfo
             print(myinfo1)
             self.dataSource.addObject(myinfo1)
-//            self.dataSource?.removeAll()
-//            self.dataSource = response as? Array<fadanDetaiInfo> ?? []
-//            print(self.dataSource)
-//            print(self.dataSource?.count)
+            self.dataSource1 = response as! fadanDetaiInfo
+
             self.createTableView()
         }
 
@@ -117,7 +116,8 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
         
        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! TaskDetailTableViewCell2
         cell.selectionStyle = .None
-        let myInfo = self.dataSource[0] as! fadanDetaiInfo
+//        let myInfo = self.dataSource[0] as! fadanDetaiInfo
+        let myInfo = dataSource1
         if indexPath.row == 0 {
             cell.title.text = "任务号"
             cell.desc.text = myInfo.order_num

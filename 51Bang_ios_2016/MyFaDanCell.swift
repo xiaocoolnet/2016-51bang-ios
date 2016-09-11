@@ -39,7 +39,7 @@ class MyFaDanCell: UITableViewCell {
         if model.state! == "0" {
             setBottomDan("未接单")
         }else if model.state! == "1"{
-            setBottomDan("未付款")
+            setBottomDan("未抢单")
         }else if model.state! == "2"{
             setBottomDan("已被抢")
         }else if model.state! == "3"{

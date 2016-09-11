@@ -32,7 +32,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nb3-gY-dBB">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nb3-gY-dBB">
                                 <rect key="frame" x="71" y="11" width="20" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="JZC-kl-EwB"/>
@@ -72,7 +72,7 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGL-Ig-Nn5">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGL-Ig-Nn5">
                                 <rect key="frame" x="76" y="11" width="20" height="22"/>
                                 <state key="normal" title="Button" image="ic_arrow_down-hui"/>
                             </button>
@@ -86,7 +86,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edR-bH-iK3">
                         <rect key="frame" x="220" y="0.0" width="104" height="43"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1rC-R2-Uf9">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1rC-R2-Uf9">
                                 <rect key="frame" x="76" y="11" width="20" height="22"/>
                                 <state key="normal" title="Button" image="ic_arrow_down-hui"/>
                             </button>

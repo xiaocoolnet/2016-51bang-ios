@@ -33,6 +33,7 @@ class ChangePwdViewController: UIViewController {
     var passWordView:UIView!
     var checkPassView:UIView!
     
+    
     //  注册功能
     var changeVM:TCVMLogModel?
     //  倒计时功能
@@ -204,8 +205,11 @@ class ChangePwdViewController: UIViewController {
         showPassCheckBtn.addTarget(self, action: #selector(self.showCheckPassWord(_:)), forControlEvents: .TouchUpInside)
         checkPassView.addSubview(showPassCheckBtn)
         
+        
+        
+        
         successBtn = UIButton()
-        successBtn.frame = CGRectMake(20, 320, WIDTH - 40, 40)
+        successBtn.frame = CGRectMake(20, 320 , WIDTH - 40, 40)
         successBtn.setTitle("完成", forState: .Normal)
         successBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         successBtn.backgroundColor = COLOR
@@ -217,6 +221,7 @@ class ChangePwdViewController: UIViewController {
         
     }
     
+   
     // MARK: - 点击事件
     
     func getCheckNum() {

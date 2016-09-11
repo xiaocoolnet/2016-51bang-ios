@@ -119,6 +119,10 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         }else if indexPath.section == 1 {
             if indexPath.row == 0 {
                 return WIDTH*40/375
+            }else if indexPath.row == 2 {
+                return WIDTH*40/375
+            }else if indexPath.row == 4 {
+                return WIDTH*40/375
             }else if indexPath.row == 1 {
                 return WIDTH*125/375
             }else{
