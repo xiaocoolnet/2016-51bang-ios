@@ -55,19 +55,19 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         }
         
-//        if ud.objectForKey("ss") as! String == "no"{
-//            self.headerView.renzheng.hidden = true
-//        }else{
-//            self.headerView.renzheng.hidden = false
-//        }
+        //        if ud.objectForKey("ss") as! String == "no"{
+        //            self.headerView.renzheng.hidden = true
+        //        }else{
+        //            self.headerView.renzheng.hidden = false
+        //        }
         self.headerView.renzheng.hidden = false
         print(loginSign)
         
     }
     
-//    override func viewDidDisappear(animated: Bool) {
-//        self.tabBarController?.tabBar.hidden = true
-//    }
+    //    override func viewDidDisappear(animated: Bool) {
+    //        self.tabBarController?.tabBar.hidden = true
+    //    }
     
     
     override func viewDidLoad() {
@@ -246,12 +246,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if tableView.tag == 1 {
             let view = UIView()
             view.frame = CGRectMake(0, 0, 0, 0)
-//            view.backgroundColor = UIColor.clearColor()
-//            let footTit = UILabel(frame: CGRectMake(10, 5, 80, 20))
-//            footTit.text = foot[section]
-//            footTit.font = UIFont.systemFontOfSize(12)
-//            footTit.textColor = UIColor.grayColor()
-//            view.addSubview(footTit)
+            //            view.backgroundColor = UIColor.clearColor()
+            //            let footTit = UILabel(frame: CGRectMake(10, 5, 80, 20))
+            //            footTit.text = foot[section]
+            //            footTit.font = UIFont.systemFontOfSize(12)
+            //            footTit.textColor = UIColor.grayColor()
+            //            view.addSubview(footTit)
             
             return view
         }else{
@@ -341,7 +341,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print(indexPath.row) 
+        print(indexPath.row)
         if indexPath.section == 1 {
             switch indexPath.row {
             case 0:
@@ -350,14 +350,14 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(faDan, animated: true)
                 self.hidesBottomBarWhenPushed = false
-//            case 1:
-//                
-//                let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-//                let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("2View")
-//                vc.title = "我的优惠券"
-//                self.hidesBottomBarWhenPushed = true
-//                self.navigationController?.pushViewController(vc, animated: true)
-//                self.hidesBottomBarWhenPushed = false
+                //            case 1:
+                //
+                //                let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                //                let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("2View")
+                //                vc.title = "我的优惠券"
+                //                self.hidesBottomBarWhenPushed = true
+                //                self.navigationController?.pushViewController(vc, animated: true)
+            //                self.hidesBottomBarWhenPushed = false
             case 1:
                 let bookDanVc = MyBookDan()
                 self.hidesBottomBarWhenPushed = true
@@ -405,7 +405,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 let Insure = MyInsure()
                 self.navigationController?.pushViewController(Insure, animated: true)
                 self.hidesBottomBarWhenPushed = false            default:
-                print("section2的不合法点击")
+                    print("section2的不合法点击")
             }
             
             
@@ -422,7 +422,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.navigationController?.pushViewController(vc, animated: true)
                 vc.title = benApp[indexPath.row]
             }
-  
+            
         }
         
         
@@ -437,14 +437,14 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.navigationController?.pushViewController(vc, animated: true)
             self.hidesBottomBarWhenPushed = false
         }else if btn.tag == 0{
-        
+            
             let vc = Wallect()
             self.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
             self.hidesBottomBarWhenPushed = false
             
         }else{
-        
+            
             let vc = MessageViewController()
             self.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
@@ -525,7 +525,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     self.LOGIN_STATE = true
                     self.headerView.phone.text = self.phoneNum
                     self.loginSuccess()
-                    self.downloadPic()
+                    self.getuserData()
+                    self.Checktoubao()
+                    
                     
                 }
             })
@@ -557,7 +559,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 ud .setObject("yes", forKey: "baoxiangrenzheng")
                 print("已经认证")
                 self.headerView.baoxianRenZheng.hidden = false
-                            }else{
+            }else{
                 ud .setObject("no", forKey: "baoxiangrenzheng")
                 self.headerView.baoxianRenZheng.hidden = true
                 print("未进行认证")
@@ -640,11 +642,11 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         self.headerView.iconBtn.layer.masksToBounds = true
                         
                         
-//                        if NSUserDefaults.standardUserDefaults().objectForKey("photo") != nil{
-//                            let a = MainHelper()
-//                            a.downloadImage(NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
-//                        }
-                       
+                        //                        if NSUserDefaults.standardUserDefaults().objectForKey("photo") != nil{
+                        //                            let a = MainHelper()
+                        //                            a.downloadImage(NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
+                        //                        }
+                        
                     }
                 })
                 
@@ -656,7 +658,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     {
         
         let userData = NSUserDefaults.standardUserDefaults()
-//        print(NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
+        //        print(NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
         if NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String == "" || NSUserDefaults.standardUserDefaults().objectForKey("photo") == nil{
             print("下载失败")
             image = UIImage.init(named: "ic_moren-da")!
@@ -689,7 +691,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     self.headerView.iconBtn.layer.masksToBounds = true
                 }
             })
-        
+            
             
         }
         
