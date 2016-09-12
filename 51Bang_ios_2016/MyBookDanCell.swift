@@ -14,6 +14,7 @@ class MyBookDanCell: UITableViewCell {
     let  Price = UILabel()
     let  Statue = UILabel()
     let  Btn = UIButton()
+    let  headerImageBtn = UIButton()
     var idStr = String()
     var sign = Int()
     var data = Array<MyOrderInfo>?()
@@ -47,6 +48,9 @@ class MyBookDanCell: UITableViewCell {
     {
         
         showImage.frame = CGRectMake(5, 5, 100, 90)
+//        headerImageBtn.frame = CGRectMake(5, 5, 100, 90)
+//        headerImageBtn.backgroundColor = UIColor.redColor()
+        
         if Data.pic.count>0 {
             let imageUrl = Bang_Image_Header+Data.pic[0].pictureurl!
             
@@ -159,8 +163,8 @@ class MyBookDanCell: UITableViewCell {
 //            
 //            
 //        }
-        
-        
+//        headerImageBtn.addTarget(self, action: #selector(self.goGOGOGO), forControlEvents: UIControlEvents.TouchUpInside)
+//        self.addSubview(headerImageBtn)
         
     }
 //    
@@ -192,11 +196,19 @@ class MyBookDanCell: UITableViewCell {
 //    }
 //
     
+    
+    func goGOGOGO(){
+        let next = BusnissViewController()
+        next.id = idStr
+        targets.navigationController?.pushViewController(next, animated: true)
+    }
+    
     func Comment()
     {
         print("评价")
         let orderCommentViewController = OrderCommentViewController()
         orderCommentViewController.idStr = self.idStr
+        orderCommentViewController.order_num = order_num
         targets.navigationController?.pushViewController(orderCommentViewController, animated: true)
     }
     

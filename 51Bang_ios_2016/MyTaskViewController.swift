@@ -13,8 +13,8 @@ import MJRefresh
 class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     var myTableView = UITableView()
-    var leftTableView = UITableView()
-    var rightTableView = UITableView()
+//    var leftTableView = UITableView()
+//    var rightTableView = UITableView()
     let label = UILabel()
     var info = TaskInfo()
     let mainHelper = MainHelper()
@@ -25,32 +25,38 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     var sign = Int()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        self.myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            
+        })
         self.tabBarController?.tabBar.hidden = true
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.createTableView()
         sign = 1
         label.frame = CGRectMake(WIDTH/3, 50, WIDTH/3, 2)
         label.backgroundColor = COLOR
-        self.GetWKSData(String(sign))
+        self.GetWKSData("3,4")
         self.title = "我的任务"
         self.view.backgroundColor = RGREY
-        leftTableView.frame = CGRectMake(0,62, WIDTH, HEIGHT - 64 - 50)
-        leftTableView.tag = 0
-//        leftTableView.hidden = true
-        leftTableView.registerNib(UINib(nibName: "myOrderLocationTableViewCell",bundle: nil), forCellReuseIdentifier: "location")
-        leftTableView.registerNib(UINib(nibName: "MyTaskTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
-        leftTableView.registerNib(UINib(nibName: "MyTaskTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
-        leftTableView.backgroundColor = UIColor.redColor()
-        rightTableView.frame = CGRectMake(0, 62, WIDTH, HEIGHT - 64 - 50)
-        rightTableView.tag = 2
-//        rightTableView.hidden = true
-        rightTableView.backgroundColor = UIColor.blueColor()
-        rightTableView.registerNib(UINib(nibName: "myOrderLocationTableViewCell",bundle: nil), forCellReuseIdentifier: "location")
-        rightTableView.registerNib(UINib(nibName: "MyTaskTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
-        rightTableView.registerNib(UINib(nibName: "MyTaskTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
+//        leftTableView.frame = CGRectMake(0,62, WIDTH, HEIGHT - 64 - 50)
+//        leftTableView.tag = 0
+////        leftTableView.hidden = true
+//        leftTableView.registerNib(UINib(nibName: "myOrderLocationTableViewCell",bundle: nil), forCellReuseIdentifier: "location")
+//        leftTableView.registerNib(UINib(nibName: "MyTaskTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
+//        leftTableView.registerNib(UINib(nibName: "MyTaskTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
+//        leftTableView.backgroundColor = UIColor.redColor()
+//        rightTableView.frame = CGRectMake(0, 62, WIDTH, HEIGHT - 64 - 50)
+//        rightTableView.tag = 2
+////        rightTableView.hidden = true
+//        rightTableView.backgroundColor = UIColor.blueColor()
+//        rightTableView.registerNib(UINib(nibName: "myOrderLocationTableViewCell",bundle: nil), forCellReuseIdentifier: "location")
+//        rightTableView.registerNib(UINib(nibName: "MyTaskTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
+//        rightTableView.registerNib(UINib(nibName: "MyTaskTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
         let view = UIView.init(frame: CGRectMake(0, 0, WIDTH, 52))
         view.backgroundColor = UIColor.whiteColor()
         let button1 = UIButton.init(frame: CGRectMake(0, 0, WIDTH/3, 50))
@@ -91,8 +97,12 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         mainHelper.getMyGetOrder (userid,state: state,handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
+                    self.myTableView.mj_header.endRefreshing()
+                    hud.hidden = true
                     return
+                    
                 }
+                self.myTableView.mj_header.endRefreshing()
                 print(response)
                 hud.hidden = true
                 if state == "2"{
@@ -105,12 +115,12 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
 //                        self.myTableView.reloadData()
 //                        return
 //                    }
-                }else if state == "3"{
+                }else if state == "3,4"{
                     self.dataSource1?.removeAll()
                     self.dataSource1 = response as? Array<TaskInfo> ?? []
                      print(self.dataSource1?.count)
                     
-                }else{
+                }else if state == "-1"{
                     self.dataSource2?.removeAll()
                     self.dataSource2 = response as? Array<TaskInfo> ?? []
                      print(self.dataSource2?.count)
@@ -119,7 +129,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
                 print(self.dataSource?.count)
                 print(self.dataSource1?.count)
                 print(self.dataSource2?.count)
-                self.createTableView()
+                
                 self.myTableView.reloadData()
                 //self.configureUI()
             })
@@ -130,41 +140,43 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     func createTableView(){
     
         
-        myTableView.frame = CGRectMake(0, 62, WIDTH, HEIGHT - 64 - 50 )
-        myTableView.tag = 1
-        myTableView.backgroundColor = RGREY
-        myTableView.delegate = self
-        myTableView.dataSource = self
-        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        myTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        myTableView.registerNib(UINib(nibName: "MyOrderTableViewCell",bundle: nil), forCellReuseIdentifier: "MyOrderTableViewCell")
-        myTableView.registerNib(UINib(nibName: "myOrderLocationTableViewCell",bundle: nil), forCellReuseIdentifier: "location")
-        myTableView.registerNib(UINib(nibName: "MyTaskTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
-        myTableView.registerNib(UINib(nibName: "MyTaskTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
+        self.myTableView.frame = CGRectMake(0, 62, WIDTH, HEIGHT - 64 - 50 )
+        self.myTableView.tag = 1
+        self.myTableView.backgroundColor = UIColor.whiteColor()
+        self.myTableView.delegate = self
+        self.myTableView.dataSource = self
+        self.myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.myTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.myTableView.registerNib(UINib(nibName: "MyOrderTableViewCell",bundle: nil), forCellReuseIdentifier: "MyOrderTableViewCell")
+        self.myTableView.registerNib(UINib(nibName: "myOrderLocationTableViewCell",bundle: nil), forCellReuseIdentifier: "location")
+        self.myTableView.registerNib(UINib(nibName: "MyTaskTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
+        self.myTableView.registerNib(UINib(nibName: "MyTaskTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
         
-        myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-            print("MJ:(下拉刷新)")
-            self.headerRefresh()
-            self.myTableView.mj_header.endRefreshing()
-        })
         
-        let button4 = UIButton.init(frame: CGRectMake(10, HEIGHT-150, WIDTH/2-20, 50))
-        button4.tag = 4
-        button4.setTitle("联系对方", forState: UIControlState.Normal)
-        button4.backgroundColor = UIColor.orangeColor()
-        button4.layer.cornerRadius = 10
-        let button5 = UIButton.init(frame: CGRectMake(WIDTH/2+10, HEIGHT-150, WIDTH/2-20, 50))
-        button5.setTitle("完成服务", forState: UIControlState.Normal)
-        button5.tag = 5
-        button5.backgroundColor = COLOR
-        button5.layer.cornerRadius = 10
-        self.view.addSubview(myTableView)
+        
+//        let button4 = UIButton.init(frame: CGRectMake(10, HEIGHT-150, WIDTH/2-20, 50))
+//        button4.tag = 4
+//        button4.setTitle("联系对方", forState: UIControlState.Normal)
+//        button4.backgroundColor = UIColor.orangeColor()
+//        button4.layer.cornerRadius = 10
+//        let button5 = UIButton.init(frame: CGRectMake(WIDTH/2+10, HEIGHT-150, WIDTH/2-20, 50))
+//        button5.setTitle("完成服务", forState: UIControlState.Normal)
+//        button5.tag = 5
+//        button5.backgroundColor = COLOR
+//        button5.layer.cornerRadius = 10
+        self.view.addSubview(self.myTableView)
 //        self.view.addSubview(button4)
 //        self.view.addSubview(button5)
     }
     
     func headerRefresh(){
-        
+        if sign == 0 {
+            self.GetWKSData("2")
+        }else if sign == 1{
+            self.GetWKSData("3,4")
+        }else{
+            self.GetWKSData("-1")
+        }
         
     }
     
@@ -172,7 +184,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     func showLeft(){
         label.frame = CGRectMake(0, 50, WIDTH/3, 2)
         sign = 0
-        self.GetWKSData(String(sign))
+        self.GetWKSData("2")
 //        self.myTableView.reloadData()
 //        myTableView.hidden = true
 //        leftTableView.hidden = false
@@ -184,7 +196,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     
         label.frame = CGRectMake(WIDTH/3, 50, WIDTH/3, 2)
         sign = 1
-        self.GetWKSData(String(sign))
+        self.GetWKSData("3,4")
 //        self.myTableView.reloadData()
 //        myTableView.hidden = false
 //        leftTableView.hidden = true
@@ -196,7 +208,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     func showRight(){
         label.frame = CGRectMake(WIDTH*2/3, 50, WIDTH/3, 2)
         sign = 2
-        self.GetWKSData(String(sign))
+        self.GetWKSData("-1")
 //        self.myTableView.reloadData()
 //        myTableView.hidden = true
 //        leftTableView.hidden = true
@@ -208,8 +220,8 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         if sign == 0 {
 //            print(self.dataSource?.count)
-            if dataSource1 != nil{
-                return dataSource1!.count
+            if dataSource != nil{
+                return dataSource!.count
             }else{
                 return 0
             }
@@ -242,8 +254,8 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
 //        return 4
         if sign == 0 {
 //            print(self.dataSource?.count)
-            if dataSource1 != nil{
-                return dataSource1!.count
+            if dataSource != nil{
+                return dataSource!.count
             }else{
                 return 0
             }

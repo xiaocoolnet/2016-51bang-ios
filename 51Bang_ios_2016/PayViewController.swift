@@ -419,16 +419,20 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 if success{
                     print("成功")
                 }
+                let vc = WoBangPageViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
             })
         }else{
             self.mainhelper.upALPState(numForGoodS, state: "2", type: "2", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
+                let vc = MyBookDan()
+                self.navigationController?.pushViewController(vc, animated: true)
             })
         }
-        let vc = OrderDetailViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = OrderDetailViewController()
+//        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func nextView(notification: NSNotification){
@@ -438,19 +442,23 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 if success{
                     print("成功")
                 }
+                let vc = WoBangPageViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
             })
         }else{
             self.mainhelper.upALPState(numForGoodS, state: "1", type: "2", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
+                let vc = MyBookDan()
+                self.navigationController?.pushViewController(vc, animated: true)
             })
         }
         
 
         
-        let vc = OrderDetailViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = OrderDetailViewController()
+//        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     

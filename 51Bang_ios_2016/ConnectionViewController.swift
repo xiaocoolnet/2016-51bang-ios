@@ -11,6 +11,7 @@ import UIKit
 class ConnectionViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     var info = TaskInfo()
+    let mainHelper = MainHelper()
     var sign = Int()
     let myTableView = UITableView()
     var shangMenLocation = NSString()
@@ -30,15 +31,16 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         button4.addTarget(self, action: #selector(self.callPhone), forControlEvents: UIControlEvents.TouchUpInside)
         button4.layer.cornerRadius = 10
         let button5 = UIButton.init(frame: CGRectMake(WIDTH/2+10, HEIGHT-150, WIDTH/2-20, 50))
-        if sign == 0 {
-            button5.setTitle("完成服务", forState: UIControlState.Normal)
-            button5.backgroundColor = COLOR
-        }else if sign == 1{
-        
+        if info.state == "2" {
             button5.setTitle("已上门", forState: UIControlState.Normal)
             button5.backgroundColor = COLOR
             button5.addTarget(self, action: #selector(self.button5Action), forControlEvents: UIControlEvents.TouchUpInside)
-        }else{
+        }else if info.state == "3" || info.state == "4"{
+        
+            button5.setTitle("完成服务", forState: UIControlState.Normal)
+            button5.backgroundColor = COLOR
+            button5.addTarget(self, action: #selector(self.button5Action), forControlEvents: UIControlEvents.TouchUpInside)
+        }else if info.state == "-1"{
         
             button5.setTitle("完成服务", forState: UIControlState.Normal)
             button5.enabled = false
@@ -57,11 +59,31 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     
     func button5Action() {
         
-        alert("已通知对方,请等待对方确认", delegate: self)
+       
+        if info.state == "2" {
+            mainHelper.gaiBianRenWu(info.order_num!, state: "3", handle: { (success, response) in
+                if !success{
+                     alert("通知失败，请重试", delegate: self)
+                    return
+                }
+                 alert("已通知对方,请等待对方确认", delegate: self)
+                
+            })
+        }else if info.state == "3" || info.state == "4"{
+            mainHelper.gaiBianRenWu(info.order_num!, state: "4", handle: { (success, response) in
+                if !success{
+                    alert("通知失败，请重试", delegate: self)
+                    return
+                }
+                alert("已通知对方,请等待对方确认", delegate: self)
+                
+            })
+            
+        }
         
-//        let vc = FaDanDetailViewController()
+//        let vc = MyTaskViewController()
 //        vc.info = self.info
-//        self.navigationController?.pushViewController(vc, animated: true)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     
