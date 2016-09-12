@@ -183,9 +183,11 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     func headerRefresh(){
         if(sign == 1){
-            GetWWCData("0,1,2,3,4")
+            weiBtnAction()
+//            GetWWCData("0,1,2,3,4")
         }else{
-            GetYWCData("5")
+            finshBtnAction()
+//            GetYWCData("5")
         }
     }
         
@@ -286,7 +288,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 print(indexPath.section)
                 print(self.dataSource![indexPath.section])
                 let cell = MyFaDanCell.init(model: self.dataSource![indexPath.section])
-                cell.payBtn.tag = indexPath.row
+                cell.payBtn.tag = indexPath.section
                 //            let payBtn = cell.viewWithTag(10)as! UIButton
                 cell.payBtn.addTarget(self, action: #selector(self.pay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                  return cell
@@ -304,6 +306,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! YwcTableViewCell
                 cell.setValueWithInfo(self.dataSource1![indexPath.section])
                 cell.selectionStyle = .None
+                cell.pingjia.hidden = true
                 cell.pingjia.addTarget(self, action: #selector(self.goPingJia), forControlEvents: UIControlEvents.TouchUpInside)
                 return cell
             }else{
@@ -318,26 +321,50 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     }
     
     func pay(btn:UIButton){
+        
+        
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "您确定要付款吗？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        
+            self.mainHelper.gaiBianRenWu(self.dataSource![btn.tag].order_num!, state: "5", handle: { (success, response) in
+                if !success{
+                    alert("付款失败请重试", delegate: self)
+                    return
+                }
+                self.finshBtnAction()
+            })
+                                        
+                                        
+                                        
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     
-        self.info = self.dataSource![btn.tag]
-        let view = UIView.init(frame: CGRectMake(0, 0, WIDTH, HEIGHT))
-        view.backgroundColor = UIColor.grayColor()
-        view.alpha = 0.6
-        view.tag = 48
-        self.view.addSubview(view)
-         xiaofeiview = NSBundle.mainBundle().loadNibNamed("XiaoFeiTableViewCell", owner: nil, options: nil).first as! XiaoFeiTableViewCell
-        xiaofeiview.tag = 23
-        xiaofeiview.frame = CGRectMake(WIDTH/2-125, HEIGHT/2-50, 250, 110)
-        xiaofeiview.yes.tag = 45
-        xiaofeiview.no.tag = 46
-        xiaofeiview.textField.tag = 47
-        xiaofeiview.textField.delegate = self
-        xiaofeiview.yes.layer.cornerRadius = 5
-        xiaofeiview.no.layer.cornerRadius = 5
-        xiaofeiview.yes.addTarget(self, action: #selector(self.nextView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        xiaofeiview.no.addTarget(self, action: #selector(self.nextView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(xiaofeiview)
-//        let view = NSBundle.mainBundle().loadNibNamed("XiaoFeiTableViewCell", owner: nil, options: nil).first as! XiaoFeiTableViewCell
+//        self.info = self.dataSource![btn.tag]
+//        let view = UIView.init(frame: CGRectMake(0, 0, WIDTH, HEIGHT))
+//        view.backgroundColor = UIColor.grayColor()
+//        view.alpha = 0.6
+//        view.tag = 48
+//        self.view.addSubview(view)
+//         xiaofeiview = NSBundle.mainBundle().loadNibNamed("XiaoFeiTableViewCell", owner: nil, options: nil).first as! XiaoFeiTableViewCell
+//        xiaofeiview.tag = 23
+//        xiaofeiview.frame = CGRectMake(WIDTH/2-125, HEIGHT/2-50, 250, 110)
+//        xiaofeiview.yes.tag = 45
+//        xiaofeiview.no.tag = 46
+//        xiaofeiview.textField.tag = 47
+//        xiaofeiview.textField.delegate = self
+//        xiaofeiview.yes.layer.cornerRadius = 5
+//        xiaofeiview.no.layer.cornerRadius = 5
+//        xiaofeiview.yes.addTarget(self, action: #selector(self.nextView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        xiaofeiview.no.addTarget(self, action: #selector(self.nextView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        self.view.addSubview(xiaofeiview)
+////        let view = NSBundle.mainBundle().loadNibNamed("XiaoFeiTableViewCell", owner: nil, options: nil).first as! XiaoFeiTableViewCell
     
     }
     
@@ -422,7 +449,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
             
         }else{
         
-            vc.info = self.dataSource1![indexPath.row]
+            vc.info = self.dataSource1![indexPath.section]
         }
         
         self.navigationController?.pushViewController(vc, animated: true)

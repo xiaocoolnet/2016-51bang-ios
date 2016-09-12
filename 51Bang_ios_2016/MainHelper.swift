@@ -158,7 +158,7 @@
         
         let param = [
             "userid":userid,
-            "roomname":roomname,
+            "address":roomname,
             "goodsid":goodsid,
             "goodnum":goodnum,
             "mobile":mobile,
@@ -898,7 +898,7 @@
         
     }
     
-    //取消任务
+    //改变任务
     func gaiBianRenWu(ordernum:NSString,state:NSString,handle:ResponseBlock){
         
         let url = Bang_URL_Header+"UpdataTaskState"

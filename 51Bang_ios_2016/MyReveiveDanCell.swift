@@ -41,9 +41,9 @@ class MyReceiveDanCell: UITableViewCell{
         
         let taName = UILabel.init(frame: CGRectMake(0, 0, WIDTH, 30))
         if Data.title! == "" {
-            taName.text = "冲公交卡"
+            taName.text = ""
         }else{
-            taName.text = " " + Data.title!
+            taName.text = " " + Data.description!
         }
         
         taName.textColor = UIColor.grayColor()
@@ -94,7 +94,18 @@ class MyReceiveDanCell: UITableViewCell{
         bottomView.addSubview(stat)
         let ST = UILabel.init(frame: CGRectMake(WIDTH - 50, 20,45, 30))
         ST.textColor = COLOR
-        ST.text = "已抢单"
+//        ST.text = "已抢单"
+        if Data.state! == "2" {
+           ST.text = "已抢单"
+        }else if Data.state! == "3"{
+            ST.text = "已上门"
+        }else if Data.state! == "4"{
+            ST.text = "请求付款"
+        }else if Data.state! == "5"{
+            ST.text = "已付款"
+        }else if Data.state! == "－1"{
+            ST.text = "已取消"
+        }
         ST.adjustsFontSizeToFitWidth = true
         bottomView.addSubview(ST)
         

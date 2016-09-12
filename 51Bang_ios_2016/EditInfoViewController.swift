@@ -43,6 +43,9 @@ class EditInfoViewController: UIViewController,UITableViewDelegate,UITableViewDa
         headerView.iconImage.addTarget(self, action: #selector(self.uploadImage), forControlEvents: UIControlEvents.TouchUpInside)
 //bug:我已经修改过，此处注释过
 //**********************************************************************
+        
+        
+        
         let image = UIImage.init(data: NSUserDefaults.standardUserDefaults().objectForKey("userphoto") as! NSData )
         
         
@@ -152,7 +155,7 @@ class EditInfoViewController: UIViewController,UITableViewDelegate,UITableViewDa
                                 self.headerView.iconImage.layer.masksToBounds = true
                                 
                                 let imageData = UIImageJPEGRepresentation((info[UIImagePickerControllerEditedImage] as? UIImage)!, 1)
-                                ud.setObject(imageData, forKey: "userphoto")
+                                ud.setObject(imageData, forKey: "photo")
                                 ud.synchronize()
                                 self.myDelegate?.editePictureInMain()
                                 

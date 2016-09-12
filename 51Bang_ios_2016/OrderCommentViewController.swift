@@ -17,6 +17,7 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
     let boFangButton = UIButton()
     var myPhotoCount = NSInteger()
     let backMHView = UIView()
+    var order_num = String()
     
     var hud1 = MBProgressHUD()
     let headerView = UIView()
@@ -279,7 +280,17 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
         if photoNameArr.count > 0{
             mainHelper.upLoadComment(userid, id: idStr, content: textView.text, type: "3",photo:photoNameArr[0] as! NSString) { (success, response) in
                 print(response)
+                if !success{
+                    alert("数据加载出错请重试", delegate: self)
+                    return
+                }
                 self.hud1.hide(true)
+                self.mainHelper.gaiBianDingdan(self.order_num, state: "10", handle: { (success, response) in
+                    if !success{
+                        alert("数据加载出错请重试", delegate: self)
+                        return
+                    }
+                })
                 self.navigationController?.popViewControllerAnimated(true)
                 
             }
@@ -287,8 +298,19 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
             
         }else{
             mainHelper.upLoadComment(userid, id: idStr, content: textView.text, type: "3",photo:"01.png") { (success, response) in
-                print(response)
+                
+                if !success{
+                    alert("数据加载出错请重试", delegate: self)
+                    return
+                }
                 self.hud1.hide(true)
+                self.mainHelper.gaiBianDingdan(self.order_num, state: "10", handle: { (success, response) in
+                    if !success{
+                        alert("数据加载出错请重试", delegate: self)
+                        return
+                    }
+                })
+
                 self.navigationController?.popViewControllerAnimated(true)
                 
             }

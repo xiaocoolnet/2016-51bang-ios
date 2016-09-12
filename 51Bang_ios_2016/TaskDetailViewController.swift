@@ -285,15 +285,28 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         let str6 = array4[0]
         print(str6)
         
-        
-        mainHelper.gaiBianRenWu(taskInfo.order_num! as String, state: "2") { (success, response) in
+        mainHelper.qiangDan(userid, taskid: taskInfo.id!, longitude: str3, latitude: str6) { (success, response) in
+            print(response)
             if !success {
                 return
             }
-            let vc = MyTaskViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.mainHelper.gaiBianRenWu(self.taskInfo.order_num! as String, state: "2") { (success, response) in
+                if !success {
+                    return
+                }
+                let vc = MyTaskViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+
+            
+//            let vc = MyTaskViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
+            
+            
         }
-    }
+
+        
+            }
     
     func callPhone(){
         

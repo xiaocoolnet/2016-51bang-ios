@@ -78,6 +78,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         if (isDingwei) {
             userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
+            isDingwei = false
         }
         
         geocodeSearch.delegate = nil

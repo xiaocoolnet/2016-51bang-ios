@@ -116,6 +116,11 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         self.view.addGestureRecognizer(swipeLeftGesture)
         
     }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.headerRefresh()
+//        self.mTableview.mj_header.beginRefreshing()
+    }
     
     func headerRefresh(){
         if sign == 0 {
@@ -397,7 +402,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }else if sign == 1{
             if self.DFKDataSource != nil {
                 let cell = MyBookDanCell.init(Data: self.DFKDataSource![indexPath.row],sign: sign)
-//                cell.targets = self
+                cell.targets = self
                 cell.Btn.tag = indexPath.row+100
                 cell.Btn.addTarget(self, action: #selector(self.payMeony(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 return  cell

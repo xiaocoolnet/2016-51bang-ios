@@ -47,7 +47,38 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
             self.myTableView.tableFooterView = juanma
             
         }
+        
+        
+        if self.info.state! == "2"{
+            let juanma = UIButton()
+            print(WIDTH)
+            print(self.myTableView.frame.width)
+            juanma.frame = CGRectMake(10, 10, WIDTH-80, 50)
+            juanma.layer.masksToBounds = true
+//            juanma.layer.cornerRadius = 10
+//            juanma.layer.borderColor = COLOR.CGColor
+//            juanma.layer.borderWidth = 1
+            juanma.backgroundColor = COLOR
+            juanma.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+            juanma.setTitle("已消费", forState: UIControlState.Normal)
+            juanma.addTarget(self, action: #selector(self.yiXiaofei), forControlEvents: UIControlEvents.TouchUpInside)
+            
+            self.myTableView.tableFooterView = juanma
+            self.myTableView.tableFooterView?.frame = CGRectMake(0, 0, WIDTH, 50)
+        }
+        
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func yiXiaofei(){
+        mainHelper.gaiBianDingdan(self.info.order_num!, state: "4") { (success, response) in
+            if !success{
+                alert("数据请求失败请重试", delegate: self)
+                return
+            }
+            self.navigationController?.popViewControllerAnimated(true)
+        }
     }
     
     func createTableView(){
@@ -107,7 +138,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         if section == 2 {
             return nil
         }else{
-            let view2 = UIView.init(frame: CGRectMake(0, 0, WIDTH, 10))
+            let view2 = UIView.init(frame: CGRectMake(0, 0, WIDTH-20, 10))
             view2.backgroundColor = RGREY
             return view2
         }

@@ -411,6 +411,28 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         let str6 = array4[0]
         print(str6)
         
+        
+        mainHelper.qiangDan(userid, taskid: dataSource![sender.tag].id!, longitude: str3, latitude: str6) { (success, response) in
+            print(response)
+            if !success {
+                return
+            }
+            
+            self.mainHelper.gaiBianRenWu(self.dataSource![sender.tag].order_num! as String, state: "2") { (success, response) in
+                if !success {
+                    return
+                }
+                let vc = MyTaskViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+
+            let vc = MyTaskViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+            
+        }
+
+        
         mainHelper.gaiBianRenWu(dataSource![sender.tag].order_num! as String, state: "2") { (success, response) in
             if !success {
                 return

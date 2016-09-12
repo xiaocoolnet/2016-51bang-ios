@@ -15,6 +15,8 @@ class MyFaDanCell: UITableViewCell {
     private let Middle = UIView()
     private let Bottom = UIView()
     let payBtn = UIButton()
+    let timeLabel  = UILabel()
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -38,13 +40,31 @@ class MyFaDanCell: UITableViewCell {
         setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: "无人接单")
         if model.state! == "0" {
             setBottomDan("未接单")
+            payBtn.hidden = true
         }else if model.state! == "1"{
             setBottomDan("未抢单")
+            payBtn.hidden = true
         }else if model.state! == "2"{
             setBottomDan("已被抢")
         }else if model.state! == "3"{
             setBottomDan("已上门")
         }
+        print(model.time)
+        if model.time != nil {
+            let string = NSString(string:model.time!)
+            let dateFormatter = NSDateFormatter()
+            let timeSta:NSTimeInterval = string.doubleValue
+            dateFormatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+//            dateFormatter.timeStyle = .ShortStyle
+//            dateFormatter.dateStyle = .ShortStyle
+//            let data = dateFormatter.dateFromString(model.time!)
+//            print(data)
+            let date = NSDate(timeIntervalSince1970: timeSta)
+            let dateStr = dateFormatter.stringFromDate(date)
+            self.timeLabel.text = "发布时间:" + dateStr
+
+        }
+        
         
         
 ////        print(model.apply!.phone)
@@ -64,15 +84,24 @@ class MyFaDanCell: UITableViewCell {
     
     func setTop()
     {
+        self.timeLabel.frame = CGRectMake(width/3, 0, width, 40)
+        self.timeLabel.textAlignment = NSTextAlignment.Left
+        self.timeLabel.textColor = COLOR
+        self.timeLabel.backgroundColor = UIColor.whiteColor()
+//        self.timeLabel.font = UIFont.systemFontOfSize(<#T##fontSize: CGFloat##CGFloat#>)
         taskStatu.text = " "+"未完成"
         taskStatu.textColor = UIColor.orangeColor()
-        taskStatu.frame = CGRectMake(0, 0,WIDTH, 40)
+        taskStatu.frame = CGRectMake(0, 0,WIDTH/3, 40)
         self.addSubview(taskStatu)
+        self.addSubview(self.timeLabel)
         
     }
     
     func setMiddle(Num:String,Name:String,sMen:String,reMen:String)
     {
+        
+        
+        
         let taskNum = UILabel()
         taskNum.text = " 任务号："+Num
         taskNum.frame = CGRectMake(0, 0, WIDTH, 40)
