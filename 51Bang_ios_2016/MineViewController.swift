@@ -514,12 +514,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(userInfo.id, forKey: "userid")
                     ud.setObject(userInfo.xgtoken, forKey: "token")
                     ud.setObject(userInfo.name, forKey: "name")
-                    ud.setObject(self.phoneNum, forKey: "userphone")
+                    ud.setObject(self.phoneNum, forKey: "phone")
                     ud.setObject(self.pwd, forKey: "pwd")
                     print(userInfo.photo)
                     print(userInfo.sex)
                     if userInfo.photo != "" {
-                        ud.setObject(userInfo.photo, forKey: "userphoto")
+                        ud.setObject(userInfo.photo, forKey: "photo")
                     }
                     if userInfo.sex != ""{
                         ud.setObject(userInfo.sex, forKey: "sex")
@@ -532,7 +532,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     self.LOGIN_STATE = true
                     self.headerView.phone.text = self.phoneNum
                     self.loginSuccess()
-                    self.getuserData()
+                    self.downloadPic()
                     
                 }
             })
