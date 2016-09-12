@@ -30,6 +30,9 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     @IBOutlet weak var address: UITextField!
     @IBOutlet weak var backViewHeight: NSLayoutConstraint!
     
+    
+    @IBOutlet weak var xieyiButton: UIButton!
+    @IBOutlet weak var agreeBut: UIButton!
     var myActionSheet:UIAlertController?
     var logVM:TCVMLogModel?
     var sex:Int = 1
@@ -38,6 +41,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     var processHandle:TimerHandle?
     var finishHandle:TimerHandle?
     var showMM = false
+    var isAgree = Bool()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -49,9 +53,12 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isAgree = false
         configureUI()
         logVM = TCVMLogModel()
+        backViewHeight.constant = HEIGHT - 64
         backViewHeight.constant = HEIGHT>568 ?HEIGHT:568
+        self.view.backgroundColor = RGREY
         
         processHandle = {[unowned self] (timeInterVal) in
             dispatch_async(dispatch_get_main_queue(), {
@@ -85,6 +92,13 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
             }))
         
         myActionSheet?.addAction(UIAlertAction(title: "取消", style: .Cancel, handler:nil))
+        
+        
+
+        xieyiButton.addTarget(self, action: #selector(self.xieyi(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        agreeBut.addTarget(self, action: #selector(self.agreePro), forControlEvents: UIControlEvents.TouchUpInside)
+
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -251,11 +265,17 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
             return
         }
         
+        if isAgree != true {
+            SVProgressHUD.showErrorWithStatus("请同意协议!")
+            return
+        }
+        
         logVM?.register(phoneNumber.text!, password: passwordNumber.text!, code: identifyNumber.text!, avatar: avatarImageName, name: realName.text!,sex: String(sex), cardid: personCardID.text!, addr: address.text!, handle: { [unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if success {
                     SVProgressHUD.showSuccessWithStatus("注册成功")
                     self.navigationController?.popViewControllerAnimated(true)
+                    
                 }else{
                     SVProgressHUD.showErrorWithStatus(response as! String)
                 }
@@ -299,4 +319,30 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
             passwordNumber.secureTextEntry = true
         }
     }
+    
+    //MARK: - 协议事件
+    
+    func xieyi(btn:UIButton){
+        
+        let vc = JiaoChengViewController()
+        vc.sign = 3
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
+    }
+    
+    func agreePro(){
+        
+        if isAgree == false {
+            
+            agreeBut.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
+            isAgree = true
+        }else{
+            agreeBut.setImage(UIImage(named: "ic_weixuanze"), forState: UIControlState.Normal)
+            isAgree = false
+        }
+        
+    }
+
+
 }

@@ -11,8 +11,11 @@ import UIKit
 class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     let myTableView = UITableView()
-    let helper = TCVMLogModel()
-    var dataSource = Array<MessInfo>()
+//    let helper = TCVMLogModel()
+//    var dataSource = Array<MessInfo>()
+    
+    let mainhelper = MainHelper()
+    var dataSource = Array<chatListInfo>()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = true
@@ -28,38 +31,79 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         // Do any additional setup after loading the view.
     }
 
-    func getData(){
+//    func getData(){
+//    
+//        let ud = NSUserDefaults.standardUserDefaults()
+//        let userid = ud.objectForKey("userid")as! String
+//        helper.getMessage(userid) { (success, response) in
+//            if !success {
+//                return
+//            }
+//            self.dataSource = response as? Array<MessInfo> ?? []
+//            self.createTableView()
+//            print(self.dataSource)
+//            print(self.dataSource.count)
+//            
+//        }
+//    
+//    }
     
+    func getData(){
+        
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
-        helper.getMessage(userid) { (success, response) in
+        
+        mainhelper.getChatList(userid) { (success, response) in
             if !success {
                 return
             }
-            self.dataSource = response as? Array<MessInfo> ?? []
+            self.dataSource = response as? Array<chatListInfo> ?? []
             self.createTableView()
             print(self.dataSource)
             print(self.dataSource.count)
-            
+            self.myTableView.reloadData()
         }
-    
+        
+//        helper.getMessage(userid) { (success, response) in
+//            if !success {
+//                return
+//            }
+//            self.dataSource = response as? Array<MessInfo> ?? []
+//            self.createTableView()
+//            print(self.dataSource)
+//            print(self.dataSource.count)
+//            
+//        }
+        
     }
     
     func createTableView(){
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         myTableView.delegate = self
         myTableView.dataSource = self
-        myTableView.registerNib(UINib(nibName: "MessageTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
+
+//        myTableView.registerNib(UINib(nibName: "MessageTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         self.view.addSubview(myTableView)
     
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         tableView.separatorStyle = .None
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell")as!MessageTableViewCell
-        print(self.dataSource[indexPath.row])
-        cell.selectionStyle = .None
-        cell.setValueWithInfo(self.dataSource[indexPath.row])
+        
+//        let cell = tableView.dequeueReusableCellWithIdentifier("cell")as!MessageTableViewCell
+//        print(self.dataSource[indexPath.row])
+//        cell.selectionStyle = .None
+//        cell.setValueWithInfo(self.dataSource[indexPath.row])
+        let cell = UITableViewCell()
+        var imageview = UIImageView.init(frame: CGRectMake(2, 2, 60, 60))
+        imageview.image = UIImage(named: "01")
+        imageview.clipsToBounds = true
+        imageview.cornerRadius = 5
+        cell.addSubview(imageview)
+        
+        let label = UILabel.init(frame: CGRectMake(65, 2, 100, 60))
+        label.text = dataSource[indexPath.row].my_nickname
+        cell.addSubview(label)
         return cell
         
     
@@ -77,9 +121,12 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
        
-        let vc = MessageDetailViewController()
-        vc.index = indexPath.row
-        vc.arr = self.dataSource
+//        let vc = MessageDetailViewController()
+//        vc.index = indexPath.row
+//        vc.arr = self.dataSource
+//        self.navigationController?.pushViewController(vc, animated: true)
+        
+        let vc = ChetViewController()
         self.navigationController?.pushViewController(vc, animated: true)
         
         

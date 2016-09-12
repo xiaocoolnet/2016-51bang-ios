@@ -35,6 +35,9 @@ class RenZhengBangTableViewCell: UITableViewCell {
     @IBOutlet weak var weizhiButton: UIButton!
   
     @IBOutlet weak var otherView: UIView!
+    
+    @IBOutlet weak var time: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         topView.backgroundColor = RGREY
@@ -62,9 +65,25 @@ class RenZhengBangTableViewCell: UITableViewCell {
             self.iconImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "1.png"))
             
         }
+
+
+        let todayDate: NSDate = NSDate()
+        print(todayDate)
+        let date = NSDate(timeIntervalSince1970: Double(info.time)!)
+        print(date)
+        let second = todayDate.timeIntervalSinceDate(date)
+        print(second)
+        if second/3600 < 1 {
+                       
+        }
         
+        if second/3600 > 1 && second/86400 < 1 {
+            
+        }
         
-        
+        if second/86400 > 1 {
+            
+        }
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

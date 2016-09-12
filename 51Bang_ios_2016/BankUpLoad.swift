@@ -95,15 +95,19 @@ class BankUpLoad {
         Alamofire.request(.GET, checkUrl, parameters: param ).response{
         
             request, response , json , error in
+        
+            let ud = NSUserDefaults.standardUserDefaults()
             
             
             let result = Http(JSONDecoder(json!))
             if result.status == "success"{
                 print("已经认证")
+                ud .setObject("yes", forKey: "ss")
                 MainViewController.renZhengStatue = 1
                 
-            }else{
                 
+            }else{
+                ud .setObject("no", forKey: "ss")
                 print("未进行认证")
                 MainViewController.renZhengStatue = 0
             }

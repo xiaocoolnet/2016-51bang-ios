@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class FriendListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
@@ -64,6 +65,12 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.myTableView.dataSource = self
                 self.myTableView.backgroundColor = RGREY
                 self.myTableView.tag = 0
+                self.myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+                    print("MJ:(下拉刷新)")
+                    self.headerRefresh()
+                    self.myTableView.mj_header.endRefreshing()
+                })
+
                 self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
                 self.view.addSubview(self.myTableView)
                 
@@ -165,6 +172,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             middleTableView.dataSource = self
             middleTableView.registerNib(UINib(nibName: "FuWuTableViewCell",bundle: nil), forCellReuseIdentifier: "FuWu")
             middleTableView.backgroundColor = UIColor.whiteColor()
+            
+            
             self.view.addSubview(coverView)
             self.view.addSubview(middleTableView)
             isShow2 = true
@@ -210,6 +219,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         }
         
     }
+    
+    func headerRefresh(){
+        GetData()
+    }
+    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         

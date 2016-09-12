@@ -16,7 +16,7 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
         
     }
     private  var mTable = UITableView()
-    private  let Titles:[String] = ["培训教程","常见问题","法律协议","去评分","清除缓存"]
+    private  let Titles:[String] = ["培训教程","常见问题","用户者服务协议","去评分","清除缓存"]
     override func viewDidLoad() {
         super.viewDidLoad()
         mTable = UITableView.init(frame: CGRectMake(0, 0, WIDTH, self.view.frame.height), style: UITableViewStyle.Grouped)
@@ -89,7 +89,13 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
     {
         let userDatas = NSUserDefaults.standardUserDefaults()
         print(userDatas.objectForKey("userid"))
-        userDatas.removeObjectForKey("userid");
+        userDatas.removeObjectForKey("userid")
+        userDatas.removeObjectForKey("name")
+        userDatas.removeObjectForKey("photo")
+        userDatas.removeObjectForKey("sex")
+        userDatas.removeObjectForKey("pwd")
+        
+        
         
         loginSign = 0
         let a = MineViewController()

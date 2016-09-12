@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class CollectionViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -48,10 +49,17 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
         myTableView.dataSource = self
         myTableView.backgroundColor = UIColor.whiteColor()
         myTableView.registerNib(UINib(nibName: "CollectionTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
-        
+        myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            self.myTableView.mj_header.endRefreshing()
+        })
         self.view.addSubview(myTableView)
     }
     
+    func headerRefresh(){
+        getData()
+    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(self.dataSource!.count)
         return self.dataSource!.count

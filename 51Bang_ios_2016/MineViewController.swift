@@ -55,6 +55,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         }
         
+//        if ud.objectForKey("ss") as! String == "no"{
+//            self.headerView.renzheng.hidden = true
+//        }else{
+//            self.headerView.renzheng.hidden = false
+//        }
+        self.headerView.renzheng.hidden = false
         print(loginSign)
         
     }
@@ -104,23 +110,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
             getuserData()
             
-            image = UIImage()
             
-            loginSign = 1
-            if(NSUserDefaults.standardUserDefaults().objectForKey("userphoto") == nil)
-            {
-                image = UIImage.init(named: "ic_moren-da")!
-            }else
-            {
-                image = UIImage.init(data: NSUserDefaults.standardUserDefaults().objectForKey("userphoto") as! NSData)!
-  
-            }
-            headerView.name.text = ud.objectForKey("name")as? String
-            //NSUserDefaults.standardUserDefaults().objectForKey("userphoto")
-            headerView.iconBtn.setImage(image, forState: UIControlState.Normal)
-            headerView.iconBtn.setImage(image, forState: UIControlState.Selected)
-            self.headerView.iconBtn.layer.cornerRadius = 55 / 2
-            self.headerView.iconBtn.layer.masksToBounds = true
         }
         
         // Do any additional setup after loading the view.
@@ -525,6 +515,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         ud.setObject(userInfo.sex, forKey: "sex")
                     }
                     
+                    let function = BankUpLoad()
+                    function.CheckRenzheng()
+                    
                     //强制写入
                     ud.synchronize()
                     password.resignFirstResponder()
@@ -539,6 +532,39 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             })
         
         
+        
+    }
+    
+    
+    func Checktoubao()
+    {
+        
+        let checkUrl = Bang_URL_Header + "CheckInsurance"
+        if( NSUserDefaults.standardUserDefaults().objectForKey("userid") == nil)
+        {
+            return
+        }
+        let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
+        let param = ["userid":id]
+        
+        Alamofire.request(.GET, checkUrl, parameters: param ).response{
+            request, response , json , error in
+            
+            let result = Http(JSONDecoder(json!))
+            let ud = NSUserDefaults.standardUserDefaults()
+            
+            if result.status == "success"{
+                ud .setObject("yes", forKey: "baoxiangrenzheng")
+                print("已经认证")
+                self.headerView.baoxianRenZheng.hidden = false
+                            }else{
+                ud .setObject("no", forKey: "baoxiangrenzheng")
+                self.headerView.baoxianRenZheng.hidden = true
+                print("未进行认证")
+                
+            }
+            
+        }
         
     }
     
@@ -592,8 +618,33 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         userData.synchronize()
                         //回调函数
                         self.downloadPic()
-                       
                         
+                        let ud = NSUserDefaults.standardUserDefaults()
+                        
+                        self.image = UIImage()
+                        
+                        loginSign = 1
+                        if(NSUserDefaults.standardUserDefaults().objectForKey("userphoto") == nil)
+                        {
+                            self.image = UIImage.init(named: "ic_moren-da")!
+                        }else
+                        {
+                            self.image = UIImage.init(data: NSUserDefaults.standardUserDefaults().objectForKey("userphoto") as! NSData)!
+                            
+                        }
+                        self.headerView.name.text = ud.objectForKey("name")as? String
+                        //NSUserDefaults.standardUserDefaults().objectForKey("userphoto")
+                        self.headerView.iconBtn.setImage(self.image, forState: UIControlState.Normal)
+                        self.headerView.iconBtn.setImage(self.image, forState: UIControlState.Selected)
+                        self.headerView.iconBtn.layer.cornerRadius = 55 / 2
+                        self.headerView.iconBtn.layer.masksToBounds = true
+                        
+                        
+//                        if NSUserDefaults.standardUserDefaults().objectForKey("photo") != nil{
+//                            let a = MainHelper()
+//                            a.downloadImage(NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
+//                        }
+                       
                     }
                 })
                 
@@ -627,6 +678,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 {
                     let imageData = UIImageJPEGRepresentation(imview.image!, 1)
                     userData.setObject(imageData, forKey: "userphoto")
+                    print(imageData)
                     userData.synchronize()
                     print("图片下载成功")
                     print(self.image)

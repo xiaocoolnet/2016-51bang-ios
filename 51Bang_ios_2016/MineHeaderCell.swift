@@ -34,6 +34,7 @@ class MineHeaderCell: UITableViewCell {
         self.backgroundColor = COLOR
         let ud = NSUserDefaults.standardUserDefaults()
         phone.text = ud.objectForKey("phone") as? String
+        name.text = ud.objectForKey("name") as? String
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

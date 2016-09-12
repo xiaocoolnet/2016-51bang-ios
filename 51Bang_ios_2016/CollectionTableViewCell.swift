@@ -58,10 +58,14 @@ class CollectionTableViewCell: UITableViewCell {
         var longitude = String()
         if ud.objectForKey("longitude") != nil {
             longitude = ud.objectForKey("longitude")as! String
+        }else{
+            longitude = "0.0"
         }
         var latitude = String()
         if ud.objectForKey("latitude") != nil {
             latitude = ud.objectForKey("latitude")as! String
+        }else{
+            latitude = "0.0"
         }
 //        let longitude = ud.objectForKey("longitude")as! String
 //        let latitude = ud.objectForKey("latitude")as! String

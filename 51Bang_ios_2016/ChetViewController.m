@@ -11,6 +11,7 @@
 #import "modelFrame.h"
 #import "CustomTableViewCell.h"
 
+
 #define HEIGHTS [UIScreen mainScreen].bounds.size.height
 #define WIDTHS [UIScreen mainScreen].bounds.size.width
 @interface ChetViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
@@ -20,6 +21,9 @@
 @property (nonatomic,strong)UIButton *senderButton;
 @property (nonatomic,strong)UIView *bgView;
 @property (nonatomic,strong)NSMutableArray *arrModelData;
+@property (nonatomic,assign)CGFloat boreadHight;
+@property (nonatomic,assign)CGFloat moveTime;
+
 
 @end
 @implementation ChetViewController
@@ -34,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self someSet];
-    [self messModelArr];
+//    [self messModelArr];
     self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-10-3) style:UITableViewStylePlain];
 //    self.customTableView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     self.customTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -54,7 +58,7 @@
     [self.view addSubview:self.bgView];
     
     NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
-    [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
+//    [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
     
     
     
@@ -84,7 +88,9 @@
 #pragma mark 一Action
 
 - (void)sendAction:(UIButton *)sender {
+ 
     [self sendMess:self.inputMess.text]; //发送信息
+//    Mainhelper *mainhelper = [[Mainhelper alloc] init];
 }
 
 
@@ -124,16 +130,22 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     modelFrame *frameModel=self.arrModelData[indexPath.row];
+//    NSLog(@"%lu",(unsigned long)self.arrModelData.count);
+//    NSLog(@"%f",frameModel.cellHeight);
+//    NSLog(@"%f",HEIGHTS-64-216);
+    
     return frameModel.cellHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     static NSString *strId=@"cellId";
     CustomTableViewCell *customCell=[tableView dequeueReusableCellWithIdentifier:strId];
     if (customCell==nil) {
         customCell=[[CustomTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:strId];
     }
-    [customCell setBackgroundColor:[UIColor colorWithRed:222.0/255.0f green:222.0/255.0f blue:221.0/255.0f alpha:1.0f]];
+//    [customCell setBackgroundColor:[UIColor colorWithRed:222.0/255.0f green:222.0/255.0f blue:221.0/255.0f alpha:1.0f]];
+    [customCell setBackgroundColor:[UIColor whiteColor]];
     customCell.selectionStyle=UITableViewCellSelectionStyleNone;
     customCell.frameModel=self.arrModelData[indexPath.row];
     return customCell;
@@ -152,13 +164,34 @@
     NSDictionary *dicMess=changeMess.userInfo;//键盘改变的所有信息
     CGFloat changeTime=[dicMess[@"UIKeyboardAnimationDurationUserInfoKey"] floatValue];//通过userInfo 这个字典得到对得到相应的信息//0.25秒后消失键盘
     CGFloat keyboardMoveY=[dicMess[UIKeyboardFrameEndUserInfoKey]CGRectValue].origin.y-[UIScreen mainScreen].bounds.size.height;//键盘Y值的改变(字典里面的键UIKeyboardFrameEndUserInfoKey对应的值-屏幕自己的高度)
+    self.boreadHight = keyboardMoveY;
+    NSLog(@"%f",keyboardMoveY);
+    
+    self.moveTime = changeTime;
+    CGFloat hightCount = 0.0;
+    for (modelFrame *frameModel in self.arrModelData) {
+        hightCount = hightCount + frameModel.cellHeight;
+    }
+    NSLog(@"%f",hightCount);
+    
+//    modelFrame *frameModel=self.arrModelData[indexPath.row];
+//    return frameModel.cellHeight;
+    
     [UIView animateWithDuration:changeTime animations:^{ //0.25秒之后改变tableView和bgView的Y轴
-        self.customTableView.transform=CGAffineTransformMakeTranslation(0, keyboardMoveY);
         self.bgView.transform=CGAffineTransformMakeTranslation(0, keyboardMoveY);
-        
     }];
-    NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
-    [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];//将tableView的行滚到最下面的一行
+    
+    
+    if (hightCount>HEIGHTS-64+keyboardMoveY) {
+        [UIView animateWithDuration:changeTime animations:^{ //0.25秒之后改变tableView和bgView的Y轴
+            self.customTableView.transform=CGAffineTransformMakeTranslation(0, keyboardMoveY);
+           
+            
+        }];
+        NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
+        [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];//将tableView的行滚到最下面的一行
+    }
+    
 }
 #pragma mark 滚动TableView去除键盘
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -182,10 +215,11 @@
     NSString *nowTime=[forMatter stringFromDate:nowdate];
     
     NSMutableDictionary *dicValues=[NSMutableDictionary dictionary];
+    
     dicValues[@"imageName"]=@"girl";
     dicValues[@"desc"]=messValues;
     dicValues[@"time"]=nowTime; //当前的时间
-    dicValues[@"person"]=[NSNumber numberWithBool:0]; //转为Bool类型
+    dicValues[@"person"]=[NSNumber numberWithBool:1]; //转为Bool类型
     messModel *mess=[[messModel alloc]initWithModel:dicValues];
     modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:[self timeIsEqual:nowTime]]; //判断前后时候是否一致
     [self.arrModelData addObject:frameModel];
@@ -194,21 +228,35 @@
     self.inputMess.text=nil;
     
     //自动回复就是再次添加一个frame模型
-    NSArray *arrayAutoData=@[@"蒸桑拿蒸馒头不争名利，弹吉它弹棉花不谈感情",@"女人因为成熟而沧桑，男人因为沧桑而成熟",@"男人善于花言巧语，女人喜欢花前月下",@"笨男人要结婚，笨女人要减肥",@"爱与恨都是寂寞的空气,哭与笑表达同样的意义",@"男人的痛苦从结婚开始，女人的痛苦从认识男人开始",@"女人喜欢的男人越成熟越好，男人喜欢的女孩越单纯越好。",@"做男人无能会使女人寄希望于未来，做女人失败会使男人寄思念于过去",@"我很优秀的，一个优秀的男人，不需要华丽的外表，不需要有渊博的知识，不需要有沉重的钱袋",@"世间纷繁万般无奈，心头只求片刻安宁"];
+//    NSArray *arrayAutoData=@[@"蒸桑拿蒸馒头不争名利，弹吉它弹棉花不谈感情",@"女人因为成熟而沧桑，男人因为沧桑而成熟",@"男人善于花言巧语，女人喜欢花前月下",@"笨男人要结婚，笨女人要减肥",@"爱与恨都是寂寞的空气,哭与笑表达同样的意义",@"男人的痛苦从结婚开始，女人的痛苦从认识男人开始",@"女人喜欢的男人越成熟越好，男人喜欢的女孩越单纯越好。",@"做男人无能会使女人寄希望于未来，做女人失败会使男人寄思念于过去",@"我很优秀的，一个优秀的男人，不需要华丽的外表，不需要有渊博的知识，不需要有沉重的钱袋",@"世间纷繁万般无奈，心头只求片刻安宁"];
     //添加自动回复的
-    int num= arc4random() %(arrayAutoData.count); //获取数组中的随机数(数组的下标)
+//    int num= arc4random() %(arrayAutoData.count); //获取数组中的随机数(数组的下标)
+//    
+//    
+//    //    NSLog(@"得到的时间是:%@",nowdate);
+//    NSMutableDictionary *dicAuto=[NSMutableDictionary dictionary];
+//    dicAuto[@"imageName"]=@"boy";
+//    dicAuto[@"desc"]=[arrayAutoData objectAtIndex:num];
+//    dicAuto[@"time"]=nowTime;
+//    dicAuto[@"person"]=[NSNumber numberWithBool:0]; //转为Bool类型
+//    messModel *messAuto=[[messModel alloc]initWithModel:dicAuto];
+//    modelFrame *frameModelAuto=[modelFrame modelFrame:messAuto timeIsEqual:[self timeIsEqual:nowTime]];//判断前后时候是否一致
+//    [self.arrModelData addObject:frameModelAuto];
+//    [self.customTableView reloadData];
     
-    
-    //    NSLog(@"得到的时间是:%@",nowdate);
-    NSMutableDictionary *dicAuto=[NSMutableDictionary dictionary];
-    dicAuto[@"imageName"]=@"boy";
-    dicAuto[@"desc"]=[arrayAutoData objectAtIndex:num];
-    dicAuto[@"time"]=nowTime;
-    dicAuto[@"person"]=[NSNumber numberWithBool:1]; //转为Bool类型
-    messModel *messAuto=[[messModel alloc]initWithModel:dicAuto];
-    modelFrame *frameModelAuto=[modelFrame modelFrame:messAuto timeIsEqual:[self timeIsEqual:nowTime]];//判断前后时候是否一致
-    [self.arrModelData addObject:frameModelAuto];
-    [self.customTableView reloadData];
+    CGFloat hightCount = 0.0;
+    for (modelFrame *frameModel in self.arrModelData) {
+        hightCount = hightCount + frameModel.cellHeight;
+    }
+    if (hightCount>HEIGHTS-64+self.boreadHight) {
+        [UIView animateWithDuration:self.moveTime animations:^{ //0.25秒之后改变tableView和bgView的Y轴
+            self.customTableView.transform=CGAffineTransformMakeTranslation(0, self.boreadHight);
+            
+            
+        }];
+//        NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
+//        [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];//将tableView的行滚到最下面的一行
+    }
     
     NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
     [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];

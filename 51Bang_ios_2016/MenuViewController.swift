@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import MJRefresh
 
 class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate {
     var row = Int()
@@ -29,7 +30,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.viewDidLoad()
 //        self.title = "商家发布"
         self.view.backgroundColor = RGREY
-        
+        self.createTableView()
         
         // Do any additional setup after loading the view.
     }
@@ -65,7 +66,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print(self.dataSource![0].id)
                 print(self.dataSource![0].id)
                 print(self.dataSource![0].id)
-                self.createTableView()
+                
                 self.myTableView.reloadData()
             }
         }
@@ -79,15 +80,28 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myTableView.backgroundColor = RGREY
         self.myTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         myTableView.registerNib(UINib(nibName: "MyFabuTableViewCell",bundle: nil), forCellReuseIdentifier: "MyFabuTableViewCell")
+        
+        myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            self.myTableView.mj_header.endRefreshing()
+        })
+        
         self.view.addSubview(myTableView)
     }
     
+    func headerRefresh(){
+        getData()
+    }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataSource!.count
+        if self.dataSource != nil{
+            return self.dataSource!.count
+        }
+        return 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -109,10 +123,14 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         var longitude = String()
         if ud.objectForKey("longitude") != nil {
             longitude = ud.objectForKey("longitude")as! String
+        }else{
+            longitude = "0.0"
         }
         var latitude = String()
         if ud.objectForKey("latitude") != nil {
             latitude = ud.objectForKey("latitude")as! String
+        }else{
+            latitude = "0.0"
         }
 //        let longitude = ud.objectForKey("longitude")as! String
 //        let latitude = ud.objectForKey("latitude")as! String
@@ -144,7 +162,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
             
         }else{
-            cell.distance.text = "123.km"
+            cell.distance.text = ""
         }
         return cell
     }

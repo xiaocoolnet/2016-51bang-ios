@@ -201,7 +201,53 @@
     }
     
     
-    func downloadRecond(recordName:String)->NSURL {
+    func downloadImage(recordName:String) ->NSData{
+        
+        let url = Bang_Image_Header+recordName
+        let destination = Alamofire.Request.suggestedDownloadDestination(
+            directory: .DocumentDirectory, domain: .UserDomainMask)
+        print(destination)
+        var b = NSData()
+        Alamofire.download(.GET, url, destination: destination)
+            .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+                let percent = totalBytesRead*100/totalBytesExpectedToRead
+                print("已下载：\(totalBytesRead)  当前进度：\(percent)%")
+            }
+            .response { (request, response, _, error) in
+                print(response)
+                let fileManager = NSFileManager.defaultManager()
+                let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
+                    inDomains: .UserDomainMask)[0]
+                let pathComponent = response!.suggestedFilename
+                let pathUrl = directoryURL.URLByAppendingPathComponent(pathComponent!)
+                
+                print(pathUrl)
+                let a = UIImage.init(contentsOfFile: pathUrl.path!)
+                 b = UIImageJPEGRepresentation(a!, 1)!
+                let userData = NSUserDefaults.standardUserDefaults()
+                userData.setObject(b, forKey: "userphoto")
+                
+//                print(b)
+//                do{
+//                    self.audioSession = AVAudioSession.sharedInstance()
+//                    try self.audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+//                    try self.audioSession.setActive(true)
+//                    self.audioPlayer = try AVAudioPlayer.init(contentsOfURL:pathUrl)
+//                    self.audioPlayer!.prepareToPlay()
+//                    //                    self.audioPlayer!.numberOfLoops = -1
+//                    self.audioPlayer!.volume = 1;
+//                    self.audioPlayer!.play()
+//                }catch{
+//                    print("1233444")
+//                }
+        }
+//        print("00000")
+        return b
+    }
+    
+    
+    //语音下载
+    func downloadRecond(recordName:String) {
         
         let url = Bang_Image_Header+recordName
         let destination = Alamofire.Request.suggestedDownloadDestination(
@@ -235,18 +281,18 @@
                 }
         }
         
-        var pathUrl = NSURL()
+//        var pathUrl = NSURL()
         
         
-        Alamofire.download(.GET, url){ temporaryURL, response in
-            let fileManager = NSFileManager.defaultManager()
-            let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
-                                                            inDomains: .UserDomainMask)[0]
-            let pathComponent = response.suggestedFilename
-            pathUrl = directoryURL.URLByAppendingPathComponent(pathComponent!)
-            return directoryURL.URLByAppendingPathComponent(pathComponent!)
-        }
-        return pathUrl
+//        Alamofire.download(.GET, url){ temporaryURL, response in
+//            let fileManager = NSFileManager.defaultManager()
+//            let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
+//                                                            inDomains: .UserDomainMask)[0]
+//            let pathComponent = response.suggestedFilename
+//            pathUrl = directoryURL.URLByAppendingPathComponent(pathComponent!)
+//            return directoryURL.URLByAppendingPathComponent(pathComponent!)
+//        }
+//        return pathUrl
     }
     //发布便民信息
     func upLoadMessage(userid:NSString,phone:String,type:NSString,title:NSString,content:NSString,photoArray:NSArray,sound:NSString,soundtime:String, handle:ResponseBlock){
@@ -940,5 +986,96 @@
         
         
     }
+    
+    
+    // mark 留言：发送聊天信息
+    func sendMessage(send_uid:NSString,receive_uid:NSString,content:NSString,handle:ResponseBlock){
+        let url = Bang_URL_Header+"SendChatData"
+       
+        let param = [
+            
+            "send_uid":send_uid,
+            "receive_uid":receive_uid,
+            "content":content
+        
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    //获取聊天列表
+    func getChatList(uid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"xcGetChatListData"
+        let paramDic = ["uid":uid
+        ]
+        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
+            print(request)
+            let result = chatListModel(JSONDecoder(json!))
+            print(result)
+            print(result.data)
+            print(result.status!)
+            if result.status == "success"{
+                print(result.data)
+                handle(success: true, response: result.data)
+            }else{
+                handle(success: false, response: result.data)
+                print(result.data)
+                
+            }
+            
+            
+        }
+        
+        
+    }
+
+    //获取聊天信息（两个人之间的）
+    func getChatMessage(send_uid:String,receive_uid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"xcGetChatData"
+        let paramDic = ["send_uid":send_uid,
+                        "receive_uid":receive_uid
+        ]
+        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
+            print(request)
+            let result = chatModel(JSONDecoder(json!))
+            print(result)
+            print(result.data)
+            print(result.status!)
+            if result.status == "success"{
+                print(result.data)
+                handle(success: true, response: result.data)
+            }else{
+                handle(success: false, response: result.data)
+                print(result.data)
+                
+            }
+            
+            
+        }
+        
+        
+    }
+
 
 }

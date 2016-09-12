@@ -61,7 +61,7 @@ class QianDao: UIViewController {
         let TitileLabel = UILabel()
         
         
-        let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height + 10, 50,50 ))
+        let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height, 50,50 ))
         BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Normal)
         BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Selected)
         BackButton.addTarget(self, action: #selector(self.backAction), forControlEvents: UIControlEvents.TouchUpInside)

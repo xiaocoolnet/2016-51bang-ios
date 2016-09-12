@@ -87,6 +87,11 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
                     let ud = NSUserDefaults.standardUserDefaults()
                     ud .setObject(self.phoneNumber.text, forKey: "phone")
                     ud.setObject(self.password.text, forKey: "pwd")
+                    
+                    
+                    
+                    
+                    
 //                    ud.setObject([USER_NAME:self.phoneNumber.text!,USER_PWD:self.password.text!], forKey: LOGINFO_KEY)
                     self.loginSuccess()
                 }

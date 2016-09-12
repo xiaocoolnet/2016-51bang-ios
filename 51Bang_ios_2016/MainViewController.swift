@@ -9,6 +9,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+
+
 var address:String  = ""
 class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCodeSearchDelegate,BMKLocationServiceDelegate,BMKMapViewDelegate{
     
@@ -329,7 +331,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("FriendView")
         self.navigationController?.pushViewController(vc, animated: true)
         vc.title = "认证帮"
-        COLOR
+        
     }
     
     

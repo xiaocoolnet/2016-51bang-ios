@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import MJRefresh
 
 class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -31,6 +32,8 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         sign = 1
+        label.frame = CGRectMake(WIDTH/3, 50, WIDTH/3, 2)
+        label.backgroundColor = COLOR
         self.GetWKSData(String(sign))
         self.title = "我的任务"
         self.view.backgroundColor = RGREY
@@ -132,13 +135,18 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         myTableView.backgroundColor = RGREY
         myTableView.delegate = self
         myTableView.dataSource = self
+        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         myTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         myTableView.registerNib(UINib(nibName: "MyOrderTableViewCell",bundle: nil), forCellReuseIdentifier: "MyOrderTableViewCell")
         myTableView.registerNib(UINib(nibName: "myOrderLocationTableViewCell",bundle: nil), forCellReuseIdentifier: "location")
         myTableView.registerNib(UINib(nibName: "MyTaskTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
         myTableView.registerNib(UINib(nibName: "MyTaskTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
-        label.frame = CGRectMake(WIDTH/3, 50, WIDTH/3, 2)
-        label.backgroundColor = COLOR
+        
+        myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            self.myTableView.mj_header.endRefreshing()
+        })
         
         let button4 = UIButton.init(frame: CGRectMake(10, HEIGHT-150, WIDTH/2-20, 50))
         button4.tag = 4
@@ -154,6 +162,12 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
 //        self.view.addSubview(button4)
 //        self.view.addSubview(button5)
     }
+    
+    func headerRefresh(){
+        
+        
+    }
+    
     
     func showLeft(){
         label.frame = CGRectMake(0, 50, WIDTH/3, 2)
@@ -193,14 +207,24 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     func  numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         if sign == 0 {
-            print(self.dataSource?.count)
-            return dataSource1!.count
+//            print(self.dataSource?.count)
+            if dataSource1 != nil{
+                return dataSource1!.count
+            }else{
+                return 0
+            }
         }else if sign == 1{
-            
-           return dataSource1!.count
-            
+            if dataSource1 != nil{
+                return dataSource1!.count
+            }else{
+           return 0
+            }
         }else{
-           return dataSource2!.count
+            if dataSource2 != nil{
+                return dataSource2!.count
+            }else{
+                return 0
+            }
         }
     }
     
@@ -217,14 +241,26 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        return 4
         if sign == 0 {
-            print(self.dataSource?.count)
-            return dataSource1!.count
+//            print(self.dataSource?.count)
+            if dataSource1 != nil{
+                return dataSource1!.count
+            }else{
+                return 0
+            }
         }else if sign == 1{
             
-            return dataSource1!.count
+            if dataSource1 != nil{
+                return dataSource1!.count
+            }else{
+                return 0
+            }
             
         }else{
-            return dataSource2!.count
+            if dataSource2 != nil{
+                return dataSource2!.count
+            }else{
+                return 0
+            }
         }
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

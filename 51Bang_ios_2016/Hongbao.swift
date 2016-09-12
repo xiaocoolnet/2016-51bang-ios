@@ -179,7 +179,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             bottom.addSubview(label)
         }
         cancelBtn.tag = 6
-        cancelBtn.frame = CGRectMake(0, btn1.origin.y + WIDTH / 5 + 30+100+100+20+50, WIDTH , 250 - 35 - WIDTH / 5 - 75 )
+        cancelBtn.frame = CGRectMake(WIDTH/2/2, btn1.origin.y + WIDTH / 5 + 30+100+100+20+50, WIDTH/2 , 250 - 35 - WIDTH / 5 - 95 )
         cancelBtn.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cancelBtn.setTitle("取消", forState: UIControlState.Normal)
         cancelBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
