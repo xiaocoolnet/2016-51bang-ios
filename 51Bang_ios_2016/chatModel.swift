@@ -105,7 +105,6 @@ class chatListModel: JSONJoy {
         if status == "success" {
             for childs: JSONDecoder in decoder["data"].array!{
                 print(childs)
-                print(SkillModel(childs))
                 datas.append(chatListInfo(childs))
                 print(datas)
                 //                    array.append(SkillModel(childs))

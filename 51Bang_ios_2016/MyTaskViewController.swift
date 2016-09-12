@@ -208,8 +208,8 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         if sign == 0 {
 //            print(self.dataSource?.count)
-            if dataSource1 != nil{
-                return dataSource1!.count
+            if dataSource != nil{
+                return dataSource!.count
             }else{
                 return 0
             }

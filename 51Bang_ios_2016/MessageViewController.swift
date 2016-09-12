@@ -20,13 +20,13 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = false
-        
+        self.getData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "消息"
         self.view.backgroundColor = UIColor.whiteColor()
-        self.getData()
+        createTableView()
         
         // Do any additional setup after loading the view.
     }
@@ -52,8 +52,9 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
+        print(userid)
         
-        mainhelper.getChatList(userid) { (success, response) in
+        mainhelper.getChatList("1") { (success, response) in
             if !success {
                 return
             }
@@ -82,7 +83,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         myTableView.delegate = self
         myTableView.dataSource = self
 
-//        myTableView.registerNib(UINib(nibName: "MessageTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
+        myTableView.registerNib(UINib(nibName: "MessageTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         self.view.addSubview(myTableView)
     
     }
@@ -90,20 +91,14 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         tableView.separatorStyle = .None
         
-//        let cell = tableView.dequeueReusableCellWithIdentifier("cell")as!MessageTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! MessageTableViewCell
 //        print(self.dataSource[indexPath.row])
-//        cell.selectionStyle = .None
-//        cell.setValueWithInfo(self.dataSource[indexPath.row])
-        let cell = UITableViewCell()
-        var imageview = UIImageView.init(frame: CGRectMake(2, 2, 60, 60))
-        imageview.image = UIImage(named: "01")
-        imageview.clipsToBounds = true
-        imageview.cornerRadius = 5
-        cell.addSubview(imageview)
+        cell.selectionStyle = .None
+        if self.dataSource.count != 0 {
+            cell.setValueWithInfo(self.dataSource[indexPath.row])
+        }
         
-        let label = UILabel.init(frame: CGRectMake(65, 2, 100, 60))
-        label.text = dataSource[indexPath.row].my_nickname
-        cell.addSubview(label)
+//        dataSource[indexPath.row].chat_uid
         return cell
         
     
@@ -111,10 +106,18 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.dataSource.count
+        if self.dataSource.count != 0 {
+            
+            return self.dataSource.count
+            
+        }else{
+            
+            return 10
+        }
+        
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
+        return 66
         
     }
     
@@ -127,6 +130,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        self.navigationController?.pushViewController(vc, animated: true)
         
         let vc = ChetViewController()
+        vc.receive_uid = dataSource[indexPath.row].chat_uid!
         self.navigationController?.pushViewController(vc, animated: true)
         
         

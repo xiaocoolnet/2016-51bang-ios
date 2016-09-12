@@ -1027,19 +1027,18 @@
     //获取聊天列表
     func getChatList(uid:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"xcGetChatListData"
-        let paramDic = ["uid":uid
-        ]
+        let paramDic = ["uid":uid]
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
             let result = chatListModel(JSONDecoder(json!))
             print(result)
-            print(result.data)
+            print(result.datas)
             print(result.status!)
             if result.status == "success"{
                 print(result.data)
-                handle(success: true, response: result.data)
+                handle(success: true, response: result.datas)
             }else{
-                handle(success: false, response: result.data)
+                handle(success: false, response: result.datas)
                 print(result.data)
                 
             }

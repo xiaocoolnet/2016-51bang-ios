@@ -322,7 +322,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     func messageButtonAction(sender:UIButton) {
         let messageVC = ChetViewController()
-//        messageVC.data = self.dataSource![sender.tag]
+        messageVC.receive_uid = self.dataSource![sender.tag].userid
         self.navigationController?.pushViewController(messageVC, animated: true)
     }
     

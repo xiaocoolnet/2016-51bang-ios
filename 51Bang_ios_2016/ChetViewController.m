@@ -11,6 +11,8 @@
 #import "modelFrame.h"
 #import "CustomTableViewCell.h"
 //#import "MainHelper.swift"
+#import <AFNetworking/AFNetworking.h>
+#import <UIKit/UIKit.h>
 
 
 #define HEIGHTS [UIScreen mainScreen].bounds.size.height
@@ -22,7 +24,6 @@
 @property (nonatomic,strong)UIButton *senderButton;
 @property (nonatomic,strong)UIView *bgView;
 @property (nonatomic,strong)NSMutableArray *arrModelData;
-
 @property (nonatomic,assign)CGFloat boreadHight;
 @property (nonatomic,assign)CGFloat moveTime;
 
@@ -30,6 +31,10 @@
 @end
 @implementation ChetViewController
 
+-(void)viewWillAppear:(BOOL)animated{
+    
+    self.tabBarController.tabBar.hidden = YES;
+}
 
 -(NSMutableArray *)arrModelData{
     if (_arrModelData==nil) {
@@ -95,7 +100,28 @@
 - (void)sendAction:(UIButton *)sender {
  
     [self sendMess:self.inputMess.text]; //发送信息
+    
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString *userid = [user objectForKey:@"userid"];
 //    Mainhelper *mainhelper = [[Mainhelper alloc] init];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    AFHTTPRequestSerializer *requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.requestSerializer = requestSerializer;
+    
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSDictionary *parameters = @{@"send_uid":userid,@"receive_uid":_receive_uid,@"content":self.inputMess.text};
+    NSString *url = @"http://www.my51bang.com/index.php?g=apps&m=index&a=";
+    
+    [manager POST:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        printf("上传成功");
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        printf("上传失败");
+        NSLog(@"%@",error);
+        
+    }];
 }
 
 

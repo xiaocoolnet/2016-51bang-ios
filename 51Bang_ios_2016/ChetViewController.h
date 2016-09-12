@@ -10,4 +10,5 @@
 
 @interface ChetViewController : UIViewController
 
+@property (nonatomic,assign)NSString *receive_uid;
 @end

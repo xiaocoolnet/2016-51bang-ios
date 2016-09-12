@@ -1648,6 +1648,7 @@
 				18D8812E1D151D820067218F /* Main.storyboard */,
 				18D881311D151D820067218F /* Assets.xcassets */,
 				18D881331D151D820067218F /* LaunchScreen.storyboard */,
+				81D42F531D66EFB5003278B6 /* LookPhotoVC.swift */,
 				F253E6DA1D7D1982009D2AF5 /* area副本.plist */,
 				18D5963D1D17F23800BDBCD6 /* citydict.plist */,
 				18D881361D151D820067218F /* Info.plist */,
@@ -1822,7 +1823,6 @@
 				1FE4FA471D46066F009B6752 /* LocationTwoViewController.swift */,
 				1FE1D6AD1D4AE5C7006F6CC7 /* SkillSubitemViewController.swift */,
 				0DEBD5611D5C78BB008B7279 /* BankUpLoad.swift */,
-				81D42F531D66EFB5003278B6 /* LookPhotoVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

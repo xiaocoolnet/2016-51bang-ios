@@ -21,13 +21,28 @@ class MessageTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    func setValueWithInfo(info:MessInfo){
-    
-        self.title.text = info.title
-        self.content.text = info.content
-        self.time.text = info.create_time
-        let str = Bang_Image_Header+info.photo
-        self.iconImage.sd_setImageWithURL(NSURL(string: str),placeholderImage:UIImage(named: "01"))
+    func setValueWithInfo(info:chatListInfo){
+        if info.other_nickname != nil {
+            self.title.text = info.other_nickname
+        }else{
+        self.title.text = "佚名"
+        }
+        
+        if info.last_content != nil {
+            self.content.text = info.last_content
+        }else{
+            self.content.text = "无内容"
+        }
+        
+        if info.create_time != nil {
+            self.time.text = info.create_time
+        }else{
+            self.time.text = "时间不详"
+        }
+        
+//        let str = Bang_Image_Header+info.photo
+//        self.iconImage.sd_setImageWithURL(NSURL(string: str),placeholderImage:UIImage(named: "01"))
+        iconImage.image = UIImage(named: "01")
         
     }
     
