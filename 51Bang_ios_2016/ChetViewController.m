@@ -10,6 +10,7 @@
 #import "messModel.h"
 #import "modelFrame.h"
 #import "CustomTableViewCell.h"
+//#import "MainHelper.swift"
 
 
 #define HEIGHTS [UIScreen mainScreen].bounds.size.height
@@ -21,6 +22,7 @@
 @property (nonatomic,strong)UIButton *senderButton;
 @property (nonatomic,strong)UIView *bgView;
 @property (nonatomic,strong)NSMutableArray *arrModelData;
+
 @property (nonatomic,assign)CGFloat boreadHight;
 @property (nonatomic,assign)CGFloat moveTime;
 
@@ -34,12 +36,15 @@
         _arrModelData=[NSMutableArray array];
     }
     return _arrModelData;
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self someSet];
 //    [self messModelArr];
     self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-10-3) style:UITableViewStylePlain];
+    
+    
 //    self.customTableView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     self.customTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.customTableView.delegate = self;
