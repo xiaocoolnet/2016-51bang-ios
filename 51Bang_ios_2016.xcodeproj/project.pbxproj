@@ -417,6 +417,7 @@
 		F2075A751D6FF20B00BF45E9 /* FZJWeiXinPayMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2075A731D6FF20B00BF45E9 /* FZJWeiXinPayMainController.m */; };
 		F2312B371D6987DB00635ADA /* OrderCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2312B361D6987DB00635ADA /* OrderCommentViewController.swift */; };
 		F2312B3B1D69BF7D00635ADA /* CommentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2312B3A1D69BF7D00635ADA /* CommentListCell.swift */; };
+		F23A21951D87AC0200DDB3AB /* CodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23A21941D87AC0200DDB3AB /* CodeViewController.swift */; };
 		F23C55961D6577000094E2B7 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C55941D6577000094E2B7 /* ViewController1.swift */; };
 		F23C55971D6577000094E2B7 /* ZuberImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C55951D6577000094E2B7 /* ZuberImageCell.swift */; };
 		F23C55991D65774E0094E2B7 /* ZuberImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C55981D65774E0094E2B7 /* ZuberImage.swift */; };
@@ -1051,6 +1052,7 @@
 		F2075A741D6FF20B00BF45E9 /* WeiXinPay.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiXinPay.pch; sourceTree = "<group>"; };
 		F2312B361D6987DB00635ADA /* OrderCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCommentViewController.swift; sourceTree = "<group>"; };
 		F2312B3A1D69BF7D00635ADA /* CommentListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentListCell.swift; sourceTree = "<group>"; };
+		F23A21941D87AC0200DDB3AB /* CodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeViewController.swift; sourceTree = "<group>"; };
 		F23C55941D6577000094E2B7 /* ViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
 		F23C55951D6577000094E2B7 /* ZuberImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZuberImageCell.swift; sourceTree = "<group>"; };
 		F23C55981D65774E0094E2B7 /* ZuberImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZuberImage.swift; sourceTree = "<group>"; };
@@ -1539,6 +1541,7 @@
 			isa = PBXGroup;
 			children = (
 				0DEFF3C91D60337500BC7BF1 /* Hongbao.swift */,
+				F23A21941D87AC0200DDB3AB /* CodeViewController.swift */,
 				8190BA9D1D38C5BC00468D4D /* MyFaDan.swift */,
 				8190BAA51D38CD3800468D4D /* MyFaDanCell.swift */,
 				819778211D3CF68C00CB5BC0 /* MyFaDanFinshCell.swift */,
@@ -2875,6 +2878,7 @@
 				1FD8C7FA1D492605008BCE96 /* MyGetModel.swift in Sources */,
 				F24745281D6D51CF00870363 /* SGCollectionController.m in Sources */,
 				189757CB1D162A1B0083FE46 /* InsureViewController.swift in Sources */,
+				F23A21951D87AC0200DDB3AB /* CodeViewController.swift in Sources */,
 				18D596391D17F08E00BDBCD6 /* PinYinForObjc.m in Sources */,
 				1FD8C7EA1D48FD98008BCE96 /* myAddressViewController.swift in Sources */,
 				0DAA4C6C1D6192E000901EEB /* ConveniceCell.swift in Sources */,

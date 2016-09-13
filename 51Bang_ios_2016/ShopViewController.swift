@@ -170,6 +170,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             cell.addSubview(viewzhegai)
             
             cell.selectionStyle = .None
+            print(self.dataSource![indexPath.row].price)
             //            if type == dataSource![indexPath.row].type {
             if type == ""{
                 let goodsInfo = self.dataSource![indexPath.row]
