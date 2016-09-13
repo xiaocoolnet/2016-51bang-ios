@@ -441,7 +441,7 @@
         
         
         
-        Alamofire.upload(.POST, "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadRecord", file: pathUrl).response{
+        Alamofire.upload(.POST, Bang_URL_Header+"uploadRecord", file: pathUrl).response{
             request, response, json, error in
             if(error != nil){
                 handle(success: false, response: error?.description)

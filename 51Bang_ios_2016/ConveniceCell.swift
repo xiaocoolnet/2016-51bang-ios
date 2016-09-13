@@ -47,7 +47,7 @@ class ConveniceCell: UITableViewCell{
         if myinfo.photo==nil {
             userImage.image = UIImage(named:"ic_moren")
         }else{
-            let photoUrl:String = "http://bang.xiaocool.net/uploads/images/"+myinfo.photo!
+            let photoUrl:String = Bang_Open_Header+"uploads/images/"+myinfo.photo!
             print(photoUrl)
             userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
         }
@@ -95,7 +95,7 @@ class ConveniceCell: UITableViewCell{
         if info.photo==nil {
             userImage.image = UIImage(named:"ic_moren")
         }else{
-            let photoUrl:String = "http://bang.xiaocool.net/uploads/images/"+info.photo!
+            let photoUrl:String = Bang_Open_Header+"uploads/images/"+info.photo!
             print(photoUrl)
             userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
         }

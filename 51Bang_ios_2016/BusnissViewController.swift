@@ -637,7 +637,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     func btnAction(btn:UIButton)
     {
         let img = UIImagePNGRepresentation(UIImage(named: "57b017f4a9f26")!)
-        let newsObj = QQApiNewsObject(URL: NSURL(string: "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"), title: "红包", description: "红包", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
+        let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "红包", description: "红包", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
         
         
         let req = SendMessageToQQReq(content: newsObj)
@@ -651,7 +651,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             urlMessage.title = "红包"
             urlMessage.description = "红包"
             let webObj = WXWebpageObject.init()
-            webObj.webpageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"
+            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
             urlMessage.mediaObject = webObj
             sendReq.message = urlMessage
             WXApi.sendReq(sendReq)
@@ -666,7 +666,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             urlMessage.title = "红包"
             urlMessage.description = "红包"
             let webObj = WXWebpageObject.init()
-            webObj.webpageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"
+            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
             urlMessage.mediaObject = webObj
             sendReq.message = urlMessage
             WXApi.sendReq(sendReq)
@@ -676,7 +676,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let message = APMediaMessage()
             let webObj = APShareWebObject()
             //            let textObj = APShareTextObject()
-            webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
             
             message.title = "红包";
             message.desc = "红包";
@@ -700,7 +700,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let message = APMediaMessage()
             let webObj = APShareWebObject()
             //            let textObj = APShareTextObject()
-            webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
             
             message.title = "红包";
             message.desc = "红包";
@@ -814,7 +814,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 let message = APMediaMessage()
                 let webObj = APShareWebObject()
                 //            let textObj = APShareTextObject()
-                webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+                webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
                 
                 message.title = "红包";
                 message.desc = "红包";
@@ -839,7 +839,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 let message = APMediaMessage()
                 let webObj = APShareWebObject()
                 //            let textObj = APShareTextObject()
-                webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+                webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
                 
                 message.title = "红包";
                 message.desc = "红包";

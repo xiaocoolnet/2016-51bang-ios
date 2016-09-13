@@ -270,7 +270,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
             let dateStr = dateFormatter.stringFromDate(NSDate())
             let imageName = "avatar" + dateStr
-            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let result = Http(JSONDecoder(data))
@@ -301,7 +301,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
             let dateStr = dateFormatter.stringFromDate(NSDate())
             let imageName = "avatar" + dateStr
-            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let result = Http(JSONDecoder(data))
@@ -332,7 +332,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
             let dateStr = dateFormatter.stringFromDate(NSDate())
             let imageName = "avatar" + dateStr
-            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let result = Http(JSONDecoder(data))
@@ -839,7 +839,7 @@ extension CertificationViewController: UIImagePickerControllerDelegate{
         dateFormatter.dateFormat = "yyyyMMddHHmmss"
         let dateStr = dateFormatter.stringFromDate(NSDate())
         let imageName = "avatar" + dateStr
-        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
             dispatch_async(dispatch_get_main_queue(), {
                 
                 let result = Http(JSONDecoder(data))

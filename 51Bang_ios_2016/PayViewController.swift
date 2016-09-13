@@ -499,7 +499,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         packageParams.setObject(orderNum, forKey: "out_trade_no") //商户订单号
         packageParams.setObject(orderPrice, forKey: "total_fee") //订单金额，单位为分
         packageParams.setObject(ipString, forKey: "spbill_create_ip") //发器支付的机器ip
-        packageParams.setObject("http://bang.xiaocool.net/api/alipay_app/notify_url.php", forKey: "notify_url") //支付结果异步通知
+        packageParams.setObject(Bang_Open_Header+"api/alipay_app/notify_url.php", forKey: "notify_url") //支付结果异步通知
         var prePayid = NSString()
         prePayid = CommonUtil.sendPrepay(packageParams,andUrl: getPrePayIdUrl)
         //---------------------------获取prePayId结束------------------------------

@@ -23,17 +23,17 @@ class JiaoChengViewController: UIViewController {
         
         if sign == 0 {
             self.title = "培训教程"
-            self.url = NSURL(string:"http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=6")!
+            self.url = NSURL(string:Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=6")!
         }else if sign == 1{
             self.title = "常见问题"
-            self.url = NSURL(string:"http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=5")!
+            self.url = NSURL(string:Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=5")!
         }else if sign == 2{
             self.title = "用户者服务协议"
-            self.url = NSURL(string:"http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=4")!
+            self.url = NSURL(string:Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=4")!
             
         }else{
             self.title = "用户协议"
-            self.url = NSURL(string:"http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=3")!
+            self.url = NSURL(string:Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=3")!
         }
         self.view.backgroundColor = UIColor.whiteColor()
         webView.frame = CGRectMake(0, 0, WIDTH,HEIGHT)

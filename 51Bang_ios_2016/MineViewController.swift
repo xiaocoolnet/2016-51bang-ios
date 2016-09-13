@@ -572,7 +572,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func getuserData()
     {
-        let urlHeader = "http://bang.xiaocool.net/index.php?g=apps&m=index&a=getuserinfo&"
+        let urlHeader = Bang_URL_Header+"getuserinfo&"
         let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
         let param = ["userid":id]
         Alamofire.request(.GET, urlHeader, parameters: param).response
@@ -666,7 +666,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             userData.setObject(photodata, forKey: "userphoto")
             
         }else{
-            let photoUrl:String = "http://bang.xiaocool.net/uploads/images/" + (NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
+            let photoUrl:String = Bang_Open_Header+"uploads/images/" + (NSUserDefaults.standardUserDefaults().objectForKey("photo") as! String)
             print(photoUrl)
             //http://bang.xiaocool.net./data/product_img/4.JPG
             let imview = UIImageView()

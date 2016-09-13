@@ -78,7 +78,7 @@ class TCMoreInfoHelper: NSObject {
     
     func getUserData(cell:AnyObject)
     {
-        let urlHeader = "http://bang.xiaocool.net/index.php?g=apps&m=index&a=getuserinfo&"
+        let urlHeader = Bang_URL_Header+"getuserinfo&"
         let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
         
         let param = ["userid":id]

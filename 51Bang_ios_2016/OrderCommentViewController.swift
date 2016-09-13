@@ -150,7 +150,7 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
         let imageName = "avatar" + dateStr
         
         //上传图片
-        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
             dispatch_async(dispatch_get_main_queue(), {
                 
                 let result = Http(JSONDecoder(data))
@@ -227,7 +227,7 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
                 print(imageName)
                 
                 //上传图片
-                ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+                ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
                     dispatch_async(dispatch_get_main_queue(), {
                         
                         let result = Http(JSONDecoder(data))
