@@ -420,7 +420,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     func call(){
         let url1 = NSURL(string: "tel://"+goodsInfo.phone!)
         UIApplication.sharedApplication().openURL(url1!)
-        
+//        print(goodsInfo.phone!)
     }
     
     func lookImage(sender:UITapGestureRecognizer) {

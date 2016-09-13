@@ -307,6 +307,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     cell.myDelegate = self
                     cell.messageButton.addTarget(self, action: #selector(self.messageButtonAction(_:)), forControlEvents:
                     UIControlEvents.TouchUpInside)
+                    cell.messageButton.tag = indexPath.row-1
                     return cell
                 }else{
                     let cell = UITableViewCell()

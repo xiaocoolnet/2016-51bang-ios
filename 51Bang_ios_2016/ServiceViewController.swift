@@ -95,6 +95,7 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
         userDatas.removeObjectForKey("sex")
         userDatas.removeObjectForKey("pwd")
         userDatas.removeObjectForKey("userphoto")
+        userDatas.removeObjectForKey("ss")
         
         
         

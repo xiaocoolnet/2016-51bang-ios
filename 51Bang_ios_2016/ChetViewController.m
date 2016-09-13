@@ -26,7 +26,7 @@
 @property (nonatomic,strong)NSMutableArray *arrModelData;
 @property (nonatomic,assign)CGFloat boreadHight;
 @property (nonatomic,assign)CGFloat moveTime;
-
+@property (nonatomic,assign)NSMutableArray *dataSource;
 
 @end
 @implementation ChetViewController
@@ -48,7 +48,6 @@
     [self someSet];
 //    [self messModelArr];
     self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-10-3) style:UITableViewStylePlain];
-    
     
 //    self.customTableView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     self.customTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -77,6 +76,13 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
+
+//-(void)getData{
+//    
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.my51bang.com/index.php?g=apps&m=index&a=xcGetChatData&send_uid=%@&receive_uid=%@",_send_uid,_receive_uid]];
+//}
+
+
 #pragma mark - set
 
 -(UITextField*)inputMess{
@@ -99,11 +105,9 @@
 
 - (void)sendAction:(UIButton *)sender {
  
-    [self sendMess:self.inputMess.text]; //发送信息
-    
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *userid = [user objectForKey:@"userid"];
-//    Mainhelper *mainhelper = [[Mainhelper alloc] init];
+//    NSLog(@"%@",_datasource2.firstObject);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     AFHTTPRequestSerializer *requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -112,8 +116,8 @@
 //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSDictionary *parameters = @{@"send_uid":userid,@"receive_uid":_receive_uid,@"content":self.inputMess.text};
-    NSString *url = @"http://www.my51bang.com/index.php?g=apps&m=index&a=";
+    NSDictionary *parameters = @{@"send_uid":userid,@"receive_uid":_receive_uid,@"content":_inputMess.text};
+    NSString *url = @"http://www.my51bang.com/index.php?g=apps&m=index&a=SendChatData";
     
     [manager POST:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         printf("上传成功");
@@ -122,6 +126,8 @@
         NSLog(@"%@",error);
         
     }];
+    
+    [self sendMess:self.inputMess.text]; //发送信息
 }
 
 

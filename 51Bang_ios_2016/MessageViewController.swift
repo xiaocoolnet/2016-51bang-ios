@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
@@ -16,6 +17,8 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     let mainhelper = MainHelper()
     var dataSource = Array<chatListInfo>()
+    var dataSource2 = Array<chatInfo>()
+    var receive_uid = String()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = true
@@ -54,17 +57,39 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         let userid = ud.objectForKey("userid")as! String
         print(userid)
         
-        mainhelper.getChatList("1") { (success, response) in
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+
+        mainhelper.getChatList(userid) { (success, response) in
             if !success {
                 return
             }
+            hud.hidden = true
             self.dataSource = response as? Array<chatListInfo> ?? []
             self.createTableView()
             print(self.dataSource)
             print(self.dataSource.count)
             self.myTableView.reloadData()
         }
-        
+    }
+    
+        func getchatData(){
+            let ud = NSUserDefaults.standardUserDefaults()
+            let userid = ud.objectForKey("userid")as! String
+            
+            mainhelper.getChatMessage(userid, receive_uid: receive_uid) { (success, response) in
+                
+            if !success {
+                return
+            }
+            self.dataSource2 = response as? Array<chatInfo> ?? []
+            print(self.dataSource2)
+            print(self.dataSource2.count)
+            self.myTableView.reloadData()
+            }
+            
+        }
 //        helper.getMessage(userid) { (success, response) in
 //            if !success {
 //                return
@@ -76,8 +101,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //            
 //        }
         
-    }
-    
+        
     func createTableView(){
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         myTableView.delegate = self
@@ -112,7 +136,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
         }else{
             
-            return 10
+            return 0
         }
         
     }
@@ -128,9 +152,12 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        vc.index = indexPath.row
 //        vc.arr = self.dataSource
 //        self.navigationController?.pushViewController(vc, animated: true)
-        
+        self.receive_uid = dataSource[indexPath.row].chat_uid!
         let vc = ChetViewController()
         vc.receive_uid = dataSource[indexPath.row].chat_uid!
+        
+        getchatData()
+//        vc.datasource2 = self.dataSource2
         self.navigationController?.pushViewController(vc, animated: true)
         
         

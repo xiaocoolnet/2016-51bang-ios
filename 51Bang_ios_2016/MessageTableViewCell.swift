@@ -42,7 +42,16 @@ class MessageTableViewCell: UITableViewCell {
         
 //        let str = Bang_Image_Header+info.photo
 //        self.iconImage.sd_setImageWithURL(NSURL(string: str),placeholderImage:UIImage(named: "01"))
-        iconImage.image = UIImage(named: "01")
+        iconImage.layer.masksToBounds = true
+        iconImage.layer.cornerRadius = iconImage.bounds.size.width*0.5
+        if info.other_face != nil {
+            let photoUrl:String = Bang_Open_Header+"uploads/images/"+info.other_face!
+            print(photoUrl)
+            iconImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
+        }else{
+            iconImage.image = UIImage(named: "girl")
+        }
+        
         
     }
     

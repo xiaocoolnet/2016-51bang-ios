@@ -54,13 +54,18 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         {
             backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         }
+        if ud.objectForKey("ss") != nil{
+            if ud.objectForKey("ss") as! String == "no"{
+                self.headerView.renzheng.hidden = true
+            }else{
+                self.headerView.renzheng.hidden = false
+            }
+        }else{
+            self.headerView.renzheng.hidden = true
+        }
         
-        //        if ud.objectForKey("ss") as! String == "no"{
-        //            self.headerView.renzheng.hidden = true
-        //        }else{
-        //            self.headerView.renzheng.hidden = false
-        //        }
-        self.headerView.renzheng.hidden = false
+//        self.headerView.renzheng.hidden = false
+        Checktoubao()
         print(loginSign)
         
     }
@@ -446,6 +451,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }else{
             
             let vc = MessageViewController()
+            
             self.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
             self.hidesBottomBarWhenPushed = false

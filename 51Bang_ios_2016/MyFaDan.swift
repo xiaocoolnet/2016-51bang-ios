@@ -143,6 +143,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         self.view.addSubview(mTable)
         mTable.delegate = self
         mTable.dataSource = self
+//        mTable.backgroundColor = UIColor.whiteColor()
         mTable.tag = 0
         mTable.registerNib(UINib(nibName: "YwcTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         finshTable =  UITableView.init(frame: CGRectMake(0,35, WIDTH, self.view.frame.size.height - 45 - rect.height), style: UITableViewStyle.Grouped)
@@ -239,6 +240,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         finshBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         decorView.frame = CGRectMake( 0, 35, WIDTH / 2, 5)
         mTable.reloadData()
+        
         
     }
     
