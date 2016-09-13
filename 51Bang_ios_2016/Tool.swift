@@ -9,8 +9,10 @@
 import Foundation
 import UIKit
 
+let Bang_Open_Header = "http://www.my51bang.com/"
+
 let Bang_URL_Header = "http://www.my51bang.com/index.php?g=apps&m=index&a="
-let Bang_Image_Header = "http://bang.xiaocool.net/uploads/images/"
+let Bang_Image_Header = "http://www.my51bang.com/uploads/images/"
 
 typealias TimerHandle = (timeInterVal:Int)->Void
 

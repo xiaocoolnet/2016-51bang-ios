@@ -550,7 +550,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         let imageName = "avatar" + dateStr
         
         //上传图片
-        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
             dispatch_async(dispatch_get_main_queue(), {
                 
                 let result = Http(JSONDecoder(data))
@@ -635,7 +635,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             let dateStr = dateFormatter.stringFromDate(NSDate())
             let imageName = "avatar" + dateStr + "record"
             print(imageName)
-            ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadRecord", finish: { [unowned self] (data) in
+            ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord", finish: { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let result = Http(JSONDecoder(data))
@@ -649,7 +649,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                                 if a == self.photoArray.count-1||self.photoArray.count == 0{
                                     self.fabuAction()
                                 }
-//                                print("000000000000000000")
+                                print("000000000000000000")
                                 //                                self.hud1.hide(true)
                                 
                             }else{
@@ -685,7 +685,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                 print(imageName)
                 
                 //上传图片
-                ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadimg") { [unowned self] (data) in
+                ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
                     dispatch_async(dispatch_get_main_queue(), {
                         
                         let result = Http(JSONDecoder(data))

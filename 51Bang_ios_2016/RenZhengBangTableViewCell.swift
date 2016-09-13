@@ -57,7 +57,7 @@ class RenZhengBangTableViewCell: UITableViewCell {
             
             self.iconImage.image = UIImage(named: ("01"))
         }else{
-            let photoUrl:String = "http://bang.xiaocool.net/uploads/images/"+info.photo
+            let photoUrl:String = Bang_Open_Header+"uploads/images/"+info.photo
             print(photoUrl)
             //http://bang.xiaocool.net./data/product_img/4.JPG
             //self.myimage.setImage("01"), forState: UIControlState.Normal)

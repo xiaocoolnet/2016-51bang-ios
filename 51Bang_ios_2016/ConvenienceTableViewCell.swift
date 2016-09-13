@@ -51,7 +51,7 @@ class ConvenienceTableViewCell: UITableViewCell {
         if info.photo==nil {
             self.icon.image = UIImage(named:"ic_moren")
         }else{
-            let photoUrl:String = "http://bang.xiaocool.net/uploads/images/"+info.photo!
+            let photoUrl:String = Bang_Open_Header+"uploads/images/"+info.photo!
             print(photoUrl)
             //self.myimage.setImage("01"), forState: UIControlState.Normal)
             //        self.myimage.image =

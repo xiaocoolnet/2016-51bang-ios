@@ -53,7 +53,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         let web = UIWebView()
         web.frame = CGRectMake(WIDTH/2-150, self.view.frame.size.height/2-250, 300, 300)
         web.backgroundColor = RGREY
-        web.loadRequest(NSURLRequest(URL: NSURL(string: "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7")!))
+        web.loadRequest(NSURLRequest(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7")!))
         self.view.addSubview(web)
 
     }
@@ -193,7 +193,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
     func btnAction(btn:UIButton)
     {
         let img = UIImagePNGRepresentation(UIImage(named: "57b017f4a9f26")!)
-        let newsObj = QQApiNewsObject(URL: NSURL(string: "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"), title: "红包", description: "红包", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
+        let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "红包", description: "红包", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
         
         
         let req = SendMessageToQQReq(content: newsObj)
@@ -207,7 +207,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             urlMessage.title = "红包"
             urlMessage.description = "红包"
             let webObj = WXWebpageObject.init()
-            webObj.webpageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"
+            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
             urlMessage.mediaObject = webObj
             sendReq.message = urlMessage
             WXApi.sendReq(sendReq)
@@ -222,7 +222,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             urlMessage.title = "红包"
             urlMessage.description = "红包"
             let webObj = WXWebpageObject.init()
-            webObj.webpageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7"
+            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
             urlMessage.mediaObject = webObj
             sendReq.message = urlMessage
             WXApi.sendReq(sendReq)
@@ -232,7 +232,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             let message = APMediaMessage()
             let webObj = APShareWebObject()
 //            let textObj = APShareTextObject()
-            webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
             
             message.title = "红包";
             message.desc = "红包";
@@ -256,7 +256,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             let message = APMediaMessage()
             let webObj = APShareWebObject()
             //            let textObj = APShareTextObject()
-            webObj.wepageUrl = "http://bang.xiaocool.net/index.php?g=portal&m=article&a=index&id=7";
+            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
             
             message.title = "红包";
             message.desc = "红包";

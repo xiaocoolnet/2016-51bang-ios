@@ -125,7 +125,7 @@ class BankUpLoad {
     func baoMessageRequest(userid:String,name:String,card:String,alipay:String,phone:String,code:String,Targert:UIViewController,pushVc:UIViewController)
     {
         
-        let urlMessage = "http://bang.xiaocool.net/index.php?g=apps&m=index&a=UpdateUserAlipay&"
+        let urlMessage = Bang_URL_Header+"UpdateUserAlipay&"
         
         let param = ["userid":userid,"realname":name,"idcard":card,"alipay":alipay,"phone":phone,"code":code]
         
