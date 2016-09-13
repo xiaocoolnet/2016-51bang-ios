@@ -16,7 +16,7 @@ class OrderDetailViewController: UIViewController,UINavigationControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createRightItem()
-        self.navigationController?.title = "订单详情"
+//        self.navigationController?.title = "订单详情"
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         myTableView.backgroundColor = RGREY
         myTableView.delegate = self

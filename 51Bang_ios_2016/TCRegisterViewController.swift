@@ -45,7 +45,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        self.tabBarController?.tabBar.hidden = true
+//        self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = false
         self.navigationController?.title = "注册账号"
     }
