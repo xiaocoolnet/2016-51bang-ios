@@ -181,6 +181,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(self.dataSource?.count)
         return (self.dataSource?.count)!
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -191,23 +192,24 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
 //        for view in cell.contentView.subviews {
 //            view.removeFromSuperview()
 //        }
-        print(self.dataSource![(self.dataSource?.count)!-1-indexPath.row].record)
-        cell.setValueWithInfo(self.dataSource![(self.dataSource?.count)!-1-indexPath.row])
+//        print(self.dataSource![(self.dataSource?.count)!-1-indexPath.row].record)
+        
+        cell.setValueWithInfo(self.dataSource![indexPath.row])
 //        cell.location.text
         cell.selectionStyle = .None
         cell.icon.layer.cornerRadius = cell.icon.frame.size.height/2
         cell.icon.clipsToBounds = true
         cell.snatchButton.addTarget(self, action: #selector(self.qiangdan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        cell.snatchButton.tag = (self.dataSource?.count)!-1-indexPath.row
+        cell.snatchButton.tag = indexPath.row
         print(cell.location.text!)
 //        pushMapButton.removeFromSuperview()
         
-        cell.pushMapButton.tag = (self.dataSource?.count)!-1-indexPath.row
-        cell.pushFuwuButton.tag = 1000+(self.dataSource?.count)!-1-indexPath.row
-        if  self.dataSource![(self.dataSource?.count)!-1-indexPath.row].saddress == nil{
+        cell.pushMapButton.tag = indexPath.row
+        cell.pushFuwuButton.tag = 1000+indexPath.row
+        if  self.dataSource![indexPath.row].saddress == nil{
             cell.pushFuwuButton.userInteractionEnabled = false
         }
-        if  self.dataSource![(self.dataSource?.count)!-1-indexPath.row].address == nil{
+        if  self.dataSource![indexPath.row].address == nil{
             cell.pushMapButton.userInteractionEnabled = false
         }
         cell.pushMapButton.addTarget(self, action: #selector(self.pushMapButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -215,7 +217,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
          cell.pushFuwuButton.addTarget(self, action: #selector(self.pushFuwuButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         if cell.location.text != ""{
-            self.getAddressWithString((self.dataSource?.count)!-1-indexPath.row)
+            self.getAddressWithString(indexPath.row)
            
             let distance = self.distance.componentsSeparatedByString(".")
              cell.distnce.text = distance[0]
@@ -422,8 +424,8 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
                 if !success {
                     return
                 }
-                let vc = MyTaskViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
+//                let vc = MyTaskViewController()
+//                self.navigationController?.pushViewController(vc, animated: true)
             }
 
             let vc = MyTaskViewController()

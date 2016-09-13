@@ -88,7 +88,7 @@ class MyFaDanCell: UITableViewCell {
         self.timeLabel.textAlignment = NSTextAlignment.Left
         self.timeLabel.textColor = COLOR
         self.timeLabel.backgroundColor = UIColor.whiteColor()
-//        self.timeLabel.font = UIFont.systemFontOfSize(<#T##fontSize: CGFloat##CGFloat#>)
+        self.timeLabel.font = UIFont.systemFontOfSize(13)
         taskStatu.text = " "+"未完成"
         taskStatu.textColor = UIColor.orangeColor()
         taskStatu.frame = CGRectMake(0, 0,WIDTH/3, 40)

@@ -36,8 +36,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let team:[String] = ["我的发单","我的订单","我的发布","我的收藏","卷码验证","分享二维码"]
     let teamImg:[String] = ["ic_wodefadan","ic_youhuiquan","ic_wodedingdan","ic_wodedingdan","wodeshoucang","ic_weizhi拷贝2","ic_fenxiang"]
     
-    let busness:[String] = ["我的接单","我的投保"]
-    let busnissImg:[String] = ["ic_wodejiedan","ic_woyaotoubao"]
+    let busness:[String] = ["我的接单","我的投保","我的地址"]
+    let busnissImg:[String] = ["ic_wodejiedan","ic_woyaotoubao","ic_weizhi拷贝2"]
     
     let benApp:[String] = ["客服咨询","更多服务"]
     let benImg:[String] = ["ic_kefuzixun","ic_gengduofuwu"]
@@ -385,7 +385,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.hidesBottomBarWhenPushed = false
             case 4:
                 self.hidesBottomBarWhenPushed = true
-                let collection = myAddressViewController()
+                let collection = CodeViewController()
                 self.navigationController?.pushViewController(collection, animated: true)
                 self.hidesBottomBarWhenPushed = false
             case 5:
@@ -409,7 +409,14 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.hidesBottomBarWhenPushed = true
                 let Insure = MyInsure()
                 self.navigationController?.pushViewController(Insure, animated: true)
-                self.hidesBottomBarWhenPushed = false            default:
+                self.hidesBottomBarWhenPushed = false
+            case 2:
+                self.hidesBottomBarWhenPushed = true
+                let Insure = myAddressViewController()
+                self.navigationController?.pushViewController(Insure, animated: true)
+                self.hidesBottomBarWhenPushed = false
+                
+            default:
                     print("section2的不合法点击")
             }
             

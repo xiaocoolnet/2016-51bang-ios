@@ -8,13 +8,15 @@
 
 import UIKit
 
-class AddAddressViewController: UIViewController {
+class AddAddressViewController: UIViewController,UITextFieldDelegate {
 
     var userid = String()
     let mainHelper = TCVMLogModel()
     let ud = NSUserDefaults.standardUserDefaults()
     var isdefault = String()
     var sign = Int(0)
+    let addressLabe = UILabel()
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.hidden = false
@@ -25,10 +27,11 @@ class AddAddressViewController: UIViewController {
         self.sign = 0
         self.view.backgroundColor = RGREY
         self.title = "添加新地址"
-        let textView = UITextView.init(frame: CGRectMake(0, 0, WIDTH, 150))
-        textView.text = "请填写详细地址"
+        let textView = UITextField.init(frame: CGRectMake(0, 0, WIDTH, 50))
+        textView.placeholder = "请填写详细地址"
+//        textView.text = "请填写详细地址"
         textView.tag = 10
-//        textView.delegate = self
+        textView.delegate = self
         let button = UIButton.init(frame: CGRectMake(0, HEIGHT-118, WIDTH, 50))
         button.setTitle("确定", forState: UIControlState.Normal)
         button.backgroundColor = COLOR

@@ -52,18 +52,37 @@ class OrderTableViewCell: UITableViewCell {
 
     func setValueWithInfo(info:TaskInfo){
         
-    
-        self.title.text = info.title
-        self.price.text = info.price
-        self.desc.text = info.expirydate
-        self.location.text = info.address
-        self.fuwudidian.text = info.saddress
-        self.username.text = info.name
-        if info.time != "" {
+        if info.title != "" || info.title != nil{
+            self.title.text = info.title
+        }
+        if info.price != "" || info.price != nil{
+            self.price.text = info.price
+        }
+        if info.expirydate != "" || info.expirydate != nil{
+            self.desc.text = info.expirydate
+        }
+        if info.address != "" || info.address != nil{
+            self.location.text = info.address
+        }
+        if info.saddress != "" || info.saddress != nil{
+            self.fuwudidian.text = info.saddress
+        }
+        if info.name != "" || info.name != nil{
+            self.username.text = info.name        }
+        
+        
+        
+        
+        if info.time != "" || info.time != nil{
             let str = timeStampToString(info.time!)
             self.time.text = str
             self.desc.text = str+"前有效"
         }
+//        if info.photo != "" || info.photo != nil{
+//            print(info.photo!)
+//            let photoUrl:String = Bang_Open_Header+"uploads/images/"+info.photo!
+//            self.icon.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
+//        }
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

@@ -294,13 +294,12 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
                 if !success {
                     return
                 }
-                let vc = MyTaskViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
+                
             }
-
             
-//            let vc = MyTaskViewController()
-//            self.navigationController?.pushViewController(vc, animated: true)
+            
+            let vc = MyTaskViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
             
             
         }

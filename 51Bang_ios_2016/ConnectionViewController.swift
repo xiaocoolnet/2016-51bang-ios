@@ -69,7 +69,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
                  alert("已通知对方,请等待对方确认", delegate: self)
                 
             })
-        }else if info.state == "3" || info.state == "4"{
+        }else if info.state == "3" {
             mainHelper.gaiBianRenWu(info.order_num!, state: "4", handle: { (success, response) in
                 if !success{
                     alert("通知失败，请重试", delegate: self)
