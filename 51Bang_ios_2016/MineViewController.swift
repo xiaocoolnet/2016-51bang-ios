@@ -33,8 +33,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let top = UIView()
     let myTableView = UITableView()
     let foot:[String] = ["我是买家","我是卖家","",""]
-    let team:[String] = ["我的发单","我的订单","我的发布","我的收藏","卷码验证","分享二维码"]
-    let teamImg:[String] = ["ic_wodefadan","ic_youhuiquan","ic_wodedingdan","ic_wodedingdan","wodeshoucang","ic_weizhi拷贝2","ic_fenxiang"]
+    let team:[String] = ["我的发单","我的订单","我的发布","我的收藏","卷码验证","分享二维码","商户订单"]
+    let teamImg:[String] = ["ic_wodefadan","ic_youhuiquan","ic_wodedingdan","ic_wodedingdan","wodeshoucang","ic_weizhi拷贝2","ic_fenxiang","ic_youhuiquan"]
     
     let busness:[String] = ["我的接单","我的投保","我的地址"]
     let busnissImg:[String] = ["ic_wodejiedan","ic_woyaotoubao","ic_weizhi拷贝2"]
@@ -393,6 +393,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 let bao = Hongbao()
                 self.navigationController?.pushViewController(bao, animated: true)
                 self.hidesBottomBarWhenPushed = false
+            case 6:
+                self.hidesBottomBarWhenPushed = true
+//                let bao = Hongbao()
+//                self.navigationController?.pushViewController(bao, animated: true)
+                alert("程序员正在玩命开发中", delegate: self)
+                self.hidesBottomBarWhenPushed = false
             default:
                 print("不合法")
             }
@@ -510,11 +516,15 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     print(userInfo.xgtoken)
                     //                    print()
                     loginSign = 1
+                    
                     SVProgressHUD.showSuccessWithStatus("登录成功")
                     self.navigationController?.navigationBar.hidden = true
                     let ud = NSUserDefaults.standardUserDefaults()
                     //                    ud.setObject(userInfo.id, forKey: "uid")
                     ud.setObject(userInfo.id, forKey: "userid")
+                    let defalutid = NSUserDefaults.standardUserDefaults()
+                    let studentid = defalutid.stringForKey("userid")
+                    JPUSHService.setTags(nil, aliasInbackground: studentid)
                     ud.setObject(userInfo.xgtoken, forKey: "token")
                     ud.setObject(userInfo.name, forKey: "name")
                     ud.setObject(self.phoneNum, forKey: "phone")

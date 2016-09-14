@@ -8,10 +8,10 @@
 
 import UIKit
 
-class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate{
+class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,ChangeWordDelegate{
     
     var sign = Int()
-
+    var citynameStr = String()
     let myTableView = TPKeyboardAvoidingTableView()
     let textField = UITextField()
     var remark = String()
@@ -30,10 +30,16 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
         self.title = "订单详情"
+        if info.address == nil {
+            citynameStr = "请选择地址👉"
+        }else{
+            citynameStr = info.address!
+        }
+        
         self.createTableView()
         print(self.info.state)
         print(self.info.delivery)
-        if self.info.state! == "2" && self.info.delivery == "卷码消费"{
+        if self.info.state! == "2"{
             let juanma = UILabel()
             juanma.frame = CGRectMake(10, 10, WIDTH-20, 50)
             juanma.text = "您的卷码为"+self.info.order_num!
@@ -49,7 +55,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         }
         
         
-        if self.info.state! == "2"{
+        if "0" == "2"{
             let juanma = UIButton()
             print(WIDTH)
             print(self.myTableView.frame.width)
@@ -83,8 +89,9 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     
     func createTableView(){
         
-        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
+//        myTableView.sectionFooterHeight = 10
         myTableView.backgroundColor = RGREY
         myTableView.dataSource = self
         myTableView.delegate = self
@@ -96,8 +103,16 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         //        myTableView.registerNib(UINib(nibName: "FabuTableViewCell1",bundle: nil), forCellReuseIdentifier: "address")
         self.view.addSubview(myTableView)
         
-        let view = UIView.init(frame: CGRectMake(0,myTableView.height-50-49-20+5, WIDTH, 50))
+        let view = UIView.init(frame: CGRectMake(0,myTableView.height-50, WIDTH, 50))
         view.backgroundColor = UIColor.whiteColor()
+        
+        let delete = UIButton.init(frame: CGRectMake(0, 0, 100, 50))
+        delete.setTitle("取消订单", forState:UIControlState.Normal)
+        delete.addTarget(self, action: #selector(self.Cancel), forControlEvents: UIControlEvents.TouchUpInside)
+        delete.backgroundColor = UIColor.orangeColor()
+        view.addSubview(delete)
+        
+        
         let submit = UIButton.init(frame: CGRectMake(WIDTH-100, 0, 100, 50))
         submit.setTitle("提交订单", forState:UIControlState.Normal)
         submit.addTarget(self, action: #selector(self.goToBuy), forControlEvents: UIControlEvents.TouchUpInside)
@@ -120,7 +135,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2 {
-            return 2
+            return 3
         }else if section == 0{
             return 2
         }else{
@@ -146,7 +161,10 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     }
     
     
-    
+    func changeWord(string:String){
+        citynameStr = "地址：" + string
+        self.myTableView.reloadData()
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
@@ -253,7 +271,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 //                cell.bottomLabel.removeFromSuperview()
                 return cell
                 
-            }else{
+            }else if indexPath.row == 1{
                 let cell = myTableView.dequeueReusableCellWithIdentifier("LiuYan")as! LiuYanTableViewCell
                 cell.liuyan.tag = 10
                 cell.liuyan.text = self.info.remarks!
@@ -267,6 +285,16 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 //                cell.selectionStyle = .None
                 //                cell.bottomLabel.removeFromSuperview()
                 return cell
+            }else{
+                let cell  = UITableViewCell.init(style: UITableViewCellStyle.Value1, reuseIdentifier: "cell4")
+                cell.selectionStyle = .None
+//                if self.info.state == "1"{
+//                    cell.accessoryType=UITableViewCellAccessoryType.DisclosureIndicator;
+//                }
+                
+                cell.textLabel?.text = citynameStr
+                return cell
+                
             }
             
         }
@@ -274,7 +302,16 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 3{
+//        if self.info.state == "1"{
+//            if indexPath.section == 2 && indexPath.row == 2 {
+//                let vc = myAddressViewController()
+//                vc.isDingdan = true
+//                vc.delegate = self
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            }
+//
+//        }
+                if indexPath.section == 3{
             if indexPath.row == 1{
                 (self.view.viewWithTag(10)as! UITextField).resignFirstResponder()
                 
@@ -361,6 +398,50 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
             alert.show()
         }
     }
+    
+    
+    func Cancel()
+    {
+                
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "您确定要取消订单吗？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                                             handler: { action in
+                                                
+                                                
+                                                //                let ud = NSUserDefaults.standardUserDefaults()
+                                                //                let userid = ud.objectForKey("userid")as! String
+                                                self.mainHelper.gaiBianDingdan(self.info.order_num!, state: "-1") { (success, response) in
+                                                    if !success {
+                                     alert("订单取消失败请重试", delegate: self)
+                                                        return
+                                                        
+                                                        
+                                                       
+                                                        
+                                                    }
+                                      self.navigationController?.popViewControllerAnimated(true)
+                                                    
+                                                }
+                                                
+                                                
+                                                
+                                                
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                
+}
+            
+    
+        
+        
+
+
+    
     
     func goToBuy(){
         

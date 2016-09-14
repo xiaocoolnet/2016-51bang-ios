@@ -26,6 +26,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 //         WXApi.registerApp("wx765b8c5e08253264", withDescription: "51bang")
          //WXApi.registerApp("wxe61df5d7fee96861", withDescription: "51bang1")
         
+        
+        //推送
+        //通知类型（这里将声音、消息、提醒角标都给加上）
+        let userSettings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert],
+                                                      categories: nil)
+        if ((UIDevice.currentDevice().systemVersion as NSString).floatValue >= 8.0) {
+            //可以添加自定义categories
+            JPUSHService.registerForRemoteNotificationTypes(userSettings.types.rawValue,
+                                                            categories: nil)
+        }
+        else {
+            //categories 必须为nil
+            JPUSHService.registerForRemoteNotificationTypes(userSettings.types.rawValue,
+                                                            categories: nil)
+        }
+        
+        // 启动JPushSDK
+        JPUSHService.setupWithOption(nil, appKey: "50854ebb8afaa2674110a4e9",
+                                     channel: "Publish Channel", apsForProduction: false)
+        
+//        let defau = NSNotificationCenter.defaultCenter()
+        
+//        defau.addObserver(self, selector: #selector(network(_:)), name: kJPFNetworkDidLoginNotification, object: nil)
+        
+        if let launchOpts = launchOptions {
+            
+            let notification = launchOpts[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject : AnyObject]
+            print("#$%^&*(*&^%$#")
+            print(notification)
+        }
+        
+        
+        
+        
         //分享
         ShareSDK.registerApp("13be4c6c247e0", activePlatforms:
             
@@ -92,6 +126,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 
         
         return true
+    }
+    
+    func applicationWillEnterForeground(application: UIApplication) {
+        
+        application.applicationIconBadgeNumber = 0
+        application.cancelAllLocalNotifications()
+    }
+    
+    func application(application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        //注册 DeviceToken
+        JPUSHService.registerDeviceToken(deviceToken)
+    }
+    func application(application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
+                                                  fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        //增加IOS 7的支持
+        JPUSHService.handleRemoteNotification(userInfo)
+        completionHandler(UIBackgroundFetchResult.NewData)
+        
+        //userinfo表示可以选择的type类型
+    }
+    
+    func application(application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        //可选
+        NSLog("did Fail To Register For Remote Notifications With Error: \(error)")
     }
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
@@ -201,9 +262,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    }
+//    func applicationWillEnterForeground(application: UIApplication) {
+//        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+//    }
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.

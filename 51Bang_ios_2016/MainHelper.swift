@@ -153,20 +153,21 @@
 
     
     //商品购买
-    func buyGoods(userid:String,roomname:String,goodsid:String,goodnum:String,mobile:String,remark:String,money:String,delivery:String, handle:ResponseBlock){
+    func buyGoods(userid:String,roomname:String,goodsid:String,goodnum:String,mobile:String,remark:String,money:String,delivery:String, address:String, handle:ResponseBlock){
         let url = Bang_URL_Header+"bookingshopping"
         
         let param = [
             "userid":userid,
-            "address":roomname,
+//            "goodsname":roomname,
             "goodsid":goodsid,
             "goodnum":goodnum,
             "mobile":mobile,
             "remark":remark,
             "money":money,
-            "delivery":delivery
+            "delivery":delivery,
+            "address":address
             
-        ];
+        ]
         //        let param1 = [
         //
         //            "userid":userid,

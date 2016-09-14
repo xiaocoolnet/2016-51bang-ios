@@ -16,6 +16,7 @@ class MyAddressTableViewCell: UITableViewCell {
     @IBOutlet weak var xuanze: UIButton!
     @IBOutlet weak var midView: UIView!
     
+    @IBOutlet weak var selectedButton: UIButton!
     @IBOutlet weak var delete: UIButton!
     
     @IBOutlet weak var address: UILabel!
@@ -23,6 +24,7 @@ class MyAddressTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.bottomView.backgroundColor = RGREY
         self.midView.backgroundColor = RGREY
+        self.selectedButton.hidden = true
 //        self.moren.textColor = RGREY
 //        self.delete.setTitleColor(RGREY, forState: UIControlState.Normal)
         // Initialization code

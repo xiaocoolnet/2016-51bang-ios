@@ -25,7 +25,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
 //        self.title = ""
 //        self.navigationController!.title = "我帮"
         self.tabBarController?.tabBar.hidden = true
-        
+        self.GetData()
         
     }
     override func viewDidLoad() {
@@ -505,7 +505,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let vc = TaskDetailViewController()
-        let taskInfo = dataSource![(self.dataSource?.count)!-1-indexPath.row]
+        let taskInfo = dataSource![indexPath.row]
         vc.taskInfo = taskInfo
         vc.qiangdanBut = false
         self.navigationController?.pushViewController(vc, animated: true)

@@ -418,6 +418,9 @@
 		F2312B371D6987DB00635ADA /* OrderCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2312B361D6987DB00635ADA /* OrderCommentViewController.swift */; };
 		F2312B3B1D69BF7D00635ADA /* CommentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2312B3A1D69BF7D00635ADA /* CommentListCell.swift */; };
 		F23A21951D87AC0200DDB3AB /* CodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23A21941D87AC0200DDB3AB /* CodeViewController.swift */; };
+		F23A219A1D8957BB00DDB3AB /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F23A21981D8957BB00DDB3AB /* jpush-ios-2.1.9.a */; };
+		F23A219C1D8957E700DDB3AB /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23A219B1D8957E700DDB3AB /* CoreFoundation.framework */; };
+		F23A219E1D89583200DDB3AB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23A219D1D89583200DDB3AB /* Security.framework */; };
 		F23C55961D6577000094E2B7 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C55941D6577000094E2B7 /* ViewController1.swift */; };
 		F23C55971D6577000094E2B7 /* ZuberImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C55951D6577000094E2B7 /* ZuberImageCell.swift */; };
 		F23C55991D65774E0094E2B7 /* ZuberImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C55981D65774E0094E2B7 /* ZuberImage.swift */; };
@@ -1053,6 +1056,10 @@
 		F2312B361D6987DB00635ADA /* OrderCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCommentViewController.swift; sourceTree = "<group>"; };
 		F2312B3A1D69BF7D00635ADA /* CommentListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentListCell.swift; sourceTree = "<group>"; };
 		F23A21941D87AC0200DDB3AB /* CodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeViewController.swift; sourceTree = "<group>"; };
+		F23A21981D8957BB00DDB3AB /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
+		F23A21991D8957BB00DDB3AB /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		F23A219B1D8957E700DDB3AB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F23A219D1D89583200DDB3AB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F23C55941D6577000094E2B7 /* ViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
 		F23C55951D6577000094E2B7 /* ZuberImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZuberImageCell.swift; sourceTree = "<group>"; };
 		F23C55981D65774E0094E2B7 /* ZuberImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZuberImage.swift; sourceTree = "<group>"; };
@@ -1130,6 +1137,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FACE66C1D2F3CC10005282E /* libz.tbd in Frameworks */,
+				F23A219E1D89583200DDB3AB /* Security.framework in Frameworks */,
+				1FACE6781D2F3D700005282E /* CoreGraphics.framework in Frameworks */,
+				1FACE6701D2F3D460005282E /* SystemConfiguration.framework in Frameworks */,
+				1FACE6721D2F3D4F0005282E /* CoreTelephony.framework in Frameworks */,
+				F23A219C1D8957E700DDB3AB /* CoreFoundation.framework in Frameworks */,
+				1FACE67E1D2F3D980005282E /* CFNetwork.framework in Frameworks */,
+				F23A219A1D8957BB00DDB3AB /* jpush-ios-2.1.9.a in Frameworks */,
 				0D10A6231D50A6D50004903C /* TPKeyboardAvoiding.framework in Frameworks */,
 				1F7D5A281D4A0C4B00536BD1 /* ImageIO.framework in Frameworks */,
 				1F7D5A261D4A072D00536BD1 /* JavaScriptCore.framework in Frameworks */,
@@ -1144,28 +1159,23 @@
 				1F7D5A131D4A033600536BD1 /* FBSDKMessengerShareKit.framework in Frameworks */,
 				F2EF8DA31D6EC060008C495E /* libWeChatSDK.a in Frameworks */,
 				1FACE6801D2F3DA30005282E /* CoreMotion.framework in Frameworks */,
-				1FACE67E1D2F3D980005282E /* CFNetwork.framework in Frameworks */,
 				1F7D5A1B1D4A033600536BD1 /* libWeChatSDK.a in Frameworks */,
 				1FACE7571D2F50770005282E /* libssl.a in Frameworks */,
 				1FACE67C1D2F3D890005282E /* Foundation.framework in Frameworks */,
 				1FACE67A1D2F3D7A0005282E /* UIKit.framework in Frameworks */,
 				F24CAE411D7E9D2400B23FAC /* BaiduMapAPI_Location.framework in Frameworks */,
 				1F7D5A1E1D4A033600536BD1 /* MOBFoundation.framework in Frameworks */,
-				1FACE6781D2F3D700005282E /* CoreGraphics.framework in Frameworks */,
 				1F7D5A1D1D4A033600536BD1 /* libYixinSDK.a in Frameworks */,
 				1FACE6761D2F3D640005282E /* CoreText.framework in Frameworks */,
 				1F7D5A101D4A033600536BD1 /* ShareSDKUI.framework in Frameworks */,
 				1FACE6741D2F3D5A0005282E /* QuartzCore.framework in Frameworks */,
 				F255A8DD1D77F2C10037856E /* TencentOpenAPI.framework in Frameworks */,
-				1FACE6721D2F3D4F0005282E /* CoreTelephony.framework in Frameworks */,
-				1FACE6701D2F3D460005282E /* SystemConfiguration.framework in Frameworks */,
 				1FACE66E1D2F3CD30005282E /* libc++.tbd in Frameworks */,
 				1F7D5A151D4A033600536BD1 /* TencentOpenAPI.framework in Frameworks */,
 				1F7D5A201D4A033600536BD1 /* ShareSDKConnector.framework in Frameworks */,
 				1F7D5A141D4A033600536BD1 /* KakaoOpenSDK.framework in Frameworks */,
 				1FACE7641D2F508A0005282E /* AlipaySDK.framework in Frameworks */,
 				1FACE7561D2F50770005282E /* libcrypto.a in Frameworks */,
-				1FACE66C1D2F3CC10005282E /* libz.tbd in Frameworks */,
 				1F7D5A0D1D4A033600536BD1 /* ShareSDKExtension.framework in Frameworks */,
 				1F7D5A0C1D4A033600536BD1 /* ShareSDK.framework in Frameworks */,
 				F2DAD9971D76C13C00200B5D /* libAPOpenSdk.a in Frameworks */,
@@ -1640,6 +1650,7 @@
 		18D881291D151D820067218F /* 51Bang_ios_2016 */ = {
 			isa = PBXGroup;
 			children = (
+				F23A21961D89577200DDB3AB /* Jpush */,
 				184054941D154297008A2BAB /* Rush */,
 				0D10A6241D50AE550004903C /* ThirdPackage */,
 				1F81FACA1D236E8D0085C404 /* Resource */,
@@ -2189,6 +2200,8 @@
 		CFA145760FF79DF03531E71B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F23A219D1D89583200DDB3AB /* Security.framework */,
+				F23A219B1D8957E700DDB3AB /* CoreFoundation.framework */,
 				0D10A6221D50A6D50004903C /* TPKeyboardAvoiding.framework */,
 				1F7D5A271D4A0C4B00536BD1 /* ImageIO.framework */,
 				1F7D5A251D4A072D00536BD1 /* JavaScriptCore.framework */,
@@ -2225,6 +2238,23 @@
 				F20624841D74440200B795F5 /* UpLoadModel.m */,
 			);
 			path = "上传音频";
+			sourceTree = "<group>";
+		};
+		F23A21961D89577200DDB3AB /* Jpush */ = {
+			isa = PBXGroup;
+			children = (
+				F23A21971D8957BB00DDB3AB /* Jpush */,
+			);
+			name = Jpush;
+			sourceTree = "<group>";
+		};
+		F23A21971D8957BB00DDB3AB /* Jpush */ = {
+			isa = PBXGroup;
+			children = (
+				F23A21981D8957BB00DDB3AB /* jpush-ios-2.1.9.a */,
+				F23A21991D8957BB00DDB3AB /* JPUSHService.h */,
+			);
+			path = Jpush;
 			sourceTree = "<group>";
 		};
 		F23C55931D6577000094E2B7 /* ThirdPackage */ = {
@@ -2433,6 +2463,14 @@
 					18D881261D151D820067218F = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = H58LYH4V4T;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					18D8813A1D151D830067218F = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -3235,6 +3273,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/YiXinSDK",
 					"$(PROJECT_DIR)/51Bang_ios_2016/SocialSDK",
+					"$(PROJECT_DIR)/51Bang_ios_2016/Jpush",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -3319,6 +3358,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/YiXinSDK",
 					"$(PROJECT_DIR)/51Bang_ios_2016/SocialSDK",
+					"$(PROJECT_DIR)/51Bang_ios_2016/Jpush",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (

@@ -19,6 +19,9 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableview: UITableView!
     
+    //是否是定位按钮过来
+    var isNotDingwei = Bool()
+    
     /** 回调接口*/
     var delegate:CityViewControllerDelegate?;
     
@@ -57,7 +60,9 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         self.tableview.dataSource = self
         searchCityArray = NSArray()
         dataHistoryCitys = SpecifyArray(max: 1);
-        
+        if isNotDingwei {
+            tableview.sectionHeaderHeight = 0
+        }
         getCityData();
         
     }
@@ -184,8 +189,12 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         if(!self.tableview.isEqual(table)){ //搜索结果时
             return self.searchCityArray.count;
         }
-        
+        if section < 2 && isNotDingwei == true{
+            return 0
+        }
+
         if(section < 2){
+            
             return 1;
         }
         
@@ -228,6 +237,9 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     }
     
     func tableView(tableView: UITableView, section: Int) -> CGFloat {
+        if section < 4 && isNotDingwei == true{
+            return 0
+        }
         if section == 3 {
             return 0
         }
@@ -338,6 +350,31 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     //////////////////// UITableViewDelegate  ////////////////////
     
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if isNotDingwei {
+            
+            if table != self.tableview {
+               cityName = self.searchCityArray.objectAtIndex(indexPath.row) as! String;
+                let dic = ["cityName":cityName]
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("changeCityStr", object: dic)
+                
+//                let a = self.navigationController?.viewControllers[2]
+                self.navigationController?.popViewControllerAnimated(true)
+                return
+            }else{
+                let citynameVC = CityNameViewController()
+                citynameVC.title = "城市选择"
+                citynameVC.isDingwei = true
+                citynameVC.myinfo = self.dict.allValues[indexPath.row].allValues[0] as! NSDictionary
+                
+                self.navigationController?.pushViewController(citynameVC, animated: true)
+                return
+            }
+            
+            
+        }
+        
         if(self.delegate != nil ){
             var cityName:String = "";
             if(table != self.tableview){
