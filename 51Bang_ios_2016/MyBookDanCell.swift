@@ -86,7 +86,7 @@ class MyBookDanCell: UITableViewCell {
         }else if Data.state == "2"{
 //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待消费"
-            Btn.setTitle("取消订单", forState: UIControlState.Normal)
+            Btn.setTitle("已支付", forState: UIControlState.Normal)
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
         }else if Data.state == "-1"{

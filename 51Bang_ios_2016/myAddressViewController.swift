@@ -7,8 +7,16 @@
 //
 
 import UIKit
+import MBProgressHUD
+
+protocol ChangeWordDelegate:NSObjectProtocol{
+    //回调方法
+    func changeWord(string:String)
+}
 
 class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UITextFieldDelegate{
+    var isDingdan = Bool()
+    var delegate:ChangeWordDelegate?
     var row = Int()
     let textfile = UITextField()
     var button = UIButton()
@@ -28,7 +36,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         self.view.backgroundColor = RGREY
         let ud = NSUserDefaults.standardUserDefaults()
         self.userid = ud.objectForKey("userid")as!String
-        
+         self.createTableView()
 //        let backview = UIView()
 //        backview.frame = CGRectMake(0, 50, WIDTH, 50)
 //        backview.backgroundColor = UIColor.whiteColor()
@@ -91,25 +99,32 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
     
     
     func getData(){
-    
+        
+        let hud1 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud1.animationType = .Zoom
+        hud1.labelText = "正在努力加载"
+        
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         mainHelper.getMyAddress(userid as String) { (success, response) in
             if  !success{
                 let alert = UIAlertView.init(title:"提示", message: "数据加载异常或者您还没有地址", delegate: self, cancelButtonTitle: "确定")
                 alert.show()
+                hud1.hide(true)
                 return
             }
             self.dataSource = response as? Array<addressInfo> ?? []
             print(self.dataSource?.count)
+            hud1.hide(true)
+            self.myTableView.reloadData()
             if self.dataSource?.count == 0{
             
                 alert("您还没有添加地址",delegate: self)
             }
             
         }
-//        self.createTableView()
-//        self.myTableView.reloadData()
+       
+        
     }
 
     
@@ -152,11 +167,21 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         tableView.separatorStyle = .None
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! MyAddressTableViewCell
+        if isDingdan {
+            cell.selectedButton.hidden = false
+            cell.selectedButton.tag = indexPath.row+100
+            cell.selectedButton.addTarget(self, action: #selector(self.queding(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        }
         cell.selectionStyle = .None
         cell.delete.tag = indexPath.row
         cell.delete.addTarget(self, action: #selector(self.delectAddress(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.setValueWithInfo(self.dataSource![indexPath.row])
         return cell
+    }
+    
+    func queding(sender:UIButton){
+        self.delegate?.changeWord(self.dataSource![sender.tag-100].address!)
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
     func delectAddress(btn:UIButton){

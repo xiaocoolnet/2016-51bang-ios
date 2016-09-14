@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -60,11 +61,21 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alr-1k-WJV">
+                        <rect key="frame" x="272" y="3" width="46" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="DTs-sc-cXA"/>
+                            <constraint firstAttribute="width" constant="46" id="GQw-vp-GhN"/>
+                        </constraints>
+                        <state key="normal" title="选择"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="XWJ-NP-Mjk" secondAttribute="trailing" constant="8" id="1KQ-DS-8eS"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="alr-1k-WJV" secondAttribute="trailing" constant="-6" id="4sT-aX-C0T"/>
                     <constraint firstItem="QXj-52-hsW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="9dB-EJ-9Yf"/>
                     <constraint firstAttribute="trailing" secondItem="QXj-52-hsW" secondAttribute="trailing" id="FHg-Fd-wxh"/>
+                    <constraint firstItem="alr-1k-WJV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-5" id="Fts-ve-hoo"/>
                     <constraint firstItem="MvO-4c-AqK" firstAttribute="leading" secondItem="XWJ-NP-Mjk" secondAttribute="leading" id="KJi-rD-Cfo"/>
                     <constraint firstItem="iHe-ei-7ic" firstAttribute="top" secondItem="6da-jL-niL" secondAttribute="bottom" constant="6" id="Ke4-Cw-JdX"/>
                     <constraint firstAttribute="trailing" secondItem="6da-jL-niL" secondAttribute="trailing" id="Luh-Mw-4bK"/>
@@ -87,6 +98,7 @@
                 <outlet property="delete" destination="0L5-bY-LX0" id="TBA-T2-Cj0"/>
                 <outlet property="midView" destination="6da-jL-niL" id="sZq-0p-R42"/>
                 <outlet property="moren" destination="iHe-ei-7ic" id="uWu-Nx-7Hm"/>
+                <outlet property="selectedButton" destination="alr-1k-WJV" id="DLo-q2-AtU"/>
                 <outlet property="xuanze" destination="MvO-4c-AqK" id="n1s-P6-4r3"/>
             </connections>
             <point key="canvasLocation" x="441" y="486.5"/>

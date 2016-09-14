@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
+class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,ChangeWordDelegate {
     
     let myTableView = TPKeyboardAvoidingTableView()
     let textField = UITextField()
@@ -16,6 +16,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     let addButton = UIButton()
     let deleteButton = UIButton()
     let mainHelper = MainHelper()
+    var citynameStr = String()
     var num = 1
     var info = GoodsInfo2()
     override func viewWillAppear(animated: Bool) {
@@ -27,6 +28,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
         self.title = "确认订单"
+        self.citynameStr = "请选择送货地址👉"
         self.createTableView()
         // Do any additional setup after loading the view.
     }
@@ -67,7 +69,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2 {
-            return 2
+            return 3
         }else if section == 0{
             return 2
         }else{
@@ -97,7 +99,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        
+        tableView.separatorStyle = .None
         if indexPath.section == 0 {
             
             if indexPath.row == 0 {
@@ -118,6 +120,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 if ud.objectForKey("phone") != nil {
                     phone = ud.objectForKey("phone")as! String
                 }
+                
 //                let phone = ud.objectForKey("phone")as!String
                 cell.CNEE.text = "联系电话"
                 cell.selectionStyle = .None
@@ -166,7 +169,8 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 deleteButton.setImage(UIImage(named: "ic_jian-lv"), forState: UIControlState.Normal)
                 //                textField.leftView = deleteButton
                 //                textField.rightView = addButton
-                cell.name.removeFromSuperview()
+//                cell.name.removeFromSuperview()
+                cell.name.text = ""
                 cell.addSubview(textField)
                 cell.addSubview(deleteButton)
                 cell.addSubview(addButton)
@@ -195,9 +199,10 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 //                cell.mode.frame.origin.y = 20
                 //                cell.selectionStyle = .None
                 //                cell.bottomLabel.removeFromSuperview()
+                cell.selectionStyle = .None
                 return cell
                 
-            }else{
+            }else if indexPath.row == 1{
                 let cell = myTableView.dequeueReusableCellWithIdentifier("LiuYan")as! LiuYanTableViewCell
                 cell.liuyan.tag = 10
                 cell.liuyan.delegate = self
@@ -210,13 +215,32 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 //                cell.selectionStyle = .None
                 //                cell.bottomLabel.removeFromSuperview()
                 return cell
+            }else{
+                let cell  = UITableViewCell.init(style: UITableViewCellStyle.Value1, reuseIdentifier: "cell4")
+                cell.selectionStyle = .None
+                cell.accessoryType=UITableViewCellAccessoryType.DisclosureIndicator;
+                cell.textLabel?.text = citynameStr
+                return cell
+                
             }
             
         }
         //        return nil
     }
     
+    func changeWord(string:String){
+        citynameStr = "地址：" + string
+        self.myTableView.reloadData()
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if indexPath.section == 2 && indexPath.row == 2 {
+            let vc = myAddressViewController()
+            vc.isDingdan = true
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         if indexPath.section == 3{
             if indexPath.row == 1{
                 (self.view.viewWithTag(10)as! UITextField).resignFirstResponder()
@@ -321,8 +345,16 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         }
 //        let userid = userDufault.objectForKey("userid") as! String
 //        let phone = userDufault.objectForKey("phone") as! String
+        var cityNamess = String()
+        if citynameStr == "请选择送货地址👉" {
+            alert("请选择地址", delegate: self)
+//            cityNamess = ""
+            return
+        }else{
+            cityNamess = citynameStr
+        }
         let price = String( Float(self.num)*Float(self.info.price!)!)
-        mainHelper.buyGoods(userid, roomname: self.info.goodsname, goodsid: self.info.id, goodnum: String(self.num), mobile: phone, remark: self.remark, money: price,delivery:self.info.delivery!) { (success, response) in
+        mainHelper.buyGoods(userid, roomname: self.info.goodsname, goodsid: self.info.id, goodnum: String(self.num), mobile: phone, remark: self.remark, money: price,delivery:self.info.delivery!,address:cityNamess) { (success, response) in
             if !success{
                 alert("订单提交失败", delegate: self)
                 return

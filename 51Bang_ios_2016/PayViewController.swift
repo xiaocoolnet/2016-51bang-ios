@@ -117,6 +117,13 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     //支付方法
     func pay(){
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy:MM:dd:HH:mm:ss:SSS"
+        let dateStr = dateFormatter.stringFromDate(NSDate())
+        var orderNum = String()
+        orderNum = self.numForGoodS + "_" + dateStr
+        
         print(self.payMode)
         if price == 0{
             alert("金额不能为0", delegate: self)
@@ -129,7 +136,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         }else if self.payMode == "支付宝"{
             //支付宝支付
 //            let userDufault = NSUserDefaults.standardUserDefaults()
-            var orderNum = String()
+           
             //            if (userDufault.objectForKey("ordernumber") == nil) {
             //                print("0000000000")
 //            let dateFormatter = NSDateFormatter()
@@ -261,7 +268,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("订单错误", delegate: self)
                 return
             }
-            aa.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS);
+            aa.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum);
 //            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
             
 //            let vc = MyBookDan()

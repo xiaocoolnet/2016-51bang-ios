@@ -17,10 +17,11 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
     let myTableView = UITableView()
     var mycityStr = String()
     var istwo = Bool()
+    var isDingwei = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tabBarController?.tabBar.hidden = true
 //        self.title = "选择城市"
         self.view.backgroundColor = UIColor.grayColor()
         if !self.istwo {
@@ -51,6 +52,7 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
         if !self.istwo {
             let myVc = CityNameViewController()
             myVc.istwo = true
+            myVc.isDingwei = true
             myVc.title = "县区选择"
             myVc.mycityStr = self.mydataSource[indexPath.row] as! String
             myVc.mydataSource = self.mydataSourcequ[indexPath.row] as! NSMutableArray
@@ -58,14 +60,26 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
         }else{
 //           let mainVC =  MainViewController()
 //            print(self.mycityStr)
+            if isDingwei {
+                let cityStr = self.mycityStr+(self.mydataSource[indexPath.row] as! String)
+//                let dic = ["name":cityStr];
+                let dic = ["cityName":cityStr]
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("changeCityStr", object: dic)
+                let b = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-4]
+//                let a = self.navigationController?.viewControllers[2]
+                self.navigationController?.popToViewController(b!, animated: true)
+            }else{
+                let cityStr = self.mycityStr+(self.mydataSource[indexPath.row] as! String)
+                let dic = ["name":cityStr];
+                //            发送通知
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: dic)
+                let a = self.navigationController?.viewControllers[0]
+                self.navigationController?.popToViewController(a!, animated: true)
+ 
+            }
             
-            let cityStr = self.mycityStr+(self.mydataSource[indexPath.row] as! String)
-            let dic = ["name":cityStr];
-//            发送通知
-            NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: dic)
-            let a = self.navigationController?.viewControllers[0]
-            self.navigationController?.popToViewController(a!, animated: true)
-        
+            
         }
         
     }
