@@ -177,6 +177,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 let before = CLLocation.init(latitude: CLLocationDegrees(self.goodsInfo.latitude! as String)!, longitude: CLLocationDegrees(self.goodsInfo.longitude! as String)!)
               
           
+                
                 print(before)
                 let meters = (current.distanceFromLocation(before))/1000
 //                let meter:String = "\(meters)"

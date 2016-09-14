@@ -305,6 +305,15 @@ class ChangePwdViewController: UIViewController {
             })
     }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        
+        phoneNumFiled.resignFirstResponder()
+        checkNumFiled.resignFirstResponder()
+        passWordFiled.resignFirstResponder()
+        passNumCheckFiled.resignFirstResponder()
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

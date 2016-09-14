@@ -1057,8 +1057,17 @@
         ]
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
+            print(response)
+//            let dictionary:NSDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(json!)! as! NSDictionary
+//            print(dictionary)
+            let dogString:String = (NSString(data: json!, encoding: NSUTF8StringEncoding))! as String
+            print(dogString)
+            
+//            let a = String.init(data: json!, encoding: NSStringEncoding)
             let result = chatModel(JSONDecoder(json!))
+            print(JSONDecoder(json!).array)
             print(result)
+            print(json!)
             print(result.datas)
             print(result.status!)
             if result.status == "success"{

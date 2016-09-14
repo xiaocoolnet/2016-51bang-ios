@@ -19,7 +19,7 @@
 #define WIDTHS [UIScreen mainScreen].bounds.size.width
 @interface ChetViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
-@property (nonatomic,strong)UITableView *customTableView;
+
 @property (nonatomic,strong)UITextField *inputMess;
 @property (nonatomic,strong)UIButton *senderButton;
 @property (nonatomic,strong)UIView *bgView;
@@ -27,6 +27,7 @@
 @property (nonatomic,assign)CGFloat boreadHight;
 @property (nonatomic,assign)CGFloat moveTime;
 @property (nonatomic,assign)NSMutableArray *dataSource;
+//@property (nonatomic,assign)NSTimer *timer;
 
 @end
 @implementation ChetViewController
@@ -34,7 +35,36 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     self.tabBarController.tabBar.hidden = YES;
+    
+    NSDate *nowdate=[NSDate date];
+    NSDateFormatter *forMatter=[[NSDateFormatter alloc]init];
+    forMatter.dateFormat=@"HH:mm"; //小时和分钟
+    NSString *nowTime=[forMatter stringFromDate:nowdate];
+    
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString *userid = [user objectForKey:@"userid"];
+    
+    if  (_datasource2 != nil){
+    for (int i = 0; i<_datasource2.count; i++) {
+        
+        NSMutableDictionary *dicValues=[NSMutableDictionary dictionary];
+        dicValues[@"desc"]=[_datasource2[i] objectForKey:@"content"];
+        dicValues[@"time"]=[_datasource2[i] objectForKey:@"time"];
+        if ([_datasource2[i] objectForKey:@"send_uid"] == userid){
+            dicValues[@"imageName"]=@"girl";
+            dicValues[@"person"]=[NSNumber numberWithBool:1];
+        }else{
+            dicValues[@"imageName"]=@"boy";
+            dicValues[@"person"]=[NSNumber numberWithBool:0];
+        }
+        messModel *mess=[[messModel alloc]initWithModel:dicValues];
+        modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:[self timeIsEqual:nowTime]];
+        [self.arrModelData addObject:frameModel];
+        
+        }
+    }
 }
+
 
 -(NSMutableArray *)arrModelData{
     if (_arrModelData==nil) {
@@ -47,8 +77,12 @@
     [super viewDidLoad];
     [self someSet];
 //    [self messModelArr];
+//    self.datasource2 = [[NSMutableArray alloc]init];
+    NSLog(@"%@",self.datasource2);
+    NSLog(@"%@",[_datasource2[0] objectForKey:@"id"]);
     self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-10-3) style:UITableViewStylePlain];
-    
+//    NSLog(@"%@",self.datasource2);
+//    [self getData];
 //    self.customTableView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
     self.customTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.customTableView.delegate = self;
@@ -69,19 +103,17 @@
     NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
 //    [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
     
-    
+//    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timego:) userInfo:nil repeats:YES];
     
     // 监听键盘出现的出现和消失
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
+#pragma mark - timego
 
-
-//-(void)getData{
-//    
-//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.my51bang.com/index.php?g=apps&m=index&a=xcGetChatData&send_uid=%@&receive_uid=%@",_send_uid,_receive_uid]];
-//}
-
+-(void)timego{
+    [_customTableView reloadData];
+}
 
 #pragma mark - set
 
@@ -219,7 +251,7 @@
     }];
     
     
-    if (hightCount>HEIGHTS-64+keyboardMoveY) {
+    if (hightCount>(HEIGHTS-64+keyboardMoveY)) {
         [UIView animateWithDuration:changeTime animations:^{ //0.25秒之后改变tableView和bgView的Y轴
             self.customTableView.transform=CGAffineTransformMakeTranslation(0, keyboardMoveY);
            
@@ -250,7 +282,6 @@
     NSDateFormatter *forMatter=[[NSDateFormatter alloc]init];
     forMatter.dateFormat=@"HH:mm"; //小时和分钟
     NSString *nowTime=[forMatter stringFromDate:nowdate];
-    
     NSMutableDictionary *dicValues=[NSMutableDictionary dictionary];
     
     dicValues[@"imageName"]=@"girl";

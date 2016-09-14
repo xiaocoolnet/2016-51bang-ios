@@ -11,16 +11,10 @@
 
 @interface ChetViewController : UIViewController
 
-@property (nonatomic,assign)NSString *receive_uid;
-//@property (nonatomic,assign)NSArray * datasource2;
-//
-@property (nonatomic,assign)NSString *send_uid;
-//@property (nonatomic,assign)NSString *content;
-//@property (nonatomic,assign)NSString *status;
-//@property (nonatomic,assign)NSString *create_time;
-//@property (nonatomic,assign)NSString *send_face;
-//@property (nonatomic,assign)NSString *send_nickname;
-//@property (nonatomic,assign)NSString *receive_face;
-//@property (nonatomic,assign)NSString *receive_nickname;
+@property (nonatomic,strong)NSString *receive_uid;
+@property (nonatomic,strong)NSArray * datasource2;
+@property (nonatomic,strong)UITableView *customTableView;
+@property (nonatomic,strong)NSString *send_uid;
+
 
 @end

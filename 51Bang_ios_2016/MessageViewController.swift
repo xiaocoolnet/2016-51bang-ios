@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import MJRefresh
 
 class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
@@ -19,6 +20,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var dataSource = Array<chatListInfo>()
     var dataSource2 = Array<chatInfo>()
     var receive_uid = String()
+//    var dic = NSMutableDictionary()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = true
@@ -34,23 +36,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         // Do any additional setup after loading the view.
     }
 
-//    func getData(){
-//    
-//        let ud = NSUserDefaults.standardUserDefaults()
-//        let userid = ud.objectForKey("userid")as! String
-//        helper.getMessage(userid) { (success, response) in
-//            if !success {
-//                return
-//            }
-//            self.dataSource = response as? Array<MessInfo> ?? []
-//            self.createTableView()
-//            print(self.dataSource)
-//            print(self.dataSource.count)
-//            
-//        }
-//    
-//    }
-    
+
     func getData(){
         
         let ud = NSUserDefaults.standardUserDefaults()
@@ -73,34 +59,6 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.myTableView.reloadData()
         }
     }
-    
-        func getchatData(){
-            let ud = NSUserDefaults.standardUserDefaults()
-            let userid = ud.objectForKey("userid")as! String
-            
-            mainhelper.getChatMessage(userid, receive_uid: receive_uid) { (success, response) in
-                
-            if !success {
-                return
-            }
-            self.dataSource2 = response as? Array<chatInfo> ?? []
-            print(self.dataSource2)
-            print(self.dataSource2.count)
-            self.myTableView.reloadData()
-            }
-            
-        }
-//        helper.getMessage(userid) { (success, response) in
-//            if !success {
-//                return
-//            }
-//            self.dataSource = response as? Array<MessInfo> ?? []
-//            self.createTableView()
-//            print(self.dataSource)
-//            print(self.dataSource.count)
-//            
-//        }
-        
         
     func createTableView(){
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
@@ -109,7 +67,16 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
 
         myTableView.registerNib(UINib(nibName: "MessageTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         self.view.addSubview(myTableView)
+        myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            self.myTableView.mj_header.endRefreshing()
+        })
     
+    }
+    
+    func headerRefresh(){
+        getData()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -152,13 +119,69 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        vc.index = indexPath.row
 //        vc.arr = self.dataSource
 //        self.navigationController?.pushViewController(vc, animated: true)
+        
+        
         self.receive_uid = dataSource[indexPath.row].chat_uid!
         let vc = ChetViewController()
         vc.receive_uid = dataSource[indexPath.row].chat_uid!
+//        vc.datasource2 = NSMutableArray()
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
         
-        getchatData()
-//        vc.datasource2 = self.dataSource2
-        self.navigationController?.pushViewController(vc, animated: true)
+        mainhelper.getChatMessage(userid, receive_uid: receive_uid) { (success, response) in
+            
+            if !success {
+                alert("加载错误", delegate: self)
+                return
+            }
+            let dat = NSMutableArray()
+            self.dataSource2 = response as? Array<chatInfo> ?? []
+            print(self.dataSource2)
+
+            for num in 0...self.dataSource2.count-1{
+                let dic = NSMutableDictionary()
+                dic.setObject(self.dataSource2[num].id!, forKey: "id")
+                dic.setObject(self.dataSource2[num].send_uid!, forKey: "send_uid")
+                dic.setObject(self.dataSource2[num].receive_uid!, forKey: "receive_uid")
+                dic.setObject(self.dataSource2[num].content!, forKey: "content")
+                dic.setObject(self.dataSource2[num].status!, forKey: "status")
+                dic.setObject(self.dataSource2[num].create_time!, forKey: "create_time")
+                if self.dataSource2[num].send_face != nil{
+                    dic.setObject(self.dataSource2[num].send_face!, forKey: "send_face")
+                }
+                
+                if self.dataSource2[num].send_nickname != nil{
+                    dic.setObject(self.dataSource2[num].send_nickname!, forKey: "send_nickname")
+                }
+               
+                if self.dataSource2[num].receive_face != nil{
+                    dic.setObject(self.dataSource2[num].receive_face!, forKey: "receive_face")
+                }
+                
+                if self.dataSource2[num].receive_nickname != nil{
+                     dic.setObject(self.dataSource2[num].receive_nickname!, forKey: "receive_nickname")
+                }
+                
+                
+                dat.addObject(dic)
+                
+//                vc.datasource2.addObject(dic)
+                
+            }
+            
+            print(dat)
+            vc.datasource2 = NSArray.init(array: dat) as Array
+
+            self.navigationController?.pushViewController(vc, animated: true)
+
+            self.myTableView.reloadData()
+        }
+
+        
+        
+//        getchatData()
+        
+        
         
         
     }

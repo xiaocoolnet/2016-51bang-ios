@@ -20,7 +20,7 @@ class FuWuHomePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
-        self.navigationController?.title = "服务主页"
+//        self.navigationController?.title = "服务主页"
         headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
         headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
         //http://bang.xiaocool.net/uploads/images/avatar_man.png
