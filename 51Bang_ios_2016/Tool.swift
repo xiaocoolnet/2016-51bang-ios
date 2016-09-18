@@ -17,6 +17,7 @@ let Bang_Image_Header = "http://bang.xiaocool.net/uploads/images/"
 
 typealias TimerHandle = (timeInterVal:Int)->Void
 
+
 //计时器类
 class TimeManager{
     var taskDic = Dictionary<String,TimeTask>()
