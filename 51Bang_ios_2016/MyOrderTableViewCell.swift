@@ -35,10 +35,11 @@ class MyOrderTableViewCell: UITableViewCell {
     
     @IBOutlet weak var view1: UIView!
     
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var fuwuLocation: UIButton!
-    
+//    let timeLabel  = UILabel()
     @IBOutlet weak var view3: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -50,12 +51,47 @@ class MyOrderTableViewCell: UITableViewCell {
     }
     
     func setValueWithInfo(info:TaskInfo){
+        
+//        self.timeLabel.frame = CGRectMake(width/3, 0, width, 40)
+        self.timeLabel.textAlignment = NSTextAlignment.Left
+        self.timeLabel.textColor = COLOR
+//        self.timeLabel.backgroundColor = UIColor.whiteColor()
+        self.timeLabel.font = UIFont.systemFontOfSize(13)
+//        self.addSubview(self.timeLabel)
+        if info.time != nil {
+            let string = NSString(string:info.time!)
+            let dateFormatter = NSDateFormatter()
+            let timeSta:NSTimeInterval = string.doubleValue
+            dateFormatter.dateFormat = "MM:dd HH:mm:ss"
+            //            dateFormatter.timeStyle = .ShortStyle
+            //            dateFormatter.dateStyle = .ShortStyle
+            //            let data = dateFormatter.dateFromString(model.time!)
+            //            print(data)
+            let date = NSDate(timeIntervalSince1970: timeSta)
+            let dateStr = dateFormatter.stringFromDate(date)
+            self.timeLabel.text = dateStr
+            
+        }
     
-        self.orderDesc.text = info.order_num
-        self.title.text = info.title
-        self.shangmen.text = info.address
-        self.fuwu.text = info.saddress
-        self.price.text = info.price
+        self.orderDesc.text = info.order_num!
+        if info.description == nil {
+            self.title.text = ""
+        }else{
+            self.title.text = info.description!
+        }
+        if info.address == nil {
+            self.shangmen.text = ""
+        }else{
+            self.shangmen.text = info.address!
+        }
+        if info.saddress == nil {
+            self.fuwu.text = ""
+        }else{
+            self.fuwu.text = info.saddress!
+        }
+        
+        
+        self.price.text = info.price!
     
     }
 

@@ -39,7 +39,7 @@ class MyFaDanCell: UITableViewCell {
         print(model.phone!)
         setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: "无人接单")
         if model.state! == "0" {
-            setBottomDan("未接单")
+            setBottomDan("未付款")
             payBtn.hidden = true
         }else if model.state! == "1"{
             setBottomDan("未抢单")

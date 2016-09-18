@@ -69,7 +69,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
-        self.tabBarController?.tabBar.hidden = false
+//        self.tabBarController?.tabBar.hidden = false
     }
     
     override func viewWillDisappear(animated: Bool) {

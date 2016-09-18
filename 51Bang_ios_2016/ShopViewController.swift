@@ -143,6 +143,9 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 return dataSource2.count
             }
         }else if tableView.tag == 1{
+            if myDic == nil {
+                return 0
+            }
             
             return myDic!.count + 1
         }else{

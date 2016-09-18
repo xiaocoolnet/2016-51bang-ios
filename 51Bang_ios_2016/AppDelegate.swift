@@ -43,8 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         }
         
         // 启动JPushSDK
-        JPUSHService.setupWithOption(nil, appKey: "50854ebb8afaa2674110a4e9",
-                                     channel: "Publish Channel", apsForProduction: false)
+        JPUSHService.setupWithOption(nil, appKey: "06722b65599c39b7b63c28ec",
+                                     channel: "Publish Channel", apsForProduction: true)
         
 //        let defau = NSNotificationCenter.defaultCenter()
         
@@ -147,6 +147,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         completionHandler(UIBackgroundFetchResult.NewData)
         
         //userinfo表示可以选择的type类型
+        
+//        completionHandler()
+        
     }
     
     func application(application: UIApplication,

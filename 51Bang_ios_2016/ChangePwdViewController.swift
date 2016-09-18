@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ChangePwdViewController: UIViewController {
     
@@ -270,23 +271,43 @@ class ChangePwdViewController: UIViewController {
     }
     func changeSuccsee() {
         if phoneNumFiled.text!.isEmpty {
-            //alert("请输入手机号", delegate: self)
+//            alert("请输入手机号", delegate: self)
+            SVProgressHUD.showErrorWithStatus("请输入手机号")
             return
         }
         if checkNumFiled.text!.isEmpty {
-            //alert("请输入验证码", delegate: self)
+//            alert("请输入验证码", delegate: self)
+            SVProgressHUD.showErrorWithStatus("请输入验证码")
             return
         }
         if passWordFiled.text!.isEmpty {
-            //alert("请输入密码", delegate: self)
+//            alert("请输入密码", delegate: self)
+            SVProgressHUD.showErrorWithStatus("请输入密码")
             return
         }
         if passNumCheckFiled.text!.isEmpty {
-            //alert("请确认密码", delegate: self)
+//            alert("请确认密码", delegate: self)
+            SVProgressHUD.showErrorWithStatus("请确认密码")
             return
         }
         if passWordFiled.text != passNumCheckFiled.text {
-            //alert("两次输入密码不一致", delegate: self)
+//            alert("两次输入密码不一致", delegate: self)
+            SVProgressHUD.showErrorWithStatus("两次输入密码不一致")
+            return
+        }
+        
+        var regex:String?
+        regex = "^[A-Za-z0-9]{6,20}$"
+        let predicate = NSPredicate.init(format: "SELF MATCHES %@",regex!)
+        let flags = predicate.evaluateWithObject(passWordFiled.text! as NSString)
+        if !flags{
+            SVProgressHUD.showErrorWithStatus("请输入6-20位密码!")
+            return
+        }
+        
+        let flags1 = predicate.evaluateWithObject(passNumCheckFiled.text! as NSString)
+        if !flags1{
+            SVProgressHUD.showErrorWithStatus("请输入6-20位密码!")
             return
         }
         changeVM?.forgetPassword(phoneNumFiled.text!, code: checkNumFiled.text!, password: passWordFiled.text!, handle: { [unowned self] (success, response) in

@@ -64,7 +64,7 @@ class CodeViewController: UIViewController,UITextFieldDelegate {
         if (self.textfile.text == nil) {
             alert("请输入正确格式的卷码", delegate: self)
         }
-        UIView.animateWithDuration(0.4) {
+        UIView.animateWithDuration(0.25) {
             self.button.frame = CGRectMake(0, HEIGHT-118, WIDTH, 50)
         }
     }
@@ -78,13 +78,13 @@ class CodeViewController: UIViewController,UITextFieldDelegate {
             self.textfile.resignFirstResponder()
         }
         sender.cancelsTouchesInView = false
-        UIView.animateWithDuration(0.4) {
+        UIView.animateWithDuration(0.25) {
             self.button.frame = CGRectMake(0, HEIGHT-118, WIDTH, 50)
         }
     }
     func textFieldDidBeginEditing(textField: UITextField){
-        UIView.animateWithDuration(0.4) {
-            self.button.frame = CGRectMake(0, 240, WIDTH, 50)
+        UIView.animateWithDuration(0.25) {
+            self.button.frame = CGRectMake(0, 150, WIDTH, 50)
         }
     }
 }

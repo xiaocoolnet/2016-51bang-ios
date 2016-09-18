@@ -42,17 +42,53 @@ class UserInfo: JSONJoy {
     var usertype:String?
     
     required init(_ decoder:JSONDecoder){
-        name = decoder["name"].string!
+        
+        
+        if decoder["name"].string == nil {
+            name = ""
+        }else{
+            name = decoder["name"].string!
+        }
+//        name = decoder["name"].string!
         phone = decoder["phone"].string!
         id = decoder["id"].string!
-        address = decoder["address"].string!
-        idcard = decoder["idcard"].string!
         
-        sex = decoder["sex"].string!
+        if decoder["address"].string == nil {
+            address = ""
+        }else{
+            address = decoder["address"].string!
+        }
+        
+//        address = decoder["address"].string!
+        
+//        idcard = decoder["idcard"].string!
+        if decoder["idcard"].string == nil {
+            idcard = ""
+        }else{
+            idcard = decoder["idcard"].string!
+        }
+//        sex = decoder["sex"].string!
+        if decoder["sex"].string == nil {
+            sex = ""
+        }else{
+            sex = decoder["sex"].string!
+        }
 //        qq = decoder["qq"].string!
-        time = decoder["time"].string!
         
-        status = decoder["status"].string!
+        if decoder["time"].string == nil {
+            time = ""
+        }else{
+            time = decoder["time"].string!
+        }
+//        time = decoder["time"].string!
+        
+        if decoder["status"].string == nil {
+            status = ""
+        }else{
+            status = decoder["status"].string!
+        }
+        
+//        status = decoder["status"].string!
         print(decoder["photo"].string)
         if decoder["photo"].string == nil {
             photo = ""
@@ -61,11 +97,37 @@ class UserInfo: JSONJoy {
         }
         
 //        weixin = decoder["weixin"].string!
-        from = decoder["from"].string!
-        city = decoder["city"].string!
+        
+        if decoder["from"].string == nil {
+            from = ""
+        }else{
+            from = decoder["from"].string!
+        }
+
+//        from = decoder["from"].string!
+        
+        if decoder["city"].string == nil {
+            city = ""
+        }else{
+            city = decoder["city"].string!
+        }
+        
+//        city = decoder["city"].string!
         password = decoder["password"].string!
-        xgtoken = decoder["xgtoken"].string!
-        usertype = decoder["usertype"].string!
+        
+        if decoder["xgtoken"].string == nil {
+            xgtoken = ""
+        }else{
+            xgtoken = decoder["xgtoken"].string!
+        }
+//        xgtoken = decoder["xgtoken"].string!
+        
+        if decoder["usertype"].string == nil {
+            usertype = ""
+        }else{
+            usertype = decoder["usertype"].string!
+        }
+//        usertype = decoder["usertype"].string!
     }
 }
 

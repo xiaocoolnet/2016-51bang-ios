@@ -35,7 +35,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func createTableView(){
         
-        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
         myTableView.backgroundColor = RGREY
         myTableView.dataSource = self
@@ -48,7 +48,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         //        myTableView.registerNib(UINib(nibName: "FabuTableViewCell1",bundle: nil), forCellReuseIdentifier: "address")
         self.view.addSubview(myTableView)
         
-        let view = UIView.init(frame: CGRectMake(0,myTableView.height-50-49-20+5, WIDTH, 50))
+        let view = UIView.init(frame: CGRectMake(0,myTableView.height-50-49-20+5+64, WIDTH, 50))
         view.backgroundColor = UIColor.whiteColor()
         let submit = UIButton.init(frame: CGRectMake(WIDTH-100, 0, 100, 50))
         submit.setTitle("提交订单", forState:UIControlState.Normal)
