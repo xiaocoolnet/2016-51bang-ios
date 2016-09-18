@@ -108,6 +108,8 @@
     // 监听键盘出现的出现和消失
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    
 }
 #pragma mark - timego
 
@@ -268,7 +270,29 @@
 }
 #pragma mark TextField的Delegate send后的操作
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{  //
-    [self sendMess:textField.text]; //发送信息
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    NSString *userid = [user objectForKey:@"userid"];
+    //    NSLog(@"%@",_datasource2.firstObject);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    AFHTTPRequestSerializer *requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.requestSerializer = requestSerializer;
+    
+    //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSDictionary *parameters = @{@"send_uid":userid,@"receive_uid":_receive_uid,@"content":_inputMess.text};
+    NSString *url = @"http://www.my51bang.com/index.php?g=apps&m=index&a=SendChatData";
+    
+    [manager POST:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        printf("上传成功");
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        printf("上传失败");
+        NSLog(@"%@",error);
+        
+    }];
+    
+    [self sendMess:self.inputMess.text]; //发送信息
     return YES;
 }
 //- (IBAction)sendAction:(UIButton *)sender {

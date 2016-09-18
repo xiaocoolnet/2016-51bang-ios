@@ -13,6 +13,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     var myPhotoArray = NSMutableArray()
     var collectionV:UICollectionView?
     var taskInfo = TaskInfo()
+    var dataSource3 : Array<chatInfo>?
     let mainHelper = MainHelper()
     var soundName = NSURL()
     var btn = UIButton()
@@ -86,6 +87,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("cell1") as! TaskDetailTableViewCell1
             cell.call.addTarget(self, action: #selector(self.callPhone), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.message.addTarget(self, action: #selector(self.messageSend), forControlEvents: UIControlEvents.TouchUpInside)
             cell.selectionStyle = .None
             cell.username.text = self.taskInfo.name
             cell.icon.layer.cornerRadius = cell.icon.frame.size.height/2
@@ -315,6 +317,72 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         UIApplication.sharedApplication().openURL(NSURL(string :"tel://"+"\(self.taskInfo.phone!)")!)
         
 //        UIApplication.sharedApplication().openURL(NSURL(string :"tel://15974462468")!)
+    }
+    
+    func messageSend(){
+        let vc = ChetViewController()
+        vc.receive_uid = taskInfo.id
+        //        vc.datasource2 = NSMutableArray()
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
+        if userid == taskInfo.userid{
+            alert("请不要和自己说话", delegate: self)
+        }else{
+            mainHelper.getChatMessage(userid, receive_uid: taskInfo.userid!) { (success, response) in
+                
+                if !success {
+                    alert("加载错误", delegate: self)
+                    return
+                }
+                let dat = NSMutableArray()
+                self.dataSource3 = response as? Array<chatInfo> ?? []
+                print(self.dataSource3)
+                if self.dataSource3?.count != 0{
+                    for num in 0...self.dataSource3!.count-1{
+                        let dic = NSMutableDictionary()
+                        dic.setObject(self.dataSource3![num].id!, forKey: "id")
+                        dic.setObject(self.dataSource3![num].send_uid!, forKey: "send_uid")
+                        dic.setObject(self.dataSource3![num].receive_uid!, forKey: "receive_uid")
+                        dic.setObject(self.dataSource3![num].content!, forKey: "content")
+                        dic.setObject(self.dataSource3![num].status!, forKey: "status")
+                        dic.setObject(self.dataSource3![num].create_time!, forKey: "create_time")
+                        if self.dataSource3![num].send_face != nil{
+                            dic.setObject(self.dataSource3![num].send_face!, forKey: "send_face")
+                        }
+                        
+                        if self.dataSource3![num].send_nickname != nil{
+                            dic.setObject(self.dataSource3![num].send_nickname!, forKey: "send_nickname")
+                        }
+                        
+                        if self.dataSource3![num].receive_face != nil{
+                            dic.setObject(self.dataSource3![num].receive_face!, forKey: "receive_face")
+                        }
+                        
+                        if self.dataSource3![num].receive_nickname != nil{
+                            dic.setObject(self.dataSource3![num].receive_nickname!, forKey: "receive_nickname")
+                        }
+                        
+                        
+                        dat.addObject(dic)
+                        
+                        //                vc.datasource2.addObject(dic)
+                        
+                    }
+                    
+                    print(dat)
+                    vc.datasource2 = NSArray.init(array: dat) as Array
+                    print(vc.datasource2)
+                    vc.viewWillAppear(true)
+                    vc.customTableView.reloadData()
+                }else{
+                    
+                }
+                
+                
+            }
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+
     }
     
     override func didReceiveMemoryWarning() {
