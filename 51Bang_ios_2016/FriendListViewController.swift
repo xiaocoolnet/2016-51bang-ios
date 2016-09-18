@@ -24,6 +24,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     var dataSource : Array<SkillModel>?
     var tchdDataSource:Array<TCHDInfo>?
     var rzbDataSource : Array<RzbInfo>?
+    var dataSource3 : Array<chatInfo>?
     let middleArr = ["服务最多","评分最多","离我最近"]
     let rightArr = ["在线","全部"]
     
@@ -234,6 +235,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             let cell = tableView.dequeueReusableCellWithIdentifier("cell")as!RenZhengBangTableViewCell
             cell.selectionStyle = .None
             cell.weizhiButton.addTarget(self, action: #selector(self.dingWeiAction), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.message.addTarget(self, action: #selector(self.message(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.message.tag = indexPath.row-1
             cell.setValueWithInfo(self.rzbDataSource![indexPath.row])
             return cell
             
@@ -242,12 +245,14 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             var cell = tableView.dequeueReusableCellWithIdentifier("QuanBuFenLei")as? QuanBuFenLeiTableViewCell
             if cell==nil {
                 cell = QuanBuFenLeiTableViewCell(style: UITableViewCellStyle.Default,reuseIdentifier: "QuanBuFenLei")
+                
             }
             if indexPath.row == 0 {
                 cell!.title.text =  "全部分类"
                 //                cell!.title.textColor = UIColor.greenColor()
             }else{
                 let model = self.dataSource![indexPath.row-1]
+                
                 cell!.title.text = model.name
             }
             return cell!
@@ -256,6 +261,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             
             let cell = tableView.dequeueReusableCellWithIdentifier("FuWu")as! FuWuTableViewCell
             cell.title.text = middleArr[indexPath.row]
+            
             return cell
             
         }else{
@@ -333,6 +339,72 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     func dingWeiAction()  {
         let vc = LocationViewController()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func message(sender:UIButton){
+//        let vc = ChetViewController()
+//        vc.receive_uid = (dataSource2[sender.tag] as! TCHDInfo).userid
+//        //        vc.datasource2 = NSMutableArray()
+//        let ud = NSUserDefaults.standardUserDefaults()
+//        let userid = ud.objectForKey("userid")as! String
+//        if userid == (dataSource2[sender.tag] as! TCHDInfo).userid{
+//            alert("请不要和自己说话", delegate: self)
+//        }else{
+//            mainHelper.getChatMessage(userid, receive_uid: (dataSource2[sender.tag] as! TCHDInfo).userid!) { (success, response) in
+//                
+//                if !success {
+//                    alert("加载错误", delegate: self)
+//                    return
+//                }
+//                let dat = NSMutableArray()
+//                self.dataSource3 = response as? Array<chatInfo> ?? []
+//                print(self.dataSource3)
+//                if self.dataSource3?.count != 0{
+//                    for num in 0...self.dataSource3!.count-1{
+//                        let dic = NSMutableDictionary()
+//                        dic.setObject(self.dataSource3![num].id!, forKey: "id")
+//                        dic.setObject(self.dataSource3![num].send_uid!, forKey: "send_uid")
+//                        dic.setObject(self.dataSource3![num].receive_uid!, forKey: "receive_uid")
+//                        dic.setObject(self.dataSource3![num].content!, forKey: "content")
+//                        dic.setObject(self.dataSource3![num].status!, forKey: "status")
+//                        dic.setObject(self.dataSource3![num].create_time!, forKey: "create_time")
+//                        if self.dataSource3![num].send_face != nil{
+//                            dic.setObject(self.dataSource3![num].send_face!, forKey: "send_face")
+//                        }
+//                        
+//                        if self.dataSource3![num].send_nickname != nil{
+//                            dic.setObject(self.dataSource3![num].send_nickname!, forKey: "send_nickname")
+//                        }
+//                        
+//                        if self.dataSource3![num].receive_face != nil{
+//                            dic.setObject(self.dataSource3![num].receive_face!, forKey: "receive_face")
+//                        }
+//                        
+//                        if self.dataSource3![num].receive_nickname != nil{
+//                            dic.setObject(self.dataSource3![num].receive_nickname!, forKey: "receive_nickname")
+//                        }
+//                        
+//                        
+//                        dat.addObject(dic)
+//                        
+//                        //                vc.datasource2.addObject(dic)
+//                        
+//                    }
+//                    
+//                    print(dat)
+//                    vc.datasource2 = NSArray.init(array: dat) as Array
+//                    print(vc.datasource2)
+//                    vc.viewWillAppear(true)
+//                    vc.customTableView.reloadData()
+//                }else{
+//                    
+//                }
+//                
+//                
+//            }
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
+
     }
     
     override func didReceiveMemoryWarning() {
