@@ -21,6 +21,7 @@ class TCUserInfoModel: JSONJoy{
         }else{
             errorData = decoder["data"].string
         }
+        
     }
 }
 class UserInfo: JSONJoy {
