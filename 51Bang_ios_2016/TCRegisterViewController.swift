@@ -261,7 +261,18 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         }
         
         if passwordNumber.text!.isEmpty {
+            
+            
             SVProgressHUD.showErrorWithStatus("请输入密码!")
+            return
+        }
+        
+        var regex:String?
+        regex = "^[A-Za-z0-9]{6,20}$"
+        let predicate = NSPredicate.init(format: "SELF MATCHES %@",regex!)
+        let flags = predicate.evaluateWithObject(passwordNumber.text! as NSString)
+        if !flags{
+            SVProgressHUD.showErrorWithStatus("请输入6-20位密码!")
             return
         }
         

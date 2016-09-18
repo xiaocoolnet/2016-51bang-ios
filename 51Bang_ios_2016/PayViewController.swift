@@ -119,7 +119,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     func pay(){
         
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy:MM:dd:HH:mm:ss:SSS"
+        dateFormatter.dateFormat = "ddHHmmss"
         let dateStr = dateFormatter.stringFromDate(NSDate())
         var orderNum = String()
         orderNum = self.numForGoodS + "_" + dateStr
@@ -146,7 +146,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("订单错误", delegate: self)
                 return
             }
-            orderNum  = self.numForGoodS
+//            orderNum  = self.numForGoodS
             
             
             //            }else{
@@ -167,11 +167,12 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAM2arVc/DULOrVn5VVdkALDETOa1sznxviFaDD/+bZJI+3C7ls1HVZzKNCj7uwKKk02fRnLU70twRMifdhbIwEpqIFQLZW2HXbbif9+74BhetsQiQ/kyzRAhWEqeppNv/KTCtPM5d99S74diQuHHIH0cz4g7Xy9i/9RH8oS315bDAgMBAAECgYEAqpiO/3dXn3kxqRgS0aIuWH1oeX2GKqwE4FOBGpAXhmt8BfwAkm9//8pfISpN7zvgIWXo5Fr9+pA64mQ9bYZA1YDMLxcebn6uRqXZGoa0iZmx0n8/JpTw9L9A0Jt2HBJltrW5vsHqwOkjNL3sPxeeLOnNT9kVRSpp2gRFQuqZPoECQQDvYBpPUOeQ9KC1nouv3ngXOZg0Pw/vJbxaQWwqCAjN/l2m6sBjU6lP2dVB6QSVbD4V6rNABX63PW69uo8V5e1jAkEA2+ImfhcdSM1zS3QnKeyNd0HCKNvXXWXhjnAZ22pHI7tApIexsa/IlbQYNGbL14ZyRD6jq64P2FPwxt4hHUcfIQJAbSBdviz+9GlhXorh2ZJNIyFhjuf05qxIWskae2rgQLCmlzLL9DwuorWG8B4/tbL79tfhUd1vcC/0bVBAbNY+SwJACG2SrCKWrMOzN6EsHx9CDOAoYQiMKLhO/PavBwn70BLNV4Eb/oOOXK6afuexyIEOwC7mdx4k3VXaVMUO3+BqAQJAeMQtg/QEDZJb+frQLOlElYpsUS/J+bASiHHb6j0UTgUYfEtC34oJDd5lX1ZkiaQV5lnGUT8T0da+bzomkZ5xSA=="
             
             //let privateKey = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAL9MUaZqnb8XrhMxURZmhnhPN8JsgWURnAkOoqdiZZZl6IqXyhWqldFTCACDZt/j8gcfCt7PFTjshD13i+jm1VoRexEntVU1cn5qQ06lnCEOmBDQX1VEP1lzpYYqvbWiUtqzLxDloVpkgArlrzJB0mScwNE1AaChZ1i01ULH+uB1AgMBAAECgYAL15SiYa08PCIJjB8B7PzcC8Ne5Mqp0ApBwUcuZ3f0dICNu9HFv5agq6wuI/RFXd4ItNI+csFUkcep6nGdzFResIWzcyrSypHN8o8Cue2Yov5yjA7Fu4MEjTsy/hI9ch78GP+bfA4Ovx9Z+e1BWMMhgoNoBPoxgg1zld54sC5N7QJBAO7nVEOY+6q8n6tLTEmQHGjxJWpWyairYf40UV4n2aJrlJMCeuWXnKrsC5lUYvYljTpB+eEg2AQZ8ADKGzdfFCMCQQDM/N2V6V3vIRveJKqnPiXNBYlfAk/FLVxXW90yux6MVrI36y7aBGPbpXhO3TjMj1spZP/QbPaJTU4+a4mVFtaHAkEAjnwbrqFcYA1VsYUcP7eaqiBA73ZJmbZ1oHY1nVFpJMzC9RcCk1JkVzCnDlDdIO9ulrNoxBOhoniRwvbHWrPzPwJAbr2Iw+0f5wje8kKiwtkLONht3xrzl1UrFrK1LCv0k+JeQ2FVnUhT3hxlg0112uTzXciHfsTu5zwRMh2MZTPCTwJBAMXMksxezoK4wPEscWwEwzEJRB7bklVEMpcOf4QR90HQAFRH4bDffISI4RUc8I8FLMCGdDzkNFoI4LdwE9hGeZI="
+            print(orderNum)
             let order = Order()
             order.appID = "2016083001821606"
             order.partner = partner;
             order.sellerID = seller;
-            order.outTradeNO = orderNum; //订单ID（由商家自行制定）
+            order.outTradeNO = orderNum ; //订单ID（由商家自行制定）
             if self.subject == "" {
                 order.subject = "商品标题"
             }else{

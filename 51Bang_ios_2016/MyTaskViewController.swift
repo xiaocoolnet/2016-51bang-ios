@@ -37,10 +37,11 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         self.createTableView()
-        sign = 1
-        label.frame = CGRectMake(WIDTH/3, 50, WIDTH/3, 2)
+        sign = 0
+//        label.frame = CGRectMake(WIDTH/3, 50, WIDTH/3, 2)
         label.backgroundColor = COLOR
-        self.GetWKSData("3,4")
+//        self.GetWKSData("2")
+        self.showLeft()
         self.title = "我的任务"
         self.view.backgroundColor = RGREY
 //        leftTableView.frame = CGRectMake(0,62, WIDTH, HEIGHT - 64 - 50)
@@ -115,7 +116,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
 //                        self.myTableView.reloadData()
 //                        return
 //                    }
-                }else if state == "3,4"{
+                }else if state == "3"{
                     self.dataSource1?.removeAll()
                     self.dataSource1 = response as? Array<TaskInfo> ?? []
                      print(self.dataSource1?.count)
@@ -173,7 +174,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         if sign == 0 {
             self.GetWKSData("2")
         }else if sign == 1{
-            self.GetWKSData("3,4")
+            self.GetWKSData("3")
         }else{
             self.GetWKSData("-1")
         }
@@ -196,7 +197,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     
         label.frame = CGRectMake(WIDTH/3, 50, WIDTH/3, 2)
         sign = 1
-        self.GetWKSData("3,4")
+        self.GetWKSData("3")
 //        self.myTableView.reloadData()
 //        myTableView.hidden = false
 //        leftTableView.hidden = true
@@ -218,26 +219,27 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func  numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        if sign == 0 {
-//            print(self.dataSource?.count)
-            if dataSource != nil{
-                return dataSource!.count
-            }else{
-                return 0
-            }
-        }else if sign == 1{
-            if dataSource1 != nil{
-                return dataSource1!.count
-            }else{
-           return 0
-            }
-        }else{
-            if dataSource2 != nil{
-                return dataSource2!.count
-            }else{
-                return 0
-            }
-        }
+//        if sign == 0 {
+////            print(self.dataSource?.count)
+//            if dataSource != nil{
+//                return dataSource!.count
+//            }else{
+//                return 0
+//            }
+//        }else if sign == 1{
+//            if dataSource1 != nil{
+//                return dataSource1!.count
+//            }else{
+//           return 0
+//            }
+//        }else{
+//            if dataSource2 != nil{
+//                return dataSource2!.count
+//            }else{
+//                return 0
+//            }
+//        }
+        return 1
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

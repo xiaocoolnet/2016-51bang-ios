@@ -23,6 +23,8 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     var finshTable = UITableView()
     let weiBtn = UIButton()
     let finshBtn = UIButton()
+    let rushedBtn = UIButton()
+    let visitedBtn = UIButton()
     var cellData = TaskInfo()
     var Data = []
     var mTable = UITableView()
@@ -51,11 +53,11 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     override func viewDidLoad() {
         
-        GetWWCData("0,1,2,3,4")
+        GetWWCData("1")
         
         self.title = "我的发单"
         self.navigationController?.navigationBar.hidden = false
-        decorView.frame = CGRectMake(0, 35, WIDTH / 2, 5)
+        decorView.frame = CGRectMake(0, 35, WIDTH / 4, 5)
         decorView.backgroundColor = COLOR
         self.view.addSubview(decorView)
 //        cellData.taskName="充公交卡"
@@ -172,32 +174,64 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         self.view.addGestureRecognizer(swipeLeftGesture)
     }
     func handleRight(){
+        if sign == 0 {
+            visitedBtnAction()
+        }else if sign == 3{
+            rushedBtnAction()
+        }else if sign == 2{
+             weiBtnAction()
+        }else{
+            finshBtnAction()
+        }
         
-       weiBtnAction()
+      
     
     }
     
     func handleLeft(){
         
-        finshBtnAction()
+        if sign == 2 {
+            visitedBtnAction()
+        }else if sign == 1{
+            rushedBtnAction()
+        }else if sign == 3{
+            finshBtnAction()
+        }else{
+            weiBtnAction()
+        }
+        
+        
+//        finshBtnAction()
     }
     
     func headerRefresh(){
-        if(sign == 1){
+        
+        if sign == 3 {
+            visitedBtnAction()
+        }else if sign == 2{
+            rushedBtnAction()
+        }else if sign == 1{
             weiBtnAction()
-//            GetWWCData("0,1,2,3,4")
         }else{
             finshBtnAction()
-//            GetYWCData("5")
         }
+        
+        
+//        if(sign == 1){
+//            weiBtnAction()
+////            GetWWCData("0,1,2,3,4")
+//        }else{
+//            finshBtnAction()
+////            GetYWCData("5")
+//        }
     }
         
     
     func setButton()
     {
-        weiBtn.frame = CGRectMake(0, 0, WIDTH / 2, 35)
-        finshBtn.frame  = CGRectMake(WIDTH / 2, 0, WIDTH / 2, 35)
-        weiBtn.setTitle("未完成", forState: UIControlState.Normal)
+        weiBtn.frame = CGRectMake(0, 0, WIDTH / 4, 35)
+        finshBtn.frame  = CGRectMake(WIDTH / 4*3, 0, WIDTH / 4, 35)
+        weiBtn.setTitle("未抢单", forState: UIControlState.Normal)
         weiBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
         finshBtn.setTitle("已完成", forState: UIControlState.Normal)
         
@@ -208,6 +242,22 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         finshBtn.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(weiBtn)
         self.view.addSubview(finshBtn)
+        
+        
+        rushedBtn.frame = CGRectMake(WIDTH / 4, 0, WIDTH / 4, 35)
+        rushedBtn.setTitle("已被抢", forState: UIControlState.Normal)
+        rushedBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
+        rushedBtn.addTarget(self, action: #selector(self.rushedBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
+        rushedBtn.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(rushedBtn)
+        
+        
+        visitedBtn.frame = CGRectMake(WIDTH / 4*2, 0, WIDTH / 4, 35)
+        visitedBtn.setTitle("已上门", forState: UIControlState.Normal)
+        visitedBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
+        visitedBtn.addTarget(self, action: #selector(self.visitedBtnAction), forControlEvents: UIControlEvents.TouchUpInside)
+        visitedBtn.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(visitedBtn)
         
     }
     
@@ -222,8 +272,10 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
 //        self.GetYWCData("4")
 //        self.GetWWCData("0,1,2,3")
         weiBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        rushedBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        visitedBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         finshBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
-        decorView.frame = CGRectMake( WIDTH / 2, 35, WIDTH / 2, 5)
+        decorView.frame = CGRectMake( WIDTH / 4*3, 35, WIDTH / 4, 5)
         mTable.reloadData()
 //        mTable.hidden = true
 //        finshTable.hidden = false
@@ -235,13 +287,39 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     {
         sign = 1
         self.dataSource1?.removeAll()
-        self.GetWWCData("0,1,2,3,4")
+        self.GetWWCData("1")
         weiBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
         finshBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
-        decorView.frame = CGRectMake( 0, 35, WIDTH / 2, 5)
+        rushedBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        visitedBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        decorView.frame = CGRectMake( 0, 35, WIDTH / 4, 5)
         mTable.reloadData()
         
         
+    }
+    
+    func rushedBtnAction(){
+        sign = 2
+        self.dataSource1?.removeAll()
+        self.GetWWCData("2")
+        rushedBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
+        finshBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        weiBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        visitedBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        decorView.frame = CGRectMake( WIDTH / 4, 35, WIDTH / 4, 5)
+        mTable.reloadData()
+    }
+    func visitedBtnAction(){
+        sign = 3
+        self.dataSource1?.removeAll()
+        self.GetWWCData("3")
+        visitedBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
+        finshBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        weiBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        rushedBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        decorView.frame = CGRectMake( WIDTH / 4*2, 35, WIDTH / 4, 5)
+        mTable.reloadData()
+
     }
     
     
@@ -253,7 +331,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if(sign == 1)
+        if(sign == 1 || sign == 2 || sign == 3)
         {
             print(self.dataSource?.count)
             if self.dataSource == nil {
@@ -282,7 +360,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if(sign == 1)
+        if(sign == 1 || sign == 2 || sign == 3 )
         {
            
             if dataSource?.count != 0{
@@ -411,15 +489,15 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-        let view = self.view.viewWithTag(48)
-        view?.removeFromSuperview()
-//        let xiaofeiview = self.view.viewWithTag(23)
-        self.xiaofeiview.textField.resignFirstResponder()
-        self.xiaofeiview.removeFromSuperview()
-        self.xiaofeiview.hidden = true
-    }
+//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//        
+//        let view = self.view.viewWithTag(48)
+//        view?.removeFromSuperview()
+////        let xiaofeiview = self.view.viewWithTag(23)
+//        self.xiaofeiview.textField.resignFirstResponder()
+//        self.xiaofeiview.removeFromSuperview()
+//        self.xiaofeiview.hidden = true
+//    }
     
     
     func viewTap(sender: UITapGestureRecognizer) {
@@ -444,14 +522,15 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         let vc = FaDanDetailViewController()
-        if sign == 1 {
+        if sign == 0 {
            
-            vc.info = self.dataSource![indexPath.section]
+            vc.info = self.dataSource1![indexPath.section]
             
         }else{
         
-            vc.info = self.dataSource1![indexPath.section]
+            vc.info = self.dataSource![indexPath.section]
         }
         
         self.navigationController?.pushViewController(vc, animated: true)
