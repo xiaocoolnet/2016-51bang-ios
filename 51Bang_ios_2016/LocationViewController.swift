@@ -325,16 +325,26 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
             return
         }
         
-        for ( var count = 1 ; count < result.keyList.count ; count++ )
-            {
-                
-                let re = SarchModel.init()
-                re.name = result.keyList[ count ] as! String
-                let coor = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(1)  //CLLocationCoordinate2D.init()
-                ( result.ptList[count] as! NSValue ).getValue( coor )
-                re.location = coor.memory
-                searchResult.append(re)
-            }
+        for count in 1...result.keyList.count {
+            
+            let re = SarchModel.init()
+            re.name = result.keyList[ count ] as! String
+            let coor = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(1)  //CLLocationCoordinate2D.init()
+            ( result.ptList[count] as! NSValue ).getValue( coor )
+            re.location = coor.memory
+            searchResult.append(re)
+        }
+        
+//        for ( var count = 1 ; count < result.keyList.count ; count++ )
+//            {
+//                
+//                let re = SarchModel.init()
+//                re.name = result.keyList[ count ] as! String
+//                let coor = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(1)  //CLLocationCoordinate2D.init()
+//                ( result.ptList[count] as! NSValue ).getValue( coor )
+//                re.location = coor.memory
+//                searchResult.append(re)
+//            }
         
         searchTableView.reloadData()
         

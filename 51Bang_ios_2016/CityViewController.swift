@@ -431,8 +431,8 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
      */
     func locationCity(cityName: String) {
         self.cityName = cityName;
-        let indexPath:NSIndexPath = NSIndexPath(forRow: 0, inSection: 0);
-        self.tableview.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None);
+//        let indexPath:NSIndexPath = NSIndexPath(forRow: 0, inSection: 0);
+//        self.tableview.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None);
     }
     
 }
