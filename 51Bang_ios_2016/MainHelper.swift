@@ -900,11 +900,11 @@
     }
     
     //改变任务
-    func gaiBianRenWu(ordernum:NSString,state:NSString,handle:ResponseBlock){
+    func gaiBianRenWu(userid:String,ordernum:NSString,state:NSString,handle:ResponseBlock){
         
         let url = Bang_URL_Header+"UpdataTaskState"
         let param = [
-            
+            "userid":userid,
             "order_num":ordernum,
             "state":state
         ];

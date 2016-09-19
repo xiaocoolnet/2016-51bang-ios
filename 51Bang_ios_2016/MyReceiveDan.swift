@@ -77,7 +77,7 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
-        mainHelper.getMyGetOrder (userid,state: "0,1,2,3,4",handle: {[unowned self] (success, response) in
+        mainHelper.getMyGetOrder (userid,state: "-1,0,1,2,3,4,5",handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     return

@@ -408,8 +408,9 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
         let okAction = UIAlertAction(title: "确定", style: .Default,
                                      handler: { action in
-                                        
-            self.mainHelper.gaiBianRenWu(self.dataSource![btn.tag].order_num!, state: "5", handle: { (success, response) in
+                                        let ud = NSUserDefaults.standardUserDefaults()
+                                        let userid = ud.objectForKey("userid")as! String
+            self.mainHelper.gaiBianRenWu(userid,ordernum: self.dataSource![btn.tag].order_num!, state: "5", handle: { (success, response) in
                 if !success{
                     alert("付款失败请重试", delegate: self)
                     return

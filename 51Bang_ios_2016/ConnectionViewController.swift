@@ -59,9 +59,10 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     
     func button5Action() {
         
-       
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
         if info.state == "2" {
-            mainHelper.gaiBianRenWu(info.order_num!, state: "3", handle: { (success, response) in
+            mainHelper.gaiBianRenWu(userid,ordernum: info.order_num!, state: "3", handle: { (success, response) in
                 if !success{
                      alert("通知失败，请重试", delegate: self)
                     return
@@ -70,7 +71,9 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
                 
             })
         }else if info.state == "3" {
-            mainHelper.gaiBianRenWu(info.order_num!, state: "4", handle: { (success, response) in
+            let ud = NSUserDefaults.standardUserDefaults()
+            let userid = ud.objectForKey("userid")as! String
+            mainHelper.gaiBianRenWu(userid,ordernum: info.order_num!, state: "4", handle: { (success, response) in
                 if !success{
                     alert("通知失败，请重试", delegate: self)
                     return
