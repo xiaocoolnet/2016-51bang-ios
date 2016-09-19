@@ -107,12 +107,15 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         mainHelper.getMyAddress(userid as String) { (success, response) in
+            print(".............")
             if  !success{
+                print("---------------")
                 let alert = UIAlertView.init(title:"提示", message: "数据加载异常或者您还没有地址", delegate: self, cancelButtonTitle: "确定")
                 alert.show()
                 hud1.hide(true)
                 return
             }
+             print("**************")
             self.dataSource = response as? Array<addressInfo> ?? []
             print(self.dataSource?.count)
             hud1.hide(true)

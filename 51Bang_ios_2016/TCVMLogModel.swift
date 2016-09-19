@@ -360,6 +360,7 @@ class TCVMLogModel: NSObject {
                 print(result.status)
                 handle(success: true, response: result.datas)
             }else{
+                handle(success: false, response: result.datas)
                 //                alert(result.data!, delegate: self)
                 print(result.data)
             }
