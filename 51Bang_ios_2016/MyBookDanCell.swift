@@ -27,17 +27,20 @@ class MyBookDanCell: UITableViewCell {
     var order_num = String()
     var DXFDataSource : Array<MyOrderInfo>?
     var tableView = UITableView()
+    var isSigle = Bool()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    init(Data:MyOrderInfo,sign:Int)
+    init(Data:MyOrderInfo,sign:Int,isSigle:Bool)
     {
+        self.isSigle = isSigle
         super.init(style: UITableViewCellStyle.Default
             , reuseIdentifier: "MyBookDanCell")
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.sign = sign
+        
         setLayout(Data)
         self.idStr = Data.id!
         self.order_num = Data.order_num!
@@ -85,7 +88,7 @@ class MyBookDanCell: UITableViewCell {
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }else if Data.state == "2"{
 //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
-            Statue.text = "待消费"
+            Statue.text = "待发货"
             Btn.setTitle("已支付", forState: UIControlState.Normal)
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
@@ -97,11 +100,17 @@ class MyBookDanCell: UITableViewCell {
             Statue.text = "已完成"
             Btn.setTitle("已完成", forState: UIControlState.Normal)
             Btn.setTitleColor(COLOR, forState: UIControlState.Normal)
+        }else if Data.state == "3"{
+            //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
+            Statue.text = "待消费"
+            Btn.setTitle("已支付", forState: UIControlState.Normal)
         }
 
         
 //        }
-        
+        if self.isSigle {
+            Btn.enabled = false
+        }
         
         
         titleLabel.frame = CGRectMake(showImage.frame.origin.x + 105, 5, WIDTH - (showImage.frame.origin.x + 105) - Statue.frame.width - 10, 30)

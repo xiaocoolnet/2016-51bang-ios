@@ -706,9 +706,15 @@
     }
     
     //获取我的订单
-    func getMyOrder(userid:NSString,state:NSString,handle:ResponseBlock){
+    func getMyOrder(userid:NSString,state:NSString,type:Bool,handle:ResponseBlock){
+        var url = String()
+        if !type {
+            url = Bang_URL_Header+"BuyerGetShoppingOrderList"
+        }else{
+            url = Bang_URL_Header+"SellerGetShoppingOrderList"
+        }
         
-        let url = Bang_URL_Header+"BuyerGetShoppingOrderList"
+//        let url = Bang_URL_Header+"BuyerGetShoppingOrderList"
         let param = [
             "userid":userid,
             "state":state
@@ -781,6 +787,7 @@
                 print("---")
                 print(result)
                 print("---")
+                print(result.status)
                 //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
 //                    print(result.datas)
@@ -1085,6 +1092,38 @@
         }
         
         
+    }
+
+    //卷码验证
+    func getVerifyShoppingCode(userid:String,code:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"VerifyShoppingCode"
+        let param1 = [
+            
+            "userid":userid,
+            "code":code
+            
+        ];
+        Alamofire.request(.GET, url, parameters: param1).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = DicModel(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                if(result.status == "success"){
+                
+                    handle(success: true, response: result.datas)
+                    
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
     }
 
 

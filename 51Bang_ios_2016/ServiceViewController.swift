@@ -90,12 +90,28 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
         let userDatas = NSUserDefaults.standardUserDefaults()
         print(userDatas.objectForKey("userid"))
         userDatas.removeObjectForKey("userid")
-        userDatas.removeObjectForKey("name")
-        userDatas.removeObjectForKey("photo")
-        userDatas.removeObjectForKey("sex")
-        userDatas.removeObjectForKey("pwd")
-        userDatas.removeObjectForKey("userphoto")
-        userDatas.removeObjectForKey("ss")
+        if userDatas.objectForKey("name") != nil {
+            userDatas.removeObjectForKey("name")
+        }
+        
+        if userDatas.objectForKey("photo") != nil {
+            userDatas.removeObjectForKey("photo")
+        }
+        if userDatas.objectForKey("sex") != nil {
+            userDatas.removeObjectForKey("sex")
+        }
+        
+        if userDatas.objectForKey("pwd") != nil {
+            userDatas.removeObjectForKey("pwd")
+        }
+         if userDatas.objectForKey("userphoto") != nil {
+           userDatas.removeObjectForKey("userphoto")
+        }
+        
+        if userDatas.objectForKey("ss") != nil {
+            userDatas.removeObjectForKey("ss")
+        }
+        
         
         
         

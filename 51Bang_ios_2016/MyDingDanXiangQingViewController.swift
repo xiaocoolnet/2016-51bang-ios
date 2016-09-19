@@ -20,6 +20,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     let mainHelper = MainHelper()
     var num = 1
     var info = MyOrderInfo()
+    var isSigle = Bool()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.hidden = false
@@ -39,10 +40,11 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         self.createTableView()
         print(self.info.state)
         print(self.info.delivery)
-        if self.info.state! == "2"{
+        if self.info.state! == "2" && !isSigle && self.info.tracking != nil {
             let juanma = UILabel()
-            juanma.frame = CGRectMake(10, 10, WIDTH-20, 50)
-            juanma.text = "您的卷码为"+self.info.order_num!
+            juanma.frame = CGRectMake(0, 10, WIDTH-20, 50)
+            
+            juanma.text = "您的卷码为"+self.info.tracking!
             juanma.textAlignment = NSTextAlignment.Center
             juanma.textColor = COLOR
             juanma.layer.masksToBounds = true
@@ -53,6 +55,10 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
             self.myTableView.tableFooterView = juanma
             
         }
+        
+//        if self.info.state! == "2" && isSigle {
+//            
+//        }
         
         
         if "0" == "2"{
@@ -110,7 +116,10 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         delete.setTitle("取消订单", forState:UIControlState.Normal)
         delete.addTarget(self, action: #selector(self.Cancel), forControlEvents: UIControlEvents.TouchUpInside)
         delete.backgroundColor = UIColor.orangeColor()
-        view.addSubview(delete)
+        if !isSigle {
+            view.addSubview(delete)
+        }
+        
         
         
         let submit = UIButton.init(frame: CGRectMake(WIDTH-100, 0, 100, 50))
@@ -118,7 +127,11 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         submit.addTarget(self, action: #selector(self.goToBuy), forControlEvents: UIControlEvents.TouchUpInside)
         submit.backgroundColor = UIColor.orangeColor()
         view.addSubview(submit)
-        if self.info.state == "1" {
+        if self.info.state == "1" && !isSigle{
+            self.view.addSubview(view)
+        }
+        if self.info.state == "2" && isSigle {
+            submit.setTitle("已发货", forState:UIControlState.Normal)
             self.view.addSubview(view)
         }
         
@@ -445,19 +458,19 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     
     func goToBuy(){
         
-        let textview  = self.myTableView.viewWithTag(10) as!UITextField
-        textview.resignFirstResponder()
-        
-//        let userDufault = NSUserDefaults.standardUserDefaults()
-//        let userid = userDufault.objectForKey("userid") as! String
-//        let phone = userDufault.objectForKey("phone") as! String
-//        let price = String( Float(self.num)*Float(self.info.price!)!)
-//        mainHelper.buyGoods(userid, roomname: self.info.goodsname!, goodsid: self.info.id!, goodnum: String(self.num), mobile: phone, remark:self.remark, money: price,delivery:self.info.delivery!) { (success, response) in
-//            if !success{
-//                alert("订单提交失败", delegate: self)
-//                return
-//            }
-//            print(response!)
+        if self.info.state == "2" && isSigle  {
+            mainHelper.gaiBianDingdan(self.info.order_num!, state: "3", handle: { (success, response) in
+                if !success{
+                    alert("提交失败请重试！", delegate: self)
+                    return
+                }
+                alert("已通知买家！", delegate: self)
+                self.navigationController?.popViewControllerAnimated(true)
+            })
+        }else{
+            let textview  = self.myTableView.viewWithTag(10) as!UITextField
+            textview.resignFirstResponder()
+            
             let vc = PayViewController()
             
             vc.numForGoodS = self.info.order_num!
@@ -466,12 +479,13 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
             print(xiaoji.text!)
             vc.price = ((xiaoji.text)! as NSString).doubleValue
             vc.subject = self.info.goodsname!
-//            vc.body = self.info.description!
+            
             self.navigationController?.pushViewController(vc, animated: true)
-//        }
+        }
         
         
-        //        print(myTableView.height)
+        
+
     }
     
     

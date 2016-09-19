@@ -101,6 +101,7 @@ class MyOrderInfo: JSONJoy {
     var address:String?
     var commentlist:[commentlistInfo]
     var pic:[PicInfos]
+    var tracking:String?
     
     //    var apply:applyModel?
     init(){
@@ -126,6 +127,7 @@ class MyOrderInfo: JSONJoy {
         statusend = decoder["statusend"].string
         delivery = decoder["delivery"].string
         address = decoder["address"].string
+        tracking = decoder["tracking"].string
         commentlist = Array<commentlistInfo>()
         pic = Array<PicInfos>()
         

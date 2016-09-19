@@ -160,9 +160,18 @@ class TaskInfo: JSONJoy {
         idcard = decoder["idcard"].string
         files = decoder["files"].string
         evaluate = decoder["evaluate"].string
+        
 
 
-        apply = decoder["apply"] as? applyModel
+        apply = applyModel()
+        let applyyy : JSONDecoder? = decoder["apply"]
+        
+        apply = applyModel(applyyy!)
+        
+//        if decoder["files"].dictionary != nil {
+////            apply = decoder["files"].dictionary
+//        }
+        
         pic = Array<PicInfos>()
         if decoder["files"].array != nil {
             for childs: JSONDecoder in decoder["files"].array!{

@@ -16,6 +16,7 @@ class applyModel: NSObject {
     var phone:String?
     var name:String?
     var photo:String?
+    var idcard:String?
     override init(){
         
     }
@@ -27,6 +28,7 @@ class applyModel: NSObject {
         phone = decoder["phone"].string
         name = decoder["name"].string
         photo = decoder["photo"].string
+        idcard = decoder["idcard"].string
     }
 
 }

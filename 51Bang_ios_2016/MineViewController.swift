@@ -47,40 +47,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var pwdTextfield = UITextField()
     var phoneTextfield = UITextField()
     override func viewWillAppear(animated: Bool) {
-        self.navigationController?.navigationBar.hidden = true
-        self.tabBarController?.tabBar.hidden = false
-        let ud = NSUserDefaults.standardUserDefaults()
-        if(ud.objectForKey("userid")==nil)
-        {
-            backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
-        }
-        if ud.objectForKey("ss") != nil{
-            if ud.objectForKey("ss") as! String == "no"{
-                self.headerView.renzheng.hidden = true
-            }else{
-                self.headerView.renzheng.hidden = false
-            }
-        }else{
-            self.headerView.renzheng.hidden = true
-        }
+        super.viewWillAppear(true)
         
-//        self.headerView.renzheng.hidden = false
-        Checktoubao()
-        
-        
-        getuserData()
-        print(loginSign)
-        
-    }
-    
-    //    override func viewDidDisappear(animated: Bool) {
-    //        self.tabBarController?.tabBar.hidden = true
-    //    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //检查是否登录过
         
         isShow = false
         //        backView.frame = CGRectMake(0, 64, WIDTH, HEIGHT)
@@ -120,6 +88,47 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
             
         }
+        
+        
+        
+        
+        
+        
+        self.navigationController?.navigationBar.hidden = true
+        self.tabBarController?.tabBar.hidden = false
+//        let ud = NSUserDefaults.standardUserDefaults()
+        if(ud.objectForKey("userid")==nil)
+        {
+            backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        }
+        if ud.objectForKey("ss") != nil{
+            if ud.objectForKey("ss") as! String == "no"{
+                self.headerView.renzheng.hidden = true
+            }else{
+                self.headerView.renzheng.hidden = false
+            }
+        }else{
+            self.headerView.renzheng.hidden = true
+        }
+        
+//        self.headerView.renzheng.hidden = false
+        Checktoubao()
+        
+        
+//        getuserData()
+        print(loginSign)
+        
+    }
+    
+    //    override func viewDidDisappear(animated: Bool) {
+    //        self.tabBarController?.tabBar.hidden = true
+    //    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //检查是否登录过
+        
         
         // Do any additional setup after loading the view.
     }
@@ -397,11 +406,20 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.navigationController?.pushViewController(bao, animated: true)
                 self.hidesBottomBarWhenPushed = false
             case 6:
+                
+                
+                let bookDanVc = MyBookDan()
+                bookDanVc.isNotSigle = true
                 self.hidesBottomBarWhenPushed = true
-//                let bao = Hongbao()
-//                self.navigationController?.pushViewController(bao, animated: true)
-                alert("程序员正在玩命开发中", delegate: self)
+                self.navigationController?.pushViewController(bookDanVc, animated: true)
                 self.hidesBottomBarWhenPushed = false
+
+                
+//                self.hidesBottomBarWhenPushed = true
+////                let bao = Hongbao()
+////                self.navigationController?.pushViewController(bao, animated: true)
+//                alert("程序员正在玩命开发中", delegate: self)
+//                self.hidesBottomBarWhenPushed = false
             default:
                 print("不合法")
             }

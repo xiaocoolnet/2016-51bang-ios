@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class CodeViewController: UIViewController,UITextFieldDelegate {
     
     let textfile = UITextField()
     var userid = NSString()
     var button = UIButton()
+    let mainhelper = MainHelper()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -57,6 +59,19 @@ class CodeViewController: UIViewController,UITextFieldDelegate {
     
     func yanZheng(){
         
+        let user = NSUserDefaults.standardUserDefaults()
+        let userid1 = user.objectForKey("userid") as! String
+        mainhelper.getVerifyShoppingCode(userid1, code: textfile.text!) { (success, response) in
+            if !success{
+                alert("卷码错误！", delegate: self)
+                return
+            }
+            SVProgressHUD.showSuccessWithStatus("卷码验证成功")
+            let vc = MyBookDan()
+            vc.isNotSigle = true
+            vc.sign = 3
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     

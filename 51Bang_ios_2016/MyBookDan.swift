@@ -22,6 +22,7 @@ class BookDanDataModel {
 
 class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     var mTableview = UITableView()
+    var isNotSigle = Bool()
     let topView = UIView()
     let allBtn = UIButton()
     let willPayBtn = UIButton()
@@ -42,6 +43,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     let mainHelper = MainHelper()
     let Btn = UIButton()
     var row = Int()
+    
     let rect = UIApplication.sharedApplication().statusBarFrame
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,8 +98,13 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         self.navigationController?.navigationBar.hidden = false
         self.view.backgroundColor = RGREY
         super.viewDidLoad()
+        if self.isNotSigle{
+            self.title = "收到的订单"
+        }else{
+            self.title = "我的订单"
+        }
        
-        self.title = "我的订单"
+        
         topView.frame = CGRectMake(0, 0, WIDTH, 40)
         self.view.addSubview(topView)
         deView.frame = CGRectMake(0, 35, WIDTH / 4, 5)
@@ -176,7 +183,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func getAllData(){
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "") { (success, response) in
+        mainHelper.getMyOrder(uid, state: "",type:self.isNotSigle) { (success, response) in
             print(response)
             if !success{
                 self.mTableview.mj_header.endRefreshing()
@@ -199,7 +206,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "1") { (success, response) in
+        mainHelper.getMyOrder(uid, state: "1",type:self.isNotSigle) { (success, response) in
             print(response)
             if !success{
                 self.mTableview.mj_header.endRefreshing()
@@ -218,7 +225,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func getDXFData(){
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "2") { (success, response) in
+        mainHelper.getMyOrder(uid, state: "2,3",type:self.isNotSigle) { (success, response) in
             print(response)
             if !success{
                 self.mTableview.mj_header.endRefreshing()
@@ -237,7 +244,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func getDPJData(){
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "4") { (success, response) in
+        mainHelper.getMyOrder(uid, state: "4",type:self.isNotSigle) { (success, response) in
             print(response)
             if !success{
                 self.mTableview.mj_header.endRefreshing()
@@ -383,7 +390,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
 //            print(self.AllDataSource![indexPath.section])
             
             if self.AllDataSource != nil {
-                let cell = MyBookDanCell.init(Data: self.AllDataSource![indexPath.row],sign: sign)
+                let cell = MyBookDanCell.init(Data: self.AllDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
                 cell.targets = self
                 if self.AllDataSource![indexPath.row].state == "1" {
                     cell.Btn.tag = 100 + indexPath.row
@@ -401,7 +408,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             
         }else if sign == 1{
             if self.DFKDataSource != nil {
-                let cell = MyBookDanCell.init(Data: self.DFKDataSource![indexPath.row],sign: sign)
+                let cell = MyBookDanCell.init(Data: self.DFKDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
                 cell.targets = self
                 cell.Btn.tag = indexPath.row+100
                 cell.Btn.addTarget(self, action: #selector(self.payMeony(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -415,7 +422,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }else if sign == 2{
             
              if self.DXFDataSource != nil {
-                let cell = MyBookDanCell.init(Data: self.DXFDataSource![indexPath.row],sign: sign)
+                let cell = MyBookDanCell.init(Data: self.DXFDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
                 cell.targets = self
                 cell.Btn.tag = indexPath.row
 //                cell.Btn.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -429,7 +436,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             
         }else{
             if self.DPJDataSource != nil {
-                let cell = MyBookDanCell.init(Data: self.DPJDataSource![indexPath.row],sign: sign)
+                let cell = MyBookDanCell.init(Data: self.DPJDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
                 cell.targets = self
                 return  cell
                 
@@ -456,6 +463,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         let vc = MyDingDanXiangQingViewController()
         vc.sign = sign
+        vc.isSigle = self.isNotSigle
         if(sign == 0)
         {
             if self.AllDataSource != nil {
