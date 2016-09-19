@@ -232,6 +232,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             rightTableView.removeFromSuperview()
             if indexPath.row == 0{
                 self.type = ""
+                isShow = false
             }else{
                 self.type = self.myDic![indexPath.row - 1].id!
                 dataSource2.removeAllObjects()
@@ -240,6 +241,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         
                         self.dataSource2.addObject(myInfo)
                     }
+                    isShow = false
                     //                self.dataSource = self.dataSource2
                     self.myTableView.reloadData()
                     

@@ -174,6 +174,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         self.view.addGestureRecognizer(swipeLeftGesture)
     }
     func handleRight(){
+        
         if sign == 0 {
             visitedBtnAction()
         }else if sign == 3{
@@ -181,10 +182,8 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         }else if sign == 2{
              weiBtnAction()
         }else{
-            finshBtnAction()
+//            finshBtnAction()
         }
-        
-      
     
     }
     
@@ -197,11 +196,9 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         }else if sign == 3{
             finshBtnAction()
         }else{
-            weiBtnAction()
+//            weiBtnAction()
         }
         
-        
-//        finshBtnAction()
     }
     
     func headerRefresh(){
