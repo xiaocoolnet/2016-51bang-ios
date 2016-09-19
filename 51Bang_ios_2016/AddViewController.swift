@@ -68,6 +68,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     let coverView = UIView()
     var photoArray:NSMutableArray = []
     var collectionV:UICollectionView?
+     let btn = UIButton()
     let photoNameArr = NSMutableArray()
     let shopHelper = ShopHelper()
     var myPhone = NSString()
@@ -141,7 +142,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         mytableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         //        self.view.addSubview(mytextView)
         let bottom = UIView(frame: CGRectMake(0, 0, WIDTH, 120))
-        let btn = UIButton(frame: CGRectMake(15, 30, WIDTH-30, 50))
+        btn.frame = CGRectMake(15, 30, WIDTH-30, 50)
         btn.layer.cornerRadius = 8
         btn.setTitle("发布", forState: .Normal)
         btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
@@ -301,6 +302,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     
     func fabu(){
+        self.btn.enabled = false
         hud1 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud1.animationType = .Zoom
         hud1.labelText = "正在努力加载"
@@ -340,6 +342,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 print("000000000000000000")
                                 
                             }else{
+                                self.btn.enabled = true
                                 let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
                                 hud.mode = MBProgressHUDMode.Text;
                                 hud.labelText = "上传语音失败"
@@ -387,6 +390,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 a = a+1
                                 
                             }else{
+                                self.btn.enabled = true
                                 let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
                                 hud.mode = MBProgressHUDMode.Text;
                                 //                            hud.labelText = "图片上传失败"
@@ -454,7 +458,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 self.navigationController?.popViewControllerAnimated(true)
                 alert("发布成功", delegate: self)
                 
-                
+                self.btn.enabled = true
             }
 
         }else{
@@ -464,7 +468,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 self.navigationController?.popViewControllerAnimated(true)
                 alert("发布成功", delegate: self)
                 
-                
+                self.btn.enabled = true
             }
 
         }
