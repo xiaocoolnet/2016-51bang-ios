@@ -109,6 +109,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myTableView.registerNib(UINib(nibName: "ShopTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         myTableView.rowHeight = WIDTH*80/375
         myTableView.tag = 0
+        myTableView.separatorStyle = .None
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
@@ -231,6 +232,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             rightTableView.removeFromSuperview()
             if indexPath.row == 0{
                 self.type = ""
+                isShow = false
             }else{
                 self.type = self.myDic![indexPath.row - 1].id!
                 dataSource2.removeAllObjects()
@@ -239,6 +241,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         
                         self.dataSource2.addObject(myInfo)
                     }
+                    isShow = false
                     //                self.dataSource = self.dataSource2
                     self.myTableView.reloadData()
                     
