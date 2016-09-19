@@ -458,8 +458,10 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             }
 
         }else{
+            print(type1)
             shopHelper.upLoadTeMaiMessage(userid, type: type1, goodsname:self.mytextView.text!, oprice: oprice.text!, price: price.text!, desc: textView.text, photoArray: self.photoNameArr, unit: "",longitude:myLongitude,latitude:myLatitude,address:address1,delivery:typeLabelStr) { (success, response) in
                 print(response)
+                
                 self.hud1.hide(true)
                 self.navigationController?.popViewControllerAnimated(true)
                 alert("发布成功", delegate: self)
@@ -1012,6 +1014,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let myindexPaths = NSIndexPath.init(forRow: 0, inSection: 0)
             print(valueLabelStr)
             valueLabelStr = array[indexPath.row].name!
+            type1 = array[indexPath.row].id!
             print(valueLabelStr)
             mytableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Middle)
             isLeftTableViewHiden = true
@@ -1021,7 +1024,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             leftTableView.removeFromSuperview()
             rightTableView.removeFromSuperview()
             
-            type1 = array[indexPath.row].id!
+//            type1 = array[indexPath.row].id!
             self.tabBarController?.tabBar.hidden = true
             
         }

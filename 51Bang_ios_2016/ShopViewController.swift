@@ -109,6 +109,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myTableView.registerNib(UINib(nibName: "ShopTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         myTableView.rowHeight = WIDTH*80/375
         myTableView.tag = 0
+        myTableView.separatorStyle = .None
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
