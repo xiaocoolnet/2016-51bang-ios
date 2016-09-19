@@ -189,18 +189,18 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         convenienceTable.frame = CGRectMake(0, 0, WIDTH, HEIGHT - (self.navigationController?.navigationBar.frame.size.height)!)
         convenienceTable.delegate = self
         convenienceTable.dataSource = self
-        
+        convenienceTable.separatorStyle = .None
         //--------------------
         
         convenienceTable.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
-            self.convenienceTable.mj_header.endRefreshing()
+            
         })
         convenienceTable.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
             print("MJ:(上拉加载)")
             self.footerRefresh()
-            self.convenienceTable.mj_footer.endRefreshing()
+            
         })
         //---------------------
         self.view.addSubview(convenienceTable)
@@ -209,12 +209,13 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     func headerRefresh(){
         mainHelper.GetTchdList("1", beginid: "0") { (success, response) in
             if !success {
+                self.convenienceTable.mj_header.endRefreshing()
                 return
             }
             
             self.dataSource2.removeAllObjects()
             self.dataSource = response as? Array<TCHDInfo> ?? []
-            
+            self.convenienceTable.mj_header.endRefreshing()
             for data in self.dataSource!{
                 self.dataSource2.addObject(data)
             }
@@ -234,10 +235,16 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         print(beginmid)
         mainHelper.GetTchdList("1", beginid: beginmid) { (success, response) in
             if !success {
+                self.convenienceTable.mj_footer.endRefreshing()
                 return
             }
             self.dataSource = response as? Array<TCHDInfo> ?? []
+            self.convenienceTable.mj_footer.endRefreshing()
+            if self.dataSource?.count == 0{
+                self.convenienceTable.mj_footer.endRefreshingWithNoMoreData()
+            }
             for data in self.dataSource!{
+                
                 self.dataSource2.addObject(data)
             }
             
