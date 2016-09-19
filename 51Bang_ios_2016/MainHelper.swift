@@ -1039,6 +1039,7 @@
                 print(result.data)
                 handle(success: true, response: result.datas)
             }else{
+//                alert(error, delegate: self)
                 handle(success: false, response: result.datas)
                 print(result.data)
                 
