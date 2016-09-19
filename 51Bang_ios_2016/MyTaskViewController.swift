@@ -298,7 +298,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
                     let cell = tableView.dequeueReusableCellWithIdentifier("cell")
                     return cell!
                 }else{
-                    info = self.dataSource![(self.dataSource?.count)!-1-indexPath.row]
+                    info = self.dataSource![indexPath.row]
                     self.myDataSource = self.dataSource
                     print(info)
                 }
@@ -311,7 +311,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
                     let cell = tableView.dequeueReusableCellWithIdentifier("cell")
                     return cell!
                 }else{
-                    info = self.dataSource1![(self.dataSource1?.count)!-1-indexPath.row]
+                    info = self.dataSource1![indexPath.row]
                     self.myDataSource = self.dataSource1
                     print(info)
                 }
@@ -324,7 +324,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
                     return cell!
                 }else{
                     print(self.dataSource2?.count)
-                    info = self.dataSource2![(self.dataSource2?.count)!-1-indexPath.row]
+                    info = self.dataSource2![indexPath.row]
                     self.myDataSource = self.dataSource2
                     print(info)
                 }
@@ -333,8 +333,8 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         
             let cell = tableView.dequeueReusableCellWithIdentifier("MyOrderTableViewCell")as! MyOrderTableViewCell
         cell.shangmenMap.addTarget(self, action: #selector(self.dingwei(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        cell.shangmenMap.tag = (self.myDataSource?.count)!-1-indexPath.row
-        cell.fuwuMap.tag = (self.myDataSource?.count)!-1-indexPath.row+100
+        cell.shangmenMap.tag = indexPath.row
+        cell.fuwuMap.tag = indexPath.row+100
 
         cell.fuwuMap.addTarget(self, action: #selector(self.nextView1(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             cell.selectionStyle = .None

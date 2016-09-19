@@ -94,6 +94,7 @@ class SkillSubitemViewController: UIViewController {
             let line = UILabel()
             let titLab = UILabel()
             selectButton = UIButton()
+            selectButton?.tag = i
             let verticalLine = UILabel()
             let bottomline = UILabel()
             line.frame = CGRectMake(0, 0, WIDTH, 1)
@@ -171,6 +172,7 @@ class SkillSubitemViewController: UIViewController {
     
     
     func click(btn:UIButton){
+        print(btn.tag)
         
         if selectArr.count == 0{
             btn.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)

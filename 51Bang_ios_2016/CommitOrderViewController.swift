@@ -11,6 +11,9 @@ import MBProgressHUD
 
 class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIPickerViewDelegate, UIPickerViewDataSource,UITextFieldDelegate,UITextViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,BMKGeoCodeSearchDelegate,skillProrocol,TZImagePickerControllerDelegate,AVAudioRecorderDelegate {
     
+    var infosss = Array<ClistInfo>()
+    
+    
     var timer1:NSTimer!
     var timer2:NSTimer!
     var deletebutton = UIButton()
@@ -94,6 +97,9 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     var distanceLabel = UILabel()
     var skillNum = Int()
     var selectedIndex = Int()
+    
+    
+    
     var keyBordHeight:CGFloat = 0
     var willShowLocationCell = LocationTableViewCell()
     var willShowLocationCell1 = LocationTableViewCell()
@@ -110,6 +116,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     static var ReturnTagForView = 0
     var firstTag = 0
     var secondTag = 0
+    let textView = PlaceholderTextView()
     
     
     override func viewDidLoad() {
@@ -249,6 +256,8 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     func textViewDidEndEditing(textView: UITextView) {
+        self.taskTitle = textView.text!
+        
         UIView.animateWithDuration(0.4, animations: {
             self.myTableView.frame.origin.y = 0
             print("编辑完成")
@@ -585,6 +594,9 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         print(self.longitude)
         print(self.photoNameArr)
         print(self.sound)
+        print(self.taskTitle)
+        print(self.taskDescription)
+        print(self.type)
         
         
         mainHelper.upLoadOrder(userid, title: self.taskTitle, description: self.taskDescription, address:address , longitude: longitude, latitude: latitude, saddress:saddress,slongitude: slongitude, slatitude: slatitude, expirydate: expirydate, price: price, type: type, sound: self.sound, picurl: self.photoNameArr,soundtime:String(self.countTime), handle: { (success, response) in
@@ -646,7 +658,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             headerView.addSubview(btn)
             
         }
-        let textView = PlaceholderTextView.init(frame: CGRectMake(0, WIDTH*165/375, WIDTH, 180))
+        textView.frame = CGRectMake(0, WIDTH*165/375, WIDTH, 180)
         textView.tag = 45
         textView.backgroundColor = UIColor.whiteColor()
         textView.delegate = self
@@ -918,10 +930,10 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 
         let vc = SkillSubitemViewController()
         let model = self.dataSource[btn.tag-500]
-        let info:NSArray = model.clist
+        infosss = model.clist
         print(model.name)
         vc.mytitle = model.name
-        vc.info = info as! Array<ClistInfo>
+        vc.info = infosss
         vc.index = btn.tag-500
         vc.delegate = self
         self.selectedIndex = btn.tag
@@ -1059,7 +1071,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("photo", forIndexPath: indexPath)as! PhotoCollectionViewCell
         //        print(self.photoArray[indexPath.item] as? UIImage)
         cell.button.tag = indexPath.item
-        cell.button.setBackgroundImage(self.photoArray[indexPath.item] as! UIImage, forState: UIControlState.Normal)
+        cell.button.setBackgroundImage(self.photoArray[indexPath.item] as? UIImage, forState: UIControlState.Normal)
         cell.button.addTarget(self, action: #selector(self.lookPhotos(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         let button = UIButton.init(frame: CGRectMake(cell.frame.size.width-18, 0, 20, 20))
@@ -1439,8 +1451,9 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     func textFieldEditChanged(textField:UITextField)
     
     {
-        self.taskTitle = textField.text!
-        self.taskDescription = textField.text!
+        
+//        self.taskTitle = textField.text!
+//        self.taskDescription = textField.text!
         //print("textfield text %@",textField.text);
         if textField.tag == 55{
         
@@ -1458,13 +1471,15 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 
     
     
-    
-   
+//    func textViewDidChange(textView: UITextView) {
+//        <#code#>
+//    }
+//   
     
     func textFieldDidEndEditing(textField: UITextField) {
 //        self.taskTitle = textField.text!
 //        self.taskDescription = textField.text!
-//        print(textField.text);
+        print(textField.text);
         
         
         
@@ -1708,9 +1723,17 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         }else if btn.tag == 202{
             let datestr = formatter.stringFromDate(datePicker.date)
 //            datePicker.minimumDate = datestr
-        
+            
+//            print(datePicker.date)
+            
+            let formatter2 = NSDateFormatter()
+            formatter2.dateFormat = "yyyyMMddHHmm"
+            let dateStr = formatter2.stringFromDate(datePicker.date)
+            let date222 = formatter2.dateFromString(dateStr)
+            let dates = date222!.timeIntervalSince1970
             self.time = datestr
-            self.expirydate = datestr
+            self.expirydate = String(dates)
+            print(self.expirydate)
             let button = self.view.viewWithTag(12)as! UIButton
             button.setTitle(datestr, forState: UIControlState.Normal)
             //            textField.text = datestr
@@ -1832,7 +1855,16 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         if arr.count != 0 {
             print(self.selectedIndex)
             let button = self.view.viewWithTag(self.selectedIndex)as! UIButton
-            self.type = self.dataSource[self.selectedIndex-500].name!
+             var strrr = String()
+            for str in arr {
+               
+                strrr = strrr + self.infosss[(str  as! UIButton).tag].name!
+                
+            }
+            self.taskDescription = strrr
+            print(strrr)
+            self.type = self.dataSource[self.selectedIndex-500].id!
+            print(self.type )
 //            self.type = (button.titleLabel?.text)!
             button.backgroundColor = COLOR
             let label =  button.subviews[0]as! UILabel

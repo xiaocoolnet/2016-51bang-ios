@@ -263,7 +263,8 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         
     
     func qiangdan(){
-    
+        
+        btn.enabled = false
         print("抢单")
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
@@ -290,14 +291,18 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         mainHelper.qiangDan(userid, taskid: taskInfo.id!, longitude: str3, latitude: str6) { (success, response) in
             print(response)
             if !success {
+                alert("抢单失败！", delegate: self)
+                self.btn.enabled = true
                 return
             }
-            self.mainHelper.gaiBianRenWu(self.taskInfo.order_num! as String, state: "2") { (success, response) in
-                if !success {
-                    return
-                }
-                
-            }
+//            let ud = NSUserDefaults.standardUserDefaults()
+//            let userid = ud.objectForKey("userid")as! String
+//            self.mainHelper.gaiBianRenWu(userid,ordernum: self.taskInfo.order_num! as String, state: "2") { (success, response) in
+//                if !success {
+//                    return
+//                }
+//                
+//            }
             
             
             let vc = MyTaskViewController()

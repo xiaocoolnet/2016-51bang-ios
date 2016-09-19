@@ -368,27 +368,31 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                 citynameVC.isDingwei = true
                 citynameVC.myinfo = self.dict.allValues[indexPath.row].allValues[0] as! NSDictionary
                 
-                self.navigationController?.pushViewController(citynameVC, animated: true)
+                citynameVC.isNotDingwei = self.isNotDingwei
+                navigationController?.pushViewController(citynameVC, animated: true)
                 return
             }
             
             
+        }else{
+            if(self.delegate != nil ){
+                var cityName:String = "";
+                if(table != self.tableview){
+                    cityName = self.searchCityArray.objectAtIndex(indexPath.row) as! String;
+                    self.selectCity(cityName);
+                }else{
+                    let citynameVC = CityNameViewController()
+                    citynameVC.title = "城市选择"
+                    citynameVC.isNotDingwei = self.isNotDingwei
+                    citynameVC.myinfo = self.dict.allValues[indexPath.row].allValues[0] as! NSDictionary
+                    
+                    self.navigationController?.pushViewController(citynameVC, animated: true)
+                }
+                //
+            }
         }
         
-        if(self.delegate != nil ){
-            var cityName:String = "";
-            if(table != self.tableview){
-                cityName = self.searchCityArray.objectAtIndex(indexPath.row) as! String;
-                self.selectCity(cityName);
-            }else{
-                let citynameVC = CityNameViewController()
-                citynameVC.title = "城市选择"
-                citynameVC.myinfo = self.dict.allValues[indexPath.row].allValues[0] as! NSDictionary
-                
-                    self.navigationController?.pushViewController(citynameVC, animated: true)
-            }
-//
-        }
+        
     }
     
     

@@ -200,7 +200,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         cell.icon.layer.cornerRadius = cell.icon.frame.size.height/2
         cell.icon.clipsToBounds = true
         cell.snatchButton.addTarget(self, action: #selector(self.qiangdan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        cell.snatchButton.tag = indexPath.row
+        cell.snatchButton.tag = indexPath.row+10000
         print(cell.location.text!)
 //        pushMapButton.removeFromSuperview()
         
@@ -390,6 +390,8 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
     
     func qiangdan(sender:UIButton){
         
+        (self.myTableView.viewWithTag(sender.tag)as! UIButton).enabled = false
+        
         print("抢单")
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
@@ -414,35 +416,40 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         print(str6)
         
         
-        mainHelper.qiangDan(userid, taskid: dataSource![sender.tag].id!, longitude: str3, latitude: str6) { (success, response) in
+        mainHelper.qiangDan(userid, taskid: dataSource![sender.tag-10000].id!, longitude: str3, latitude: str6) { (success, response) in
             print(response)
             if !success {
+                alert("抢单失败！", delegate: self)
                 return
             }
+//            let ud = NSUserDefaults.standardUserDefaults()
+//            let userid = ud.objectForKey("userid")as! String
+//            self.mainHelper.gaiBianRenWu(userid,ordernum: self.dataSource![sender.tag-10000].order_num! as String, state: "2") { (success, response) in
+//                if !success {
+//                    alert("提交数据出错", delegate: self)
+//                    return
+//                }
             
-            self.mainHelper.gaiBianRenWu(self.dataSource![sender.tag].order_num! as String, state: "2") { (success, response) in
-                if !success {
-                    return
-                }
-//                let vc = MyTaskViewController()
-//                self.navigationController?.pushViewController(vc, animated: true)
-            }
+//            }
 
+//            let vc = MyTaskViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
             let vc = MyTaskViewController()
             self.navigationController?.pushViewController(vc, animated: true)
             
-            
         }
 
-        
-        mainHelper.gaiBianRenWu(dataSource![sender.tag].order_num! as String, state: "2") { (success, response) in
-            if !success {
-                return
-            }
-            let vc = MyTaskViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
+//        let ud = NSUserDefaults.standardUserDefaults()
+//        let userid = ud.objectForKey("userid")as! String
+
+//        mainHelper.gaiBianRenWu(userid,ordernum: dataSource![sender.tag].order_num! as String, state: "2") { (success, response) in
+//            if !success {
+//                return
+//            }
+//            let vc = MyTaskViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
+//        
 //        mainHelper.qiangDan(userid, taskid: dataSource![sender.tag].id!, longitude: str3, latitude: str6) { (success, response) in
 //            print(response)
 //            if !success {

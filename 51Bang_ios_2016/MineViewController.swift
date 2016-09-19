@@ -66,6 +66,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
 //        self.headerView.renzheng.hidden = false
         Checktoubao()
+        
+        
+        getuserData()
         print(loginSign)
         
     }
@@ -531,10 +534,10 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(self.pwd, forKey: "pwd")
                     print(userInfo.photo)
                     print(userInfo.sex)
-                    if userInfo.photo != "" {
+                    if userInfo.photo != "" && userInfo.photo != nil{
                         ud.setObject(userInfo.photo, forKey: "photo")
                     }
-                    if userInfo.sex != ""{
+                    if userInfo.sex != "" && userInfo.sex != nil{
                         ud.setObject(userInfo.sex, forKey: "sex")
                     }
                     
@@ -696,18 +699,30 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
             //imview.sd_setImageWithURL(NSURL(string:"http://bang.xiaocool.net./data/product_img/4.JPG"), placeholderImage: nil)
             
-            imview.setImageWithURL(NSURL(string: photoUrl), completed: {
+            imview.sd_setImageWithURL(NSURL(string: photoUrl), completed: {
                 
                 void in
+                
                 if(imview.image != nil)
                 {
                     let imageData = UIImageJPEGRepresentation(imview.image!, 1)
+//                    print(imageData)
                     userData.setObject(imageData, forKey: "userphoto")
-                    print(imageData)
+//                    print(imageData)
                     userData.synchronize()
                     print("图片下载成功")
                     print(self.image)
                     self.image = imview.image!
+                    self.headerView.iconBtn.setImage(self.image, forState: UIControlState.Normal)
+                    self.headerView.iconBtn.setImage(self.image, forState: UIControlState.Selected)
+                    self.headerView.iconBtn.layer.cornerRadius = 55 / 2
+                    self.headerView.iconBtn.layer.masksToBounds = true
+                }else{
+                    
+                    let imageData = UIImageJPEGRepresentation(UIImage.init(named: "ic_moren-da")!, 1)
+                    userData.setObject(imageData, forKey: "userphoto")
+                    userData.synchronize()
+                    self.image = UIImage.init(named: "ic_moren-da")!
                     self.headerView.iconBtn.setImage(self.image, forState: UIControlState.Normal)
                     self.headerView.iconBtn.setImage(self.image, forState: UIControlState.Selected)
                     self.headerView.iconBtn.layer.cornerRadius = 55 / 2

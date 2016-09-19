@@ -18,6 +18,7 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
     var mycityStr = String()
     var istwo = Bool()
     var isDingwei = Bool()
+    var isNotDingwei = Bool()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,13 +55,14 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
             myVc.istwo = true
             myVc.isDingwei = true
             myVc.title = "县区选择"
+            myVc.isNotDingwei = self.isNotDingwei
             myVc.mycityStr = self.mydataSource[indexPath.row] as! String
             myVc.mydataSource = self.mydataSourcequ[indexPath.row] as! NSMutableArray
             self.navigationController?.pushViewController(myVc, animated: true)
         }else{
 //           let mainVC =  MainViewController()
 //            print(self.mycityStr)
-            if isDingwei {
+            if isDingwei && self.isNotDingwei{
                 let cityStr = self.mycityStr+(self.mydataSource[indexPath.row] as! String)
 //                let dic = ["name":cityStr];
                 let dic = ["cityName":cityStr]
