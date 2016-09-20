@@ -37,7 +37,7 @@ class RushHelper: NSObject {
      }
     
     //身份认证
-    func identityAffirm(userid:String,city:String,realname:String,idcard:String,contactperson:String,contactphone:String,positive_pic:String,opposite_pic:String,driver_pic:String,handle:ResponseBlock){
+    func identityAffirm(userid:String,city:String,realname:String,idcard:String,contactperson:String,contactphone:String,positive_pic:String,opposite_pic:String,driver_pic:String,types:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"Authentication"
         let param = [
             "userid":userid,
@@ -48,7 +48,8 @@ class RushHelper: NSObject {
             "contactphone":contactphone,
             "positive_pic":positive_pic,
             "opposite_pic":opposite_pic,
-            "driver_pic":driver_pic
+            "driver_pic":driver_pic,
+            "type":types
         ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)

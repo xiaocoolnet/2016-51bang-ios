@@ -93,7 +93,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         
         
-        
+        pwdTextfield.secureTextEntry = true
+//        pwdTextfield.keyboardType = 
         self.navigationController?.navigationBar.hidden = true
         self.tabBarController?.tabBar.hidden = false
 //        let ud = NSUserDefaults.standardUserDefaults()
@@ -349,6 +350,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 cell.selectionStyle = .None
                 cell.pwd.borderStyle = .None
                 pwdTextfield = cell.pwd
+                cell.pwd.secureTextEntry = true
                 
                 return cell
             }

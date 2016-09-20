@@ -11,6 +11,7 @@ import UIKit
 class ConnectionViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     var info = TaskInfo()
+    let button5 = UIButton()
     let mainHelper = MainHelper()
     var sign = Int()
     let myTableView = UITableView()
@@ -30,7 +31,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         button4.backgroundColor = UIColor.orangeColor()
         button4.addTarget(self, action: #selector(self.callPhone), forControlEvents: UIControlEvents.TouchUpInside)
         button4.layer.cornerRadius = 10
-        let button5 = UIButton.init(frame: CGRectMake(WIDTH/2+10, HEIGHT-150, WIDTH/2-20, 50))
+        button5.frame = CGRectMake(WIDTH/2+10, HEIGHT-150, WIDTH/2-20, 50)
         if info.state == "2" {
             button5.setTitle("已上门", forState: UIControlState.Normal)
             button5.backgroundColor = COLOR
@@ -58,13 +59,14 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func button5Action() {
-        
+        button5.enabled = false
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         if info.state == "2" {
             mainHelper.gaiBianRenWu(userid,ordernum: info.order_num!, state: "3", handle: { (success, response) in
                 if !success{
                      alert("通知失败，请重试", delegate: self)
+                    self.button5.enabled = true
                     return
                 }
                  alert("已通知对方,请等待对方确认", delegate: self)
@@ -75,6 +77,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
             let userid = ud.objectForKey("userid")as! String
             mainHelper.gaiBianRenWu(userid,ordernum: info.order_num!, state: "4", handle: { (success, response) in
                 if !success{
+                    self.button5.enabled = true
                     alert("通知失败，请重试", delegate: self)
                     return
                 }

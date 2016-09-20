@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -422,11 +423,17 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func backpayForweixin(notification: NSNotification)  {
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        //        hud.mode = .Text
+        hud.labelText = "正在努力加载"
+        
         if isRenwu == true {
             self.mainhelper.upALPState(numForGoodS, state: "2", type: "1", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
+                hud.hide(true)
                 let vc = WoBangPageViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -435,6 +442,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 if success{
                     print("成功")
                 }
+                hud.hide(true)
                 let vc = MyBookDan()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -444,12 +452,16 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func nextView(notification: NSNotification){
-        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        //        hud.mode = .Text
+        hud.labelText = "正在努力加载"
         if isRenwu == true {
             self.mainhelper.upALPState(numForGoodS, state: "1", type: "1", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
+                hud.hide(true)
                 let vc = WoBangPageViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -458,6 +470,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 if success{
                     print("成功")
                 }
+                hud.hide(true)
                 let vc = MyBookDan()
                 self.navigationController?.pushViewController(vc, animated: true)
             })

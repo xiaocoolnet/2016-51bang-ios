@@ -44,6 +44,9 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         }else {
             btn.hidden = false
         }
+        if self.taskInfo.state != "1" {
+            btn.hidden = true
+        }
 
 //        btn.addTarget(self, action: #selector(self.nextToView), forControlEvent
         let view = UIView()

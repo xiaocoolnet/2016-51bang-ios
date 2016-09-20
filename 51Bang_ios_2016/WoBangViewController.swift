@@ -37,7 +37,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         self.title = "抢单"
         self.createRightItemWithTitle("任务(0)")
 //        self.createTableView()
-        self.GetData()
+//        self.GetData()
 
 //        self.view.backgroundColor = UIColor.redColor()
 //        self.createLeftItemWithTitle("")
@@ -199,7 +199,14 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         cell.selectionStyle = .None
         cell.icon.layer.cornerRadius = cell.icon.frame.size.height/2
         cell.icon.clipsToBounds = true
-        cell.snatchButton.addTarget(self, action: #selector(self.qiangdan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        if self.dataSource![indexPath.row].state == "1" {
+            cell.snatchButton.addTarget(self, action: #selector(self.qiangdan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        }else{
+            cell.snatchButton.setTitle("已被抢", forState: UIControlState.Normal)
+            cell.snatchButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+            cell.snatchButton.enabled = false
+        }
+        
         cell.snatchButton.tag = indexPath.row+10000
         print(cell.location.text!)
 //        pushMapButton.removeFromSuperview()

@@ -25,18 +25,20 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
     var sign = Int()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        self.createTableView()
         self.myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
             
         })
+        self.headerRefresh()
         self.tabBarController?.tabBar.hidden = true
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.createTableView()
+        
         sign = 0
 //        label.frame = CGRectMake(WIDTH/3, 50, WIDTH/3, 2)
         label.backgroundColor = COLOR
@@ -538,8 +540,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         let vc = ConnectionViewController()
        
-        vc.info = self.myDataSource![(self.myDataSource?.count)!-1-indexPath.row
-]
+        vc.info = self.myDataSource![indexPath.row]
         vc.sign = sign
         self.navigationController?.pushViewController(vc, animated: true)
         

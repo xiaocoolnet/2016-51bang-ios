@@ -9,6 +9,9 @@
 @property (nonatomic, strong) NSMutableArray *selectedArray;
 @property (nonatomic, strong) NSMutableArray *cityArray;
 @property (nonatomic, strong) NSMutableArray *areaArray;
+@property (nonatomic, assign) NSInteger row1;
+@property (nonatomic, assign) NSInteger row2;
+@property (nonatomic, assign) NSInteger row3;
 
 @end
 
@@ -25,6 +28,7 @@
 {
     [super layoutSubviews];
     if (self.areaArray.count != 0) {
+        NSLog(@"%ld,%ld,%ld",(long)self.row1,(long)self.row2,(long)self.row3);
         self.selectString = [NSString stringWithFormat:@"%@-%@-%@",self.provincesArray[0],self.cityArray[0],self.areaArray[0]];
     } else {
         self.selectString = [NSString stringWithFormat:@"%@-%@",self.provincesArray[0],self.cityArray[0]];
@@ -60,14 +64,19 @@
             [self.cityArray addObject:obj[@"city"]];
         }];
         self.areaArray = [NSMutableArray arrayWithArray:[self.selectedArray firstObject][@"areas"]];
+        NSLog(@"%@",self.areaArray);
         [pickerView reloadComponent:1];
         [pickerView reloadComponent:2];
+        self.row1 = row;
+        NSLog(@"%ld",(long)self.row1);
         [pickerView selectRow:0 inComponent:1 animated:YES];
         [pickerView selectRow:0 inComponent:2 animated:YES];
     }else if (component == 1) {
         if (self.selectedArray.count == 0) {
             self.selectedArray = [self.dataArray firstObject][@"cities"];
         }
+        self.row2 = row;
+        NSLog(@"%ld",(long)self.row2);
         self.areaArray = [NSMutableArray arrayWithArray:[self.selectedArray objectAtIndex:row][@"areas"]];
         [pickerView reloadComponent:2];
         [pickerView selectRow:0 inComponent:2 animated:YES];
@@ -76,11 +85,24 @@
         NSInteger index1 = [_pickerView selectedRowInComponent:1];
         NSInteger index2 = [_pickerView selectedRowInComponent:2];
         NSLog(@"%lu",(unsigned long)self.areaArray.count);
+        self.row3 = row;
+        NSLog(@"%ld",(long)self.row3);
         if (self.areaArray.count != 0) {
             self.selectString = [NSString stringWithFormat:@"%@-%@-%@",self.provincesArray[index],self.cityArray[index1],self.areaArray[index2]];
         } else {
             self.selectString = [NSString stringWithFormat:@"%@-%@",self.provincesArray[index],self.cityArray[index1]];
         }
+    }
+    NSInteger index = [_pickerView selectedRowInComponent:0];
+    NSInteger index1 = [_pickerView selectedRowInComponent:1];
+    NSInteger index2 = [_pickerView selectedRowInComponent:2];
+    NSLog(@"%lu",(unsigned long)self.areaArray.count);
+    self.row3 = row;
+    NSLog(@"%ld",(long)self.row3);
+    if (self.areaArray.count != 0) {
+        self.selectString = [NSString stringWithFormat:@"%@-%@-%@",self.provincesArray[index],self.cityArray[index1],self.areaArray[index2]];
+    } else {
+        self.selectString = [NSString stringWithFormat:@"%@-%@",self.provincesArray[index],self.cityArray[index1]];
     }
    
 

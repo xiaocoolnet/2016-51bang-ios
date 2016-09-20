@@ -84,7 +84,7 @@ class MyBookDanCell: UITableViewCell {
             
         }else if Data.state == "1"{
             Statue.text = "待付款"
-            Btn.setTitle("付款", forState: UIControlState.Normal)
+            Btn.setTitle("待付款", forState: UIControlState.Normal)
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }else if Data.state == "2"{
 //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
