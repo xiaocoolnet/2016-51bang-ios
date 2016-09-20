@@ -75,8 +75,13 @@ class OrderTableViewCell: UITableViewCell {
         
         if info.expirydate != "" || info.expirydate != nil{
             let str = timeStampToString(info.expirydate!)
-            self.time.text = str
+//            self.time.text = str
             self.desc.text = str+"前有效"
+        }
+        if info.time != "" || info.time != nil{
+            let str = timeStampToString(info.time!)
+            self.time.text = str
+//            self.desc.text = str+"前有效"
         }
 //        if info.photo != "" || info.photo != nil{
 //            print(info.photo!)
