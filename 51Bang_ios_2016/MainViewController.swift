@@ -14,6 +14,8 @@ import CoreLocation
 var address:String  = ""
 class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCodeSearchDelegate,BMKLocationServiceDelegate,BMKMapViewDelegate{
     
+    var dataSource2 : Array<chatInfo>?
+    
     let mainHelper = MainHelper()
     var city = String()
     var dingWeiStr = String()
@@ -22,6 +24,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     let backView = UIView()
     let backMHView = UIView()
     var isDingwei = Bool()
+    let mainhelper = MainHelper()
     static var locationForUser = CLLocation.init()
     @IBOutlet weak var scrollView: UIScrollView!
     var cityController:CityViewController!
@@ -97,6 +100,16 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 
         //接受通知
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)
+        
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newTask), name:"newTasksss", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newMessage(_:)), name:"newMessage", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.sendTaskType(_:)), name:"sendTaskType", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.acceptTaskType(_:)), name:"acceptTaskType", object: nil)
+        
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.buyOrderType(_:)), name:"buyOrderType", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.businessOrderType(_:)), name:"businessOrderType", object: nil)
+        
         locationService = BMKLocationService()
         locationService.delegate = self
         locationService.startUserLocationService()
@@ -120,7 +133,345 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 //        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    func newTask(){
+//        self.GetData()
+        
+        if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: "您附近有新订单，是否查看？", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            let vc = WoBangPageViewController()
+                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            
+                                            
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }else{
+            let vc = WoBangPageViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+//            self.window.rootViewController = vc
+        }
+        
+        
+    }
+    func newMessage(notification:NSNotification){
+        let ids = notification.object?.valueForKey("name") as? String
+        
+        let vc = ChetViewController()
+        if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: "您有新的留言，是否查看？", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            let ud = NSUserDefaults.standardUserDefaults()
+                                            let userid = ud.objectForKey("userid")as! String
+                                            
+                                            self.mainhelper.getChatMessage(userid, receive_uid: ids!) { (success, response) in
+                                                
+                                                if !success {
+                                                    alert("加载错误", delegate: self)
+                                                    return
+                                                }
+                                                let dat = NSMutableArray()
+                                                self.dataSource2 = response as? Array<chatInfo> ?? []
+                                                print(self.dataSource2)
+                                                
+                                                for num in 0...self.dataSource2!.count-1{
+                                                    let dic = NSMutableDictionary()
+                                                    dic.setObject(self.dataSource2![num].id!, forKey: "id")
+                                                    dic.setObject(self.dataSource2![num].send_uid!, forKey: "send_uid")
+                                                    dic.setObject(self.dataSource2![num].receive_uid!, forKey: "receive_uid")
+                                                    dic.setObject(self.dataSource2![num].content!, forKey: "content")
+                                                    dic.setObject(self.dataSource2![num].status!, forKey: "status")
+                                                    dic.setObject(self.dataSource2![num].create_time!, forKey: "create_time")
+                                                    if self.dataSource2![num].send_face != nil{
+                                                        dic.setObject(self.dataSource2![num].send_face!, forKey: "send_face")
+                                                    }
+                                                    
+                                                    if self.dataSource2![num].send_nickname != nil{
+                                                        dic.setObject(self.dataSource2![num].send_nickname!, forKey: "send_nickname")
+                                                    }
+                                                    
+                                                    if self.dataSource2![num].receive_face != nil{
+                                                        dic.setObject(self.dataSource2![num].receive_face!, forKey: "receive_face")
+                                                    }
+                                                    
+                                                    if self.dataSource2![num].receive_nickname != nil{
+                                                        dic.setObject(self.dataSource2![num].receive_nickname!, forKey: "receive_nickname")
+                                                    }
+                                                    
+                                                    
+                                                    dat.addObject(dic)
+                                                    
+                                                    //                vc.datasource2.addObject(dic)
+                                                    
+                                                }
+                                                
+                                                print(dat)
+                                                vc.datasource2 = NSArray.init(array: dat) as Array
+                                                vc.titleTop = self.dataSource2![0].receive_nickname!
+                                                
+                                                self.navigationController?.pushViewController(vc, animated: true)
+                                                
+                                            }
 
+                                            
+                                            
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }else{
+            
+            let ud = NSUserDefaults.standardUserDefaults()
+            let userid = ud.objectForKey("userid")as! String
+            
+            mainhelper.getChatMessage(userid, receive_uid: ids!) { (success, response) in
+                
+                if !success {
+                    alert("加载错误", delegate: self)
+                    return
+                }
+                let dat = NSMutableArray()
+                self.dataSource2 = response as? Array<chatInfo> ?? []
+                print(self.dataSource2)
+                
+                for num in 0...self.dataSource2!.count-1{
+                    let dic = NSMutableDictionary()
+                    dic.setObject(self.dataSource2![num].id!, forKey: "id")
+                    dic.setObject(self.dataSource2![num].send_uid!, forKey: "send_uid")
+                    dic.setObject(self.dataSource2![num].receive_uid!, forKey: "receive_uid")
+                    dic.setObject(self.dataSource2![num].content!, forKey: "content")
+                    dic.setObject(self.dataSource2![num].status!, forKey: "status")
+                    dic.setObject(self.dataSource2![num].create_time!, forKey: "create_time")
+                    if self.dataSource2![num].send_face != nil{
+                        dic.setObject(self.dataSource2![num].send_face!, forKey: "send_face")
+                    }
+                    
+                    if self.dataSource2![num].send_nickname != nil{
+                        dic.setObject(self.dataSource2![num].send_nickname!, forKey: "send_nickname")
+                    }
+                    
+                    if self.dataSource2![num].receive_face != nil{
+                        dic.setObject(self.dataSource2![num].receive_face!, forKey: "receive_face")
+                    }
+                    
+                    if self.dataSource2![num].receive_nickname != nil{
+                        dic.setObject(self.dataSource2![num].receive_nickname!, forKey: "receive_nickname")
+                    }
+                    
+                    
+                    dat.addObject(dic)
+                    
+                    //                vc.datasource2.addObject(dic)
+                    
+                }
+                
+                print(dat)
+                vc.datasource2 = NSArray.init(array: dat) as Array
+                vc.titleTop = self.dataSource2![0].receive_nickname!
+                //            if self.dataSource[indexPath.row].other_face! != ""{
+                //            let photoUrl:String = Bang_Open_Header+"uploads/images/"+self.dataSource[indexPath.row].my_face!
+                ////                let url = NSURL(string: photoUrl)
+                //                vc.urlphoto = NSString.init(string: photoUrl) as String
+                //                print(vc.urlphoto)
+                //            }
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+            }
+            
+
+        }
+    }
+    
+
+    func sendTaskType(notification:NSNotification){
+        let ids = notification.object?.valueForKey("name") as? String
+        let vc = MyFaDan()
+        var warningStr = String()
+        
+        if ids == "1" {
+            warningStr = "您的订单已被抢，是否查看？"
+            vc.sign = 2
+            
+        }else if ids == "2"{
+            warningStr = "服务者已上门，是否查看？"
+            vc.sign = 3
+        }else if ids == "3"{
+            warningStr = "服务者完成工作申请付款，是否查看？"
+            vc.sign = 3
+        }else if ids == "4"{
+            warningStr = "服务者评价您的发单，是否查看？"
+            vc.sign = 4
+        }
+        if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: warningStr, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            
+                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            
+                                            
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            delegate.window?.rootViewController!.presentViewController(alertController, animated: true, completion: nil)
+//            
+        }else{
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    
+    func acceptTaskType(notification:NSNotification){
+        let ids = notification.object?.valueForKey("name") as? String
+        let vc = MyReceiveDan()
+        var warningStr = String()
+        
+        if ids == "1" {
+            warningStr = "您的抢单已被接受，是否查看？"
+//            vc.sign = 2
+            
+        }else if ids == "2"{
+            warningStr = "您的接单对方已付款，是否查看？"
+//            vc.sign = 3
+        }else if ids == "3"{
+            warningStr = "您的接单对方已评价，是否查看？"
+//       vc.sign = 3
+        }
+//        else if ids == "4"{
+//            warningStr = "服务者评价您的发单，是否查看？"
+////            vc.sign = 4
+//        }
+        if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: warningStr, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            
+                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            
+                                            
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }else{
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func buyOrderType(notification:NSNotification){
+        let ids = notification.object?.valueForKey("name") as? String
+        let vc = MyBookDan()
+        var warningStr = String()
+        
+        if ids == "1" {
+            warningStr = "您的订单已被接单，是否查看？"
+            //            vc.sign = 2
+            
+        }else if ids == "2"{
+            warningStr = "您的订单已发货，是否查看？"
+            //            vc.sign = 3
+        }else if ids == "3"{
+            warningStr = "您的订单已消费，是否查看？"
+            //       vc.sign = 3
+        }else if ids == "4"{
+            warningStr = "您的订单商家回复你的评论，是否查看？"
+            //       vc.sign = 3
+        }
+        //        else if ids == "4"{
+        //            warningStr = "服务者评价您的发单，是否查看？"
+        ////            vc.sign = 4
+        //        }
+        if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: warningStr, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            
+                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            
+                                            
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }else{
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func businessOrderType(notification:NSNotification){
+        let ids = notification.object?.valueForKey("name") as? String
+        let vc = MyBookDan()
+        vc.isNotSigle = true
+        var warningStr = String()
+        
+        if ids == "1" {
+            warningStr = "您的订单已被接单，是否查看？"
+            //            vc.sign = 2
+            
+        }else if ids == "2"{
+            warningStr = "您的订单已发货，是否查看？"
+            //            vc.sign = 3
+        }else if ids == "3"{
+            warningStr = "您的订单已消费，是否查看？"
+            //       vc.sign = 3
+        }else if ids == "4"{
+            warningStr = "您的订单商家回复你的评论，是否查看？"
+            //       vc.sign = 3
+        }
+        //        else if ids == "4"{
+        //            warningStr = "服务者评价您的发单，是否查看？"
+        ////            vc.sign = 4
+        //        }
+        if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: warningStr, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            
+                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            
+                                            
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }else{
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
     
     func CheckRenzheng()
     {

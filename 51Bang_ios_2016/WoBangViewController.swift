@@ -31,6 +31,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
+      
         print(self.latitude)
         print(self.longitude)
 
@@ -44,6 +45,8 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
 //        self.createRightItem()
         // Do any additional setup after loading the view.
     }
+    
+    
     
     func createRightItemWithTitle(title:String){
         let button = UIButton.init(type:.Custom)

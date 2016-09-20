@@ -145,6 +145,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         //增加IOS 7的支持
         JPUSHService.handleRemoteNotification(userInfo)
         completionHandler(UIBackgroundFetchResult.NewData)
+        print("545645465")
+        print(userInfo)
+    //所在城市有新任务
+        if userInfo["key"] != nil && userInfo["v"] != nil{
+            if userInfo["key"] != nil && userInfo["key"] as! String == "newTask" {
+                NSNotificationCenter.defaultCenter().postNotificationName("newTasksss", object: nil)
+            }
+            
+            if userInfo["v"] != nil && userInfo["key"] as! String == "newMessage" {
+                let dic = ["name":userInfo["v"]! as! String];
+                NSNotificationCenter.defaultCenter().postNotificationName("newMessage", object: dic)
+            }
+            if userInfo["key"] as! String == "sendTaskType" {
+                let dic = ["name":userInfo["v"]! as! String];
+                NSNotificationCenter.defaultCenter().postNotificationName("sendTaskType", object: dic)
+            }
+            if userInfo["key"] as! String == "acceptTaskType" {
+                let dic = ["name":userInfo["v"]! as! String];
+                NSNotificationCenter.defaultCenter().postNotificationName("acceptTaskType", object: dic)
+            }
+            if userInfo["key"] as! String == "buyOrderType" {
+                let dic = ["name":userInfo["v"]! as! String];
+                NSNotificationCenter.defaultCenter().postNotificationName("buyOrderType", object: dic)
+            }
+            if userInfo["key"] as! String == "businessOrderType" {
+                let dic = ["name":userInfo["v"]! as! String];
+                NSNotificationCenter.defaultCenter().postNotificationName("businessOrderType", object: dic)
+            }
+
+        }
+        
         
         //userinfo表示可以选择的type类型
         
@@ -183,6 +214,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         
         return true
     }
+    
+    
     
     
     
@@ -248,11 +281,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         }
         return true
     }
-    
-    func payback(notification:NSNotification){
-        let isRenwu = notification.object?.valueForKey("isRenwu") as? Bool
-        let numForGoodS = notification.object?.valueForKey("numForGoodS") as? String
-            }
+//    
+//    func payback(notification:NSNotification){
+//        let isRenwu = notification.object?.valueForKey("isRenwu") as? Bool
+//        let numForGoodS = notification.object?.valueForKey("numForGoodS") as? String
+//            }
     
     
     func applicationWillResignActive(application: UIApplication) {

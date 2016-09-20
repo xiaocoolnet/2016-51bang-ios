@@ -45,15 +45,15 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         self.tabBarController?.tabBar.hidden = true
         view?.removeFromSuperview()
 //        xiaofeiview = self.view.viewWithTag(23)
-        xiaofeiview.removeFromSuperview()
-        sign = 1
+//        xiaofeiview.removeFromSuperview()
+//        sign = 1
         headerRefresh()
     }
     
     
     override func viewDidLoad() {
         
-        GetWWCData("1")
+//        GetWWCData("1")
         
         self.title = "我的发单"
         self.navigationController?.navigationBar.hidden = false

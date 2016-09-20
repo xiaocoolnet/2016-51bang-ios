@@ -39,6 +39,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         isShow1 = false
         isShow2 = false
         isShow3 = false
+        self.myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            
+        })
         self.view.backgroundColor = RGREY
         self.GetData1()
         
@@ -56,8 +61,10 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         mainHelper.GetRzbList ({[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
+                    self.myTableView.mj_header.endRefreshing()
                     return
                 }
+                self.myTableView.mj_header.endRefreshing()
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
                 print(self.rzbDataSource)
                 print(self.rzbDataSource!.count)
@@ -66,11 +73,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.myTableView.dataSource = self
                 self.myTableView.backgroundColor = RGREY
                 self.myTableView.tag = 0
-                self.myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
-                    print("MJ:(下拉刷新)")
-                    self.headerRefresh()
-                    self.myTableView.mj_header.endRefreshing()
-                })
+                
 
                 self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
                 self.view.addSubview(self.myTableView)
@@ -85,9 +88,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         skillHelper.getSkillList({[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
+                    self.myTableView.mj_header.endRefreshing()
                     return
                 }
                 print(response)
+                self.myTableView.mj_header.endRefreshing()
                 self.dataSource = response as? Array<SkillModel> ?? []
                 print(self.dataSource)
                 let headerView =  NSBundle.mainBundle().loadNibNamed("RenZhengBangHeaderViewCell", owner: nil, options: nil).first as? RenZhengBangHeaderViewCell
@@ -129,7 +134,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             isShow3 = false
         }
         if isShow1 == false {
-            coverView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, HEIGHT-48)
+            coverView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, HEIGHT-48-64)
             coverView.backgroundColor = UIColor.grayColor()
             coverView.alpha = 0.8
             leftTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH/3,HEIGHT-200)
@@ -222,7 +227,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     
     func headerRefresh(){
-        GetData()
+        GetData1()
     }
     
     
