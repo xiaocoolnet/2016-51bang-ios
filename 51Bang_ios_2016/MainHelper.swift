@@ -202,50 +202,50 @@
     }
     
     
-    func downloadImage(recordName:String) ->NSData{
-        
-        let url = Bang_Image_Header+recordName
-        let destination = Alamofire.Request.suggestedDownloadDestination(
-            directory: .DocumentDirectory, domain: .UserDomainMask)
-        print(destination)
-        var b = NSData()
-        Alamofire.download(.GET, url, destination: destination)
-            .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-                let percent = totalBytesRead*100/totalBytesExpectedToRead
-                print("已下载：\(totalBytesRead)  当前进度：\(percent)%")
-            }
-            .response { (request, response, _, error) in
-                print(response)
-                let fileManager = NSFileManager.defaultManager()
-                let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
-                    inDomains: .UserDomainMask)[0]
-                let pathComponent = response!.suggestedFilename
-                let pathUrl = directoryURL.URLByAppendingPathComponent(pathComponent!)
-                
-                print(pathUrl)
-                let a = UIImage.init(contentsOfFile: pathUrl.path!)
-                 b = UIImageJPEGRepresentation(a!, 1)!
-                let userData = NSUserDefaults.standardUserDefaults()
-                userData.setObject(b, forKey: "userphoto")
-                
-//                print(b)
-//                do{
-//                    self.audioSession = AVAudioSession.sharedInstance()
-//                    try self.audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-//                    try self.audioSession.setActive(true)
-//                    self.audioPlayer = try AVAudioPlayer.init(contentsOfURL:pathUrl)
-//                    self.audioPlayer!.prepareToPlay()
-//                    //                    self.audioPlayer!.numberOfLoops = -1
-//                    self.audioPlayer!.volume = 1;
-//                    self.audioPlayer!.play()
-//                }catch{
-//                    print("1233444")
-//                }
-        }
-//        print("00000")
-        return b
-    }
-    
+//    func downloadImage(recordName:String) ->NSData{
+//        
+//        let url = Bang_Image_Header+recordName
+//        let destination = Alamofire.Request.suggestedDownloadDestination(
+//            directory: .DocumentDirectory, domain: .UserDomainMask)
+//        print(destination)
+//        var b = NSData()
+//        Alamofire.download(.GET, url, destination: destination)
+//            .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+//                let percent = totalBytesRead*100/totalBytesExpectedToRead
+//                print("已下载：\(totalBytesRead)  当前进度：\(percent)%")
+//            }
+//            .response { (request, response, _, error) in
+//                print(response)
+//                let fileManager = NSFileManager.defaultManager()
+//                let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
+//                    inDomains: .UserDomainMask)[0]
+//                let pathComponent = response!.suggestedFilename
+//                let pathUrl = directoryURL.URLByAppendingPathComponent(pathComponent!)
+//                
+//                print(pathUrl)
+//                let a = UIImage.init(contentsOfFile: pathUrl.path!)
+//                 b = UIImageJPEGRepresentation(a!, 1)!
+//                let userData = NSUserDefaults.standardUserDefaults()
+//                userData.setObject(b, forKey: "userphoto")
+//                
+////                print(b)
+////                do{
+////                    self.audioSession = AVAudioSession.sharedInstance()
+////                    try self.audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+////                    try self.audioSession.setActive(true)
+////                    self.audioPlayer = try AVAudioPlayer.init(contentsOfURL:pathUrl)
+////                    self.audioPlayer!.prepareToPlay()
+////                    //                    self.audioPlayer!.numberOfLoops = -1
+////                    self.audioPlayer!.volume = 1;
+////                    self.audioPlayer!.play()
+////                }catch{
+////                    print("1233444")
+////                }
+//        }
+////        print("00000")
+//        return b
+//    }
+//    
     
     //语音下载
     func downloadRecond(recordName:String) {

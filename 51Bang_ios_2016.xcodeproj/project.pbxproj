@@ -1137,11 +1137,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FACE6781D2F3D700005282E /* CoreGraphics.framework in Frameworks */,
+				1FACE6761D2F3D640005282E /* CoreText.framework in Frameworks */,
+				1FACE6721D2F3D4F0005282E /* CoreTelephony.framework in Frameworks */,
+				1FACE6701D2F3D460005282E /* SystemConfiguration.framework in Frameworks */,
 				1FACE66C1D2F3CC10005282E /* libz.tbd in Frameworks */,
 				F23A219E1D89583200DDB3AB /* Security.framework in Frameworks */,
-				1FACE6781D2F3D700005282E /* CoreGraphics.framework in Frameworks */,
-				1FACE6701D2F3D460005282E /* SystemConfiguration.framework in Frameworks */,
-				1FACE6721D2F3D4F0005282E /* CoreTelephony.framework in Frameworks */,
 				F23A219C1D8957E700DDB3AB /* CoreFoundation.framework in Frameworks */,
 				1FACE67E1D2F3D980005282E /* CFNetwork.framework in Frameworks */,
 				F23A219A1D8957BB00DDB3AB /* jpush-ios-2.1.9.a in Frameworks */,
@@ -1166,7 +1167,6 @@
 				F24CAE411D7E9D2400B23FAC /* BaiduMapAPI_Location.framework in Frameworks */,
 				1F7D5A1E1D4A033600536BD1 /* MOBFoundation.framework in Frameworks */,
 				1F7D5A1D1D4A033600536BD1 /* libYixinSDK.a in Frameworks */,
-				1FACE6761D2F3D640005282E /* CoreText.framework in Frameworks */,
 				1F7D5A101D4A033600536BD1 /* ShareSDKUI.framework in Frameworks */,
 				1FACE6741D2F3D5A0005282E /* QuartzCore.framework in Frameworks */,
 				F255A8DD1D77F2C10037856E /* TencentOpenAPI.framework in Frameworks */,
@@ -3150,8 +3150,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -3173,7 +3173,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "77a42a63-36cf-4668-8d7c-41f6eb763f1a";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -3197,8 +3197,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Chongqian Zhu (43SWZUC27M)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -3213,7 +3213,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "77a42a63-36cf-4668-8d7c-41f6eb763f1a";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -3255,6 +3255,8 @@
 					"$(SRCROOT)/AliSDKDemo/Util",
 					"$(SRCROOT)/wxSDK",
 					"${SDK_ROOT}/usr/include/libxml2",
+					"$(SRCROOT)/openssl",
+					"$(SRCROOT)/Util",
 				);
 				INFOPLIST_FILE = 51Bang_ios_2016/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3298,7 +3300,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "${ROOT}51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/songhuadan/Desktop/2016-51bang-ios/51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -3340,6 +3342,8 @@
 					"$(SRCROOT)/AliSDKDemo/Util",
 					"$(SRCROOT)/wxSDK",
 					"${SDK_ROOT}/usr/include/libxml2",
+					"$(SRCROOT)/openssl",
+					"$(SRCROOT)/Util",
 				);
 				INFOPLIST_FILE = 51Bang_ios_2016/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3383,7 +3387,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "${ROOT}51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/songhuadan/Desktop/2016-51bang-ios/51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;

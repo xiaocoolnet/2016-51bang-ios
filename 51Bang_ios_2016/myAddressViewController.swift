@@ -28,15 +28,26 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         super.viewWillAppear(true)
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
+        let ud = NSUserDefaults.standardUserDefaults()
+        self.userid = ud.objectForKey("userid")as!String
+        self.createTableView()
+        button = UIButton.init(frame: CGRectMake(0, HEIGHT-118, WIDTH, 50))
+        button.backgroundColor = COLOR
+        button.setTitle("添加地址", forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        button.addTarget(self, action: #selector(self.nextView), forControlEvents: UIControlEvents.TouchUpInside)
+        let view = UIView()
+        self.myTableView.tableFooterView = view
+        self.view.addSubview(myTableView)
+        self.view.addSubview(button)
+
         self.getData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "我的地址"
         self.view.backgroundColor = RGREY
-        let ud = NSUserDefaults.standardUserDefaults()
-        self.userid = ud.objectForKey("userid")as!String
-         self.createTableView()
+        
 //        let backview = UIView()
 //        backview.frame = CGRectMake(0, 50, WIDTH, 50)
 //        backview.backgroundColor = UIColor.whiteColor()
@@ -51,16 +62,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         
 //        self.view.addSubview(backview)
         
-        button = UIButton.init(frame: CGRectMake(0, HEIGHT-118, WIDTH, 50))
-        button.backgroundColor = COLOR
-        button.setTitle("添加地址", forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(self.nextView), forControlEvents: UIControlEvents.TouchUpInside)
-        let view = UIView()
-        self.myTableView.tableFooterView = view
-        self.view.addSubview(myTableView)
-        self.view.addSubview(button)
-//        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTap)))
+        //        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTap)))
         
         
         // Do any additional setup after loading the view.
@@ -132,7 +134,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
 
     
     func createTableView(){
-        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64-50)
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.registerNib(UINib(nibName: "MyAddressTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
