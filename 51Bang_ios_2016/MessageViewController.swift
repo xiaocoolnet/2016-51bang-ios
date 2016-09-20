@@ -173,7 +173,14 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             print(dat)
             vc.datasource2 = NSArray.init(array: dat) as Array
-
+            vc.titleTop = self.dataSource[indexPath.row].other_nickname
+//            if self.dataSource[indexPath.row].other_face! != ""{
+//            let photoUrl:String = Bang_Open_Header+"uploads/images/"+self.dataSource[indexPath.row].my_face!
+////                let url = NSURL(string: photoUrl)
+//                vc.urlphoto = NSString.init(string: photoUrl) as String
+//                print(vc.urlphoto)
+//            }
+            
             self.navigationController?.pushViewController(vc, animated: true)
 
             self.myTableView.reloadData()

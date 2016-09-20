@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface messModel : NSObject
-@property (nonatomic,copy)NSString *imageName;
+//@property (nonatomic,copy)NSString *imageName;
+//@property (nonatomic,copy)UIImageView *imageview;
 @property (nonatomic,copy)NSString *desc;
 @property (nonatomic,copy)NSString *time;
 @property (nonatomic,assign)BOOL person;

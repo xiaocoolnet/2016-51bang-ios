@@ -1040,8 +1040,8 @@
             print(request)
             let result = chatListModel(JSONDecoder(json!))
             print(result)
-            print(result.datas)
-            print(result.status!)
+//            print(result.datas)
+//            print(result.status!)
             if result.status == "success"{
                 print(result.data)
                 handle(success: true, response: result.datas)

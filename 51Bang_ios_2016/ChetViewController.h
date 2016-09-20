@@ -15,6 +15,6 @@
 @property (nonatomic,strong)NSArray * datasource2;
 @property (nonatomic,strong)UITableView *customTableView;
 @property (nonatomic,strong)NSString *send_uid;
-
-
+@property (nonatomic,strong)NSString *titleTop;
+@property (nonatomic,assign)NSString *urlphoto;
 @end
