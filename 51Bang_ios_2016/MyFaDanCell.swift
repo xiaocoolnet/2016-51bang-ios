@@ -53,15 +53,28 @@ class MyFaDanCell: UITableViewCell {
         }
         
         if model.state! == "0" {
-            setBottomDan("未付款")
+            setBottomDan("未开始")
             payBtn.hidden = true
         }else if model.state! == "1"{
-            setBottomDan("未抢单")
-            payBtn.hidden = true
+            if self.modell.paystatus != nil {
+                if self.modell.paystatus! == "0"{
+                    setBottomDan("未抢单")
+                    payBtn.hidden = false
+                }else{
+                    setBottomDan("未抢单")
+                    payBtn.hidden = true
+                }
+            }else{
+                setBottomDan("未抢单")
+                payBtn.hidden = true
+            }
+            
         }else if model.state! == "2"{
             setBottomDan("已被抢")
         }else if model.state! == "3"{
             setBottomDan("已上门")
+        }else if model.state! == "4"{
+            setBottomDan("等待付款")
         }
         print(model.time)
         if model.time != nil {
@@ -170,11 +183,22 @@ class MyFaDanCell: UITableViewCell {
     {
         
         let payMoney = UILabel()
-        payMoney.text = " 支付状态："+Money
+        payMoney.text = " 订单状态："+Money
         payMoney.font = UIFont.systemFontOfSize(12)
         payMoney.frame = CGRectMake(0, 0, 130, 40)
         let Tip = UILabel()
-        Tip.text = "未完成（请确认付款）"
+        if self.modell.paystatus != nil {
+            if self.modell.paystatus! == "0"{
+                Tip.text = "支付未托管"
+                payBtn.hidden = false
+            }else{
+                Tip.text = "支付已托管"
+            }
+        }else{
+            Tip.text = "支付已托管"
+        }
+        
+        
         Tip.textColor = UIColor.orangeColor()
         Tip.adjustsFontSizeToFitWidth = true
         Tip.frame = CGRectMake(payMoney.width + 10, 0, 130, 40)
@@ -182,7 +206,18 @@ class MyFaDanCell: UITableViewCell {
        
         payBtn.frame = CGRectMake(WIDTH - 60, 5,50 , 30)
         payBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
-        payBtn.setTitle("确认付款", forState: UIControlState.Normal)
+        
+        if self.modell.paystatus != nil {
+            if self.modell.paystatus! == "0"{
+                payBtn.setTitle("支付托管", forState: UIControlState.Normal)
+            }else{
+                payBtn.setTitle("确认付款", forState: UIControlState.Normal)
+            }
+        }else{
+            payBtn.setTitle("确认付款", forState: UIControlState.Normal)
+        }
+        
+        
         payBtn.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
         payBtn.layer.cornerRadius = 10
         payBtn.layer.borderWidth = 1

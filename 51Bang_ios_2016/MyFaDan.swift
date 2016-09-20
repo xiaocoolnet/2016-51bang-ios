@@ -309,7 +309,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func visitedBtnAction(){
         sign = 3
         self.dataSource1?.removeAll()
-        self.GetWWCData("3")
+        self.GetWWCData("3,4")
         visitedBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
         finshBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         weiBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
@@ -367,7 +367,12 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 let cell = MyFaDanCell.init(model: self.dataSource![indexPath.section])
                 cell.payBtn.tag = indexPath.section
                 //            let payBtn = cell.viewWithTag(10)as! UIButton
-                cell.payBtn.addTarget(self, action: #selector(self.pay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                if (self.dataSource![indexPath.section].paystatus == "0") {
+                    cell.payBtn.addTarget(self, action: #selector(self.nextView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                }else{
+                    cell.payBtn.addTarget(self, action: #selector(self.pay(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                }
+                
                  return cell
             }else{
                 let cell = UITableViewCell()
@@ -469,22 +474,10 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func nextView(btn:UIButton){
         
         let vc = PayViewController()
-        let textField = self.view.viewWithTag(47)as!UITextField
-        if btn.tag == 46 {
-            vc.xiaofei = "0"
-            self.navigationController?.pushViewController(vc, animated: true)
-        }else if btn.tag == 45{
-            if textField.text == ""{
-                
-                alert("请输入小费金额", delegate: self)
-            }else{
-                vc.xiaofei = textField.text!
-                vc.price = Double(self.info.price!)!
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-            
-        }
-    
+        vc.price =  Double(self.dataSource![btn.tag].price! as String)!
+        vc.body = self.dataSource![btn.tag].title! as String
+        vc.numForGoodS = self.dataSource![btn.tag].order_num! as String
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 //    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

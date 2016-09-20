@@ -540,8 +540,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         let vc = ConnectionViewController()
        
-        vc.info = self.myDataSource![(self.myDataSource?.count)!-1-indexPath.row
-]
+        vc.info = self.myDataSource![indexPath.row]
         vc.sign = sign
         self.navigationController?.pushViewController(vc, animated: true)
         
