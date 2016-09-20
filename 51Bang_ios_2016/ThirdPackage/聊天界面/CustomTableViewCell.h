@@ -11,4 +11,6 @@
 @interface CustomTableViewCell : UITableViewCell
 
 @property (nonatomic,strong)modelFrame *frameModel;
+@property (nonatomic,strong)NSString *selfPhoto;
+@property (nonatomic,strong)NSString *otherPhoto;
 @end

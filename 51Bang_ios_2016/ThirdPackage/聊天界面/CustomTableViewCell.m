@@ -9,13 +9,17 @@
 #import "CustomTableViewCell.h"
 #import "modelFrame.h"
 #import "messModel.h"
+#import "UIImageView+WebCache.h"
+#import "ChetViewController.h"
 #define timeFont [UIFont systemFontOfSize:11.0] //时间的字体大小
 #define contentFont [UIFont systemFontOfSize:13.0]//聊天消息字体的大小
-@interface CustomTableViewCell(){
+@interface CustomTableViewCell()<SDWebImageManagerDelegate>{
     UILabel *labelTime;
     UIImageView *imageView;
     UIButton *btnContent;
+//    ChetViewController *chet;
 }
+
 @end
 @implementation CustomTableViewCell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -58,9 +62,34 @@
         [btnContent setBackgroundImage:[bgImage resizableImageWithCapInsets:UIEdgeInsetsMake(28, 32, 28, 32) resizingMode:UIImageResizingModeStretch] forState:UIControlStateNormal];
     }
     labelTime.text=[NSString stringWithFormat:@"发送:%@",frameModel.dataModel.time];
-    imageView.image=[UIImage imageNamed:frameModel.dataModel.imageName];
+    
+//    chet = [[ChetViewController alloc] init];
+//    NSLog(@"%@",chet.urlphoto);
+    if (frameModel.myself) {
+        NSURL *a = [NSURL URLWithString: [NSString stringWithFormat:@"%s%@", "http://bang.xiaocool.net/uploads/images/",self.selfPhoto]];
+        
+        [imageView sd_setImageWithURL: a placeholderImage:[UIImage imageNamed:@"girl"]];
+    }else{
+        NSURL *a = [NSURL URLWithString: [NSString stringWithFormat:@"%s%@", "http://bang.xiaocool.net/uploads/images/",self.otherPhoto]];
+        
+        [imageView sd_setImageWithURL: a placeholderImage:[UIImage imageNamed:@"girl"]];
+    }
+    
+    imageView.layer.masksToBounds = YES;
+    imageView.layer.cornerRadius = imageView.bounds.size.width*0.5;
+//    imageView.image=[UIImage imageNamed:frameModel.dataModel.imageName];
     [btnContent setTitle:frameModel.dataModel.desc forState:UIControlStateNormal];//设置内容
     
+
+    
+//    if info.other_face != nil {
+//        let photoUrl:String = Bang_Open_Header+"uploads/images/"+info.other_face!
+//        print(photoUrl)
+//        iconImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
+//    }else{
+//        iconImage.image = UIImage(named: "girl")
+//    }
+
     
 }
 @end

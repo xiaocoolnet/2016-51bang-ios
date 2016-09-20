@@ -11,7 +11,9 @@
 @implementation messModel
 -(instancetype)initWithModel:(NSDictionary *)mess{
     if (self=[super init]) {
-        self.imageName=mess[@"imageName"];
+        
+//        self.imageName=mess[@"imageName"];
+//        self.imageview = mess[@"imageview"];
         self.desc=mess[@"desc"];
         self.time=mess[@"time"];
         self.person=[mess[@"person"] boolValue]; //转为Bool类型

@@ -517,7 +517,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     //MARK:分享
     func getBottom(){
         
-        bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250-50 , WIDTH , 500+50)
+        bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250-50+50, WIDTH , 500+50)
         bottom.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(bottom)
         
@@ -624,7 +624,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             bottom.addSubview(label)
         }
         cancelBtn.tag = 6
-        cancelBtn.frame = CGRectMake(0, btn1.origin.y + WIDTH / 5 + 30+100+100+20+50, WIDTH , 250 - 35 - WIDTH / 5 - 75 )
+        cancelBtn.frame = CGRectMake(0, btn1.origin.y + WIDTH / 5 + 30+100+100+20+50+20, WIDTH , 250 - 35 - WIDTH / 5 - 75 - 20 )
         cancelBtn.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cancelBtn.setTitle("取消", forState: UIControlState.Normal)
         cancelBtn.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)

@@ -34,6 +34,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     
+    self.title = _titleTop;
     self.tabBarController.tabBar.hidden = YES;
     
     NSDate *nowdate=[NSDate date];
@@ -44,6 +45,7 @@
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *userid = [user objectForKey:@"userid"];
     
+    
     if  (_datasource2 != nil){
     for (int i = 0; i<_datasource2.count; i++) {
         
@@ -51,10 +53,10 @@
         dicValues[@"desc"]=[_datasource2[i] objectForKey:@"content"];
         dicValues[@"time"]=[_datasource2[i] objectForKey:@"time"];
         if ([_datasource2[i] objectForKey:@"send_uid"] == userid){
-            dicValues[@"imageName"]=@"girl";
+//            dicValues[@"imageName"]=@"girl";
             dicValues[@"person"]=[NSNumber numberWithBool:1];
         }else{
-            dicValues[@"imageName"]=@"boy";
+//            dicValues[@"imageName"]=@"boy";
             dicValues[@"person"]=[NSNumber numberWithBool:0];
         }
         messModel *mess=[[messModel alloc]initWithModel:dicValues];
@@ -79,11 +81,9 @@
 //    [self messModelArr];
 //    self.datasource2 = [[NSMutableArray alloc]init];
     NSLog(@"%@",self.datasource2);
-    NSLog(@"%@",[_datasource2[0] objectForKey:@"id"]);
+    NSLog(@"%@",self.urlphoto);
     self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-10-3) style:UITableViewStylePlain];
-//    NSLog(@"%@",self.datasource2);
-//    [self getData];
-//    self.customTableView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+
     self.customTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.customTableView.delegate = self;
     self.customTableView.dataSource = self;
@@ -212,6 +212,15 @@
     
     static NSString *strId=@"cellId";
     CustomTableViewCell *customCell=[tableView dequeueReusableCellWithIdentifier:strId];
+    if (self.datasource2.count>0 && self.datasource2[0][@"send_face"] != nil) {
+        customCell.selfPhoto = self.datasource2[0][@"send_face"];
+    }
+    if (self.datasource2.count>0 && self.datasource2[0][@"receive_face"] != nil) {
+        customCell.otherPhoto = self.datasource2[0][@"receive_face"];
+    }
+    
+    
+    
     if (customCell==nil) {
         customCell=[[CustomTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:strId];
     }
@@ -219,6 +228,7 @@
     [customCell setBackgroundColor:[UIColor whiteColor]];
     customCell.selectionStyle=UITableViewCellSelectionStyleNone;
     customCell.frameModel=self.arrModelData[indexPath.row];
+    
     return customCell;
 }
 
@@ -308,12 +318,13 @@
     NSString *nowTime=[forMatter stringFromDate:nowdate];
     NSMutableDictionary *dicValues=[NSMutableDictionary dictionary];
     
-    dicValues[@"imageName"]=@"girl";
+//    dicValues[@"imageName"]=@"girl";
     dicValues[@"desc"]=messValues;
     dicValues[@"time"]=nowTime; //当前的时间
     dicValues[@"person"]=[NSNumber numberWithBool:1]; //转为Bool类型
     messModel *mess=[[messModel alloc]initWithModel:dicValues];
     modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:[self timeIsEqual:nowTime]]; //判断前后时候是否一致
+    frameModel.myself = YES;
     [self.arrModelData addObject:frameModel];
     [self.customTableView reloadData];
     
