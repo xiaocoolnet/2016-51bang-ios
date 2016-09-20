@@ -63,16 +63,18 @@
     }
     labelTime.text=[NSString stringWithFormat:@"发送:%@",frameModel.dataModel.time];
     
-//    chet = [[ChetViewController alloc] init];
-//    NSLog(@"%@",chet.urlphoto);
     if (frameModel.myself) {
-        NSURL *a = [NSURL URLWithString: [NSString stringWithFormat:@"%s%@", "http://bang.xiaocool.net/uploads/images/",self.selfPhoto]];
         
-        [imageView sd_setImageWithURL: a placeholderImage:[UIImage imageNamed:@"girl"]];
+        NSURL *a = [NSURL URLWithString: [NSString stringWithFormat:@"%s%@", "http://bang.xiaocool.net/uploads/images/",self.selfPhoto]];
+    
+        [imageView sd_setImageWithURL:a placeholderImage:[UIImage imageNamed:@"girl"]options:SDWebImageRetryFailed];
     }else{
+        
+        
         NSURL *a = [NSURL URLWithString: [NSString stringWithFormat:@"%s%@", "http://bang.xiaocool.net/uploads/images/",self.otherPhoto]];
         
-        [imageView sd_setImageWithURL: a placeholderImage:[UIImage imageNamed:@"girl"]];
+        [imageView sd_setImageWithURL:a placeholderImage:[UIImage imageNamed:@"girl"]
+         options:SDWebImageRetryFailed];
     }
     
     imageView.layer.masksToBounds = YES;

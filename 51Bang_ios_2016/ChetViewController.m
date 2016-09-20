@@ -27,14 +27,21 @@
 @property (nonatomic,assign)CGFloat boreadHight;
 @property (nonatomic,assign)CGFloat moveTime;
 @property (nonatomic,assign)NSMutableArray *dataSource;
-//@property (nonatomic,assign)NSTimer *timer;
+@property (nonatomic,assign)NSTimer *timer;
+@property (nonatomic,assign)NSInteger num;
 
 @end
 @implementation ChetViewController
 
 -(void)viewWillAppear:(BOOL)animated{
     
-    self.title = _titleTop;
+    if (_titleTop != nil) {
+        self.title = _titleTop;
+    }else{
+        self.title = _datasource2[0][@"receive_nickname"];
+    }
+    
+    self.navigationController.navigationBar.hidden = NO;
     self.tabBarController.tabBar.hidden = YES;
     
     NSDate *nowdate=[NSDate date];
@@ -64,7 +71,11 @@
         [self.arrModelData addObject:frameModel];
         
         }
+        [_customTableView reloadData];
+        NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
+        [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
     }
+
 }
 
 
@@ -82,6 +93,7 @@
 //    self.datasource2 = [[NSMutableArray alloc]init];
     NSLog(@"%@",self.datasource2);
     NSLog(@"%@",self.urlphoto);
+    _num=0;
     self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-10-3) style:UITableViewStylePlain];
 
     self.customTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -100,10 +112,10 @@
     [self.bgView addSubview:self.senderButton];
     [self.view addSubview:self.bgView];
     
-    NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
+//    NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
 //    [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
     
-//    _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timego:) userInfo:nil repeats:YES];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timego) userInfo:nil repeats:YES];
     
     // 监听键盘出现的出现和消失
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -114,6 +126,10 @@
 #pragma mark - timego
 
 -(void)timego{
+    if (_num==2) {
+        [_timer invalidate];
+    }
+    _num++;
     [_customTableView reloadData];
 }
 
@@ -212,13 +228,13 @@
     
     static NSString *strId=@"cellId";
     CustomTableViewCell *customCell=[tableView dequeueReusableCellWithIdentifier:strId];
+
     if (self.datasource2.count>0 && self.datasource2[0][@"send_face"] != nil) {
         customCell.selfPhoto = self.datasource2[0][@"send_face"];
     }
     if (self.datasource2.count>0 && self.datasource2[0][@"receive_face"] != nil) {
         customCell.otherPhoto = self.datasource2[0][@"receive_face"];
     }
-    
     
     
     if (customCell==nil) {
@@ -228,7 +244,7 @@
     [customCell setBackgroundColor:[UIColor whiteColor]];
     customCell.selectionStyle=UITableViewCellSelectionStyleNone;
     customCell.frameModel=self.arrModelData[indexPath.row];
-    
+  
     return customCell;
 }
 
@@ -303,6 +319,7 @@
     }];
     
     [self sendMess:self.inputMess.text]; //发送信息
+    [self.customTableView reloadData];
     return YES;
 }
 //- (IBAction)sendAction:(UIButton *)sender {
@@ -357,8 +374,8 @@
             
             
         }];
-//        NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
-//        [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];//将tableView的行滚到最下面的一行
+        NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
+        [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];//将tableView的行滚到最下面的一行
     }
     
     NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];

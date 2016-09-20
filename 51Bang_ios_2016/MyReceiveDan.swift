@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MJRefresh
+
 class ReceveModel {
     var taskNum = ""
     var taskName = ""
@@ -108,12 +110,39 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         mTable = UITableView.init(frame: CGRectMake(0,  170, WIDTH,  self.view.frame.height -  170))
         mTable.delegate = self
         mTable.dataSource = self
+       
+        mTable.mj_header = MJRefreshNormalHeader(refreshingBlock: { () ->
+            Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+        })
         let view = UIView()
         self.mTable.tableFooterView = view
         self.view.addSubview(mTable)
     
     }
     
+    func headerRefresh(){
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
+        mainHelper.getMyGetOrder (userid,state: "-1,0,1,2,3,4,5",handle: {[unowned self] (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if !success {
+                self.mTable.mj_header.endRefreshing()
+                    return
+                }
+                self.dataSource1 = response as? Array<TaskInfo> ?? []
+                self.mTable.mj_header.endRefreshing()
+                print(self.dataSource1?.count)
+                print(self.dataSource1)
+                self.createTableView()
+                
+            })
+            
+            })
+
+    }
     
     func setTopView()
     {

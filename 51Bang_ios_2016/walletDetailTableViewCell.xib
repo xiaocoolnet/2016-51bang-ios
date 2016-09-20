@@ -42,9 +42,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-04-10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJX-Kj-LJb">
-                        <rect key="frame" x="216" y="6" width="96" height="18"/>
+                        <rect key="frame" x="128" y="6" width="184" height="18"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="96" id="YhO-Px-1XN"/>
+                            <constraint firstAttribute="width" constant="184" id="YhO-Px-1XN"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
