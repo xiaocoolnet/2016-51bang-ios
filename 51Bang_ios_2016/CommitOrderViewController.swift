@@ -1855,15 +1855,23 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         if arr.count != 0 {
             print(self.selectedIndex)
             let button = self.view.viewWithTag(self.selectedIndex)as! UIButton
-             var strrr = String()
-            for str in arr {
-               
-                strrr = strrr + self.infosss[(str  as! UIButton).tag].name!
-                
+             let strrr = NSMutableString()
+            for i in 0..<arr.count{
+                if i == arr.count-1{
+                    strrr.appendString(self.infosss[(arr[i]as! UIButton).tag].id!)
+                }else{
+                    strrr.appendString(self.infosss[(arr[i]as! UIButton).tag].id!)
+                    strrr.appendString(",")
+                }
             }
-            self.taskDescription = strrr
+//            for str in arr {
+//               
+//                strrr = strrr + self.infosss[(str  as! UIButton).tag].name!
+//                
+//            }
+            self.taskDescription = self.dataSource[self.selectedIndex-500].name!
             print(strrr)
-            self.type = self.dataSource[self.selectedIndex-500].id!
+            self.type = strrr as String
             print(self.type )
 //            self.type = (button.titleLabel?.text)!
             button.backgroundColor = COLOR

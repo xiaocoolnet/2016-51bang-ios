@@ -25,6 +25,8 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
 //    var array = NSMutableArray()
     var selectAllArray = NSMutableArray()
     var selectArr = NSMutableArray()
+    var selectIDArr = NSMutableArray()//已经选中的技能ID
+    
     var cellMarkArray:NSMutableArray?
     var cellMarkDic:NSMutableDictionary?
     var delegate:myDelegate?
@@ -257,6 +259,7 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                 button.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
                 let buttonIndex = array.indexOfObject(button)
                 selectArr.addObject(buttonIndex)
+                self.selectIDArr.addObject(self.dataSource![btn.tag].clist[buttonIndex].id!)
                 
             }
             print(selectArr)
@@ -271,6 +274,7 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     button.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
                     let buttonIndex = array.indexOfObject(button)
                     selectArr.addObject(buttonIndex)
+                    self.selectIDArr.addObject(self.dataSource![btn.tag].clist[buttonIndex].id!)
                    
                 }
                  print(selectArr)
@@ -283,14 +287,16 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     button.setImage(UIImage(named: "ic_weixuanze"), forState: UIControlState.Normal)
                     let buttonIndex = array.indexOfObject(button)
                     selectArr.removeObject(buttonIndex)
+                    self.selectIDArr.removeObject(self.dataSource![btn.tag].clist[buttonIndex].id!)
                 }
                 print(selectAllArray)
             }
          }
+//        print(selectArr)
     }
     
     
-    func addTager(btn:UIButton ){
+    func addTager(btn:UIButton,sectionNum:Int){
     
         let index = NSIndexPath.init(forRow: 0, inSection: btn.tag)
         let cell = myTableView.cellForRowAtIndexPath(index) as! SkillTableViewCell
@@ -298,12 +304,14 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         let btnIndex = array.indexOfObject(btn)
         let selectArr = self.cellMarkArray![btn.tag] as! NSMutableArray
         print(btnIndex)
+        
         print("----")
         print(selectArr)
         print("----")
         if selectArr.count == 0{
             btn.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
             selectArr.addObject(btnIndex)
+            self.selectIDArr.addObject(self.dataSource![sectionNum].clist[btnIndex].id!)
 //            selectArr.addObject(btn)
             //            self.payMode = cell.title.text!
             print(selectArr)
@@ -312,11 +320,13 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             if !selectArr.containsObject(btnIndex){
                 btn.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
                 selectArr.addObject(btnIndex)
+                self.selectIDArr.addObject(self.dataSource![sectionNum].clist[btnIndex].id!)
                 //                    self.payMode = cell.title.text!
                 print(selectArr)
             }else{
                 btn.setImage(UIImage(named: "ic_weixuanze"), forState: UIControlState.Normal)
                 selectArr.removeObject(btnIndex)
+                self.selectIDArr.removeObject(self.dataSource![sectionNum].clist[btnIndex].id!)
                 print(selectArr)
             }
        }
@@ -403,14 +413,25 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                 driver_pic = ""
             }
 
+            let types = NSMutableString()
             
+//            let strrr = NSMutableString()
+            for i in 0..<self.selectIDArr.count{
+                if i == selectIDArr.count-1{
+                    types.appendString(selectIDArr[i]as! String)
+                }else{
+                    types.appendString(selectIDArr[i]as! String)
+                    types.appendString(",")
+                }
+            }
+            print(types)
             if array.count<6 {
                 let alert = UIAlertView.init(title: "温馨提示", message: "请完善信息", delegate: self, cancelButtonTitle: "确定")
                 alert.show()
             }else{
                 print(array)
                 
-                skillHelper.identityAffirm(userid, city: array["city"] as! String, realname:array["name"] as! String, idcard: array["idcard"] as! String, contactperson: array["contactperson"] as! String, contactphone: array["contactphone"] as! String, positive_pic:positive_pic, opposite_pic:opposite_pic, driver_pic: driver_pic) { (success, response) in
+                skillHelper.identityAffirm(userid, city: array["city"] as! String, realname:array["name"] as! String, idcard: array["idcard"] as! String, contactperson: array["contactperson"] as! String, contactphone: array["contactphone"] as! String, positive_pic:positive_pic, opposite_pic:opposite_pic, driver_pic: driver_pic,types:types as String) { (success, response) in
                     if success{
                         
                         print(response)

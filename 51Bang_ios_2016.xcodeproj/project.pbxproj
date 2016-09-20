@@ -3300,7 +3300,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/songhuadan/Desktop/2016-51bang-ios/51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/a815785047/Desktop/2016-51bang-ios/51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
@@ -3387,7 +3387,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/songhuadan/Desktop/2016-51bang-ios/51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/a815785047/Desktop/2016-51bang-ios/51Bang_ios_2016/51Bang_ios_2016-Bridging-Header.h";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;

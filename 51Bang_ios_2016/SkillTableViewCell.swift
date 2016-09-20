@@ -10,7 +10,7 @@ import UIKit
 
 protocol cellDelegate{
     //代理方法
-    func addTager(sender:UIButton )
+    func addTager(sender:UIButton,sectionNum:Int )
 }
 
 
@@ -24,6 +24,7 @@ class SkillTableViewCell: UITableViewCell {
     let totalloc:Int = 2
     var delegate : cellDelegate?
     var selectButton:UIButton?
+    var sectionNum = Int()
     var selectButtonArr = NSMutableArray()
   
     
@@ -42,6 +43,7 @@ class SkillTableViewCell: UITableViewCell {
     }
     
     func setCellWithClistInfo(clistInfos:NSArray,num:Int,tag:Int){
+        sectionNum = tag
         for view in self.subviews {
             view.removeFromSuperview()
         }
@@ -128,7 +130,7 @@ class SkillTableViewCell: UITableViewCell {
     
     func selectedButton(sender:UIButton){
         
-         self.delegate!.addTager(sender)
+         self.delegate!.addTager(sender,sectionNum: self.sectionNum)
     }
     
     required init?(coder aDecoder: NSCoder) {
