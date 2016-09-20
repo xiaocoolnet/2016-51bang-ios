@@ -477,6 +477,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         vc.price =  Double(self.dataSource![btn.tag].price! as String)!
         vc.body = self.dataSource![btn.tag].title! as String
         vc.numForGoodS = self.dataSource![btn.tag].order_num! as String
+        vc.isRenwu = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
