@@ -34,6 +34,11 @@ class MyReceiveDanCell: UITableViewCell{
         timLabel.textColor = UIColor.grayColor()
         timLabel.adjustsFontSizeToFitWidth = true
         timLabel.text = Data.time
+        if Data.time != "" || Data.time != nil{
+            let str = timeStampToString(Data.time!)
+            timLabel.text = str
+            //            self.desc.text = str+"前有效"
+        }
         topView.addSubview(timLabel)
         let taNum = UILabel.init(frame: CGRectMake(0, 0, WIDTH - 100 , 40))
         taNum.text = " 订单号" + Data.order_num!
