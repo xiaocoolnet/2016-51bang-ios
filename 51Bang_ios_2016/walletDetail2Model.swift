@@ -67,7 +67,7 @@ class tiXianInfo: JSONJoy {
     var id:String?
     var userid:String?
     var money:String?
-    var blance:String?
+    var balance:String?
     var state:String?
     var time:String?
     init(){
@@ -77,7 +77,7 @@ class tiXianInfo: JSONJoy {
         id = decoder["id"].string
         userid = decoder["userid"].string
         money = decoder["money"].string
-        blance = decoder["balance"].string
+        balance = decoder["balance"].string
         state = decoder["state"].string
         time = decoder["time"].string
         

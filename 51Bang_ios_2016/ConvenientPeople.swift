@@ -32,7 +32,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     override func viewWillAppear(animated: Bool) {
         getData()
-        headerRefresh()
+//        headerRefresh()
         self.tabBarController?.tabBar.hidden = true
         
     }

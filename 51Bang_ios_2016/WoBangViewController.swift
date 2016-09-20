@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import MJRefresh
 
 class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate {
     var myTableView = UITableView()
@@ -155,6 +156,11 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         myTableView.dataSource = self
         myTableView.separatorStyle = .None
         myTableView.registerNib(UINib(nibName: "OrderTableViewCell",bundle: nil), forCellReuseIdentifier: "order")
+        myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            
+        })
 //        let bottom = UIView(frame: CGRectMake(0, 0, WIDTH/2, 120))
         let btn = UIButton(frame: CGRectMake(0, HEIGHT-110, WIDTH/2,50))
         btn.alpha = 0.7
@@ -176,6 +182,43 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
 //        self.view.addSubview(btn2)
 //        self.view.addSubview(label)
        
+    }
+    
+    func headerRefresh(){
+        if loginSign == 0 {
+            self.tabBarController?.selectedIndex = 3
+        }else{
+            
+            let ud = NSUserDefaults.standardUserDefaults()
+            let userid = ud.objectForKey("userid")as! String
+
+            mainHelper.getTaskList (userid,cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if !success {
+                        print(success)
+                        self.myTableView.mj_header.endRefreshing()
+                        return
+                    }
+                    print(response)
+                    self.dataSource?.removeAll()
+                    self.dataSource = response as? Array<TaskInfo> ?? []
+                    self.myTableView.mj_header.endRefreshing()
+                    print(self.dataSource)
+                    print(self.dataSource?.count)
+                    if self.dataSource?.count == 0{
+                        alert("暂无数据", delegate: self)
+                    }
+                    print(self.dataSource?.count)
+                    self.createTableView()
+                    
+                    self.myTableView.reloadData()
+                    
+                })
+                
+                })
+        }
+
+        
     }
     
     func nextToView(){

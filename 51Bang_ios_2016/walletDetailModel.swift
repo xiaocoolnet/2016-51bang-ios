@@ -68,7 +68,7 @@ class walletDetailInfo: JSONJoy {
     var id:String?
     var userid:String?
     var money:String?
-    var blance:String?
+    var balance:String?
     var type:String?
     var time:String?
     init(){
@@ -78,7 +78,7 @@ class walletDetailInfo: JSONJoy {
         id = decoder["id"].string
         userid = decoder["userid"].string
         money = decoder["money"].string
-        blance = decoder["balance"].string
+        balance = decoder["balance"].string
         type = decoder["type"].string
         time = decoder["time"].string
         

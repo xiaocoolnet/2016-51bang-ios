@@ -104,12 +104,15 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         if ud.objectForKey("ss") != nil{
             if ud.objectForKey("ss") as! String == "no"{
-                self.headerView.renzheng.hidden = true
+                self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
+                self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
             }else{
-                self.headerView.renzheng.hidden = false
+                self.headerView.renzheng.setTitle("实名认证", forState: UIControlState.Normal)
+                self.headerView.renzheng.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             }
         }else{
-            self.headerView.renzheng.hidden = true
+            self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
+            self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         }
         
 //        self.headerView.renzheng.hidden = false
@@ -604,10 +607,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if result.status == "success"{
                 ud .setObject("yes", forKey: "baoxiangrenzheng")
                 print("已经认证")
-                self.headerView.baoxianRenZheng.hidden = false
+                self.headerView.baoxianRenZheng.setTitle("保险认证", forState: UIControlState.Normal)
+                self.headerView.baoxianRenZheng.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             }else{
                 ud .setObject("no", forKey: "baoxiangrenzheng")
-                self.headerView.baoxianRenZheng.hidden = true
+                self.headerView.baoxianRenZheng.setTitle("未保险认证", forState: UIControlState.Normal)
+                self.headerView.baoxianRenZheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
                 print("未进行认证")
                 
             }
