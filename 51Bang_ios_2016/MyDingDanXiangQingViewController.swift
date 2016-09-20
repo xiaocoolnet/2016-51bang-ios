@@ -40,7 +40,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         self.createTableView()
         print(self.info.state)
         print(self.info.delivery)
-        if self.info.state! == "2" && !isSigle && self.info.tracking != nil {
+        if self.info.state! == "3" && !isSigle && self.info.tracking != nil {
             let juanma = UILabel()
             juanma.frame = CGRectMake(0, 10, WIDTH-20, 50)
             

@@ -37,7 +37,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         self.title = "抢单"
         self.createRightItemWithTitle("任务(0)")
 //        self.createTableView()
-        self.GetData()
+//        self.GetData()
 
 //        self.view.backgroundColor = UIColor.redColor()
 //        self.createLeftItemWithTitle("")
