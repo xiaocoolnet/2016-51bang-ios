@@ -34,6 +34,34 @@ class TaskModel: NSObject {
     }
 }
 
+
+class WorkingStateModel: NSObject {
+    var status:String?
+    var data: String?
+    //    var datas ＝ Array<GoodsList>()
+//    var datas = Array<TaskInfo>()
+    var errorData:String?
+    override init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success" {
+//            for childs: JSONDecoder in decoder["data"].array!{
+//                //                print(childs)
+//                //                print(SkillModel(childs))
+//                datas.append(TaskInfo(childs))
+//                print(datas)
+//                //                    array.append(SkillModel(childs))
+//            }
+            data = decoder["data"].string
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+    }
+}
+
 class DicModel: NSObject {
     var status:String?
     var data: JSONDecoder?
@@ -53,6 +81,7 @@ class DicModel: NSObject {
                 print(datas)
                 //                    array.append(SkillModel(childs))
             }
+            
         }else{
             errorData = decoder["data"].string
         }

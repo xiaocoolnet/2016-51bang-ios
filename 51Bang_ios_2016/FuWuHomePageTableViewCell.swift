@@ -27,6 +27,11 @@ class FuWuHomePageTableViewCell: UITableViewCell {
     
     func setValueWithInfo(info:RzbInfo){
         
+        if info.isworking == "0" {
+            serviceStatus.setTitle("休息中", forState: UIControlState.Normal)
+        }
+        
+        
         self.name.text = info.name
         self.city.text = info.city
         self.serviceStatus.frame.size.width = WIDTH*75/375

@@ -20,7 +20,7 @@ class RushHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
         self.navigationController?.title = "抢单"
         self.createTableView()
         self.view.backgroundColor = UIColor.redColor()
-        self.createRightItemWithTitle("任务(0)")
+        self.createRightItemWithTitle("我的任务")
         self.createLeftItem()
         // Do any additional setup after loading the view.
     }

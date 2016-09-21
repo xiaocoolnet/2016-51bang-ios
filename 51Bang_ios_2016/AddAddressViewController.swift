@@ -82,6 +82,7 @@ class AddAddressViewController: UIViewController,UITextFieldDelegate {
     func changeCity(notification:NSNotification){
         print(notification)
 //        print(notification.object?.valueForKey("cityName"))
+        
         let name = notification.object?.valueForKey("cityName") as? String
         self.addressLabe.text = name
 //        dataHistoryCitys.addObject(name!);
