@@ -27,7 +27,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var LOGIN_STATE = false
     weak var delegate:ViewControllerDelegate?
     var phoneNum:String?
-    var pwd:NSString?
+    var pwd:String?
     var backView = UIView()//登陆页面
     var logVM:TCVMLogModel?
     let top = UIView()
@@ -503,10 +503,19 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func login(){
         
         print("login")
+        pwdTextfield.resignFirstResponder()
+        phoneTextfield.resignFirstResponder()
         let phoneNumber = self.view.viewWithTag(100)as! UITextField
         let password = self.view.viewWithTag(101)as! UITextField
         self.phoneNum = phoneNumber.text
         self.pwd = password.text
+        if self.phoneNum!.isEmpty {
+            self.phoneNum =  self.phoneTextfield.text
+        }
+        if self.pwd!.isEmpty {
+            self.pwd = self.pwdTextfield.text
+        }
+        
         print(self.phoneNum!)
         print(self.pwd!)
         if (phoneNumber.text!.isEmpty) {

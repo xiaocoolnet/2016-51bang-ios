@@ -34,6 +34,26 @@
 @implementation ChetViewController
 
 -(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [_customTableView reloadData];
+    
+}
+
+
+-(NSMutableArray *)arrModelData{
+    if (_arrModelData==nil) {
+        _arrModelData=[NSMutableArray array];
+    }
+    return _arrModelData;
+    
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self someSet];
+//    [self messModelArr];
+//    self.datasource2 = [[NSMutableArray alloc]init];
+    NSLog(@"%@",self.datasource2);
+    NSLog(@"%@",self.urlphoto);
     
     if (_titleTop != nil) {
         self.title = _titleTop;
@@ -54,45 +74,30 @@
     
     
     if  (_datasource2 != nil){
-    for (int i = 0; i<_datasource2.count; i++) {
-        
-        NSMutableDictionary *dicValues=[NSMutableDictionary dictionary];
-        dicValues[@"desc"]=[_datasource2[i] objectForKey:@"content"];
-        dicValues[@"time"]=[_datasource2[i] objectForKey:@"time"];
-        if ([_datasource2[i] objectForKey:@"send_uid"] == userid){
-//            dicValues[@"imageName"]=@"girl";
-            dicValues[@"person"]=[NSNumber numberWithBool:1];
-        }else{
-//            dicValues[@"imageName"]=@"boy";
-            dicValues[@"person"]=[NSNumber numberWithBool:0];
+        for (int i = 0; i<_datasource2.count; i++) {
+            
+            NSMutableDictionary *dicValues=[NSMutableDictionary dictionary];
+            dicValues[@"desc"]=[_datasource2[i] objectForKey:@"content"];
+            dicValues[@"time"]=[_datasource2[i] objectForKey:@"time"];
+            if ([_datasource2[i] objectForKey:@"send_uid"] == userid){
+                //            dicValues[@"imageName"]=@"girl";
+                dicValues[@"person"]=[NSNumber numberWithBool:1];
+            }else{
+                //            dicValues[@"imageName"]=@"boy";
+                dicValues[@"person"]=[NSNumber numberWithBool:0];
+            }
+            messModel *mess=[[messModel alloc]initWithModel:dicValues];
+            modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:[self timeIsEqual:nowTime]];
+            [self.arrModelData addObject:frameModel];
+            
         }
-        messModel *mess=[[messModel alloc]initWithModel:dicValues];
-        modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:[self timeIsEqual:nowTime]];
-        [self.arrModelData addObject:frameModel];
         
-        }
-        [_customTableView reloadData];
         NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
         [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
     }
 
-}
-
-
--(NSMutableArray *)arrModelData{
-    if (_arrModelData==nil) {
-        _arrModelData=[NSMutableArray array];
-    }
-    return _arrModelData;
     
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self someSet];
-//    [self messModelArr];
-//    self.datasource2 = [[NSMutableArray alloc]init];
-    NSLog(@"%@",self.datasource2);
-    NSLog(@"%@",self.urlphoto);
+    
     _num=0;
     self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-10-3) style:UITableViewStylePlain];
 
@@ -120,6 +125,12 @@
     // 监听键盘出现的出现和消失
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+     if  (_datasource2 != nil){
+         
+         NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
+         [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
+
+     }
     
     
 }
@@ -279,6 +290,7 @@
     
     [UIView animateWithDuration:changeTime animations:^{ //0.25秒之后改变tableView和bgView的Y轴
         self.bgView.transform=CGAffineTransformMakeTranslation(0, keyboardMoveY);
+        self.customTableView.transform=CGAffineTransformMakeTranslation(0, keyboardMoveY);
     }];
     
     

@@ -174,6 +174,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             order.partner = partner;
             order.sellerID = seller;
             order.outTradeNO = orderNum ; //订单ID（由商家自行制定）
+//            order.outTradeNO = "154553456456"
             if self.subject == "" {
                 order.subject = "商品标题"
             }else{

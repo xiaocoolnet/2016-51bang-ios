@@ -26,7 +26,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     var rzbDataSource : Array<RzbInfo>?
     var dataSource3 : Array<chatInfo>?
     let middleArr = ["服务最多","评分最多","离我最近"]
-    let rightArr = ["在线","全部"]
+    let rightArr = ["全部","在线"]
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -57,8 +57,13 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     
     
     func GetData1(){
+        let userLocationCenter = NSUserDefaults.standardUserDefaults()
+        var cityname = String()
+        if userLocationCenter.objectForKey("cityname") != nil {
+            cityname = userLocationCenter.objectForKey("cityname") as! String
+        }
         
-        mainHelper.GetRzbList ({[unowned self](success, response) in
+         mainHelper.GetRzbList (cityname ,handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
@@ -77,6 +82,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
 
                 self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
                 self.view.addSubview(self.myTableView)
+                self.myTableView.reloadData()
                 
             })
             })
@@ -279,7 +285,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView.tag == 0 {
+        if tableView == self.myTableView {
             return self.rzbDataSource!.count
         }else if tableView.tag == 1 {
             
@@ -337,6 +343,21 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             isShow3 = false
             let view = self.view.viewWithTag(5)as? RenZhengBangHeaderViewCell
             view?.label3.text = rightArr[indexPath.row]
+            let myDatass = NSMutableArray()
+            if indexPath.row == 1 {
+                for data in self.rzbDataSource! {
+                    if data.isworking as String == "1" {
+                        myDatass.addObject(data)
+                    }
+                }
+                let aa = myDatass as Array
+              self.rzbDataSource = aa as? Array<RzbInfo>
+                self.myTableView.reloadData()
+            }else{
+                self.GetData1()
+            }
+            
+            
             
         }
     }

@@ -15,6 +15,8 @@ var address:String  = ""
 class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCodeSearchDelegate,BMKLocationServiceDelegate,BMKMapViewDelegate{
     
     var dataSource2 : Array<chatInfo>?
+    var rzbDataSource : Array<RzbInfo>?
+    var biaoZhuArray = NSMutableArray()
     
     let mainHelper = MainHelper()
     var city = String()
@@ -143,6 +145,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
+                                            self.tabBarController?.selectedIndex = 0
                                             let vc = WoBangPageViewController()
                                             self.navigationController?.pushViewController(vc, animated: true)
                                             
@@ -154,6 +157,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             alertController.addAction(okAction)
             self.presentViewController(alertController, animated: true, completion: nil)
         }else{
+            self.tabBarController?.selectedIndex = 0
             let vc = WoBangPageViewController()
             self.navigationController?.pushViewController(vc, animated: true)
 //            self.window.rootViewController = vc
@@ -218,7 +222,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                                                 print(dat)
                                                 vc.datasource2 = NSArray.init(array: dat) as Array
                                                 vc.titleTop = self.dataSource2![0].receive_nickname!
-                                                
+                                                self.tabBarController?.selectedIndex = 0
                                                 self.navigationController?.pushViewController(vc, animated: true)
                                                 
                                             }
@@ -286,7 +290,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 //                vc.urlphoto = NSString.init(string: photoUrl) as String
                 //                print(vc.urlphoto)
                 //            }
-                
+                self.tabBarController?.selectedIndex = 0
                 self.navigationController?.pushViewController(vc, animated: true)
                 
             }
@@ -322,7 +326,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             
-                                            
+                                            self.tabBarController?.selectedIndex = 0
                                             self.navigationController?.pushViewController(vc, animated: true)
                                             
                                             
@@ -333,8 +337,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             alertController.addAction(okAction)
             let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
             delegate.window?.rootViewController!.presentViewController(alertController, animated: true, completion: nil)
-//            
+//            self.presentViewController(alertController, animated: true, completion: nil)
         }else{
+            self.tabBarController?.selectedIndex = 0
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -367,7 +372,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             
-                                            
+                                            self.tabBarController?.selectedIndex = 0
                                             self.navigationController?.pushViewController(vc, animated: true)
                                             
                                             
@@ -378,6 +383,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             alertController.addAction(okAction)
             self.presentViewController(alertController, animated: true, completion: nil)
         }else{
+            self.tabBarController?.selectedIndex = 0
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -412,7 +418,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             
-                                            
+                                            self.tabBarController?.selectedIndex = 0
                                             self.navigationController?.pushViewController(vc, animated: true)
                                             
                                             
@@ -423,6 +429,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             alertController.addAction(okAction)
             self.presentViewController(alertController, animated: true, completion: nil)
         }else{
+            self.tabBarController?.selectedIndex = 0
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -458,7 +465,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             
-                                            
+                                            self.tabBarController?.selectedIndex = 0
                                             self.navigationController?.pushViewController(vc, animated: true)
                                             
                                             
@@ -469,6 +476,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             alertController.addAction(okAction)
             self.presentViewController(alertController, animated: true, completion: nil)
         }else{
+            self.tabBarController?.selectedIndex = 0
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -582,6 +590,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             count = count + 1
         }
         let cutyName = city.substringToIndex(city.startIndex.advancedBy(count+1))
+        userLocationCenter.setObject(cutyName, forKey: "cityName")
         
         let quName = city.substringFromIndex(city.startIndex.advancedBy(count+1))
         print(cutyName)
@@ -694,6 +703,70 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     }
     
     
+    func getWeiZhi(){
+        var cityname = String()
+        if userLocationCenter.objectForKey("cityname") != nil {
+             cityname = userLocationCenter.objectForKey("cityname") as! String
+        }
+        
+        
+        mainHelper.GetRzbList (cityname ,handle: {[unowned self](success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if !success {
+                   
+                    return
+                }
+                self.rzbDataSource = response as? Array<RzbInfo> ?? []
+                
+                for RZB in self.rzbDataSource!{
+                    let biaozhu = BMKPointAnnotation()
+                    
+                    if  RZB.latitude != ""{
+                        
+                        biaozhu.coordinate.latitude = CLLocationDegrees(RZB.latitude)!
+                        
+                    }
+                    if  RZB.longitude != ""{
+                        biaozhu.coordinate.longitude = CLLocationDegrees(RZB.longitude)!
+                    }
+                    if RZB.isworking as String == "1"{
+                        self.mapView.addAnnotation(biaozhu)
+                        
+                    }
+                    
+                    
+//                    self.biaoZhuArray.addObject(biaozhu)
+                }
+//                self.mapView.addAnnotations(self.biaoZhuArray as [AnyObject])
+                
+            })
+            })
+
+    }
+    
+    
+    
+//    
+    func mapView(mapView: BMKMapView!, viewForAnnotation annotation: BMKAnnotation!) -> BMKAnnotationView! {
+        if annotation .isEqual(pointAnmation) {
+            let newAnnotationView = BMKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "myAnnotations")
+//            newAnnotationView.image = UIImage.init(named: "girl")
+            newAnnotationView.annotation = annotation
+            return newAnnotationView
+        }else{
+            let newAnnotationView = BMKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "myAnnotation")
+            //        newAnnotationView.animatesDrop = true
+            
+            newAnnotationView.annotation = annotation
+            newAnnotationView.image = UIImage.init(named: "ic_bangwo")
+            return newAnnotationView
+        }
+        
+        
+    }
+
+    
+    
     /***********************百度地图******************************/
     //创建动画并且创建大头针
     func createPointAnmation(location:CLLocation)
@@ -707,6 +780,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         showRegion.span.latitudeDelta = 0.05
         showRegion.span.longitudeDelta = 0.05
         mapView.setRegion(showRegion, animated: true)
+        
 //
     }
     //设置百度地图
@@ -719,6 +793,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         mapView.gesturesEnabled = true
         //交通实况
         mapView.trafficEnabled = true
+        
+        getWeiZhi()
 //        mapView.updateLocationData
         scrollView.addSubview(mapView)
         
@@ -817,10 +893,13 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 //            print(userLocation.title)
             pointAnmation.coordinate = userLocation.location.coordinate
             pointAnmation.title = userLocation.title
+            
             mapView.addAnnotation(pointAnmation)
             
             mapView.selectAnnotation(pointAnmation, animated: true)
             isDingwei = true
+            print(userLocation.location.coordinate.latitude)
+            print(userLocation.location.coordinate.longitude)
             userLocationCenter.setObject(String(userLocation.location.coordinate.latitude), forKey: "latitude")
             userLocationCenter.setObject(String(userLocation.location.coordinate.longitude), forKey: "longitude")
             if userLocation.title != nil {

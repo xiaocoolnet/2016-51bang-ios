@@ -38,8 +38,9 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     let mainHelper = MainHelper()
 //    var qiangdanButton = true
     override func viewWillAppear(animated: Bool) {
-            self.navigationController?.navigationBar.hidden = true
-        
+//            self.navigationController?.navigationBar.hidden = true
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newTask), name:"newTasksss", object: nil)
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +76,43 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         
     }
+    
+    
+    
+//    func newTask(){
+//        //        self.GetData()
+//        
+//        if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
+////            let aaa  = UIView()
+////            aaa.backgroundColor = UIColor.redColor()
+////            aaa.frame = CGRectMake(100, 100, 100, 100)
+////            
+////            UIApplication.sharedApplication().keyWindow?.addSubview(aaa)
+////            
+//            let alertController = UIAlertController(title: "系统提示",
+//                                                    message: "您附近有新订单，是否查看？", preferredStyle: .Alert)
+//            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+//            let okAction = UIAlertAction(title: "确定", style: .Default,
+//                                         handler: { action in
+//                                            let vc = WoBangPageViewController()
+//                                            self.navigationController?.pushViewController(vc, animated: true)
+////                                            self.presentViewController(vc, animated: true, completion: nil)
+//                                            
+//                                            
+//                                            
+//            })
+//            alertController.addAction(cancelAction)
+//            alertController.addAction(okAction)
+//            
+//            self.presentViewController(alertController, animated: true, completion: nil)
+//        }else{
+//            let vc = WoBangPageViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            //            self.window.rootViewController = vc
+//        }
+//        
+//        
+//    }
     
     func getData(){
         

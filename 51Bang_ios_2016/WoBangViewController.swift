@@ -37,7 +37,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         print(self.longitude)
 
         self.title = "抢单"
-        self.createRightItemWithTitle("任务(0)")
+        self.createRightItemWithTitle("我的任务")
 //        self.createTableView()
 //        self.GetData()
 

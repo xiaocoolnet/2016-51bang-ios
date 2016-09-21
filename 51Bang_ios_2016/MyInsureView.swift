@@ -570,11 +570,13 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     {
         let urlScheme = "alipay://"
         let customUrl = NSURL.init(string: urlScheme)
+//        UIApplication.sharedApplication().openURL(customUrl!)
         if(UIApplication.sharedApplication().canOpenURL(customUrl!))
         {
             UIApplication.sharedApplication().openURL(customUrl!)
         }else{
-            print("支付宝不存在")
+            UIApplication.sharedApplication().openURL(NSURL.init(string:"http://www.alipay.com")!)
+//            alert("未安装支付宝", delegate: self)
         }
     }
     

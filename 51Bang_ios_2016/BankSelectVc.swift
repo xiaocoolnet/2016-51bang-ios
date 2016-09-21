@@ -30,7 +30,7 @@ class BankSelectVc: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     func setTable()
     {
-        BankTable = UITableView.init(frame: CGRectMake(0, 0, WIDTH, self.view.frame.size.height ), style: UITableViewStyle.Grouped)
+        BankTable = UITableView.init(frame: CGRectMake(0, 0, WIDTH, self.view.frame.size.height-64 ), style: UITableViewStyle.Grouped)
         BankTable.delegate = self
         BankTable.dataSource = self
         self.view.addSubview(BankTable)

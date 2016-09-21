@@ -70,6 +70,10 @@ class RzbInfo: JSONJoy {
     //    var qq:String
     var time:String
     var status:String
+    var longitude:String
+    var latitude:String
+    
+    
     //    var photo:String
     //    var weixin:String
     var from:String
@@ -78,6 +82,8 @@ class RzbInfo: JSONJoy {
     var xgtoken:String
     var usertype:String
     var photo:String
+    var isworking :String
+    
     required init(_ decoder:JSONDecoder){
         name = decoder["name"].string ?? ""
         phone = decoder["phone"].string ?? ""
@@ -96,6 +102,9 @@ class RzbInfo: JSONJoy {
         xgtoken = decoder["xgtoken"].string ?? ""
         usertype = decoder["usertype"].string ?? ""
         photo = decoder["photo"].string ?? ""
+        isworking = decoder["isworking"].string ?? ""
+        longitude = decoder["longitude"].string ?? ""
+        latitude = decoder["latitude"].string ?? ""
     }
     
     

@@ -151,6 +151,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         if userInfo["key"] != nil && userInfo["v"] != nil{
             if userInfo["key"] != nil && userInfo["key"] as! String == "newTask" {
                 NSNotificationCenter.defaultCenter().postNotificationName("newTasksss", object: nil)
+//                let vc = WoBangPageViewController()
+                
             }
             
             if userInfo["v"] != nil && userInfo["key"] as! String == "newMessage" {

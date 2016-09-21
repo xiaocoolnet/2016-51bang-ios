@@ -89,6 +89,78 @@
             
         }
     }
+    
+    //获取是否工作中
+    func GetWorkingState(userid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"GetWorkingState"
+        let param1 = [
+            
+            "userid":userid
+            
+        ];
+        Alamofire.request(.GET, url, parameters: param1).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = WorkingStateModel(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+//                    print(result.datas)
+//                    print(result.datas.count)
+                    handle(success: true, response: result.data)
+                    
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    //开工接口
+    func BeginWorking(userid:String,address:String,longitude:String,latitude:String,isworking:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"BeginWorking"
+        let param1 = [
+            
+            "userid":userid,
+            "address":address,
+            "longitude":longitude,
+            "latitude":latitude,
+            "isworking":isworking
+            
+        ];
+        Alamofire.request(.GET, url, parameters: param1).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = WorkingStateModel(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    //                    print(result.datas)
+                    //                    print(result.datas.count)
+                    handle(success: true, response: result.data)
+                    
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    
     //发布任务
     func upLoadOrder(userid:String,title:String,description:String,address:String,longitude:String,latitude:String,saddress:String,slongitude:String,slatitude:String, expirydate:String,price:String,type:String,sound:String,picurl:NSArray,soundtime:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"publishTask"
@@ -505,12 +577,12 @@
     }
     
     
-    func GetRzbList(handle:ResponseBlock){
+    func GetRzbList(cityname:String, handle:ResponseBlock){
         
         // url	String	"http://bang.xiaocool.net/index.php?g=apps&m=index&a=getAuthenticationUserList"
         let url = Bang_URL_Header+"getAuthenticationUserList"
         
-        Alamofire.request(.GET, url, parameters: nil).response { request, response, json, error in
+        Alamofire.request(.GET, url, parameters: ["cityname":cityname]).response { request, response, json, error in
             print(request)
             if(error != nil){
                 handle(success: false, response: error?.description)
