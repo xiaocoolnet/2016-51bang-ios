@@ -374,18 +374,18 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
-        if dataSource![sender.tag].latitude != nil && dataSource![sender.tag].longitude != nil && dataSource![sender.tag].latitude! as String != "" && dataSource![sender.tag].longitude! as String != ""{
-            print(dataSource![sender.tag].latitude)
-            coor1.latitude = CLLocationDegrees(dataSource![sender.tag].latitude! as String)!
-            coor1.longitude = CLLocationDegrees(dataSource![sender.tag].longitude! as String)!
+        if dataSource![sender.tag-1000].latitude != nil && dataSource![sender.tag-1000].longitude != nil && dataSource![sender.tag-1000].latitude! as String != "" && dataSource![sender.tag-1000].longitude! as String != ""{
+            print(dataSource![sender.tag-1000].latitude)
+            coor1.latitude = CLLocationDegrees(dataSource![sender.tag-1000].latitude! as String)!
+            coor1.longitude = CLLocationDegrees(dataSource![sender.tag-1000].longitude! as String)!
         }else{
             alert("地址不能为空", delegate: self)
             return
         }
         
         //指定起点名称
-        if self.dataSource![sender.tag].address != nil && self.dataSource![sender.tag].address! as String != ""{
-            start.name = self.dataSource![sender.tag].address!
+        if self.dataSource![sender.tag-1000].address != nil && self.dataSource![sender.tag-1000].address! as String != ""{
+            start.name = self.dataSource![sender.tag-1000].address!
         }else{
             alert("地址不能为空", delegate: self)
             return
@@ -399,18 +399,18 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         let end = BMKPlanNode.init()
         
         var coor2 = CLLocationCoordinate2D.init()
-        if dataSource![sender.tag].slatitude != nil && dataSource![sender.tag].slongitude != nil && dataSource![sender.tag].slatitude! as String != "" && dataSource![sender.tag].slongitude! as String != ""{
-            print(dataSource![sender.tag].slatitude)
-            coor2.latitude = CLLocationDegrees(dataSource![sender.tag].slatitude! as String)!
-            coor2.longitude = CLLocationDegrees(dataSource![sender.tag].slongitude! as String)!
+        if dataSource![sender.tag-1000].slatitude != nil && dataSource![sender.tag-1000].slongitude != nil && dataSource![sender.tag-1000].slatitude! as String != "" && dataSource![sender.tag-1000].slongitude! as String != ""{
+            print(dataSource![sender.tag-1000].slatitude)
+            coor2.latitude = CLLocationDegrees(dataSource![sender.tag-1000].slatitude! as String)!
+            coor2.longitude = CLLocationDegrees(dataSource![sender.tag-1000].slongitude! as String)!
         }else{
             alert("地址不能为空", delegate: self)
             return
         }
         end.pt = coor2
         //指定终点名称
-        if self.dataSource![sender.tag].saddress != nil && self.dataSource![sender.tag].saddress != "" {
-            end.name = self.dataSource![sender.tag].saddress!
+        if self.dataSource![sender.tag-1000].saddress != nil && self.dataSource![sender.tag-1000].saddress != "" {
+            end.name = self.dataSource![sender.tag-1000].saddress!
         }else{
             alert("地址不能为空", delegate: self)
             return

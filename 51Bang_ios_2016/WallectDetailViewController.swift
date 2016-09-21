@@ -56,7 +56,7 @@ class WallectDetailViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80
+        return 65
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -405,6 +405,10 @@
 		81FD71FD1D3E17FC0020890A /* MyCollectonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD71FC1D3E17FC0020890A /* MyCollectonView.swift */; };
 		81FD72001D3E1E370020890A /* MyReceiveDan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD71FF1D3E1E370020890A /* MyReceiveDan.swift */; };
 		81FD72021D3E3E190020890A /* MyReveiveDanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD72011D3E3E190020890A /* MyReveiveDanCell.swift */; };
+		A442639C1D92812400F9DFB6 /* GetCashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A442639B1D92812400F9DFB6 /* GetCashViewController.swift */; };
+		A442639E1D92949100F9DFB6 /* zhifubaoBandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A442639D1D92949100F9DFB6 /* zhifubaoBandViewController.swift */; };
+		A44263A01D92964F00F9DFB6 /* BankBandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */; };
+		A44263A21D92AFD800F9DFB6 /* CashGetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44263A11D92AFD800F9DFB6 /* CashGetViewController.swift */; };
 		A44666E11D855B4A00142F23 /* chatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44666E01D855B4A00142F23 /* chatModel.swift */; };
 		A4A26F441D75BD7C00A84360 /* RenZhengBangTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A26F431D75BD7C00A84360 /* RenZhengBangTableViewCell.xib */; };
 		A4F8D7D01D748C7A00B26536 /* shopCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8D7CF1D748C7A00B26536 /* shopCommentTableViewCell.swift */; };
@@ -1039,6 +1043,10 @@
 		8FA52D09AC92E4AE7D3B08ED /* Pods-51Bang_ios_2016Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-51Bang_ios_2016Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-51Bang_ios_2016Tests/Pods-51Bang_ios_2016Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		981FB3CC478FBF0CBC3F8AA5 /* Pods_51Bang_ios_2016.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_51Bang_ios_2016.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F80179E64739F048E551101 /* Pods-51Bang_ios_2016.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-51Bang_ios_2016.debug.xcconfig"; path = "Pods/Target Support Files/Pods-51Bang_ios_2016/Pods-51Bang_ios_2016.debug.xcconfig"; sourceTree = "<group>"; };
+		A442639B1D92812400F9DFB6 /* GetCashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCashViewController.swift; sourceTree = "<group>"; };
+		A442639D1D92949100F9DFB6 /* zhifubaoBandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zhifubaoBandViewController.swift; sourceTree = "<group>"; };
+		A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankBandViewController.swift; sourceTree = "<group>"; };
+		A44263A11D92AFD800F9DFB6 /* CashGetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CashGetViewController.swift; sourceTree = "<group>"; };
 		A44666E01D855B4A00142F23 /* chatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatModel.swift; sourceTree = "<group>"; };
 		A4A26F431D75BD7C00A84360 /* RenZhengBangTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RenZhengBangTableViewCell.xib; sourceTree = "<group>"; };
 		A4F8D7CF1D748C7A00B26536 /* shopCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shopCommentTableViewCell.swift; sourceTree = "<group>"; };
@@ -1572,6 +1580,10 @@
 				1FD8C7E91D48FD98008BCE96 /* myAddressViewController.swift */,
 				1FE1D6B51D4B80C9006F6CC7 /* AddAddressViewController.swift */,
 				F2312B361D6987DB00635ADA /* OrderCommentViewController.swift */,
+				A442639B1D92812400F9DFB6 /* GetCashViewController.swift */,
+				A442639D1D92949100F9DFB6 /* zhifubaoBandViewController.swift */,
+				A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */,
+				A44263A11D92AFD800F9DFB6 /* CashGetViewController.swift */,
 			);
 			name = "买家";
 			sourceTree = "<group>";
@@ -2801,6 +2813,7 @@
 				1FACE7581D2F50770005282E /* Order.m in Sources */,
 				F20624821D743F0F00B795F5 /* UPLoadSound.m in Sources */,
 				F2EEFA201D81455B008FD274 /* modelFrame.m in Sources */,
+				A442639C1D92812400F9DFB6 /* GetCashViewController.swift in Sources */,
 				1FD8C7EE1D49123B008BCE96 /* WallectDetailViewController.swift in Sources */,
 				1FE4892A1D489E3400D2E684 /* MessageDetailViewController.swift in Sources */,
 				1FE1D6AE1D4AE5C7006F6CC7 /* SkillSubitemViewController.swift in Sources */,
@@ -2959,6 +2972,7 @@
 				F2075A751D6FF20B00BF45E9 /* FZJWeiXinPayMainController.m in Sources */,
 				1F9B0DED1D36184C00C7CA52 /* TCLoginViewController.swift in Sources */,
 				189757ED1D1685D70083FE46 /* TwoTableViewCell.swift in Sources */,
+				A44263A01D92964F00F9DFB6 /* BankBandViewController.swift in Sources */,
 				1FDA70701D3E109A00822D18 /* OrderRWTableViewCell.swift in Sources */,
 				189757B91D1625110083FE46 /* AddViewController.swift in Sources */,
 				1F0DF18E1D2B954C00D45390 /* WoBangViewController.swift in Sources */,
@@ -3050,6 +3064,7 @@
 				0DD511161D51D16E00FE88C2 /* ZLPhotoBrowserCell.m in Sources */,
 				0DEFF3C01D60250000BC7BF1 /* MyCollectionViewCell.swift in Sources */,
 				184053B41D15301F008A2BAB /* Http.swift in Sources */,
+				A44263A21D92AFD800F9DFB6 /* CashGetViewController.swift in Sources */,
 				1FF073C01D30CAA80074C477 /* QuanBuFenLeiTableViewCell.swift in Sources */,
 				1FF43B5D1D2A0B7F00091F79 /* SiteTableViewCell.swift in Sources */,
 				F2EEFA1D1D81455B008FD274 /* Foundation+Log.m in Sources */,
@@ -3066,6 +3081,7 @@
 				18D5961C1D17F06400BDBCD6 /* TableViewCell.swift in Sources */,
 				F2EEFA1F1D81455B008FD274 /* CustomTableViewCell.m in Sources */,
 				0DD511171D51D16E00FE88C2 /* ZLPhotoTool.m in Sources */,
+				A442639E1D92949100F9DFB6 /* zhifubaoBandViewController.swift in Sources */,
 				1FE122021D224FC600C0BE0B /* RushHelper.swift in Sources */,
 				1FF073C71D30E6320074C477 /* FuWuHomePageViewController.swift in Sources */,
 				F24745291D6D51CF00870363 /* SGGroupCell.m in Sources */,

@@ -240,6 +240,9 @@
     static NSString *strId=@"cellId";
     CustomTableViewCell *customCell=[tableView dequeueReusableCellWithIdentifier:strId];
 
+    if (customCell == nil){
+        customCell = [[CustomTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:strId];
+    }
     if (self.datasource2.count>0 && self.datasource2[0][@"send_face"] != nil) {
         customCell.selfPhoto = self.datasource2[0][@"send_face"];
     }

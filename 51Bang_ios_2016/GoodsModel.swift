@@ -275,10 +275,87 @@ class favoriteModel: JSONJoy {
 }
 
 
+
+class GetMyApplyTastTotalModel: JSONJoy {
+    var status:String?
+    var data = GetMyApplyTastTotalInfo()
+    var errorData:String?
+    init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success"{
+            data = GetMyApplyTastTotalInfo(decoder["data"])
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+        
+    }
     
+}
 
 
+class GetMyApplyTastTotalInfo: JSONJoy {
+    var allcount:String!
+    var daycount:String!
+    var monthcount:String!
+    
+    init(){
+        
+    }
 
+    required init(_ decoder: JSONDecoder){
+        
+        allcount = decoder["allcount"].string
+        daycount = decoder["daycount"].string
+        monthcount = decoder["monthcount"].string
+        
+   }
+
+}
+
+//提现 绑定判断
+class GetUserBankModel: JSONJoy {
+    var status:String?
+    var data = GetUserBankInfo()
+    var errorData:String?
+    init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success"{
+            data = GetUserBankInfo(decoder["data"])
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+        
+    }
+    
+}
+
+
+class GetUserBankInfo: JSONJoy {
+    var alipay:String!
+    var bank:String!
+    var bankno:String!
+    
+    init(){
+        
+    }
+    
+    required init(_ decoder: JSONDecoder){
+        
+        alipay = decoder["alipay"].string
+        bank = decoder["bank"].string
+        bankno = decoder["bankno"].string
+        
+    }
+    
+}
 
 
 

@@ -22,6 +22,8 @@ class TaskDetailTableViewCell1: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.bottomView.backgroundColor = RGREY
+        
+        
         // Initialization code
     }
 
