@@ -59,6 +59,25 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     var userLocationCenter = NSUserDefaults.standardUserDefaults()
     override func viewWillAppear(animated: Bool) {
+        
+        locationService = BMKLocationService()
+        locationService.delegate = self
+        locationService.startUserLocationService()
+        mapView = BMKMapView.init()
+        geocodeSearch = BMKGeoCodeSearch()
+        for view in self.topView.subviews {
+            view.removeFromSuperview()
+        }
+//        self.topView.removeFromSuperview()
+        self.mapView.removeFromSuperview()
+        setBMKMpaview()
+        createTopView()
+        scrollView.scrollEnabled = false
+        let button = UIButton.init(type: UIButtonType.Custom)
+        button.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
+        button.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
+        button.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
+        self.BeingBackMyPositonBtn = button
         CheckRenzheng()
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = false
@@ -68,6 +87,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         mapView.viewWillAppear()
         mapView.delegate = self
         CommitOrderViewController.ReturnTagForView = 0
+//        self.mapView.removeFromSuperview()
+//        setBMKMpaview()
+        
         
     }
     
@@ -113,19 +135,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.buyOrderType(_:)), name:"buyOrderType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.businessOrderType(_:)), name:"businessOrderType", object: nil)
         
-        locationService = BMKLocationService()
-        locationService.delegate = self
-        locationService.startUserLocationService()
-        mapView = BMKMapView.init()
-        geocodeSearch = BMKGeoCodeSearch()
-        createTopView()
-        setBMKMpaview()
-        scrollView.scrollEnabled = false
-        let button = UIButton.init(type: UIButtonType.Custom)
-        button.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
-        button.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
-        self.BeingBackMyPositonBtn = button
+        
 //        self.mapView.addSubview(BeingBackMyPositonBtn)
     
     }
@@ -781,13 +791,14 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         showRegion.span.longitudeDelta = 0.05
         mapView.setRegion(showRegion, animated: true)
         
+        
 //
     }
     //设置百度地图
     func setBMKMpaview()
     {
     
-        mapView.frame = CGRectMake(0, 64, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height - 64.0)
+        mapView.frame = CGRectMake(0, 100, UIScreen.mainScreen().bounds.size.width+10, UIScreen.mainScreen().bounds.size.height - 100)
         mapView.showsUserLocation = true
         mapView.zoomLevel = 19
         mapView.gesturesEnabled = true
