@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import MJRefresh
 
 protocol ChangeWordDelegate:NSObjectProtocol{
     //回调方法
@@ -138,12 +139,38 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.registerNib(UINib(nibName: "MyAddressTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
-        
+        myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { 
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+        })
         
         
     
     }
     
+    func headerRefresh(){
+    
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
+        mainHelper.getMyAddress(userid as String) { (success, response) in
+            if  !success{
+                self.myTableView.mj_header.endRefreshing()
+                let alert = UIAlertView.init(title:"提示", message: "数据加载异常或者您还没有地址", delegate: self, cancelButtonTitle: "确定")
+                alert.show()
+                return
+            }
+            self.myTableView.mj_header.endRefreshing()
+            self.dataSource = response as? Array<addressInfo> ?? []
+            print(self.dataSource?.count)
+            self.myTableView.reloadData()
+            if self.dataSource?.count == 0{
+                
+                alert("您还没有添加地址",delegate: self)
+            }
+
+        }
+    }
     func nextView(){
     
         let vc = AddAddressViewController()

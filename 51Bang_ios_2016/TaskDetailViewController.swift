@@ -95,6 +95,14 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
             cell.username.text = self.taskInfo.name
             cell.icon.layer.cornerRadius = cell.icon.frame.size.height/2
             cell.icon.clipsToBounds = true
+            
+            if cell.icon == nil {
+                cell.icon.image = UIImage(named:"ic_moren")
+            }else{
+                let photoUrl:String = Bang_Open_Header+"uploads/images/"+taskInfo.photo!
+                print(photoUrl)
+                cell.icon.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
+            }
             return cell
         }else if indexPath.row == 1{
             let cell = tableView.dequeueReusableCellWithIdentifier("cell2") as! TaskDetailTableViewCell2

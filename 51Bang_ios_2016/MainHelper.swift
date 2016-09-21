@@ -1125,6 +1125,94 @@
             
         }
     }
+    
+
+    //获取我的接单接单数目
+    func GetMyApplyTastTotal(userid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"GetMyApplyTastTotal"
+        let paramDic = ["userid":userid]
+        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
+            print(request)
+            let result = GetMyApplyTastTotalModel(JSONDecoder(json!))
+            print(result)
+            print(result.data)
+            print(result.status)
+            if result.status == "success"{
+                print(result.data)
+                handle(success: true, response: result.data)
+            }else{
+                handle(success: false, response: result.data)
+                print(result.data)
+                
+            }
+            
+            
+        }
+        
+        
+    }
+
+    //获取绑定用户银行、支付宝信息
+    func getUserBank(userid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"GetUserBankInfo"
+        let paramDic = ["userid":userid]
+        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
+            print(request)
+            let result = GetUserBankModel(JSONDecoder(json!))
+            print(result)
+            print(result.data)
+            print(result.status)
+            if result.status == "success"{
+                print(result.data)
+                handle(success: true, response: result.data)
+            }else{
+                handle(success: false, response: result.data)
+                print(result.data)
+                
+            }
+            
+            
+        }
+        
+        
+    }
+    
+
+     //提现申请
+    func ApplyWithdraw(userid:NSString,money:NSString,banktype:NSString,handle:ResponseBlock){
+        let url = Bang_URL_Header+"ApplyWithdraw"
+        
+        let param = [
+            
+            "send_uid":userid,
+            "receive_uid":money,
+            "content":banktype
+            
+        ];
+        
+       
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
 
 
 }

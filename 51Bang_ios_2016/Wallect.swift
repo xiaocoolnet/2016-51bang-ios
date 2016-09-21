@@ -153,7 +153,7 @@ class Wallect: UIViewController {
         let button1Back = UIButton.init(frame: CGRectMake(0, 0, WIDTH, 50))
         button1Back.backgroundColor = UIColor.clearColor()
         button1Back.addTarget(self, action: #selector(self.nextView), forControlEvents: UIControlEvents.TouchUpInside)
-        let line = UIView.init(frame: CGRectMake(0, 50, WIDTH, 1))
+        let line = UIView.init(frame: CGRectMake(0, 60, WIDTH, 1))
         line.backgroundColor = RGREY
         let label2 = UILabel.init(frame: CGRectMake(30, 70, 100,50))
         label2.text = "提现记录"
@@ -170,6 +170,7 @@ class Wallect: UIViewController {
         TixianButton.clipsToBounds = true
         TixianButton.layer.cornerRadius = 8
         TixianButton.layer.masksToBounds = true
+        TixianButton.addTarget(self, action: #selector(self.Tixian), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(TixianButton)
         let TixianXiangJieButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 100, 520 , 200, 40))
         TixianXiangJieButton.backgroundColor = RGREY
@@ -196,6 +197,11 @@ class Wallect: UIViewController {
     func TixianXiangJie(){
         let vc = JiaoChengViewController()
         vc.sign = 2
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func Tixian(){
+        let vc = GetCashViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

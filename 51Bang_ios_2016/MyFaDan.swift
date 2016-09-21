@@ -43,6 +43,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         super.viewWillAppear(true)
         let view = self.view.viewWithTag(48)
         self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.hidden = false
         view?.removeFromSuperview()
 //        xiaofeiview = self.view.viewWithTag(23)
 //        xiaofeiview.removeFromSuperview()

@@ -97,7 +97,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
         //接受通知
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)
         
@@ -900,8 +901,24 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     
     
-    
-    
+//    func addPointAnnotation() {
+//        
+//            
+//            let ary1:NSArray = ["31.222771","39.915 ","31.229003"]
+//            let ary2:NSArray = ["121.490317","116.404","121.448224"]
+//            
+//            var coor: CLLocationCoordinate2D = CLLocationCoordinate2D.init()
+//        
+//            for i in 0 ..< ary1.count {
+//                
+//                pointAnmation = BMKPointAnnotation.init() //必须放在循环里初始化
+//                coor.latitude  = ary1[i].doubleValue
+//                coor.longitude = ary2[i].doubleValue
+//                pointAnmation.coordinate = coor
+//                mapView.addAnnotation(pointAnmation)
+//                
+//            }
+//    }
     
 
     

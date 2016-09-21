@@ -18,12 +18,13 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
     override func viewWillAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = false
+        self.getData()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "提现记录"
         self.view.backgroundColor = UIColor.whiteColor()
-        self.getData()
+        
         // Do any additional setup after loading the view.
     }
 

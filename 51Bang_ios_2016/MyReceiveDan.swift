@@ -32,6 +32,7 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     private let selectDate = UIButton()
     var taskInfo = TaskInfo()
     var dataSource1 : Array<TaskInfo>?
+    var dataSource2 : GetMyApplyTastTotalInfo?
 //    var dataSource : Array<TaskInfo>?
 //    var dataSource1 = NSArray()
     let mainHelper = MainHelper()
@@ -45,7 +46,7 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         self.view.backgroundColor = RGREY
         
         self.getData()
-        
+        self.getData2()
         let da = ReceveModel()
         da.taskNum = "wyb123456"
         da.taskName = "帮我跑腿帮我跑腿"
@@ -103,6 +104,19 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             })
     
     
+    }
+    
+    func getData2(){
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
+        mainHelper.GetMyApplyTastTotal(userid) { (success, response) in
+            
+            if !success{
+                return
+            }
+            self.dataSource2 = response as? GetMyApplyTastTotalInfo
+            self.createTableView()
+        }
     }
     
     func createTableView(){
@@ -175,7 +189,12 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         TopView.addSubview(TitileLabel)
         TopView.addSubview(BackButton)
         monthReceiveLabel.frame = CGRectMake( WIDTH / 2 - 50 , statuFrame.height + 40 + 10, 100, 60)
-        monthReceiveLabel.text = monthReceiveNum
+        if dataSource2?.monthcount != nil {
+            monthReceiveLabel.text = dataSource2?.monthcount
+        }else{
+            monthReceiveLabel.text = monthReceiveNum
+        }
+        
         monthReceiveLabel.textColor = UIColor.whiteColor()
         monthReceiveLabel.textAlignment = NSTextAlignment.Center
         monthReceiveLabel.font = UIFont.systemFontOfSize(35)
@@ -198,7 +217,11 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         TopView.addSubview(dayTip)
         
         dayReceiveLabel.frame = CGRectMake(5, statuFrame.height + 40 + 10, 100, 60)
-        dayReceiveLabel.text = dayReceiveNum
+        if dataSource2?.daycount != nil {
+             dayReceiveLabel.text = dataSource2?.daycount
+        }else{
+            dayReceiveLabel.text = dayReceiveNum
+        }
         dayReceiveLabel.textColor = UIColor.whiteColor()
         dayReceiveLabel.textAlignment = NSTextAlignment.Left
         dayReceiveLabel.font = UIFont.systemFontOfSize(35)
