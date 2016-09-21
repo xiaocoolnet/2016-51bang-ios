@@ -903,6 +903,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             userLocationCenter.setObject(String(userLocation.location.coordinate.longitude), forKey: "longitude")
             if userLocation.title != nil {
                 userLocationCenter.setObject(userLocation.title, forKey: "myAddress")
+                
             }
             
             
