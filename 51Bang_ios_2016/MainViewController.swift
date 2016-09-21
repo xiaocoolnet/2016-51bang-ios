@@ -332,7 +332,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             alertController.addAction(okAction)
             let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
             delegate.window?.rootViewController!.presentViewController(alertController, animated: true, completion: nil)
-//            
+//            self.presentViewController(alertController, animated: true, completion: nil)
         }else{
             self.navigationController?.pushViewController(vc, animated: true)
         }
