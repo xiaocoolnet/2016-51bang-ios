@@ -275,9 +275,19 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     
     func qiangdan(){
         
+        let vc = MineViewController()
+        vc.Checktoubao()
+        let ud = NSUserDefaults.standardUserDefaults()
+        if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
+            
+            let vc2 = MyInsure()
+            self.navigationController?.pushViewController(vc2, animated: true)
+            return
+        }
+        
         btn.enabled = false
         print("抢单")
-        let ud = NSUserDefaults.standardUserDefaults()
+//        let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         let longitude = ud.objectForKey("longitude")as! String
         let latitude = ud.objectForKey("latitude")as! String

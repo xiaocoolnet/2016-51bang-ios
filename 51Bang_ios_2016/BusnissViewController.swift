@@ -64,7 +64,19 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.tabBarController?.selectedIndex = 3
             
         }else{
-                   let vc = AffirmOrderViewController()
+            
+            let ud = NSUserDefaults.standardUserDefaults()
+            
+            if(ud.objectForKey("ss") as! String == "no")
+            {
+                let vc  = WobangRenZhengController()
+                self.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                self.hidesBottomBarWhenPushed = false
+                return
+                
+            }
+        let vc = AffirmOrderViewController()
         vc.info = self.goodsInfo
         self.navigationController?.pushViewController(vc, animated: true)
         }
