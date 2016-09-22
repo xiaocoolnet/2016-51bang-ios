@@ -637,8 +637,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func btnAction(btn:UIButton)
     {
-        let img = UIImagePNGRepresentation(UIImage(named: "57b017f4a9f26")!)
-        let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "红包", description: "红包", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
+        let img = UIImageJPEGRepresentation(UIImage.init(named: "图标")! , 0.1)!
+        let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "我注册了51bang，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
         
         
         let req = SendMessageToQQReq(content: newsObj)
@@ -649,8 +649,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             sendReq.bText = false
             sendReq.scene = 0
             let urlMessage = WXMediaMessage.init()
-            urlMessage.title = "红包"
-            urlMessage.description = "红包"
+            urlMessage.setThumbImage(UIImage(named: "图标"))
+            urlMessage.title = "我注册了51bang，来加入吧"
+            urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
             let webObj = WXWebpageObject.init()
             webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
             urlMessage.mediaObject = webObj
@@ -664,8 +665,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             sendReq.scene = 1
             //sendReq.text = "测试，请忽略"
             let urlMessage = WXMediaMessage.init()
-            urlMessage.title = "红包"
-            urlMessage.description = "红包"
+            urlMessage.title = "我注册了51bang，来加入吧"
+            urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
+            urlMessage.setThumbImage(UIImage(named: "图标"))
             let webObj = WXWebpageObject.init()
             webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
             urlMessage.mediaObject = webObj
@@ -679,12 +681,13 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             //            let textObj = APShareTextObject()
             webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
             
-            message.title = "红包";
-            message.desc = "红包";
+            message.title = "我注册了51bang，来加入吧";
+            message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
+            
             //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
             message.mediaObject = webObj
             
-            
+            message.thumbData = UIImagePNGRepresentation(UIImage(named: "图标")!)
             
             let request = APSendMessageToAPReq()
             
@@ -703,8 +706,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             //            let textObj = APShareTextObject()
             webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
             
-            message.title = "红包";
-            message.desc = "红包";
+            message.title = "我注册了51bang，来加入吧";
+            message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
+            message.thumbData = UIImagePNGRepresentation(UIImage(named: "图标")!)
             //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
             message.mediaObject = webObj
             
@@ -713,6 +717,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let request = APSendMessageToAPReq()
             
             request.message = message
+            message.thumbUrl = "a51bang"
             
             request.scene = APSceneTimeLine
             let result = APOpenAPI.sendReq(request)
@@ -726,6 +731,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             _ = QQApiInterface.sendReq(req)
             bottom.hidden = true
+        case 6:
+            bottom.hidden = true
         case 9:
             //            var newsObj = QQApiNewsObject()
             
@@ -733,20 +740,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             _ = QQApiInterface.SendReqToQZone(req)
             bottom.hidden = true
-            case 6:
-            bottom.hidden = true
         default:
             print("微博")
         }
-    }
-    
-    func cancle(){
-        
-        let backView = self.view.viewWithTag(100)
-        let shareView = self.view.viewWithTag(101)
-        backView?.removeFromSuperview()
-        shareView?.removeFromSuperview()
-        
     }
     
     //分享

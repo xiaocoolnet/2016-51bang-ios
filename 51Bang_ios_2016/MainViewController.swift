@@ -768,7 +768,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             //        newAnnotationView.animatesDrop = true
             
             newAnnotationView.annotation = annotation
-            newAnnotationView.image = UIImage.init(named: "ic_bangwo")
+            newAnnotationView.image = UIImage.init(named: "蓝色小人")
             return newAnnotationView
         }
         

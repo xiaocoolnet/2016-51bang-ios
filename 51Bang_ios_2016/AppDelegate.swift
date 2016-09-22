@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     let mainhelper = MainHelper()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        let options = BugtagsOptions()
+        options.trackingUserSteps = true
+        
+        Bugtags.startWithAppKey("61aa08ab63a722f5788c5bd02f878780", invocationEvent: BTGInvocationEventShake)
         
         // Override point for customization after application launch.
        //WXApi.registerApp("wxe61df5d7fee96861")
@@ -23,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         APOpenAPI.registerApp("2016083001821606", withDescription: "a51bang")
 //        WXApi.registerApp("wx5bbd35eed5255733", withDescription: "51bang")//第二次
         TencentOAuth(appId: "1105589363", andDelegate: nil)
+        
+       
 //         WXApi.registerApp("wx765b8c5e08253264", withDescription: "51bang")
          //WXApi.registerApp("wxe61df5d7fee96861", withDescription: "51bang1")
         
@@ -149,7 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         print(userInfo)
     //所在城市有新任务
         if userInfo["key"] != nil && userInfo["v"] != nil{
-            if userInfo["key"] != nil && userInfo["key"] as! String == "newTask" {
+            if  userInfo["key"] as! String == "newTask" {
                 NSNotificationCenter.defaultCenter().postNotificationName("newTasksss", object: nil)
 //                let vc = WoBangPageViewController()
                 
@@ -208,17 +214,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         if APOpenAPI.handleOpenURL(url, delegate: nil) {
             
         }
+        QQApiInterface .handleOpenURL(url, delegate: nil)
+        
         if TencentApiInterface.canOpenURL(url, delegate: self){
             TencentApiInterface.handleOpenURL(url, delegate: self)
         }
         
-        
+        TencentOAuth.HandleOpenURL(url)
         
         return true
     }
     
     
     
+   
     
     
     

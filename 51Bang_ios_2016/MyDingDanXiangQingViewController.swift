@@ -56,6 +56,22 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
             
         }
         
+        if self.info.state! == "2" && !isSigle && self.info.tracking != nil {
+            let juanma = UILabel()
+            juanma.frame = CGRectMake(0, 10, WIDTH-20, 50)
+            
+            juanma.text = "您的卷码为"+self.info.tracking!
+            juanma.textAlignment = NSTextAlignment.Center
+            juanma.textColor = COLOR
+            juanma.layer.masksToBounds = true
+            juanma.layer.cornerRadius = 10
+            juanma.layer.borderColor = COLOR.CGColor
+            juanma.layer.borderWidth = 1
+            
+            self.myTableView.tableFooterView = juanma
+            
+        }
+        
 //        if self.info.state! == "2" && isSigle {
 //            
 //        }

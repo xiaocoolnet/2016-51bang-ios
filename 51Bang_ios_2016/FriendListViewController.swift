@@ -8,6 +8,7 @@
 
 import UIKit
 import MJRefresh
+import MBProgressHUD
 
 class FriendListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
@@ -57,6 +58,12 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     
     
     func GetData1(){
+        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+        
+        
         let userLocationCenter = NSUserDefaults.standardUserDefaults()
         var cityname = String()
         if userLocationCenter.objectForKey("cityname") != nil {
@@ -67,8 +74,10 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
+                    hud.hide(true)
                     return
                 }
+                hud.hide(true)
                 self.myTableView.mj_header.endRefreshing()
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
                 print(self.rzbDataSource)
@@ -90,13 +99,18 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     
     
     func GetData(){
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
         
         skillHelper.getSkillList({[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
+                    hud.hide(true)
                     return
                 }
+                hud.hide(true)
                 print(response)
                 self.myTableView.mj_header.endRefreshing()
                 self.dataSource = response as? Array<SkillModel> ?? []

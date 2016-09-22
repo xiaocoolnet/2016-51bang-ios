@@ -77,6 +77,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     var photoArray:NSMutableArray = []
     var collectionV:UICollectionView?
     let photoNameArr = NSMutableArray()
+    let jiNengID = NSMutableArray()
     let array = ["跑腿","维修","家政","车辆","兼职","代办","宠物","丽人","婚恋","其他"]
     let array1 = ["按小时计费","按天计费","按月计费","按趟计费","按件计费","按重量计费"]
 //    var address = String()
@@ -585,6 +586,19 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         if ud.objectForKey("userid") != nil {
             userid = ud.objectForKey("userid")as! String
         }
+        let strrr = NSMutableString()
+        
+        for i in 0..<self.jiNengID.count{
+            if i == jiNengID.count-1{
+                strrr.appendString(self.infosss[(jiNengID[i]as! UIButton).tag].id!)
+            }else{
+                strrr.appendString(self.infosss[(jiNengID[i]as! UIButton).tag].id!)
+                strrr.appendString(",")
+            }
+        }
+        self.type = strrr as String
+        
+        
 //        let userid = ud.objectForKey("userid") as! String
         print(self.saddress)
         print(self.slatitude)
@@ -597,6 +611,8 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         print(self.taskTitle)
         print(self.taskDescription)
         print(self.type)
+        
+        
         
         
         mainHelper.upLoadOrder(userid, title: self.taskTitle, description: self.taskDescription, address:address , longitude: longitude, latitude: latitude, saddress:saddress,slongitude: slongitude, slatitude: slatitude, expirydate: expirydate, price: price, type: type, sound: self.sound, picurl: self.photoNameArr,soundtime:String(self.countTime), handle: { (success, response) in
@@ -931,6 +947,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         let vc = SkillSubitemViewController()
         let model = self.dataSource[btn.tag-500]
         infosss = model.clist
+        vc.jinengID = self.jiNengID
         print(model.name)
         vc.mytitle = model.name
         vc.info = infosss
@@ -1855,24 +1872,23 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         if arr.count != 0 {
             print(self.selectedIndex)
             let button = self.view.viewWithTag(self.selectedIndex)as! UIButton
-             let strrr = NSMutableString()
+//             let strrr = NSMutableString()
             for i in 0..<arr.count{
-                if i == arr.count-1{
-                    strrr.appendString(self.infosss[(arr[i]as! UIButton).tag].id!)
-                }else{
-                    strrr.appendString(self.infosss[(arr[i]as! UIButton).tag].id!)
-                    strrr.appendString(",")
-                }
+                self.jiNengID.addObject(self.infosss[(arr[i]as! UIButton).tag].id!)
+                
+                
             }
-//            for str in arr {
+            
+            
+                //            for str in arr {
 //               
 //                strrr = strrr + self.infosss[(str  as! UIButton).tag].name!
 //                
 //            }
             self.taskDescription = self.dataSource[self.selectedIndex-500].name!
-            print(strrr)
-            self.type = strrr as String
-            print(self.type )
+//            print(strrr)
+            
+//            print(self.type )
 //            self.type = (button.titleLabel?.text)!
             button.backgroundColor = COLOR
             let label =  button.subviews[0]as! UILabel

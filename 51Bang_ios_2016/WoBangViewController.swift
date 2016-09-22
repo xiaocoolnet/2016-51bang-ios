@@ -239,6 +239,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
 //            view.removeFromSuperview()
 //        }
 //        print(self.dataSource![(self.dataSource?.count)!-1-indexPath.row].record)
+//        cell.snatchButton.removeFromSuperview()
         
         cell.setValueWithInfo(self.dataSource![indexPath.row])
 //        cell.location.text
@@ -247,12 +248,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         cell.icon.clipsToBounds = true
         if self.dataSource![indexPath.row].state == "1" {
             cell.snatchButton.addTarget(self, action: #selector(self.qiangdan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        }else{
-            cell.snatchButton.setTitle("已被抢", forState: UIControlState.Normal)
-            cell.snatchButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-            cell.snatchButton.enabled = false
         }
-        
         cell.snatchButton.tag = indexPath.row+10000
         print(cell.location.text!)
 //        pushMapButton.removeFromSuperview()

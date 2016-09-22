@@ -192,8 +192,8 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
     
     func btnAction(btn:UIButton)
     {
-        let img = UIImagePNGRepresentation(UIImage(named: "57b017f4a9f26")!)
-        let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "红包", description: "红包", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
+        let img = UIImagePNGRepresentation(UIImage.init(named: "图标")!)
+        let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "我注册了51bang，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
         
         
         let req = SendMessageToQQReq(content: newsObj)
@@ -204,8 +204,9 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             sendReq.bText = false
             sendReq.scene = 0
             let urlMessage = WXMediaMessage.init()
-            urlMessage.title = "红包"
-            urlMessage.description = "红包"
+            urlMessage.setThumbImage(UIImage(named: "图标"))
+            urlMessage.title = "我注册了51bang，来加入吧"
+            urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
             let webObj = WXWebpageObject.init()
             webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
             urlMessage.mediaObject = webObj
@@ -219,8 +220,9 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             sendReq.scene = 1
             //sendReq.text = "测试，请忽略"
             let urlMessage = WXMediaMessage.init()
-            urlMessage.title = "红包"
-            urlMessage.description = "红包"
+            urlMessage.title = "我注册了51bang，来加入吧"
+            urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
+            urlMessage.setThumbImage(UIImage(named: "图标"))
             let webObj = WXWebpageObject.init()
             webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
             urlMessage.mediaObject = webObj
@@ -234,12 +236,13 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
 //            let textObj = APShareTextObject()
             webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
             
-            message.title = "红包";
-            message.desc = "红包";
+            message.title = "我注册了51bang，来加入吧";
+            message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
+            
 //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
             message.mediaObject = webObj
             
-            
+            message.thumbData = UIImagePNGRepresentation(UIImage(named: "图标")!)
             
             let request = APSendMessageToAPReq()
             
@@ -258,8 +261,9 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             //            let textObj = APShareTextObject()
             webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
             
-            message.title = "红包";
-            message.desc = "红包";
+            message.title = "我注册了51bang，来加入吧";
+            message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
+            message.thumbData = UIImagePNGRepresentation(UIImage(named: "图标")!)
             //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
             message.mediaObject = webObj
             
@@ -268,6 +272,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             let request = APSendMessageToAPReq()
             
             request.message = message
+            message.thumbUrl = "a51bang"
             
             request.scene = APSceneTimeLine
             let result = APOpenAPI.sendReq(request)

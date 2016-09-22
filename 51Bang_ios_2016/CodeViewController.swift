@@ -66,7 +66,8 @@ class CodeViewController: UIViewController,UITextFieldDelegate {
                 alert("卷码错误！", delegate: self)
                 return
             }
-            SVProgressHUD.showSuccessWithStatus("卷码验证成功")
+            alert("卷码验证成功", delegate: self)
+//            SVProgressHUD.showSuccessWithStatus("卷码验证成功")
             let vc = MyBookDan()
             vc.isNotSigle = true
             vc.sign = 3

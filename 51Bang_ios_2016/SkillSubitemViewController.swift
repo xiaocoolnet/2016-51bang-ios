@@ -21,6 +21,7 @@ class SkillSubitemViewController: UIViewController {
     let totalloc:Int = 2
     var selectButton:UIButton?
     var selectButtonArr = NSMutableArray()
+    var jinengID = NSMutableArray()
     let selectArr = NSMutableArray()
     var delegate : skillProrocol?
     let backview = UIView.init(frame: CGRectMake(0, 0, WIDTH, 64))
@@ -124,7 +125,7 @@ class SkillSubitemViewController: UIViewController {
                 verticalLine.frame = CGRectMake(selectButton!.frame.origin.x+30, 0, 1, view.frame.size.height)
                 verticalLine.backgroundColor = RGREY
             }
-            //selectButton.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Selected)
+                        //selectButton.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Selected)
             selectButton!.setImage(UIImage(named: "ic_weixuanze"), forState: UIControlState.Normal)
             self.selectButtonArr.addObject(selectButton!)
             //
@@ -155,6 +156,13 @@ class SkillSubitemViewController: UIViewController {
             
             //            appviewy = margin+(margin+view.frame.size.height) * CGFloat(row)
             self.view.addSubview(view)
+            for id in self.jinengID {
+                if id as! String == info[i].id! {
+                    selectButton!.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
+                    self.selectArr.addObject(selectButton!)
+                }
+            }
+
             
         }
         

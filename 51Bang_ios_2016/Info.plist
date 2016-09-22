@@ -81,6 +81,9 @@
 	<array>
 		<string>baidumap</string>
 		<string>alipay</string>
+		<string>mqq</string>
+		<string>mqqapi</string>
+		<string>mqqopensdkapiV2</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

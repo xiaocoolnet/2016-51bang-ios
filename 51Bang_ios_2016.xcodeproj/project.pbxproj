@@ -387,6 +387,10 @@
 		1FFE54221D2CDCAF000891EB /* PayHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FFE54201D2CDCAF000891EB /* PayHeaderCell.xib */; };
 		1FFE54241D2D1E34000891EB /* MainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFE54231D2D1E34000891EB /* MainHelper.swift */; };
 		1FFE54261D2D1F6B000891EB /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFE54251D2D1F6B000891EB /* TaskModel.swift */; };
+		77361BA41D939791003F96F5 /* Bugtags.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 77361BA01D939791003F96F5 /* Bugtags.bundle */; };
+		77361BA51D939791003F96F5 /* Bugtags.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77361BA11D939791003F96F5 /* Bugtags.framework */; };
+		77361BA61D939791003F96F5 /* Bugtags.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77361BA21D939791003F96F5 /* Bugtags.podspec */; };
+		77361BA71D939791003F96F5 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 77361BA31D939791003F96F5 /* README.md */; };
 		816E0F001D388991000D7542 /* MineGetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816E0EFF1D388990000D7542 /* MineGetModel.swift */; };
 		818071621D40F3FE00FBB2DB /* Wallect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818071611D40F3FE00FBB2DB /* Wallect.swift */; };
 		8190BA9E1D38C5BC00468D4D /* MyFaDan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8190BA9D1D38C5BC00468D4D /* MyFaDan.swift */; };
@@ -1021,6 +1025,10 @@
 		1FFE54231D2D1E34000891EB /* MainHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHelper.swift; sourceTree = "<group>"; };
 		1FFE54251D2D1F6B000891EB /* TaskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		591108C65AE6727C545701B1 /* Pods_51Bang_ios_2016UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_51Bang_ios_2016UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77361BA01D939791003F96F5 /* Bugtags.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Bugtags.bundle; sourceTree = "<group>"; };
+		77361BA11D939791003F96F5 /* Bugtags.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugtags.framework; sourceTree = "<group>"; };
+		77361BA21D939791003F96F5 /* Bugtags.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bugtags.podspec; sourceTree = "<group>"; };
+		77361BA31D939791003F96F5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		816E0EFF1D388990000D7542 /* MineGetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineGetModel.swift; sourceTree = "<group>"; };
 		818071611D40F3FE00FBB2DB /* Wallect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallect.swift; sourceTree = "<group>"; };
 		8190BA9D1D38C5BC00468D4D /* MyFaDan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFaDan.swift; sourceTree = "<group>"; };
@@ -1145,18 +1153,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FACE67E1D2F3D980005282E /* CFNetwork.framework in Frameworks */,
+				F23A219E1D89583200DDB3AB /* Security.framework in Frameworks */,
+				1F7D5A281D4A0C4B00536BD1 /* ImageIO.framework in Frameworks */,
 				1FACE6781D2F3D700005282E /* CoreGraphics.framework in Frameworks */,
 				1FACE6761D2F3D640005282E /* CoreText.framework in Frameworks */,
 				1FACE6721D2F3D4F0005282E /* CoreTelephony.framework in Frameworks */,
 				1FACE6701D2F3D460005282E /* SystemConfiguration.framework in Frameworks */,
 				1FACE66C1D2F3CC10005282E /* libz.tbd in Frameworks */,
-				F23A219E1D89583200DDB3AB /* Security.framework in Frameworks */,
 				F23A219C1D8957E700DDB3AB /* CoreFoundation.framework in Frameworks */,
-				1FACE67E1D2F3D980005282E /* CFNetwork.framework in Frameworks */,
 				F23A219A1D8957BB00DDB3AB /* jpush-ios-2.1.9.a in Frameworks */,
 				0D10A6231D50A6D50004903C /* TPKeyboardAvoiding.framework in Frameworks */,
-				1F7D5A281D4A0C4B00536BD1 /* ImageIO.framework in Frameworks */,
 				1F7D5A261D4A072D00536BD1 /* JavaScriptCore.framework in Frameworks */,
+				77361BA51D939791003F96F5 /* Bugtags.framework in Frameworks */,
 				1F7D5A241D4A071F00536BD1 /* libstdc++.tbd in Frameworks */,
 				1F7D5A221D4A070500536BD1 /* libicucore.tbd in Frameworks */,
 				1F7D5A0E1D4A033600536BD1 /* ShareSDKInterfaceAdapter.framework in Frameworks */,
@@ -1215,6 +1224,7 @@
 		0D10A6241D50AE550004903C /* ThirdPackage */ = {
 			isa = PBXGroup;
 			children = (
+				77361B9E1D93970D003F96F5 /* BugTags */,
 				F2EEFA131D81454F008FD274 /* 聊天界面 */,
 				F2DAD9931D76C13C00200B5D /* SocialSDK */,
 				F25289B01D6AE16700B8E6DC /* mp3lame-for-iOS-master */,
@@ -2209,6 +2219,25 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		77361B9E1D93970D003F96F5 /* BugTags */ = {
+			isa = PBXGroup;
+			children = (
+				77361B9F1D939791003F96F5 /* Bugtags-iOS-1.3.1 */,
+			);
+			name = BugTags;
+			sourceTree = "<group>";
+		};
+		77361B9F1D939791003F96F5 /* Bugtags-iOS-1.3.1 */ = {
+			isa = PBXGroup;
+			children = (
+				77361BA01D939791003F96F5 /* Bugtags.bundle */,
+				77361BA11D939791003F96F5 /* Bugtags.framework */,
+				77361BA21D939791003F96F5 /* Bugtags.podspec */,
+				77361BA31D939791003F96F5 /* README.md */,
+			);
+			path = "Bugtags-iOS-1.3.1";
+			sourceTree = "<group>";
+		};
 		CFA145760FF79DF03531E71B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2547,6 +2576,7 @@
 				1FE489301D48AF3800D2E684 /* fadanDetailTableViewCell.xib in Resources */,
 				1FECB3F11D3CE19900588A8D /* SoundCollectionViewCell.xib in Resources */,
 				1FE1D6B21D4B6D14006F6CC7 /* MyAddressTableViewCell.xib in Resources */,
+				77361BA61D939791003F96F5 /* Bugtags.podspec in Resources */,
 				1FDA70811D3E3CF300822D18 /* OrderDetailAlertTableViewCell.xib in Resources */,
 				0DD510FF1D51D16E00FE88C2 /* btn_original_circle@2x.png in Resources */,
 				F25289BB1D6AE16700B8E6DC /* LICENSE in Resources */,
@@ -2644,6 +2674,7 @@
 				0DD5110F1D51D16E00FE88C2 /* ZLThumbnailViewController.xib in Resources */,
 				1FF43B721D2A558A00091F79 /* FabuTableViewCell1.xib in Resources */,
 				1F5545911D2E5F7300B90013 /* PhotoCollectionViewCell.xib in Resources */,
+				77361BA41D939791003F96F5 /* Bugtags.bundle in Resources */,
 				1FDA70711D3E109A00822D18 /* OrderRWTableViewCell.xib in Resources */,
 				18D5961B1D17F06400BDBCD6 /* SectionView.xib in Resources */,
 				188D4C6D1D1691D4005334D2 /* MarriageTableViewCell.xib in Resources */,
@@ -2917,6 +2948,7 @@
 				1FFE54241D2D1E34000891EB /* MainHelper.swift in Sources */,
 				1FACE75C1D2F50770005282E /* MD5DataSigner.m in Sources */,
 				1FD8C7FC1D4930FC008BCE96 /* MyOrderModel.swift in Sources */,
+				77361BA71D939791003F96F5 /* README.md in Sources */,
 				F2F189F81D6D6BCA00843120 /* TZPhotoPickerController.m in Sources */,
 				1FACE75D1D2F50770005282E /* NSDataEx.m in Sources */,
 				0DEBD5601D5C258C008B7279 /* ExtensionCommitViewController.swift in Sources */,
@@ -3260,6 +3292,7 @@
 					"$(PROJECT_DIR)/51Bang_ios_2016/mp3lame-for-iOS-master",
 					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/上传音频",
 					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/BaiduMap_IOSSDK_v3",
+					"$(PROJECT_DIR)/51Bang_ios_2016/Bugtags-iOS-1.3.1",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -3312,6 +3345,7 @@
 					"\"TPKeyboardAvoiding\"",
 					"-lxml2",
 					"-all_load",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3347,6 +3381,7 @@
 					"$(PROJECT_DIR)/51Bang_ios_2016/mp3lame-for-iOS-master",
 					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/上传音频",
 					"$(PROJECT_DIR)/51Bang_ios_2016/ThirdPackage/BaiduMap_IOSSDK_v3",
+					"$(PROJECT_DIR)/51Bang_ios_2016/Bugtags-iOS-1.3.1",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "";
@@ -3399,6 +3434,7 @@
 					"\"TPKeyboardAvoiding\"",
 					"-lxml2",
 					"-all_load",
+					"-ObjC",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaocool.51bang;
 				PRODUCT_NAME = "$(TARGET_NAME)";

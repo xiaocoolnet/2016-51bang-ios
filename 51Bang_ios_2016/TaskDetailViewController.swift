@@ -96,7 +96,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
             cell.icon.layer.cornerRadius = cell.icon.frame.size.height/2
             cell.icon.clipsToBounds = true
             
-            if cell.icon == nil {
+            if taskInfo.photo == nil {
                 cell.icon.image = UIImage(named:"ic_moren")
             }else{
                 let photoUrl:String = Bang_Open_Header+"uploads/images/"+taskInfo.photo!

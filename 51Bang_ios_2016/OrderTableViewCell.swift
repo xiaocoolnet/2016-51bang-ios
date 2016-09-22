@@ -52,6 +52,17 @@ class OrderTableViewCell: UITableViewCell {
 
     func setValueWithInfo(info:TaskInfo){
         
+        if info.state != "1"{
+            self.snatchButton.setTitle("已被抢", forState: UIControlState.Normal)
+            self.snatchButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+            self.snatchButton.enabled = false
+            
+        }else{
+            self.snatchButton.setTitle("立即抢单", forState: UIControlState.Normal)
+            self.snatchButton.setTitleColor(COLOR, forState: UIControlState.Normal)
+            self.snatchButton.enabled = true
+        }
+        
         if info.title != "" || info.title != nil{
             self.title.text = info.title
         }

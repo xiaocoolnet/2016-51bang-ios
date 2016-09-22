@@ -369,6 +369,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             case 0:
                 
                 let faDan = MyFaDan()
+                faDan.sign = 1
                 self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(faDan, animated: true)
                 self.hidesBottomBarWhenPushed = false
