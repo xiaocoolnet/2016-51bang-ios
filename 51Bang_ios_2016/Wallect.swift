@@ -103,7 +103,11 @@ class Wallect: UIViewController {
         label3.text = "本月收入"
         let label4 = UILabel.init(frame: CGRectMake(200,30, 100, 30))
         print(info.monthincome)
-        label4.text = info.monthincome
+        if info.monthincome != nil{
+            label4.text = info.monthincome
+        }else{
+            label4.text = "0.00"
+        }
         let line = UIView.init(frame: CGRectMake(0, 60, WIDTH, 1))
         line.backgroundColor = RGREY
         let label5 = UILabel.init(frame: CGRectMake(10, 61, 100, 20))
@@ -113,7 +117,12 @@ class Wallect: UIViewController {
         let label7 = UILabel.init(frame: CGRectMake(200, 61, 100, 20))
         label7.text = "总收入"
         let label8 = UILabel.init(frame: CGRectMake(200,81, 100, 30))
-        label8.text = info.allincome
+        if info.allincome != nil {
+            label8.text = info.allincome
+        }else{
+            label8.text = "0.00"
+        }
+        
         SecondView.addSubview(label1)
         SecondView.addSubview(label2)
         SecondView.addSubview(label3)
@@ -134,37 +143,52 @@ class Wallect: UIViewController {
     
     func setThirdView(){
     
-        thirdView.frame = CGRectMake(0, 300 , WIDTH, 120)
+        thirdView.frame = CGRectMake(0, 300, WIDTH, 120+60)
         thirdView.backgroundColor = UIColor.whiteColor()
         let headerImageView1  = UIImageView()
-        headerImageView1.frame = CGRectMake(5, (50-17)/2, 18, 17)
+        headerImageView1.frame = CGRectMake(5, (50-17)/2+5, 18, 17)
         headerImageView1.image = UIImage(named: "ic_wodefadan")
+        
 //        headerImageView1.backgroundColor = UIColor.redColor()
-        
-        let headerImageView2  = UIImageView()
-        headerImageView2.frame = CGRectMake(5, (50-17)/2+70, 18, 17)
-        headerImageView2.image = UIImage(named: "ic_wodejiedan")
-        
-        let label1 = UILabel.init(frame: CGRectMake(30, 0, 100, 50))
+        let label1 = UILabel.init(frame: CGRectMake(30, 0+5, 100, 50))
         label1.text = "收支记录"
         let button1 = UIButton.init(frame: CGRectMake(WIDTH-50, 10, 20, 40))
         button1.setImage(UIImage(named: "ic_arrow_right"), forState: UIControlState.Normal)
         
-        let button1Back = UIButton.init(frame: CGRectMake(0, 0, WIDTH, 50))
+        let button1Back = UIButton.init(frame: CGRectMake(0, 0, WIDTH, 60))
         button1Back.backgroundColor = UIColor.clearColor()
         button1Back.addTarget(self, action: #selector(self.nextView), forControlEvents: UIControlEvents.TouchUpInside)
         let line = UIView.init(frame: CGRectMake(0, 60, WIDTH, 1))
         line.backgroundColor = RGREY
-        let label2 = UILabel.init(frame: CGRectMake(30, 70, 100,50))
+        
+        
+        let headerImageView2  = UIImageView()
+        headerImageView2.frame = CGRectMake(5, (50-17)/2+70-5, 18, 17)
+        headerImageView2.image = UIImage(named: "ic_wodejiedan")
+        let label2 = UILabel.init(frame: CGRectMake(30, 70-5, 100,50))
         label2.text = "提现记录"
         let button2 = UIButton.init(frame: CGRectMake(WIDTH-50, 70, 20, 40))
         button2.setImage(UIImage(named: "ic_arrow_right"), forState: UIControlState.Normal)
-        let button2Back = UIButton.init(frame: CGRectMake(0, 70, WIDTH, 50))
+        let button2Back = UIButton.init(frame: CGRectMake(0, 60, WIDTH, 60))
         button2Back.backgroundColor = UIColor.clearColor()
         button2Back.addTarget(self, action: #selector(self.nextView2), forControlEvents: UIControlEvents.TouchUpInside)
         
+        let line1 = UIView.init(frame: CGRectMake(0, 120, WIDTH, 1))
+        line1.backgroundColor = RGREY
+        let headerImageView3  = UIImageView()
+        headerImageView3.frame = CGRectMake(5, (50-17)/2+70-5+60, 18, 17)
+        headerImageView3.image = UIImage(named: "ic_wodejiedan")
+        let label3 = UILabel.init(frame: CGRectMake(30, 70-5+60, 120,50))
+        label3.text = "绑定提现账户"
+        let button3 = UIButton.init(frame: CGRectMake(WIDTH-50, 70+60, 20, 40))
+        button3.setImage(UIImage(named: "ic_arrow_right"), forState: UIControlState.Normal)
+        let button3Back = UIButton.init(frame: CGRectMake(0, 60+60, WIDTH, 60))
+        button3Back.backgroundColor = UIColor.clearColor()
+        button3Back.addTarget(self, action: #selector(self.nextView3), forControlEvents: UIControlEvents.TouchUpInside)
         
-        let TixianButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 50, 470  , 100, 40))
+        
+        
+        let TixianButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 50, 470+60, 100, 40))
         TixianButton.backgroundColor = COLOR
         TixianButton.setTitle("提现", forState: UIControlState.Normal)
         TixianButton.clipsToBounds = true
@@ -172,7 +196,7 @@ class Wallect: UIViewController {
         TixianButton.layer.masksToBounds = true
         TixianButton.addTarget(self, action: #selector(self.Tixian), forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(TixianButton)
-        let TixianXiangJieButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 100, 520 , 200, 40))
+        let TixianXiangJieButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 100, 520+60 , 200, 40))
         TixianXiangJieButton.backgroundColor = RGREY
         TixianXiangJieButton.setTitle("欲了解提现详解请点击此处", forState: UIControlState.Normal)
         TixianXiangJieButton.titleLabel?.font = UIFont.systemFontOfSize(13)
@@ -183,13 +207,18 @@ class Wallect: UIViewController {
 //        button2.addTarget(self, action: #selector(self.nextView2), forControlEvents: UIControlEvents.TouchUpInside)
         self.thirdView.addSubview(headerImageView1)
         self.thirdView.addSubview(headerImageView2)
-        thirdView.addSubview(label1)
-        thirdView.addSubview(button1)
+        thirdView.addSubview(headerImageView3)
         thirdView.addSubview(line)
+        thirdView.addSubview(line1)
+        thirdView.addSubview(label1)
         thirdView.addSubview(label2)
+        thirdView.addSubview(label3)
+        thirdView.addSubview(button1)
         thirdView.addSubview(button2)
+        thirdView.addSubview(button3)
         thirdView.addSubview(button1Back)
         thirdView.addSubview(button2Back)
+        thirdView.addSubview(button3Back)
         self.view.addSubview(thirdView)
         
     }
@@ -215,6 +244,12 @@ class Wallect: UIViewController {
     func nextView2(){
     
         let vc = WalletDetail2ViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func nextView3(){
+        
+        let vc = WalletDetail3ViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

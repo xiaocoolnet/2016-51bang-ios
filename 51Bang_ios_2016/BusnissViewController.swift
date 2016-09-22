@@ -59,11 +59,15 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func orderList(){
-        
-        let vc = AffirmOrderViewController()
+        if loginSign == 0 {
+            
+            self.tabBarController?.selectedIndex = 3
+            
+        }else{
+                   let vc = AffirmOrderViewController()
         vc.info = self.goodsInfo
         self.navigationController?.pushViewController(vc, animated: true)
-        
+        }
     }
     
     func getData(){
@@ -419,9 +423,15 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func call(){
-        let url1 = NSURL(string: "tel://"+goodsInfo.phone!)
+        if loginSign == 0 {
+            
+            self.tabBarController?.selectedIndex = 3
+            
+        }else{
+                    let url1 = NSURL(string: "tel://"+goodsInfo.phone!)
         UIApplication.sharedApplication().openURL(url1!)
-//        print(goodsInfo.phone!)
+
+        }
     }
     
     func lookImage(sender:UITapGestureRecognizer) {
@@ -436,13 +446,18 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func myfabu(){
-        
+        if loginSign == 0 {
+            
+            self.tabBarController?.selectedIndex = 3
+            
+        }else{
+           
         let vc = MenuViewController()
         vc.userid = self.goodsInfo.userid as String!
         vc.isShow = self.isShow
         vc.title = "商家发布"
         self.navigationController?.pushViewController(vc, animated: true)
-        
+        }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -637,6 +652,11 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func btnAction(btn:UIButton)
     {
+        if loginSign == 0 {
+            
+            self.tabBarController?.selectedIndex = 3
+            
+        }else{
         let img = UIImagePNGRepresentation(UIImage(named: "57b017f4a9f26")!)
         let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "红包", description: "红包", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
         
@@ -737,6 +757,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             bottom.hidden = true
         default:
             print("微博")
+        }
         }
     }
     

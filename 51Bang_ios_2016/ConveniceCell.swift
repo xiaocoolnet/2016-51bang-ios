@@ -257,13 +257,18 @@ class ConveniceCell: UITableViewCell{
     
     func callPhone(){
         print(self.info?.phone)
-        if self.info?.phone == nil || self.info!.phone!.characters.count<0 {
+        if loginSign == 0 {
+            
+            alert("请先登录", delegate: self)
+            
+        }else{
+                   if self.info?.phone == nil || self.info!.phone!.characters.count<0 {
             alert("未发布电话", delegate: self)
             return
         }else{
              UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://"+self.info!.phone!)!)
         }
-    
+        }
     }
     
     
