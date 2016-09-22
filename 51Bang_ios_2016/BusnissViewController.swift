@@ -776,19 +776,29 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             default:
                 print("微博")
             }
+        case 5:
+            //            var newsObj = QQApiNewsObject()
+            
+            
+            
+            _ = QQApiInterface.sendReq(req)
+            bottom.hidden = true
+        case 6:
+            bottom.hidden = true
+        case 9:
+            //            var newsObj = QQApiNewsObject()
+            
+            
+            
+            _ = QQApiInterface.SendReqToQZone(req)
+            bottom.hidden = true
+        default:
+            print("微博")
         }
+    }
+    
 
-    }
-    
-    func cancle(){
-        
-        let backView = self.view.viewWithTag(100)
-        let shareView = self.view.viewWithTag(101)
-        backView?.removeFromSuperview()
-        shareView?.removeFromSuperview()
-        
-    }
-    
+
     //分享
     func goToShare(btn:UIButton){
         
@@ -851,7 +861,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                         break
                     }
                 }
-            }else if btn.tag == 2{
+            }
+        }else if btn.tag == 2{
                 let message = APMediaMessage()
                 let webObj = APShareWebObject()
                 //            let textObj = APShareTextObject()
@@ -901,8 +912,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             }
             
         }
-        
-    }
+
+    
     
     
     

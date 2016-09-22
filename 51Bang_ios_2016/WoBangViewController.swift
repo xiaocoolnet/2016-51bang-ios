@@ -115,7 +115,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
                     }
                     hud.hide(true)
                     print(response)
-                    self.dataSource?.removeAll()
+                    
                    
                     self.dataSource = response as? Array<TaskInfo> ?? []
                     print(self.dataSource)

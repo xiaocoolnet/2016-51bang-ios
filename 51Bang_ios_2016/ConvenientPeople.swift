@@ -410,16 +410,15 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             
             print(dat)
             vc.datasource2 = NSArray.init(array: dat) as Array
-            print(vc.datasource2)
-            vc.viewWillAppear(true)
-            vc.customTableView.reloadData()
+            self.navigationController?.pushViewController(vc, animated: true)
+           
             }else{
                 
             }
            
 
           }
-            self.navigationController?.pushViewController(vc, animated: true)
+            
        }
         }
     }

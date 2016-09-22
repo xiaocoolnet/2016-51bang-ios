@@ -12,7 +12,7 @@
 @interface ChetViewController : UIViewController
 
 @property (nonatomic,strong)NSString *receive_uid;
-@property (nonatomic,strong)NSArray * datasource2;
+@property (nonatomic,strong)NSArray *datasource2;
 @property (nonatomic,strong)UITableView *customTableView;
 @property (nonatomic,strong)NSString *send_uid;
 @property (nonatomic,strong)NSString *titleTop;
