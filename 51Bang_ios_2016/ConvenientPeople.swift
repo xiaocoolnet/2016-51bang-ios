@@ -102,6 +102,12 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     
     func query(btn:UIButton){
+        if loginSign == 0 {
+            
+            self.tabBarController?.selectedIndex = 3
+            
+        }else{
+            
         
         let LogisticsVC = UIViewController()
         LogisticsVC.view.backgroundColor = GREY
@@ -117,7 +123,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         //        let vc = LogisticsViewController()
         self.navigationController?.pushViewController(LogisticsVC, animated: true)
-        
+        }
     }
     
     
@@ -333,6 +339,12 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     func messageButtonAction(sender:UIButton) {
         
+        if loginSign == 0 {
+            
+            self.tabBarController?.selectedIndex = 3
+            
+        }else{
+            
         let vc = ChetViewController()
         vc.receive_uid = (dataSource2[sender.tag] as! TCHDInfo).userid
         //        vc.datasource2 = NSMutableArray()
@@ -395,7 +407,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
           }
             self.navigationController?.pushViewController(vc, animated: true)
        }
-     
+        }
     }
     
     func boFangButtonActions(sender:UIButton){

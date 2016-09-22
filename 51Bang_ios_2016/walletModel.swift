@@ -60,6 +60,7 @@ class walletInfo: JSONJoy {
     var availablemoney:String?
     var money:String?
     var alltasks:String?
+    var daytasks:String?
     var monthtasks:String?
     var allincome:String?
     var monthincome:String?
@@ -69,6 +70,7 @@ class walletInfo: JSONJoy {
     required init(_ decoder: JSONDecoder){
         availablemoney = decoder["availablemoney"].string
         alltasks = decoder["alltasks"].string
+        daytasks = decoder["daytasks"].string
         monthtasks = decoder["monthtasks"].string
         allincome = decoder["allincome"].string
         monthincome = decoder["monthincome"].string

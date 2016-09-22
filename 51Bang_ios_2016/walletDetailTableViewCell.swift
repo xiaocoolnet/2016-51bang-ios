@@ -18,6 +18,10 @@ class walletDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var yu: UILabel!
     
     @IBOutlet weak var time: UILabel!
+    
+    
+    @IBOutlet weak var moneyState: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         bottomView.backgroundColor = RGREY
@@ -28,6 +32,7 @@ class walletDetailTableViewCell: UITableViewCell {
     func setValueWithInfo(info:walletDetailInfo){
     
         self.yu.text = info.money
+        self.moneyState.hidden = true
         if info.type == "0" {
             self.money.text = "-"+info.balance!
 //            self.money.textColor = UIColor.greenColor()
@@ -45,12 +50,14 @@ class walletDetailTableViewCell: UITableViewCell {
     
     func setValueWithMyInfo(info:tiXianInfo){
         self.yu.text = info.money
+        self.moneyState.hidden = false
+        self.money.text = "-"+info.balance!
         if info.state == "0" {
-            self.money.text = "-"+info.balance!
-//            self.money.textColor = UIColor.greenColor()
+            self.moneyState.text = "待审核"
+        }else if info.state == "1" {
+            self.moneyState.text = "已通过"
         }else{
-            self.money.text = "+"+info.balance!
-//            self.money.textColor = UIColor.redColor()
+            self.moneyState.text = "未通过"
         }
     
         let dateFormatter = NSDateFormatter()

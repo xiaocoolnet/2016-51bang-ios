@@ -161,13 +161,32 @@ class GetCashViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     //按钮点击事件
     func zhifubaoGo(){
-        let vc = zhifubaoBandViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        if dataSource.alipay != nil{
+            if dataSource.alipay == "" {
+                let vc = zhifubaoBandViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+               alert("已绑定支付宝", delegate: self)
+            }
+        }else{
+            alert("网络环境差，请稍等", delegate: self)
+        }
+
+        
     }
     
     func bank(){
-        let vc = BankBandViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        if dataSource.bank != nil{
+            if dataSource.bank == "" {
+                let vc = BankBandViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else{
+                alert("已绑定支付宝", delegate: self)
+            }
+        }else{
+            alert("网络环境差，请稍等", delegate: self)
+        }
+        
     }
     
     func selectGo(){

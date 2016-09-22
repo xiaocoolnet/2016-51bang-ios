@@ -23,7 +23,7 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
         override func viewWillAppear(animated: Bool) {
             self.navigationController?.navigationBar.hidden = false
             self.tabBarController?.tabBar.hidden = true
-            self.title = "选择提现账户"
+            self.title = "选择提现金额"
             getData()
             getData2()
         }
@@ -52,10 +52,15 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
             }
         }
         func getData2(){
+            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            hud.animationType = .Zoom
+            hud.mode = .Text
+            hud.labelText = "正在努力加载"
           let ud = NSUserDefaults.standardUserDefaults()
             let uid = ud.objectForKey("userid")as!String
             mainHelper2.getQianBaoData(uid) { (success, response) in
              self.info = response as! walletInfo
+             hud.hidden = true
              self.myTableView.reloadData()
     
          }

@@ -414,6 +414,7 @@
 		A44263A01D92964F00F9DFB6 /* BankBandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */; };
 		A44263A21D92AFD800F9DFB6 /* CashGetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44263A11D92AFD800F9DFB6 /* CashGetViewController.swift */; };
 		A44666E11D855B4A00142F23 /* chatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44666E01D855B4A00142F23 /* chatModel.swift */; };
+		A4504C101D93B8A80039764D /* WalletDetail3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4504C0F1D93B8A80039764D /* WalletDetail3ViewController.swift */; };
 		A4A26F441D75BD7C00A84360 /* RenZhengBangTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A26F431D75BD7C00A84360 /* RenZhengBangTableViewCell.xib */; };
 		A4F8D7D01D748C7A00B26536 /* shopCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8D7CF1D748C7A00B26536 /* shopCommentTableViewCell.swift */; };
 		A4F8E8CE1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8E8CD1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift */; };
@@ -1056,6 +1057,7 @@
 		A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankBandViewController.swift; sourceTree = "<group>"; };
 		A44263A11D92AFD800F9DFB6 /* CashGetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CashGetViewController.swift; sourceTree = "<group>"; };
 		A44666E01D855B4A00142F23 /* chatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatModel.swift; sourceTree = "<group>"; };
+		A4504C0F1D93B8A80039764D /* WalletDetail3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletDetail3ViewController.swift; sourceTree = "<group>"; };
 		A4A26F431D75BD7C00A84360 /* RenZhengBangTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RenZhengBangTableViewCell.xib; sourceTree = "<group>"; };
 		A4F8D7CF1D748C7A00B26536 /* shopCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shopCommentTableViewCell.swift; sourceTree = "<group>"; };
 		A4F8E8CD1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageButtonActionViewController.swift; sourceTree = "<group>"; };
@@ -1594,6 +1596,7 @@
 				A442639D1D92949100F9DFB6 /* zhifubaoBandViewController.swift */,
 				A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */,
 				A44263A11D92AFD800F9DFB6 /* CashGetViewController.swift */,
+				A4504C0F1D93B8A80039764D /* WalletDetail3ViewController.swift */,
 			);
 			name = "买家";
 			sourceTree = "<group>";
@@ -3125,6 +3128,7 @@
 				F23C55991D65774E0094E2B7 /* ZuberImage.swift in Sources */,
 				1F0DF18B1D2B5D5F00D45390 /* ConvenienceHeaderViewCell.swift in Sources */,
 				1FFE54191D2C9166000891EB /* PayMethodTableViewCell.swift in Sources */,
+				A4504C101D93B8A80039764D /* WalletDetail3ViewController.swift in Sources */,
 				F253E6DD1D7D496A009D2AF5 /* CityNameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

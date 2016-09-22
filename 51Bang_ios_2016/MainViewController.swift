@@ -122,6 +122,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let function = BankUpLoad()
+        function.CheckRenzheng()
         
         //接受通知
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)
@@ -699,11 +701,18 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     @IBAction func goToFriendList(sender: AnyObject) {
         print("认证帮")
+        if loginSign == 0 {
+            
+            self.tabBarController?.selectedIndex = 3
+            
+        }else{
+           
+        
         let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("FriendView")
         self.navigationController?.pushViewController(vc, animated: true)
         vc.title = "认证帮"
-        
+        }
     }
     
     

@@ -49,7 +49,6 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
-        
         isShow = false
         //        backView.frame = CGRectMake(0, 64, WIDTH, HEIGHT)
         //        backView.backgroundColor = RGREY
@@ -519,16 +518,17 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         print(self.phoneNum!)
         print(self.pwd!)
-        if (self.phoneNum!.isEmpty) {
+        if (phoneNum!.isEmpty) {
             SVProgressHUD.showErrorWithStatus("请输入手机号！")
             return
         }
-        if (self.pwd!.isEmpty) {
+        if (pwd!.isEmpty) {
             SVProgressHUD.showErrorWithStatus("请输入密码！")
             return
         }
         
         loginWithNum(self.phoneNum! as String, pwd: self.pwd! as String)
+        
         
     }
     
@@ -579,6 +579,23 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     
                     let function = BankUpLoad()
                     function.CheckRenzheng()
+                    if(ud.objectForKey("userid")==nil)
+                    {
+                        self.backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+                    }
+                    if ud.objectForKey("ss") != nil{
+                        if ud.objectForKey("ss") as! String == "no"{
+                            self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
+                            self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+                        }else{
+                            self.headerView.renzheng.setTitle("实名认证", forState: UIControlState.Normal)
+                            self.headerView.renzheng.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+                        }
+                    }else{
+                        self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
+                        self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+                    }
+
                     
                     //强制写入
                     ud.synchronize()
