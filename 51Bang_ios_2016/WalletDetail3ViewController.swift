@@ -83,7 +83,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 let label = UILabel.init(frame: CGRectMake(75, 8, 80, 30))
                 label.text = "支付宝"
                 
-                let button = UIButton.init(frame: CGRectMake(65, 35, 100, 20))
+                let button = UIButton.init(frame: CGRectMake(65+10, 35, 100, 20))
                 if dataSource.alipay != nil {
                     if dataSource.alipay == "" {
                         button.setTitle("[未绑定]", forState: UIControlState.Normal)
@@ -97,6 +97,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 button.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
                 button.titleLabel?.font = UIFont.systemFontOfSize(12)
                 button.titleLabel?.textAlignment = NSTextAlignment.Left
+                button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
 //                button.addTarget(self, action: #selector(zhifubaoGo), forControlEvents: UIControlEvents.TouchUpInside)
                 
                 buttonSelect1 = UIButton.init(frame: CGRectMake(WIDTH-50, 15, 30, 30))
@@ -116,7 +117,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 let label = UILabel.init(frame: CGRectMake(75, 8, 80, 30))
                 label.text = "银行卡"
                 
-                let button = UIButton.init(frame: CGRectMake(65, 35, 100, 20))
+                let button = UIButton.init(frame: CGRectMake(65+10, 35, 100, 20))
                 if dataSource.bank != nil {
                     if dataSource.bank == "" {
                         button.setTitle("[未绑定]", forState: UIControlState.Normal)
@@ -130,6 +131,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 button.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
                 button.titleLabel?.font = UIFont.systemFontOfSize(12)
                 button.titleLabel?.textAlignment = NSTextAlignment.Left
+                button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
 //                button.addTarget(self, action: #selector(bank), forControlEvents: UIControlEvents.TouchUpInside)
                 
                 

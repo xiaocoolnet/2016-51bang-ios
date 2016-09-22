@@ -776,24 +776,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             default:
                 print("微博")
             }
-        case 5:
-            //            var newsObj = QQApiNewsObject()
-            
-            
-            
-            _ = QQApiInterface.sendReq(req)
-            bottom.hidden = true
-        case 6:
-            bottom.hidden = true
-        case 9:
-            //            var newsObj = QQApiNewsObject()
-            
-            
-            
-            _ = QQApiInterface.SendReqToQZone(req)
-            bottom.hidden = true
-        default:
-            print("微博")
+
         }
     }
     

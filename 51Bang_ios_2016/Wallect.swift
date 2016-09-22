@@ -68,11 +68,12 @@ class Wallect: UIViewController {
 
         
         let dayTip = UILabel()
-        dayTip.frame = CGRectMake(5, statuFrame.height + 40 + 70 + 10 , 100, 30)
+        dayTip.frame = CGRectMake(WIDTH/2-50, statuFrame.height + 40 + 70 + 10 , 100, 30)
         dayTip.text = "账户余额"
         dayTip.textColor = UIColor.whiteColor()
         dayTip.adjustsFontSizeToFitWidth  = true
         dayTip.font = UIFont.systemFontOfSize(15)
+        dayTip.textAlignment = NSTextAlignment.Center
         TopView.addSubview(dayTip)
         
         leftMoney.frame = CGRectMake(5, statuFrame.height + 40 + 10 , WIDTH - 5, 60)
@@ -83,7 +84,7 @@ class Wallect: UIViewController {
         }
 //        leftMoney.text = "0.00"
         leftMoney.textColor = UIColor.whiteColor()
-        leftMoney.textAlignment = NSTextAlignment.Left
+        leftMoney.textAlignment = NSTextAlignment.Center
         leftMoney.font = UIFont.systemFontOfSize(35)
         
         
@@ -94,9 +95,9 @@ class Wallect: UIViewController {
     
         SecondView.frame = CGRectMake(0, 180 , WIDTH, 110)
         SecondView.backgroundColor = UIColor.whiteColor()
-        let label1 = UILabel.init(frame: CGRectMake(10, 10, 100, 20))
+        let label1 = UILabel.init(frame: CGRectMake(10+20, 10, 100, 20))
         label1.text = "本月接单数"
-        let label2 = UILabel.init(frame: CGRectMake(10, 30, 100,30))
+        let label2 = UILabel.init(frame: CGRectMake(10+20, 30, 100,30))
         print(info.monthtasks)
         label2.text = info.monthtasks
         let label3 = UILabel.init(frame: CGRectMake(200, 10, 100, 20))
@@ -110,9 +111,9 @@ class Wallect: UIViewController {
         }
         let line = UIView.init(frame: CGRectMake(0, 60, WIDTH, 1))
         line.backgroundColor = RGREY
-        let label5 = UILabel.init(frame: CGRectMake(10, 61, 100, 20))
+        let label5 = UILabel.init(frame: CGRectMake(10+20, 61, 100, 20))
         label5.text = "总单数"
-        let label6 = UILabel.init(frame: CGRectMake(10, 81, 100,30))
+        let label6 = UILabel.init(frame: CGRectMake(10+20, 81, 100,30))
         label6.text = info.alltasks
         let label7 = UILabel.init(frame: CGRectMake(200, 61, 100, 20))
         label7.text = "总收入"
@@ -146,13 +147,13 @@ class Wallect: UIViewController {
         thirdView.frame = CGRectMake(0, 300, WIDTH, 120+60)
         thirdView.backgroundColor = UIColor.whiteColor()
         let headerImageView1  = UIImageView()
-        headerImageView1.frame = CGRectMake(5, (50-17)/2+5, 18, 17)
+        headerImageView1.frame = CGRectMake(30, (50-17)/2+5, 18, 17)
         headerImageView1.image = UIImage(named: "ic_wodefadan")
         
 //        headerImageView1.backgroundColor = UIColor.redColor()
-        let label1 = UILabel.init(frame: CGRectMake(30, 0+5, 100, 50))
+        let label1 = UILabel.init(frame: CGRectMake(30+25, 0+5, 100, 50))
         label1.text = "收支记录"
-        let button1 = UIButton.init(frame: CGRectMake(WIDTH-50, 10, 20, 40))
+        let button1 = UIButton.init(frame: CGRectMake(WIDTH-40, 10, 20, 40))
         button1.setImage(UIImage(named: "ic_arrow_right"), forState: UIControlState.Normal)
         
         let button1Back = UIButton.init(frame: CGRectMake(0, 0, WIDTH, 60))
@@ -163,11 +164,11 @@ class Wallect: UIViewController {
         
         
         let headerImageView2  = UIImageView()
-        headerImageView2.frame = CGRectMake(5, (50-17)/2+70-5, 18, 17)
+        headerImageView2.frame = CGRectMake(30, (50-17)/2+70-5, 18, 17)
         headerImageView2.image = UIImage(named: "ic_wodejiedan")
-        let label2 = UILabel.init(frame: CGRectMake(30, 70-5, 100,50))
+        let label2 = UILabel.init(frame: CGRectMake(30+25, 70-5, 100,50))
         label2.text = "提现记录"
-        let button2 = UIButton.init(frame: CGRectMake(WIDTH-50, 70, 20, 40))
+        let button2 = UIButton.init(frame: CGRectMake(WIDTH-40, 70, 20, 40))
         button2.setImage(UIImage(named: "ic_arrow_right"), forState: UIControlState.Normal)
         let button2Back = UIButton.init(frame: CGRectMake(0, 60, WIDTH, 60))
         button2Back.backgroundColor = UIColor.clearColor()
@@ -176,11 +177,11 @@ class Wallect: UIViewController {
         let line1 = UIView.init(frame: CGRectMake(0, 120, WIDTH, 1))
         line1.backgroundColor = RGREY
         let headerImageView3  = UIImageView()
-        headerImageView3.frame = CGRectMake(5, (50-17)/2+70-5+60, 18, 17)
+        headerImageView3.frame = CGRectMake(30, (50-17)/2+70-5+60, 18, 17)
         headerImageView3.image = UIImage(named: "ic_wodejiedan")
-        let label3 = UILabel.init(frame: CGRectMake(30, 70-5+60, 120,50))
+        let label3 = UILabel.init(frame: CGRectMake(30+25, 70-5+60, 120,50))
         label3.text = "绑定提现账户"
-        let button3 = UIButton.init(frame: CGRectMake(WIDTH-50, 70+60, 20, 40))
+        let button3 = UIButton.init(frame: CGRectMake(WIDTH-40, 70+60, 20, 40))
         button3.setImage(UIImage(named: "ic_arrow_right"), forState: UIControlState.Normal)
         let button3Back = UIButton.init(frame: CGRectMake(0, 60+60, WIDTH, 60))
         button3Back.backgroundColor = UIColor.clearColor()

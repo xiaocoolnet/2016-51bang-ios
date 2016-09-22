@@ -302,7 +302,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     let line = UILabel(frame: CGRectMake(CGFloat(i)*WIDTH/3+WIDTH/3, 0, 1, WIDTH*30/375))
                     line.backgroundColor = RGREY
                     cell.addSubview(line)
-                    let img = UIImageView(frame: CGRectMake(WIDTH*33/375+CGFloat(i)*(WIDTH/3), 10, WIDTH*18/375, WIDTH*17/375))
+                    let img = UIImageView(frame: CGRectMake(WIDTH*33/375+CGFloat(i)*(WIDTH/3), 10+5, WIDTH*18/375, WIDTH*17/375))
                     img.image = UIImage(named: labImg[i])
                     cell.addSubview(img)
                     let btn = UIButton(frame: CGRectMake(CGFloat(i)*WIDTH/3, 0, WIDTH/3, WIDTH*46/375))
