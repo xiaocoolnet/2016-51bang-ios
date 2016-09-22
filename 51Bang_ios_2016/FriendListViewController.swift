@@ -259,7 +259,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             
             let info : RzbInfo?
             info = self.rzbDataSource![indexPath.row]
-            
+//            var meter1 = Double()
+//
             let ut =  NSUserDefaults.standardUserDefaults()
             
             if info!.latitude != "" && info!.longitude != "" && ut.objectForKey("latitude") != nil && ut.objectForKey("longitude") != nil {
@@ -273,7 +274,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                     distance = "1000+"
                 }
                 
-                distance = String(format:"%.2f",meter1)
+                distance = String(format:"%.1f",meter1)
                 //            print(distance)
                 cell.distance.text = "\(distance)km"
                 cell.distance.hidden = false

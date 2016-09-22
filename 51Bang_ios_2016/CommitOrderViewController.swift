@@ -587,12 +587,12 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             userid = ud.objectForKey("userid")as! String
         }
         let strrr = NSMutableString()
-        
+        print(self.jiNengID)
         for i in 0..<self.jiNengID.count{
             if i == jiNengID.count-1{
-                strrr.appendString(self.infosss[(jiNengID[i]as! UIButton).tag].id!)
+                strrr.appendString(jiNengID[i] as! String)
             }else{
-                strrr.appendString(self.infosss[(jiNengID[i]as! UIButton).tag].id!)
+                strrr.appendString(jiNengID[i] as! String)
                 strrr.appendString(",")
             }
         }
@@ -1879,7 +1879,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 
             }
             
-            
+            print(self.jiNengID)
                 //            for str in arr {
 //               
 //                strrr = strrr + self.infosss[(str  as! UIButton).tag].name!

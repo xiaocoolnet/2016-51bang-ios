@@ -128,7 +128,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             
         }
         
-        
+//        if isDingwei == "" {
+//            
+//        }
         if (isDingwei) {
             userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
             isDingwei = false
@@ -147,7 +149,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        dingWeiStr = "0"
         let function = BankUpLoad()
         function.CheckRenzheng()
         
@@ -866,7 +868,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     func moveToUser(){
         mapView.updateLocationData(self.savedLocation)
         mapView.setCenterCoordinate(self.savedLocation.location.coordinate, animated: true)
-        if userLocationCenter.objectForKey("subLocality") != nil || userLocationCenter.objectForKey("subLocality") as! String != ""{
+        if userLocationCenter.objectForKey("subLocality") != nil || userLocationCenter.objectForKey("subLocality") as! String != "0"{
             userLocationCenter.setObject(userLocationCenter.objectForKey("subLocality") as! String, forKey: "cityName")
             
             let strr = userLocationCenter.objectForKey("subLocality") as! String
