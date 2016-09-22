@@ -425,14 +425,17 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
             if( ViewTag == 1 )
             {
                 if !isWobangPush {
-                    CommitOrderViewController.firstString =  (result.poiList[0] as! BMKPoiInfo).name
+                    CommitOrderViewController.firstString = result.addressDetail.city + result.addressDetail.district + (result.poiList[0] as! BMKPoiInfo).name
+                    
+                    print((result.poiList[0] as! BMKPoiInfo).address)
+                    print((result.poiList[0] as! BMKPoiInfo).city)
                     CommitOrderViewController.FirstLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
                 }
                 
                 
             }else{
                 if !isWobangPush{
-                    CommitOrderViewController.secondstring = (result.poiList[0] as! BMKPoiInfo).name
+                    CommitOrderViewController.secondstring = result.addressDetail.city + result.addressDetail.district + (result.poiList[0] as! BMKPoiInfo).name
                     CommitOrderViewController.SecondLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
                 }
             
