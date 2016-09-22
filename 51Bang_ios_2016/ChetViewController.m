@@ -50,10 +50,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self someSet];
-//    [self messModelArr];
-//    self.datasource2 = [[NSMutableArray alloc]init];
-    NSLog(@"%@",self.datasource2);
-    NSLog(@"%@",self.urlphoto);
     
     if (_titleTop != nil) {
         self.title = _titleTop;
@@ -92,6 +88,7 @@
             
         }
         
+        [self.customTableView reloadData];
         NSIndexPath *path=[NSIndexPath indexPathForItem:self.arrModelData.count-1 inSection:0];
         [self.customTableView scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionNone animated:YES];
     }

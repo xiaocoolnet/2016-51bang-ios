@@ -261,7 +261,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             cell.selectionStyle = .None
             cell.weizhiButton.addTarget(self, action: #selector(self.dingWeiAction), forControlEvents: UIControlEvents.TouchUpInside)
             cell.message.addTarget(self, action: #selector(self.message(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            cell.message.tag = indexPath.row-1
+            cell.message.tag = indexPath.row
             cell.setValueWithInfo(self.rzbDataSource![indexPath.row])
             return cell
             
@@ -382,68 +382,65 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     
     func message(sender:UIButton){
-//        let vc = ChetViewController()
-//        vc.receive_uid = (dataSource2[sender.tag] as! TCHDInfo).userid
-//        //        vc.datasource2 = NSMutableArray()
-//        let ud = NSUserDefaults.standardUserDefaults()
-//        let userid = ud.objectForKey("userid")as! String
-//        if userid == (dataSource2[sender.tag] as! TCHDInfo).userid{
-//            alert("请不要和自己说话", delegate: self)
-//        }else{
-//            mainHelper.getChatMessage(userid, receive_uid: (dataSource2[sender.tag] as! TCHDInfo).userid!) { (success, response) in
-//                
-//                if !success {
-//                    alert("加载错误", delegate: self)
-//                    return
-//                }
-//                let dat = NSMutableArray()
-//                self.dataSource3 = response as? Array<chatInfo> ?? []
-//                print(self.dataSource3)
-//                if self.dataSource3?.count != 0{
-//                    for num in 0...self.dataSource3!.count-1{
-//                        let dic = NSMutableDictionary()
-//                        dic.setObject(self.dataSource3![num].id!, forKey: "id")
-//                        dic.setObject(self.dataSource3![num].send_uid!, forKey: "send_uid")
-//                        dic.setObject(self.dataSource3![num].receive_uid!, forKey: "receive_uid")
-//                        dic.setObject(self.dataSource3![num].content!, forKey: "content")
-//                        dic.setObject(self.dataSource3![num].status!, forKey: "status")
-//                        dic.setObject(self.dataSource3![num].create_time!, forKey: "create_time")
-//                        if self.dataSource3![num].send_face != nil{
-//                            dic.setObject(self.dataSource3![num].send_face!, forKey: "send_face")
-//                        }
-//                        
-//                        if self.dataSource3![num].send_nickname != nil{
-//                            dic.setObject(self.dataSource3![num].send_nickname!, forKey: "send_nickname")
-//                        }
-//                        
-//                        if self.dataSource3![num].receive_face != nil{
-//                            dic.setObject(self.dataSource3![num].receive_face!, forKey: "receive_face")
-//                        }
-//                        
-//                        if self.dataSource3![num].receive_nickname != nil{
-//                            dic.setObject(self.dataSource3![num].receive_nickname!, forKey: "receive_nickname")
-//                        }
-//                        
-//                        
-//                        dat.addObject(dic)
-//                        
-//                        //                vc.datasource2.addObject(dic)
-//                        
-//                    }
-//                    
-//                    print(dat)
-//                    vc.datasource2 = NSArray.init(array: dat) as Array
-//                    print(vc.datasource2)
-//                    vc.viewWillAppear(true)
-//                    vc.customTableView.reloadData()
-//                }else{
-//                    
-//                }
-//                
-//                
-//            }
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
+        let vc = ChetViewController()
+        vc.receive_uid = rzbDataSource![sender.tag].id
+        //        vc.datasource2 = NSMutableArray()
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
+        if userid == rzbDataSource![sender.tag].id{
+            alert("请不要和自己说话", delegate: self)
+        }else{
+            mainHelper.getChatMessage(userid, receive_uid: rzbDataSource![sender.tag].id) { (success, response) in
+                
+                if !success {
+                    alert("加载错误", delegate: self)
+                    return
+                }
+                let dat = NSMutableArray()
+                self.dataSource3 = response as? Array<chatInfo> ?? []
+                print(self.dataSource3)
+                if self.dataSource3?.count != 0{
+                    for num in 0...self.dataSource3!.count-1{
+                        let dic = NSMutableDictionary()
+                        dic.setObject(self.dataSource3![num].id!, forKey: "id")
+                        dic.setObject(self.dataSource3![num].send_uid!, forKey: "send_uid")
+                        dic.setObject(self.dataSource3![num].receive_uid!, forKey: "receive_uid")
+                        dic.setObject(self.dataSource3![num].content!, forKey: "content")
+                        dic.setObject(self.dataSource3![num].status!, forKey: "status")
+                        dic.setObject(self.dataSource3![num].create_time!, forKey: "create_time")
+                        if self.dataSource3![num].send_face != nil{
+                            dic.setObject(self.dataSource3![num].send_face!, forKey: "send_face")
+                        }
+                        
+                        if self.dataSource3![num].send_nickname != nil{
+                            dic.setObject(self.dataSource3![num].send_nickname!, forKey: "send_nickname")
+                        }
+                        
+                        if self.dataSource3![num].receive_face != nil{
+                            dic.setObject(self.dataSource3![num].receive_face!, forKey: "receive_face")
+                        }
+                        
+                        if self.dataSource3![num].receive_nickname != nil{
+                            dic.setObject(self.dataSource3![num].receive_nickname!, forKey: "receive_nickname")
+                        }
+                        
+                        
+                        dat.addObject(dic)
+                        
+                        //                vc.datasource2.addObject(dic)
+                        
+                    }
+                    
+                    vc.datasource2 = NSArray.init(array: dat) as Array
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else{
+                    
+                }
+                
+                
+            }
+            
+        }
 
     }
     

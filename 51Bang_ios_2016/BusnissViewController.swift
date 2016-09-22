@@ -770,9 +770,10 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         default:
             print("微博")
         }
-        }
     }
     
+
+
     //分享
     func goToShare(btn:UIButton){
         
@@ -835,7 +836,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                         break
                     }
                 }
-            }else if btn.tag == 2{
+            }
+        }else if btn.tag == 2{
                 let message = APMediaMessage()
                 let webObj = APShareWebObject()
                 //            let textObj = APShareTextObject()
@@ -885,8 +887,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             }
             
         }
-        
-    }
+
+    
     
     
     

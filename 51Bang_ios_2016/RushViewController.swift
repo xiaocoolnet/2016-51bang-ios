@@ -142,7 +142,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         
         if ud.objectForKey("subLocality") != nil {
             subLocality = ud.objectForKey("subLocality") as! String
-            
+            print(ud.objectForKey("subLocality"))
             var count = Int()
             for a in subLocality.characters{
                 if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
