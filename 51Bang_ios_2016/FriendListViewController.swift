@@ -255,9 +255,38 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         
         tableView.separatorStyle = .None
         if tableView.tag == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("cell")as!RenZhengBangTableViewCell
+            
+            let info : RzbInfo?
+            info = self.rzbDataSource![indexPath.row]
+            
+            let ut =  NSUserDefaults.standardUserDefaults()
+            
+            if info!.latitude != "" && info!.longitude != "" && ut.objectForKey("latitude") != nil && ut.objectForKey("longitude") != nil {
+                
+                let current = CLLocation.init(latitude: CLLocationDegrees(info!.latitude)!, longitude: CLLocationDegrees(info!.longitude)!)
+                let before = CLLocation.init(latitude: CLLocationDegrees(ut.objectForKey("latitude") as! String)!, longitude: CLLocationDegrees(ut.objectForKey("longitude") as! String)!)
+                let meters = current.distanceFromLocation(before)
+                var distance = String()
+                let meter1  = meters/1000
+                if meter1>1000 {
+                    distance = "1000+"
+                }
+                
+                distance = String(format:"%.2f",meter1)
+                //            print(distance)
+                cell.distance.text = "\(distance)km"
+                cell.distance.hidden = false
+                
+            }else{
+                cell.distance.hidden = true
+            }
+            
+            
+            
             
             //tableView.separatorStyle = .None
-            let cell = tableView.dequeueReusableCellWithIdentifier("cell")as!RenZhengBangTableViewCell
+            
             cell.selectionStyle = .None
             cell.weizhiButton.addTarget(self, action: #selector(self.dingWeiAction), forControlEvents: UIControlEvents.TouchUpInside)
             cell.message.addTarget(self, action: #selector(self.message(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -297,6 +326,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         }
         
     }
+    
+    
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.myTableView {
