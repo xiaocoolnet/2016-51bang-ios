@@ -97,6 +97,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.navigationController?.navigationBar.hidden = true
         self.tabBarController?.tabBar.hidden = false
 //        let ud = NSUserDefaults.standardUserDefaults()
+        self.Checktoubao()
         if(ud.objectForKey("userid")==nil)
         {
             backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
@@ -415,6 +416,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 
                 let bookDanVc = MyBookDan()
                 bookDanVc.isNotSigle = true
+                bookDanVc.sign = 0
                 self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(bookDanVc, animated: true)
                 self.hidesBottomBarWhenPushed = false
@@ -577,24 +579,55 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         ud.setObject(userInfo.sex, forKey: "sex")
                     }
                     
-                    let function = BankUpLoad()
-                    function.CheckRenzheng()
-                    if(ud.objectForKey("userid")==nil)
+                    //实名认证反馈
+                    
+                    let checkUrl = Bang_URL_Header + "CheckHadAuthentication"
+                    if( NSUserDefaults.standardUserDefaults().objectForKey("userid") == nil)
                     {
-                        self.backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+                        return
                     }
-                    if ud.objectForKey("ss") != nil{
-                        if ud.objectForKey("ss") as! String == "no"{
-                            self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
-                            self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-                        }else{
+                    let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
+                    let param = ["userid":id]
+                    Alamofire.request(.GET, checkUrl, parameters: param ).response{
+                        
+                        request, response , json , error in
+                        
+                        let ud = NSUserDefaults.standardUserDefaults()
+                        
+                        
+                        let result = Http(JSONDecoder(json!))
+                        if result.status == "success"{
+                            print("已经认证")
+                            ud .setObject("yes", forKey: "ss")
                             self.headerView.renzheng.setTitle("实名认证", forState: UIControlState.Normal)
                             self.headerView.renzheng.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+                            MainViewController.renZhengStatue = 1
+                            
+                            
+                        }else{
+                            ud .setObject("no", forKey: "ss")
+                            self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
+                            self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+                            MainViewController.renZhengStatue = 0
                         }
-                    }else{
-                        self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
-                        self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+                        
+                        
+                        
                     }
+//                    if(ud.objectForKey("userid")==nil)
+//                    {
+//                        self.backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+//                    }
+//                    if ud.objectForKey("ss") != nil{
+//                        if ud.objectForKey("ss") as! String == "no"{
+//                            
+//                        }else{
+//                           
+//                        }
+//                    }else{
+//                        self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
+//                        self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+//                    }
 
                     
                     //强制写入

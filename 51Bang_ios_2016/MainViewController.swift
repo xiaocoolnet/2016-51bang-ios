@@ -737,8 +737,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     func getWeiZhi(){
         var cityname = String()
-        if userLocationCenter.objectForKey("cityname") != nil {
-             cityname = userLocationCenter.objectForKey("cityname") as! String
+        if userLocationCenter.objectForKey("cityName") != nil {
+             cityname = userLocationCenter.objectForKey("cityName") as! String
         }
         
         

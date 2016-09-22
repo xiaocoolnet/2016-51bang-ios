@@ -26,6 +26,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
 //        self.title = ""
 //        self.navigationController!.title = "我帮"
         self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.hidden = false
         self.GetData()
         
     }
@@ -443,7 +444,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         vc.Checktoubao()
         let ud = NSUserDefaults.standardUserDefaults()
         if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
-            
+            print(ud.objectForKey("baoxiangrenzheng") as! String)
             let vc2 = MyInsure()
             self.navigationController?.pushViewController(vc2, animated: true)
             return

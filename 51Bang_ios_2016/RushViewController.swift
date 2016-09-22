@@ -26,6 +26,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     
     override func viewWillAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = false
+        self.navigationController?.navigationBar.hidden = false
         let function = BankUpLoad()
         function.CheckRenzheng()
         let ud = NSUserDefaults.standardUserDefaults()

@@ -66,8 +66,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         
         let userLocationCenter = NSUserDefaults.standardUserDefaults()
         var cityname = String()
-        if userLocationCenter.objectForKey("cityname") != nil {
-            cityname = userLocationCenter.objectForKey("cityname") as! String
+        if userLocationCenter.objectForKey("cityName") != nil {
+            cityname = userLocationCenter.objectForKey("cityName") as! String
         }
         
          mainHelper.GetRzbList (cityname ,handle: {[unowned self](success, response) in

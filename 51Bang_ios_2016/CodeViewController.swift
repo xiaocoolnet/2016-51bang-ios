@@ -71,6 +71,7 @@ class CodeViewController: UIViewController,UITextFieldDelegate {
             let vc = MyBookDan()
             vc.isNotSigle = true
             vc.sign = 3
+            self.tabBarController?.selectedIndex = 3
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
