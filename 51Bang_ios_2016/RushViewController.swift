@@ -137,9 +137,20 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         var longitude = String()
         var latitude = String()
         var isworking = String()
+        var cutyName = String()
         
         if ud.objectForKey("subLocality") != nil {
             subLocality = ud.objectForKey("subLocality") as! String
+            
+            var count = Int()
+            for a in subLocality.characters{
+                if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
+                    break
+                }
+                count = count + 1
+            }
+            
+            cutyName = subLocality.substringToIndex(subLocality.startIndex.advancedBy(count+1))
         }
         if ud.objectForKey("longitude") != nil {
             longitude = ud.objectForKey("longitude") as! String
@@ -147,6 +158,8 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         if ud.objectForKey("latitude") != nil {
             latitude = ud.objectForKey("latitude") as! String
         }
+        
+        
         
         
         print(longitude)
@@ -158,7 +171,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             isworking = "0"
         }
         if ud.objectForKey("userid") != nil {
-            mainHelper.BeginWorking(ud.objectForKey("userid") as! String, address: subLocality, longitude: longitude, latitude: latitude, isworking: isworking) { (success, response) in
+            mainHelper.BeginWorking(ud.objectForKey("userid") as! String, address: cutyName, longitude: longitude, latitude: latitude, isworking: isworking) { (success, response) in
                 if !success {
                     alert("数据加载出错", delegate: self)
                     return

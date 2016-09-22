@@ -559,7 +559,10 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(userInfo.id, forKey: "userid")
 //                    let defalutid = NSUserDefaults.standardUserDefaults()
 //                    let studentid = defalutid.stringForKey("userid")
-                    JPUSHService.setTags(nil, aliasInbackground: userInfo.id!)
+                    if userInfo.id != nil && userInfo.id! != ""{
+                        JPUSHService.setTags(nil, aliasInbackground: userInfo.id!)
+
+                    }
                     ud.setObject(userInfo.xgtoken, forKey: "token")
                     ud.setObject(userInfo.name, forKey: "name")
                     ud.setObject(self.phoneNum, forKey: "phone")
