@@ -776,8 +776,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             default:
                 print("微博")
             }
-
-        }
+                }
     }
     
 

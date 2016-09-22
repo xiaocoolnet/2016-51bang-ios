@@ -133,7 +133,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             
             userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
             isDingwei = false
-        } 
+        }else{
+            userLocationCenter.setObject("0", forKey: "subLocality")
+        }
         
         geocodeSearch.delegate = nil
         locationService.delegate = nil
@@ -867,7 +869,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     func moveToUser(){
         mapView.updateLocationData(self.savedLocation)
         mapView.setCenterCoordinate(self.savedLocation.location.coordinate, animated: true)
-        if userLocationCenter.objectForKey("subLocality") != nil || userLocationCenter.objectForKey("subLocality") as! String != "0"{
+        if userLocationCenter.objectForKey("subLocality") != nil && userLocationCenter.objectForKey("subLocality") as! String != "0"{
             userLocationCenter.setObject(userLocationCenter.objectForKey("subLocality") as! String, forKey: "cityName")
             
             let strr = userLocationCenter.objectForKey("subLocality") as! String
@@ -1039,6 +1041,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 MainViewController.BMKname =  (result.poiList[0] as! BMKPoiInfo).name
                 MainViewController.city = (result.poiList[0] as! BMKPoiInfo).city
                 self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
+                print(dingWeiStr)
                 address = MainViewController.BMKname
                 print(result.addressDetail.city)
                 print(result.addressDetail.streetName)
