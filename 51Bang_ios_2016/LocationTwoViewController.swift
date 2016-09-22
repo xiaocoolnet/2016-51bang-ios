@@ -110,7 +110,7 @@ class LocationTwoViewController: UIViewController,CLLocationManagerDelegate,MKMa
         if (ud.objectForKey("thoroughfare") != nil) {
             self.thoroughfare = ud.objectForKey("thoroughfare")as! String
         }
-        if (ud.objectForKey("subLocality") != nil) {
+        if (ud.objectForKey("subLocality") != nil || ud.objectForKey("subLocality") as! String != "") {
             self.subLocality = ud.objectForKey("subLocality")as! String
         }
 //        self.cityName = ud.objectForKey("cityName")as! String

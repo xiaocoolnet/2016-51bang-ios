@@ -277,7 +277,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             switch(section){
             case 0: //定位城市
                 let ud = NSUserDefaults.standardUserDefaults()
-                if ud.objectForKey("subLocality") == nil {
+                if ud.objectForKey("subLocality") == nil || ud.objectForKey("subLocality") as! String == "" {
                     let th = ""
                     if th.isEmpty {
                         cellHead!.addData([self.cityName+th], city: selectCity)
@@ -291,7 +291,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
 
                 }else{
                     var th = String()
-                    if ud.objectForKey("subLocality") != nil {
+                    if ud.objectForKey("subLocality") != nil || ud.objectForKey("subLocality") as! String != "" {
                         th = ud.objectForKey("subLocality")as! String
                     }
                     

@@ -866,7 +866,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     func moveToUser(){
         mapView.updateLocationData(self.savedLocation)
         mapView.setCenterCoordinate(self.savedLocation.location.coordinate, animated: true)
-        if userLocationCenter.objectForKey("subLocality") != nil{
+        if userLocationCenter.objectForKey("subLocality") != nil || userLocationCenter.objectForKey("subLocality") as! String != ""{
             userLocationCenter.setObject(userLocationCenter.objectForKey("subLocality") as! String, forKey: "cityName")
             
             let strr = userLocationCenter.objectForKey("subLocality") as! String

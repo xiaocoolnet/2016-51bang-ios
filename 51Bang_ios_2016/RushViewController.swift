@@ -141,7 +141,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         var isworking = String()
         var cutyName = String()
         
-        if ud.objectForKey("subLocality") != nil {
+        if ud.objectForKey("subLocality") != nil || ud.objectForKey("subLocality") as! String != "" {
             subLocality = ud.objectForKey("subLocality") as! String
             
             var count = Int()
