@@ -41,6 +41,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             certiBtn.userInteractionEnabled = false
             certiBtn.hidden = true
         certifyImage.hidden = true
+            self.title = "抢单"
 //            self = WoBangPageViewController()
 //        self.GetData()
             }
@@ -553,10 +554,20 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     
     func qiangdan(sender:UIButton){
         
+        let vc = MineViewController()
+        vc.Checktoubao()
+        let ud = NSUserDefaults.standardUserDefaults()
+        if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
+            
+            let vc2 = MyInsure()
+            self.navigationController?.pushViewController(vc2, animated: true)
+            return
+        }
+        
         (self.myTableView.viewWithTag(sender.tag)as! UIButton).enabled = false
         
         print("抢单")
-        let ud = NSUserDefaults.standardUserDefaults()
+//        let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         let longitude = ud.objectForKey("longitude")as! String
         let latitude = ud.objectForKey("latitude")as! String
