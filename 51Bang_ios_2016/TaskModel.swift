@@ -89,6 +89,33 @@ class DicModel: NSObject {
     }
 }
 
+class JuanmaModel: NSObject {
+    var status:String?
+    var data: String?
+    //    var datas ＝ Array<GoodsList>()
+    var datas = Array<DicInfo>()
+    var errorData:String?
+    override init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success" {
+//            for childs: JSONDecoder in decoder["data"].array!{
+//                //                print(childs)
+//                //                print(SkillModel(childs))
+//                datas.append(DicInfo(childs))
+//                print(datas)
+//                //                    array.append(SkillModel(childs))
+//            }
+            data = decoder["data"].string
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+    }
+}
+
 
 class TaskList: JSONJoy {
     var status:String?

@@ -52,6 +52,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.view.backgroundColor = RGREY
         self.title="特卖详情"
         self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.hidden = false
         //        self.navigationController?.navigationBar.hidden = true
         //        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         createRightNavi()
@@ -76,9 +77,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 return
                 
             }
-        let vc = AffirmOrderViewController()
-        vc.info = self.goodsInfo
-        self.navigationController?.pushViewController(vc, animated: true)
+            let vc = AffirmOrderViewController()
+            vc.info = self.goodsInfo
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -95,7 +96,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 }else{
                     hud.hide(true)
                     print(response)
-//                  Http(JSONDecoder(data))
+                    //                  Http(JSONDecoder(data))
                     self.goodsInfo = response as! GoodsInfo2
                     print(self.goodsInfo)
                     print(self.goodsInfo.id)
@@ -110,10 +111,10 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 }
             })
             })
-
+        
         
     }
-
+    
     
     func click(){
         
@@ -172,7 +173,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let cell = tableView.dequeueReusableCellWithIdentifier("site")as! SiteTableViewCell
             cell.callPhone.addTarget(self, action: #selector(self.call), forControlEvents: UIControlEvents.TouchUpInside)
             let ud = NSUserDefaults.standardUserDefaults()
-//            print(ud.objectForKey("longitude"))
+            //            print(ud.objectForKey("longitude"))
             if ud.objectForKey("longitude") == nil || ud.objectForKey("latitude") == nil{
                 
             }else{
@@ -182,22 +183,22 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 let myLatitude = removeOptionWithString(latitude)
                 self.current = CLLocation.init(latitude: CLLocationDegrees(myLatitude)!, longitude: CLLocationDegrees(myLongitude)!)
             }
-//            let longitude = ud.objectForKey("longitude")as! String
-//            let latitude = ud.objectForKey("latitude")as! String
-    
+            //            let longitude = ud.objectForKey("longitude")as! String
+            //            let latitude = ud.objectForKey("latitude")as! String
+            
             
             print(current)
             if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
                 print(goodsInfo.latitude! as String,goodsInfo.longitude! as String,"00000000")
                 
                 let before = CLLocation.init(latitude: CLLocationDegrees(self.goodsInfo.latitude! as String)!, longitude: CLLocationDegrees(self.goodsInfo.longitude! as String)!)
-              
-          
+                
+                
                 
                 print(before)
                 let meters = (current.distanceFromLocation(before))/1000
-//                let meter:String = "\(meters)"
-//                let array = meter.componentsSeparatedByString(".")
+                //                let meter:String = "\(meters)"
+                //                let array = meter.componentsSeparatedByString(".")
                 print(meters)
                 if meters > 1000{
                     cell.distance.text = "1000+km"
@@ -205,16 +206,16 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     let distance = String(format:"%.2f",meters)
                     print(distance)
                     cell.distance.text = "\(distance)km"
-
+                    
                 }
                 
             }else{
                 cell.distance.text = ""
             }
             if self.goodsInfo.address != nil{
-            print(self.goodsInfo.address)
-            cell.title.text = self.goodsInfo.address
-            cell.title.adjustsFontSizeToFitWidth = true
+                print(self.goodsInfo.address)
+                cell.title.text = self.goodsInfo.address
+                cell.title.adjustsFontSizeToFitWidth = true
             }
             print(cell.title.text)
             cell.title.adjustsFontSizeToFitWidth = true
@@ -260,12 +261,12 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 print(self.dataSource![indexPath.row-3].name)
                 print(self.dataSource![indexPath.row-3].userid)
                 print(self.dataSource![indexPath.row-3].photo)
-//                print(self.dataSource![indexPath.row-2].add_time)
+                //                print(self.dataSource![indexPath.row-2].add_time)
                 return cell
             }else{
                 let cell = UITableViewCell()
-                                cell.backgroundColor = UIColor.clearColor()
-                                return cell
+                cell.backgroundColor = UIColor.clearColor()
+                return cell
             }
             
         }
@@ -275,27 +276,27 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewDidLoad()
         //        isFavorite = false
         self.view.backgroundColor = RGREY
-//        getData()
+        //        getData()
         self.dataSource = self.goodsInfo.commentlist
-//        let ud = NSUserDefaults.standardUserDefaults()
-//        let userid = ud.objectForKey("userid")as! String
+        //        let ud = NSUserDefaults.standardUserDefaults()
+        //        let userid = ud.objectForKey("userid")as! String
         
-//        mainHelper.getDingDanDetail(userid,handle:{[unowned self] (success, response) in
-//            dispatch_async(dispatch_get_main_queue(), {
-//                if !success {
-//                    return
-//                }
-//                print(response)
-//                self.dataSource?.removeAll()
-//                print(self.dataSource?.count)
-//                self.dataSource = response as? Array<GoodsInfo2> ?? []
-//                print(self.dataSource)
-//                print(self.dataSource?.count)
-//                
-//                
-//            })
-//            
-//            })
+        //        mainHelper.getDingDanDetail(userid,handle:{[unowned self] (success, response) in
+        //            dispatch_async(dispatch_get_main_queue(), {
+        //                if !success {
+        //                    return
+        //                }
+        //                print(response)
+        //                self.dataSource?.removeAll()
+        //                print(self.dataSource?.count)
+        //                self.dataSource = response as? Array<GoodsInfo2> ?? []
+        //                print(self.dataSource)
+        //                print(self.dataSource?.count)
+        //
+        //
+        //            })
+        //
+        //            })
         
         
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
@@ -320,14 +321,14 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 headerPhotoView.sd_setImageWithURL(NSURL(string:Bang_Image_Header+goodsInfo.pic[num].pictureurl!), placeholderImage: UIImage.init(named: "01"))
                 scrollView.addSubview(headerPhotoView)
                 headerPhotoView.userInteractionEnabled = true
-//                
-//                let backButton = UIButton()
-//                backButton.frame = CGRectMake(CGFloat(num) * WIDTH, 0, WIDTH, 220)
-////                backButton.frame.origin.y = headerPhotoView.frame.origin.y + 98
-//                backButton.backgroundColor = UIColor.clearColor()
-//                backButton.tag = num
-//                headerView.addSubview(backButton)
-//                backButton .addTarget(self, action:#selector(self.lookImage(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                //
+                //                let backButton = UIButton()
+                //                backButton.frame = CGRectMake(CGFloat(num) * WIDTH, 0, WIDTH, 220)
+                ////                backButton.frame.origin.y = headerPhotoView.frame.origin.y + 98
+                //                backButton.backgroundColor = UIColor.clearColor()
+                //                backButton.tag = num
+                //                headerView.addSubview(backButton)
+                //                backButton .addTarget(self, action:#selector(self.lookImage(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 let tapGR = UITapGestureRecognizer(target: self, action: #selector(BusnissViewController.lookImage(_:)))
                 headerPhotoView.addGestureRecognizer(tapGR)
                 myPhotoArray.addObject(headerPhotoView)
@@ -349,20 +350,20 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         //        headerView.headerImage.setImageWithURL(NSURL.init(string:Bang_Image_Header+arrayphoto[1])!, placeholderImage: UIImage.init(named: "01"))
         headerView.frame = CGRectMake(0, 0, WIDTH, 250)
-//        print(goodsInfo.price)
+        //        print(goodsInfo.price)
         if goodsInfo.price != nil {
             headerView.price.text = "¥"+goodsInfo.price!
         }else{
             headerView.price.text = "¥"
         }
         if goodsInfo.description !=  nil{
-//            if goodsInfo.description.characters.count > 60 {
-//              
-//              let newDescription = (goodsInfo.description as NSString).substringToIndex(60)
-//              headerView.desciption.text = newDescription
-//            }
+            //            if goodsInfo.description.characters.count > 60 {
+            //
+            //              let newDescription = (goodsInfo.description as NSString).substringToIndex(60)
+            //              headerView.desciption.text = newDescription
+            //            }
             headerView.desciption.text = goodsInfo.description
-//            headerView.desciption.adjustsFontSizeToFitWidth = true
+            //            headerView.desciption.adjustsFontSizeToFitWidth = true
             let height = calculateHeight(goodsInfo.description!, size: 15, width:WIDTH-16)
             print(height)
             headerView.desciption.frame.size.height = height+10
@@ -373,38 +374,38 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             headerView.frame.size.height = 250
         }
         
-//        if goodsInfo.description == nil {
-//            
-//            
-//        }else{
-//            
-//        }
-//        
+        //        if goodsInfo.description == nil {
+        //
+        //
+        //        }else{
+        //
+        //        }
+        //
         
         headerView.favorite.addTarget(self, action: #selector(self.favorite), forControlEvents: UIControlEvents.TouchUpInside)
         headerView.favorite.tag = 10
         print(isFavorite)
-//        if loginSign == 1 {
-//            
-//            let ud = NSUserDefaults.standardUserDefaults()
-//            let uid = ud.objectForKey("userid")as! String
-//            let shoucang = ud.objectForKey(uid)
-//            print(shoucang)
-//            if shoucang == nil {
-//                print("sdf")
-//            }
-//            if shoucang != nil && shoucang as! Bool == true {
-//                
-//                isFavorite = true
-//            }else{
-//                
-//                isFavorite = false
-//            }
-//            //
-//        }else{
-//            headerView.favorite.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
-//            
-//        }
+        //        if loginSign == 1 {
+        //
+        //            let ud = NSUserDefaults.standardUserDefaults()
+        //            let uid = ud.objectForKey("userid")as! String
+        //            let shoucang = ud.objectForKey(uid)
+        //            print(shoucang)
+        //            if shoucang == nil {
+        //                print("sdf")
+        //            }
+        //            if shoucang != nil && shoucang as! Bool == true {
+        //
+        //                isFavorite = true
+        //            }else{
+        //
+        //                isFavorite = false
+        //            }
+        //            //
+        //        }else{
+        //            headerView.favorite.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
+        //
+        //        }
         
         
         
@@ -440,9 +441,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.tabBarController?.selectedIndex = 3
             
         }else{
-                    let url1 = NSURL(string: "tel://"+goodsInfo.phone!)
-        UIApplication.sharedApplication().openURL(url1!)
-
+            let url1 = NSURL(string: "tel://"+goodsInfo.phone!)
+            UIApplication.sharedApplication().openURL(url1!)
+            
         }
     }
     
@@ -463,12 +464,12 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.tabBarController?.selectedIndex = 3
             
         }else{
-           
-        let vc = MenuViewController()
-        vc.userid = self.goodsInfo.userid as String!
-        vc.isShow = self.isShow
-        vc.title = "商家发布"
-        self.navigationController?.pushViewController(vc, animated: true)
+            
+            let vc = MenuViewController()
+            vc.userid = self.goodsInfo.userid as String!
+            vc.isShow = self.isShow
+            vc.title = "商家发布"
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -502,7 +503,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 alert("地址不能为空", delegate: self)
                 return
             }
-//            start.name = self.info.address!
+            //            start.name = self.info.address!
             start.pt = coor1
             //指定起点
             opt.startPoint = start
@@ -533,12 +534,12 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             BMKOpenRoute.openBaiduMapWalkingRoute(opt)
             
-           
+            
             
         }
     }
     func share(){
-       bottom.hidden = false
+        bottom.hidden = false
     }
     
     //MARK:分享
@@ -664,92 +665,116 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func btnAction(btn:UIButton)
     {
-        let img = UIImageJPEGRepresentation(UIImage.init(named: "图标")! , 0.1)!
-        let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "我注册了51bang，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
-        
-        
-        let req = SendMessageToQQReq(content: newsObj)
-        switch btn.tag {
-        case 1:
-            print("微信")
-            let sendReq = SendMessageToWXReq.init()
-            sendReq.bText = false
-            sendReq.scene = 0
-            let urlMessage = WXMediaMessage.init()
-            urlMessage.setThumbImage(UIImage(named: "图标"))
-            urlMessage.title = "我注册了51bang，来加入吧"
-            urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
-            let webObj = WXWebpageObject.init()
-            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
-            urlMessage.mediaObject = webObj
-            sendReq.message = urlMessage
-            WXApi.sendReq(sendReq)
+        if loginSign == 0 {
             
-        case 2:
-            print("朋友圈")
-            let sendReq = SendMessageToWXReq.init()
-            sendReq.bText = false
-            sendReq.scene = 1
-            //sendReq.text = "测试，请忽略"
-            let urlMessage = WXMediaMessage.init()
-            urlMessage.title = "我注册了51bang，来加入吧"
-            urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
-            urlMessage.setThumbImage(UIImage(named: "图标"))
-            let webObj = WXWebpageObject.init()
-            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
-            urlMessage.mediaObject = webObj
-            sendReq.message = urlMessage
-            WXApi.sendReq(sendReq)
+            self.tabBarController?.selectedIndex = 3
             
-        case 3:
-            //支付宝分享
-            let message = APMediaMessage()
-            let webObj = APShareWebObject()
-            //            let textObj = APShareTextObject()
-            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
-            
-            message.title = "我注册了51bang，来加入吧";
-            message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
-            
-            //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
-            message.mediaObject = webObj
-            
-            message.thumbData = UIImagePNGRepresentation(UIImage(named: "图标")!)
-            
-            let request = APSendMessageToAPReq()
-            
-            request.message = message
-            
-            request.scene = APSceneSession
-            let result = APOpenAPI.sendReq(request)
-            if !result {
-                alert("分享失败", delegate: self)
-            }
-        //
-        case 4:
-            //支付宝分享
-            let message = APMediaMessage()
-            let webObj = APShareWebObject()
-            //            let textObj = APShareTextObject()
-            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
-            
-            message.title = "我注册了51bang，来加入吧";
-            message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
-            message.thumbData = UIImagePNGRepresentation(UIImage(named: "图标")!)
-            //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
-            message.mediaObject = webObj
+        }else{
+            let img = UIImagePNGRepresentation(UIImage.init(named: "图标")!)
+            let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "我注册了51bang，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
             
             
-            
-            let request = APSendMessageToAPReq()
-            
-            request.message = message
-            message.thumbUrl = "a51bang"
-            
-            request.scene = APSceneTimeLine
-            let result = APOpenAPI.sendReq(request)
-            if !result {
-                alert("分享失败", delegate: self)
+            let req = SendMessageToQQReq(content: newsObj)
+            switch btn.tag {
+            case 1:
+                print("微信")
+                let sendReq = SendMessageToWXReq.init()
+                sendReq.bText = false
+                sendReq.scene = 0
+                let urlMessage = WXMediaMessage.init()
+                urlMessage.setThumbImage(UIImage(named: "图标"))
+                urlMessage.title = "我注册了51bang，来加入吧"
+                urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
+                let webObj = WXWebpageObject.init()
+                webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
+                urlMessage.mediaObject = webObj
+                sendReq.message = urlMessage
+                WXApi.sendReq(sendReq)
+                
+            case 2:
+                print("朋友圈")
+                let sendReq = SendMessageToWXReq.init()
+                sendReq.bText = false
+                sendReq.scene = 1
+                //sendReq.text = "测试，请忽略"
+                let urlMessage = WXMediaMessage.init()
+                urlMessage.title = "我注册了51bang，来加入吧"
+                urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
+                urlMessage.setThumbImage(UIImage(named: "图标"))
+                let webObj = WXWebpageObject.init()
+                webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
+                urlMessage.mediaObject = webObj
+                sendReq.message = urlMessage
+                WXApi.sendReq(sendReq)
+                
+            case 3:
+                //支付宝分享
+                let message = APMediaMessage()
+                let webObj = APShareWebObject()
+                //            let textObj = APShareTextObject()
+                webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
+                
+                message.title = "我注册了51bang，来加入吧";
+                message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
+                
+                //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
+                message.mediaObject = webObj
+                
+                message.thumbData = UIImagePNGRepresentation(UIImage(named: "图标")!)
+                
+                let request = APSendMessageToAPReq()
+                
+                request.message = message
+                
+                request.scene = APSceneSession
+                let result = APOpenAPI.sendReq(request)
+                if !result {
+                    alert("分享失败", delegate: self)
+                }
+            //
+            case 4:
+                //支付宝分享
+                let message = APMediaMessage()
+                let webObj = APShareWebObject()
+                //            let textObj = APShareTextObject()
+                webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
+                
+                message.title = "我注册了51bang，来加入吧";
+                message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
+                message.thumbData = UIImagePNGRepresentation(UIImage(named: "图标")!)
+                //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
+                message.mediaObject = webObj
+                
+                
+                
+                let request = APSendMessageToAPReq()
+                
+                request.message = message
+                message.thumbUrl = "a51bang"
+                
+                request.scene = APSceneTimeLine
+                let result = APOpenAPI.sendReq(request)
+                if !result {
+                    alert("分享失败", delegate: self)
+                }
+            case 5:
+                //            var newsObj = QQApiNewsObject()
+                
+                
+                
+                _ = QQApiInterface.sendReq(req)
+                bottom.hidden = true
+            case 6:
+                bottom.hidden = true
+            case 9:
+                //            var newsObj = QQApiNewsObject()
+                
+                
+                
+                _ = QQApiInterface.SendReqToQZone(req)
+                bottom.hidden = true
+            default:
+                print("微博")
             }
         case 5:
             //            var newsObj = QQApiNewsObject()
@@ -860,7 +885,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     alert("分享失败", delegate: self)
                 }
                 //
-
+                
                 
             }else if btn.tag == 3{
                 let message = APMediaMessage()
@@ -900,14 +925,14 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         if ud.objectForKey("userid") != nil {
             userid = ud.objectForKey("userid")as! String
         }
-//        let userid = ud.objectForKey("userid") as! String
+        //        let userid = ud.objectForKey("userid") as! String
         mainHelper.getCheckHadFavorite(userid, refid: id, type: "3") { (success, response) in
             if success == false {
-               isFavorite = false
-               self.headerView.favorite.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
+                isFavorite = false
+                self.headerView.favorite.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
                 return
             }else{
-
+                
                 isFavorite = true
                 self.headerView.favorite.setImage(UIImage(named: "ic_yishoucang"), forState: UIControlState.Normal)
             }
@@ -931,7 +956,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             if ud.objectForKey("userid") != nil {
                 uid = ud.objectForKey("userid")as! String
             }
-//            let uid = ud.objectForKey("userid")as! String
+            //            let uid = ud.objectForKey("userid")as! String
             print(uid)
             if isFavorite == false {
                 

@@ -1180,7 +1180,7 @@
             if(error != nil){
                 handle(success: false, response: error?.description)
             }else{
-                let result = DicModel(JSONDecoder(json!))
+                let result = JuanmaModel(JSONDecoder(json!))
                 print("---")
                 print(result)
                 print("---")

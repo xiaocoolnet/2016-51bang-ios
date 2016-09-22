@@ -26,6 +26,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     
     override func viewWillAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = false
+        self.navigationController?.navigationBar.hidden = false
         let function = BankUpLoad()
         function.CheckRenzheng()
         let ud = NSUserDefaults.standardUserDefaults()
@@ -140,7 +141,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         var isworking = String()
         var cutyName = String()
         
-        if ud.objectForKey("subLocality") != nil {
+        if ud.objectForKey("subLocality") != nil || ud.objectForKey("subLocality") as! String != "" {
             subLocality = ud.objectForKey("subLocality") as! String
             print(ud.objectForKey("subLocality"))
             var count = Int()

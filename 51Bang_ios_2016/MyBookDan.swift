@@ -50,12 +50,12 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
        
         Btn.tag = 1
-        sign = 0
+//        sign = 0
         self.createTableView()
-        self.getAllData()
-        self.getDFKData()
-        self.getDXFData()
-        self.getDPJData()
+//        self.getAllData()
+//        self.getDFKData()
+//        self.getDXFData()
+//        self.getDPJData()
 //        let da = BookDanDataModel()
 //        da.DshowImage = UIImage.init(named: "01")!
 //        da.Dflag = 1
@@ -338,6 +338,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func changeColorAndDeView(Btn:UIButton)
     {
         self.reloadMTableviwe(Btn.tag)
+        self.headerRefresh()
         
     }
     

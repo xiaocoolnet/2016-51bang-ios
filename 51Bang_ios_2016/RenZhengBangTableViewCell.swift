@@ -50,9 +50,14 @@ class RenZhengBangTableViewCell: UITableViewCell {
 
     func setValueWithInfo(info:RzbInfo){
         
+        
+        
+        
+        
+        
         self.name.text = info.name
         //        self.desc.text = info.
-        self.address.text = info.city
+        self.address.text = info.address
         if info.photo == "" {
             
             self.iconImage.image = UIImage(named: ("01"))

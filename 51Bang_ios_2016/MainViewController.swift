@@ -17,7 +17,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     var dataSource2 : Array<chatInfo>?
     var rzbDataSource : Array<RzbInfo>?
     var biaoZhuArray = NSMutableArray()
-    
+    var cutyName = String()
+    var quName = String()
     let mainHelper = MainHelper()
     var city = String()
     var dingWeiStr = String()
@@ -87,8 +88,33 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         mapView.viewWillAppear()
         mapView.delegate = self
         CommitOrderViewController.ReturnTagForView = 0
+        
+        let searcher = BMKGeoCodeSearch()
+        searcher.delegate = self
+        let geoCodeSearchOption = BMKGeoCodeSearchOption()
+        geoCodeSearchOption.city = cutyName
+        geoCodeSearchOption.address = quName
+        let flog = searcher.geoCode(geoCodeSearchOption)
+        print(flog)
 //        self.mapView.removeFromSuperview()
 //        setBMKMpaview()
+        
+        
+//        let annoImage = UIButton()
+//        let point = CGPointMake(self.mapView.center.x, self.mapView.center.y - 13)
+//        annoImage.center = point
+//        annoImage.bounds = CGRectMake(0, 0, 20, 26)
+//        annoImage.backgroundColor = UIColor.redColor()
+//        self.annoImage = annoImage
+//        self.view.addSubview(self.annoImage)
+        
+        let buttons = UIButton.init(type: UIButtonType.Custom)
+        buttons.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
+        buttons.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
+        buttons.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
+        self.BeingBackMyPositonBtn = buttons
+        UIApplication.sharedApplication().keyWindow!.addSubview(self.BeingBackMyPositonBtn)
+        
         
         
     }
@@ -114,7 +140,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         mapView.delegate = nil
         self.backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
-//        self.BeingBackMyPositonBtn.removeFromSuperview()
+        self.BeingBackMyPositonBtn.removeFromSuperview()
         
         
     }
@@ -614,10 +640,10 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             }
             count = count + 1
         }
-        let cutyName = city.substringToIndex(city.startIndex.advancedBy(count+1))
+        cutyName = city.substringToIndex(city.startIndex.advancedBy(count+1))
         userLocationCenter.setObject(cutyName, forKey: "cityName")
         
-        let quName = city.substringFromIndex(city.startIndex.advancedBy(count+1))
+        quName = city.substringFromIndex(city.startIndex.advancedBy(count+1))
         print(cutyName)
         print(quName)
         location.setTitle(quName, forState: UIControlState.Normal)
@@ -701,6 +727,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     }
     
     func backCityVc(){
+       location.setTitle("定位", forState: UIControlState.Normal)
         backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
         
@@ -737,8 +764,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     func getWeiZhi(){
         var cityname = String()
-        if userLocationCenter.objectForKey("cityname") != nil {
-             cityname = userLocationCenter.objectForKey("cityname") as! String
+        if userLocationCenter.objectForKey("cityName") != nil {
+             cityname = userLocationCenter.objectForKey("cityName") as! String
         }
         
         
@@ -831,20 +858,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 //        mapView.updateLocationData
         scrollView.addSubview(mapView)
         
-//        let annoImage = UIButton()
-//        let point = CGPointMake(self.mapView.center.x, self.mapView.center.y - 13)
-//        annoImage.center = point
-//        annoImage.bounds = CGRectMake(0, 0, 20, 26)
-//        annoImage.backgroundColor = UIColor.redColor()
-//        self.annoImage = annoImage
-//        self.view.addSubview(self.annoImage)
         
-//        let button = UIButton.init(type: UIButtonType.Custom)
-//        button.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
-//        button.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
-//        button.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.BeingBackMyPositonBtn = button
-//        UIApplication.sharedApplication().keyWindow!.addSubview(self.BeingBackMyPositonBtn)
         
         
     }
@@ -852,6 +866,27 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     func moveToUser(){
         mapView.updateLocationData(self.savedLocation)
         mapView.setCenterCoordinate(self.savedLocation.location.coordinate, animated: true)
+        if userLocationCenter.objectForKey("subLocality") != nil || userLocationCenter.objectForKey("subLocality") as! String != ""{
+            userLocationCenter.setObject(userLocationCenter.objectForKey("subLocality") as! String, forKey: "cityName")
+            
+            let strr = userLocationCenter.objectForKey("subLocality") as! String
+            
+            var count = Int()
+            for a in strr.characters{
+                if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
+                    break
+                }
+                count = count + 1
+            }
+            cutyName = strr.substringToIndex(strr.startIndex.advancedBy(count+1))
+            userLocationCenter.setObject(cutyName, forKey: "cityName")
+            
+            quName = strr.substringFromIndex(strr.startIndex.advancedBy(count+1))
+        }
+        
+        
+        
+        
     }
     
     

@@ -34,6 +34,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         getData()
 //        headerRefresh()
         self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.hidden = false
         
     }
     override func viewDidAppear(animated: Bool) {
