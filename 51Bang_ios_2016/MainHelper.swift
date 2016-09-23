@@ -1286,5 +1286,35 @@
         }
     }
 
+    //提交保险认证
+    func UpdateUserInsurance(userid:NSString,photo:NSString,expirydate:NSString,handle:ResponseBlock){
+        let url = Bang_URL_Header+"UpdateUserInsurance"
+            let param = [
+            "userid":userid,
+            "expirydate":expirydate,
+            "photo":photo
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                }
+            }
+            
+        }
+    }
 
 }

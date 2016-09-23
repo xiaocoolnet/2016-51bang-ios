@@ -129,7 +129,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             return 80
         }else if tableView.tag == 1{
             
-            return 30
+            return 45
         }else{
             
             return CGFloat(tableView.frame.size.height/CGFloat(rightArr.count))
@@ -198,7 +198,8 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             cell?.selectionStyle = .None
             //            cell!.accessoryType = .DisclosureIndicator
             cell?.selectedBackgroundView = UIView.init(frame: (cell?.frame)!)
-            cell?.selectedBackgroundView?.backgroundColor = RGREY
+            cell?.backgroundColor = RGREY
+            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             return cell!
         }else{
             tableView.separatorStyle = .None

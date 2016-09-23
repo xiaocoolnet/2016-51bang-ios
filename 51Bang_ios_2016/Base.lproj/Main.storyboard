@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZBz-Zk-dkd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ZBz-Zk-dkd">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -129,7 +129,7 @@
                         <color key="backgroundColor" red="0.9356608971" green="1" blue="0.87805881230000005" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="特卖" id="xSo-bs-JT1">
-                        <barButtonItem key="leftBarButtonItem" image="ic_fenlei" id="wgB-s1-C6L">
+                        <barButtonItem key="leftBarButtonItem" title="全部分类" id="wgB-s1-C6L">
                             <connections>
                                 <action selector="goToMenu:" destination="gox-QN-tx8" id="7ox-Md-CQI"/>
                             </connections>
@@ -727,7 +727,6 @@
     </scenes>
     <resources>
         <image name="daV" width="15" height="15"/>
-        <image name="ic_fenlei" width="21" height="21"/>
         <image name="ic_qiangdan-hui" width="26" height="26"/>
         <image name="ic_qiangdan-lv" width="26" height="26"/>
         <image name="ic_shouye-hui" width="26" height="26"/>
