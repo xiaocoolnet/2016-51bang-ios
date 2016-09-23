@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -119,8 +119,16 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rI-fd-TVa">
+                        <rect key="frame" x="216" y="102" width="84" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="K20-wT-rkK"/>
+                            <constraint firstAttribute="width" constant="84" id="PFy-8k-UzO"/>
+                        </constraints>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="87E-8p-Tf9" firstAttribute="top" secondItem="6rI-fd-TVa" secondAttribute="bottom" constant="12" id="0Jw-KL-TDo"/>
                     <constraint firstAttribute="trailingMargin" secondItem="vlj-m9-OHU" secondAttribute="trailing" constant="-8" id="5fO-mn-kN5"/>
                     <constraint firstItem="vlj-m9-OHU" firstAttribute="top" secondItem="J0r-Xa-OGR" secondAttribute="bottom" constant="5" id="7Hy-VV-sPy"/>
                     <constraint firstItem="slB-pi-GaO" firstAttribute="top" secondItem="tzF-P1-XNh" secondAttribute="bottom" constant="1" id="99W-vJ-RyL"/>
@@ -143,11 +151,13 @@
                     <constraint firstItem="87E-8p-Tf9" firstAttribute="top" secondItem="vlj-m9-OHU" secondAttribute="bottom" constant="8" id="sbf-eM-Wtt"/>
                     <constraint firstAttribute="trailingMargin" secondItem="slB-pi-GaO" secondAttribute="trailing" constant="-8" id="tzw-1V-4LB"/>
                     <constraint firstItem="J0r-Xa-OGR" firstAttribute="top" secondItem="own-EK-5P7" secondAttribute="bottom" constant="8" id="xm3-Jh-Mro"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="6rI-fd-TVa" secondAttribute="trailing" constant="12" id="xnT-mO-Sjn"/>
                     <constraint firstItem="vlj-m9-OHU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="zGk-k2-BqC"/>
                     <constraint firstItem="ngR-et-x68" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="7" id="zcx-MO-rBq"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="goZhuye" destination="6rI-fd-TVa" id="8w3-bA-sTj"/>
                 <outlet property="jiedanren" destination="J0r-Xa-OGR" id="9OG-fb-UBE"/>
                 <outlet property="pingjia" destination="tzF-P1-XNh" id="63F-yS-AGr"/>
                 <outlet property="renwuNum" destination="oxO-jt-bfv" id="34q-Pi-EFf"/>

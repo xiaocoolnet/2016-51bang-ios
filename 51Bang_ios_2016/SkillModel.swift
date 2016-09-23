@@ -33,7 +33,36 @@ class SkillListModel: JSONJoy{
             
         }
     }
-    
+
+
+
+class RZBAAModel: JSONJoy{
+    var status:String?
+    var data: RzbInfo?
+//    var datas = Array<SkillModel>()
+    var errorData:String?
+    init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        
+        if status == "success" {
+            data = RzbInfo(decoder["data"])
+//            for childs: JSONDecoder in decoder["data"].array!{
+//                print(childs)
+//                print(SkillModel(childs))
+//                datas.append(SkillModel(childs))
+//                print(datas)
+//                //                    array.append(SkillModel(childs))
+//            }
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+    }
+}
+
 class SkillModel: JSONJoy {
     var id:String?
     var name:String?
@@ -65,6 +94,39 @@ class SkillModel: JSONJoy {
     }
     
     }
+
+
+class SkilllistModel: JSONJoy {
+    var type:String?
+    var typename:String?
+    var parent_typeid:String?
+    var parent_typename:String?
+//    var listorder:String?
+//    var clist:[ClistInfo]
+//    init(){
+//        
+//        clist = Array<ClistInfo>()
+//    }
+    
+    required init(_ decoder: JSONDecoder){
+        
+        type = decoder["type"].string ?? ""
+        typename = decoder["typename"].string
+        parent_typeid = decoder["parent_typeid"].string
+        parent_typename = decoder["parent_typename"].string
+//        listorder = decoder["listorder"].string
+//        clist = Array<ClistInfo>()
+//        if decoder["clist"].array != nil {
+//            for childs: JSONDecoder in decoder["clist"].array!{
+//                self.clist.append(ClistInfo(childs))
+//            }
+//        }
+//    }
+//    func addpend(list: [ClistInfo]){
+//        self.clist = list + self.clist
+    }
+    
+}
 
 //
 //class SkillInfo: JSONJoy{

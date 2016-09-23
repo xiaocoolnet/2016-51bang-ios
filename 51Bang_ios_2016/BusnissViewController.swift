@@ -670,8 +670,20 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.tabBarController?.selectedIndex = 3
             
         }else{
+            
+//            let ut = NSUserDefaults.standardUserDefaults()
+//            var userid = String()
+//            if ut.objectForKey("userid") != nil {
+//                userid = ut.objectForKey("userid") as! String
+//            }
+            
+            var shangHuid = String()
+            if goodsInfo.id != nil {
+                 shangHuid = goodsInfo.id!
+            }
+            
             let img = UIImagePNGRepresentation(UIImage.init(named: "图标")!)
-            let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "我注册了51bang，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
+            let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid), title: "我注册了51bang，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
             
             
             let req = SendMessageToQQReq(content: newsObj)
@@ -686,7 +698,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 urlMessage.title = "我注册了51bang，来加入吧"
                 urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
                 let webObj = WXWebpageObject.init()
-                webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
+                webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid
                 urlMessage.mediaObject = webObj
                 sendReq.message = urlMessage
                 WXApi.sendReq(sendReq)
@@ -702,7 +714,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
                 urlMessage.setThumbImage(UIImage(named: "图标"))
                 let webObj = WXWebpageObject.init()
-                webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
+                webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid
                 urlMessage.mediaObject = webObj
                 sendReq.message = urlMessage
                 WXApi.sendReq(sendReq)
@@ -712,7 +724,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 let message = APMediaMessage()
                 let webObj = APShareWebObject()
                 //            let textObj = APShareTextObject()
-                webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
+                webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid;
                 
                 message.title = "我注册了51bang，来加入吧";
                 message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
@@ -737,7 +749,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 let message = APMediaMessage()
                 let webObj = APShareWebObject()
                 //            let textObj = APShareTextObject()
-                webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
+                webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid;
                 
                 message.title = "我注册了51bang，来加入吧";
                 message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";

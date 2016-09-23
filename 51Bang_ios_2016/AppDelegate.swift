@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let options = BugtagsOptions()
         options.trackingUserSteps = true
-        
+        options.trackingNetwork = true
         Bugtags.startWithAppKey("61aa08ab63a722f5788c5bd02f878780", invocationEvent: BTGInvocationEventShake)
         
         // Override point for customization after application launch.

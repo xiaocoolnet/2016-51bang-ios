@@ -16,6 +16,7 @@ class MyFaDanCell: UITableViewCell {
     private let Bottom = UIView()
     let payBtn = UIButton()
     let timeLabel  = UILabel()
+    var myButton = UIButton()
     var modell = TaskInfo()
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,9 +42,9 @@ class MyFaDanCell: UITableViewCell {
         
         if model.apply != nil && model.apply != "" && model.phone != nil {
             
-            if model.apply?.phone != nil && model.apply?.phone != ""{
+            if model.apply?.phone != nil && model.apply?.name != ""{
                 
-                setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: (model.apply?.phone)!)
+                setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: (model.apply?.name)!)
             }else if model.phone != nil {
                 setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: "无人接单")
                 
@@ -158,25 +159,25 @@ class MyFaDanCell: UITableViewCell {
         rmenNum.frame = CGRectMake(WIDTH * 3  / 4 - 30, 80, WIDTH / 4 + 30, 40)
         rmenNum.textColor = UIColor.blueColor()
         rmenNum.adjustsFontSizeToFitWidth = true
-        let myButton = UIButton.init(frame: rmenNum.frame)
+        myButton = UIButton.init(frame: rmenNum.frame)
         myButton.backgroundColor = UIColor.clearColor()
-        myButton.addTarget(self, action: #selector(self.callPhone), forControlEvents: UIControlEvents.TouchUpInside)
+//        myButton.addTarget(self, action: #selector(self.callPhone), forControlEvents: UIControlEvents.TouchUpInside)
         Middle.addSubview(rmenNum)
         Middle.addSubview(myButton)
         
     }
     
-    func callPhone(){
-        if modell.apply != nil && modell.apply != "" {
-            if modell.apply?.phone != nil && modell.apply?.phone != ""{
-                let  aaaa = modell.apply?.phone!
-                UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://" + aaaa! )!)
-                
-            }
-        }
+//    func callPhone(){
+//        if modell.apply != nil && modell.apply != "" {
+//            if modell.apply?.phone != nil && modell.apply?.phone != ""{
+//                let  aaaa = modell.apply?.phone!
+//                UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://" + aaaa! )!)
+//                
+//            }
+//        }
+    
         
-        
-    }
+//    }
     
     
     func setBottomDan(Money:String)

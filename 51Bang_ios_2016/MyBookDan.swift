@@ -383,6 +383,10 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        if isNotSigle{
+            
+        }
+        
         
         if(sign == 0)
         {

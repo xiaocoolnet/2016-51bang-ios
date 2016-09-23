@@ -2442,6 +2442,7 @@
 				18D881251D151D820067218F /* Resources */,
 				CF80EDEAD0CF30549305A83B /* [CP] Embed Pods Frameworks */,
 				2E353302F0AD99A49B655C08 /* [CP] Copy Pods Resources */,
+				77939BA41D95147C001B5E54 /* bugtags */,
 			);
 			buildRules = (
 			);
@@ -2506,7 +2507,7 @@
 				TargetAttributes = {
 					18D881261D151D820067218F = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = H58LYH4V4T;
+						DevelopmentTeam = 2CBFXYSAM7;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2745,6 +2746,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-51Bang_ios_2016UITests/Pods-51Bang_ios_2016UITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		77939BA41D95147C001B5E54 /* bugtags */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = bugtags;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "SKIP_DEBUG_BUILDS=1     #在Debug模式下编译是否自动上传符号表 0 上传 1不上传\nSKIP_SIMULATOR_BUILDS=1 #在模拟器环境下编译是否自动上传符号表 0上传 1不上传\nAPP_KEY=\"61aa08ab63a722f5788c5bd02f878780\"              #请填写应用的App Key\nAPP_SECRET=\"32a7924139375cbf6672b8b66872e002\"           #请填写应用的App Secret，可向应用创建者索要\nSCRIPT_SRC=$(find \"$PROJECT_DIR\" -name 'Bugtags_dsym_autoupload.sh' | head -1)\nif [ ! \"${SCRIPT_SRC}\" ]; then\necho \"Bugtags: err: script not found. Make sure that you're including Bugtags.bundle in your project directory\"\nexit 1\nfi\nsource \"${SCRIPT_SRC}\"";
 		};
 		90EC36C4EC048637DA245943 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3280,6 +3295,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

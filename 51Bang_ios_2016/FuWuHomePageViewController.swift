@@ -11,7 +11,9 @@ import UIKit
 class FuWuHomePageViewController: UIViewController {
     
     //    let myTableView = UITableView()
-    var dataSource : Array<SkillModel>?
+    var dataSource : Array<SkilllistModel>?
+    var isUserid = Bool()
+    var userid = String()
     let skillHelper = RushHelper()
     var headerView = FuWuHomePageTableViewCell()
     let totalloc:Int = 5
@@ -20,12 +22,9 @@ class FuWuHomePageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
+        self.tabBarController?.tabBar.hidden = true
 //        self.navigationController?.title = "服务主页"
-        headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
-        headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
-        //http://bang.xiaocool.net/uploads/images/avatar_man.png
-        headerView.setValueWithInfo(self.info!)
-        self.view.addSubview(headerView)
+        
         
         self.GetData()
         // Do any additional setup after loading the view.
@@ -33,17 +32,47 @@ class FuWuHomePageViewController: UIViewController {
     
     func GetData(){
         
-        skillHelper.getSkillList({[unowned self] (success, response) in
-            dispatch_async(dispatch_get_main_queue(), {
-                if !success {
+        
+        if self.isUserid {
+//            print(self.userid)
+            skillHelper.getAuthenticationInfoByUserId(self.userid, handle: { (success, response) in
+                if !success{
+                    alert("数据加载错误", delegate: self)
                     return
                 }
-                print(response)
-                self.dataSource = response as? Array<SkillModel> ?? []
-                print(self.dataSource)
+                self.headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
+                self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
+                //http://bang.xiaocool.net/uploads/images/avatar_man.png
+                self.headerView.setValueWithInfo(response as! RzbInfo)
+                self.view.addSubview(self.headerView)
+                self.dataSource = (response as! RzbInfo).skilllist
                 self.createView()
             })
-            })
+        }else{
+//            HEIGHT
+            self.dataSource = info?.skilllist
+//            print(dataSource?.count)
+//            print(info?.skilllist[1].typename)
+//            print(info?.skilllist[0].typename)
+//            print(info?.skilllist[2].typename)
+            self.createView()
+  
+        }
+        
+        //        print(info?.skilllist[1].parent_typeid)
+//        
+//        skillHelper.getSkillList({[unowned self] (success, response) in
+//            dispatch_async(dispatch_get_main_queue(), {
+//                if !success {
+//                    return
+//                }
+//                print(response)
+//                self.dataSource = response as? Array<SkillModel> ?? []
+//                print(self.dataSource)
+//                self.createView()
+//            })
+//            })
+////        self.dataSource = info
     }
     
     func createView(){
@@ -66,7 +95,7 @@ class FuWuHomePageViewController: UIViewController {
             btn.layer.borderColor = UIColor.grayColor().CGColor
             let label = UILabel.init(frame: CGRectMake(appviewx, appviewy, WIDTH*70/375, WIDTH*30/375))
             //            label.backgroundColor = UIColor.redColor()
-            label.text = self.dataSource![i].name
+            label.text = self.dataSource![i].typename
             label.textAlignment = .Center
             //            view2.addSubview(btn)
             view2.addSubview(label)
