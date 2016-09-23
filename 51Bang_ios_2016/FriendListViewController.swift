@@ -81,16 +81,17 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         mainHelper.GetRzbList (cityname ,sort:sort,type:types, handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
+                    alert("暂无数据", delegate: self)
                     self.myTableView.mj_header.endRefreshing()
-                    self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
-                    self.myTableView.delegate = self
-                    self.myTableView.dataSource = self
-                    self.myTableView.backgroundColor = RGREY
-                    self.myTableView.tag = 0
-                    
-                    
-                    self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
-                    self.view.addSubview(self.myTableView)
+//                    self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
+////                    self.myTableView.delegate = self
+////                    self.myTableView.dataSource = self
+//                    self.myTableView.backgroundColor = RGREY
+//                    self.myTableView.tag = 0
+//                    
+//                    
+//                    self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
+//                    self.view.addSubview(self.myTableView)
                     hud.hide(true)
                     return
                 }

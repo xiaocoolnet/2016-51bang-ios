@@ -668,10 +668,19 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let ud = NSUserDefaults.standardUserDefaults()
             
             if result.status == "success"{
-                ud .setObject("yes", forKey: "baoxiangrenzheng")
-                print("已经认证")
-                self.headerView.baoxianRenZheng.setTitle("保险认证", forState: UIControlState.Normal)
-                self.headerView.baoxianRenZheng.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+                if result.data == "1"{
+                    ud .setObject("yes", forKey: "baoxiangrenzheng")
+                    print("已经认证")
+                    self.headerView.baoxianRenZheng.setTitle("保险认证", forState: UIControlState.Normal)
+                    self.headerView.baoxianRenZheng.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+                }else{
+                    ud .setObject("no", forKey: "baoxiangrenzheng")
+                    self.headerView.baoxianRenZheng.setTitle("未保险认证", forState: UIControlState.Normal)
+                    self.headerView.baoxianRenZheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+                    print("未进行认证")
+                    
+                }
+                
             }else{
                 ud .setObject("no", forKey: "baoxiangrenzheng")
                 self.headerView.baoxianRenZheng.setTitle("未保险认证", forState: UIControlState.Normal)
