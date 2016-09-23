@@ -543,15 +543,25 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
             let result = Http(JSONDecoder(json!))
             
             if result.status == "success"{
-                if result.data == "1"{
-                    print("已经认证")
+                if result.data == "0"{
+                    self.Statue.text = "未认证或认证失败"
+                    self.Statue.adjustsFontSizeToFitWidth = true
+                    self.TopView.backgroundColor = UIColor.grayColor()
+                    self.InsureBtn.hidden = false
+                    self.InsureBtn.backgroundColor = COLOR
+                    self.scrollView.contentSize = CGSizeMake(WIDTH, self.iView.frame.size.height + self.statuFrame.height + 270)
+                    self.scrollView.hidden = false
+                }else if result.data == "-1"{
                     self.InsureBtn.hidden = true
-                    self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90)
                     self.TopView.backgroundColor = COLOR
+                    self.Statue.text = "认证中"
+                }else{
                     self.Statue.text = "已投保"
-                    
+                    self.TopView.backgroundColor = COLOR
+                    self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90)
+                    self.InsureBtn.hidden = true
                 }
-                
+              
             }else{
                 
                 print("未进行认证")

@@ -50,6 +50,12 @@ class FuWuHomePageViewController: UIViewController {
             })
         }else{
 //            HEIGHT
+            
+            self.headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
+            self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
+            //http://bang.xiaocool.net/uploads/images/avatar_man.png
+            self.headerView.setValueWithInfo(info!)
+            self.view.addSubview(self.headerView)
             self.dataSource = info?.skilllist
 //            print(dataSource?.count)
 //            print(info?.skilllist[1].typename)

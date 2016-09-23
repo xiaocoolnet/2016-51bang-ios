@@ -58,7 +58,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         
         //        let view = UIView.init(frame: CGRectMake(0, 0, <#T##width: CGFloat##CGFloat#>, <#T##height: CGFloat##CGFloat#>))
         self.view.backgroundColor = UIColor.whiteColor()
-        
+           self.GetData()
         
         
         // Do any additional setup after loading the view.
@@ -78,7 +78,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             cityname = userLocationCenter.objectForKey("cityName") as! String
         }
         
-        mainHelper.GetRzbList (cityname ,sort:sort,type:types, handle: {[unowned self](success, response) in
+        mainHelper.GetRzbList ("" ,sort:sort,type:types, handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     alert("暂无数据", delegate: self)
@@ -111,7 +111,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
                 self.view.addSubview(self.myTableView)
                 self.myTableView.reloadData()
-                self.GetData()
+             
                 
 
                 
@@ -313,7 +313,9 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             //tableView.separatorStyle = .None
             
             cell.selectionStyle = .None
-            cell.weizhiButton.addTarget(self, action: #selector(self.dingWeiAction), forControlEvents: UIControlEvents.TouchUpInside)
+            cell.weizhiButton.tag = indexPath.row + 100
+            cell.weizhiButton.addTarget(self, action: #selector(self.dingWeiAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            
             cell.message.addTarget(self, action: #selector(self.message(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             cell.message.tag = indexPath.row
             cell.setValueWithInfo(self.rzbDataSource![indexPath.row])
@@ -443,9 +445,61 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         }
     }
     
-    func dingWeiAction()  {
-        let vc = LocationViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+    func dingWeiAction(sender:UIButton)  {
+        let opt = BMKOpenWalkingRouteOption()
+        opt.appScheme = "a51bang://a51bang"
+        let start = BMKPlanNode()
+        var coor1 = CLLocationCoordinate2D.init()
+        let ud = NSUserDefaults.standardUserDefaults()
+        let longitude = ud.objectForKey("longitude")
+        let latitude = ud.objectForKey("latitude")
+        let address = ud.objectForKey("myAddress")
+        
+        if latitude != nil && longitude != nil{
+            coor1.latitude = CLLocationDegrees(latitude as! String)!
+            coor1.longitude = CLLocationDegrees(longitude as! String)!
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        
+        //指定起点名称
+        if address != nil {
+            start.name = address as! String
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        //            start.name = self.info.address!
+        start.pt = coor1
+        //指定起点
+        opt.startPoint = start
+        
+        
+        //初始化终点节点
+        let end = BMKPlanNode.init()
+        
+        var coor2 = CLLocationCoordinate2D.init()
+        if  self.rzbDataSource![sender.tag-100].latitude != "" && self.rzbDataSource![sender.tag-100].longitude != ""{
+            coor2.latitude = CLLocationDegrees(self.rzbDataSource![sender.tag-100].latitude as String)!
+            coor2.longitude = CLLocationDegrees(self.rzbDataSource![sender.tag-100].longitude as String)!
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        end.pt = coor2
+        //指定终点名称
+        if self.rzbDataSource![sender.tag-100].address != "" {
+            end.name = self.rzbDataSource![sender.tag-100].address
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        
+        opt.endPoint = end
+        
+        
+        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
     }
     
     func message(sender:UIButton){
