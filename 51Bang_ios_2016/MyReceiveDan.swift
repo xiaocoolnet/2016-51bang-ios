@@ -38,7 +38,8 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     let mainHelper = MainHelper()
 //    var qiangdanButton = true
     override func viewWillAppear(animated: Bool) {
-//            self.navigationController?.navigationBar.hidden = true
+        self.navigationController?.navigationBar.hidden = true
+        self.tabBarController?.tabBar.hidden = true
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newTask), name:"newTasksss", object: nil)
 
     }

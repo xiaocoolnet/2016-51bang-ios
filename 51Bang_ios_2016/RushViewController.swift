@@ -38,13 +38,11 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         if(ud.objectForKey("ss") as! String == "yes")
             
         {
-//            certiBtn.setTitle("已认证", forState: UIControlState.Normal)
             certiBtn.userInteractionEnabled = false
             certiBtn.hidden = true
-        certifyImage.hidden = true
+            certifyImage.hidden = true
             self.title = "抢单"
-//            self = WoBangPageViewController()
-//        self.GetData()
+            
             }
         }
         self.tabBarController?.selectedIndex = 1

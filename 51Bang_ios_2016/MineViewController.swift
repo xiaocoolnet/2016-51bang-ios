@@ -64,6 +64,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myTableView.dataSource = self
         myTableView.delegate = self
         myTableView.registerNib(UINib(nibName: "MineTableViewCell",bundle: nil), forCellReuseIdentifier: "reuseIdentifier")
+        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         self.view.addSubview(myTableView)
         //        self.navigationController?.title = "51帮"
         
@@ -105,14 +106,14 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if ud.objectForKey("ss") != nil{
             if ud.objectForKey("ss") as! String == "no"{
                 self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
-                self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+                self.headerView.renzheng.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
             }else{
                 self.headerView.renzheng.setTitle("实名认证", forState: UIControlState.Normal)
                 self.headerView.renzheng.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             }
         }else{
             self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
-            self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+            self.headerView.renzheng.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
         }
         
 //        self.headerView.renzheng.hidden = false
@@ -607,7 +608,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         }else{
                             ud .setObject("no", forKey: "ss")
                             self.headerView.renzheng.setTitle("未实名认证", forState: UIControlState.Normal)
-                            self.headerView.renzheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+                            self.headerView.renzheng.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
                             MainViewController.renZhengStatue = 0
                         }
                         
@@ -675,7 +676,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }else{
                 ud .setObject("no", forKey: "baoxiangrenzheng")
                 self.headerView.baoxianRenZheng.setTitle("未保险认证", forState: UIControlState.Normal)
-                self.headerView.baoxianRenZheng.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+                self.headerView.baoxianRenZheng.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
                 print("未进行认证")
                 
             }

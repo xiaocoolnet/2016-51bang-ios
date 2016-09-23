@@ -348,7 +348,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tableView.tag == 0 {
-            return 170
+            return 175
         }else{
             
             return 30

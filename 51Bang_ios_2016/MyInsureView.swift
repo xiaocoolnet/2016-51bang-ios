@@ -32,53 +32,65 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     let photosArrayOfBack = NSMutableArray()
     var  photoArraySecond = NSMutableArray()
     let photoNameArr = NSMutableArray()
+    let mainHelper = MainHelper()
+    
+    var pickerView:UIPickerView!
+    var datePicker:UIDatePicker!
+    var isShow = Bool()
+    let coverView = UIView()
+    let formatter = NSDateFormatter()
+    var expirydate = ""
+    var time = String()
+    var label1 = UILabel()
+    var view1 = UIView()
     private let turnBao = UIButton.init(frame: CGRectMake(0, (83 / 750) * WIDTH , (354 / 83) *  ((83 / 750) * WIDTH), 20))
     private let statu = false
     
     
     
     override func viewWillAppear(animated: Bool) {
-        self.tabBarController?.tabBar.hidden = false
+        self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = true
-        let userPic = NSUserDefaults.standardUserDefaults()
-        if( userPic.objectForKey("photoss") != nil )
-        {
+//        let userPic = NSUserDefaults.standardUserDefaults()
+//        if( userPic.objectForKey("photoss") != nil )
+//        {
             //            setFrameForImage()
-            InsureBtn.hidden = true
-            scrollView.contentSize = CGSizeMake(WIDTH, iView.frame.size.height + statuFrame.height + 64)
-            self.iView.hidden = true
-            self.Statue.text = "认证中"
-            //            print(userPic.objectForKey("photoss"))
+//            InsureBtn.hidden = true
+//            scrollView.contentSize = CGSizeMake(WIDTH, iView.frame.size.height + statuFrame.height + 64)
+//            self.iView.hidden = true
+//            self.Statue.text = "认证中"
+//            //            print(userPic.objectForKey("photoss"))
+//            
+
+//            photoArraySecond = userPic.objectForKey("photoss") as! NSMutableArray
+//            
+//            //            let buttonCount = 0
+//            
+//            //            var iii : UIImage = NSKeyedUnarchiver.unarchiveObjectWithData(photoArraySecond[0] as! NSData) as! (UIImage)
+//            isPushedPhotos = true
+//            for count in 0...photoArraySecond.count-1 {
+//                let mybutton = UIButton()
+//                let a = CGFloat (count%3)
+//                mybutton.frame = CGRectMake( (WIDTH-20)/3*a+5*(a+1), 170+(WIDTH-20)/3*CGFloat(Int(count/3))+5*CGFloat(count/3), (WIDTH-20)/3, (WIDTH-20)/3)
+//                mybutton.tag = count
+//                let myimage : UIImage = NSKeyedUnarchiver.unarchiveObjectWithData(photoArraySecond[count] as! NSData)as! (UIImage)
+//                mybutton.setBackgroundImage(myimage,forState: UIControlState.Normal)
+//                mybutton.addTarget(self, action: #selector(self.lookPhotos(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//                self.scrollView.addSubview(mybutton)
             
-            photoArraySecond = userPic.objectForKey("photoss") as! NSMutableArray
-            
-            //            let buttonCount = 0
-            
-            //            var iii : UIImage = NSKeyedUnarchiver.unarchiveObjectWithData(photoArraySecond[0] as! NSData) as! (UIImage)
-            isPushedPhotos = true
-            for count in 0...photoArraySecond.count-1 {
-                let mybutton = UIButton()
-                let a = CGFloat (count%3)
-                mybutton.frame = CGRectMake( (WIDTH-20)/3*a+5*(a+1), 170+(WIDTH-20)/3*CGFloat(Int(count/3))+5*CGFloat(count/3), (WIDTH-20)/3, (WIDTH-20)/3)
-                mybutton.tag = count
-                let myimage : UIImage = NSKeyedUnarchiver.unarchiveObjectWithData(photoArraySecond[count] as! NSData)as! (UIImage)
-                mybutton.setBackgroundImage(myimage,forState: UIControlState.Normal)
-                mybutton.addTarget(self, action: #selector(self.lookPhotos(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-                self.scrollView.addSubview(mybutton)
-                
-            }
+//            }
             
             
             //            self.photoArray = (userPic.objectForKey("photoArrayOfPush") as! [ZuberImage] )
             
-            return
-            
-        }else{
-            InsureBtn.hidden = false
-            scrollView.contentSize = CGSizeMake(WIDTH, iView.frame.size.height + statuFrame.height + 270)
-        }
+//            return
+//            
+//        }else{
+//            InsureBtn.hidden = false
+//            scrollView.contentSize = CGSizeMake(WIDTH, iView.frame.size.height + statuFrame.height + 270)
+//        }
         
-        Checktoubao()
+        
     }
     
     
@@ -89,10 +101,141 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         setBtutton()
         setscrollView()
         setButtonOnImage()
+        Checktoubao()
+        view1.hidden = false
         
     }
     
-    
+    func createSaveTime(){
+        view1 = UIView.init(frame: CGRectMake(0, self.collectionV!.height+WIDTH*210/375+20, WIDTH, 60))
+        view1.backgroundColor = UIColor.whiteColor()
+        view1.hidden = false
+        self.scrollView.addSubview(view1)
+        let label = UILabel.init(frame: CGRectMake(10, 10 , 80, 40))
+        label.text = "有效期:"
+        view1.addSubview(label)
+        label1 = UILabel.init(frame: CGRectMake(90, 10, WIDTH-90, 40))
+        label1.text = "请选择认证有效时间!"
+        view1.addSubview(label1)
+        let button = UIButton.init(frame: CGRectMake(0, 0, WIDTH, 60))
+        button.addTarget(self, action: #selector(self.chooseDate), forControlEvents: UIControlEvents.TouchUpInside)
+        view1.addSubview(button)
+    }
+    func chooseDate(){
+        if isShow == false {
+            coverView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+            coverView.backgroundColor = UIColor.grayColor()
+            coverView.alpha = 0.8
+            //            let view = UIView()
+            let view2 = UIView()
+            view2.tag = 51
+            view2.frame = CGRectMake(0, HEIGHT-290, WIDTH, 290)
+            view2.backgroundColor = UIColor.whiteColor()
+            let label = UILabel.init(frame: CGRectMake(0, 0, WIDTH, 30))
+            label.text = "选择有效时间"
+            label.textAlignment = .Center
+            //            pickerView=UIDatePicker()
+            datePicker = UIDatePicker()
+            datePicker.tag = 101
+            datePicker.minimumDate = NSDate()
+            datePicker.frame = CGRectMake(0, 30, WIDTH, 180)
+            //            datePicker.backgroundColor = UIColor.redColor()
+            datePicker.locale = NSLocale(localeIdentifier: "zh_CN")
+            //注意：action里面的方法名后面需要加个冒号“：”
+            datePicker.addTarget(self, action: #selector(self.dateChanged(_:)),
+                                 forControlEvents: UIControlEvents.ValueChanged)
+            
+            let button1 = UIButton.init(frame: CGRectMake(0, datePicker.frame.size.height+datePicker.frame.origin.y, WIDTH/2, 50))
+            let button2 = UIButton.init(frame: CGRectMake(WIDTH/2, datePicker.frame.size.height+datePicker.frame.origin.y, WIDTH/2, 50))
+            button1.setTitle("取消", forState: UIControlState.Normal)
+            //            button1.backgroundColor = UIColor.greenColor()
+            button1.tintColor = UIColor.blackColor()
+            button1.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            button1.tag = 201
+            button1.addTarget(self, action: #selector(self.click1(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            button2.setTitle("确定", forState: UIControlState.Normal)
+            //            button2.backgroundColor = UIColor.greenColor()
+            button2.tintColor = UIColor.blackColor()
+            button2.addTarget(self, action: #selector(self.click1(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            button2.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+            button2.tag = 202
+            view2.addSubview(label)
+            view2.addSubview(datePicker)
+            view2.addSubview(button1)
+            view2.addSubview(button2)
+            //            coverView.addSubview(view)
+            
+            self.view.addSubview(coverView)
+            self.view.addSubview(view2)
+            isShow = true
+        }else{
+            coverView.removeFromSuperview()
+            let view = self.view.viewWithTag(51)
+            view!.removeFromSuperview()
+            //            coverView.frame = CGRectMake(0, 0, 0, 0)
+            isShow = false
+        }
+        
+        
+    }
+
+    //日期选择器响应方法
+    func dateChanged(datePicker : UIDatePicker){
+        //更新提醒时间文本框
+        //        let formatter = NSDateFormatter()
+        //日期样式
+        formatter.dateFormat = "yyyy年MM月dd日 HH:mm:ss"
+        print(formatter.stringFromDate(datePicker.date))
+    }
+
+    func click1(btn:UIButton){
+        
+        
+        if btn.tag == 201{
+            print("取消")
+            
+            //            pickerView.removeFromSuperview()
+            coverView.removeFromSuperview()
+            let view = self.view.viewWithTag(51)
+            view!.removeFromSuperview()
+            isShow = false
+        }else if btn.tag == 202{
+            let datestr = formatter.stringFromDate(datePicker.date)
+            //            datePicker.minimumDate = datestr
+            
+            //            print(datePicker.date)
+            
+            let formatter2 = NSDateFormatter()
+            formatter2.dateFormat = "yyyyMMddHHmm"
+            let dateStr = formatter2.stringFromDate(datePicker.date)
+            let date222 = formatter2.dateFromString(dateStr)
+            let dates = date222!.timeIntervalSince1970
+            self.time = datestr
+            self.expirydate = String(dates)
+            print(self.expirydate)
+//            let button = self.view.viewWithTag(12)as! UIButton
+//            button.setTitle(datestr, forState: UIControlState.Normal)
+            
+            let formatter3 = NSDateFormatter()
+            formatter3.dateFormat = "yyyy年MM月dd日 HH:mm:00"
+            let dateStr1 = formatter3.stringFromDate(datePicker.date)
+            label1.text = dateStr1
+            print("---")
+            print(datestr)
+            print("---")
+            //            datePicker.removeFromSuperview()
+            coverView.removeFromSuperview()
+            let view = self.view.viewWithTag(51)
+            view!.removeFromSuperview()
+            isShow = false
+
+        }
+        
+        
+        
+        
+    }
+
     //照片多选代理实现
     //    func passPhotos(selected:[ZuberImage]){
     //
@@ -101,12 +244,12 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     
     func pushPhotoAction(){
         //        print(photoArray.count)
-        
-        
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.1,
-                                                       target:self,selector:#selector(self.pushPhotos),
-                                                       userInfo:nil,repeats:true)
-        
+        if label1.text == "请选择认证有效时间!" {
+            alert("请选择有效时间", delegate: self)
+        }else{
+            
+        self.pushPhotos()
+        }
         
     }
     
@@ -146,7 +289,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         //        let bufferSize = representation.getBytes(imageBuffer, fromOffset: Int64(0),
         //                                                 length: Int(representation.size()), error: nil)
         //        let dataPhoto:NSData =  NSData(bytesNoCopy:imageBuffer ,length:bufferSize, freeWhenDone:true)
-        let image = self.photoArray[myPhotoCount]
+        let image = self.photoArray[0]
         let dataPhoto:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
         var myImagess = UIImage()
         myImagess = UIImage.init(data: dataPhoto)!
@@ -157,10 +300,10 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         let dateStr = dateFormatter.stringFromDate(NSDate())
         let imageName = "avatar" + dateStr
         //        print(imageName)
-        let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
+//        let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
         
         //上传图片
-        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://www.my51bang.com/index.php?g=apps&m=index&a=UpdateUserInsurance&\(id)&a=uploadimg")  { [unowned self] (data) in
+        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg")  { [unowned self] (data) in
             dispatch_async(dispatch_get_main_queue(), {
                 
                 let result = Http(JSONDecoder(data))
@@ -169,12 +312,13 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
                     dispatch_async(dispatch_get_main_queue(), {
                         if result.status! == "success"{
                             self.photoNameArr.addObject(result.data!)
-                            self.photoArrayOfPush.addObject(self.photoArray[0])
-                            self.photoArray.removeObjectAtIndex(0)
-                            
+//                            self.photoArrayOfPush.addObject(self.photoArray[0])
+//                            self.photoArray.removeObjectAtIndex(0)
+                            self.shangchuan()
                             self.collectionV?.reloadData()
-                            self.myPhotoCount = self.myPhotoCount + 1
+//                            self.myPhotoCount = self.myPhotoCount + 1
                             self.addCollectionViewPicture()
+                            
                         }else{
                             let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
                             hud.mode = MBProgressHUDMode.Text;
@@ -191,7 +335,23 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     }
     
     
-    
+    func shangchuan(){
+        let user = NSUserDefaults.standardUserDefaults()
+        let userid = user.objectForKey("userid") as! String
+        mainHelper.UpdateUserInsurance(userid, photo: self.photoNameArr[0] as! NSString, expirydate: expirydate) { (success, response) in
+            if !success{
+                alert("上传失败", delegate: self)
+                return
+            }
+            alert("上传成功,等待认证", delegate: self)
+            self.collectionV?.frame.size.height = 0
+            self.collectionV?.removeFromSuperview()
+            self.Statue.text = "认证中"
+            self.TopView.backgroundColor = COLOR
+            self.photoPushButton.hidden = true
+            self.view1.hidden = true
+        }
+    }
     
     func addCollectionViewPicture(){
         
@@ -324,6 +484,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
             self.InsureBtn.backgroundColor = COLOR
             self.InsureBtn.userInteractionEnabled = true
             self.photoPushButton.hidden = true
+            self.view1.hidden = true
         }
         
     }
@@ -382,12 +543,25 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
             let result = Http(JSONDecoder(json!))
             
             if result.status == "success"{
-                
-                print("已经认证")
-                self.InsureBtn.hidden = true
-                self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90)
-                self.TopView.backgroundColor = COLOR
-                self.Statue.text = "已投保"
+                if result.data == "0"{
+                    self.Statue.text = "未认证或认证失败"
+                    self.Statue.adjustsFontSizeToFitWidth = true
+                    self.TopView.backgroundColor = UIColor.grayColor()
+                    self.InsureBtn.hidden = false
+                    self.InsureBtn.backgroundColor = COLOR
+                    self.scrollView.contentSize = CGSizeMake(WIDTH, self.iView.frame.size.height + self.statuFrame.height + 270)
+                    self.scrollView.hidden = false
+                }else if result.data == "-1"{
+                    self.InsureBtn.hidden = true
+                    self.TopView.backgroundColor = COLOR
+                    self.Statue.text = "认证中"
+                }else{
+                    self.Statue.text = "已投保"
+                    self.TopView.backgroundColor = COLOR
+                    self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90)
+                    self.InsureBtn.hidden = true
+                }
+              
             }else{
                 
                 print("未进行认证")
@@ -495,9 +669,9 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     
     func InsureAction()
     {
-        InsureBtn.backgroundColor = UIColor.grayColor()
+//        InsureBtn.backgroundColor = UIColor.grayColor()
         TopView.backgroundColor = UIColor.grayColor()
-        InsureBtn.hidden = true
+//        InsureBtn.hidden = true
         
         scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  statuFrame.height + 10 + 40)
         
@@ -522,13 +696,13 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         self.iView.hidden = true
         self.addCollectionViewPicture()
         if photoArray.count>0 {
-            
-            photoPushButton.frame = CGRectMake(WIDTH/2-40, self.collectionV!.height+WIDTH*210/375+20, 80, 40)
+            self.createSaveTime()
+            photoPushButton.frame = CGRectMake(WIDTH/2-40, self.collectionV!.height+WIDTH*210/375+20+150, 80, 40)
             photoPushButton.backgroundColor = COLOR
             photoPushButton.layer.masksToBounds = true
             photoPushButton.layer.cornerRadius = 5
             photoPushButton.hidden = false
-            photoPushButton.setTitle("上传图片", forState: UIControlState.Normal)
+            photoPushButton.setTitle("上传", forState: UIControlState.Normal)
             photoPushButton.addTarget(self, action: #selector(self.pushPhotoAction), forControlEvents: UIControlEvents.TouchUpInside)
             //            self.headerView.addSubview(photoPushButton)
             //            self.headerView.height = self.collectionV!.height+WIDTH*210/375+80
@@ -544,7 +718,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     
     func cameraAction()
     {
-        let imagePickerVc = TZImagePickerController.init(maxImagesCount: 9, delegate:self)
+        let imagePickerVc = TZImagePickerController.init(maxImagesCount: 1, delegate:self)
         self.presentViewController(imagePickerVc, animated: true, completion: nil)
         //        let VC1 = ViewController1()
         ////        self.tabBarController?.tabBar.hidden = true
