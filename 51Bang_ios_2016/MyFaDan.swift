@@ -367,6 +367,8 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 print(self.dataSource![indexPath.section])
                 let cell = MyFaDanCell.init(model: self.dataSource![indexPath.section])
                 cell.payBtn.tag = indexPath.section
+                cell.myButton.tag = 1000+indexPath.section
+                cell.myButton.addTarget(self, action: #selector(self.goMyZhuye(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 //            let payBtn = cell.viewWithTag(10)as! UIButton
                 if (self.dataSource![indexPath.section].paystatus == "0") {
                     cell.payBtn.addTarget(self, action: #selector(self.nextView(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -387,6 +389,8 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 print(self.dataSource1![indexPath.section])
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! YwcTableViewCell
+                cell.goZhuye.addTarget(self, action: #selector(self.GoZhuyeAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                cell.goZhuye.tag = indexPath.row+500
                 cell.setValueWithInfo(self.dataSource1![indexPath.section])
                 cell.selectionStyle = .None
                 cell.pingjia.hidden = true
@@ -402,6 +406,29 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         
         
     }
+    
+    func goMyZhuye(sender:UIButton){
+        let vc = FuWuHomePageViewController()
+        vc.isUserid = true
+        print(self.dataSource![sender.tag-1000].userid)
+        if self.dataSource![sender.tag-1000].userid != nil {
+            vc.userid = self.dataSource![sender.tag-1000].userid!
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func GoZhuyeAction(sender:UIButton){
+        let vc = FuWuHomePageViewController()
+        vc.isUserid = true
+        print(self.dataSource1![sender.tag-500].userid)
+        if self.dataSource1![sender.tag-500].userid != nil {
+            vc.userid = self.dataSource1![sender.tag-500].userid!
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
     
     func pay(btn:UIButton){
         

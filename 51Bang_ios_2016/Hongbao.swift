@@ -39,6 +39,11 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
     func setShareButton()
     {
     
+        let ut = NSUserDefaults.standardUserDefaults()
+        var userid = String()
+        if ut.objectForKey("userid") != nil {
+            userid = ut.objectForKey("userid") as! String
+        }
         ShareButton.frame = CGRectMake( WIDTH / 2 - 100, self.view.frame.size.height - 200, 200, 40)
         ShareButton.backgroundColor = COLOR
         ShareButton.setTitle("分享给好友", forState: UIControlState.Normal)
@@ -53,7 +58,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         let web = UIWebView()
         web.frame = CGRectMake(WIDTH/2-150, self.view.frame.size.height/2-250, 300, 300)
         web.backgroundColor = RGREY
-        web.loadRequest(NSURLRequest(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7")!))
+        web.loadRequest(NSURLRequest(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=qr&uid="+userid+"&type=1")!))
         self.view.addSubview(web)
 
     }
@@ -192,8 +197,16 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
     
     func btnAction(btn:UIButton)
     {
+        
+        let ut = NSUserDefaults.standardUserDefaults()
+        var userid = String()
+        if ut.objectForKey("userid") != nil {
+             userid = ut.objectForKey("userid") as! String
+        }
+        
+        
         let img = UIImagePNGRepresentation(UIImage.init(named: "图标")!)
-        let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"), title: "我注册了51bang，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
+        let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=server&id="+userid), title: "我注册了51bang，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
         
         
         let req = SendMessageToQQReq(content: newsObj)
@@ -208,7 +221,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             urlMessage.title = "我注册了51bang，来加入吧"
             urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
             let webObj = WXWebpageObject.init()
-            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
+            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=server&id="+userid
             urlMessage.mediaObject = webObj
             sendReq.message = urlMessage
             WXApi.sendReq(sendReq)
@@ -224,7 +237,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
             urlMessage.setThumbImage(UIImage(named: "图标"))
             let webObj = WXWebpageObject.init()
-            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7"
+            webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=server&id="+userid
             urlMessage.mediaObject = webObj
             sendReq.message = urlMessage
             WXApi.sendReq(sendReq)
@@ -234,7 +247,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             let message = APMediaMessage()
             let webObj = APShareWebObject()
 //            let textObj = APShareTextObject()
-            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
+            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=server&id="+userid;
             
             message.title = "我注册了51bang，来加入吧";
             message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
@@ -259,7 +272,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             let message = APMediaMessage()
             let webObj = APShareWebObject()
             //            let textObj = APShareTextObject()
-            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=7";
+            webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=server&id="+userid;
             
             message.title = "我注册了51bang，来加入吧";
             message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";

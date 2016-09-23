@@ -16,6 +16,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     var isShow1 = Bool()
     var isShow2 = Bool()
     var isShow3 = Bool()
+    
+    var headerView = RenZhengBangHeaderViewCell()
+    var sort = String()
+    var types = String()
+//    var isworking = String()
     let coverView = UIView()
     let leftTableView = UITableView()
     let middleTableView = UITableView()
@@ -40,24 +45,27 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         isShow1 = false
         isShow2 = false
         isShow3 = false
+        self.types = ""
+        self.sort = "1"
+//        isworking = "0"
         self.myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
             
         })
         self.view.backgroundColor = RGREY
-        self.GetData1()
+        self.GetData1(sort,types: self.types)
         
         //        let view = UIView.init(frame: CGRectMake(0, 0, <#T##width: CGFloat##CGFloat#>, <#T##height: CGFloat##CGFloat#>))
         self.view.backgroundColor = UIColor.whiteColor()
-        self.GetData()
+        
         
         
         // Do any additional setup after loading the view.
     }
     
     
-    func GetData1(){
+    func GetData1(sort:String,types:String){
         
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
@@ -70,10 +78,19 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             cityname = userLocationCenter.objectForKey("cityName") as! String
         }
         
-         mainHelper.GetRzbList (cityname ,handle: {[unowned self](success, response) in
+        mainHelper.GetRzbList (cityname ,sort:sort,type:types, handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
+                    self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
+                    self.myTableView.delegate = self
+                    self.myTableView.dataSource = self
+                    self.myTableView.backgroundColor = RGREY
+                    self.myTableView.tag = 0
+                    
+                    
+                    self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
+                    self.view.addSubview(self.myTableView)
                     hud.hide(true)
                     return
                 }
@@ -82,6 +99,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
                 print(self.rzbDataSource)
                 print(self.rzbDataSource!.count)
+                
                 self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
                 self.myTableView.delegate = self
                 self.myTableView.dataSource = self
@@ -92,6 +110,9 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
                 self.view.addSubview(self.myTableView)
                 self.myTableView.reloadData()
+                self.GetData()
+                
+
                 
             })
             })
@@ -115,27 +136,28 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.myTableView.mj_header.endRefreshing()
                 self.dataSource = response as? Array<SkillModel> ?? []
                 print(self.dataSource)
-                let headerView =  NSBundle.mainBundle().loadNibNamed("RenZhengBangHeaderViewCell", owner: nil, options: nil).first as? RenZhengBangHeaderViewCell
-                headerView?.frame = CGRectMake(0, 0, WIDTH, WIDTH*50/375)
-                headerView?.tag = 5
+                self.headerView =  (NSBundle.mainBundle().loadNibNamed("RenZhengBangHeaderViewCell", owner: nil, options: nil).first as? RenZhengBangHeaderViewCell)!
+                
+                self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*50/375)
+                self.headerView.tag = 5
                 //                headerView?.label1.
                 let gesture1 = UITapGestureRecognizer(target: self, action:#selector(self.onClick1))
                 //附加识别器到视图
-                headerView?.label1.addGestureRecognizer(gesture1)
-                headerView?.label1.userInteractionEnabled = true
+                self.headerView.label1.addGestureRecognizer(gesture1)
+                self.headerView.label1.userInteractionEnabled = true
                 let gesture2 = UITapGestureRecognizer(target: self, action:#selector(self.onClick2))
                 //附加识别器到视图
-                headerView?.label2.addGestureRecognizer(gesture2)
-                headerView?.label2.userInteractionEnabled = true
+                self.headerView.label2.addGestureRecognizer(gesture2)
+                self.headerView.label2.userInteractionEnabled = true
                 
                 let gesture3 = UITapGestureRecognizer(target: self, action:#selector(self.onClick3))
                 //附加识别器到视图
-                headerView?.label3.addGestureRecognizer(gesture3)
-                headerView?.label3.userInteractionEnabled = true
-                headerView?.button1.addTarget(self, action: #selector(self.onClick1), forControlEvents: UIControlEvents.TouchUpInside)
-                headerView?.button2.addTarget(self, action: #selector(self.onClick2), forControlEvents: .TouchUpInside)
-                headerView?.button3.addTarget(self, action: #selector(self.onClick3), forControlEvents: .TouchUpInside)
-                self.myTableView.tableHeaderView = headerView
+                self.headerView.label3.addGestureRecognizer(gesture3)
+                self.headerView.label3.userInteractionEnabled = true
+                self.headerView.button1.addTarget(self, action: #selector(self.onClick1), forControlEvents: UIControlEvents.TouchUpInside)
+                self.headerView.button2.addTarget(self, action: #selector(self.onClick2), forControlEvents: .TouchUpInside)
+                self.headerView.button3.addTarget(self, action: #selector(self.onClick3), forControlEvents: .TouchUpInside)
+                self.myTableView.tableHeaderView = self.headerView
                 self.myTableView.reloadData()
                 
             })
@@ -247,7 +269,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     
     func headerRefresh(){
-        GetData1()
+        self.GetData1(sort,types: self.types)
+        self.headerView.label3.text = "全部"
     }
     
     
@@ -371,8 +394,13 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             let view = self.view.viewWithTag(5)as? RenZhengBangHeaderViewCell
             if indexPath.row == 0 {
                 view?.label1.text = "全部分类"
+                
+                self.types = ""
+                self.GetData1(self.sort, types: self.types)
             }else{
                 view?.label1.text = self.dataSource![indexPath.row-1].name
+                self.types = self.dataSource![indexPath.row-1].id!
+                self.GetData1(self.sort, types: self.types)
             }
             
         }else if tableView.tag == 2{
@@ -381,7 +409,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             middleTableView.removeFromSuperview()
             isShow2 = false
             let view = self.view.viewWithTag(5)as? RenZhengBangHeaderViewCell
+            
+            
             view?.label2.text = middleArr[indexPath.row]
+            self.sort = String(indexPath.row)
+            self.GetData1(self.sort, types: self.types)
             
         }else{
             coverView.removeFromSuperview()
@@ -396,11 +428,13 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                         myDatass.addObject(data)
                     }
                 }
+                
                 let aa = myDatass as Array
               self.rzbDataSource = aa as? Array<RzbInfo>
                 self.myTableView.reloadData()
-            }else{
-                self.GetData1()
+            }else if indexPath.row == 0 {
+                self.GetData1(sort,types: self.types)
+                
             }
             
             

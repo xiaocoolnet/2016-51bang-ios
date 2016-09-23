@@ -83,6 +83,9 @@ class RzbInfo: JSONJoy {
     var usertype:String
     var photo:String
     var isworking :String
+    var skilllist :[SkilllistModel]
+    
+    
     
     required init(_ decoder:JSONDecoder){
         name = decoder["name"].string ?? ""
@@ -105,6 +108,15 @@ class RzbInfo: JSONJoy {
         isworking = decoder["isworking"].string ?? ""
         longitude = decoder["longitude"].string ?? ""
         latitude = decoder["latitude"].string ?? ""
+        
+        skilllist = Array<SkilllistModel>()
+        for childs: JSONDecoder in decoder["skilllist"].array!{
+            print(childs)
+            print(SkilllistModel(childs))
+            skilllist.append(SkilllistModel(childs))
+//            print(skilllist)
+//                                array.append(SkillModel(childs))
+        }
     }
     
     

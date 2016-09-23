@@ -15,6 +15,7 @@ class YwcTableViewCell: UITableViewCell {
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var pingjia: UIButton!
     
+    @IBOutlet weak var goZhuye: UIButton!
     
     @IBOutlet weak var renwuNum: UILabel!
     
@@ -42,8 +43,18 @@ class YwcTableViewCell: UITableViewCell {
     func setValueWithInfo(info:TaskInfo){
         self.view1.backgroundColor = RGREY
         self.view2.backgroundColor = RGREY
-        self.title.text = info.title
-        self.renwuNum.text = info.order_num
+        if info.title != nil {
+            self.title.text = info.title
+        }
+        
+        if info.order_num != nil {
+            self.renwuNum.text = info.order_num
+        }
+        
+        if info.apply?.name != nil {
+            self.jiedanren.text = info.apply?.name
+        }
+        
         
     
     }

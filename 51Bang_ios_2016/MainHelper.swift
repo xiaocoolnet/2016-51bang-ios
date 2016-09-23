@@ -577,12 +577,12 @@
     }
     
     
-    func GetRzbList(cityname:String, handle:ResponseBlock){
+    func GetRzbList(cityname:String,sort:String, type:String, handle:ResponseBlock){
         
         // url	String	"http://bang.xiaocool.net/index.php?g=apps&m=index&a=getAuthenticationUserList"
         let url = Bang_URL_Header+"getAuthenticationUserList"
         
-        Alamofire.request(.GET, url, parameters: ["cityname":cityname]).response { request, response, json, error in
+        Alamofire.request(.GET, url, parameters: ["cityname":cityname,"sort":sort,"type":type]).response { request, response, json, error in
             print(request)
             if(error != nil){
                 handle(success: false, response: error?.description)

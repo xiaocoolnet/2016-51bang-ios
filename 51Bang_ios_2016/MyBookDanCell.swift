@@ -79,7 +79,7 @@ class MyBookDanCell: UITableViewCell {
         Statue.textColor = COLOR
         if Data.state == "4" {
             Statue.text = "待评价"
-            Btn.setTitle("评价", forState: UIControlState.Normal)
+            Btn.setTitle("未评价", forState: UIControlState.Normal)
             Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
             
         }else if Data.state == "1"{

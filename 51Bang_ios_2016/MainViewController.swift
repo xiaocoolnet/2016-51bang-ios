@@ -55,6 +55,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     var BeingBackMyPositonBtn = UIButton()
     // 用户位置经纬度信息（及时）
     var savedLocation = BMKUserLocation()
+    var flagLocation = BMKUserLocation()//价格flag标记，记录变化
     
     
     
@@ -151,6 +152,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     override func viewDidLoad() {
         super.viewDidLoad()
         dingWeiStr = "0"
+        self.flagLocation = self.savedLocation
         let function = BankUpLoad()
         function.CheckRenzheng()
         
@@ -772,7 +774,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         }
         
         
-        mainHelper.GetRzbList (cityname ,handle: {[unowned self](success, response) in
+        mainHelper.GetRzbList (cityname,sort:"" ,type: "", handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                    
@@ -867,8 +869,17 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     }
     
     func moveToUser(){
-        mapView.updateLocationData(self.savedLocation)
-        mapView.setCenterCoordinate(self.savedLocation.location.coordinate, animated: true)
+        
+//        print(self.savedLocation.location)
+//        print(self.savedLocation.location.coordinate)
+        if self.savedLocation != self.flagLocation {
+            mapView.updateLocationData(self.savedLocation)
+            mapView.setCenterCoordinate(self.savedLocation.location.coordinate, animated: true)
+        }else{
+            alert("请打开定位功能", delegate: self)
+            return
+        }
+        
         if userLocationCenter.objectForKey("subLocality") != nil && userLocationCenter.objectForKey("subLocality") as! String != "0"{
             userLocationCenter.setObject(userLocationCenter.objectForKey("subLocality") as! String, forKey: "cityName")
             

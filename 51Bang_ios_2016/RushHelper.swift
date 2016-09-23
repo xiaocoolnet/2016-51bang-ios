@@ -36,6 +36,34 @@ class RushHelper: NSObject {
         }
      }
     
+    
+    func getAuthenticationInfoByUserId(userid:String, handle:ResponseBlock){
+        let url = Bang_URL_Header+"getAuthenticationInfoByUserId"
+        let param = [
+            "userid":userid
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = RZBAAModel(JSONDecoder(json!))
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    
+    
     //身份认证
     func identityAffirm(userid:String,city:String,realname:String,idcard:String,contactperson:String,contactphone:String,positive_pic:String,opposite_pic:String,driver_pic:String,types:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"Authentication"
