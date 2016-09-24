@@ -637,7 +637,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         
         
         let Tip = UILabel()
-        Tip.frame = CGRectMake(WIDTH / 2 - 40,20, 80, 30 )
+        Tip.frame = CGRectMake(WIDTH / 2 - 40,30, 80, 30 )
         //+ 70 + 10
         Tip.text = "今日保障状态"
         Tip.textColor = UIColor.whiteColor()
@@ -646,6 +646,14 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         Tip.font = UIFont.systemFontOfSize(15)
         TopView.addSubview(Tip)
         
+        let Tip1 = UILabel()
+        Tip1.frame = CGRectMake(WIDTH / 2 - 40,10, 80, 30 )
+        Tip1.text = "先投保后抢单"
+        Tip1.textColor = UIColor.whiteColor()
+        Tip1.adjustsFontSizeToFitWidth  = true
+        Tip1.textAlignment = NSTextAlignment.Center
+        Tip1.font = UIFont.systemFontOfSize(15)
+        TopView.addSubview(Tip1)
         
     }
     

@@ -449,8 +449,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             self.navigationController?.pushViewController(vc, animated: true)
            
             }else{
-//                vc.datasource2 = NSArray.init(array: dat) as Array
-//                self.navigationController?.pushViewController(vc, animated: true)
+                self.navigationController?.pushViewController(vc, animated: true)
             }
            
 

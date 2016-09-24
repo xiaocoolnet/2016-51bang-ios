@@ -328,9 +328,9 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
         for count in 1...result.keyList.count {
             
             let re = SarchModel.init()
-            re.name = result.keyList[ count ] as! String
+            re.name = result.keyList[ count-1 ] as! String
             let coor = UnsafeMutablePointer<CLLocationCoordinate2D>.alloc(1)  //CLLocationCoordinate2D.init()
-            ( result.ptList[count] as! NSValue ).getValue( coor )
+            ( result.ptList[count-1] as! NSValue ).getValue( coor )
             re.location = coor.memory
             searchResult.append(re)
         }

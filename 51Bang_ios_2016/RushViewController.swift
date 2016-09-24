@@ -178,6 +178,12 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                         self.navigationController?.pushViewController(Insure, animated: true)
                         self.hidesBottomBarWhenPushed = false
 
+                    }else{
+                        if self.sign == 0 {
+                            isworking = "1"
+                        }else{
+                            isworking = "0"
+                        }
                     }
                 }
             }
@@ -190,11 +196,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         print(longitude)
         print(latitude)
         
-        if self.sign == 0 {
-            isworking = "1"
-        }else{
-            isworking = "0"
-        }
+        
         if ud.objectForKey("userid") != nil {
             mainHelper.BeginWorking(ud.objectForKey("userid") as! String, address: cutyName, longitude: longitude, latitude: latitude, isworking: isworking) { (success, response) in
                 if !success {

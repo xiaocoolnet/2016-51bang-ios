@@ -402,7 +402,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IO9-ek-Qos">
-                                    <rect key="frame" x="114" y="495" width="17" height="22"/>
+                                    <rect key="frame" x="100" y="495" width="17" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="17" id="NWV-FD-rlL"/>
                                         <constraint firstAttribute="height" constant="22" id="tLo-Aq-Ade"/>
@@ -410,21 +410,21 @@
                                     <state key="normal" image="ic_weixuanze"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYy-fb-nOp">
-                                    <rect key="frame" x="139" y="495" width="173" height="23"/>
+                                    <rect key="frame" x="118" y="492" width="204" height="29"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="23" id="2dD-Dc-90T"/>
-                                        <constraint firstAttribute="width" constant="173" id="DvX-hB-exV"/>
+                                        <constraint firstAttribute="height" constant="29" id="2dD-Dc-90T"/>
+                                        <constraint firstAttribute="width" constant="204" id="DvX-hB-exV"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <state key="normal" title="我同意《51帮托管协议》"/>
+                                    <state key="normal" title="我同意《51帮用户者服务协议》"/>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="Ppo-vp-96a" firstAttribute="leading" secondItem="KDe-jP-Jo6" secondAttribute="leading" id="2ay-TV-ZvS"/>
                                 <constraint firstItem="IO9-ek-Qos" firstAttribute="top" secondItem="FEB-53-OWP" secondAttribute="bottom" constant="6" id="70i-B5-XXg"/>
-                                <constraint firstItem="lYy-fb-nOp" firstAttribute="leading" secondItem="IO9-ek-Qos" secondAttribute="trailing" constant="8" id="74Z-Oy-Dvr"/>
-                                <constraint firstItem="lYy-fb-nOp" firstAttribute="top" secondItem="FEB-53-OWP" secondAttribute="bottom" constant="6" id="9jI-Cv-OoL"/>
+                                <constraint firstItem="lYy-fb-nOp" firstAttribute="leading" secondItem="IO9-ek-Qos" secondAttribute="trailing" constant="1" id="74Z-Oy-Dvr"/>
+                                <constraint firstItem="lYy-fb-nOp" firstAttribute="top" secondItem="FEB-53-OWP" secondAttribute="bottom" constant="3" id="9jI-Cv-OoL"/>
                                 <constraint firstItem="Ppo-vp-96a" firstAttribute="top" secondItem="25w-BE-UX4" secondAttribute="bottom" constant="25" id="F6C-oj-5lt"/>
                                 <constraint firstItem="MdC-ES-Cqh" firstAttribute="leading" secondItem="KDe-jP-Jo6" secondAttribute="leading" constant="15" id="FT8-ab-akb"/>
                                 <constraint firstItem="FEB-53-OWP" firstAttribute="top" secondItem="Ppo-vp-96a" secondAttribute="bottom" constant="10" id="SUu-xJ-VKW"/>
@@ -434,7 +434,7 @@
                                 <constraint firstAttribute="trailing" secondItem="MdC-ES-Cqh" secondAttribute="trailing" constant="15" id="esg-zI-quf"/>
                                 <constraint firstItem="MdC-ES-Cqh" firstAttribute="top" secondItem="FEB-53-OWP" secondAttribute="bottom" constant="34" id="gVf-mT-Ra1"/>
                                 <constraint firstAttribute="height" constant="568" id="m2k-Iv-bVa"/>
-                                <constraint firstAttribute="trailing" secondItem="lYy-fb-nOp" secondAttribute="trailing" constant="8" id="tKt-Vl-hZY"/>
+                                <constraint firstAttribute="trailing" secondItem="lYy-fb-nOp" secondAttribute="trailing" constant="-2" id="tKt-Vl-hZY"/>
                                 <constraint firstAttribute="trailing" secondItem="Ppo-vp-96a" secondAttribute="trailing" id="tmX-QJ-jCk"/>
                                 <constraint firstItem="FEB-53-OWP" firstAttribute="leading" secondItem="KDe-jP-Jo6" secondAttribute="leading" id="v4U-rj-3Hh"/>
                             </constraints>

@@ -68,7 +68,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         myTableView.registerNib(UINib(nibName: "PayMethodTableViewCell",bundle: nil), forCellReuseIdentifier: "paycell")
         let bottom = UIView(frame: CGRectMake(0, 0, WIDTH, 150))
         let label = UILabel.init(frame: CGRectMake(0, 10, 160, 22))
-        label.text = "我同意《51帮托管协议》"
+        label.text = "我同意《用户者服务协议》"
         label.textColor = UIColor.grayColor()
         label.font = UIFont.systemFontOfSize(14)
         let button = UIButton.init(frame: CGRectMake(WIDTH-160, 10, 160, 50))
