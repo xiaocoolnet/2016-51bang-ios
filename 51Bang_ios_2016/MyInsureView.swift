@@ -558,6 +558,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
                 }else{
                     self.Statue.text = "已投保"
                     self.TopView.backgroundColor = COLOR
+                    self.iView.hidden = true
                     self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90)
                     self.InsureBtn.hidden = true
                 }

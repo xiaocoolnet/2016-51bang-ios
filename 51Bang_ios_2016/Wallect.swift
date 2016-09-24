@@ -16,7 +16,8 @@ class Wallect: UIViewController {
     let mainHelper = TCVMLogModel()
     var info = walletInfo()
     var dataSource = NSMutableArray()
-    
+    var TixianButton = UIButton()
+    var scrollerAll = UIScrollView()
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBar.hidden = true
     }
@@ -25,6 +26,9 @@ class Wallect: UIViewController {
         self.view.backgroundColor = RGREY
 //        self.title = "钱包"
         self.getData()
+        scrollerAll = UIScrollView.init(frame: CGRectMake(0, -20, WIDTH, HEIGHT+20))
+        scrollerAll.contentSize = CGSize(width: WIDTH, height: scrollerAll.height+100)
+        self.view.addSubview(scrollerAll)
     }
     
     func getData(){
@@ -50,7 +54,7 @@ class Wallect: UIViewController {
     {
         TopView.frame = CGRectMake(0, 0, WIDTH, 180 )
         TopView.backgroundColor = COLOR
-        self.view.addSubview(TopView)
+        self.scrollerAll.addSubview(TopView)
         
         let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height, 50,50 ))
         BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Normal)
@@ -133,7 +137,7 @@ class Wallect: UIViewController {
         SecondView.addSubview(label6)
         SecondView.addSubview(label7)
         SecondView.addSubview(label8)
-        self.view.addSubview(SecondView)
+        self.scrollerAll.addSubview(SecondView)
     }
     
 //    func backAction()
@@ -189,21 +193,21 @@ class Wallect: UIViewController {
         
         
         
-        let TixianButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 50, 470+60, 100, 40))
+        TixianButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 50, 470+60, 100, 40))
         TixianButton.backgroundColor = COLOR
         TixianButton.setTitle("提现", forState: UIControlState.Normal)
         TixianButton.clipsToBounds = true
         TixianButton.layer.cornerRadius = 8
         TixianButton.layer.masksToBounds = true
         TixianButton.addTarget(self, action: #selector(self.Tixian), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(TixianButton)
+        self.scrollerAll.addSubview(TixianButton)
         let TixianXiangJieButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 100, 520+60 , 200, 40))
         TixianXiangJieButton.backgroundColor = RGREY
         TixianXiangJieButton.setTitle("欲了解提现详解请点击此处", forState: UIControlState.Normal)
         TixianXiangJieButton.titleLabel?.font = UIFont.systemFontOfSize(13)
         TixianXiangJieButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
         TixianXiangJieButton.addTarget(self, action: #selector(self.TixianXiangJie), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(TixianXiangJieButton)
+        self.scrollerAll.addSubview(TixianXiangJieButton)
         
 //        button2.addTarget(self, action: #selector(self.nextView2), forControlEvents: UIControlEvents.TouchUpInside)
         self.thirdView.addSubview(headerImageView1)
@@ -220,7 +224,7 @@ class Wallect: UIViewController {
         thirdView.addSubview(button1Back)
         thirdView.addSubview(button2Back)
         thirdView.addSubview(button3Back)
-        self.view.addSubview(thirdView)
+        self.scrollerAll.addSubview(thirdView)
         
     }
     

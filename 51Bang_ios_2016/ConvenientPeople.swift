@@ -362,6 +362,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         let vc = ChetViewController()
         vc.receive_uid = (dataSource2[sender.tag] as! TCHDInfo).userid
         //        vc.datasource2 = NSMutableArray()
+            vc.titleTop = (dataSource2[sender.tag] as! TCHDInfo).name
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         if userid == (dataSource2[sender.tag] as! TCHDInfo).userid{
@@ -413,7 +414,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             self.navigationController?.pushViewController(vc, animated: true)
            
             }else{
-                
+                self.navigationController?.pushViewController(vc, animated: true)
             }
            
 

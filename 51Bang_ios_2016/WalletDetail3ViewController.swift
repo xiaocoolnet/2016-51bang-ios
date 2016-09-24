@@ -14,15 +14,17 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
         var myTableView = UITableView()
         var buttonSelect1 = UIButton()
         var buttonSelect2 = UIButton()
+        var buttonSelect3 = UIButton()
         let mainHelper = MainHelper()
         var dataSource = GetUserBankInfo()
-        var isbao = Bool()
+        var tagButton = Int()
         override func viewWillAppear(animated: Bool) {
+            super.viewWillAppear(true)
             self.navigationController?.navigationBar.hidden = false
             self.tabBarController?.tabBar.hidden = true
             self.title = "选择绑定类别"
             getData()
-            isbao = true
+            
         }
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -52,6 +54,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
         
         func createView(){
             myTableView = UITableView.init(frame: CGRectMake(0, 15, WIDTH, 120))
+//            myTableView = UITableView.init(frame: CGRectMake(0, 15, WIDTH, 180))
             myTableView.delegate = self
             myTableView.dataSource = self
             myTableView.scrollEnabled = false
@@ -62,12 +65,13 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
             buttonQueren.backgroundColor = COLOR
             buttonQueren.cornerRadius = 10
             buttonQueren.clipsToBounds = true
-            buttonQueren.addTarget(self, action: #selector(getCashGo), forControlEvents: UIControlEvents.TouchUpInside)
+            buttonQueren.addTarget(self, action: #selector(getCashGo(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             self.view.addSubview(buttonQueren)
         }
         
         func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return 2
+//            return 3
         }
         
         func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -98,18 +102,18 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 button.titleLabel?.font = UIFont.systemFontOfSize(12)
                 button.titleLabel?.textAlignment = NSTextAlignment.Left
                 button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-//                button.addTarget(self, action: #selector(zhifubaoGo), forControlEvents: UIControlEvents.TouchUpInside)
+
                 
                 buttonSelect1 = UIButton.init(frame: CGRectMake(WIDTH-50, 15, 30, 30))
                 buttonSelect1.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
-                buttonSelect1.addTarget(self, action: #selector(selectGo), forControlEvents: UIControlEvents.TouchUpInside)
-                
+                buttonSelect1.addTarget(self, action: #selector(selectGo(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                buttonSelect1.tag = tagButton
                 cell.addSubview(imageView)
                 cell.addSubview(label)
                 cell.addSubview(button)
                 cell.addSubview(buttonSelect1)
                 
-            }else {
+            }else if indexPath.row == 1{
                 
                 let imageView = UIImageView.init(frame: CGRectMake(15, 5, 60-10, 60-10))
                 imageView.image = UIImage.init(named: "yinhangka")
@@ -132,32 +136,76 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 button.titleLabel?.font = UIFont.systemFontOfSize(12)
                 button.titleLabel?.textAlignment = NSTextAlignment.Left
                 button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-//                button.addTarget(self, action: #selector(bank), forControlEvents: UIControlEvents.TouchUpInside)
                 
                 
                 buttonSelect2 = UIButton.init(frame: CGRectMake(WIDTH-50, 15, 30, 30))
                 buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
-                buttonSelect2.addTarget(self, action: #selector(selectGo2), forControlEvents: UIControlEvents.TouchUpInside)
-                
+                buttonSelect2.addTarget(self, action: #selector(selectGo(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                tagButton = 101
+                buttonSelect2.tag = tagButton
                 cell.addSubview(imageView)
                 cell.addSubview(label)
                 cell.addSubview(button)
                 cell.addSubview(buttonSelect2)
+            }else{
+                
+                let imageView = UIImageView.init(frame: CGRectMake(15, 5, 60-10, 60-10))
+                imageView.image = UIImage.init(named: "ic_weixin-1")
+                
+                let label = UILabel.init(frame: CGRectMake(75, 8, 80, 30))
+                label.text = "微信"
+                
+                let button = UIButton.init(frame: CGRectMake(65+10, 35, 100, 20))
+                if dataSource.bank != nil {
+                    if dataSource.bank == "" {
+                        button.setTitle("[未绑定]", forState: UIControlState.Normal)
+                    }else{
+                        button.setTitle(dataSource.bank, forState: UIControlState.Normal)
+                    }
+                }else{
+                    button.setTitle("[未绑定]", forState: UIControlState.Normal)
+                }
+                
+                button.setTitleColor(UIColor.lightGrayColor(), forState: UIControlState.Normal)
+                button.titleLabel?.font = UIFont.systemFontOfSize(12)
+                button.titleLabel?.textAlignment = NSTextAlignment.Left
+                button.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+                
+                buttonSelect3 = UIButton.init(frame: CGRectMake(WIDTH-50, 15, 30, 30))
+                buttonSelect3.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+                buttonSelect3.addTarget(self, action: #selector(selectGo(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                tagButton = 102
+                buttonSelect3.tag = tagButton
+                cell.addSubview(imageView)
+                cell.addSubview(label)
+                cell.addSubview(button)
+                cell.addSubview(buttonSelect3)
             }
+            tagButton = 100
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             return cell
         }
         
         
         func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-            if indexPath.row == 0  {
+            switch indexPath.row {
+            case 0:
+                tagButton = 100
                 buttonSelect1.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
                 buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
-                isbao = true
-            }else{
+                buttonSelect3.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+            case 1:
+                tagButton = 101
                 buttonSelect1.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
                 buttonSelect2.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
-                isbao = false
+                buttonSelect3.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+            case 2:
+                tagButton = 102
+                buttonSelect1.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+                buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+                buttonSelect3.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
+            default:
+                break
             }
         }
         
@@ -172,19 +220,30 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
 //            self.navigationController?.pushViewController(vc, animated: true)
 //        }
     
-        func selectGo(){
-            buttonSelect1.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
-            buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
-            isbao = true
+        func selectGo(sendtag:UIButton){
+            switch sendtag.tag {
+            case 100:
+                buttonSelect1.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
+                buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+                buttonSelect3.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+            case 101:
+                buttonSelect1.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+                buttonSelect2.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
+                buttonSelect3.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+            case 102:
+                buttonSelect1.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+                buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+                buttonSelect3.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
+            default: break
+                
+            }
+           
         }
-        func selectGo2(){
-            buttonSelect1.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
-            buttonSelect2.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
-            isbao = false
-        }
-        
-        func getCashGo(){
-            if isbao {
+    
+        func getCashGo(sendtag:UIButton){
+            sendtag.tag = tagButton
+            print(sendtag.tag)
+            if sendtag.tag == 100 {
                 if dataSource.alipay != nil{
                     if dataSource.alipay == "" {
                         let vc = zhifubaoBandViewController()
@@ -195,7 +254,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 }else{
                     alert("网络环境差，请稍等", delegate: self)
                 }
-            }else{
+            }else if sendtag.tag == 101{
                 if dataSource.bank != nil{
                     if dataSource.bank == "" {
                         let vc = BankBandViewController()
