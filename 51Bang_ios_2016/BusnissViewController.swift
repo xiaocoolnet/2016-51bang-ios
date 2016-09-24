@@ -10,7 +10,7 @@ import UIKit
 import MBProgressHUD
 
 var isFavorite = Bool()
-class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate {
+class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,UIScrollViewDelegate {
     
     
     var bottom = UIView()
@@ -44,7 +44,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var id = String()
     var myPhotoArray = NSMutableArray()
     var isShow = false
-    
+    var pageControl = UIPageControl()
     var current = CLLocation()
     override func viewWillAppear(animated: Bool) {
         getData()
@@ -311,8 +311,22 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         headerView =  (NSBundle.mainBundle().loadNibNamed("ShopHeaderViewCell", owner: nil, options: nil).first as? ShopHeaderViewCell)!
         
-        let scrollView = UIScrollView.init(frame:CGRectMake(0, 0, WIDTH, 220))
+        let scrollView = UIScrollView.init(frame:CGRectMake(0, 0, WIDTH, 200))
         scrollView.backgroundColor = UIColor.clearColor()
+        scrollView.contentSize = CGSizeMake(WIDTH * CGFloat (goodsInfo.pic.count) , 0)
+        scrollView.contentOffset = CGPoint(x: 0,y: 0)
+        scrollView.pagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.directionalLockEnabled = true
+        scrollView.delegate = self
+        headerView.addSubview(scrollView)
+        
+        pageControl = UIPageControl.init(frame: CGRectMake(WIDTH-80-CGFloat(goodsInfo.pic.count)*10, 180, 80+CGFloat(goodsInfo.pic.count)*10, 20))
+        pageControl.numberOfPages = goodsInfo.pic.count
+        pageControl.currentPage = 0
+        pageControl.userInteractionEnabled = false
+        headerView.addSubview(pageControl)
+
         //
         if goodsInfo.pic.count > 0  {
             for num in 0...goodsInfo.pic.count-1{
@@ -340,13 +354,6 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             headerPhotoView1.image = UIImage(named: "01")
             scrollView.addSubview(headerPhotoView1)
         }
-        scrollView.contentSize = CGSizeMake(WIDTH * CGFloat (goodsInfo.pic.count) , 220)
-        scrollView.contentOffset = CGPoint(x: 0,y: 0)
-        scrollView.pagingEnabled = true
-        scrollView.showsHorizontalScrollIndicator = false
-        headerView.addSubview(scrollView)
-        
-        
         
         //        headerView.headerImage.setImageWithURL(NSURL.init(string:Bang_Image_Header+arrayphoto[1])!, placeholderImage: UIImage.init(named: "01"))
         headerView.frame = CGRectMake(0, 0, WIDTH, 250)
@@ -433,6 +440,12 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.getBottom()
         bottom.hidden = true
         // Do any additional setup after loading the view.
+    }
+    
+    //scroller代理方法
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let index = Int(CGFloat((scrollView.contentOffset.x + WIDTH/2))/WIDTH)
+        pageControl.currentPage = index
     }
     
     func call(){

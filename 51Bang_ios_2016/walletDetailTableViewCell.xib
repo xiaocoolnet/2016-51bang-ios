@@ -23,17 +23,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="余额:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-Ff-4O8">
-                        <rect key="frame" x="8" y="34" width="44" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="44" id="pZ7-Fe-aPT"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUT-yH-Z92">
-                        <rect key="frame" x="60" y="34" width="101" height="21"/>
+                        <rect key="frame" x="85" y="34" width="101" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="101" id="ezg-IJ-rJY"/>
                         </constraints>
@@ -76,10 +67,19 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="钱包余额:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-Ff-4O8">
+                        <rect key="frame" x="8" y="34" width="73" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="73" id="pZ7-Fe-aPT"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="yDJ-ND-fw3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="0f3-qm-FEk"/>
-                    <constraint firstItem="EUT-yH-Z92" firstAttribute="leading" secondItem="GGm-Ff-4O8" secondAttribute="trailing" constant="8" id="4yk-sd-L5X"/>
+                    <constraint firstItem="EUT-yH-Z92" firstAttribute="leading" secondItem="GGm-Ff-4O8" secondAttribute="trailing" constant="4" id="4yk-sd-L5X"/>
                     <constraint firstAttribute="trailing" secondItem="ylh-CJ-j06" secondAttribute="trailing" id="GVM-MU-Y5U"/>
                     <constraint firstItem="EUT-yH-Z92" firstAttribute="top" secondItem="yDJ-ND-fw3" secondAttribute="bottom" constant="5" id="Itk-yJ-ver"/>
                     <constraint firstItem="yDJ-ND-fw3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Muf-Dw-OGG"/>

@@ -166,6 +166,25 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         }
         
         
+        if self.sign == 0 {
+            if(ud.objectForKey("ss") != nil){
+                if(ud.objectForKey("ss") as! String == "no"){
+                    alert("请先实名认证", delegate: self)
+                }else{
+                    if (ud.objectForKey("baoxiangrenzheng") as! String == "no") {
+                         alert("请先进行投保认证", delegate: self)
+                        self.hidesBottomBarWhenPushed = true
+                        let Insure = MyInsure()
+                        self.navigationController?.pushViewController(Insure, animated: true)
+                        self.hidesBottomBarWhenPushed = false
+
+                    }
+                }
+            }
+            
+        }else{
+           
+        }
         
         
         print(longitude)
@@ -263,7 +282,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     
     func createTableView(){
         
-        myTableView.frame = CGRectMake(0, 0, WIDTH, self.view.frame.size.height)
+        myTableView.frame = CGRectMake(0, 0, WIDTH, self.view.frame.size.height-64)
 
         myTableView.backgroundColor = RGREY
 //        self.myTableView = UITableView.init(frame: CGRectMake(0, -38, WIDTH, self.view.frame.size.height), style: .Grouped)

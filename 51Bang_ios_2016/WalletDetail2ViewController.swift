@@ -37,7 +37,7 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
         hud.labelText = "正在努力加载"
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as!String
-        mainHelper.getTiXian("607") { (success, response) in
+        mainHelper.getTiXian(uid) { (success, response) in
             if !success{
                 hud.hidden = true
                 alert("数据加载失败", delegate: self)
