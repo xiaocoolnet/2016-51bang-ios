@@ -321,9 +321,10 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         scrollView.delegate = self
         headerView.addSubview(scrollView)
         
-        pageControl = UIPageControl.init(frame: CGRectMake(WIDTH-100-CGFloat(goodsInfo.pic.count)*10, 180, 100+CGFloat(goodsInfo.pic.count)*10, 20))
+        pageControl = UIPageControl.init(frame: CGRectMake(WIDTH-80-CGFloat(goodsInfo.pic.count)*10, 180, 80+CGFloat(goodsInfo.pic.count)*10, 20))
         pageControl.numberOfPages = goodsInfo.pic.count
         pageControl.currentPage = 0
+        pageControl.userInteractionEnabled = false
         headerView.addSubview(pageControl)
 
         //
