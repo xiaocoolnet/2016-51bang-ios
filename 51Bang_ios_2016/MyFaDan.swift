@@ -410,9 +410,9 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func goMyZhuye(sender:UIButton){
         let vc = FuWuHomePageViewController()
         vc.isUserid = true
-        print(self.dataSource![sender.tag-1000].userid)
-        if self.dataSource![sender.tag-1000].userid != nil {
-            vc.userid = self.dataSource![sender.tag-1000].userid!
+//        print(self.dataSource![sender.tag-1000].apply!.userid)
+        if self.dataSource![sender.tag-1000].apply!.userid != nil {
+            vc.userid = self.dataSource![sender.tag-1000].apply!.userid!
         }
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -420,9 +420,9 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func GoZhuyeAction(sender:UIButton){
         let vc = FuWuHomePageViewController()
         vc.isUserid = true
-        print(self.dataSource1![sender.tag-500].userid)
-        if self.dataSource1![sender.tag-500].userid != nil {
-            vc.userid = self.dataSource1![sender.tag-500].userid!
+        print(self.dataSource1![sender.tag-500].apply!.userid)
+        if self.dataSource1![sender.tag-500].apply!.userid != nil {
+            vc.userid = self.dataSource1![sender.tag-500].apply!.userid!
         }
         
         self.navigationController?.pushViewController(vc, animated: true)

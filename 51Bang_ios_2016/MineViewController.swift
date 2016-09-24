@@ -848,8 +848,10 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     
     func register(){
+        let vc  = TCRegisterViewController(nibName:"TCRegisterViewController",bundle: nil)
         
-        let vc = TCRegisterViewController()
+        
+//        let vc = TCRegisterViewController()
         self.navigationController?.pushViewController(vc, animated: true)
         
     }

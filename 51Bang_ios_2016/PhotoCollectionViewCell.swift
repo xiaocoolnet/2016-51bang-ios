@@ -12,7 +12,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     
     @IBOutlet weak var button: UIButton!
-    @IBOutlet weak var myImage: UIImageView!
+//    @IBOutlet weak var myImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

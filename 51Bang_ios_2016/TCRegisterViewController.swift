@@ -164,8 +164,10 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         //gestureRecognizer
         let gesture = UITapGestureRecognizer.init(target: self, action: #selector(tapBackView))
         self.view.addGestureRecognizer(gesture)
-        avatarBtn.layer.cornerRadius = 40
-        avatarBtn.clipsToBounds = true
+        print(avatarBtn)
+        avatarBtn!.layer.masksToBounds = true
+        avatarBtn!.layer.cornerRadius = 40
+        avatarBtn!.clipsToBounds = true
         self.edgesForExtendedLayout = UIRectEdge.None
         self.automaticallyAdjustsScrollViewInsets = false
         getIDButton.layer.cornerRadius = 2

@@ -16,7 +16,7 @@ class ChoseCityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
-        pickerView.frame = CGRectMake(70, 50, WIDTH, self.view.frame.size.height-300)
+        pickerView.frame = CGRectMake(0, 50, WIDTH, self.view.frame.size.height-300)
         button.frame = CGRectMake(WIDTH/2-WIDTH*40/375, pickerView.frame.size.height+pickerView.frame.origin.y,WIDTH*80/375, WIDTH*40/375)
         button.setTitle("确定", forState: UIControlState.Normal)
         button.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)

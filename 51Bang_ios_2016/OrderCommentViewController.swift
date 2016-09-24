@@ -18,7 +18,13 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
     var myPhotoCount = NSInteger()
     let backMHView = UIView()
     var order_num = String()
-    
+    let dafenButton1 = UIButton()
+    let dafenButton2 = UIButton()
+    let dafenButton3 = UIButton()
+    let dafenButton4 = UIButton()
+    let dafenButton5 = UIButton()
+    var gradeNum = String()
+    let backView = UIView()//打分view
     var hud1 = MBProgressHUD()
     let headerView = UIView()
     var photoArray:NSMutableArray = []
@@ -35,7 +41,9 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "发表评论"
+        self.tabBarController?.tabBar.hidden = true
         type = 0
+        self.gradeNum = "1"
         myTableViw.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
         myTableViw.frame = CGRectMake(0, 0, WIDTH, HEIGHT - 64)
         myTableViw.delegate = self
@@ -83,7 +91,7 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
     
     
     func createTextView(){
-        headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*220/375)
+        headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*220/375 + 300)
         //        headerView.backgroundColor = UIColor.greenColor()
         let textView = PlaceholderTextView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH*200/375))
         textView.tag = 1
@@ -108,11 +116,118 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
         let line = UILabel.init(frame: CGRectMake(0, button.frame.size.height+button.frame.origin.y+10, WIDTH, 1))
         line.backgroundColor = RGREY
         
-        headerView.addSubview(textView)
+        //添加五角星打分
         
+//        gradeView()
+        
+       
+        headerView.addSubview(textView)
+        headerView.addSubview(backView)
         self.myTableViw.tableHeaderView = headerView
         
     }
+    
+    
+    func gradeView(){
+        
+        backView.frame = CGRectMake(0, WIDTH*200/375+40, WIDTH, 50)
+        backView.backgroundColor = RGREY
+        
+        let dafenLabel = UILabel.init(frame: CGRectMake(20, 0, 60, 50))
+        dafenLabel.backgroundColor = RGREY
+        dafenLabel.text = "请打分"
+        dafenLabel.textAlignment = .Center
+        dafenLabel.textColor = COLOR
+        self.backView.addSubview(dafenLabel)
+        
+        self.dafenButton1.frame = CGRectMake(100, 0, 50, 50)
+        self.dafenButton1.backgroundColor = RGREY
+        self.dafenButton1.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Normal)
+//        self.dafenButton1.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
+        self.dafenButton1.addTarget(self, action: #selector(self.dafenButton1Action), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.dafenButton2.frame = CGRectMake(100+70, 0, 50, 50)
+        self.dafenButton2.backgroundColor = RGREY
+        self.dafenButton2.setImage(UIImage(named: "ic_QQ-1"), forState: UIControlState.Normal)
+        self.dafenButton2.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
+        self.dafenButton2.addTarget(self, action: #selector(self.dafenButton2Action), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.dafenButton3.frame = CGRectMake(100+140, 0, 50, 50)
+        self.dafenButton3.backgroundColor = RGREY
+        self.dafenButton3.setImage(UIImage(named: "ic_QQ-1"), forState: UIControlState.Normal)
+        self.dafenButton3.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
+        self.dafenButton3.addTarget(self, action: #selector(self.dafenButton3Action), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.dafenButton4.frame = CGRectMake(100+210, 0, 50, 50)
+        self.dafenButton4.backgroundColor = RGREY
+        self.dafenButton4.setImage(UIImage(named: "ic_QQ-1"), forState: UIControlState.Normal)
+        self.dafenButton4.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
+        self.dafenButton4.addTarget(self, action: #selector(self.dafenButton4Action), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.dafenButton5.frame = CGRectMake(100+280, 0, 50, 50)
+        self.dafenButton5.backgroundColor = RGREY
+        self.dafenButton5.setImage(UIImage(named: "ic_QQ-1"), forState: UIControlState.Normal)
+        self.dafenButton5.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
+        self.dafenButton5.addTarget(self, action: #selector(self.dafenButton5Action), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.backView.addSubview(self.dafenButton1)
+        self.backView.addSubview(self.dafenButton2)
+        self.backView.addSubview(self.dafenButton3)
+        self.backView.addSubview(self.dafenButton4)
+        self.backView.addSubview(self.dafenButton5)
+        
+        
+        
+    }
+    
+    
+    func dafenButton1Action(){
+        self.dafenButton3.selected = false
+        self.dafenButton4.selected = false
+        self.dafenButton5.selected = false
+        
+        self.dafenButton2.selected = false
+        self.gradeNum = "1"
+    }
+    func dafenButton2Action(){
+        
+            self.dafenButton3.selected = false
+            self.dafenButton4.selected = false
+            self.dafenButton5.selected = false
+        
+            self.dafenButton2.selected = true
+        self.gradeNum = "2"
+    
+
+    }
+    func dafenButton3Action(){
+        
+            self.dafenButton4.selected = false
+            self.dafenButton5.selected = false
+            self.dafenButton2.selected = true
+//            self.dafenButton.selected = true
+        
+            self.dafenButton3.selected = true
+        self.gradeNum = "3"
+    }
+    func dafenButton4Action(){
+        
+            self.dafenButton3.selected = true
+            self.dafenButton5.selected = false
+            self.dafenButton2.selected = true
+        
+            self.dafenButton4.selected = true
+        self.gradeNum = "4"
+    }
+    func dafenButton5Action(){
+        self.dafenButton3.selected = true
+        self.dafenButton5.selected = true
+        self.dafenButton2.selected = true
+        
+        self.dafenButton4.selected = true
+        self.gradeNum = "5"
+    }
+    
     
     
     

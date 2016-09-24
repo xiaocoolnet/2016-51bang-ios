@@ -337,6 +337,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     cell.myDelegate = self
                     cell.messageButton.addTarget(self, action: #selector(self.messageButtonAction(_:)), forControlEvents:
                     UIControlEvents.TouchUpInside)
+                    cell.phone.tag = indexPath.row-1+100
+                    cell.phone.addTarget(self, action: #selector(self.callPhone(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.messageButton.tag = indexPath.row-1
                     return cell
                 }else{
@@ -350,6 +352,39 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         }
         
         
+    }
+    
+    
+    
+    func callPhone(sender:UIButton){
+//        print(self.info?.phone)
+        if loginSign == 0 {
+            
+            alert("请先登录", delegate: self)
+            
+        }else{
+            
+            if (self.dataSource2[sender.tag-100] as! TCHDInfo).phone == nil || (self.dataSource2[sender.tag-100] as! TCHDInfo).phone!.characters.count<0 {
+                alert("未发布电话", delegate: self)
+                return
+            }else{
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "是否要拨打电话？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                                             handler: { action in
+                                                
+                                                UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://"+(self.dataSource2[sender.tag-100] as! TCHDInfo).phone!)!)
+                                                
+                                                
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                
+            }
+        }
     }
     func messageButtonAction(sender:UIButton) {
         
@@ -413,7 +448,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             self.navigationController?.pushViewController(vc, animated: true)
            
             }else{
-                
+//                vc.datasource2 = NSArray.init(array: dat) as Array
+//                self.navigationController?.pushViewController(vc, animated: true)
             }
            
 

@@ -255,12 +255,12 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             if self.dataSource?.count>0 {
                 let cell = ConveniceCell.init(myinfo: self.dataSource![indexPath.row-3] )
-                print(self.dataSource![indexPath.row-3].add_time)
-                print(self.dataSource![indexPath.row-3].id)
-                print(self.dataSource![indexPath.row-3].content)
-                print(self.dataSource![indexPath.row-3].name)
-                print(self.dataSource![indexPath.row-3].userid)
-                print(self.dataSource![indexPath.row-3].photo)
+//                print(self.dataSource![indexPath.row-3].add_time)
+//                print(self.dataSource![indexPath.row-3].id)
+//                print(self.dataSource![indexPath.row-3].content)
+//                print(self.dataSource![indexPath.row-3].name)
+//                print(self.dataSource![indexPath.row-3].userid)
+//                print(self.dataSource![indexPath.row-3].photo)
                 //                print(self.dataSource![indexPath.row-2].add_time)
                 return cell
             }else{
@@ -441,8 +441,23 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.tabBarController?.selectedIndex = 3
             
         }else{
-            let url1 = NSURL(string: "tel://"+goodsInfo.phone!)
-            UIApplication.sharedApplication().openURL(url1!)
+            
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: "是否要拨打电话？", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            let url1 = NSURL(string: "tel://"+self.goodsInfo.phone!)
+                                            UIApplication.sharedApplication().openURL(url1!)
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+            
             
         }
     }

@@ -99,7 +99,7 @@ class ConveniceCell: UITableViewCell{
             print(photoUrl)
             userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
         }
-        self.phone.addTarget(self, action: #selector(self.callPhone), forControlEvents: UIControlEvents.TouchUpInside)
+        
         
         self.info = info
         userName.sd_layout()
@@ -255,21 +255,7 @@ class ConveniceCell: UITableViewCell{
     
     
     
-    func callPhone(){
-        print(self.info?.phone)
-        if loginSign == 0 {
-            
-            alert("请先登录", delegate: self)
-            
-        }else{
-                   if self.info?.phone == nil || self.info!.phone!.characters.count<0 {
-            alert("未发布电话", delegate: self)
-            return
-        }else{
-             UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://"+self.info!.phone!)!)
-        }
-        }
-    }
+    
     
     
     

@@ -430,7 +430,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         hud.labelText = "正在努力加载"
         
         if isRenwu == true {
-            self.mainhelper.upALPState("_"+numForGoodS, state: "2", type: "1", handle: { (success, response) in
+            self.mainhelper.upALPState("1_"+numForGoodS, state: "2", type: "1", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
@@ -439,7 +439,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 self.navigationController?.pushViewController(vc, animated: true)
             })
         }else{
-            self.mainhelper.upALPState("_"+numForGoodS, state: "2", type: "2", handle: { (success, response) in
+            self.mainhelper.upALPState("1_"+numForGoodS, state: "2", type: "2", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
@@ -458,7 +458,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         //        hud.mode = .Text
         hud.labelText = "正在努力加载"
         if isRenwu == true {
-            self.mainhelper.upALPState("_"+numForGoodS, state: "1", type: "1", handle: { (success, response) in
+            self.mainhelper.upALPState("1_"+numForGoodS, state: "1", type: "1", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
@@ -467,7 +467,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 self.navigationController?.pushViewController(vc, animated: true)
             })
         }else{
-            self.mainhelper.upALPState("_"+numForGoodS, state: "1", type: "2", handle: { (success, response) in
+            self.mainhelper.upALPState("1_"+numForGoodS, state: "1", type: "2", handle: { (success, response) in
                 if success{
                     print("成功")
                 }

@@ -437,11 +437,29 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         //        if name?.text==""||presonId?.text==""||emergency?.text==""||emergencyPhone?.text=="" {
         //            print("请完善信息")
         //        }else{
-        array.setValue(name?.text, forKey: "name")
-         array.setValue(city?.text, forKey: "city")
-        array.setValue((presonId?.text)!, forKey: "idcard")
-        array.setValue((emergency?.text)!, forKey: "contactperson")
-        array.setValue((emergencyPhone?.text)!, forKey: "contactphone")
+        if name?.text != "" && name?.text != nil {
+            array.setValue(name?.text, forKey: "name")
+        }
+        
+        if city?.text != "" && city?.text != nil {
+            array.setValue(city?.text, forKey: "city")
+        }
+        if city?.text != "" && city?.text != nil {
+            array.setValue((presonId?.text)!, forKey: "idcard")
+        }
+        if emergency?.text != "" && emergency?.text != nil {
+            array.setValue((emergency?.text)!, forKey: "contactperson")
+
+            
+        }
+        if emergencyPhone?.text != "" && emergencyPhone?.text != nil {
+            array.setValue((emergencyPhone?.text)!, forKey: "contactphone")
+        }
+        
+        
+        
+        
+        print(array)
 //        array.addObject((name?.text)!)
 //        array.addObject((presonId?.text)!)
 //        array.addObject((emergency?.text)!)
@@ -453,6 +471,10 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         userdefault.setObject(array, forKey: "infomation")
         //        let vc = SkillViewController()
         let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        if array.count<5 {
+            alert("请填写完整信息", delegate: self)
+            return
+        }
         let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SkillView")
         self.navigationController?.pushViewController(vc, animated: true)
         vc.title = "技能选择"
