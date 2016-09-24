@@ -22,6 +22,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     let mainHelper = MainHelper()
     var city = String()
     var dingWeiStr = String()
+    var streetNameStr = String()
     var longitude = String()
     var latitude = String()
     let backView = UIView()
@@ -133,6 +134,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if (isDingwei) {
             
             userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
+            userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
             isDingwei = false
         }else{
             userLocationCenter.setObject("0", forKey: "subLocality")
@@ -1052,11 +1054,12 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 MainViewController.BMKname =  (result.poiList[0] as! BMKPoiInfo).name
                 MainViewController.city = (result.poiList[0] as! BMKPoiInfo).city
                 self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
+                self.streetNameStr = result.addressDetail.streetName
                 print(dingWeiStr)
                 address = MainViewController.BMKname
-                print(result.addressDetail.city)
+//                print(result.addressDetail.city)
                 print(result.addressDetail.streetName)
-                print(result.addressDetail.district)
+//                print(result.addressDetail.district)
                 
                 pointAnmation.coordinate = mapView.region.center
                 pointAnmation.title = MainViewController.BMKname

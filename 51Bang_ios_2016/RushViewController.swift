@@ -41,8 +41,16 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             certiBtn.userInteractionEnabled = false
             certiBtn.hidden = true
             certifyImage.hidden = true
+            self.myTableView.hidden = false
             self.title = "抢单"
             
+            }
+        else{
+            certiBtn.userInteractionEnabled = true
+            certiBtn.hidden = false
+            certifyImage.hidden = false
+            self.myTableView.hidden = true
+            self.title = "认证"
             }
         }
         self.tabBarController?.selectedIndex = 1
@@ -67,6 +75,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         sign = 0
         self.createRightItemWithTitle("我的任务")
         self.createLeftItem()
+        self.createTableView()
         setBtnAndImage()
         self.GetData()
         // Do any additional setup after loading the view.
@@ -139,21 +148,15 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         var isworking = String()
         var cutyName = String()
         
+        
         let strrr = String( ud.objectForKey("subLocality")! as! String)
         
         
-        if ud.objectForKey("subLocality") != nil && strrr != "0" {
+        if ud.objectForKey("subLocality") != nil && strrr != "0" && ud.objectForKey("streetName") != nil && ud.objectForKey("streetName") as! String != ""{
             subLocality = ud.objectForKey("subLocality") as! String
-            print(strrr)
-            var count = Int()
-            for a in subLocality.characters{
-                if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
-                    break
-                }
-                count = count + 1
-            }
+            cutyName = subLocality + (ud.objectForKey("streetName") as! String)
             
-            cutyName = subLocality.substringToIndex(subLocality.startIndex.advancedBy(count+1))
+//            cutyName = ud.objectForKey("subLocality") as! String
         }
         if ud.objectForKey("longitude") != nil {
             longitude = ud.objectForKey("longitude") as! String
@@ -327,7 +330,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                         alert("暂无数据", delegate: self)
                     }
                     print(self.dataSource?.count)
-                    self.createTableView()
+                    
                     //                self.ClistdataSource = response as? ClistList ?? []
                     self.myTableView.reloadData()
                     //self.configureUI()
@@ -362,7 +365,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                         alert("暂无数据", delegate: self)
                     }
                     print(self.dataSource?.count)
-                    self.createTableView()
+//                    self.createTableView()
                     
                     self.myTableView.reloadData()
                     
@@ -380,7 +383,10 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(self.dataSource?.count)
+//        print(self.dataSource?.count)
+        if self.dataSource == nil {
+            return 0
+        }
         return (self.dataSource?.count)!
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
