@@ -88,6 +88,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 label.text = "支付宝"
                 
                 let button = UIButton.init(frame: CGRectMake(65+10, 35, 100, 20))
+                button.userInteractionEnabled = false
                 if dataSource.alipay != nil {
                     if dataSource.alipay == "" {
                         button.setTitle("[未绑定]", forState: UIControlState.Normal)
@@ -122,6 +123,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 label.text = "银行卡"
                 
                 let button = UIButton.init(frame: CGRectMake(65+10, 35, 100, 20))
+                button.userInteractionEnabled = false
                 if dataSource.bank != nil {
                     if dataSource.bank == "" {
                         button.setTitle("[未绑定]", forState: UIControlState.Normal)

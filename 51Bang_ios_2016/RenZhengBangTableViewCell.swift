@@ -58,7 +58,7 @@ class RenZhengBangTableViewCell: UITableViewCell {
         self.name.text = info.name
         //        self.desc.text = info.
         self.address.text = info.address
-        if info.photo == "" {
+        if info.photo == ""{
             
             self.iconImage.image = UIImage(named: ("01"))
         }else{

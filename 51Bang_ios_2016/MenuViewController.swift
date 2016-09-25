@@ -84,14 +84,35 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
-            self.myTableView.mj_header.endRefreshing()
+            
         })
         
         self.view.addSubview(myTableView)
     }
     
     func headerRefresh(){
-        getData()
+        if loginSign == 0 {
+            
+            self.tabBarController?.selectedIndex = 3
+            
+        }else{
+            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            hud.animationType = .Zoom
+            hud.labelText = "正在努力加载"
+            
+            shopHelper.getMyFaBu(userid) { (success, response) in
+                if !success {
+                    self.myTableView.mj_header.endRefreshing()
+                    return
+                }
+                hud.hide(true)
+                print(response)
+                self.myTableView.mj_header.endRefreshing()
+                self.dataSource = response as? Array<GoodsInfo> ?? []
+                self.myTableView.reloadData()
+            }
+        }
+
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

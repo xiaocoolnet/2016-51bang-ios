@@ -52,13 +52,29 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
-            self.myTableView.mj_header.endRefreshing()
+           
         })
         self.view.addSubview(myTableView)
     }
     
     func headerRefresh(){
-        getData()
+        let ud = NSUserDefaults.standardUserDefaults()
+        var uid = String()
+        if ud.objectForKey("userid") != nil {
+            uid = ud.objectForKey("userid")as! String
+        }
+        
+        //       let uid = ud.objectForKey("userid")as!String
+        helper.getCollectionList(uid) { (success, response) in
+            print(response)
+            self.dataSource = response as? Array<CollectionInfo> ?? []
+             self.myTableView.mj_header.endRefreshing()
+            print(self.dataSource)
+            print(self.dataSource!.count)
+            self.createTableView()
+        }
+        
+        self.myTableView.reloadData()
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(self.dataSource!.count)

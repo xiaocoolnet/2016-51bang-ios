@@ -113,7 +113,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
-            self.myTableView.mj_header.endRefreshing()
+            
         })
         
         self.view.addSubview(myTableView)
@@ -121,7 +121,27 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func headerRefresh(){
-        GetData()
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.mode = .Text
+        hud.labelText = "正在努力加载"
+        self.view.bringSubviewToFront(hud)
+        shopHelper.getGoodsList({[unowned self] (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if !success {
+                    self.myTableView.mj_header.endRefreshing()
+                    return
+                }
+                hud.hide(true)
+                self.dataSource?.removeAll()
+                self.myTableView.mj_header.endRefreshing()
+                self.dataSource = response as? Array<GoodsInfo> ?? []
+                self.createTableView()
+                self.myTableView.reloadData()
+                
+            })
+            })
+
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

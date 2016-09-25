@@ -74,13 +74,36 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
-            self.myTableView.mj_header.endRefreshing()
+            
         })
     
     }
     
     func headerRefresh(){
-        getData()
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
+        print(userid)
+        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+        
+        mainhelper.getChatList(userid) { (success, response) in
+            if !success {
+                hud.hidden = true
+                self.myTableView.mj_header.endRefreshing()
+                alert("暂无数据", delegate: self)
+                return
+            }
+            hud.hidden = true
+            self.dataSource = response as? Array<chatListInfo> ?? []
+            self.myTableView.mj_header.endRefreshing()
+            self.createTableView()
+            print(self.dataSource)
+            print(self.dataSource.count)
+            self.myTableView.reloadData()
+        }
+
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
