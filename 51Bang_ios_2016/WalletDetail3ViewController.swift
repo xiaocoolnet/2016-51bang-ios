@@ -81,7 +81,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
         func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             let cell = UITableViewCell()
             if indexPath.row == 0{
-                let imageView = UIImageView.init(frame: CGRectMake(15, 5, 60-10, 60-10))
+                let imageView = UIImageView.init(frame: CGRectMake(15, 10, 60-20, 60-20))
                 imageView.image = UIImage.init(named: "ic_zhifubao")
                 
                 let label = UILabel.init(frame: CGRectMake(75, 8, 80, 30))
@@ -116,7 +116,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 
             }else if indexPath.row == 1{
                 
-                let imageView = UIImageView.init(frame: CGRectMake(15, 5, 60-10, 60-10))
+                let imageView = UIImageView.init(frame: CGRectMake(15, 10, 60-20, 60-20))
                 imageView.image = UIImage.init(named: "yinhangka")
                 
                 let label = UILabel.init(frame: CGRectMake(75, 8, 80, 30))
@@ -151,7 +151,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 cell.addSubview(buttonSelect2)
             }else{
                 
-                let imageView = UIImageView.init(frame: CGRectMake(15, 5, 60-10, 60-10))
+                let imageView = UIImageView.init(frame: CGRectMake(15, 10, 60-20, 60-20))
                 imageView.image = UIImage.init(named: "ic_weixin-1")
                 
                 let label = UILabel.init(frame: CGRectMake(75, 8, 80, 30))

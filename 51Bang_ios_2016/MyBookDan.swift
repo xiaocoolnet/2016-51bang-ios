@@ -180,7 +180,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         mTableview.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
-            self.mTableview.mj_header.beginRefreshing()
+//            self.mTableview.mj_header.beginRefreshing()
             
         })
     }

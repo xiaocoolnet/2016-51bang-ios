@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import MJRefresh
 
 class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
@@ -61,8 +62,39 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
         mytableView.registerNib(UINib(nibName: "walletDetailTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         let view = UIView()
         mytableView.tableFooterView = view
+        mytableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { 
+            () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+
+        })
         self.view.addSubview(mytableView)
         
+    }
+    
+    func headerRefresh(){
+        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+        let ud = NSUserDefaults.standardUserDefaults()
+        let uid = ud.objectForKey("userid")as!String
+        mainHelper.getTiXian(uid) { (success, response) in
+            if !success{
+                hud.hidden = true
+                self.mytableView.mj_header.endRefreshing()
+                alert("暂无数据或数据加载失败", delegate: self)
+                return
+            }
+            self.dataSource = response as? Array<tiXianInfo> ?? []
+            self.mytableView.mj_header.endRefreshing()
+            hud.hidden = true
+            print(self.dataSource.count)
+            self.createTableView()
+            
+        }
+        
+
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

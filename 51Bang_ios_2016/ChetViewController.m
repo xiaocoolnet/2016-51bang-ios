@@ -96,7 +96,7 @@
     
     
     _num=0;
-    self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-10-3) style:UITableViewStylePlain];
+    self.customTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-44-64) style:UITableViewStylePlain];
 
     self.customTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.customTableView.delegate = self;
@@ -239,13 +239,14 @@
 
     if (customCell == nil){
         customCell = [[CustomTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:strId];
+        if (self.datasource2.count>0 && self.datasource2[0][@"send_face"] != nil) {
+            customCell.selfPhoto = self.datasource2[0][@"send_face"];
+        }
+        if (self.datasource2.count>0 && self.datasource2[0][@"receive_face"] != nil) {
+            customCell.otherPhoto = self.datasource2[0][@"receive_face"];
+        }
     }
-    if (self.datasource2.count>0 && self.datasource2[0][@"send_face"] != nil) {
-        customCell.selfPhoto = self.datasource2[0][@"send_face"];
-    }
-    if (self.datasource2.count>0 && self.datasource2[0][@"receive_face"] != nil) {
-        customCell.otherPhoto = self.datasource2[0][@"receive_face"];
-    }
+    
     
     
     if (customCell==nil) {
