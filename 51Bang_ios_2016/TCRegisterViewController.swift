@@ -25,9 +25,9 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     @IBOutlet weak var avatarBtn: UIButton!
     @IBOutlet weak var manBtn: UIButton!
     @IBOutlet weak var womenBtn: UIButton!
-    @IBOutlet weak var realName: UITextField!
-    @IBOutlet weak var personCardID: UITextField!
-    @IBOutlet weak var address: UITextField!
+//    @IBOutlet weak var realName: UITextField!
+//    @IBOutlet weak var personCardID: UITextField!
+//    @IBOutlet weak var address: UITextField!
     @IBOutlet weak var backViewHeight: NSLayoutConstraint!
     
     
@@ -178,12 +178,12 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         identifyNumber.layer.borderColor = UIColor.whiteColor().CGColor
         passwordNumber.layer.borderWidth = 2
         passwordNumber.layer.borderColor = UIColor.whiteColor().CGColor
-        realName.layer.borderWidth = 2
-        realName.layer.borderColor = UIColor.whiteColor().CGColor
-        personCardID.layer.borderWidth = 2
-        personCardID.layer.borderColor = UIColor.whiteColor().CGColor
-        address.layer.borderWidth = 2
-        address.layer.borderColor = UIColor.whiteColor().CGColor
+//        realName.layer.borderWidth = 2
+//        realName.layer.borderColor = UIColor.whiteColor().CGColor
+//        personCardID.layer.borderWidth = 2
+//        personCardID.layer.borderColor = UIColor.whiteColor().CGColor
+//        address.layer.borderWidth = 2
+//        address.layer.borderColor = UIColor.whiteColor().CGColor
         
         self.title = "注册账号"
         let navBtn = UIButton(type: .Custom)
