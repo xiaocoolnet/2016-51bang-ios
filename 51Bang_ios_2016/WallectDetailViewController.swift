@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import MJRefresh
 
 class WallectDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
    
@@ -57,8 +58,33 @@ class WallectDetailViewController: UIViewController,UITableViewDelegate,UITableV
         mytableView.registerNib(UINib(nibName: "walletDetailTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
         let view = UIView()
         mytableView.tableFooterView = view
+        mytableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+        print("MJ:(下拉刷新)")
+        self.headerRefresh()
+        
+        })
+
         self.view.addSubview(mytableView)
     
+    }
+    
+    func headerRefresh(){
+        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.mode = .Text
+        hud.labelText = "正在努力加载"
+        let ud = NSUserDefaults.standardUserDefaults()
+        let uid = ud.objectForKey("userid")as!String
+        mainHelper.getShouZhi(uid) { (success, response) in
+            self.mytableView.mj_header.endRefreshing()
+            self.dataSource = response as? Array<walletDetailInfo> ?? []
+            hud.hidden = true
+            print(self.dataSource.count)
+            self.createTableView()
+            
+        }
+        
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
