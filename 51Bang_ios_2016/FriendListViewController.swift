@@ -37,7 +37,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = true
-        
+        myTableView.userInteractionEnabled = true
     }
     
     override func viewDidLoad() {
@@ -98,7 +98,6 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 hud.hide(true)
                 self.myTableView.mj_header.endRefreshing()
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
-                print(self.rzbDataSource)
                 print(self.rzbDataSource!.count)
                 
                 self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
@@ -136,7 +135,6 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 print(response)
                 self.myTableView.mj_header.endRefreshing()
                 self.dataSource = response as? Array<SkillModel> ?? []
-                print(self.dataSource)
                 self.headerView =  (NSBundle.mainBundle().loadNibNamed("RenZhengBangHeaderViewCell", owner: nil, options: nil).first as? RenZhengBangHeaderViewCell)!
                 
                 self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*50/375)
@@ -503,12 +501,14 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     
     func message(sender:UIButton){
+        myTableView.userInteractionEnabled = false
         let vc = ChetViewController()
         vc.receive_uid = rzbDataSource![sender.tag].id
-        //        vc.datasource2 = NSMutableArray()
+        vc.titleTop = rzbDataSource![sender.tag].name
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         if userid == rzbDataSource![sender.tag].id{
+             myTableView.userInteractionEnabled = true
             alert("请不要和自己说话", delegate: self)
         }else{
             mainHelper.getChatMessage(userid, receive_uid: rzbDataSource![sender.tag].id) { (success, response) in
@@ -519,7 +519,6 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 }
                 let dat = NSMutableArray()
                 self.dataSource3 = response as? Array<chatInfo> ?? []
-                print(self.dataSource3)
                 if self.dataSource3?.count != 0{
                     for num in 0...self.dataSource3!.count-1{
                         let dic = NSMutableDictionary()
@@ -555,7 +554,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                     vc.datasource2 = NSArray.init(array: dat) as Array
                     self.navigationController?.pushViewController(vc, animated: true)
                 }else{
-                    
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
                 
                 

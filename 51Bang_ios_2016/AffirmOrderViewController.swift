@@ -249,7 +249,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         }
     }
     func textViewDidBeginEditing(textView: UITextView) {
-        let offset:CGFloat = 100
+        let offset:CGFloat = 1
         UIView.animateWithDuration(0.4, animations: {
             if offset > 0{
                 self.myTableView.frame.origin.y = -offset
@@ -261,11 +261,12 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func textViewDidEndEditing(textView: UITextView) {
         
-        self.myTableView.frame.origin.y = 0
+        self.myTableView.frame.origin.y = -50
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
-        let offset:CGFloat = 100
+        let offset:CGFloat = 1
         UIView.animateWithDuration(0.4, animations: {
             if offset > 0{
                 self.myTableView.frame.origin.y = -offset
@@ -278,7 +279,8 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func textFieldDidEndEditing(textField: UITextField) {
         self.remark = textField.text!
-        self.myTableView.frame.origin.y = 0
+        self.myTableView.frame.origin.y = -50
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64-50)
         
     }
     

@@ -820,7 +820,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell2")as! FabuTableViewCell2
                 cell.title.text = "价格"
                 cell.textField.tag = 5
-                cell.textField.keyboardType = UIKeyboardType.NumberPad
+//                cell.textField.keyboardType = UIKeyboardType.NumberPad
                 cell.textField.delegate = self
                 cell.selectionStyle = .None
                 cell.textField.borderStyle = .None
@@ -834,7 +834,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell2")as! FabuTableViewCell2
                 cell.title.text = "原价"
                 cell.textField.tag = 6
-                cell.textField.keyboardType = UIKeyboardType.NumberPad
+//                cell.textField.keyboardType = UIKeyboardType.NumberPad
                 if (self.myDatas?.count>0&&isEdit == true && self.myDatas![0].oprice != nil){
                     cell.textField.text = self.myDatas![0].oprice
                 }

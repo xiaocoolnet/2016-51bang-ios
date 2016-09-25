@@ -348,6 +348,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     func messageSend(){
         let vc = ChetViewController()
         vc.receive_uid = taskInfo.id
+        vc.titleTop = taskInfo.name
         //        vc.datasource2 = NSMutableArray()
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
@@ -397,16 +398,14 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
                     
                     print(dat)
                     vc.datasource2 = NSArray.init(array: dat) as Array
-                    print(vc.datasource2)
-                    vc.viewWillAppear(true)
-                    vc.customTableView.reloadData()
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }else{
-                    
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
                 
                 
             }
-            self.navigationController?.pushViewController(vc, animated: true)
+           
         }
 
     }

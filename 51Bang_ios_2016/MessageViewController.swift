@@ -26,6 +26,8 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = false
         self.getData()
+        myTableView.userInteractionEnabled = true
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,7 +124,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //        vc.arr = self.dataSource
 //        self.navigationController?.pushViewController(vc, animated: true)
         
-        
+        tableView.userInteractionEnabled = false
         self.receive_uid = dataSource[indexPath.row].chat_uid!
         let vc = ChetViewController()
         vc.receive_uid = dataSource[indexPath.row].chat_uid!
