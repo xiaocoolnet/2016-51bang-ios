@@ -90,6 +90,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         mainHelper.GetTaskList (userid,state: state,handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
+                     self.mTable.mj_header.endRefreshing()
                     return
                 }
                 print(response)
@@ -100,6 +101,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
 //                if state == "0"{
                     self.dataSource1?.removeAll()
                     self.dataSource1 = response as? Array<TaskInfo> ?? []
+                    self.mTable.mj_header.endRefreshing()
                 if self.dataSource1?.count == 0{
                 
 //                    alert("还没有已完成的任务", delegate: self)
@@ -124,11 +126,13 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         mainHelper.GetTaskList (userid,state: state,handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
+                     self.mTable.mj_header.endRefreshing()
                     return
                 }
                 hud.hidden = true
                 print(response)
 //                self.dataSource?.removeAll()
+                 self.mTable.mj_header.endRefreshing()
                 self.dataSource = response as? Array<TaskInfo> ?? []
                 self.Data = self.dataSource!
 //                self.GetYWCData("4")
@@ -162,7 +166,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         mTable.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh()
-            self.mTable.mj_header.endRefreshing()
+           
         })
         
         //划动手势

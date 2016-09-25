@@ -8,6 +8,7 @@
 
 import UIKit
 import MBProgressHUD
+import MJRefresh
 
 class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITableViewDataSource{
 
@@ -294,6 +295,12 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         myTableView.dataSource = self
         myTableView.separatorStyle = .None
         myTableView.registerNib(UINib(nibName: "OrderTableViewCell",bundle: nil), forCellReuseIdentifier: "order")
+        myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
+            print("MJ:(下拉刷新)")
+            self.headerRefresh()
+            
+        })
+
         //        let bottom = UIView(frame: CGRectMake(0, 0, WIDTH/2, 120))
         let btn = UIButton(frame: CGRectMake(0, HEIGHT-110, WIDTH/2,50))
         btn.alpha = 0.7

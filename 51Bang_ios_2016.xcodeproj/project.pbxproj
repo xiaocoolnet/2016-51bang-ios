@@ -206,7 +206,6 @@
 		1F9B0DDE1D35DEDB00C7CA52 /* LoginPwdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B0DDC1D35DEDB00C7CA52 /* LoginPwdTableViewCell.swift */; };
 		1F9B0DDF1D35DEDB00C7CA52 /* LoginPwdTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B0DDD1D35DEDB00C7CA52 /* LoginPwdTableViewCell.xib */; };
 		1F9B0DE31D35E89C00C7CA52 /* TCRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B0DE11D35E89C00C7CA52 /* TCRegisterViewController.swift */; };
-		1F9B0DE41D35E89C00C7CA52 /* TCRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F9B0DE21D35E89C00C7CA52 /* TCRegisterViewController.xib */; };
 		1F9B0DE61D35E94400C7CA52 /* TCVMLogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B0DE51D35E94400C7CA52 /* TCVMLogModel.swift */; };
 		1F9B0DE81D35E9F900C7CA52 /* TCUserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B0DE71D35E9F900C7CA52 /* TCUserInfoModel.swift */; };
 		1F9B0DEA1D35EA0800C7CA52 /* TCUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9B0DE91D35EA0800C7CA52 /* TCUserInfo.swift */; };
@@ -416,6 +415,7 @@
 		A44666E11D855B4A00142F23 /* chatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44666E01D855B4A00142F23 /* chatModel.swift */; };
 		A4504C101D93B8A80039764D /* WalletDetail3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4504C0F1D93B8A80039764D /* WalletDetail3ViewController.swift */; };
 		A4A26F441D75BD7C00A84360 /* RenZhengBangTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4A26F431D75BD7C00A84360 /* RenZhengBangTableViewCell.xib */; };
+		A4F71F8D1D97CDBB00B4655D /* TCRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F71F8C1D97CDBB00B4655D /* TCRegisterViewController.xib */; };
 		A4F8D7D01D748C7A00B26536 /* shopCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8D7CF1D748C7A00B26536 /* shopCommentTableViewCell.swift */; };
 		A4F8E8CE1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F8E8CD1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift */; };
 		C4065D2B4CD2ABEC6F149D76 /* Pods_51Bang_ios_2016.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 981FB3CC478FBF0CBC3F8AA5 /* Pods_51Bang_ios_2016.framework */; };
@@ -753,7 +753,6 @@
 		1F9B0DDC1D35DEDB00C7CA52 /* LoginPwdTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPwdTableViewCell.swift; sourceTree = "<group>"; };
 		1F9B0DDD1D35DEDB00C7CA52 /* LoginPwdTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginPwdTableViewCell.xib; sourceTree = "<group>"; };
 		1F9B0DE11D35E89C00C7CA52 /* TCRegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCRegisterViewController.swift; sourceTree = "<group>"; };
-		1F9B0DE21D35E89C00C7CA52 /* TCRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCRegisterViewController.xib; sourceTree = "<group>"; };
 		1F9B0DE51D35E94400C7CA52 /* TCVMLogModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCVMLogModel.swift; sourceTree = "<group>"; };
 		1F9B0DE71D35E9F900C7CA52 /* TCUserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCUserInfoModel.swift; sourceTree = "<group>"; };
 		1F9B0DE91D35EA0800C7CA52 /* TCUserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCUserInfo.swift; sourceTree = "<group>"; };
@@ -1059,6 +1058,7 @@
 		A44666E01D855B4A00142F23 /* chatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatModel.swift; sourceTree = "<group>"; };
 		A4504C0F1D93B8A80039764D /* WalletDetail3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletDetail3ViewController.swift; sourceTree = "<group>"; };
 		A4A26F431D75BD7C00A84360 /* RenZhengBangTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RenZhengBangTableViewCell.xib; sourceTree = "<group>"; };
+		A4F71F8C1D97CDBB00B4655D /* TCRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCRegisterViewController.xib; sourceTree = "<group>"; };
 		A4F8D7CF1D748C7A00B26536 /* shopCommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shopCommentTableViewCell.swift; sourceTree = "<group>"; };
 		A4F8E8CD1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageButtonActionViewController.swift; sourceTree = "<group>"; };
 		B9ECAA33232173BDA28FB9A8 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2057,7 +2057,7 @@
 				1F9B0DEB1D36184C00C7CA52 /* TCLoginViewController.swift */,
 				1F9B0DEC1D36184C00C7CA52 /* TCLoginViewController.xib */,
 				1F9B0DE11D35E89C00C7CA52 /* TCRegisterViewController.swift */,
-				1F9B0DE21D35E89C00C7CA52 /* TCRegisterViewController.xib */,
+				A4F71F8C1D97CDBB00B4655D /* TCRegisterViewController.xib */,
 			);
 			name = "注册";
 			sourceTree = "<group>";
@@ -2616,7 +2616,6 @@
 				1F9B0E121D36652C00C7CA52 /* EditHeaderViewCell.xib in Resources */,
 				0DD5110E1D51D16E00FE88C2 /* ZLPhotoBrowserCell.xib in Resources */,
 				1FACE7631D2F508A0005282E /* AlipaySDK.bundle in Resources */,
-				1F9B0DE41D35E89C00C7CA52 /* TCRegisterViewController.xib in Resources */,
 				1F9B0E181D36765D00C7CA52 /* LoginHeaderCell.xib in Resources */,
 				1FD128A01D264B4700DE9D74 /* LocationTableViewCell.xib in Resources */,
 				18D5963B1D17F08E00BDBCD6 /* unicode_to_hanyu_pinyin.txt in Resources */,
@@ -2661,6 +2660,7 @@
 				1F05CCF41D4C8DE80054E1A0 /* XiaoFeiTableViewCell.xib in Resources */,
 				1F9B0DDB1D35DDAF00C7CA52 /* LoginPhoneTableViewCell.xib in Resources */,
 				1F9B0DEE1D36184C00C7CA52 /* TCLoginViewController.xib in Resources */,
+				A4F71F8D1D97CDBB00B4655D /* TCRegisterViewController.xib in Resources */,
 				18D596211D17F07700BDBCD6 /* CityViewController.xib in Resources */,
 				1FF073BD1D309E7F0074C477 /* RenZhengBangHeaderViewCell.xib in Resources */,
 				189757EE1D1685D70083FE46 /* TwoTableViewCell.xib in Resources */,

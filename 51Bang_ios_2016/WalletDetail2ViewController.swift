@@ -40,13 +40,12 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
         mainHelper.getTiXian(uid) { (success, response) in
             if !success{
                 hud.hidden = true
-                alert("数据加载失败", delegate: self)
+                alert("暂无数据或数据加载失败", delegate: self)
                 return
             }
             self.dataSource = response as? Array<tiXianInfo> ?? []
             hud.hidden = true
             print(self.dataSource.count)
-            //            self.info = response as! walletDetailInfo
             self.createTableView()
             
         }
