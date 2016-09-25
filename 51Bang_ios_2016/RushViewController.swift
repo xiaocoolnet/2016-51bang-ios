@@ -22,11 +22,17 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     let myTableView = UITableView()
     let certifyImage = UIImageView()
     let certiBtn = UIButton()
+    let jiahaoView = UIView()
+    var isShowJiaHao = Bool()
+    let backClearButton = UIButton()
+    
+    
     var kai = false
     var sign = Int()
     
     override func viewWillAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = false
+        self.isShowJiaHao = false
         self.navigationController?.navigationBar.hidden = false
         let function = BankUpLoad()
         function.CheckRenzheng()
@@ -36,7 +42,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             
             
             
-        if(ud.objectForKey("ss") as! String == "no")
+        if(ud.objectForKey("ss") as! String == "yes")
             
         {
             certiBtn.userInteractionEnabled = false
@@ -73,12 +79,40 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+       
+        
         sign = 0
         self.createRightItemWithTitle("我的任务")
         self.createLeftItem()
         self.createTableView()
         setBtnAndImage()
         self.GetData()
+        
+        self.jiahaoView.frame = CGRectMake(WIDTH-110, -110, 100, 101)
+        self.jiahaoView.backgroundColor = COLOR
+        let button1 = UIButton.init(frame: CGRectMake(0, 0, 100, 50))
+        button1.setTitle("我的任务", forState: UIControlState.Normal)
+        button1.backgroundColor = UIColor.whiteColor()
+        button1.setTitleColor(COLOR, forState: .Normal)
+        button1.addTarget(self, action: #selector(self.goRenwu), forControlEvents: .TouchUpInside)
+        self.jiahaoView.addSubview(button1)
+        let button2 = UIButton.init(frame: CGRectMake(0, 51, 100, 50))
+        button2.setTitle("修改技能", forState: UIControlState.Normal)
+        button2.backgroundColor = UIColor.whiteColor()
+        button2.setTitleColor(COLOR, forState: .Normal)
+        button2.addTarget(self, action: #selector(self.goJineng), forControlEvents: .TouchUpInside)
+        self.jiahaoView.addSubview(button2)
+        backClearButton.frame = self.view.frame
+        backClearButton.backgroundColor = UIColor.clearColor()
+        backClearButton.addTarget(self, action: #selector(self.hidenJiahao), forControlEvents: .TouchUpInside)
+        self.view.addSubview(backClearButton)
+        self.backClearButton.hidden = false
+        self.view.addSubview(jiahaoView)
+        self.jiahaoView.layer.masksToBounds = true
+        self.jiahaoView.layer.borderColor = COLOR.CGColor
+        self.jiahaoView.layer.borderWidth = 1
+        
         // Do any additional setup after loading the view.
     }
     
@@ -235,18 +269,60 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     
     func createRightItemWithTitle(title:String){
         let button = UIButton.init(type:.Custom)
-        button.frame = CGRectMake(0, 0, 80, 40);
-        button.setTitle(title, forState: UIControlState.Normal)
+        button.frame = CGRectMake(0, 0, 21 , 21);
+        button.setImage(UIImage(named: "ic_jia-1"), forState: .Normal)
+//        button.setTitle(title, forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(self.myTask), forControlEvents:UIControlEvents.TouchUpInside)
         let item:UIBarButtonItem = UIBarButtonItem.init(customView: button)
         self.navigationItem.rightBarButtonItem = item
     }
 
     func myTask(){
+        if self.isShowJiaHao {
+            self.jiahaoView.layer.position.y = -110
+            self.isShowJiaHao = false
+        }else{
+            self.isShowJiaHao = true
+            self.backClearButton.hidden = false
+            
+            UIView.animateWithDuration(0.2,
+                                       animations:
+                { self.jiahaoView.layer.position.y = 20 },
+                                       completion: {(finished) in UIView.animateWithDuration(0.5, delay: 0,
+                                        usingSpringWithDamping: 0.2,
+                                        initialSpringVelocity: 5.0,
+                                        options: UIViewAnimationOptions.CurveEaseOut,
+                                        animations: {//弹性参数的调教，可以参见本文的“参考”部分
+                                            self.jiahaoView.layer.position.y += 30
+                                        },
+                                        completion: nil)})
+        }
+        
+        
+       
+        
+        
+        
     
+    }
+    
+    func goRenwu(){
         let vc = MyTaskViewController()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func goJineng(){
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SkillView")
+        self.navigationController?.pushViewController(vc, animated: true)
+        let userdefault = NSUserDefaults.standardUserDefaults()
+        userdefault.setObject("yes", forKey: "isxiugai")
+        vc.title = "技能选择"
+    }
     
+    func hidenJiahao(){
+        self.jiahaoView.layer.position.y = -110
+        self.backClearButton.hidden = true
+        self.isShowJiaHao = false
     }
 
     

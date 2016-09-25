@@ -410,6 +410,9 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             if self.AllDataSource != nil {
                 let cell = MyBookDanCell.init(Data: self.AllDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
                 cell.targets = self
+                if self.isNotSigle{
+                    cell.Btn1.hidden = true
+                }
                 cell.Btn1.tag = 300 + indexPath.row
                 cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 if self.AllDataSource![indexPath.row].state == "1" {
@@ -430,6 +433,9 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }else if sign == 1{
             if self.DFKDataSource != nil {
                 let cell = MyBookDanCell.init(Data: self.DFKDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
+                if self.isNotSigle{
+                    cell.Btn1.hidden = true
+                }
                 cell.Btn1.tag = 600 + indexPath.row
                 cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 cell.targets = self
@@ -449,7 +455,9 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
              if self.DXFDataSource != nil {
                 let cell = MyBookDanCell.init(Data: self.DXFDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
                 cell.targets = self
-                
+                if self.isNotSigle{
+                    cell.Btn1.hidden = true
+                }
                 cell.Btn1.tag = 400 + indexPath.row
                 cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 

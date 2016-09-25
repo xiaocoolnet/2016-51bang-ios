@@ -16,6 +16,7 @@ protocol myDelegate{
 
 class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,cellDelegate{
     
+    var isxiugai = Bool()
     
 //    @IBOutlet weak var myTableView: UITableView!
     var myTableView = UITableView()
@@ -38,6 +39,7 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.hidden = true
         cellMarkArray = NSMutableArray()
         self.GetData()
         
@@ -170,9 +172,10 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-//        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)as!SkillTableViewCell
-        var cell = SkillTableViewCell()
-        cell = tableView.cellForRowAtIndexPath(indexPath) as! SkillTableViewCell
+        
+//        let cell = tableView.dequeueReusableCellWithIdentifier("OneCell")as!SkillTableViewCell
+        let cell = SkillTableViewCell()
+//        cell = tableView.cellForRowAtIndexPath(indexPath) as! SkillTableViewCell
         
         for view in cell.subviews {
             view.removeFromSuperview()
@@ -393,6 +396,14 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             
         }else{
             
+            
+            let userdefault = NSUserDefaults.standardUserDefaults()
+            
+            
+            if  userdefault.objectForKey("isxiugai") as! String == "yes"  {
+                alert("正在开发", delegate: self)
+                return
+            }
             print("立即提交")
             let info = NSUserDefaults.standardUserDefaults()
             let array = info.objectForKey("infomation")as! NSDictionary
@@ -410,12 +421,18 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             var driver_pic = String()
             if array["positive_pic"] == nil {
                 positive_pic = ""
+            }else{
+                positive_pic = array["positive_pic"] as! String
             }
             if array["opposite_pic"] == nil {
                 opposite_pic = ""
+            }else{
+                opposite_pic = array["opposite_pic"] as! String
             }
             if array["driver_pic"] == nil {
                 driver_pic = ""
+            }else{
+                driver_pic = array["driver_pic"] as! String
             }
 
             let types = NSMutableString()
