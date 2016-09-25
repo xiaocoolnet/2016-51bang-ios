@@ -53,7 +53,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isAgree = false
+        isAgree = true
         configureUI()
         logVM = TCVMLogModel()
         backViewHeight.constant = HEIGHT - 64
@@ -62,7 +62,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         
         processHandle = {[unowned self] (timeInterVal) in
             dispatch_async(dispatch_get_main_queue(), {
-                
+               
                 self.getIDButton.userInteractionEnabled = false
                 let btnTitle = String(timeInterVal) + "秒后重新获取"
                 self.getIDButton.setTitle(btnTitle, forState: .Normal)
@@ -213,11 +213,10 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
             if success {
                     SVProgressHUD.showErrorWithStatus("手机已注册")
             }else{
-                self.getIDButton.backgroundColor = UIColor.lightGrayColor()
+                 self.getIDButton.backgroundColor = UIColor.lightGrayColor()
                 self.getIDButton.userInteractionEnabled = false
                 TimeManager.shareManager.begainTimerWithKey(self.GET_ID_KEY, timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
                 self.logVM?.sendMobileCodeWithPhoneNumber(self.phoneNumber.text!)
-                
             }
             })
             
@@ -234,26 +233,26 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
             return
         }
         
-        if phoneNumber.text!.isEmpty {
-            SVProgressHUD.showErrorWithStatus("请输入姓名")
-            return
-        }
+//        if phoneNumber.text!.isEmpty {
+//            SVProgressHUD.showErrorWithStatus("请输入姓名")
+//            return
+//        }
         
-        if personCardID.text!.isEmpty {
-            SVProgressHUD.showErrorWithStatus("请输入身份证")
-            return
-        }
+//        if personCardID.text!.isEmpty {
+//            SVProgressHUD.showErrorWithStatus("请输入身份证")
+//            return
+//        }
         
-        let flag = RegularExpression.validateIdentityCard(personCardID.text!)
-        if !flag {
-            SVProgressHUD.showErrorWithStatus("请输入有效身份证号码")
-            return
-        }
+//        let flag = RegularExpression.validateIdentityCard(personCardID.text!)
+//        if !flag {
+//            SVProgressHUD.showErrorWithStatus("请输入有效身份证号码")
+//            return
+//        }
         
-        if phoneNumber.text!.isEmpty {
-            SVProgressHUD.showErrorWithStatus("请输入地址")
-            return
-        }
+//        if phoneNumber.text!.isEmpty {
+//            SVProgressHUD.showErrorWithStatus("请输入地址")
+//            return
+//        }
         
         if phoneNumber.text!.isEmpty {
             SVProgressHUD.showErrorWithStatus("请输入手机号！")
@@ -286,7 +285,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
             return
         }
         
-        logVM?.register(phoneNumber.text!, password: passwordNumber.text!, code: identifyNumber.text!, avatar: avatarImageName, name: realName.text!,sex: String(sex), cardid: personCardID.text!, addr: address.text!, handle: { [unowned self] (success, response) in
+        logVM?.register(phoneNumber.text!, password: passwordNumber.text!, code: identifyNumber.text!, avatar: avatarImageName, name: "",sex: String(sex), cardid: "", addr:"", handle: { [unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if success {
                     SVProgressHUD.showSuccessWithStatus("注册成功")
