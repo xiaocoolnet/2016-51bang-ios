@@ -8,6 +8,7 @@
 
 import UIKit
 import MJRefresh
+import MBProgressHUD
 
 class BookDanDataModel {
     var  DshowImage = UIImage()
@@ -28,6 +29,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     let willPayBtn = UIButton()
     let willUserBtn = UIButton()
     let willCommentBtn = UIButton()
+    var hud = MBProgressHUD()
     let deView = UIView()
     var Data:[BookDanDataModel] = []
     var Data2:[BookDanDataModel] = []
@@ -130,6 +132,9 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     }
     
     func headerRefresh(){
+        hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
         if sign == 0 {
             self.getAllData()
         }else if sign == 1{
@@ -188,8 +193,10 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             if !success{
                 self.mTableview.mj_header.endRefreshing()
                 alert("加载失败", delegate: self)
+                self.hud.hidden = true
                 return
             }
+            self.hud.hidden = true
             self.AllDataSource = response as? Array<MyOrderInfo> ?? []
             print(self.AllDataSource?.count)
             print(self.AllDataSource)
@@ -209,10 +216,12 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         mainHelper.getMyOrder(uid, state: "1",type:self.isNotSigle) { (success, response) in
             print(response)
             if !success{
+                self.hud.hidden = true
                 self.mTableview.mj_header.endRefreshing()
                 alert("加载失败", delegate: self)
                 return
             }
+            self.hud.hidden = true
             self.DFKDataSource = response as? Array<MyOrderInfo> ?? []
             print(self.DFKDataSource)
             print(self.DFKDataSource?.count)
@@ -228,11 +237,13 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         mainHelper.getMyOrder(uid, state: "2,3",type:self.isNotSigle) { (success, response) in
             print(response)
             if !success{
+                self.hud.hidden = true
                 self.mTableview.mj_header.endRefreshing()
                 alert("加载失败", delegate: self)
                 return
             }
             self.DXFDataSource = response as? Array<MyOrderInfo> ?? []
+            self.hud.hidden = true
             print(self.DXFDataSource)
             print(self.DXFDataSource?.count)
             self.reloadMTableviwe(self.sign+1)
@@ -247,10 +258,12 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         mainHelper.getMyOrder(uid, state: "4",type:self.isNotSigle) { (success, response) in
             print(response)
             if !success{
+                self.hud.hidden = true
                 self.mTableview.mj_header.endRefreshing()
                 alert("加载失败", delegate: self)
                 return
             }
+            self.hud.hidden = true
             self.DPJDataSource = response as? Array<MyOrderInfo> ?? []
             print(self.DPJDataSource)
             print(self.DPJDataSource?.count)
@@ -397,9 +410,12 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             if self.AllDataSource != nil {
                 let cell = MyBookDanCell.init(Data: self.AllDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
                 cell.targets = self
+                cell.Btn1.tag = 300 + indexPath.row
+                cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 if self.AllDataSource![indexPath.row].state == "1" {
                     cell.Btn.tag = 100 + indexPath.row
                     cell.Btn.addTarget(self, action: #selector(self.payMeony(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                    
                 }else if self.AllDataSource![indexPath.row].state == "2"{
                     cell.tag = indexPath.row
 //                    cell.Btn.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -414,6 +430,8 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }else if sign == 1{
             if self.DFKDataSource != nil {
                 let cell = MyBookDanCell.init(Data: self.DFKDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
+                cell.Btn1.tag = 600 + indexPath.row
+                cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 cell.targets = self
                 cell.Btn.tag = indexPath.row+100
                 cell.Btn.addTarget(self, action: #selector(self.payMeony(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -426,9 +444,15 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             
         }else if sign == 2{
             
+            
+            
              if self.DXFDataSource != nil {
                 let cell = MyBookDanCell.init(Data: self.DXFDataSource![indexPath.row],sign: sign,isSigle:self.isNotSigle)
                 cell.targets = self
+                
+                cell.Btn1.tag = 400 + indexPath.row
+                cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                
                 cell.Btn.tag = indexPath.row
 //                cell.Btn.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 return  cell
@@ -456,6 +480,10 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
 
 //        return MyBookDanCell.init(Data: Source[indexPath.row])
     }
+    
+    
+    
+    
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
@@ -495,6 +523,72 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    
+    func Cancel(sender:UIButton)
+    {
+        
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "您确定要取消订单吗？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        
+                                        
+                                        //                let ud = NSUserDefaults.standardUserDefaults()
+                                        //                let userid = ud.objectForKey("userid")as! String
+                                        if self.sign == 0{
+                                            self.mainHelper.gaiBianDingdan(self.AllDataSource![sender.tag - 300].order_num!, state: "-1") { (success, response) in
+                                                if !success {
+                                                    alert("订单取消失败请重试", delegate: self)
+                                                    return
+                                                    
+                                                    
+                                                    
+                                                    
+                                                }
+                                        }
+                                        
+                                            
+                                            
+                                        }else if self.sign == 1{
+                                            self.mainHelper.gaiBianDingdan(self.DFKDataSource![sender.tag - 600].order_num!, state: "-1") { (success, response) in
+                                                if !success {
+                                                    alert("订单取消失败请重试", delegate: self)
+                                                    return
+                                                    
+                                                    
+                                                    
+                                                    
+                                                }
+                                            }
+
+                                        }else if self.sign == 2{
+                                            self.mainHelper.gaiBianDingdan(self.DXFDataSource![sender.tag - 600].order_num!, state: "-1") { (success, response) in
+                                                if !success {
+                                                    alert("订单取消失败请重试", delegate: self)
+                                                    return
+                                                    
+                                                    
+                                                    
+                                                    
+                                                }
+                                            }
+                                            
+                                        }
+                                        
+                                   self.headerRefresh()
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        
+    }
+
+    
     
     
     func payMeony(sender:UIButton){

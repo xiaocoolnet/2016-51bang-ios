@@ -170,6 +170,8 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             if(ud.objectForKey("ss") != nil){
                 if(ud.objectForKey("ss") as! String == "no"){
                     alert("请先实名认证", delegate: self)
+                    return
+                    
                 }else{
                     if (ud.objectForKey("baoxiangrenzheng") as! String == "no") {
                          alert("请先进行投保认证", delegate: self)
@@ -177,7 +179,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                         let Insure = MyInsure()
                         self.navigationController?.pushViewController(Insure, animated: true)
                         self.hidesBottomBarWhenPushed = false
-
+                        return
                     }else{
                         if self.sign == 0 {
                             isworking = "1"

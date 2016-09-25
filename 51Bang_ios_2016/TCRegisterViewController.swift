@@ -62,7 +62,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         
         processHandle = {[unowned self] (timeInterVal) in
             dispatch_async(dispatch_get_main_queue(), {
-                self.getIDButton.backgroundColor = UIColor.lightGrayColor()
+                
                 self.getIDButton.userInteractionEnabled = false
                 let btnTitle = String(timeInterVal) + "秒后重新获取"
                 self.getIDButton.setTitle(btnTitle, forState: .Normal)
@@ -213,8 +213,11 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
             if success {
                     SVProgressHUD.showErrorWithStatus("手机已注册")
             }else{
+                self.getIDButton.backgroundColor = UIColor.lightGrayColor()
+                self.getIDButton.userInteractionEnabled = false
                 TimeManager.shareManager.begainTimerWithKey(self.GET_ID_KEY, timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
                 self.logVM?.sendMobileCodeWithPhoneNumber(self.phoneNumber.text!)
+                
             }
             })
             

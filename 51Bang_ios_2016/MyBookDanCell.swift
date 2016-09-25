@@ -14,6 +14,7 @@ class MyBookDanCell: UITableViewCell {
     let  Price = UILabel()
     let  Statue = UILabel()
     let  Btn = UIButton()
+    let  Btn1 = UIButton()//取消订单按钮
     let  headerImageBtn = UIButton()
     var idStr = String()
     var sign = Int()
@@ -81,28 +82,33 @@ class MyBookDanCell: UITableViewCell {
             Statue.text = "待评价"
             Btn.setTitle("未评价", forState: UIControlState.Normal)
             Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
-            
+            Btn1.hidden = true
         }else if Data.state == "1"{
             Statue.text = "待付款"
             Btn.setTitle("待付款", forState: UIControlState.Normal)
+            Btn1.setTitle("取消订单", forState: UIControlState.Normal)
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }else if Data.state == "2"{
 //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待发货"
             Btn.setTitle("已支付", forState: UIControlState.Normal)
+            Btn1.setTitle("取消订单", forState: UIControlState.Normal)
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
         }else if Data.state == "-1"{
             Statue.text = "已取消"
+            Btn1.hidden = true
             Btn.setTitle("已取消", forState: UIControlState.Normal)
             Btn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         }else if Data.state == "10"{
             Statue.text = "已完成"
+            Btn1.hidden = true
             Btn.setTitle("已完成", forState: UIControlState.Normal)
             Btn.setTitleColor(COLOR, forState: UIControlState.Normal)
         }else if Data.state == "3"{
             //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待消费"
+            Btn1.setTitle("取消订单", forState: UIControlState.Normal)
             Btn.setTitle("已支付", forState: UIControlState.Normal)
         }
 
@@ -131,6 +137,17 @@ class MyBookDanCell: UITableViewCell {
         Btn.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
         Btn.layer.borderColor = UIColor.orangeColor().CGColor
         Btn.titleLabel?.font = UIFont.systemFontOfSize(15)
+        
+        
+        
+        Btn1.frame = CGRectMake(WIDTH - 80 - 90, tipLabel.frame.origin.y + 30, 75, 30)
+        self.addSubview(Btn1)
+        Btn1.layer.cornerRadius = 10
+        Btn1.layer.masksToBounds = true
+        Btn1.layer.borderWidth = 1
+        Btn1.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
+        Btn1.layer.borderColor = UIColor.orangeColor().CGColor
+        Btn1.titleLabel?.font = UIFont.systemFontOfSize(15)
 //        Btn.adjustsFontSizeToFitWidth = true
         
         Price.frame = CGRectMake(titleLabel.frame.origin.x,  tipLabel.frame.origin.y + 30, 100, 30)

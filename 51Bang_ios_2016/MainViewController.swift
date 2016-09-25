@@ -131,14 +131,14 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         }
         print(self.dingWeiStr)
         
-        if (isDingwei) {
-            
-            userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
-            userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
-            isDingwei = false
-        }else{
-            userLocationCenter.setObject("0", forKey: "subLocality")
-        }
+//        if (isDingwei) {
+//            
+//            userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
+//            userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
+//            isDingwei = false
+//        }else{
+//            userLocationCenter.setObject("0", forKey: "subLocality")
+//        }
         
         geocodeSearch.delegate = nil
         locationService.delegate = nil
@@ -174,6 +174,68 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 //        self.mapView.addSubview(BeingBackMyPositonBtn)
     
     }
+    
+    func postMyaddress(){
+        let ud = NSUserDefaults.standardUserDefaults()
+        
+        if ud.objectForKey("userid") != nil {
+            mainHelper.GetWorkingState(ud.objectForKey("userid") as! String) { (success, response) in
+                if !success{
+                    alert("数据加载出错", delegate: self)
+                    return
+                }
+                print(response! as! String)
+                
+                
+                if response as! String == "1"{
+                    let ud = NSUserDefaults.standardUserDefaults()
+                    var subLocality = String()
+                    var longitude = String()
+                    var latitude = String()
+                    var isworking = String()
+                    var cutyName = String()
+                    isworking = "1"
+                    
+                    let strrr = String( ud.objectForKey("subLocality")! as! String)
+                    
+                    
+                    if ud.objectForKey("subLocality") != nil && strrr != "0" && ud.objectForKey("streetName") != nil && ud.objectForKey("streetName") as! String != ""{
+                        subLocality = ud.objectForKey("subLocality") as! String
+                        cutyName = subLocality + (ud.objectForKey("streetName") as! String)
+                        
+                        //            cutyName = ud.objectForKey("subLocality") as! String
+                    }
+                    if ud.objectForKey("longitude") != nil {
+                        longitude = ud.objectForKey("longitude") as! String
+                    }
+                    if ud.objectForKey("latitude") != nil {
+                        latitude = ud.objectForKey("latitude") as! String
+                    }
+                    
+                    
+                    if ud.objectForKey("userid") != nil {
+                        self.mainHelper.BeginWorking(ud.objectForKey("userid") as! String, address: cutyName, longitude: longitude, latitude: latitude, isworking: isworking) { (success, response) in
+                            if !success {
+                                alert("数据加载出错", delegate: self)
+                                return
+                            }
+                            
+                        }
+                    }
+                    
+                    
+                }else{
+                    
+                }
+                
+               
+            }
+            
+        }
+
+    }
+    
+    
     func getMyName(notification:NSNotification){
         let name = notification.object?.valueForKey("name") as? String
         self.selectCity(name!)
@@ -777,6 +839,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if userLocationCenter.objectForKey("cityName") != nil {
              cityname = userLocationCenter.objectForKey("cityName") as! String
         }
+        print(cityname)
         
         
         mainHelper.GetRzbList (cityname,sort:"" ,type: "", handle: {[unowned self](success, response) in
@@ -800,11 +863,11 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                     }
                     if RZB.isworking as String == "1"{
                         self.mapView.addAnnotation(biaozhu)
-                        
+                        self.biaoZhuArray.addObject(biaozhu)
                     }
                     
                     
-//                    self.biaoZhuArray.addObject(biaozhu)
+//
                 }
 //                self.mapView.addAnnotations(self.biaoZhuArray as [AnyObject])
                 
@@ -901,6 +964,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             userLocationCenter.setObject(cutyName, forKey: "cityName")
             
             quName = strr.substringFromIndex(strr.startIndex.advancedBy(count+1))
+            self.mapView.removeAnnotations(self.biaoZhuArray as [AnyObject])
+            self.getWeiZhi()
         }
         
         
@@ -976,6 +1041,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     //BMKLocationSerevenceDelegate
     
     func didUpdateBMKUserLocation(userLocation: BMKUserLocation!) {
+        
         
         MainViewController.userLocationForChange = userLocation.location
         if(userLocation.location != nil)
@@ -1059,6 +1125,13 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
                 self.streetNameStr = result.addressDetail.streetName
                 print(dingWeiStr)
+                if (isDingwei) {
+                    
+                    userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
+                    userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
+                    postMyaddress()
+                    isDingwei = false
+                }
                 address = MainViewController.BMKname
 //                print(result.addressDetail.city)
                 print(result.addressDetail.streetName)

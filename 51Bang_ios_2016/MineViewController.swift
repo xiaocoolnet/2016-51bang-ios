@@ -544,7 +544,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     if response != nil {
                         SVProgressHUD.showErrorWithStatus(response as! String)
                     }else{
-                        SVProgressHUD.showErrorWithStatus("登录失败")
+                        SVProgressHUD.showErrorWithStatus("账号或密码错误！")
                     }
                     return
                 }else{

@@ -169,6 +169,9 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
      - parameter city: 城市名称
      */
     private func selectCity(city:String){
+        if city == "正在获取..." {
+            return
+        }
         
         if(self.delegate != nil){
             
@@ -279,6 +282,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                 let ud = NSUserDefaults.standardUserDefaults()
                 if ud.objectForKey("subLocality") == nil && ud.objectForKey("subLocality") as! String == "0" {
                     let th = ""
+//                    print(<#T##items: Any...##Any#>)
                     if th.isEmpty {
                         cellHead!.addData([self.cityName+th], city: selectCity)
                         cellHead!.reloadData();

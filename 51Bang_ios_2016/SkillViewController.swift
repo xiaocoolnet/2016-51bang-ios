@@ -171,7 +171,9 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
 //        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)as!SkillTableViewCell
-        let cell = SkillTableViewCell()
+        var cell = SkillTableViewCell()
+        cell = tableView.cellForRowAtIndexPath(indexPath) as! SkillTableViewCell
+        
         for view in cell.subviews {
             view.removeFromSuperview()
         }

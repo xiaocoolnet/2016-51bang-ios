@@ -123,7 +123,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         dateFormatter.dateFormat = "ddHHmmss"
         let dateStr = dateFormatter.stringFromDate(NSDate())
         var orderNum = String()
-        orderNum = self.numForGoodS + "_" + dateStr
+        orderNum = dateStr + "_" + numForGoodS
         
         print(self.payMode)
         if price == 0{
