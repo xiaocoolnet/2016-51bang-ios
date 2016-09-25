@@ -1148,8 +1148,6 @@
             let result = chatModel(JSONDecoder(json!))
             print(JSONDecoder(json!).array)
             print(result)
-            print(json!)
-            print(result.datas)
             print(result.status!)
             if result.status == "success"{
                 print(result.data)

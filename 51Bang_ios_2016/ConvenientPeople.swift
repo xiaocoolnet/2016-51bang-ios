@@ -35,6 +35,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
 //        headerRefresh()
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = false
+        convenienceTable.userInteractionEnabled = true
         
     }
     override func viewDidAppear(animated: Bool) {
@@ -387,13 +388,13 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         }
     }
     func messageButtonAction(sender:UIButton) {
-        
+        convenienceTable.userInteractionEnabled = false
         if loginSign == 0 {
             
             self.tabBarController?.selectedIndex = 3
             
         }else{
-            
+        
         let vc = ChetViewController()
         vc.receive_uid = (dataSource2[sender.tag] as! TCHDInfo).userid
         //        vc.datasource2 = NSMutableArray()
@@ -401,6 +402,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         if userid == (dataSource2[sender.tag] as! TCHDInfo).userid{
+            convenienceTable.userInteractionEnabled = true
             alert("请不要和自己说话", delegate: self)
         }else{
         mainHelper.getChatMessage(userid, receive_uid: (dataSource2[sender.tag] as! TCHDInfo).userid!) { (success, response) in

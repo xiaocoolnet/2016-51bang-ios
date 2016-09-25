@@ -535,7 +535,6 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
                     
                     print(dat)
                     vc.datasource2 = NSArray.init(array: dat) as Array
-                    print(vc.datasource2)
                     self.navigationController?.pushViewController(vc, animated: true)
                 }else{
                     self.navigationController?.pushViewController(vc, animated: true)
@@ -543,7 +542,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
                 
                 
             }
-            
+           
         }
 
     }
