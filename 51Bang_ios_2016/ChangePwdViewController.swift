@@ -167,6 +167,7 @@ class ChangePwdViewController: UIViewController {
         passWordFiled = UITextField()
         passWordFiled.frame = CGRectMake(100, 15, WIDTH * 0.4, 30)
         passWordFiled.font = UIFont.systemFontOfSize(14)
+        
         passWordFiled.placeholder = "请输入密码"
         //  密文输入
         passWordFiled.secureTextEntry = true
