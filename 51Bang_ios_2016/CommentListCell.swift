@@ -153,6 +153,8 @@ class CommentListCell : UITableViewCell{
     //    }
     
     func callPhone(){
+        
+        
         UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://"+"10086")!)
     }
     

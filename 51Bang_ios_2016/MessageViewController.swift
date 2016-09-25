@@ -52,7 +52,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         mainhelper.getChatList(userid) { (success, response) in
             if !success {
                 hud.hidden = true
-                alert("数据加载出错", delegate: self)
+                alert("暂无数据", delegate: self)
                 return
             }
             hud.hidden = true

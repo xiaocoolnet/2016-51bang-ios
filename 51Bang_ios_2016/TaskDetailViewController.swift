@@ -69,7 +69,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
             print(taskInfo.pic?.count)
             if taskInfo.record == "" || taskInfo.record == nil {
                 
-                let a = CGFloat(Int((taskInfo.pic!.count+2)/3)) * ((WIDTH-60)/3)
+                let a = CGFloat(Int((taskInfo.pic!.count+2)/3)) * ((WIDTH-5) / 3 + 10)
                 print(a)
                 return a
                 
@@ -107,45 +107,90 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         }else if indexPath.row == 1{
             let cell = tableView.dequeueReusableCellWithIdentifier("cell2") as! TaskDetailTableViewCell2
             cell.title.text = "任务号"
+            cell.selectionStyle = .None
             cell.desc.text = self.taskInfo.order_num
             return cell
             
         }else if indexPath.row == 2{
             let cell = tableView.dequeueReusableCellWithIdentifier("cell2") as! TaskDetailTableViewCell2
             cell.title.text = "任务"
+            cell.selectionStyle = .None
             cell.desc.text = self.taskInfo.title
             return cell
             
         }else if indexPath.row == 3{
-            let cell = UITableViewCell()
-            let flowl = UICollectionViewFlowLayout.init()
-            //设置每一个item大小
-            flowl.itemSize = CGSizeMake((WIDTH-60)/3, (WIDTH-60)/3)
-            flowl.sectionInset = UIEdgeInsetsMake(5, 10, 5, 10)
-            flowl.minimumInteritemSpacing = 10
-            flowl.minimumLineSpacing = 10
-            print(self.taskInfo.pic!.count)
-            var height =  CGFloat(((self.taskInfo.pic!.count-1)/3))*((WIDTH-60)/3+10)+((WIDTH-60)/3+10)
-            if self.taskInfo.pic!.count == 0 {
-                height = 0
-            }
-            //创建集合视图
             
-            self.collectionV = UICollectionView.init(frame: CGRectMake(0, 0, WIDTH, height), collectionViewLayout: flowl)
-            collectionV!.backgroundColor = UIColor.whiteColor()
-            collectionV!.delegate = self
-            collectionV!.dataSource = self
-            //        collectionV?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "photo")
-            collectionV!.registerNib(UINib(nibName: "PhotoCollectionViewCell",bundle: nil), forCellWithReuseIdentifier: "photo")
-            if self.taskInfo.record == "" || self.taskInfo.record == nil{
+            let cell = UITableViewCell()
+            let imshow = UIView()
+            cell.selectionStyle = .None
+            var imcount = 0
+            for ima in self.taskInfo.pic!
+            {
+                let imview = UIImageView()
                 
-            }else{
-                let boFangButton = UIButton.init(frame: CGRectMake(20, collectionV!.height+20,114, 30))
+                imview.tag = imcount+100
+                
+                let url = Bang_Image_Header+self.taskInfo.pic![imcount].pictureurl!
+                
+                print(url)
+                
+                
+                imview.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "1.png"))
+                
+                switch imcount / 3 {
+                case 0:
+                    imview.frame = CGRectMake( CGFloat( imcount ) * (WIDTH-5) / 3 + 5  , ( CGFloat (imcount / 3) ) * (WIDTH-5) / 3, (WIDTH) / 3 - 5 , WIDTH / 3 )
+                case 1:
+                    imview.frame = CGRectMake( CGFloat( imcount-3) * (WIDTH-5) / 3 + 5  , ( CGFloat (imcount / 3) ) * (WIDTH-5) / 3 + 5, (WIDTH) / 3 - 5 , WIDTH / 3 )
+                case 2:
+                    imview.frame = CGRectMake( CGFloat( imcount-6 ) * (WIDTH-5) / 3 + 5  , ( CGFloat (imcount / 3) ) * (WIDTH-5) / 3 + 10, (WIDTH) / 3 - 5 , WIDTH / 3 )
+                default: break
+                    
+                }
+                let backButton = UIButton()
+                backButton.frame = imview.frame
+//                backButton.frame.origin.y = imview.frame.origin.y + 98
+                backButton.backgroundColor = UIColor.clearColor()
+                backButton.tag = imcount
+                
+                backButton .addTarget(self, action:#selector(self.lookImage(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                
+                
+                
+                imshow.addSubview(imview)
+                imcount += 1
+                imshow.addSubview(backButton)
+                myPhotoArray.addObject(imview)
+            }
+            var picHeight:CGFloat = 0
+            switch (self.taskInfo.pic!.count+2) / 3 {
+                
+            case 0:
+                picHeight = 0
+            case 1:
+                picHeight = WIDTH / 3
+            case 2:
+                picHeight = WIDTH / 3 * 2
+            default:
+                picHeight = WIDTH
+            }
+            var boFangButton = UIButton()
+            if self.taskInfo.record != nil && self.taskInfo.record != "" {
+                print(self.taskInfo.record)
+                
+                if self.taskInfo.pic!.count>0 {
+                    boFangButton = UIButton.init(frame: CGRectMake(20,
+                        5 + picHeight+20,114, 30))
+                }else{
+                    boFangButton = UIButton.init(frame: CGRectMake(20,
+                        80 + 5,114, 30))
+                }
+                
                 boFangButton.backgroundColor = UIColor.clearColor()
                 boFangButton.setTitle(" 点击播放", forState: UIControlState.Normal)
                 boFangButton.setBackgroundImage(UIImage(named: "ic_yinpinbeijing"), forState: UIControlState.Normal)
                 boFangButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-                boFangButton.addTarget(self, action: #selector(self.boFangButtonActions), forControlEvents: UIControlEvents.TouchUpInside)
+                
                 boFangButton.layer.masksToBounds = true
                 //        boFangButton.layer.borderWidth = 1
                 //        boFangButton.layer.borderColor = GREY.CGColor
@@ -153,28 +198,83 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
                 boFangButton.layer.shadowColor = UIColor.blackColor().CGColor
                 boFangButton.layer.shadowOffset = CGSizeMake(20.0, 20.0)
                 boFangButton.layer.shadowOpacity = 0.7
-                cell.addSubview(boFangButton)
+                imshow.addSubview(boFangButton)
+                imshow.frame = CGRectMake(0, 5 , WIDTH, picHeight+80)
                 
+            }else{
+                imshow.frame = CGRectMake(0, 5,  WIDTH, picHeight)
             }
+
             
-            cell.addSubview(collectionV!)
+            
+            cell.addSubview(imshow)
+            
+            
+            
+            
+            
+//            let cell = UITableViewCell()
+//            cell.userInteractionEnabled = false
+//            let flowl = UICollectionViewFlowLayout.init()
+//            //设置每一个item大小
+//            flowl.itemSize = CGSizeMake((WIDTH-60)/3, (WIDTH-60)/3)
+//            flowl.sectionInset = UIEdgeInsetsMake(5, 10, 5, 10)
+//            flowl.minimumInteritemSpacing = 10
+//            flowl.minimumLineSpacing = 10
+//            print(self.taskInfo.pic!.count)
+//            var height =  CGFloat(((self.taskInfo.pic!.count-1)/3))*((WIDTH-60)/3+10)+((WIDTH-60)/3+10)
+//            if self.taskInfo.pic!.count == 0 {
+//                height = 0
+//            }
+//            //创建集合视图
+//            
+//            self.collectionV = UICollectionView.init(frame: CGRectMake(0, 0, WIDTH, height), collectionViewLayout: flowl)
+//            collectionV!.backgroundColor = UIColor.whiteColor()
+//            collectionV!.delegate = self
+//            collectionV!.dataSource = self
+//            //        collectionV?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "photo")
+//            collectionV!.registerNib(UINib(nibName: "PhotoCollectionViewCell",bundle: nil), forCellWithReuseIdentifier: "photo")
+//            if self.taskInfo.record == "" || self.taskInfo.record == nil{
+//                
+//            }else{
+//                let boFangButton = UIButton.init(frame: CGRectMake(20, collectionV!.height+20,114, 30))
+//                boFangButton.backgroundColor = UIColor.clearColor()
+//                boFangButton.setTitle(" 点击播放", forState: UIControlState.Normal)
+//                boFangButton.setBackgroundImage(UIImage(named: "ic_yinpinbeijing"), forState: UIControlState.Normal)
+//                boFangButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+//                boFangButton.addTarget(self, action: #selector(self.boFangButtonActions), forControlEvents: UIControlEvents.TouchUpInside)
+//                boFangButton.layer.masksToBounds = true
+//                //        boFangButton.layer.borderWidth = 1
+//                //        boFangButton.layer.borderColor = GREY.CGColor
+//                boFangButton.layer.cornerRadius = 10
+//                boFangButton.layer.shadowColor = UIColor.blackColor().CGColor
+//                boFangButton.layer.shadowOffset = CGSizeMake(20.0, 20.0)
+//                boFangButton.layer.shadowOpacity = 0.7
+//                cell.addSubview(boFangButton)
+//                
+//            }
+//            
+//            cell.addSubview(collectionV!)
             return cell
             
         }else if indexPath.row == 4{
             let cell = tableView.dequeueReusableCellWithIdentifier("cell2") as! TaskDetailTableViewCell2
             cell.title.text = "服务费"
+            cell.selectionStyle = .None
             cell.desc.text = self.taskInfo.price
             return cell
             
         }else if indexPath.row == 5{
             let cell = tableView.dequeueReusableCellWithIdentifier("cell2") as! TaskDetailTableViewCell2
             cell.title.text = "上门地址"
+            cell.selectionStyle = .None
             cell.desc.text = self.taskInfo.address
             return cell
             
         }else{
             let cell = tableView.dequeueReusableCellWithIdentifier("cell2") as! TaskDetailTableViewCell2
             cell.title.text = "有效期"
+            cell.selectionStyle = .None
             let time = timeStampToString(self.taskInfo.time!)
             cell.desc.text = time
             tableView.separatorStyle = .None
@@ -215,10 +315,14 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+//        let cell = CollectionViewCell()
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("photo", forIndexPath: indexPath)as! PhotoCollectionViewCell
-        //        print(self.photoArray[indexPath.item] as? UIImage)
-        cell.button.tag = indexPath.item
+//        //        print(self.photoArray[indexPath.item] as? UIImage)
+//        cell.button.tag = indexPath.item
+//        cell.button.backgroundColor = UIColor.redColor()
+//        cell.button.hidden = true
+//        cell.myImage.hidden = true
         
         var imcount = 0
         for ima in self.taskInfo.pic! {
@@ -227,6 +331,8 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
             print(imageurl)
             imview.sd_setImageWithURL(NSURL(string:imageurl), placeholderImage: UIImage(named: "1.png"), completed: { (myImage, error, sdimageType, url) in
                 self.myPhotoArray.addObject(myImage)
+                
+                
             })
 //            imview.sd_setImageWithURL(NSURL(string:imageurl), placeholderImage: UIImage(named: "1.png"))
             switch imcount / 3 {
@@ -239,16 +345,21 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
             default: break
 //                imview.frame = CGRectMake(0, 0, 0, 0)
             }
+            cell.addSubview(imview)
 
+            /////添加tapGuestureRecognizer手势
+//            let tapGR = UITapGestureRecognizer(target: self, action:#selector(self.lookImage(_:)))
+//            tapGR.numberOfTapsRequired = imcount
+//            imview.addGestureRecognizer(tapGR)
             let backButton = UIButton()
             backButton.frame = imview.frame
             backButton.frame.origin.y = imview.frame.origin.y + 98
-            backButton.backgroundColor = UIColor.clearColor()
+            backButton.backgroundColor = UIColor.redColor()
             backButton.tag = imcount
-            cell.addSubview(imview)
+//
+            backButton.addTarget(self, action:#selector(self.lookImage(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//
             cell.addSubview(backButton)
-            backButton .addTarget(self, action:#selector(self.lookImage(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-
             imcount += 1
             
             
@@ -267,6 +378,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     func lookImage(sender:UIButton) {
         let myVC = LookPhotoVC()
         myVC.myPhotoArray =  myPhotoArray
+        myVC.count = sender.tag
         myVC.title = "查看图片"
         self.navigationController?.pushViewController(myVC, animated: true)
         
@@ -280,8 +392,21 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         let ud = NSUserDefaults.standardUserDefaults()
         if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
             
-            let vc2 = MyInsure()
-            self.navigationController?.pushViewController(vc2, animated: true)
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: "请先投保在抢单，是否去投保？", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            print(ud.objectForKey("baoxiangrenzheng") as! String)
+                                            let vc2 = MyInsure()
+                                            self.navigationController?.pushViewController(vc2, animated: true)
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
             return
         }
         
@@ -340,7 +465,19 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         print(self.taskInfo.phone!)
 //        let phone = removeOptionWithString(self.taskInfo.phone!)
 //        print(phone)
-        UIApplication.sharedApplication().openURL(NSURL(string :"tel://"+"\(self.taskInfo.phone!)")!)
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "是否要拨打电话？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        
+                                        UIApplication.sharedApplication().openURL(NSURL(string :"tel://"+"\(self.taskInfo.phone!)")!)
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
         
 //        UIApplication.sharedApplication().openURL(NSURL(string :"tel://15974462468")!)
     }

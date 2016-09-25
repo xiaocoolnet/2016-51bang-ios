@@ -94,7 +94,22 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     
     
     func callPhone() {
-        UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://"+self.info.phone! as String)!)
+        
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "是否要拨打电话？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        
+                                        UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://"+self.info.phone! as String)!)
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        
     }
 
     
@@ -122,6 +137,13 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         cell.selectionStyle = .None
         cell.setValueWithInfo(info)
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let vc = TaskDetailViewController()
+        vc.taskInfo = info
+        vc.qiangdanBut = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 
     func nextView(){

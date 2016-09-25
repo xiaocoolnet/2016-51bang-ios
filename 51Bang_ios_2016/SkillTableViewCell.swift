@@ -98,7 +98,10 @@ class SkillTableViewCell: UITableViewCell {
             }
             //selectButton.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Selected)
             selectButton!.setImage(UIImage(named: "ic_weixuanze"), forState: UIControlState.Normal)
-            self.selectButtonArr.addObject(selectButton!)
+            if !selectButtonArr.containsObject(selectButton!){
+                self.selectButtonArr.addObject(selectButton!)
+            }
+            
 //
             view.addSubview(line)
             view.addSubview(titLab)

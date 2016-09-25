@@ -51,7 +51,7 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     func GetData(){
         
         skillHelper.getSkillList({[unowned self] (success, response) in
-            dispatch_async(dispatch_get_main_queue(), {
+//            dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     return
                 }
@@ -71,9 +71,9 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                 print(self.cellMarkArray)
                 self.createTableView()
 //                self.ClistdataSource = response as? ClistList ?? []
-                self.myTableView.reloadData()
+//                self.myTableView.reloadData()
                 //self.configureUI()
-            })
+            
         })
 
     }
@@ -170,8 +170,11 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        
+//        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)as!SkillTableViewCell
         let cell = SkillTableViewCell()
+        for view in cell.subviews {
+            view.removeFromSuperview()
+        }
        
         let skillModel = self.dataSource![indexPath.section]
         let num1 = skillModel.clist.count

@@ -52,7 +52,15 @@ class YwcTableViewCell: UITableViewCell {
         }
         
         if info.apply?.name != nil {
-            self.jiedanren.text = info.apply?.name
+//            self.jiedanren.text = info.apply?.name
+            self.jiedanren.textColor = UIColor.blueColor()
+            
+            let str1 = NSMutableAttributedString(string: (info.apply?.name)!)
+            let range1 = NSRange(location: 0, length: str1.length)
+            let number = NSNumber(integer:NSUnderlineStyle.StyleSingle.rawValue)//此处需要转换为NSNumber 不然不对,rawValue转换为integer
+            str1.addAttribute(NSUnderlineStyleAttributeName, value: number, range: range1)
+            str1.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: range1)
+            self.jiedanren.attributedText = str1
         }
         
         

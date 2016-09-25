@@ -600,16 +600,19 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             
         }else if btn.tag == 1{
             let ud = NSUserDefaults.standardUserDefaults()
-            
-            if(ud.objectForKey("ss") as! String == "no")
-            {
-                let vc  = WobangRenZhengController()
-                self.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
-                self.hidesBottomBarWhenPushed = false
-                return
-                
+            if ud.objectForKey("ss") != nil{
+                if(ud.objectForKey("ss") as! String == "no")
+                {
+//                    let vc  = WobangRenZhengController()
+//                    self.hidesBottomBarWhenPushed = true
+//                    self.navigationController?.pushViewController(vc, animated: true)
+//                    self.hidesBottomBarWhenPushed = false
+//                    return
+                    alert("请先进行实名认证", delegate: self)
+                    
+                }
             }
+            
             let vc = WoBangPageViewController()
             vc.navigationController?.title = "抢单"
             vc.longitude = self.longitude

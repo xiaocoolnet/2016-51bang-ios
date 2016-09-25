@@ -155,9 +155,22 @@ class MyFaDanCell: UITableViewCell {
         receiveMen.frame = CGRectMake(WIDTH * 2 / 4, 80, WIDTH / 4 - 30, 40)
         Middle.addSubview(receiveMen)
         let rmenNum = UILabel()
-        rmenNum.text = reMen
         rmenNum.frame = CGRectMake(WIDTH * 3  / 4 - 30, 80, WIDTH / 4 + 30, 40)
         rmenNum.textColor = UIColor.blueColor()
+        if reMen == "无人接单" {
+            rmenNum.text = reMen
+        }else{
+           
+            let str1 = NSMutableAttributedString(string: reMen)
+            let range1 = NSRange(location: 0, length: str1.length)
+            let number = NSNumber(integer:NSUnderlineStyle.StyleSingle.rawValue)//此处需要转换为NSNumber 不然不对,rawValue转换为integer
+            str1.addAttribute(NSUnderlineStyleAttributeName, value: number, range: range1)
+            str1.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: range1)
+            rmenNum.attributedText = str1
+        }
+//        rmenNum.text = reMen
+        
+
         rmenNum.adjustsFontSizeToFitWidth = true
         myButton = UIButton.init(frame: rmenNum.frame)
         myButton.backgroundColor = UIColor.clearColor()

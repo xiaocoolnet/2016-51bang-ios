@@ -68,7 +68,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         myTableView.registerNib(UINib(nibName: "PayMethodTableViewCell",bundle: nil), forCellReuseIdentifier: "paycell")
         let bottom = UIView(frame: CGRectMake(0, 0, WIDTH, 150))
         let label = UILabel.init(frame: CGRectMake(0, 10, 160, 22))
-        label.text = "我同意《51帮托管协议》"
+        label.text = "我同意《用户者服务协议》"
         label.textColor = UIColor.grayColor()
         label.font = UIFont.systemFontOfSize(14)
         let button = UIButton.init(frame: CGRectMake(WIDTH-160, 10, 160, 50))
@@ -430,7 +430,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         hud.labelText = "正在努力加载"
         
         if isRenwu == true {
-            self.mainhelper.upALPState("_"+numForGoodS, state: "2", type: "1", handle: { (success, response) in
+            self.mainhelper.upALPState("1_"+numForGoodS, state: "2", type: "1", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
@@ -439,7 +439,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 self.navigationController?.pushViewController(vc, animated: true)
             })
         }else{
-            self.mainhelper.upALPState("_"+numForGoodS, state: "2", type: "2", handle: { (success, response) in
+            self.mainhelper.upALPState("1_"+numForGoodS, state: "2", type: "2", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
@@ -458,7 +458,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         //        hud.mode = .Text
         hud.labelText = "正在努力加载"
         if isRenwu == true {
-            self.mainhelper.upALPState("_"+numForGoodS, state: "1", type: "1", handle: { (success, response) in
+            self.mainhelper.upALPState("1_"+numForGoodS, state: "1", type: "1", handle: { (success, response) in
                 if success{
                     print("成功")
                 }
@@ -467,7 +467,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 self.navigationController?.pushViewController(vc, animated: true)
             })
         }else{
-            self.mainhelper.upALPState("_"+numForGoodS, state: "1", type: "2", handle: { (success, response) in
+            self.mainhelper.upALPState("1_"+numForGoodS, state: "1", type: "2", handle: { (success, response) in
                 if success{
                     print("成功")
                 }

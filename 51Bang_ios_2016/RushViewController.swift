@@ -178,6 +178,12 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                         self.navigationController?.pushViewController(Insure, animated: true)
                         self.hidesBottomBarWhenPushed = false
 
+                    }else{
+                        if self.sign == 0 {
+                            isworking = "1"
+                        }else{
+                            isworking = "0"
+                        }
                     }
                 }
             }
@@ -190,11 +196,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         print(longitude)
         print(latitude)
         
-        if self.sign == 0 {
-            isworking = "1"
-        }else{
-            isworking = "0"
-        }
+        
         if ud.objectForKey("userid") != nil {
             mainHelper.BeginWorking(ud.objectForKey("userid") as! String, address: cutyName, longitude: longitude, latitude: latitude, isworking: isworking) { (success, response) in
                 if !success {
@@ -586,8 +588,21 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         let ud = NSUserDefaults.standardUserDefaults()
         if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
             
-            let vc2 = MyInsure()
-            self.navigationController?.pushViewController(vc2, animated: true)
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: "请先投保在抢单，是否去投保？", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            print(ud.objectForKey("baoxiangrenzheng") as! String)
+                                            let vc2 = MyInsure()
+                                            self.navigationController?.pushViewController(vc2, animated: true)
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
             return
         }
         
