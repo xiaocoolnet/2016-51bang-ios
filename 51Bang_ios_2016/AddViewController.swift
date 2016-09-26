@@ -440,6 +440,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         print(myLatitude)
         if self.mytextView.text!.isEmpty{
             alert("请填写商品名称", delegate: self)
+            self.hud1.hidden = true
+            self.btn.enabled = true
             return
         }
        
@@ -461,14 +463,20 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
 //        }
         if price.text!.isEmpty{
             alert("请填写商品价格", delegate: self)
+            self.hud1.hidden = true
+            self.btn.enabled = true
             return
         }
         if (address1 as String).isEmpty{
             alert("请填写商户地址", delegate: self)
+            self.hud1.hidden = true
+            self.btn.enabled = true
             return
         }
         if (typeLabelStr as String).isEmpty{
             alert("请填写配送方式", delegate: self)
+            self.hud1.hidden = true
+            self.btn.enabled = true
             return
         }
         let a = Double(oprice.text!)
@@ -478,6 +486,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         if !oprice.text!.isEmpty{
             if a==nil {
                 alert("请填写正确格式的价格", delegate: self)
+                self.hud1.hidden = true
+                self.btn.enabled = true
                 return
             }
             
@@ -485,6 +495,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         if !price.text!.isEmpty{
             if b==nil {
                 alert("请填写正确格式的价格", delegate: self)
+                self.hud1.hidden = true
+                self.btn.enabled = true
                 return
             }
             
