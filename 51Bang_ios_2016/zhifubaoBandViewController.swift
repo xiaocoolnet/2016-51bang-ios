@@ -111,6 +111,7 @@ class zhifubaoBandViewController: UIViewController {
         
         
         getPhoneVerityBtn = UIButton.init(frame: CGRectMake(phoneVerify.frame.size.width - 100, 0,100, 35))
+        getPhoneVerityBtn.userInteractionEnabled = true
         getPhoneVerityBtn.setTitle("获取短信验证码", forState: UIControlState.Normal)
         getPhoneVerityBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
         getPhoneVerityBtn.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -299,5 +300,5 @@ class zhifubaoBandViewController: UIViewController {
         textShow.frame = CGRectMake(0,Finish.frame.origin.y + 35 + 10 , WIDTH, 100)
     }
 
-
+    
 }

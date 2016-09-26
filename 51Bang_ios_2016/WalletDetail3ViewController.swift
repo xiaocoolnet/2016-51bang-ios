@@ -225,14 +225,17 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
         func selectGo(sendtag:UIButton){
             switch sendtag.tag {
             case 100:
+                tagButton = 100
                 buttonSelect1.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
                 buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
                 buttonSelect3.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
             case 101:
+                tagButton = 101
                 buttonSelect1.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
                 buttonSelect2.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
                 buttonSelect3.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
             case 102:
+                tagButton = 102
                 buttonSelect1.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
                 buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
                 buttonSelect3.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
