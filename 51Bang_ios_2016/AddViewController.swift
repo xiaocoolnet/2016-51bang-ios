@@ -421,6 +421,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     func fabuAction(){
+        
         let ud = NSUserDefaults.standardUserDefaults()
         var userid = String()
         if ud.objectForKey("userid") != nil {
@@ -437,6 +438,11 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         print(myLongitude)
         print(myLatitude)
+        if self.mytextView.text!.isEmpty{
+            alert("请填写商品名称", delegate: self)
+            return
+        }
+       
         
         print(address)
         let textView = self.view.viewWithTag(1)as! PlaceholderTextView
@@ -450,6 +456,40 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         //        print("---")
         //        let myPhone = ud.objectForKey("phone")as!String
         //        print(myPhone)
+//        if oprice.text!.isEmpty{
+//            alert("请填写商品名称", delegate: self)
+//        }
+        if price.text!.isEmpty{
+            alert("请填写商品价格", delegate: self)
+            return
+        }
+        if (address1 as String).isEmpty{
+            alert("请填写商户地址", delegate: self)
+            return
+        }
+        if (typeLabelStr as String).isEmpty{
+            alert("请填写配送方式", delegate: self)
+            return
+        }
+        let a = Double(oprice.text!)
+        
+        let b = Double(price.text!)
+        
+        if !oprice.text!.isEmpty{
+            if a==nil {
+                alert("请填写正确格式的价格", delegate: self)
+                return
+            }
+            
+        }
+        if !price.text!.isEmpty{
+            if b==nil {
+                alert("请填写正确格式的价格", delegate: self)
+                return
+            }
+            
+        }
+        
         
         if (self.myDatas?.count>0&&isEdit == true){
             shopHelper.reLoadTeMaiMessage(userid, type: type1, goodsname:self.mytextView.text!, oprice: oprice.text!, price: price.text!, desc: textView.text, unit: "",longitude:myLongitude,latitude:myLatitude,address:address1,delivery:typeLabelStr) { (success, response) in
@@ -820,7 +860,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell2")as! FabuTableViewCell2
                 cell.title.text = "价格"
                 cell.textField.tag = 5
-                cell.textField.keyboardType = UIKeyboardType.NumberPad
+                cell.textField.keyboardType = UIKeyboardType.NumbersAndPunctuation
                 cell.textField.delegate = self
                 cell.selectionStyle = .None
                 cell.textField.borderStyle = .None
@@ -834,7 +874,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell2")as! FabuTableViewCell2
                 cell.title.text = "原价"
                 cell.textField.tag = 6
-                cell.textField.keyboardType = UIKeyboardType.NumberPad
+                cell.textField.keyboardType = UIKeyboardType.NumbersAndPunctuation
                 if (self.myDatas?.count>0&&isEdit == true && self.myDatas![0].oprice != nil){
                     cell.textField.text = self.myDatas![0].oprice
                 }
