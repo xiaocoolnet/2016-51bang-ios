@@ -33,6 +33,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     var  photoArraySecond = NSMutableArray()
     let photoNameArr = NSMutableArray()
     let mainHelper = MainHelper()
+    var Tip1 = UILabel()
     
     var pickerView:UIPickerView!
     var datePicker:UIDatePicker!
@@ -51,6 +52,8 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     override func viewWillAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = true
+        
+        photoPushButton.userInteractionEnabled = true
 //        let userPic = NSUserDefaults.standardUserDefaults()
 //        if( userPic.objectForKey("photoss") != nil )
 //        {
@@ -112,7 +115,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         view1.hidden = false
         self.scrollView.addSubview(view1)
         let label = UILabel.init(frame: CGRectMake(10, 10 , 80, 40))
-        label.text = "有效期:"
+        label.text = "有效期至:"
         view1.addSubview(label)
         label1 = UILabel.init(frame: CGRectMake(90, 10, WIDTH-90, 40))
         label1.text = "请选择认证有效时间!"
@@ -136,6 +139,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
             label.textAlignment = .Center
             //            pickerView=UIDatePicker()
             datePicker = UIDatePicker()
+            datePicker.datePickerMode = UIDatePickerMode.Date
             datePicker.tag = 101
             datePicker.minimumDate = NSDate()
             datePicker.frame = CGRectMake(0, 30, WIDTH, 180)
@@ -206,7 +210,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
             //            print(datePicker.date)
             
             let formatter2 = NSDateFormatter()
-            formatter2.dateFormat = "yyyyMMddHHmm"
+            formatter2.dateFormat = "yyyyMMdd"
             let dateStr = formatter2.stringFromDate(datePicker.date)
             let date222 = formatter2.dateFromString(dateStr)
             let dates = date222!.timeIntervalSince1970
@@ -217,7 +221,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
 //            button.setTitle(datestr, forState: UIControlState.Normal)
             
             let formatter3 = NSDateFormatter()
-            formatter3.dateFormat = "yyyy年MM月dd日 HH:mm:00"
+            formatter3.dateFormat = "yyyy年MM月dd日"
             let dateStr1 = formatter3.stringFromDate(datePicker.date)
             label1.text = dateStr1
             print("---")
@@ -244,7 +248,9 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     
     func pushPhotoAction(){
         //        print(photoArray.count)
+        photoPushButton.userInteractionEnabled = false
         if label1.text == "请选择认证有效时间!" {
+            photoPushButton.userInteractionEnabled = true
             alert("请选择有效时间", delegate: self)
         }else{
             
@@ -469,6 +475,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     
     func deleteImage(btn:UIButton){
         print(btn.tag)
+        photoPushButton.userInteractionEnabled = true
         self.photoArray.removeObjectAtIndex(btn.tag)
         self.collectionV?.reloadData()
         if self.photoArray.count%3 == 0&&self.photoArray.count>1  {
@@ -547,6 +554,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
                     self.Statue.text = "未认证或认证失败"
                     self.Statue.adjustsFontSizeToFitWidth = true
                     self.TopView.backgroundColor = UIColor.grayColor()
+                    self.Tip1.hidden = false
                     self.InsureBtn.hidden = false
                     self.InsureBtn.backgroundColor = COLOR
                     self.scrollView.contentSize = CGSizeMake(WIDTH, self.iView.frame.size.height + self.statuFrame.height + 270)
@@ -558,6 +566,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
                 }else{
                     self.Statue.text = "已投保"
                     self.TopView.backgroundColor = COLOR
+                    self.Tip1.hidden = true
                     self.iView.hidden = true
                     self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90)
                     self.InsureBtn.hidden = true
@@ -646,9 +655,10 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         Tip.font = UIFont.systemFontOfSize(15)
         TopView.addSubview(Tip)
         
-        let Tip1 = UILabel()
+        Tip1 = UILabel()
         Tip1.frame = CGRectMake(WIDTH / 2 - 40,10, 80, 30 )
         Tip1.text = "先投保后抢单"
+        Tip1.hidden = false
         Tip1.textColor = UIColor.whiteColor()
         Tip1.adjustsFontSizeToFitWidth  = true
         Tip1.textAlignment = NSTextAlignment.Center

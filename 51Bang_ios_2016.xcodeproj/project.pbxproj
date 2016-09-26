@@ -408,6 +408,7 @@
 		81FD71FD1D3E17FC0020890A /* MyCollectonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD71FC1D3E17FC0020890A /* MyCollectonView.swift */; };
 		81FD72001D3E1E370020890A /* MyReceiveDan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD71FF1D3E1E370020890A /* MyReceiveDan.swift */; };
 		81FD72021D3E3E190020890A /* MyReveiveDanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FD72011D3E3E190020890A /* MyReveiveDanCell.swift */; };
+		A4410F161D98F3E000C999FC /* SkillselectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4410F151D98F3E000C999FC /* SkillselectViewController.swift */; };
 		A442639C1D92812400F9DFB6 /* GetCashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A442639B1D92812400F9DFB6 /* GetCashViewController.swift */; };
 		A442639E1D92949100F9DFB6 /* zhifubaoBandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A442639D1D92949100F9DFB6 /* zhifubaoBandViewController.swift */; };
 		A44263A01D92964F00F9DFB6 /* BankBandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */; };
@@ -1051,6 +1052,7 @@
 		8FA52D09AC92E4AE7D3B08ED /* Pods-51Bang_ios_2016Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-51Bang_ios_2016Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-51Bang_ios_2016Tests/Pods-51Bang_ios_2016Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		981FB3CC478FBF0CBC3F8AA5 /* Pods_51Bang_ios_2016.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_51Bang_ios_2016.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F80179E64739F048E551101 /* Pods-51Bang_ios_2016.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-51Bang_ios_2016.debug.xcconfig"; path = "Pods/Target Support Files/Pods-51Bang_ios_2016/Pods-51Bang_ios_2016.debug.xcconfig"; sourceTree = "<group>"; };
+		A4410F151D98F3E000C999FC /* SkillselectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkillselectViewController.swift; sourceTree = "<group>"; };
 		A442639B1D92812400F9DFB6 /* GetCashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCashViewController.swift; sourceTree = "<group>"; };
 		A442639D1D92949100F9DFB6 /* zhifubaoBandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = zhifubaoBandViewController.swift; sourceTree = "<group>"; };
 		A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankBandViewController.swift; sourceTree = "<group>"; };
@@ -1563,6 +1565,7 @@
 				1FE122031D226B8900C0BE0B /* RushHomePageViewController.swift */,
 				1FE122041D226B8900C0BE0B /* RushHomePageViewController.xib */,
 				1F81FAD01D2373590085C404 /* ChoseCityViewController.swift */,
+				A4410F151D98F3E000C999FC /* SkillselectViewController.swift */,
 			);
 			name = Contorller;
 			sourceTree = "<group>";
@@ -2914,6 +2917,7 @@
 				1F5545891D2E4E3300B90013 /* BianMinHeaderCell.swift in Sources */,
 				18D5960A1D17F05100BDBCD6 /* SpecifyArray.swift in Sources */,
 				18D8812D1D151D820067218F /* ViewController.swift in Sources */,
+				A4410F161D98F3E000C999FC /* SkillselectViewController.swift in Sources */,
 				F247452B1D6D51CF00870363 /* SGPhotoBrowser.m in Sources */,
 				1FC544BF1D373C3000493BD5 /* CollectionTableViewCell.swift in Sources */,
 				1F7D5A121D4A033600536BD1 /* README.md in Sources */,

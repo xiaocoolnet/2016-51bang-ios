@@ -261,9 +261,9 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             }
             self.dataSource = response as? Array<TCHDInfo> ?? []
             self.convenienceTable.mj_footer.endRefreshing()
-            if self.dataSource?.count == 0{
-                self.convenienceTable.mj_footer.endRefreshingWithNoMoreData()
-            }
+//            if self.dataSource?.count == 0{
+//                self.convenienceTable.mj_footer.endRefreshingWithNoMoreData()
+//            }
             for data in self.dataSource!{
                 
                 self.dataSource2.addObject(data)
@@ -498,11 +498,11 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 
                 switch (piccount-1) / 3 {
                 case 0:
-                    picHeight = WIDTH / 3
+                    picHeight = (WIDTH-15) / 3
                 case 1:
-                    picHeight = WIDTH / 3 * 2
+                    picHeight = (WIDTH-15) / 3 * 2
                 case 2:
-                    picHeight = WIDTH / 3 * 3
+                    picHeight = (WIDTH-15) / 3 * 3
                 default:
                     picHeight = WIDTH
                 }
@@ -512,9 +512,9 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     picHeight = 0
                 }
                 if (dataSource2[indexPath.row-1] as! TCHDInfo).record != nil && (dataSource2[indexPath.row-1] as! TCHDInfo).record != "" {
-                    return 75 + picHeight + height + 20+80
+                    return 75 + picHeight + height + 20+80 + 20
                 }else{
-                    return 75 + picHeight + height + 20
+                    return 75 + picHeight + height + 20 + 20
                 }
                 
                 

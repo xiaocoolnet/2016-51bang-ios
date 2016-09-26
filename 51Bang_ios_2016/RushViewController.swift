@@ -42,7 +42,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             
             
             
-        if(ud.objectForKey("ss") as! String == "yes")
+        if(ud.objectForKey("ss") as! String == "no")
             
         {
             certiBtn.userInteractionEnabled = false

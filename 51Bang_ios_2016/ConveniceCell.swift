@@ -172,7 +172,7 @@ class ConveniceCell: UITableViewCell{
             }
             let backButton = UIButton()
             backButton.frame = imview.frame
-            backButton.frame.origin.y = imview.frame.origin.y + 98
+            backButton.frame.origin.y = imview.frame.origin.y + 98 + 15
             backButton.backgroundColor = UIColor.clearColor()
             backButton.tag = imcount
             self.addSubview(backButton)
@@ -223,10 +223,10 @@ class ConveniceCell: UITableViewCell{
             boFangButton.layer.shadowOffset = CGSizeMake(20.0, 20.0)
             boFangButton.layer.shadowOpacity = 0.7
             imshow.addSubview(boFangButton)
-            imshow.frame = CGRectMake(0, 80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) , WIDTH, picHeight+80)
+            imshow.frame = CGRectMake(0, 80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + 15, WIDTH, picHeight+80)
             
         }else{
-            imshow.frame = CGRectMake(0, 80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) , WIDTH, picHeight)
+            imshow.frame = CGRectMake(0, 80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + 15 , WIDTH, picHeight)
         }
         
 //        if self.info?.pic.count>0 {

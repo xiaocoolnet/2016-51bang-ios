@@ -475,13 +475,15 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
             alert("请填写完整信息", delegate: self)
             return
         }
-//        let userdefault = NSUserDefaults.standardUserDefaults()
+        
         userdefault.setObject("no", forKey: "isxiugai")
-        let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SkillView")
+//        let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SkillView")
+//        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = SkillselectViewController()
         self.navigationController?.pushViewController(vc, animated: true)
         
         vc.title = "技能选择"
-        //        }
+
         
         
         

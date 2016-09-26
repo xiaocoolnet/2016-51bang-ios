@@ -340,7 +340,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     func xieyi(btn:UIButton){
         
         let vc = JiaoChengViewController()
-        vc.sign = 3
+        vc.sign = 2
         self.navigationController?.pushViewController(vc, animated: true)
         
         
