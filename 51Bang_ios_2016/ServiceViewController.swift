@@ -47,8 +47,34 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
             if indexPath.row == 3 {
                 alert("暂未上架,无法评分", delegate: self)
             }else if indexPath.row == 4{
+                var fileArray = [String]()
+                let defauleManager = NSFileManager.defaultManager
+                let tempPath = NSTemporaryDirectory()
+                var dic = NSDictionary()
+                var pathNum = UInt64()
+                do{
+                   try fileArray = defauleManager().contentsOfDirectoryAtPath(tempPath)
+                    
+                }catch{
+                    
+                }
+                print(dic)
+                print(fileArray)
+                if fileArray.count>0 {
+                    for path in fileArray {
+                        do{
+                            try dic = defauleManager().attributesOfItemAtPath(tempPath+"/"+path)
+                            try defauleManager().removeItemAtPath(tempPath+"/"+path)
+                            pathNum = pathNum + dic.fileSize()
+                        }catch{
+                            
+                        }
+                    }
+                }
+                
+                let string = String(format: "%.2f" , pathNum/1024/1024)
             
-                alert("缓存已清除", delegate: self)
+                alert("已清除"+string  + "M缓存", delegate: self)
             }else{
                 let vc = JiaoChengViewController()
                 vc.sign = indexPath.row
