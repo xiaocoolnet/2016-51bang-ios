@@ -449,6 +449,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             self.btn.enabled = true
             return
         }
+        
+        
        
         
         print(address)
@@ -466,6 +468,14 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
 //        if oprice.text!.isEmpty{
 //            alert("请填写商品名称", delegate: self)
 //        }
+        
+        if textView.text!.isEmpty{
+            alert("请填写商品描述", delegate: self)
+            self.hud1.hidden = true
+            self.btn.enabled = true
+            return
+        }
+        
         if price.text!.isEmpty{
             alert("请填写商品价格", delegate: self)
             self.hud1.hidden = true
