@@ -302,6 +302,11 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     
     func fabu(){
+        let ud = NSUserDefaults.standardUserDefaults()
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid")as! String
+        }
         self.btn.enabled = false
         hud1 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud1.animationType = .Zoom
@@ -325,7 +330,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy:MM:dd:HH:mm:ss:SSS"
             let dateStr = dateFormatter.stringFromDate(NSDate())
-            let imageName = "avatar" + dateStr + "record"
+            let imageName = "avatar" + dateStr + "record" + String(arc4random() % 10000) + userid
             print(imageName)
             ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord", finish: { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -368,7 +373,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy:MM:dd:HH:mm:ss.SSS"
             let dateStr = dateFormatter.stringFromDate(NSDate())
-            let imageName = "avatar" + dateStr + String(a)
+            let imageName = "avatar" + dateStr + String(a) + String(arc4random() % 10000) + userid
             print(imageName)
             
             //上传图片
@@ -393,7 +398,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 self.btn.enabled = true
                                 let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
                                 hud.mode = MBProgressHUDMode.Text;
-                                //                            hud.labelText = "图片上传失败"
+                                hud.labelText = "图片上传失败"
                                 hud.margin = 10.0
                                 hud.removeFromSuperViewOnHide = true
                                 hud.hide(true, afterDelay: 1)
