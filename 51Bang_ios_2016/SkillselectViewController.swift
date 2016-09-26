@@ -134,10 +134,27 @@ class SkillselectViewController: UIViewController,skillProrocol {
 
     func sendMessage(arr:NSArray){
         
+        
+        let button = self.view.viewWithTag(self.selectedIndex)as! UIButton
+        
+        if arr.count == 0  {
+            button.backgroundColor = RGREY
+            let label =  button.subviews[0]as! UILabel
+            label.textColor = COLOR
+        }
+        
+        for ids in self.infosss {
+            if  self.jiNengID.containsObject(ids.id!) {
+                self.jiNengID.removeObject(ids.id!)
+            }
+        }
+        
         if arr.count != 0 {
             print(self.selectedIndex)
-            let button = self.view.viewWithTag(self.selectedIndex)as! UIButton
+            
             //             let strrr = NSMutableString()
+            
+            
             for i in 0..<arr.count{
                 self.jiNengID.addObject(self.infosss[(arr[i]as! UIButton).tag].id!)
                 
@@ -211,14 +228,15 @@ class SkillselectViewController: UIViewController,skillProrocol {
             let types = NSMutableString()
             
             //            let strrr = NSMutableString()
-            for i in 0..<self.selectIDArr.count{
-                if i == selectIDArr.count-1{
-                    types.appendString(selectIDArr[i]as! String)
+            for i in 0..<self.jiNengID.count{
+                if i == jiNengID.count-1{
+                    types.appendString(jiNengID[i]as! String)
                 }else{
-                    types.appendString(selectIDArr[i]as! String)
+                    types.appendString(jiNengID[i]as! String)
                     types.appendString(",")
                 }
             }
+            
             print(types)
             if array.count<6 {
                 let alert = UIAlertView.init(title: "温馨提示", message: "请完善信息", delegate: self, cancelButtonTitle: "确定")
