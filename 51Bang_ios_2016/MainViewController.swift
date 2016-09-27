@@ -154,6 +154,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     override func viewDidLoad() {
         super.viewDidLoad()
         dingWeiStr = "0"
+        
         self.flagLocation = self.savedLocation
         let function = BankUpLoad()
         function.CheckRenzheng()
@@ -169,6 +170,10 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.buyOrderType(_:)), name:"buyOrderType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.businessOrderType(_:)), name:"businessOrderType", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.loginFromOther), name:"loginFromOther", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.certificationType(_:)), name:"certificationType", object: nil)
+        
+        
         
         
 //        self.mapView.addSubview(BeingBackMyPositonBtn)
@@ -541,6 +546,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         }
     }
     
+    
     func businessOrderType(notification:NSNotification){
         let ids = notification.object?.valueForKey("name") as? String
         let vc = MyBookDan()
@@ -585,6 +591,25 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         }else{
             self.tabBarController?.selectedIndex = 0
             self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    func loginFromOther(){
+        alert("您的账号在其他地方登陆", delegate: self)
+        loginSign == 0
+        self.tabBarController?.selectedIndex = 3
+    }
+    
+    func certificationType(notification:NSNotification){
+        let ids = notification.object?.valueForKey("name") as? String
+        if ids == "1" {
+            alert("身份认证成功", delegate: self)
+        }else if ids == "2"{
+            alert("身份认证失败", delegate: self)
+        }else if ids == "3"{
+            alert("保险认证成功", delegate: self)
+        }else if ids == "4"{
+            alert("保险认证失败", delegate: self)
         }
     }
     

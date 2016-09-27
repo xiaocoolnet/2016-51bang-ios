@@ -19,6 +19,8 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     var fuWuLocation = NSString()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.hidden = false
+        self.tabBarController?.tabBar.hidden = true
         
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
         myTableView.backgroundColor = RGREY
@@ -148,7 +150,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
 
     func nextView(){
         
-        let opt = BMKOpenWalkingRouteOption()
+        let opt = BMKOpenDrivingRouteOption()
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
@@ -196,7 +198,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
+        BMKOpenRoute.openBaiduMapDrivingRoute(opt)
         
 //        let locationVc = LocationViewController()
 //        //        LocationViewController.myAddressOfpoint = self.dataSource![sender.tag].address!
@@ -224,7 +226,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     }
 
     func nextView1(){
-        let opt = BMKOpenWalkingRouteOption()
+        let opt = BMKOpenDrivingRouteOption()
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
@@ -271,7 +273,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
+        BMKOpenRoute.openBaiduMapDrivingRoute(opt)
 
     
     }

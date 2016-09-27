@@ -40,17 +40,26 @@ class MyFaDanCell: UITableViewCell {
         setTop()
         print(model.phone!)
         
+        print(model.apply?.phone)
+        
         if model.apply != nil && model.apply != "" && model.phone != nil {
             
-            if model.apply?.phone != nil && model.apply?.name != ""{
+            if model.apply?.name != nil && model.apply?.name != ""{
                 
                 setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: (model.apply?.name)!)
-            }else if model.phone != nil {
-                setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: "无人接单")
+            }else if model.phone != nil && model.apply?.phone != nil && model.apply?.name == nil  {
+                setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: (model.apply?.phone!)!)
                 
+            }else{
+                setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: "无人接单")
             }
-        }else if model.phone != nil {
+        }else if model.phone != nil && model.apply?.phone != nil {
+            setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: (model.apply?.phone!)!)
+        }else if model.phone != nil && model.apply?.name == nil && model.apply?.phone == nil{
             setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: "无人接单")
+        }
+        else{
+           setMiddle(model.order_num!, Name: model.title!, sMen: model.phone!, reMen: "无人接单")
         }
         
         if model.state! == "0" {

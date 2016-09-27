@@ -52,7 +52,11 @@ class RenZhengBangTableViewCell: UITableViewCell {
         
         
         
-        
+        if info.orderNum != "" {
+            FuwuNum.text = "服务"+info.orderNum+"次"
+        }else{
+            FuwuNum.text = "服务"+"0"+"次"
+        }
         
         
         self.name.text = info.name

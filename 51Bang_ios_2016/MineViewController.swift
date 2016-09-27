@@ -76,7 +76,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.myTableView.tableHeaderView = headerView
         let ud = NSUserDefaults.standardUserDefaults()
         
-        if(ud.objectForKey("userid")==nil)
+        if(loginSign == 0)
         {
             self.createLoginUI()
             
@@ -504,41 +504,50 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func login(){
+        JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
+            var registrationIDs = String()
+            if registrationID == nil{
+                registrationIDs = ""
+            }else{
+                registrationIDs = registrationID
+            }
+//            print(registrationID)
+            print("login")
+            self.pwdTextfield.resignFirstResponder()
+            self.phoneTextfield.resignFirstResponder()
+            let phoneNumber = self.view.viewWithTag(100)as! UITextField
+            let password = self.view.viewWithTag(101)as! UITextField
+            self.phoneNum = phoneNumber.text
+            self.pwd = password.text
+            if self.phoneNum!.isEmpty {
+                self.phoneNum =  self.phoneTextfield.text
+            }
+            if self.pwd!.isEmpty {
+                self.pwd = self.pwdTextfield.text
+            }
+            
+            print(self.phoneNum!)
+            print(self.pwd!)
+            if (self.phoneNum!.isEmpty) {
+                SVProgressHUD.showErrorWithStatus("请输入手机号！")
+                return
+            }
+            if (self.pwd!.isEmpty) {
+                SVProgressHUD.showErrorWithStatus("请输入密码！")
+                return
+            }
+            
+            self.loginWithNum(self.phoneNum! as String, pwd: self.pwd! as String,registrationID:registrationIDs)
+        })
         
-        print("login")
-        pwdTextfield.resignFirstResponder()
-        phoneTextfield.resignFirstResponder()
-        let phoneNumber = self.view.viewWithTag(100)as! UITextField
-        let password = self.view.viewWithTag(101)as! UITextField
-        self.phoneNum = phoneNumber.text
-        self.pwd = password.text
-        if self.phoneNum!.isEmpty {
-            self.phoneNum =  self.phoneTextfield.text
-        }
-        if self.pwd!.isEmpty {
-            self.pwd = self.pwdTextfield.text
-        }
-        
-        print(self.phoneNum!)
-        print(self.pwd!)
-        if (phoneNum!.isEmpty) {
-            SVProgressHUD.showErrorWithStatus("请输入手机号！")
-            return
-        }
-        if (pwd!.isEmpty) {
-            SVProgressHUD.showErrorWithStatus("请输入密码！")
-            return
-        }
-        
-        loginWithNum(self.phoneNum! as String, pwd: self.pwd! as String)
         
         
     }
     
-    func loginWithNum(num:String,pwd:String){
+    func loginWithNum(num:String,pwd:String,registrationID:String){
         SVProgressHUD.show()
         let password = self.view.viewWithTag(101)as! UITextField
-        logVM!.login(num, password: pwd, handle: { [unowned self] (success, response) in
+        logVM!.login(num, password: pwd,registrationID:registrationID, handle: { [unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if success == false {
                     if response != nil {
@@ -563,10 +572,14 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(userInfo.id, forKey: "userid")
 //                    let defalutid = NSUserDefaults.standardUserDefaults()
 //                    let studentid = defalutid.stringForKey("userid")
+//                    let udid = String( UIDevice.currentDevice().identifierForVendor!)
+//                    print(udid)
+//                    let settt = NSSet.init(array: [udid])
                     if userInfo.id != nil && userInfo.id! != ""{
                         JPUSHService.setTags(nil, aliasInbackground: userInfo.id!)
 
                     }
+                    
                     ud.setObject(userInfo.xgtoken, forKey: "token")
                     ud.setObject(userInfo.name, forKey: "name")
                     ud.setObject(self.phoneNum, forKey: "phone")
@@ -640,6 +653,31 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     self.loginSuccess()
                     self.getuserData()
                     self.Checktoubao()
+                    let udid = Double(UIDevice.currentDevice().systemVersion)
+                    if udid<9.0 {
+                        let alertController = UIAlertController(title: "系统提示",
+                            message: "建议使用iOS9.0以上版本体检更顺畅,是否去更新？（点击界面中的软件更新）", preferredStyle: .Alert)
+                        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                        let okAction = UIAlertAction(title: "确定", style: .Default,
+                            handler: { action in
+                                
+                                let url = NSURL.init(string: "prefs:root=General")
+                                if UIApplication.sharedApplication().canOpenURL(url!){
+                                    UIApplication.sharedApplication().openURL(url!)
+                                }
+                                
+                                
+                                
+                                
+                        })
+                        alertController.addAction(cancelAction)
+                        alertController.addAction(okAction)
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    }
+                    
+                    
+                    
+                    
                     
                     
                 }

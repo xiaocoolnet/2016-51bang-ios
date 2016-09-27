@@ -60,20 +60,24 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
     }
     @IBAction func loginAction(sender: AnyObject) {
         print("login")
-        if (phoneNumber.text!.isEmpty) {
-            SVProgressHUD.showErrorWithStatus("请输入手机号！")
-            return
-        }
-        if (password.text!.isEmpty) {
-            SVProgressHUD.showErrorWithStatus("请输入密码！")
-            return
-        }
-        loginWithNum(phoneNumber.text!, pwd: password.text!)
+        JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
+            if (self.phoneNumber.text!.isEmpty) {
+                SVProgressHUD.showErrorWithStatus("请输入手机号！")
+                return
+            }
+            if (self.password.text!.isEmpty) {
+                SVProgressHUD.showErrorWithStatus("请输入密码！")
+                return
+            }
+            self.loginWithNum(self.phoneNumber.text!, pwd: self.password.text!,registrationID:registrationID)
+            
+            })
+        
     }
     
-    func loginWithNum(num:String,pwd:String){
+    func loginWithNum(num:String,pwd:String,registrationID:String){
         SVProgressHUD.show()
-        logVM?.login(num, password: pwd, handle: { [unowned self] (success, response) in
+        logVM?.login(num, password: pwd,registrationID:registrationID, handle: { [unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if success == false {
                     if response != nil {

@@ -627,12 +627,11 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         
         
         
-        let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height + 10, 20,20 ))
+        let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height + 10, 40,40 ))
         BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Normal)
         BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Selected)
         BackButton.addTarget(self, action: #selector(self.backAction), forControlEvents: UIControlEvents.TouchUpInside)
         Nav.addSubview(BackButton)
-        
         
         
         

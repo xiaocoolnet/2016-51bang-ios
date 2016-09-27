@@ -305,12 +305,18 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        (self.dataSource1?.count)!-1-
-        let vc = TaskDetailViewController()
-        let taskInfo = dataSource1![indexPath.row]
-        vc.taskInfo = taskInfo
-        vc.qiangdanBut = true
+        let vc = ConnectionViewController()
+        
+        
+        vc.info = self.dataSource1![indexPath.row]
+//        vc.sign = sign
         self.navigationController?.pushViewController(vc, animated: true)
+//        (self.dataSource1?.count)!-1-
+//        let vc = TaskDetailViewController()
+//        let taskInfo = dataSource1![indexPath.row]
+//        vc.taskInfo = taskInfo
+//        vc.qiangdanBut = true
+//        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     

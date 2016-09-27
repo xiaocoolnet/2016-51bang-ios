@@ -311,12 +311,15 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func goJineng(){
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("SkillView")
+        let vc = SkillselectViewController()
+        vc.ischangged = true
         self.navigationController?.pushViewController(vc, animated: true)
+        
+        vc.title = "技能选择"
+        
         let userdefault = NSUserDefaults.standardUserDefaults()
         userdefault.setObject("yes", forKey: "isxiugai")
-        vc.title = "技能选择"
+//        vc.title = "技能选择"
     }
     
     func hidenJiahao(){
@@ -545,7 +548,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     func pushMapButton(sender:UIButton){
         
         
-        let opt = BMKOpenWalkingRouteOption()
+        let opt = BMKOpenDrivingRouteOption()
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
@@ -601,7 +604,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
+        BMKOpenRoute.openBaiduMapDrivingRoute(opt)
      
     }
     
@@ -611,7 +614,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         
         
         
-        let opt = BMKOpenWalkingRouteOption()
+        let opt = BMKOpenDrivingRouteOption()
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
@@ -660,7 +663,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
+        BMKOpenRoute.openBaiduMapDrivingRoute(opt)
         
         
         

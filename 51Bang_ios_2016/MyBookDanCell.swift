@@ -129,7 +129,7 @@ class MyBookDanCell: UITableViewCell {
 //        self.addSubview(tipLabel)
         
         
-        Btn.frame = CGRectMake(WIDTH - 80, tipLabel.frame.origin.y + 30, 75, 30)
+        Btn.frame = CGRectMake(WIDTH - 70, tipLabel.frame.origin.y + 30, 65, 30)
         self.addSubview(Btn)
         Btn.layer.cornerRadius = 10
         Btn.layer.masksToBounds = true
@@ -140,7 +140,7 @@ class MyBookDanCell: UITableViewCell {
         
         
         
-        Btn1.frame = CGRectMake(WIDTH - 80 - 90, tipLabel.frame.origin.y + 30, 75, 30)
+        Btn1.frame = CGRectMake(WIDTH - 80 - 70, tipLabel.frame.origin.y + 30, 75, 30)
         self.addSubview(Btn1)
         Btn1.layer.cornerRadius = 10
         Btn1.layer.masksToBounds = true

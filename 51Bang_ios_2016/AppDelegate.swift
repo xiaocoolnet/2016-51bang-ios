@@ -181,6 +181,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("businessOrderType", object: dic)
             }
+            if userInfo["key"] as! String == "loginFromOther" {
+//                let dic = ["name":userInfo["v"]! as! String];
+                NSNotificationCenter.defaultCenter().postNotificationName("loginFromOther", object: nil)
+            }
+            if userInfo["key"] as! String == "certificationType" {
+                let dic = ["name":userInfo["v"]! as! String];
+                NSNotificationCenter.defaultCenter().postNotificationName("certificationType", object: dic)
+            }
 
         }
         

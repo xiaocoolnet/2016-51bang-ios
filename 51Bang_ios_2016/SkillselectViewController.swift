@@ -15,6 +15,7 @@ class SkillselectViewController: UIViewController,skillProrocol {
     let headerView = UIView()
     
     var dataSource = Array<SkillModel>()
+    var dataSource1 = SkillModel()
     let skillHelper = RushHelper()
     let totalloc:Int = 4
     let textView = PlaceholderTextView()
@@ -24,10 +25,12 @@ class SkillselectViewController: UIViewController,skillProrocol {
     var selectedIndex = Int()
     var taskDescription = String()
     var selectIDArr = NSMutableArray()
+    var ischangged = Bool()
+    var btn = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.tabBarController?.tabBar.hidden = true
         GetData()
         self.view.backgroundColor = RGREY
         // Do any additional setup after loading the view.
@@ -45,17 +48,60 @@ class SkillselectViewController: UIViewController,skillProrocol {
                 if !success {
                     return
                 }
+               
                 hud.hide(true)
                 print(response)
                 self.dataSource = response as? Array<SkillModel> ?? []
                 print(self.dataSource)
                 print(self.dataSource.count)
-                self.createTableViewHeaderView()
+                
+                if self.ischangged{
+                     self.GetData1()
+                }else{
+                    self.createTableViewHeaderView()
+                }
+//
                 
             })
             })
     }
     
+    func GetData1(){
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        
+        let userid =  ud.objectForKey("userid") as! String
+        
+        let hud = MBProgressHUD.init()
+        hud.animationType = .Zoom
+        
+        hud.labelText = "正在努力加载"
+        
+        skillHelper.getSkillListByUserId(userid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if !success {
+                    return
+                }
+                hud.hide(true)
+                print(response)
+                self.dataSource1 = response as! SkillModel
+//                print(self.dataSource)
+                print(self.dataSource.count)
+                print(self.dataSource1.skilllist[0].type)
+                for skillSelect in self.dataSource1.skilllist {
+                    if !self.jiNengID.containsObject(skillSelect.type!){
+                        self.jiNengID.addObject(skillSelect.type!)
+                    }
+                    
+                    
+                }
+                self.createTableViewHeaderView()
+                
+            })
+        }
+    }
+    
+        
    
 
     func createTableViewHeaderView(){
@@ -86,16 +132,30 @@ class SkillselectViewController: UIViewController,skillProrocol {
             
             let label = UILabel.init(frame: CGRectMake(0, 0, btn.frame.width, btn.frame.height))
             let model = self.dataSource[i]
+            
             label.text = model.name
             //            label.text = array[i]
             label.textColor = COLOR
             label.textAlignment = .Center
             btn.addSubview(label)
             headerView.addSubview(btn)
+//            for skillAry in self.dataSource {
+            if self.dataSource1.skilllist.count != 0 {
+                for skill in model.clist {
+                    for skillSelect in self.dataSource1.skilllist {
+                        if skill.id == skillSelect.type {
+                            btn.backgroundColor = COLOR
+                            label.textColor = UIColor.whiteColor()
+                        }
+                    }
+                }
+            }
+            
+//            }
             
         }
        
-        let btn = UIButton(frame: CGRectMake(15, 300, WIDTH-30, 50))
+        btn = UIButton(frame: CGRectMake(15, 300, WIDTH-30, 50))
         btn.layer.cornerRadius = 8
         btn.setTitle("确认提交", forState: .Normal)
         btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
@@ -156,7 +216,10 @@ class SkillselectViewController: UIViewController,skillProrocol {
             
             
             for i in 0..<arr.count{
-                self.jiNengID.addObject(self.infosss[(arr[i]as! UIButton).tag].id!)
+                if !self.jiNengID.containsObject(self.infosss[(arr[i]as! UIButton).tag].id!) {
+                    self.jiNengID.addObject(self.infosss[(arr[i]as! UIButton).tag].id!)
+                }
+                
                 
                 
             }
@@ -180,8 +243,14 @@ class SkillselectViewController: UIViewController,skillProrocol {
     }
 
     func nextToView() {
+        let hud1 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud1.animationType = .Zoom
+        hud1.labelText = "正在努力加载"
+        btn.userInteractionEnabled = false
+        let types = NSMutableString()
+        let ud = NSUserDefaults.standardUserDefaults()
         
-        
+        let userid =  ud.objectForKey("userid") as! String
         if loginSign == 0 {//未登陆
             
             self.tabBarController?.selectedIndex = 3
@@ -189,11 +258,35 @@ class SkillselectViewController: UIViewController,skillProrocol {
         }else{
             
             
-            let userdefault = NSUserDefaults.standardUserDefaults()
+//            let userdefault = NSUserDefaults.standardUserDefaults()
             
             
-            if  userdefault.objectForKey("isxiugai") as! String == "yes"  {
-                alert("正在开发", delegate: self)
+            if  self.ischangged {
+                
+                for i in 0..<self.jiNengID.count{
+                    if i == jiNengID.count-1{
+                        types.appendString(jiNengID[i]as! String)
+                    }else{
+                        types.appendString(jiNengID[i]as! String)
+                        types.appendString(",")
+                    }
+                }
+                
+                skillHelper.UpdataUserSkill(userid, type: types as String, handle: { (success, response) in
+                    if !success{
+                        hud1.hide(true)
+                        alert("上传失败", delegate: self)
+                        self.btn.userInteractionEnabled = true
+                        return
+                    }
+                    hud1.hide(true)
+                    self.btn.userInteractionEnabled = true
+                    alert("修改成功", delegate: self)
+                    self.navigationController?.popViewControllerAnimated(true)
+                    return
+                })
+                
+//                alert("正在开发", delegate: self)
                 return
             }
             print("立即提交")
@@ -225,7 +318,7 @@ class SkillselectViewController: UIViewController,skillProrocol {
                 driver_pic = array["driver_pic"] as! String
             }
             
-            let types = NSMutableString()
+            
             
             //            let strrr = NSMutableString()
             for i in 0..<self.jiNengID.count{
@@ -239,13 +332,17 @@ class SkillselectViewController: UIViewController,skillProrocol {
             
             print(types)
             if array.count<6 {
+                self.btn.userInteractionEnabled = true
                 let alert = UIAlertView.init(title: "温馨提示", message: "请完善信息", delegate: self, cancelButtonTitle: "确定")
+                hud1.hide(true)
                 alert.show()
             }else{
                 print(array)
                 
                 skillHelper.identityAffirm(userid, city: array["city"] as! String, realname:array["name"] as! String, idcard: array["idcard"] as! String, contactperson: array["contactperson"] as! String, contactphone: array["contactphone"] as! String, positive_pic:positive_pic, opposite_pic:opposite_pic, driver_pic: driver_pic,types:types as String) { (success, response) in
                     if success{
+                        hud1.hide(true)
+                        self.btn.userInteractionEnabled = true
                         
                         print(response)
                         //let homepage = RushHomePageViewController()
@@ -256,6 +353,8 @@ class SkillselectViewController: UIViewController,skillProrocol {
                         //self.navigationController?.pushViewController(homepage, animated: true)
                         self.navigationController?.popToRootViewControllerAnimated(true)
                     }else{
+                        hud1.hide(true)
+                        self.btn.userInteractionEnabled = true
                         let alert = UIAlertView.init(title: "温馨提示", message: "认证失败", delegate: self, cancelButtonTitle: "确定")
                         alert.show()
                     }
