@@ -25,7 +25,8 @@ class MessageTableViewCell: UITableViewCell {
         if info.other_nickname != nil {
             self.title.text = info.other_nickname
         }else{
-        self.title.text = "userid"+info.chat_uid!
+            
+            self.title.text = "userid"+info.chat_uid!
         }
         
         if info.last_content != nil {

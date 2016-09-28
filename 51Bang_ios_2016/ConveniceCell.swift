@@ -22,6 +22,7 @@ class ConveniceCell: UITableViewCell{
     var timeLabel = UILabel()
     var messageButton = UIButton()
     var phone = UIButton()
+    var predicate = NSPredicate()
     //    var phoneStr = String()
     
     var contenLabel = UILabel()
@@ -145,6 +146,16 @@ class ConveniceCell: UITableViewCell{
             .topSpaceToView(userImage,10)
             .autoHeightRatio(0)
         contenLabel.text = info.content
+        
+//        var regex:String?
+//        regex = "^((13[0-9])|(15[^4,\\D]) |(17[0,0-9])|(18[0,0-9]))\\d{8}$"
+        
+//        predicate = NSPredicate.init(format: "SELF MATCHES %@",regex!)
+//        print(predicate)
+//        let flags = predicate.evaluateWithObject(contenLabel.text! as NSString)
+//        if flags{
+//            print("..........................")
+//        }
         
         var imcount = 0
         for ima in info.pic

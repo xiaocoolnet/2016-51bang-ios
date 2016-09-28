@@ -10,7 +10,7 @@ import UIKit
 
 class applyModel: NSObject {
 
-    var id:String?
+    var servicecount:String?
     var userid:String?
     var status:String?
     var phone:String?
@@ -22,7 +22,7 @@ class applyModel: NSObject {
     }
     required init(_ decoder: JSONDecoder){
         
-        id = decoder["id"].string
+        servicecount = decoder["servicecount"].string
         userid = decoder["userid"].string
         status = decoder["status"].string
         phone = decoder["phone"].string

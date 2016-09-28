@@ -1058,6 +1058,7 @@
 		A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankBandViewController.swift; sourceTree = "<group>"; };
 		A44263A11D92AFD800F9DFB6 /* CashGetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CashGetViewController.swift; sourceTree = "<group>"; };
 		A44666E01D855B4A00142F23 /* chatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = chatModel.swift; sourceTree = "<group>"; };
+		A44700C21D9A200D00B22D59 /* libicucore.A.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.A.tbd; path = usr/lib/libicucore.A.tbd; sourceTree = SDKROOT; };
 		A4504C0F1D93B8A80039764D /* WalletDetail3ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletDetail3ViewController.swift; sourceTree = "<group>"; };
 		A4A26F431D75BD7C00A84360 /* RenZhengBangTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RenZhengBangTableViewCell.xib; sourceTree = "<group>"; };
 		A4F71F8C1D97CDBB00B4655D /* TCRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TCRegisterViewController.xib; sourceTree = "<group>"; };
@@ -2247,6 +2248,7 @@
 		CFA145760FF79DF03531E71B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A44700C21D9A200D00B22D59 /* libicucore.A.tbd */,
 				F23A219D1D89583200DDB3AB /* Security.framework */,
 				F23A219B1D8957E700DDB3AB /* CoreFoundation.framework */,
 				0D10A6221D50A6D50004903C /* TPKeyboardAvoiding.framework */,
