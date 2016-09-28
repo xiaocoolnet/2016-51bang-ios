@@ -325,7 +325,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         pageControl.numberOfPages = goodsInfo.pic.count
         pageControl.currentPage = 0
         pageControl.userInteractionEnabled = false
-        headerView.addSubview(pageControl)
+        if goodsInfo.pic.count > 1{
+            headerView.addSubview(pageControl)
+        }
 
         //
         if goodsInfo.pic.count > 0  {

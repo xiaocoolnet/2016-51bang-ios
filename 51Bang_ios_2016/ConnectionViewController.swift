@@ -27,13 +27,13 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         myTableView.dataSource = self
         myTableView.delegate = self
         myTableView.registerNib(UINib(nibName: "MyOrderTableViewCell",bundle: nil), forCellReuseIdentifier: "MyOrderTableViewCell")
-        let button4 = UIButton.init(frame: CGRectMake(10, HEIGHT-150, WIDTH/2-20, 50))
+        let button4 = UIButton.init(frame: CGRectMake(10, HEIGHT-150, WIDTH/2-20, 40))
         button4.tag = 4
         button4.setTitle("联系对方", forState: UIControlState.Normal)
         button4.backgroundColor = UIColor.orangeColor()
         button4.addTarget(self, action: #selector(self.callPhone), forControlEvents: UIControlEvents.TouchUpInside)
         button4.layer.cornerRadius = 10
-        button5.frame = CGRectMake(WIDTH/2+10, HEIGHT-150, WIDTH/2-20, 50)
+        button5.frame = CGRectMake(WIDTH/2+10, HEIGHT-150, WIDTH/2-20, 40)
         if info.state == "2" {
             button5.setTitle("已上门", forState: UIControlState.Normal)
             button5.backgroundColor = COLOR
@@ -122,7 +122,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        return 200
+        return 180
     }
     
     
