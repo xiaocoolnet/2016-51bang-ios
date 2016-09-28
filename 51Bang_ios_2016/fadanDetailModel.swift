@@ -66,9 +66,20 @@ class fadanDetaiInfo: JSONJoy {
     var expirydate:String?
     var address:String?
     var order_num:String?
-    var status:String?
+    var evaluate:String?
     var phone:String?
     var name:String?
+    var unit:String?
+    var saddress:String?
+    var slatitude:String?
+    var slongitude:String?
+    var paytype:String?
+    var paytime:String?
+    var paystatus:String?
+    var state:String?
+    var hot:String?
+    //files  数组，里面什么数据不知道，暂时用string代替
+    var files:String?
     var apply:applyModel?
     init(){
         
@@ -87,10 +98,21 @@ class fadanDetaiInfo: JSONJoy {
         expirydate = decoder["expirydate"].string
         address = decoder["address"].string
         order_num = decoder["order_num"].string
-        status = decoder["status"].string
+        evaluate = decoder["evaluate"].string
         phone = decoder["phone"].string
         name = decoder["name"].string
-        apply = decoder["apply"] as? applyModel
+        unit = decoder["unit"].string
+        saddress = decoder["saddress"].string
+        slatitude = decoder["slatitude"].string
+        slongitude = decoder["slongitude"].string
+        paytype = decoder["paytype"].string
+        paystatus = decoder["paystatus"].string
+        paytime = decoder["paytime"].string
+        state = decoder["state"].string
+        hot = decoder["hot"].string
+        files = decoder["files"].string
+        apply =  applyModel(decoder["apply"])
+       
     }
     
 }

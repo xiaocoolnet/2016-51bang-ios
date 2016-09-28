@@ -131,6 +131,7 @@
     
     
 }
+
 #pragma mark - timego
 
 -(void)timego{
@@ -245,13 +246,23 @@
         if (self.datasource2.count>0 && self.datasource2[0][@"receive_face"] != nil) {
             customCell.otherPhoto = self.datasource2[0][@"receive_face"];
         }
+        if (self.datasource2.count==0 || self.datasource2[0][@"send_face"] == nil) {
+            
+            NSUserDefaults *photo = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo"];
+            NSString *url = [NSString stringWithFormat:@"%@",photo];
+            //        NSString *url = [NSString stringWithFormat:@"http://bang.xiaocool.net/uploads/images/%@",photo];
+            
+            //        UIImage *image = [[UIImage alloc]init];
+            //        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+            //        image = [UIImage imageWithData:data];
+            customCell.selfPhoto = url;
+        }
     }
     
+   
     
+   
     
-    if (customCell==nil) {
-        customCell=[[CustomTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:strId];
-    }
 //    [customCell setBackgroundColor:[UIColor colorWithRed:222.0/255.0f green:222.0/255.0f blue:221.0/255.0f alpha:1.0f]];
     [customCell setBackgroundColor:[UIColor whiteColor]];
     customCell.selectionStyle=UITableViewCellSelectionStyleNone;
