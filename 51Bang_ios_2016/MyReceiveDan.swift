@@ -205,17 +205,17 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         self.view.addSubview(TopView)
 
         
-        selectDate.frame = CGRectMake(WIDTH - 25, statuFrame.height + 10, 20, 20)
-        selectDate.setImage(UIImage.init(named: "ic_youxiaoqi"), forState: UIControlState.Normal)
-        selectDate.addTarget(self, action: #selector(self.selectDateAction), forControlEvents: UIControlEvents.TouchUpInside)
-        TopView.addSubview(selectDate)
+//        selectDate.frame = CGRectMake(WIDTH - 25, statuFrame.height + 10, 20, 20)
+//        selectDate.setImage(UIImage.init(named: "ic_youxiaoqi"), forState: UIControlState.Normal)
+//        selectDate.addTarget(self, action: #selector(self.selectDateAction), forControlEvents: UIControlEvents.TouchUpInside)
+//        TopView.addSubview(selectDate)
         
         
         
         
         
         
-        let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height + 10, 50,50 ))
+        let BackButton = UIButton.init(frame: CGRectMake(5, statuFrame.height , 50,50 ))
         BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Normal)
         BackButton.setImage(UIImage.init(named: "ic_fanhui-left"), forState: UIControlState.Selected)
         BackButton.addTarget(self, action: #selector(self.backAction), forControlEvents: UIControlEvents.TouchUpInside)
@@ -248,14 +248,14 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         TopView.addSubview(monthTip)
         
         let dayTip = UILabel()
-        dayTip.frame = CGRectMake(5, statuFrame.height + 40 + 70 + 10, 100, 30)
+        dayTip.frame = CGRectMake(15, statuFrame.height + 40 + 70 + 10, 100, 30)
         dayTip.text = "今日接单"
         dayTip.textColor = UIColor.whiteColor()
         dayTip.adjustsFontSizeToFitWidth  = true
         dayTip.font = UIFont.systemFontOfSize(15)
         TopView.addSubview(dayTip)
         
-        dayReceiveLabel.frame = CGRectMake(5, statuFrame.height + 40 + 10, 100, 60)
+        dayReceiveLabel.frame = CGRectMake(15, statuFrame.height + 40 + 10, 100, 60)
         if dataSource2?.daycount != nil {
              dayReceiveLabel.text = dataSource2?.daycount
         }else{

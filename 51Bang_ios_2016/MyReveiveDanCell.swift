@@ -23,12 +23,16 @@ class MyReceiveDanCell: UITableViewCell{
         super.init(style: UITableViewCellStyle.Default, reuseIdentifier: "MyReceiveDanCell")
         
         self.selectionStyle = UITableViewCellSelectionStyle.None
+        
         topView.frame = CGRectMake(0, 0, WIDTH, 40)
         middleView.frame = CGRectMake(0, 40, WIDTH, 90)
         bottomView.frame = CGRectMake(0, 120, WIDTH, 50)
         self.addSubview(topView)
         self.addSubview(middleView)
         self.addSubview(bottomView)
+        let view = UIView.init(frame: CGRectMake(0, 0, WIDTH, 2))
+        view.backgroundColor = COLOR
+        self.addSubview(view)
         
         let timLabel = UILabel.init(frame: CGRectMake(WIDTH - 100, 0, 95, 40))
         timLabel.textColor = UIColor.grayColor()
@@ -40,11 +44,11 @@ class MyReceiveDanCell: UITableViewCell{
             //            self.desc.text = str+"前有效"
         }
         topView.addSubview(timLabel)
-        let taNum = UILabel.init(frame: CGRectMake(0, 0, WIDTH - 100 , 40))
+        let taNum = UILabel.init(frame: CGRectMake(10, 0, WIDTH - 100 , 40))
         taNum.text = " 订单号" + Data.order_num!
         topView.addSubview(taNum)
         
-        let taName = UILabel.init(frame: CGRectMake(0, 0, WIDTH, 30))
+        let taName = UILabel.init(frame: CGRectMake(10, 0, WIDTH, 30))
         if Data.title! == "" {
             taName.text = ""
         }else{
@@ -56,7 +60,7 @@ class MyReceiveDanCell: UITableViewCell{
         
         let addImage = UIImageView()
         addImage.image = UIImage.init(named: "ic_fuwudidian")
-        addImage.frame = CGRectMake(5, 35, 15,15)
+        addImage.frame = CGRectMake(10, 35, 15,15)
         middleView.addSubview(addImage)
         
         let addressLabel = UILabel()
@@ -65,14 +69,14 @@ class MyReceiveDanCell: UITableViewCell{
         addressLabel.frame = CGRectMake(35, 30, WIDTH - 35, 30)
         middleView.addSubview(addressLabel)
         
-        let fuwuPay = UILabel.init(frame: CGRectMake(0, 0, 100, 20))
+        let fuwuPay = UILabel.init(frame: CGRectMake(10, 0, 100, 20))
         fuwuPay.text = " 服务费"
         fuwuPay.textColor = UIColor.grayColor()
         fuwuPay.textAlignment = NSTextAlignment.Left
         bottomView.addSubview(fuwuPay)
         
         
-        let Price = UILabel.init(frame: CGRectMake(0, 20, 100, 30))
+        let Price = UILabel.init(frame: CGRectMake(10, 20, 100, 30))
         Price.text = " ￥" + Data.price!
         Price.textColor = UIColor.redColor()
         Price.textAlignment = NSTextAlignment.Left
@@ -91,13 +95,13 @@ class MyReceiveDanCell: UITableViewCell{
         bottomView.addSubview(KindPay)
         
     
-        let stat = UILabel.init(frame: CGRectMake(WIDTH - 50, 0, 45, 20))
+        let stat = UILabel.init(frame: CGRectMake(WIDTH - 55, 0, 45, 20))
         stat.text = "订单状态"
         stat.textColor = UIColor.grayColor()
         stat.textAlignment  = NSTextAlignment.Left
         stat.adjustsFontSizeToFitWidth = true
         bottomView.addSubview(stat)
-        let ST = UILabel.init(frame: CGRectMake(WIDTH - 50, 20,45, 30))
+        let ST = UILabel.init(frame: CGRectMake(WIDTH - 55, 20,45, 30))
         ST.textColor = COLOR
 //        ST.text = "已抢单"
         if Data.state! == "2" {
