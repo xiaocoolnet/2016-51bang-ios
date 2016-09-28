@@ -9,6 +9,7 @@
 import UIKit
 import MBProgressHUD
 import AVFoundation
+import Alamofire
 
 var type = Int()
 class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,AVAudioRecorderDelegate,UITextFieldDelegate,UITextViewDelegate,TZImagePickerControllerDelegate{
@@ -195,7 +196,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         shiPin.setImage(UIImage(named: "ic_shipin"), forState: UIControlState.Normal)
         
         textView.addSubview(button)
-        textView.addSubview(yinPin)
+//        textView.addSubview(yinPin)//语音录制按钮
         //        textView.addSubview(shiPin)
         let line = UILabel.init(frame: CGRectMake(0, button.frame.size.height+button.frame.origin.y+10, WIDTH, 1))
         line.backgroundColor = RGREY
@@ -632,6 +633,24 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             print(mp3FilePath.absoluteString)
             
             let data = NSData.init(contentsOfFile: self.mp3FilePath.path!)
+            
+//            Alamofire.upload(.POST, "http://httpbin.org/post", file: self.mp3FilePath)
+            
+//            Alamofire.upload(.POST, Bang_URL_Header+"uploadRecord", file: self.mp3FilePath)
+            
+//            Alamofire.upload(.GET, Bang_URL_Header+"uploadRecord", data: data!)
+//                .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
+//                    print(totalBytesWritten)
+//                }
+//                .responseJSON(completionHandler: { (json) in
+//                    print(json)
+//                    //                    print(error)
+//                    
+//                })
+            
+            
+            
+            
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy:MM:dd:HH:mm:ss:SSS"
             let dateStr = dateFormatter.stringFromDate(NSDate())

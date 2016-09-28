@@ -704,7 +704,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         //        button.addGestureRecognizer(gesture)
         button.addTarget(self, action: #selector(self.goToCamera1(_:)), forControlEvents: .TouchUpInside)
         textView.addSubview(button)
-        textView.addSubview(yinPin)
+//        textView.addSubview(yinPin)//语音录制按钮
         yinPin.addTarget(self, action: #selector(self.startRecord), forControlEvents: .TouchUpInside)
 //        textView.addSubview(shiPin)
         let bottomView = UIView.init(frame: CGRectMake(0, textView.frame.size.height+textView.frame.origin.y, WIDTH, 10))
