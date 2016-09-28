@@ -321,6 +321,11 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
     
     func onGetSuggestionResult(searcher: BMKSuggestionSearch!, result: BMKSuggestionResult!, errorCode error: BMKSearchErrorCode) {
         print("建议代理")
+        
+        if result == nil{
+            return
+        }
+        
         if result.keyList == nil{
             return
         }

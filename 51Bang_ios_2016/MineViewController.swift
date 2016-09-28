@@ -50,6 +50,10 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.viewWillAppear(true)
         
         isShow = false
+        
+        let view = self.tabBarController?.tabBar.viewWithTag(888)
+        view?.removeFromSuperview()
+        
         //        backView.frame = CGRectMake(0, 64, WIDTH, HEIGHT)
         //        backView.backgroundColor = RGREY
         logVM = TCVMLogModel()
@@ -653,8 +657,18 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     self.loginSuccess()
                     self.getuserData()
                     self.Checktoubao()
-                    let udid = Double(UIDevice.currentDevice().systemVersion)
-                    if udid<9.0 {
+                    let udid = UIDevice.currentDevice().systemVersion
+                    var ns2 = String()
+                    print(udid)
+                    print(udid.characters.count)
+                    if udid.characters.count > 3 {
+                        ns2=(udid as NSString).substringToIndex(3)
+                    }else{
+                        ns2 = udid
+                    }
+                    
+                    print(ns2)
+                    if Double(ns2) < 9 {
                         let alertController = UIAlertController(title: "系统提示",
                             message: "建议使用iOS9.0以上版本体检更顺畅,是否去更新？（点击界面中的软件更新）", preferredStyle: .Alert)
                         let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
