@@ -79,7 +79,7 @@ class TCVMLogModel: NSObject {
                 sex:String,cardid:String,addr:String, handle:ResponseBlock){
         let url = Bang_URL_Header+"AppRegister"
         let paramDic = ["phone":phone,"password":password,
-                        "code":code,"name":name,"devicestate":"1"
+                        "code":code,"name":name,"devicestate":"1","sex":sex
                        ]
         requestManager?.GET(url, parameters: paramDic, success: { (task, response) in
             let result = Http(JSONDecoder(response!))

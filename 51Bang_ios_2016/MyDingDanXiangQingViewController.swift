@@ -11,6 +11,7 @@ import UIKit
 class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,ChangeWordDelegate{
     
     var sign = Int()
+    var isDingdan = Bool()
     var citynameStr = String()
     let myTableView = TPKeyboardAvoidingTableView()
     let textField = UITextField()
@@ -209,7 +210,15 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                     name = ud.objectForKey("name")as!String
                 }
 //                let name = ud.objectForKey("name")as!String
-                cell.name.text = name
+                if isDingdan {
+                    if info.username != nil {
+                        cell.name.text = info.username! as String
+                    }
+                    
+                }else{
+                    cell.name.text = name
+                }
+                
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("CNEE")as! CNEETableViewCell
@@ -217,7 +226,15 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 let phone = ud.objectForKey("phone")as!String
                 cell.CNEE.text = "联系电话"
                 cell.selectionStyle = .None
-                cell.name.text = phone
+                if isDingdan {
+                    if info.mobile != nil {
+                        cell.name.text = info.mobile! as String
+                    }
+                    
+                }else{
+                    cell.name.text = phone
+                }
+//                cell.name.text = phone
                 return cell
             }
             //            else{

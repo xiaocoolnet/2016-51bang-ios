@@ -394,7 +394,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! YwcTableViewCell
                 cell.goZhuye.addTarget(self, action: #selector(self.GoZhuyeAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-                cell.goZhuye.tag = indexPath.row+500
+                cell.goZhuye.tag = indexPath.section+500
                 cell.setValueWithInfo(self.dataSource1![indexPath.section])
                 cell.selectionStyle = .None
                 cell.pingjia.hidden = true
@@ -424,6 +424,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func GoZhuyeAction(sender:UIButton){
         let vc = FuWuHomePageViewController()
         vc.isUserid = true
+        print(sender.tag-500)
         print(self.dataSource1![sender.tag-500].apply!.userid)
         if self.dataSource1![sender.tag-500].apply!.userid != nil {
             vc.userid = self.dataSource1![sender.tag-500].apply!.userid!

@@ -119,6 +119,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         
         
+        
+        
+        
     }
     
     
@@ -154,6 +157,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     override func viewDidLoad() {
         super.viewDidLoad()
         dingWeiStr = "0"
+        
         
         self.flagLocation = self.savedLocation
         let function = BankUpLoad()
@@ -255,6 +259,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             let alertController = UIAlertController(title: "系统提示",
                                                     message: "您附近有新订单，是否查看？", preferredStyle: .Alert)
             let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            
+            
+            
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             self.tabBarController?.selectedIndex = 0
@@ -284,7 +291,24 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
             let alertController = UIAlertController(title: "系统提示",
                                                     message: "您有新的留言，是否查看？", preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .Default,  handler: { action in
+                let badgeView = UIView()
+                badgeView.layer.masksToBounds = true
+                badgeView.layer.cornerRadius = 5
+                badgeView.tag = 888
+                badgeView.backgroundColor = UIColor.redColor()
+                let tarFrame = self.tabBarController?.tabBar.frame
+                
+                //        let percentX  = 4.6/4
+                let x = ceilf(0.92 * Float(tarFrame!.size.width))
+                let y = ceilf(0.2*Float(tarFrame!.size.height))
+                badgeView.frame = CGRectMake(CGFloat(x), CGFloat(y), 10, 10)
+                print(x)
+                print(y)
+                self.tabBarController?.tabBar.addSubview(badgeView)
+                
+                
+            })
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             let ud = NSUserDefaults.standardUserDefaults()
@@ -434,7 +458,24 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
             let alertController = UIAlertController(title: "系统提示",
                                                     message: warningStr, preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .Default,  handler: { action in
+                let badgeView = UIView()
+                badgeView.layer.masksToBounds = true
+                badgeView.layer.cornerRadius = 5
+                badgeView.tag = 888
+                badgeView.backgroundColor = UIColor.redColor()
+                let tarFrame = self.tabBarController?.tabBar.frame
+                
+                //        let percentX  = 4.6/4
+                let x = ceilf(0.92 * Float(tarFrame!.size.width))
+                let y = ceilf(0.2*Float(tarFrame!.size.height))
+                badgeView.frame = CGRectMake(CGFloat(x), CGFloat(y), 10, 10)
+                print(x)
+                print(y)
+                self.tabBarController?.tabBar.addSubview(badgeView)
+                
+                
+            })
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             
@@ -480,7 +521,24 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
             let alertController = UIAlertController(title: "系统提示",
                                                     message: warningStr, preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .Default,  handler: { action in
+                let badgeView = UIView()
+                badgeView.layer.masksToBounds = true
+                badgeView.layer.cornerRadius = 5
+                badgeView.tag = 888
+                badgeView.backgroundColor = UIColor.redColor()
+                let tarFrame = self.tabBarController?.tabBar.frame
+                
+                //        let percentX  = 4.6/4
+                let x = ceilf(0.92 * Float(tarFrame!.size.width))
+                let y = ceilf(0.2*Float(tarFrame!.size.height))
+                badgeView.frame = CGRectMake(CGFloat(x), CGFloat(y), 10, 10)
+                print(x)
+                print(y)
+                self.tabBarController?.tabBar.addSubview(badgeView)
+                
+                
+            })
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             
@@ -526,7 +584,24 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
             let alertController = UIAlertController(title: "系统提示",
                                                     message: warningStr, preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .Default,  handler: { action in
+                let badgeView = UIView()
+                badgeView.layer.masksToBounds = true
+                badgeView.layer.cornerRadius = 5
+                badgeView.tag = 888
+                badgeView.backgroundColor = UIColor.redColor()
+                let tarFrame = self.tabBarController?.tabBar.frame
+                
+                //        let percentX  = 4.6/4
+                let x = ceilf(0.92 * Float(tarFrame!.size.width))
+                let y = ceilf(0.2*Float(tarFrame!.size.height))
+                badgeView.frame = CGRectMake(CGFloat(x), CGFloat(y), 10, 10)
+                print(x)
+                print(y)
+                self.tabBarController?.tabBar.addSubview(badgeView)
+                
+                
+            })
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             
@@ -554,17 +629,20 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         var warningStr = String()
         
         if ids == "1" {
-            warningStr = "您的订单已被接单，是否查看？"
+            warningStr = "您有新订单，是否查看？"
             //            vc.sign = 2
             
         }else if ids == "2"{
-            warningStr = "您的订单已发货，是否查看？"
+            warningStr = "顾客取消了订单，是否查看？"
             //            vc.sign = 3
         }else if ids == "3"{
-            warningStr = "您的订单已消费，是否查看？"
+            warningStr = "顾客已付款，是否查看？"
             //       vc.sign = 3
         }else if ids == "4"{
-            warningStr = "您的订单商家回复你的评论，是否查看？"
+            warningStr = "顾客已经确认消费，是否查看？"
+            //       vc.sign = 3
+        }else if ids == "5"{
+            warningStr = "顾客已经对您进行了评价，是否查看？"
             //       vc.sign = 3
         }
         //        else if ids == "4"{
@@ -574,7 +652,24 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
             let alertController = UIAlertController(title: "系统提示",
                                                     message: warningStr, preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "取消", style: .Default,  handler: { action in
+                let badgeView = UIView()
+                badgeView.layer.masksToBounds = true
+                badgeView.layer.cornerRadius = 5
+                badgeView.tag = 888
+                badgeView.backgroundColor = UIColor.redColor()
+                let tarFrame = self.tabBarController?.tabBar.frame
+                
+                //        let percentX  = 4.6/4
+                let x = ceilf(0.92 * Float(tarFrame!.size.width))
+                let y = ceilf(0.2*Float(tarFrame!.size.height))
+                badgeView.frame = CGRectMake(CGFloat(x), CGFloat(y), 10, 10)
+                print(x)
+                print(y)
+                self.tabBarController?.tabBar.addSubview(badgeView)
+                
+                
+            })
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             

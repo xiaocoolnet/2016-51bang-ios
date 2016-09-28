@@ -397,6 +397,9 @@
             "phone":phone
         ];
         
+//        Alamofire.upload(<#T##URLRequest: URLRequestConvertible##URLRequestConvertible#>, data: <#T##NSData#>)
+        
+        
         
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)

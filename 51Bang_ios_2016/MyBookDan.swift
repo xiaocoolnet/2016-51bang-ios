@@ -504,6 +504,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         let vc = MyDingDanXiangQingViewController()
         vc.sign = sign
+        vc.isDingdan = true
         vc.isSigle = self.isNotSigle
         if(sign == 0)
         {

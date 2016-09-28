@@ -971,6 +971,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 myLabel2.removeFromSuperview()
                 cell.title.text = "配送方式"
                 myLabel2 = UILabel.init(frame: CGRectMake(108, 8, 200, 30))
+                cell.button.userInteractionEnabled = false
                 myLabel2.textColor = UIColor.blackColor()
                 myLabel2.font = UIFont.systemFontOfSize(13)
                 myLabel2.text = typeLabelStr
