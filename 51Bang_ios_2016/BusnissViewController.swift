@@ -507,7 +507,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.myfabu()
         }
         if indexPath.row == 0 {
-            let opt = BMKOpenWalkingRouteOption()
+            let opt = BMKOpenDrivingRouteOption()
             opt.appScheme = "a51bang://a51bang"
             let start = BMKPlanNode()
             var coor1 = CLLocationCoordinate2D.init()
@@ -520,7 +520,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 coor1.latitude = CLLocationDegrees(latitude as! String)!
                 coor1.longitude = CLLocationDegrees(longitude as! String)!
             }else{
-                alert("地址不能为空", delegate: self)
+                alert("请打开定位", delegate: self)
                 return
             }
             
@@ -528,7 +528,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             if address != nil {
                 start.name = address as! String
             }else{
-                alert("地址不能为空", delegate: self)
+                alert("请打开定位", delegate: self)
                 return
             }
             //            start.name = self.info.address!
@@ -560,7 +560,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             opt.endPoint = end
             
             
-            BMKOpenRoute.openBaiduMapWalkingRoute(opt)
+            BMKOpenRoute.openBaiduMapDrivingRoute(opt)
             
             
             

@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import MBProgressHUD
 
 class RushHelper: NSObject {
 
@@ -35,6 +36,63 @@ class RushHelper: NSObject {
             
         }
      }
+    
+    //获取用户技能
+    func getSkillListByUserId(userid:String, handle:ResponseBlock){
+        
+        let url = Bang_URL_Header+"getSkillListByUserId"
+        let param = [
+            "userid":userid
+        ];
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = XGSkillListModel(JSONDecoder(json!))
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+//                    print(result.datas)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    
+    //修改用户技能
+    func UpdataUserSkill(userid:String,type:String, handle:ResponseBlock){
+        
+        let url = Bang_URL_Header+"UpdataUserSkill"
+        let param = [
+            "userid":userid,
+            "type":type
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
     
     
     func getAuthenticationInfoByUserId(userid:String, handle:ResponseBlock){

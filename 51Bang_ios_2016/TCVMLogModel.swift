@@ -21,9 +21,9 @@ class TCVMLogModel: NSObject {
         requestManager?.responseSerializer = AFHTTPResponseSerializer()
     }
     //登录
-    func login(phoneNum:String,password:String,handle:ResponseBlock){
+    func login(phoneNum:String,password:String,registrationID:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"applogin"
-        let paramDic = ["phone":phoneNum,"password":password]
+        let paramDic = ["phone":phoneNum,"password":password,"registrationID":registrationID]
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
              let result = TCUserInfoModel(JSONDecoder(json!))

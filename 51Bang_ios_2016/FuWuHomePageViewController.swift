@@ -108,7 +108,7 @@ class FuWuHomePageViewController: UIViewController {
             self.view.addSubview(view2)
             
         }
-        view2.frame.size.height = (CGFloat((self.dataSource?.count)!-1)/5+1)*WIDTH*35/375+(CGFloat((self.dataSource?.count)!-1)/5+2)*margin
+        view2.frame.size.height = (CGFloat((self.dataSource?.count)!+4)/5)*WIDTH*35/375
         self.view.addSubview(view2)
     }
     

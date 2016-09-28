@@ -31,6 +31,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     let FMArr1 = ["baishihuitong","yundakuaidi","zhongtongkuaidi","shentongkuaidi","tiantiankuaidi","yuantongkuaidi","shunfengkuaidi","quanfengkuaidi","zhaijisong","ems"]
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         getData()
 //        headerRefresh()
         self.tabBarController?.tabBar.hidden = true

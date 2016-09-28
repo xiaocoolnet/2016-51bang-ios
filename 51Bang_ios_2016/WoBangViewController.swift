@@ -280,7 +280,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
     func pushMapButton(sender:UIButton){
         
         
-        let opt = BMKOpenWalkingRouteOption()
+        let opt = BMKOpenDrivingRouteOption()
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
@@ -336,7 +336,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
+        BMKOpenRoute.openBaiduMapDrivingRoute(opt)
 //        let locationVc = LocationViewController.init()
 ////        LocationViewController.myAddressOfpoint = self.dataSource![sender.tag].address!
 ////        let latitudeStr1 = self.dataSource![sender.tag].latitude! as NSString
@@ -367,7 +367,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         
         
         
-        let opt = BMKOpenWalkingRouteOption()
+        let opt = BMKOpenDrivingRouteOption()
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
@@ -416,7 +416,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         opt.endPoint = end
         
         
-        BMKOpenRoute.openBaiduMapWalkingRoute(opt)
+        BMKOpenRoute.openBaiduMapDrivingRoute(opt)
         
 //        let locationVc = LocationViewController.init()
 //        locationVc.isWobangPush = true

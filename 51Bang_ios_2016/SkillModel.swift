@@ -35,6 +35,33 @@ class SkillListModel: JSONJoy{
     }
 
 
+class XGSkillListModel: JSONJoy{
+    var status:String?
+    var data: SkillModel?
+//    var datas = Array<SkillModel>()
+    var errorData:String?
+    init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success" {
+            data = SkillModel(decoder["data"])
+//            for childs: JSONDecoder in decoder["data"].array!{
+//                print(childs)
+//                print(SkillModel(childs))
+//                datas.append(SkillModel(childs))
+//                print(datas)
+//                //                    array.append(SkillModel(childs))
+//            }
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+    }
+}
+
+
 
 class RZBAAModel: JSONJoy{
     var status:String?
@@ -70,9 +97,12 @@ class SkillModel: JSONJoy {
     var parent:String?
     var listorder:String?
     var clist:[ClistInfo]
+    var skilllist:[SkilllistModel]
+    
     init(){
         
         clist = Array<ClistInfo>()
+        skilllist = Array<SkilllistModel>()
     }
     
     required init(_ decoder: JSONDecoder){
@@ -83,15 +113,26 @@ class SkillModel: JSONJoy {
         parent = decoder["parent"].string
         listorder = decoder["listorder"].string
         clist = Array<ClistInfo>()
+        skilllist = Array<SkilllistModel>()
+        
         if decoder["clist"].array != nil {
             for childs: JSONDecoder in decoder["clist"].array!{
                 self.clist.append(ClistInfo(childs))
             }
         }
+        if decoder["skilllist"].array != nil {
+            for childs: JSONDecoder in decoder["skilllist"].array!{
+                self.skilllist.append(SkilllistModel(childs))
+            }
+        }
     }
-    func addpend(list: [ClistInfo]){
-        self.clist = list + self.clist
-    }
+//    func addpend(list: [ClistInfo]){
+//        self.clist = list + self.clist
+//        
+//    }
+//    func addpends(list: [ClistInfo]){
+//        self.skilllist = list + self.skilllist
+//    }
     
     }
 
