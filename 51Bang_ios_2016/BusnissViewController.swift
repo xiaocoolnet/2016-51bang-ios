@@ -56,7 +56,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         //        self.navigationController?.navigationBar.hidden = true
         //        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         createRightNavi()
-        
+        headerView.favorite.userInteractionEnabled = true
     }
     
     func orderList(){
@@ -393,6 +393,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         headerView.favorite.addTarget(self, action: #selector(self.favorite), forControlEvents: UIControlEvents.TouchUpInside)
         headerView.favorite.tag = 10
+        headerView.favorite.userInteractionEnabled = true
         print(isFavorite)
         //        if loginSign == 1 {
         //
@@ -964,7 +965,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
     
     func favorite(){
-        
+        headerView.favorite.userInteractionEnabled = false
         print(loginSign)
         if loginSign == 0 {
             
@@ -989,6 +990,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     print(response)
                     let button = self.view.viewWithTag(10)as! UIButton
                     button.setImage(UIImage(named: "ic_yishoucang"), forState: UIControlState.Normal)
+                    alert("已收藏", delegate: self)
+                    self.headerView.favorite.userInteractionEnabled = true
                     isFavorite = true
                     ud.setObject(isFavorite, forKey: uid)
                 }
@@ -999,6 +1002,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     print(response)
                     let button = self.view.viewWithTag(10)as! UIButton
                     button.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
+                    alert("已取消", delegate: self)
+                    self.headerView.favorite.userInteractionEnabled = true
                     isFavorite = false
                     ud.setObject(isFavorite, forKey: uid)
                 })

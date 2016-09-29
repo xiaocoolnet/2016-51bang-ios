@@ -182,7 +182,7 @@ class Wallect: UIViewController {
         line1.backgroundColor = RGREY
         let headerImageView3  = UIImageView()
         headerImageView3.frame = CGRectMake(30, (50-17)/2+70-5+60, 18, 17)
-        headerImageView3.image = UIImage(named: "ic_wodejiedan")
+        headerImageView3.image = UIImage(named: "ic_bangdingyinhangka")
         let label3 = UILabel.init(frame: CGRectMake(30+25, 70-5+60, 120,50))
         label3.text = "绑定提现账户"
         let button3 = UIButton.init(frame: CGRectMake(WIDTH-40, 70+60, 20, 40))

@@ -202,7 +202,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 8
+        return 7
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -216,27 +216,23 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
             cell.desc.text = myInfo.order_num
             
         }else if indexPath.row == 1{
-        
-            cell.title.text = "完成码"
-            cell.desc.text = myInfo.order_num
-        }else if indexPath.row == 2{
             
             cell.title.text = "任务"
             cell.desc.text = myInfo.title
-        }else if indexPath.row == 3{
+        }else if indexPath.row == 2{
             
             cell.title.text = "服务费"
             cell.desc.text = myInfo.price
-        }else if indexPath.row == 4{
+        }else if indexPath.row == 3{
             
             cell.title.text = "联系电话"
             cell.desc.text = myInfo.apply?.phone
             
-        }else if indexPath.row == 5{
+        }else if indexPath.row == 4{
             
             cell.title.text = "上门地址"
             cell.desc.text = myInfo.address
-        }else if indexPath.row == 6{
+        }else if indexPath.row == 5{
             
             cell.title.text = "服务地址"
             cell.desc.text = myInfo.address

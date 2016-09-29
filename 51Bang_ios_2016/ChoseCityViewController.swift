@@ -16,10 +16,14 @@ class ChoseCityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
+        
         pickerView.frame = CGRectMake(0, 50, WIDTH, self.view.frame.size.height-300)
-        button.frame = CGRectMake(WIDTH/2-WIDTH*40/375, pickerView.frame.size.height+pickerView.frame.origin.y,WIDTH*80/375, WIDTH*40/375)
+        button.frame = CGRectMake(50, pickerView.frame.size.height+pickerView.frame.origin.y,WIDTH-100, WIDTH*40/375)
+        button.clipsToBounds = true
+        button.cornerRadius = 10
         button.setTitle("确定", forState: UIControlState.Normal)
-        button.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+        button.backgroundColor = COLOR
+        button.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(self.click), forControlEvents: UIControlEvents.TouchUpInside)
 //        button.backgroundColor = UIColor.redColor()
 //        pickerView.backgroundColor = UIColor.redColor()
