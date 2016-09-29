@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -62,7 +62,7 @@
                             <constraint firstAttribute="width" constant="42" id="eOO-sx-Fb5"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <state key="normal" title="帮我跑">
+                        <state key="normal">
                             <color key="titleColor" red="0.13696810139999999" green="0.74238782049999996" blue="0.58327240130000002" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
@@ -397,6 +397,7 @@
                 <outlet property="time" destination="2QA-Re-Vq3" id="4aU-gH-elS"/>
                 <outlet property="title" destination="Cl0-XS-dUM" id="QQx-Dp-opw"/>
                 <outlet property="topView" destination="RFe-tI-MHX" id="Iwv-mj-I5x"/>
+                <outlet property="typeLabel" destination="5wc-rS-2ir" id="OLm-7x-XWt"/>
                 <outlet property="username" destination="TZO-lZ-YcM" id="Xaa-FZ-cL0"/>
             </connections>
             <point key="canvasLocation" x="45.5" y="470"/>

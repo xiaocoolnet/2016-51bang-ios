@@ -66,24 +66,33 @@
     NSString *nowTime=[forMatter stringFromDate:nowdate];
     
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSString *userid = [user objectForKey:@"userid"];
+    NSString *userid = [NSString stringWithFormat:@"%@", [user objectForKey:@"userid"]];
     
     
     if  (_datasource2 != nil){
         for (int i = 0; i<_datasource2.count; i++) {
             
             NSMutableDictionary *dicValues=[NSMutableDictionary dictionary];
-            dicValues[@"desc"]=[_datasource2[i] objectForKey:@"content"];
+            dicValues[@"desc"]=[NSString stringWithFormat:@"%@",[_datasource2[i] objectForKey:@"content"]];
             dicValues[@"time"]=[_datasource2[i] objectForKey:@"time"];
-            if ([_datasource2[i] objectForKey:@"send_uid"] == userid){
-                //            dicValues[@"imageName"]=@"girl";
+            
+            if ([[NSString stringWithFormat:@"%@",[_datasource2[i] objectForKey:@"send_uid"]] isEqualToString:userid]){
+                            dicValues[@"imageName"]=@"girl";
                 dicValues[@"person"]=[NSNumber numberWithBool:1];
+//                mess.person = YES;
             }else{
-                //            dicValues[@"imageName"]=@"boy";
+                            dicValues[@"imageName"]=@"boy";
                 dicValues[@"person"]=[NSNumber numberWithBool:0];
+//                mess.person = NO;
             }
+            NSLog(@"%@",[NSString stringWithFormat:@"%@",[_datasource2[i] objectForKey:@"time"]]);
+            if ([[NSString stringWithFormat:@"%@",[_datasource2[i] objectForKey:@"time"]] isEqualToString:@"(null)"]) {
+                
+            }
+            NSLog(@"%@",dicValues);
             messModel *mess=[[messModel alloc]initWithModel:dicValues];
             modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:[self timeIsEqual:nowTime]];
+//            frameModel.myself = YES;
             [self.arrModelData addObject:frameModel];
             
         }

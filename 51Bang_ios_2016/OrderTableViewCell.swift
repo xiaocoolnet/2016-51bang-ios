@@ -24,6 +24,7 @@ class OrderTableViewCell: UITableViewCell {
     
     @IBOutlet weak var desc: UILabel!
     
+    @IBOutlet weak var typeLabel: UIButton!
     @IBOutlet weak var username: UILabel!
     
     @IBOutlet weak var price: UILabel!
@@ -63,33 +64,35 @@ class OrderTableViewCell: UITableViewCell {
             self.snatchButton.enabled = true
         }
         
-        if info.title != "" || info.title != nil{
+        if info.title != "" && info.title != nil{
             self.title.text = info.title
         }
-        if info.price != "" || info.price != nil{
+        if info.price != "" && info.price != nil{
             self.price.text = info.price
         }
-        if info.expirydate != "" || info.expirydate != nil{
+        if info.expirydate != "" && info.expirydate != nil{
             self.desc.text = info.expirydate
         }
-        if info.address != "" || info.address != nil{
+        if info.address != "" && info.address != nil{
             self.location.text = info.address
         }
-        if info.saddress != "" || info.saddress != nil{
+        if info.saddress != "" && info.saddress != nil{
             self.fuwudidian.text = info.saddress
         }
-        if info.name != "" || info.name != nil{
+        if info.name != "" && info.name != nil{
             self.username.text = info.name        }
         
+        if info.type_parentname != "" && info.type_parentname != nil{
+            self.typeLabel.setTitle(info.type_parentname!, forState: .Normal)
+        }
         
         
-        
-        if info.expirydate != "" || info.expirydate != nil{
+        if info.expirydate != "" && info.expirydate != nil{
             let str = timeStampToString(info.expirydate!)
 //            self.time.text = str
             self.desc.text = str+"前有效"
         }
-        if info.time != "" || info.time != nil{
+        if info.time != "" && info.time != nil{
             let str = timeStampToString(info.time!)
             self.time.text = str
 //            self.desc.text = str+"前有效"

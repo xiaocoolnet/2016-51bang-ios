@@ -745,10 +745,14 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func certificationType(notification:NSNotification){
         let ids = notification.object?.valueForKey("name") as? String
         if ids == "1" {
+            let function = BankUpLoad()
+            function.CheckRenzheng()
             alert("身份认证成功", delegate: self)
         }else if ids == "2"{
             alert("身份认证失败", delegate: self)
         }else if ids == "3"{
+            let vc = MineViewController()
+            vc.Checktoubao()
             alert("保险认证成功", delegate: self)
         }else if ids == "4"{
             alert("保险认证失败", delegate: self)

@@ -177,7 +177,7 @@ class TaskInfo: JSONJoy {
     var pic:[PicInfos]?
     var record:String?
     var state :String?
-    
+    var type_parentname:String?
    
     
     init(){
@@ -216,6 +216,7 @@ class TaskInfo: JSONJoy {
         idcard = decoder["idcard"].string
         files = decoder["files"].string
         evaluate = decoder["evaluate"].string
+        type_parentname = decoder["type_parentname"].string
         
 
 
