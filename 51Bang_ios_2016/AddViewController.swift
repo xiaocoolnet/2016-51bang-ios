@@ -841,7 +841,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tableView.tag == 1 {
-            return 30
+            return 40
         }
         return 50
     }
@@ -1023,8 +1023,9 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell?.textLabel?.text = array[indexPath.row].name
             //            cell!.accessoryType = .DisclosureIndicator
             cell?.selectedBackgroundView = UIView.init(frame: (cell?.frame)!)
-            cell?.selectedBackgroundView?.backgroundColor = RGREY
-            
+            cell?.backgroundColor = RGREY
+            cell?.selectedBackgroundView?.backgroundColor = UIColor.whiteColor()
+            cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             return cell!
         }else{
             tableView.separatorStyle = .None
@@ -1113,9 +1114,11 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         leftTableView.tag = 1
         leftTableView.delegate = self
         leftTableView.dataSource = self
+        leftTableView.separatorStyle = .None
+        leftTableView.backgroundColor = RGREY
         leftTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "leftTableView")
         //        view.addSubview(leftTableView)
-        leftTableView.backgroundColor = UIColor.whiteColor()
+        
         rightTableView.frame = CGRectMake(WIDTH/2, 0, WIDTH/2, leftTableView.frame.size.height)
         rightTableView.backgroundColor = UIColor.grayColor()
         rightTableView.tag = 2

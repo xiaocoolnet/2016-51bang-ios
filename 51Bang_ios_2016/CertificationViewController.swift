@@ -152,7 +152,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
             //建立手势识别器
             let gesture = UITapGestureRecognizer(target: self, action: #selector(CertificationViewController.viewTap(_:)))
             //附加识别器到视图
-            cell.city.addGestureRecognizer(gesture)
+            cell.addGestureRecognizer(gesture)
             cell.selectionStyle = .None
             let city = NSUserDefaults.standardUserDefaults()
             
@@ -242,16 +242,15 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         
     }
     
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        if indexPath.row == 0 && indexPath.section == 0{
+//            
+//        }
+//    }
+    
     func viewTap(sender: UITapGestureRecognizer) {
         self.choseCity()
     }
-    
-    //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    //        if indexPath.section == 0{
-    //
-    //
-    //        }
-    //    }
     
     
     func choseCity(){

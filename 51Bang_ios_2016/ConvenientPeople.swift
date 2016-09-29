@@ -33,7 +33,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         getData()
-//        headerRefresh()
+        headerRefresh()
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = false
         convenienceTable.userInteractionEnabled = true

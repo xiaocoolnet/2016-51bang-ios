@@ -233,7 +233,7 @@
                         <color key="textColor" red="0.27058823529411763" green="0.77647058823529413" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J34-1d-24Z">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J34-1d-24Z">
                         <rect key="frame" x="61" y="220" width="66" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="66" id="XwG-DY-qbO"/>
@@ -360,11 +360,11 @@
                         <exclude reference="wES-t1-zR0"/>
                         <exclude reference="2oi-0O-rK7"/>
                         <exclude reference="Z1O-mz-oWc"/>
+                        <exclude reference="Utv-9p-Yb8"/>
+                        <exclude reference="lpB-LK-iVG"/>
                         <exclude reference="6NT-n6-iFC"/>
                         <exclude reference="MCm-N5-7xK"/>
                         <exclude reference="bCI-nV-1Gf"/>
-                        <exclude reference="Utv-9p-Yb8"/>
-                        <exclude reference="lpB-LK-iVG"/>
                         <exclude reference="35U-MW-doP"/>
                         <exclude reference="M83-MH-Ifn"/>
                         <exclude reference="Ctb-25-3U5"/>

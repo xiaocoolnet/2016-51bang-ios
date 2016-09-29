@@ -67,6 +67,10 @@ class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDat
         cell.addSubview(lookPhotosImageView)
         return cell
     }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

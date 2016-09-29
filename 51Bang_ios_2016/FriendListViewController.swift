@@ -58,7 +58,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         
         //        let view = UIView.init(frame: CGRectMake(0, 0, <#T##width: CGFloat##CGFloat#>, <#T##height: CGFloat##CGFloat#>))
         self.view.backgroundColor = UIColor.whiteColor()
-           self.GetData()
+//           self.GetData()
         
         
         // Do any additional setup after loading the view.
@@ -111,7 +111,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.view.addSubview(self.myTableView)
                 self.myTableView.reloadData()
              
-                
+                self.GetData()
 
                 
             })
@@ -131,6 +131,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                     hud.hide(true)
                     return
                 }
+                
                 hud.hide(true)
                 print(response)
                 self.myTableView.mj_header.endRefreshing()
@@ -158,76 +159,136 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.headerView.button3.addTarget(self, action: #selector(self.onClick3), forControlEvents: .TouchUpInside)
                 self.myTableView.tableHeaderView = self.headerView
                 self.myTableView.reloadData()
+                self.createrTableViewUI()
                 
             })
             })
     }
     
+    //MARK:--创建选择列表
+    
+    func createrTableViewUI(){
+        coverView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, HEIGHT-48)
+        coverView.backgroundColor = UIColor.grayColor()
+        coverView.alpha = 0.5
+        coverView.hidden = true
+        middleTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,0)
+        middleTableView.tag = 2
+        middleTableView.delegate = self
+        middleTableView.dataSource = self
+        middleTableView.separatorStyle = .None
+        middleTableView.registerNib(UINib(nibName: "FuWuTableViewCell",bundle: nil), forCellReuseIdentifier: "FuWu")
+        middleTableView.backgroundColor = UIColor.whiteColor()
+        leftTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH/3,0)
+        leftTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        leftTableView.tag = 1
+        leftTableView.delegate = self
+        leftTableView.dataSource = self
+        leftTableView.registerNib(UINib(nibName: "QuanBuFenLeiTableViewCell",bundle: nil), forCellReuseIdentifier: "QuanBuFenLei")
+        leftTableView.backgroundColor = UIColor.whiteColor()
+        
+        rightTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,0)
+        rightTableView.tag = 3
+        rightTableView.delegate = self
+        rightTableView.dataSource = self
+        rightTableView.separatorStyle = .None
+        rightTableView.registerNib(UINib(nibName: "FuWuTableViewCell",bundle: nil), forCellReuseIdentifier: "FuWu")
+        rightTableView.backgroundColor = UIColor.whiteColor()
+        //        self.view.addSubview(coverView)
+        self.view.addSubview(coverView)
+        self.view.addSubview(rightTableView)
+        
+        //        self.view.addSubview(coverView)
+        self.view.addSubview(leftTableView)
+        
+        
+        self.view.addSubview(middleTableView)
+    }
+    
+    
     func onClick1(){
         if isShow2 == true {
-            coverView.removeFromSuperview()
-            middleTableView.removeFromSuperview()
+
+            coverView.hidden = true
+            UIView.animateWithDuration(0.5, animations: {
+                
+                self.middleTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, 0)
+            })
+
             isShow2 = false
         }
         if isShow3 == true {
-            coverView.removeFromSuperview()
-            rightTableView.removeFromSuperview()
+            coverView.hidden = true
+            UIView.animateWithDuration(0.5, animations: {
+                
+                self.rightTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,0)
+            })
             isShow3 = false
         }
         if isShow1 == false {
-            coverView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, HEIGHT-48-64)
-            coverView.backgroundColor = UIColor.grayColor()
-            coverView.alpha = 0.8
-            leftTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH/3,HEIGHT-200)
-            leftTableView.tag = 1
-            leftTableView.delegate = self
-            leftTableView.dataSource = self
-            leftTableView.registerNib(UINib(nibName: "QuanBuFenLeiTableViewCell",bundle: nil), forCellReuseIdentifier: "QuanBuFenLei")
-            leftTableView.backgroundColor = UIColor.whiteColor()
+//            coverView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, HEIGHT-48-64)
+//            coverView.backgroundColor = UIColor.grayColor()
+//            coverView.alpha = 0.5
+//            self.leftTableView.hidden = false
+            self.coverView.hidden = false
+            UIView.animateWithDuration(0.5, animations: {
+                
+                
+                self.leftTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH/3,HEIGHT-WIDTH*50/375-64)
+            })
             
-            self.view.addSubview(coverView)
-            self.view.addSubview(leftTableView)
             isShow1 = true
         }else{
             
-            coverView.removeFromSuperview()
-            leftTableView.removeFromSuperview()
+            coverView.hidden = true
+            UIView.animateWithDuration(0.5, animations: {
+                
+                
+                self.leftTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH/3,0)
+            })
             isShow1 = false
             
         }
         
     }
     
+    
+   
+    
     func onClick2(){
         if isShow1 == true {
-            coverView.removeFromSuperview()
-            leftTableView.removeFromSuperview()
+            coverView.hidden = true
+            UIView.animateWithDuration(0.5, animations: {
+                
+                
+                self.leftTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH/3,0)
+            })
             isShow1 = false
         }
         if isShow3 == true {
-            coverView.removeFromSuperview()
-            rightTableView.removeFromSuperview()
+            coverView.hidden = true
+            UIView.animateWithDuration(0.5, animations: {
+                
+                self.rightTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,0)
+            })
             isShow3 = false
         }
         if isShow2 == false {
-            coverView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, HEIGHT-48)
-            coverView.backgroundColor = UIColor.grayColor()
-            coverView.alpha = 0.8
-            middleTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,30*CGFloat(middleArr.count))
-            middleTableView.tag = 2
-            middleTableView.delegate = self
-            middleTableView.dataSource = self
-            middleTableView.registerNib(UINib(nibName: "FuWuTableViewCell",bundle: nil), forCellReuseIdentifier: "FuWu")
-            middleTableView.backgroundColor = UIColor.whiteColor()
+            self.coverView.hidden = false
+            self.middleTableView.hidden = false
+            UIView.animateWithDuration(0.5, animations: {
+                
+                self.middleTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, 60*CGFloat(self.middleArr.count))
+            })
             
-            
-            self.view.addSubview(coverView)
-            self.view.addSubview(middleTableView)
             isShow2 = true
         }else{
             
-            coverView.removeFromSuperview()
-            middleTableView.removeFromSuperview()
+            coverView.hidden = true
+            UIView.animateWithDuration(0.5, animations: {
+                
+                self.middleTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, 0)
+            })
             isShow2 = false
             
         }
@@ -235,32 +296,40 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     func onClick3(){
         if isShow1 == true {
-            coverView.removeFromSuperview()
-            leftTableView.removeFromSuperview()
+            coverView.hidden = true
+            UIView.animateWithDuration(0.5, animations: {
+                
+                
+                self.leftTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH/3,0)
+            })
             isShow1 = false
         }
         if isShow2 == true {
-            coverView.removeFromSuperview()
-            middleTableView.removeFromSuperview()
+            coverView.hidden = true
+            UIView.animateWithDuration(0.5, animations: {
+                
+                self.middleTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, 0)
+            })
             isShow2 = false
         }
         if isShow3 == false {
-            coverView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, HEIGHT-48)
-            coverView.backgroundColor = UIColor.grayColor()
-            coverView.alpha = 0.8
-            rightTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,30*CGFloat(rightArr.count))
-            rightTableView.tag = 3
-            rightTableView.delegate = self
-            rightTableView.dataSource = self
-            rightTableView.registerNib(UINib(nibName: "FuWuTableViewCell",bundle: nil), forCellReuseIdentifier: "FuWu")
-            rightTableView.backgroundColor = UIColor.whiteColor()
-            self.view.addSubview(coverView)
-            self.view.addSubview(rightTableView)
+//            coverView.frame = CGRectMake(0, WIDTH*50/375, WIDTH, HEIGHT-48)
+//            coverView.backgroundColor = UIColor.grayColor()
+//            coverView.alpha = 0.5
+            self.coverView.hidden = false
+            self.rightTableView.hidden = false
+            UIView.animateWithDuration(0.5, animations: {
+                
+                self.rightTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,60*CGFloat(self.rightArr.count))
+            })
             isShow3 = true
         }else{
             
-            coverView.removeFromSuperview()
-            rightTableView.removeFromSuperview()
+            coverView.hidden = true
+            UIView.animateWithDuration(0.5, animations: {
+                
+                self.rightTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,0)
+            })
             isShow3 = false
             
         }
@@ -356,9 +425,14 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.myTableView {
+            if self.rzbDataSource == nil {
+                return 0
+            }
             return self.rzbDataSource!.count
         }else if tableView.tag == 1 {
-            
+            if self.dataSource == nil {
+                return 0
+            }
             return self.dataSource!.count+1
         }else if tableView.tag == 2{
             
@@ -373,9 +447,10 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if tableView.tag == 0 {
             return 175
+        }else if tableView.tag == 1{
+            return 50
         }else{
-            
-            return 30
+            return 60
         }
         
     }
@@ -392,14 +467,17 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             coverView.removeFromSuperview()
             leftTableView.removeFromSuperview()
             isShow1 = false
-            let view = self.view.viewWithTag(5)as? RenZhengBangHeaderViewCell
+            let cell = self.view.viewWithTag(5)as? RenZhengBangHeaderViewCell
+//            cell?.selectedBackgroundView = UIView.init(frame: (cell?.frame)!)
+////            cell?.backgroundColor = UIColor.whiteColor()
+//             cell?.selectedBackgroundView?.backgroundColor = UIColor.whiteColor()
             if indexPath.row == 0 {
-                view?.label1.text = "全部分类"
+                cell?.label1.text = "全部分类"
                 
                 self.types = ""
                 self.GetData1(self.sort, types: self.types)
             }else{
-                view?.label1.text = self.dataSource![indexPath.row-1].name
+                cell?.label1.text = self.dataSource![indexPath.row-1].name
                 self.types = self.dataSource![indexPath.row-1].id!
                 self.GetData1(self.sort, types: self.types)
             }

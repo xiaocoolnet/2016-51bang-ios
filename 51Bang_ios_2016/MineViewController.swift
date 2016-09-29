@@ -941,8 +941,22 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }else if indexPath.section == 3 {
             
             if indexPath.row == 0 {
-                let url1 = NSURL(string: "tel://4000608856")
-                UIApplication.sharedApplication().openURL(url1!)
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "是否要拨打电话4000608856？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                                             handler: { action in
+                                                
+                                                let url1 = NSURL(string: "tel://4000608856")
+                                                UIApplication.sharedApplication().openURL(url1!)
+                                                
+                                                
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+
+                
             }else{
                 let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                 let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("Ben\(indexPath.row+1)View")
