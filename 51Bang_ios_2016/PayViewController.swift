@@ -253,7 +253,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                 }
             }
-        }else{
+        }else if self.payMode == "微信"{
             //微信支付
             print("微信支付")
             
@@ -381,6 +381,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             //              self.payForWechat()
             //              let req = payRequsestHandler
             //              req.payForWechat()
+        }else{
+            alert("钱包支付", delegate: self)
         }
         
         
@@ -605,11 +607,16 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         cell.selectButton.addTarget(self, action: #selector(self.onClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         if indexPath.row == 0 {
             cell.title.text = "支付宝"
-        }else{
+        }else if indexPath.row == 1{
             
             cell.title.text = "微信"
             cell.iconImage.image = UIImage(named: "ic_weixin")
             cell.desc.text = "推荐安装微信5.0及以上版本的使用"
+            cell.bottomView.removeFromSuperview()
+        }else{
+            cell.title.text = "钱包"
+            cell.iconImage.image = UIImage(named: "ic_qianbao")
+            cell.desc.text = "如果余额足够可用钱包支付"
             cell.bottomView.removeFromSuperview()
         }
         return cell

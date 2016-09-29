@@ -351,6 +351,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func changeColorAndDeView(Btn:UIButton)
     {
         self.reloadMTableviwe(Btn.tag)
+        self.Btn.tag = Btn.tag
         self.headerRefresh()
         
     }
