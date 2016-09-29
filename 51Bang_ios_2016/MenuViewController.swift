@@ -203,6 +203,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func editAction(btn:UIButton){
         let addVC = AddViewController()
         addVC.isEdit = true
+        addVC.isEditsss = true
         addVC.myDatas = [self.dataSource![btn.tag-100]]
 //        print(self.dataSource![btn.tag-100].address)
 //        print(self.dataSource![btn.tag-100].goodsname)

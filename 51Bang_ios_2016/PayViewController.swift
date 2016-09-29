@@ -435,6 +435,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     print("成功")
                 }
                 hud.hide(true)
+                self.tabBarController?.selectedIndex = 0
                 let vc = WoBangPageViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -444,6 +445,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     print("成功")
                 }
                 hud.hide(true)
+                self.tabBarController?.selectedIndex = 3
                 let vc = MyBookDan()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -463,6 +465,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     print("成功")
                 }
                 hud.hide(true)
+                self.tabBarController?.selectedIndex = 0
                 let vc = WoBangPageViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -472,6 +475,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     print("成功")
                 }
                 hud.hide(true)
+                self.tabBarController?.selectedIndex = 3
                 let vc = MyBookDan()
                 self.navigationController?.pushViewController(vc, animated: true)
             })

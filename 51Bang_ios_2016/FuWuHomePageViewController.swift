@@ -83,7 +83,7 @@ class FuWuHomePageViewController: UIViewController {
     
     func createView(){
         
-        let view2 = UIView.init(frame: CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, 100))
+        let view2 = UIScrollView .init(frame: CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+10)))
         view2.backgroundColor = UIColor.whiteColor()
         let margin:CGFloat = (WIDTH-CGFloat(self.totalloc) * WIDTH*73/375)/(CGFloat(self.totalloc)+1);
         print(margin)
@@ -95,20 +95,28 @@ class FuWuHomePageViewController: UIViewController {
             let appviewy:CGFloat = margin+(margin+WIDTH*40/375) * CGFloat(row)
             let btn = UIButton()
             //            btn.backgroundColor = UIColor.redColor()
-            btn.frame = CGRectMake(appviewx, appviewy, WIDTH*70/375, WIDTH*30/375)
+            btn.frame = CGRectMake(appviewx-CGFloat(loc-1)*4, appviewy, WIDTH*70/375, WIDTH*30/375)
             btn.layer.cornerRadius = WIDTH*10/375
             btn.layer.borderWidth = 1
+            
             btn.layer.borderColor = UIColor.grayColor().CGColor
-            let label = UILabel.init(frame: CGRectMake(appviewx, appviewy, WIDTH*70/375, WIDTH*30/375))
+            let label = UILabel.init(frame: CGRectMake(appviewx-CGFloat(loc-1)*4, appviewy, WIDTH*70/375, WIDTH*30/375))
             //            label.backgroundColor = UIColor.redColor()
             label.text = self.dataSource![i].typename
             label.textAlignment = .Center
+            label.layer.masksToBounds = true
+            label.layer.borderColor = COLOR.CGColor
+            label.layer.borderWidth = 1
+            label.layer.cornerRadius = 5
+            label.textColor = COLOR
             //            view2.addSubview(btn)
             view2.addSubview(label)
-            self.view.addSubview(view2)
+            
             
         }
-        view2.frame.size.height = (CGFloat((self.dataSource?.count)!+4)/5)*WIDTH*35/375
+//        self.view.addSubview(view2)
+        let height1 = (CGFloat((self.dataSource?.count)!+4)/5)*(WIDTH*35/375 + 6)
+        view2.contentSize = CGSizeMake(WIDTH, height1)
         self.view.addSubview(view2)
     }
     

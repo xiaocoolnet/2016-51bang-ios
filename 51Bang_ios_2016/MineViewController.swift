@@ -16,7 +16,12 @@ protocol ViewControllerDelegate:NSObjectProtocol {
 var loginSign = 0
 class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSource ,MineDelegate{
     
-    
+    let badgeView1 = UIView()//小红点
+    let badgeView2 = UIView()//小红点
+    let badgeView3 = UIView()//小红点
+    let badgeView4 = UIView()//小红点
+    let badgeView5 = UIView()//小红点
+    let badgeView6 = UIView()//小红点
     var dataSource2 : Array<chatInfo>?
     
     let phone:String = "400608856"
@@ -56,8 +61,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         isShow = false
         
-        let view = self.tabBarController?.tabBar.viewWithTag(888)
-        view?.removeFromSuperview()
+        if self.badgeView1.hidden && self.badgeView2.hidden && self.badgeView3.hidden && self.badgeView4.hidden && self.badgeView5.hidden{
+            let view = self.tabBarController?.tabBar.viewWithTag(888)
+            view?.removeFromSuperview()
+        }
+        
+        
         
         //        backView.frame = CGRectMake(0, 64, WIDTH, HEIGHT)
         //        backView.backgroundColor = RGREY
@@ -143,6 +152,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.viewDidLoad()
         //检查是否登录过
         resignTongZhi()
+        badgeView1.hidden = true
+        badgeView2.hidden = true
+        badgeView3.hidden = true
+        badgeView4.hidden = true
+        badgeView5.hidden = true
+        badgeView6.hidden = true
         
         // Do any additional setup after loading the view.
     }
@@ -253,9 +268,24 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print(y)
                 self.tabBarController?.tabBar.addSubview(badgeView)
                 
-                let btn = self.myTableView.viewWithTag(3)
-                btn?.backgroundColor = UIColor.redColor()
                 
+                
+                self.badgeView1.layer.masksToBounds = true
+                self.badgeView1.layer.cornerRadius = 7
+                self.badgeView1.backgroundColor = UIColor.redColor()
+                self.badgeView1.frame = CGRectMake(WIDTH/3-45, 10, 14, 14)
+                
+                
+                let myindexPaths = NSIndexPath.init(forRow: 0, inSection: 0)
+                let cell = self.myTableView.cellForRowAtIndexPath(myindexPaths) as!MineTableViewCell
+                self.badgeView1.hidden = false
+                
+                
+//                dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: myindexPaths)as!MineTableViewCell
+                let btn = cell.viewWithTag(2) as! UIButton
+//                btn.setTitle("12121", forState: .Normal)
+//                btn.backgroundColor = UIColor.redColor()
+                btn.addSubview(self.badgeView1)
                 
             })
             let okAction = UIAlertAction(title: "确定", style: .Default,
@@ -423,6 +453,16 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print(y)
                 self.tabBarController?.tabBar.addSubview(badgeView)
                 
+                self.badgeView2.layer.masksToBounds = true
+                self.badgeView2.layer.cornerRadius = 5
+                self.badgeView2.backgroundColor = UIColor.redColor()
+                self.badgeView2.frame = CGRectMake(0, 0, 10, 10)
+                
+                self.badgeView2.hidden = false
+                let myindexPaths = NSIndexPath.init(forRow: 0, inSection: 1)
+                let cell = self.myTableView.cellForRowAtIndexPath(myindexPaths) as!MineTableViewCell
+                cell.mineFunction.addSubview(self.badgeView2)
+                
                 
             })
             let okAction = UIAlertAction(title: "确定", style: .Default,
@@ -486,6 +526,16 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print(y)
                 self.tabBarController?.tabBar.addSubview(badgeView)
                 
+                self.badgeView3.layer.masksToBounds = true
+                self.badgeView3.layer.cornerRadius = 5
+                self.badgeView3.backgroundColor = UIColor.redColor()
+                self.badgeView3.frame = CGRectMake(0, 0, 10, 10)
+                
+                self.badgeView3.hidden = false
+                let myindexPaths = NSIndexPath.init(forRow: 0, inSection: 2)
+                let cell = self.myTableView.cellForRowAtIndexPath(myindexPaths) as!MineTableViewCell
+                cell.mineFunction.addSubview(self.badgeView3)
+                
                 
             })
             let okAction = UIAlertAction(title: "确定", style: .Default,
@@ -548,6 +598,16 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print(x)
                 print(y)
                 self.tabBarController?.tabBar.addSubview(badgeView)
+                
+                self.badgeView4.layer.masksToBounds = true
+                self.badgeView4.layer.cornerRadius = 5
+                self.badgeView4.backgroundColor = UIColor.redColor()
+                self.badgeView4.frame = CGRectMake(0, 0, 10, 10)
+                
+                self.badgeView4.hidden = false
+                let myindexPaths = NSIndexPath.init(forRow: 1, inSection: 1)
+                let cell = self.myTableView.cellForRowAtIndexPath(myindexPaths) as!MineTableViewCell
+                cell.mineFunction.addSubview(self.badgeView4)
                 
                 
             })
@@ -616,6 +676,15 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print(x)
                 print(y)
                 self.tabBarController?.tabBar.addSubview(badgeView)
+                self.badgeView5.layer.masksToBounds = true
+                self.badgeView5.layer.cornerRadius = 5
+                self.badgeView5.backgroundColor = UIColor.redColor()
+                self.badgeView5.frame = CGRectMake(0, 0, 10, 10)
+                
+                self.badgeView5.hidden = false
+                let myindexPaths = NSIndexPath.init(forRow: 6, inSection: 1)
+                let cell = self.myTableView.cellForRowAtIndexPath(myindexPaths) as!MineTableViewCell
+                cell.mineFunction.addSubview(self.badgeView5)
                 
                 
             })
@@ -848,7 +917,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if indexPath.section == 1 {
             switch indexPath.row {
             case 0:
-                
+                self.badgeView2.hidden = true
                 let faDan = MyFaDan()
                 faDan.sign = 1
                 self.hidesBottomBarWhenPushed = true
@@ -864,6 +933,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             //                self.hidesBottomBarWhenPushed = false
             case 1:
                 let bookDanVc = MyBookDan()
+                self.badgeView4.hidden = true
                 self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(bookDanVc, animated: true)
                 self.hidesBottomBarWhenPushed = false
@@ -918,6 +988,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             case 0:
                 self.hidesBottomBarWhenPushed = true
                 let ReceiveVc = MyReceiveDan()
+                self.badgeView3.hidden = true
                 self.navigationController?.pushViewController(ReceiveVc, animated: true)
                 self.hidesBottomBarWhenPushed = false
             case 1:
@@ -973,7 +1044,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }else{
             
             let vc = MessageViewController()
-            
+            self.badgeView1.hidden = true
             self.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(vc, animated: true)
             self.hidesBottomBarWhenPushed = false

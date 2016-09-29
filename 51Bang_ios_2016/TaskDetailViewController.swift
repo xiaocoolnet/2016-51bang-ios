@@ -27,13 +27,13 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         print(taskInfo)
-        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.backgroundColor = RGREY
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.registerNib(UINib(nibName: "TaskDetailTableViewCell1",bundle: nil), forCellReuseIdentifier: "cell1")
         myTableView.registerNib(UINib(nibName: "TaskDetailTableViewCell2",bundle: nil), forCellReuseIdentifier: "cell2")
-        btn = UIButton(frame: CGRectMake(15, myTableView.frame.size.height-118, WIDTH-30, 40))
+        btn = UIButton(frame: CGRectMake(0, 0, WIDTH, 40))
         btn.layer.cornerRadius = 8
         btn.setTitle("立即抢单", forState: .Normal)
         btn.addTarget(self, action: #selector(self.qiangdan), forControlEvents: UIControlEvents.TouchUpInside)
@@ -51,7 +51,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
 //        btn.addTarget(self, action: #selector(self.nextToView), forControlEvent
         let view = UIView()
         myTableView.tableFooterView = view
-        self.myTableView.addSubview(btn)
+        self.myTableView.tableFooterView = btn
         self.view.addSubview(myTableView)
 //        soundName =  mainHelper.downloadRecond(self.taskInfo.record!)
         // Do any additional setup after loading the view.

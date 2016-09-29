@@ -595,6 +595,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         let taskInfo = dataSource![indexPath.row]
         vc.taskInfo = taskInfo
         vc.qiangdanBut = false
+        vc.title = "任务详情"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

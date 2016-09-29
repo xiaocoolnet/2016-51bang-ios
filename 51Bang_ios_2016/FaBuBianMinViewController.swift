@@ -761,6 +761,8 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime)) { (success, response) in
             print(response)
             if !success{
+                alert("亲，请拨打4000608856申请VIP客户才能多发哦😀", delegate: self)
+                
                 return
             }
 //            self.hud1.hide(true)

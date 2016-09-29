@@ -146,6 +146,7 @@ class ConveniceCell: UITableViewCell{
             .topSpaceToView(userImage,10)
             .autoHeightRatio(0)
         contenLabel.text = info.content
+        contenLabel.font = UIFont.systemFontOfSize(15)
         
 //        var regex:String?
 //        regex = "^((13[0-9])|(15[^4,\\D]) |(17[0,0-9])|(18[0,0-9]))\\d{8}$"
@@ -183,15 +184,17 @@ class ConveniceCell: UITableViewCell{
             }
             let backButton = UIButton()
             backButton.frame = imview.frame
-            backButton.frame.origin.y = imview.frame.origin.y + 98 + 15
+//            backButton.backgroundColor = UIColor.redColor()
+            backButton.frame.origin.y = imview.frame.origin.y
             backButton.backgroundColor = UIColor.clearColor()
             backButton.tag = imcount
-            self.addSubview(backButton)
+           
             backButton .addTarget(self, action:#selector(self.lookImage(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
             
             
             imshow.addSubview(imview)
+            imshow.addSubview(backButton)
             imcount += 1
             myPhotoArray.addObject(imview)
         }

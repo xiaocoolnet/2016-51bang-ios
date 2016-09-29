@@ -93,6 +93,7 @@ class MyBookDanCell: UITableViewCell {
             Statue.text = "待发货"
             Btn.setTitle("已支付", forState: UIControlState.Normal)
             Btn1.setTitle("取消订单", forState: UIControlState.Normal)
+//            Btn1.hidden = true
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
         }else if Data.state == "-1"{
@@ -110,6 +111,7 @@ class MyBookDanCell: UITableViewCell {
             Statue.text = "待消费"
             Btn1.setTitle("取消订单", forState: UIControlState.Normal)
             Btn.setTitle("已支付", forState: UIControlState.Normal)
+            Btn1.hidden = true
         }
 
         

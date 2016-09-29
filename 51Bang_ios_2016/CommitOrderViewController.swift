@@ -600,6 +600,15 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         
         
 //        let userid = ud.objectForKey("userid") as! String
+        if self.expirydate == "" {
+            alert("请填写有效期", delegate: self)
+            return
+        }
+        if self.type == "" {
+            alert("请选择服务类型", delegate: self)
+            return
+
+        }
         print(self.saddress)
         print(self.slatitude)
         print(self.slongitude)
@@ -611,6 +620,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         print(self.taskTitle)
         print(self.taskDescription)
         print(self.type)
+        print(self.expirydate)
         
         
         

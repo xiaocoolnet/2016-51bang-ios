@@ -31,13 +31,13 @@ class walletDetailTableViewCell: UITableViewCell {
     
     func setValueWithInfo(info:walletDetailInfo){
     
-        self.yu.text = info.money
+        self.yu.text = info.balance
         self.moneyState.hidden = true
         if info.type == "0" {
-            self.money.text = "-"+info.balance!
+            self.money.text = "-"+info.money!
 //            self.money.textColor = UIColor.greenColor()
         }else{
-            self.money.text = "+"+info.balance!
+            self.money.text = "+"+info.money!
 //            self.money.textColor = UIColor.redColor()
         }
         
@@ -49,9 +49,9 @@ class walletDetailTableViewCell: UITableViewCell {
     }
     
     func setValueWithMyInfo(info:tiXianInfo){
-        self.yu.text = info.money
+        self.yu.text = info.balance
         self.moneyState.hidden = false
-        self.money.text = "-"+info.balance!
+        self.money.text = "-"+info.money!
         if info.state == "0" {
             self.moneyState.text = "待审核"
         }else if info.state == "1" {
