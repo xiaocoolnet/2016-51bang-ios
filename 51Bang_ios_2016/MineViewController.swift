@@ -307,6 +307,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                                                 print(dat)
                                                 vc.datasource2 = NSArray.init(array: dat) as Array
                                                 vc.titleTop = self.dataSource2![0].receive_nickname!
+                                                vc.receive_uid = ids
                                                 self.tabBarController?.selectedIndex = 3
                                                 self.navigationController?.pushViewController(vc, animated: true)
                                                 
