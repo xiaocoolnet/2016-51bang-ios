@@ -73,7 +73,7 @@ class RzbInfo: JSONJoy {
     var longitude:String
     var latitude:String
     var orderNum:String
-    
+    var serviceCount:String
     
     //    var photo:String
     //    var weixin:String
@@ -110,7 +110,7 @@ class RzbInfo: JSONJoy {
         longitude = decoder["longitude"].string ?? ""
         latitude = decoder["latitude"].string ?? ""
         orderNum = decoder["orderNum"].string ?? ""
-        
+        serviceCount = decoder["serviceCount"].string ?? ""
         skilllist = Array<SkilllistModel>()
         for childs: JSONDecoder in decoder["skilllist"].array!{
             print(childs)

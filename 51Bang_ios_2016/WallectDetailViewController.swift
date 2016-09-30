@@ -52,7 +52,7 @@ class WallectDetailViewController: UIViewController,UITableViewDelegate,UITableV
     
     func createTableView(){
     
-        self.mytableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        self.mytableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         mytableView.delegate = self
         mytableView.dataSource = self
         mytableView.registerNib(UINib(nibName: "walletDetailTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")

@@ -30,7 +30,12 @@ class FuWuHomePageTableViewCell: UITableViewCell {
         if info.isworking == "0" {
             serviceStatus.setTitle("休息中", forState: UIControlState.Normal)
         }
-        
+        if info.serviceCount != ""{
+            
+            self.fuwuNum.text = info.serviceCount
+        }else{
+            self.fuwuNum.text = "0"
+        }
         
         self.name.text = info.name
         self.city.text = info.city

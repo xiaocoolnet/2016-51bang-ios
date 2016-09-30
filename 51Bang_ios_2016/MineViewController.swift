@@ -1083,7 +1083,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }else{
                 registrationIDs = registrationID
             }
-            print(registrationID)
+//            print(registrationID)
             print("login")
             self.pwdTextfield.resignFirstResponder()
             self.phoneTextfield.resignFirstResponder()

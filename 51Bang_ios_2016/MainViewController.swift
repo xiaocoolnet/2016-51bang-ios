@@ -369,6 +369,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 //                    self.hidesBottomBarWhenPushed = false
 //                    return
                     alert("请先进行实名认证", delegate: self)
+                    return
                     
                 }
             }

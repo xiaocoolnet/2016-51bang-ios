@@ -86,8 +86,8 @@ class SkillselectViewController: UIViewController,skillProrocol {
                 print(response)
                 self.dataSource1 = response as! SkillModel
 //                print(self.dataSource)
-                print(self.dataSource.count)
-                print(self.dataSource1.skilllist[0].type)
+//                print(self.dataSource.count)
+//                print(self.dataSource1.skilllist[0].type)
                 for skillSelect in self.dataSource1.skilllist {
                     if !self.jiNengID.containsObject(skillSelect.type!){
                         self.jiNengID.addObject(skillSelect.type!)

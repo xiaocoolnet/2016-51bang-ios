@@ -95,8 +95,8 @@ class OrderTableViewCell: UITableViewCell {
         if info.name != "" && info.name != nil{
             self.username.text = info.name        }
         
-        if info.type_parentname != "" && info.type_parentname != nil{
-            self.typeLabel.setTitle(info.type_parentname!, forState: .Normal)
+        if info.description != "" && info.description != nil{
+            self.typeLabel.setTitle(info.description!, forState: .Normal)
         }
         
         

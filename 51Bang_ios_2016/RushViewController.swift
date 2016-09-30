@@ -169,7 +169,8 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     //174/92
     func click(btn:UIButton){
         
-        
+        let vc = MineViewController()
+        vc.Checktoubao()
         let type = CLLocationManager.authorizationStatus()
         
         if !CLLocationManager.locationServicesEnabled() || type == CLAuthorizationStatus.Denied{
@@ -311,6 +312,23 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func goJineng(){
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        if ud.objectForKey("ss") != nil{
+            if(ud.objectForKey("ss") as! String == "no")
+            {
+                //                    let vc  = WobangRenZhengController()
+                //                    self.hidesBottomBarWhenPushed = true
+                //                    self.navigationController?.pushViewController(vc, animated: true)
+                //                    self.hidesBottomBarWhenPushed = false
+                //                    return
+                alert("请先进行实名认证", delegate: self)
+                return
+                
+            }
+        }
+        
+        
         let vc = SkillselectViewController()
         vc.ischangged = true
         self.navigationController?.pushViewController(vc, animated: true)

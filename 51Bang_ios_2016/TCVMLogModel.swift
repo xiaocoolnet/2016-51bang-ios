@@ -311,6 +311,7 @@ class TCVMLogModel: NSObject {
             }else{
                 //                alert(result.data!, delegate: self)
                 print(result.data)
+                handle(success: false, response: result.errorData)
             }
             
             
