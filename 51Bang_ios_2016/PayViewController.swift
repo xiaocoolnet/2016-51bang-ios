@@ -433,8 +433,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         if isRenwu == true {
             self.mainhelper.upALPState("1_"+numForGoodS, state: "2", type: "1", handle: { (success, response) in
-                if success{
-                    print("成功")
+                if !success{
+                    alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
                 self.tabBarController?.selectedIndex = 0
@@ -443,8 +443,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             })
         }else{
             self.mainhelper.upALPState("1_"+numForGoodS, state: "2", type: "2", handle: { (success, response) in
-                if success{
-                    print("成功")
+                if !success{
+                    alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
                 self.tabBarController?.selectedIndex = 3
@@ -463,8 +463,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         hud.labelText = "正在努力加载"
         if isRenwu == true {
             self.mainhelper.upALPState("1_"+numForGoodS, state: "1", type: "1", handle: { (success, response) in
-                if success{
-                    print("成功")
+                if !success{
+                    alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
                 self.tabBarController?.selectedIndex = 0
@@ -473,8 +473,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             })
         }else{
             self.mainhelper.upALPState("1_"+numForGoodS, state: "1", type: "2", handle: { (success, response) in
-                if success{
-                    print("成功")
+                if !success{
+                    alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
                 self.tabBarController?.selectedIndex = 3

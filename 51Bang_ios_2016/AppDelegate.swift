@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     var window: UIWindow?
     var _mapManager: BMKMapManager?
     let mainhelper = MainHelper()
+    var pointNum = Int()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let options = BugtagsOptions()
@@ -137,6 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     func applicationWillEnterForeground(application: UIApplication) {
         
         application.applicationIconBadgeNumber = 0
+        pointNum = 0
         application.cancelAllLocalNotifications()
     }
     
@@ -153,21 +155,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         completionHandler(UIBackgroundFetchResult.NewData)
         print("545645465")
         print(userInfo)
+        pointNum = pointNum+1
+        application.applicationIconBadgeNumber = pointNum
     //所在城市有新任务
         if userInfo["key"] != nil && userInfo["v"] != nil{
             if  userInfo["key"] as! String == "newTask" {
                 NSNotificationCenter.defaultCenter().postNotificationName("newTasksss", object: nil)
 //                let vc = WoBangPageViewController()
-                
+//                pointNum = pointNum+1
+//                application.applicationIconBadgeNumber = pointNum
             }
             
             if userInfo["v"] != nil && userInfo["key"] as! String == "newMessage" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("newMessage", object: dic)
+//                pointNum = pointNum+1
+//                application.applicationIconBadgeNumber = pointNum
             }
             if userInfo["key"] as! String == "sendTaskType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("sendTaskType", object: dic)
+                
             }
             if userInfo["key"] as! String == "acceptTaskType" {
                 let dic = ["name":userInfo["v"]! as! String];
