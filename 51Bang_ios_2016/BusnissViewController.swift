@@ -515,6 +515,8 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             let start = BMKPlanNode()
             var coor1 = CLLocationCoordinate2D.init()
             let ud = NSUserDefaults.standardUserDefaults()
+            
+                
             let longitude = ud.objectForKey("longitude")
             let latitude = ud.objectForKey("latitude")
             let address = ud.objectForKey("myAddress")

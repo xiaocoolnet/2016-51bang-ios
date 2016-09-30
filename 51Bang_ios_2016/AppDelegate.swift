@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         }
         
         // 启动JPushSDK
-        JPUSHService.setupWithOption(nil, appKey: "06722b65599c39b7b63c28ec",
+        JPUSHService.setupWithOption(nil, appKey: "9d8ff2f94d6c180efb085b1a",
                                      channel: "Publish Channel", apsForProduction: true)
         
 //        let defau = NSNotificationCenter.defaultCenter()

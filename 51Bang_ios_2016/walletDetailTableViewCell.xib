@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -23,15 +23,6 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUT-yH-Z92">
-                        <rect key="frame" x="85" y="34" width="101" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="101" id="ezg-IJ-rJY"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016-04-10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJX-Kj-LJb">
                         <rect key="frame" x="128" y="6" width="184" height="18"/>
                         <constraints>
@@ -41,7 +32,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAL-jW-SKU">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="+1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAL-jW-SKU">
                         <rect key="frame" x="243" y="34" width="69" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="69" id="b68-Sg-PRE"/>
@@ -67,7 +58,7 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="钱包余额:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-Ff-4O8">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收入" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGm-Ff-4O8">
                         <rect key="frame" x="8" y="34" width="73" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="73" id="pZ7-Fe-aPT"/>
@@ -79,16 +70,13 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="yDJ-ND-fw3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="0f3-qm-FEk"/>
-                    <constraint firstItem="EUT-yH-Z92" firstAttribute="leading" secondItem="GGm-Ff-4O8" secondAttribute="trailing" constant="4" id="4yk-sd-L5X"/>
                     <constraint firstAttribute="trailing" secondItem="ylh-CJ-j06" secondAttribute="trailing" id="GVM-MU-Y5U"/>
-                    <constraint firstItem="EUT-yH-Z92" firstAttribute="top" secondItem="yDJ-ND-fw3" secondAttribute="bottom" constant="5" id="Itk-yJ-ver"/>
                     <constraint firstItem="yDJ-ND-fw3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Muf-Dw-OGG"/>
                     <constraint firstAttribute="trailing" secondItem="XAL-jW-SKU" secondAttribute="trailing" constant="8" id="U9h-NM-BjZ"/>
                     <constraint firstItem="XAL-jW-SKU" firstAttribute="leading" secondItem="gYS-35-n1r" secondAttribute="trailing" constant="6" id="Wtc-31-pRP"/>
                     <constraint firstAttribute="bottom" secondItem="ylh-CJ-j06" secondAttribute="bottom" id="Zdx-AZ-SVA"/>
                     <constraint firstItem="GGm-Ff-4O8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="aET-kb-xSH"/>
                     <constraint firstItem="gYS-35-n1r" firstAttribute="top" secondItem="WJX-Kj-LJb" secondAttribute="bottom" constant="10" id="qNR-Bo-VOC"/>
-                    <constraint firstItem="XAL-jW-SKU" firstAttribute="top" secondItem="EUT-yH-Z92" secondAttribute="top" id="qtU-km-DVV"/>
                     <constraint firstItem="GGm-Ff-4O8" firstAttribute="top" secondItem="yDJ-ND-fw3" secondAttribute="bottom" constant="5" id="tQp-bG-sF4"/>
                     <constraint firstAttribute="trailing" secondItem="WJX-Kj-LJb" secondAttribute="trailing" constant="8" id="vMY-e0-CQJ"/>
                     <constraint firstItem="WJX-Kj-LJb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="wJ7-1M-kC2"/>
@@ -99,8 +87,8 @@
                 <outlet property="bottomView" destination="ylh-CJ-j06" id="Vec-WU-ey6"/>
                 <outlet property="money" destination="XAL-jW-SKU" id="Vut-kA-ut8"/>
                 <outlet property="moneyState" destination="gYS-35-n1r" id="iyZ-rm-I1s"/>
+                <outlet property="shouRu" destination="GGm-Ff-4O8" id="HDj-o1-l7X"/>
                 <outlet property="time" destination="WJX-Kj-LJb" id="sFb-n2-8dW"/>
-                <outlet property="yu" destination="EUT-yH-Z92" id="2Jv-YT-oB0"/>
             </connections>
             <point key="canvasLocation" x="510" y="466.5"/>
         </tableViewCell>

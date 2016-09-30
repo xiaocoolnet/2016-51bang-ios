@@ -62,8 +62,10 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
     
     func button5Action() {
         button5.enabled = false
+        print(info.order_num!)
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
+        print(userid)
         if info.state == "2" {
             mainHelper.gaiBianRenWu(userid,ordernum: info.order_num!, state: "3", handle: { (success, response) in
                 if !success{

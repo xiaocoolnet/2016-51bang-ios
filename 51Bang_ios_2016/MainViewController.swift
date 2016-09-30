@@ -426,7 +426,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         let flog = searcher.geoCode(geoCodeSearchOption)
         print(flog)
         
-        mainHelper.checkCity(city) { (success, response) in
+        mainHelper.checkCity(quName) { (success, response) in
             print(response)
             if !success{
                 

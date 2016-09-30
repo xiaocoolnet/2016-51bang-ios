@@ -437,7 +437,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
-                self.tabBarController?.selectedIndex = 0
+//                self.tabBarController?.selectedIndex = 0
                 let vc = WoBangPageViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -447,7 +447,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
-                self.tabBarController?.selectedIndex = 3
+//                self.tabBarController?.selectedIndex = 3
                 let vc = MyBookDan()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -467,7 +467,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
-                self.tabBarController?.selectedIndex = 0
+//                self.tabBarController?.selectedIndex = 0
                 let vc = WoBangPageViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
@@ -477,7 +477,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
-                self.tabBarController?.selectedIndex = 3
+//                self.tabBarController?.selectedIndex = 3
                 let vc = MyBookDan()
                 self.navigationController?.pushViewController(vc, animated: true)
             })

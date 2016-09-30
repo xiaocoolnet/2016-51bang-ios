@@ -854,8 +854,8 @@
             print(request)
             print(error)
             print(json)
-            if(error != nil){
-                handle(success: false, response: error?.description)
+            if(1 != 1){
+//                handle(success: false, response: error?.description)
             }else{
                 print(JSONDecoder(json!).value)
                 let result = ZHIFUfankui(JSONDecoder(json!))

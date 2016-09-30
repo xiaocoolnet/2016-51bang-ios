@@ -24,7 +24,8 @@
             self.timeFrame=CGRectMake(0, 0, iphoneW, timeSize.height);//显示时间的Frame
         }
         else{
-            self.timeFrame=CGRectMake(0, 0, iphoneW, 0);
+            
+            self.timeFrame=CGRectMake(0, 0, 0, 0);
         }
         
         CGRect btnRect=[modelData.desc boundingRectWithSize:CGSizeMake(iphoneW*0.6, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:contentFont} context:nil];//发送内容的Frame

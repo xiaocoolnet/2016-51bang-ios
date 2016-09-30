@@ -387,9 +387,21 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     
     func qiangdan(){
         
+        var userid = String()
+        let ud = NSUserDefaults.standardUserDefaults()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid")as! String
+        }
+        //         = ud.objectForKey("userid")as! String
+        if userid == taskInfo.userid {
+            alert("不能抢自己的单", delegate: self)
+            return
+        }
+        
+        
         let vc = MineViewController()
         vc.Checktoubao()
-        let ud = NSUserDefaults.standardUserDefaults()
+//        let ud = NSUserDefaults.standardUserDefaults()
         if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
             
             let alertController = UIAlertController(title: "系统提示",
@@ -413,9 +425,14 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         btn.enabled = false
         print("抢单")
 //        let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid")as! String
-        let longitude = ud.objectForKey("longitude")as! String
-        let latitude = ud.objectForKey("latitude")as! String
+//        let userid = ud.objectForKey("userid")as! String
+        var longitude = String()
+        var latitude = String()
+        //        let ud = NSUserDefaults.standardUserDefaults()
+        if ud.objectForKey("longitude") != nil && ud.objectForKey("latitude") != nil {
+            longitude = ud.objectForKey("longitude")as! String
+            latitude = ud.objectForKey("latitude")as! String
+        }
         print(longitude)
         
         print(latitude)

@@ -14,11 +14,11 @@ class walletDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var bottomView: UIView!
     
     @IBOutlet weak var money: UILabel!
-    
-    @IBOutlet weak var yu: UILabel!
+
     
     @IBOutlet weak var time: UILabel!
     
+    @IBOutlet weak var shouRu: UILabel!
     
     @IBOutlet weak var moneyState: UILabel!
     
@@ -31,7 +31,7 @@ class walletDetailTableViewCell: UITableViewCell {
     
     func setValueWithInfo(info:walletDetailInfo){
     
-        self.yu.text = info.balance
+//        self.yu.text = info.balance
         self.moneyState.hidden = true
         if info.type == "0" {
             self.money.text = "-"+info.money!
@@ -49,7 +49,7 @@ class walletDetailTableViewCell: UITableViewCell {
     }
     
     func setValueWithMyInfo(info:tiXianInfo){
-        self.yu.text = info.balance
+//        self.yu.text = info.balance
         self.moneyState.hidden = false
         self.money.text = "-"+info.money!
         if info.state == "0" {
