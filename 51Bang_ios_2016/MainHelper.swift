@@ -416,7 +416,7 @@
                     handle(success: true, response: result.data)
                     
                 }else{
-                    //                    handle(success: false, response: result.errorData)
+                    handle(success: false, response: result.errorData)
                     
                 }
             }

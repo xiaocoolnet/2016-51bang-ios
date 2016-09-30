@@ -54,6 +54,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     var mainHelper = MainHelper()
     var myDatas : Array<GoodsInfo>?
     var isEdit = Bool()
+    var isEditsss = Bool()
     var isSecordEdit = Bool()
     var isTypeEdit = Bool()
     var isAdressEdit = Bool()
@@ -518,7 +519,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         
         
-        if (self.myDatas?.count>0&&isEdit == true){
+        if (self.myDatas?.count>0&&isEditsss == true){
             shopHelper.reLoadTeMaiMessage(userid, type: type1, goodsname:self.mytextView.text!, oprice: oprice.text! as String, price: price.text! as String, desc: textView.text, unit: "",longitude:myLongitude,latitude:myLatitude,address:address1,delivery:typeLabelStr) { (success, response) in
                 print(response)
                 self.hud1.hidden = true
@@ -532,6 +533,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             print(type1)
             shopHelper.upLoadTeMaiMessage(userid, type: type1, goodsname:self.mytextView.text!, oprice: oprice.text! , price: price.text!, desc: textView.text, photoArray: self.photoNameArr, unit: "",longitude:myLongitude,latitude:myLatitude,address:address1,delivery:typeLabelStr) { (success, response) in
                 print(response)
+                
+                
                 
                 self.hud1.hide(true)
                 self.navigationController?.popViewControllerAnimated(true)

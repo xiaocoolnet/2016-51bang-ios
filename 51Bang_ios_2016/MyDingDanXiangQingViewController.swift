@@ -176,6 +176,9 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 2 {
+            return 0
+        }
         return 10
     }
     

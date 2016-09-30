@@ -9,13 +9,19 @@
 #import "messModel.h"
 
 @implementation messModel
--(instancetype)initWithModel:(NSDictionary *)mess{
+-(instancetype)initWithModel:(NSMutableDictionary *)mess{
     if (self=[super init]) {
         
 //        self.imageName=mess[@"imageName"];
 //        self.imageview = mess[@"imageview"];
         self.desc=mess[@"desc"];
         self.time=mess[@"time"];
+//        NSLog(@"%@",mess[@"person"]);
+//        if ([mess[@"person"] isEqualToString:@"1"]) {
+//            self.person = YES;
+//        }else{
+//            self.person = NO;
+//        }
         self.person=[mess[@"person"] boolValue]; //转为Bool类型
     }
     return self;

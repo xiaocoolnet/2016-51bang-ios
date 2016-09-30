@@ -321,7 +321,7 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
     
     func onGetSuggestionResult(searcher: BMKSuggestionSearch!, result: BMKSuggestionResult!, errorCode error: BMKSearchErrorCode) {
         print("建议代理")
-        
+        searchTableView.hidden = false
         if result == nil{
             return
         }
@@ -329,7 +329,7 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
         if result.keyList == nil{
             return
         }
-        
+        searchResult.removeAll()
         for count in 1...result.keyList.count {
             
             let re = SarchModel.init()
@@ -338,7 +338,9 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
             ( result.ptList[count-1] as! NSValue ).getValue( coor )
             re.location = coor.memory
             searchResult.append(re)
+            
         }
+//        searchTableView.reloadData()
         
 //        for ( var count = 1 ; count < result.keyList.count ; count++ )
 //            {
@@ -397,7 +399,12 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
     
     func onGetReverseGeoCodeResult(searcher: BMKGeoCodeSearch!, result: BMKReverseGeoCodeResult!, errorCode error: BMKSearchErrorCode) {
         
+        pointAnmation.coordinate = mapView.region.center
+        mapView.addAnnotation(pointAnmation)
+        mapView.selectAnnotation(pointAnmation, animated: true)
+        
         if result == nil || result.poiList == nil || result.poiList.count == 0{
+             pointAnmation.title = "无地址名称"
             return
         }
         
@@ -452,10 +459,9 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
             
         }
         
-        pointAnmation.coordinate = mapView.region.center
-        mapView.addAnnotation(pointAnmation)
+        
         pointAnmation.title = (result.poiList[0] as! BMKPoiInfo).name
-        mapView.selectAnnotation(pointAnmation, animated: true)
+        
         
     }
     

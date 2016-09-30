@@ -493,17 +493,17 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 let str = (dataSource2[indexPath.row-1] as! TCHDInfo).content
                 let piccount = (dataSource2[indexPath.row-1] as! TCHDInfo).pic.count
                 
-                let height = calculateHeight( str!, size: 15, width: WIDTH - 10 )
+                let height = calculateHeight( str!, size: 15, width: WIDTH - 20 )
                 
                 var picHeight:CGFloat = 0
                 
                 switch (piccount-1) / 3 {
                 case 0:
-                    picHeight = (WIDTH-15) / 3
+                    picHeight = WIDTH / 3
                 case 1:
-                    picHeight = (WIDTH-15) / 3 * 2
+                    picHeight = (WIDTH) / 3 * 2
                 case 2:
-                    picHeight = (WIDTH-15) / 3 * 3
+                    picHeight = (WIDTH) / 3 * 3
                 default:
                     picHeight = WIDTH
                 }
@@ -513,9 +513,9 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     picHeight = 0
                 }
                 if (dataSource2[indexPath.row-1] as! TCHDInfo).record != nil && (dataSource2[indexPath.row-1] as! TCHDInfo).record != "" {
-                    return 75 + picHeight + height + 20+80 + 20
+                    return 75 + picHeight + height + 20+80
                 }else{
-                    return 75 + picHeight + height + 20 + 20
+                    return 75 + picHeight + height + 20
                 }
                 
                 
