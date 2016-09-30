@@ -400,6 +400,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print(dat)
                 vc.datasource2 = NSArray.init(array: dat) as Array
                 vc.titleTop = self.dataSource2![0].receive_nickname!
+                vc.receive_uid = ids
                 //            if self.dataSource[indexPath.row].other_face! != ""{
                 //            let photoUrl:String = Bang_Open_Header+"uploads/images/"+self.dataSource[indexPath.row].my_face!
                 ////                let url = NSURL(string: photoUrl)
