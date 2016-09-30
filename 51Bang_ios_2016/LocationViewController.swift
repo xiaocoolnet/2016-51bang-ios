@@ -133,7 +133,7 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
     
     func setInterstTableView()
     {
-        interstTableView.frame = CGRectMake(0,  self.view.frame.size.height / 2 , WIDTH, self.view.frame.size.height / 2 )
+        interstTableView.frame = CGRectMake(0,  self.view.frame.size.height / 2 , WIDTH, self.view.frame.size.height - (self.view.frame.size.height / 2-35)-64-35)
         interstTableView.tag = 0
         interstTableView.delegate = self
         interstTableView.dataSource = self
@@ -143,7 +143,7 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
     func setSearchTable()
     {
         
-        searchTableView.frame = CGRectMake(0, 35, WIDTH, self.view.frame.height - 35 )
+        searchTableView.frame = CGRectMake(0, 35, WIDTH, self.view.frame.height - 35-64)
         searchTableView.tag = 1
         searchTableView.delegate = self
         searchTableView.dataSource = self
