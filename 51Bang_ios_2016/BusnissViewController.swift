@@ -311,7 +311,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         headerView =  (NSBundle.mainBundle().loadNibNamed("ShopHeaderViewCell", owner: nil, options: nil).first as? ShopHeaderViewCell)!
         
-        let scrollView = UIScrollView.init(frame:CGRectMake(0, 0, WIDTH, 200))
+        let scrollView = UIScrollView.init(frame:CGRectMake(0, 0, WIDTH, 220))
         scrollView.backgroundColor = UIColor.clearColor()
         scrollView.contentSize = CGSizeMake(WIDTH * CGFloat (goodsInfo.pic.count) , 0)
         scrollView.contentOffset = CGPoint(x: 0,y: 0)
@@ -321,7 +321,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         scrollView.delegate = self
         headerView.addSubview(scrollView)
         
-        pageControl = UIPageControl.init(frame: CGRectMake(WIDTH-80-CGFloat(goodsInfo.pic.count)*10, 180, 80+CGFloat(goodsInfo.pic.count)*10, 20))
+        pageControl = UIPageControl.init(frame: CGRectMake(WIDTH-80-CGFloat(goodsInfo.pic.count)*10, 200, 80+CGFloat(goodsInfo.pic.count)*10, 20))
         pageControl.numberOfPages = goodsInfo.pic.count
         pageControl.currentPage = 0
         pageControl.userInteractionEnabled = false
