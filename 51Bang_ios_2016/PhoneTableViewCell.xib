@@ -28,16 +28,16 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="联系电话" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goz-tO-DWv">
-                        <rect key="frame" x="35" y="23" width="64" height="21"/>
+                        <rect key="frame" x="36" y="23" width="87" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="64" id="XPz-Su-LGi"/>
+                            <constraint firstAttribute="width" constant="87" id="XPz-Su-LGi"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Fd-3O-BAz">
-                        <rect key="frame" x="119" y="23" width="170" height="21"/>
+                        <rect key="frame" x="140" y="23" width="170" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="170" id="ipK-VC-TZc"/>
                         </constraints>
@@ -50,7 +50,7 @@
                     <constraint firstItem="3Fd-3O-BAz" firstAttribute="height" secondItem="goz-tO-DWv" secondAttribute="height" id="1hX-NE-2fi"/>
                     <constraint firstItem="goz-tO-DWv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="28D-bD-R9E"/>
                     <constraint firstItem="goz-tO-DWv" firstAttribute="top" secondItem="Nwa-HI-yQp" secondAttribute="bottom" constant="13" id="3Xd-ai-Bi1"/>
-                    <constraint firstItem="3Fd-3O-BAz" firstAttribute="leading" secondItem="goz-tO-DWv" secondAttribute="trailing" constant="20" id="8b5-89-H7x"/>
+                    <constraint firstItem="3Fd-3O-BAz" firstAttribute="leading" secondItem="goz-tO-DWv" secondAttribute="trailing" constant="17" id="8b5-89-H7x"/>
                     <constraint firstItem="Nwa-HI-yQp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="RhP-Cb-Gvi"/>
                     <constraint firstAttribute="trailing" secondItem="Nwa-HI-yQp" secondAttribute="trailing" id="YGg-zS-U6k"/>
                     <constraint firstAttribute="bottom" secondItem="VTy-Px-WbY" secondAttribute="bottom" constant="15" id="Z9G-9R-FmO"/>
@@ -59,7 +59,7 @@
                     <constraint firstItem="3Fd-3O-BAz" firstAttribute="centerY" secondItem="goz-tO-DWv" secondAttribute="centerY" id="jMC-sk-8Hu"/>
                     <constraint firstItem="VTy-Px-WbY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="k2r-QY-91Q"/>
                     <constraint firstItem="VTy-Px-WbY" firstAttribute="top" secondItem="Nwa-HI-yQp" secondAttribute="bottom" constant="12" id="kGl-EC-OCB"/>
-                    <constraint firstItem="goz-tO-DWv" firstAttribute="leading" secondItem="VTy-Px-WbY" secondAttribute="trailing" constant="10" id="x7S-y3-bCm"/>
+                    <constraint firstItem="goz-tO-DWv" firstAttribute="leading" secondItem="VTy-Px-WbY" secondAttribute="trailing" constant="11" id="x7S-y3-bCm"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">

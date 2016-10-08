@@ -15,11 +15,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="362" height="66"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上门地点" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVZ-eH-HuU">
-                        <rect key="frame" x="35" y="10" width="64" height="48"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="上门地点" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVZ-eH-HuU">
+                        <rect key="frame" x="33" y="10" width="92" height="48"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="68" id="fZL-BL-nJ5"/>
-                            <constraint firstAttribute="width" constant="64" id="g2J-xr-3p2"/>
+                            <constraint firstAttribute="width" constant="85" id="g2J-xr-3p2"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -52,8 +52,8 @@
                         </constraints>
                         <state key="normal" title="Button" image="ic_weizhi拷贝2"/>
                     </button>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mBR-bK-RrD">
-                        <rect key="frame" x="119" y="15" width="200" height="46"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mBR-bK-RrD">
+                        <rect key="frame" x="126" y="12" width="200" height="46"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -66,7 +66,7 @@
                     <constraint firstItem="MVZ-eH-HuU" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="I2J-pj-0FU"/>
                     <constraint firstItem="l9L-lF-Db2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Jl8-Hb-EXo"/>
                     <constraint firstItem="XTB-IE-xUd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="LBF-Ro-5gn"/>
-                    <constraint firstItem="mBR-bK-RrD" firstAttribute="leading" secondItem="MVZ-eH-HuU" secondAttribute="trailing" constant="20" id="MC9-JU-yjp"/>
+                    <constraint firstItem="mBR-bK-RrD" firstAttribute="leading" secondItem="MVZ-eH-HuU" secondAttribute="trailing" constant="8" id="MC9-JU-yjp"/>
                     <constraint firstItem="MVZ-eH-HuU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="35" id="Odv-K0-jD7"/>
                     <constraint firstAttribute="trailing" secondItem="l9L-lF-Db2" secondAttribute="trailing" id="QIn-X5-k7c"/>
                     <constraint firstItem="MVZ-eH-HuU" firstAttribute="leading" secondItem="XTB-IE-xUd" secondAttribute="trailing" constant="10" id="UE7-WT-IfH"/>
@@ -75,7 +75,7 @@
                     <constraint firstItem="mBR-bK-RrD" firstAttribute="top" secondItem="l9L-lF-Db2" secondAttribute="bottom" constant="5" id="bsL-ml-gcZ"/>
                     <constraint firstItem="mGS-1O-hb6" firstAttribute="centerY" secondItem="XTB-IE-xUd" secondAttribute="centerY" id="ly3-1g-ePG"/>
                     <constraint firstItem="l9L-lF-Db2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="mpc-r8-MWm"/>
-                    <constraint firstItem="mGS-1O-hb6" firstAttribute="leading" secondItem="mBR-bK-RrD" secondAttribute="trailing" constant="15" id="t4X-du-obq"/>
+                    <constraint firstItem="mGS-1O-hb6" firstAttribute="leading" secondItem="mBR-bK-RrD" secondAttribute="trailing" constant="6" id="t4X-du-obq"/>
                     <constraint firstItem="XTB-IE-xUd" firstAttribute="top" secondItem="l9L-lF-Db2" secondAttribute="bottom" constant="12" id="wT4-AL-jhf"/>
                     <constraint firstItem="MVZ-eH-HuU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="40" id="yhJ-H5-9gG"/>
                 </constraints>

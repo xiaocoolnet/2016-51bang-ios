@@ -333,6 +333,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         if goodsInfo.pic.count > 0  {
             for num in 0...goodsInfo.pic.count-1{
                 let headerPhotoView = UIImageView()
+                headerPhotoView.contentMode = .ScaleAspectFill
                 headerPhotoView.frame = CGRectMake(CGFloat(num) * WIDTH, 0, WIDTH, 220)
                 headerPhotoView.sd_setImageWithURL(NSURL(string:Bang_Image_Header+goodsInfo.pic[num].pictureurl!), placeholderImage: UIImage.init(named: "01"))
                 scrollView.addSubview(headerPhotoView)

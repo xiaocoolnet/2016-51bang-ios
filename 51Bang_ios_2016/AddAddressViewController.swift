@@ -63,12 +63,12 @@ class AddAddressViewController: UIViewController,UITextFieldDelegate {
         let button1 = UIButton.init(frame: CGRectMake(WIDTH-125, textView.frame.size.height+textView.frame.origin.y+10, 20, 20))
         button1.setImage(UIImage(named: "ic_weixuanze"), forState: UIControlState.Normal)
         button1.addTarget(self, action: #selector(self.onClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(button1)
+//        self.view.addSubview(button1)
         let button2 = UIButton.init(frame: CGRectMake(WIDTH-100, textView.frame.size.height+textView.frame.origin.y+10, 80, 30))
         button2.addTarget(self, action: #selector(self.onClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         button2.setTitle("默认地址", forState: UIControlState.Normal)
         button2.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        self.view.addSubview(button2)
+//        self.view.addSubview(button2)
         // Do any additional setup after loading the view.
     }
     

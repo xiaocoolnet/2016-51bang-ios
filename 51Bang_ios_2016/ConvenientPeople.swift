@@ -27,13 +27,19 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     let leftTableView = UITableView()
     var headerView = ConvenienceHeaderViewCell()
     var beginmid = "0"
+    static var isFresh = Bool()
     let FMArr = ["百世汇通","韵达快递","中通快递","申通快递","天天快递","圆通快递","顺丰速运","全峰快递","宅急送","EMS"]
     let FMArr1 = ["baishihuitong","yundakuaidi","zhongtongkuaidi","shentongkuaidi","tiantiankuaidi","yuantongkuaidi","shunfengkuaidi","quanfengkuaidi","zhaijisong","ems"]
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        getData()
-        headerRefresh()
+        if !ConvenientPeople.isFresh {
+            getData()
+            headerRefresh()
+            
+            
+        }
+        ConvenientPeople.isFresh = false
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = false
         convenienceTable.userInteractionEnabled = true

@@ -41,7 +41,7 @@
                                         <constraint firstAttribute="height" constant="80" id="7lL-ji-qqW"/>
                                         <constraint firstAttribute="width" constant="80" id="UE7-Ik-azZ"/>
                                     </constraints>
-                                    <state key="normal" image="ic_weisxuanze"/>
+                                    <state key="normal" image="ixuanze"/>
                                     <connections>
                                         <action selector="avatarBtnClicked:" destination="-1" eventType="touchUpInside" id="ct1-VN-EWz"/>
                                     </connections>
@@ -121,7 +121,7 @@
                                         <constraint firstAttribute="width" constant="17" id="NWV-FD-rlL"/>
                                         <constraint firstAttribute="height" constant="22" id="tLo-Aq-Ade"/>
                                     </constraints>
-                                    <state key="normal" image="ic_weixuanze"/>
+                                    <state key="normal" image="ic_xuanze"/>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYy-fb-nOp">
                                     <rect key="frame" x="118" y="363" width="204" height="29"/>
@@ -350,8 +350,8 @@
     <resources>
         <image name="ic_biyan" width="22" height="10"/>
         <image name="ic_tongyixuanzhong" width="18" height="18"/>
-        <image name="ic_weisxuanze" width="15" height="15"/>
-        <image name="ic_weixuanze" width="17" height="17"/>
         <image name="ic_weixuanzhong" width="15" height="15"/>
+        <image name="ic_xuanze" width="17" height="17"/>
+        <image name="ixuanze" width="15" height="15"/>
     </resources>
 </document>
