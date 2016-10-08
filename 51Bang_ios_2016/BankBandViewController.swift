@@ -163,10 +163,14 @@ class BankBandViewController: UIViewController {
     {
         
         let userData = NSUserDefaults.standardUserDefaults()
-        let phoneNum = userData.objectForKey("phone") as! String
-        let temp1 = (phoneNum as NSString).substringWithRange(NSMakeRange(0, 4))
-        let temp2 = (phoneNum as NSString).substringWithRange(NSMakeRange(7, 4))
-        return "您当前绑定的手机号码：" + temp1 + "****" + temp2
+        if userData.objectForKey("phone") != nil {
+            let phoneNum = userData.objectForKey("phone") as! String
+            let temp1 = (phoneNum as NSString).substringWithRange(NSMakeRange(0, 4))
+            let temp2 = (phoneNum as NSString).substringWithRange(NSMakeRange(7, 4))
+            return "您当前绑定的手机号码：" + temp1 + "****" + temp2
+        }
+        
+        return "未绑定手机号"
     }
     
     

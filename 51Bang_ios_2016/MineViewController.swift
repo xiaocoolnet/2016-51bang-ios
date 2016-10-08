@@ -71,33 +71,13 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         //        backView.frame = CGRectMake(0, 64, WIDTH, HEIGHT)
         //        backView.backgroundColor = RGREY
-        logVM = TCVMLogModel()
-        top.frame = CGRectMake(0, -50, WIDTH, 100)
-        //        top.backgroundColor = UIColor.redColor()
-        
-        self.view.addSubview(top)
-        
-        myTableView.backgroundColor = RGREY
-        myTableView.tag = 1
-        myTableView.frame = CGRectMake( 0, 0, WIDTH, HEIGHT-49)
-        myTableView.dataSource = self
-        myTableView.delegate = self
-        myTableView.registerNib(UINib(nibName: "MineTableViewCell",bundle: nil), forCellReuseIdentifier: "reuseIdentifier")
-        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        self.view.addSubview(myTableView)
-        //        self.navigationController?.title = "51帮"
-        
-        headerView.backgroundColor = COLOR
-        headerView.iconBtn.addTarget(self, action: #selector(self.edit), forControlEvents: UIControlEvents.TouchUpInside)
-        headerView.backgroundColor = COLOR
-        headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*150/375)
-        //        headerView.backgroundColor = UIColor.blueColor()
-        self.myTableView.tableHeaderView = headerView
+       
         let ud = NSUserDefaults.standardUserDefaults()
         
         if(loginSign == 0)
         {
-            self.createLoginUI()
+//            self.createLoginUI()
+            self.backView.hidden = false
             
         }else
             
@@ -153,12 +133,36 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.viewDidLoad()
         //检查是否登录过
         resignTongZhi()
+        logVM = TCVMLogModel()
+        top.frame = CGRectMake(0, -50, WIDTH, 100)
+        //        top.backgroundColor = UIColor.redColor()
+        
+        self.view.addSubview(top)
+        
+        myTableView.backgroundColor = RGREY
+        myTableView.tag = 1
+        myTableView.frame = CGRectMake( 0, 0, WIDTH, HEIGHT-49)
+        myTableView.dataSource = self
+        myTableView.delegate = self
+        myTableView.registerNib(UINib(nibName: "MineTableViewCell",bundle: nil), forCellReuseIdentifier: "reuseIdentifier")
+        myTableView.separatorStyle = UITableViewCellSeparatorStyle.None
+        self.view.addSubview(myTableView)
+        //        self.navigationController?.title = "51帮"
+        
+        headerView.backgroundColor = COLOR
+        headerView.iconBtn.addTarget(self, action: #selector(self.edit), forControlEvents: UIControlEvents.TouchUpInside)
+        headerView.backgroundColor = COLOR
+        headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*150/375)
+        //        headerView.backgroundColor = UIColor.blueColor()
+        self.myTableView.tableHeaderView = headerView
         badgeView1.hidden = true
         badgeView2.hidden = true
         badgeView3.hidden = true
         badgeView4.hidden = true
         badgeView5.hidden = true
         badgeView6.hidden = true
+        self.createLoginUI()
+        self.backView.hidden = true
         
         // Do any additional setup after loading the view.
     }
@@ -206,7 +210,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         //        backView =  NSBundle.mainBundle().loadNibNamed("LoginView", owner: nil, options: nil).first as! UIView
         backView.backgroundColor = RGREY
         backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        
         self.view.addSubview(backView)
+//        self.view.bringSubviewToFront(backView)
         let firstTableView = UITableView.init(frame: CGRectMake(0, 80, WIDTH, WIDTH*100/375))
         //        firstTableView.tableHeaderView =  headerView
         firstTableView.tag = 0

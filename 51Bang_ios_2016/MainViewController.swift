@@ -723,15 +723,19 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     func mapView(mapView: BMKMapView!, annotationViewForBubble view: BMKAnnotationView!) {
         let ud = NSUserDefaults.standardUserDefaults()
         
-        if(ud.objectForKey("ss") as! String == "no")
-        {
-            let vc  = WobangRenZhengController()
-            self.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(vc, animated: true)
-            self.hidesBottomBarWhenPushed = false
-            return
-            
+        if ud.objectForKey("ss") != nil {
+            if(ud.objectForKey("ss") as! String == "no")
+            {
+                let vc  = WobangRenZhengController()
+                self.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                self.hidesBottomBarWhenPushed = false
+                return
+                
+            }
         }
+        
+        
         
         let vc = CommitOrderViewController()
         self.navigationController?.pushViewController(vc, animated: true)

@@ -63,9 +63,6 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print(self.dataSource![0].oprice)
                 print(self.dataSource![0].delivery)
                 print(self.dataSource![0].address)
-                print(self.dataSource![0].id)
-                print(self.dataSource![0].id)
-                print(self.dataSource![0].id)
                 
                 self.myTableView.reloadData()
             }
