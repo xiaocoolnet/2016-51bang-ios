@@ -16,6 +16,7 @@ class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        ConvenientPeople.isFresh = true
         let flowl = UICollectionViewFlowLayout.init()
         //设置每一个item大小
         flowl.itemSize = CGSizeMake(WIDTH, HEIGHT-64)

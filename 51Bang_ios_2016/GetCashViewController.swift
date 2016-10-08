@@ -21,13 +21,14 @@ class GetCashViewController: UIViewController,UITableViewDataSource,UITableViewD
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
-        self.title = "选择提现账户"
+       
         getData()
         
     }
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "选择提现账户"
         
         self.view.backgroundColor = RGREY
         createView()
@@ -248,14 +249,17 @@ class GetCashViewController: UIViewController,UITableViewDataSource,UITableViewD
             buttonSelect1.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
             buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
             buttonSelect3.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+            tagButton = 100
         case 101:
             buttonSelect1.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
             buttonSelect2.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
             buttonSelect3.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
+            tagButton = 101
         case 102:
             buttonSelect1.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
             buttonSelect2.setImage(UIImage.init(named: "ic_weixuanze"), forState: UIControlState.Normal)
             buttonSelect3.setImage(UIImage.init(named: "ic_xuanze"), forState: UIControlState.Normal)
+            tagButton = 102
         default: break
             
         }
@@ -271,6 +275,7 @@ class GetCashViewController: UIViewController,UITableViewDataSource,UITableViewD
                  alert("未绑定支付宝", delegate: self)
                  }else{
                  let vc = CashGetViewController()
+                    vc.tagButton = self.tagButton
                  self.navigationController?.pushViewController(vc, animated: true)
                  
                  }
@@ -283,6 +288,7 @@ class GetCashViewController: UIViewController,UITableViewDataSource,UITableViewD
                     alert("未绑定银行卡", delegate: self)
                 }else{
                     let vc = CashGetViewController()
+                    vc.tagButton = self.tagButton
                     self.navigationController?.pushViewController(vc, animated: true)
                     
                 }

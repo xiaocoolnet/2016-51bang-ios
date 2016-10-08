@@ -16,7 +16,7 @@ class ShopTableViewCell: UITableViewCell {
     @IBOutlet weak var context: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var oldPrice: UILabel!
-    @IBOutlet weak var distance: UILabel!
+    @IBOutlet weak var username: UILabel!
     @IBOutlet weak var sales: UILabel!
     
     @IBOutlet weak var comment: UILabel!
@@ -29,16 +29,39 @@ class ShopTableViewCell: UITableViewCell {
     }
     func setValueWithModel(goodsInfo:GoodsInfo){
         
-        self.title.text = goodsInfo.goodsname
-        self.context.text = goodsInfo.description
-        //        self.distance.text = "现在没有"
+        if goodsInfo.goodsname != nil {
+            self.title.text = goodsInfo.goodsname
+        }
+        
+        if goodsInfo.description != nil {
+            self.context.text = goodsInfo.description
+        }
+        
         self.comment.text = "评论\(goodsInfo.commentlist.count)条"
-        self.oldPrice.text = goodsInfo.oprice!
-        self.price.text = "¥"+goodsInfo.price!
-        self.sales.text = "已售"+goodsInfo.sellnumber!
+        
+        if goodsInfo.oprice != nil {
+            self.title.text = goodsInfo.goodsname
+        }
+        
+        if goodsInfo.goodsname != nil {
+            self.oldPrice.text = goodsInfo.oprice!
+        }
+        
+        if goodsInfo.price != nil {
+            self.price.text = "¥"+goodsInfo.price!
+        }
+        
+        if goodsInfo.sellnumber != nil {
+            self.sales.text = "已售"+goodsInfo.sellnumber!
+        }
+        
+        if goodsInfo.username != nil {
+           self.username.text = goodsInfo.username!
+        }
         
         print(goodsInfo.goodsname)
         if goodsInfo.pic.count>0 {
+            
             let imageUrl = Bang_Image_Header+goodsInfo.pic[0].pictureurl!
             
             myimage.sd_setImageWithURL(NSURL(string:imageUrl), placeholderImage: UIImage(named: ("01")))

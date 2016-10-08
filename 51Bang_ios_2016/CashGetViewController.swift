@@ -16,14 +16,14 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
         let mainHelper = MainHelper()
         var dataSource = GetUserBankInfo()
         var textField = UITextField()
-        var isbao = Bool()
+        var tagButton = Int()
         var banktype = String()
         let mainHelper2 = TCVMLogModel()
         var info = walletInfo()
         override func viewWillAppear(animated: Bool) {
             self.navigationController?.navigationBar.hidden = false
             self.tabBarController?.tabBar.hidden = true
-            self.title = "选择提现金额"
+            
             getData()
             getData2()
         }
@@ -32,7 +32,9 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
 
             self.view.backgroundColor = RGREY
             createView()
-            
+            self.navigationController?.navigationBar.topItem?.title = ""
+            UIBarButtonItem.appearance() .setTitlePositionAdjustment(UIOffsetMake(0, -60), forBarMetrics: UIBarMetrics.Default)
+            self.title = "选择提现金额"
         }
         
         func getData(){
@@ -118,10 +120,12 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
                 label.text = "转出帐号"
                 
                 let label1 = UILabel.init(frame: CGRectMake(110, 15, 180, 30))
-                if isbao{
+                if tagButton == 100{
                     label1.text = dataSource.alipay
-                }else{
+                }else if tagButton == 101{
                     label1.text = dataSource.bankno
+                }else{
+                    
                 }
                 
                 
@@ -139,16 +143,29 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
             
             let user = NSUserDefaults.standardUserDefaults()
             let userid = user.objectForKey("userid") as! String
-            if isbao{
+//            if isbao{
+//                banktype = "1"
+//            }else{
+//                banktype = "2"
+//            }
+            if tagButton == 100{
                 banktype = "1"
             }else{
                 banktype = "2"
+                 }
+            if textField.text != nil {
+                if Int(textField.text!) < 100 {
+                    alert("提现金额未满100元", delegate: self)
+                    return
+                }
             }
+            
             mainHelper.ApplyWithdraw(userid, money: textField.text!, banktype: banktype) { (success, response) in
                 if !success{
                     alert("提现请求失败", delegate: self)
+                    return
                 }
-                    alert("提现已请求", delegate: self)
+                    alert("提现已请求,最迟次日到账", delegate: self)
             }
            
         }
