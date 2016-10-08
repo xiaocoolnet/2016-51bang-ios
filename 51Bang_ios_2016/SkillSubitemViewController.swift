@@ -23,6 +23,8 @@ class SkillSubitemViewController: UIViewController {
     var selectButtonArr = NSMutableArray()
     var jinengID = NSMutableArray()
     let selectArr = NSMutableArray()
+    let mySrcollView = UIScrollView()
+    
     var delegate : skillProrocol?
     let backview = UIView.init(frame: CGRectMake(0, 0, WIDTH, 64))
     override func viewWillAppear(animated: Bool) {
@@ -33,6 +35,12 @@ class SkillSubitemViewController: UIViewController {
         super.viewDidLoad()
         self.title = mytitle
         self.view.backgroundColor = RGREY
+        let count  = self.info.count
+        
+        self.mySrcollView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        self.mySrcollView.backgroundColor = RGREY
+        self.mySrcollView.contentSize = CGSizeMake(WIDTH, WIDTH*60/375*CGFloat((count/2)+1)+64)
+        self.view.addSubview(mySrcollView)
         
         backview.backgroundColor = COLOR
         self.view.addSubview(backview)
@@ -155,7 +163,7 @@ class SkillSubitemViewController: UIViewController {
             //            }
             
             //            appviewy = margin+(margin+view.frame.size.height) * CGFloat(row)
-            self.view.addSubview(view)
+            self.mySrcollView.addSubview(view)
             for id in self.jinengID {
                 if id as! String == info[i].id! {
                     selectButton!.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
@@ -171,7 +179,7 @@ class SkillSubitemViewController: UIViewController {
             let fixView = UIView()
             fixView.frame = CGRectMake(lastFrame.size.width, lastFrame.origin.y, WIDTH - lastFrame.size.width, lastFrame.height)
             fixView.backgroundColor = UIColor.whiteColor()
-            self.view.addSubview(fixView)
+            self.mySrcollView.addSubview(fixView)
         }
 
     

@@ -80,6 +80,7 @@ class SkillselectViewController: UIViewController,skillProrocol {
         skillHelper.getSkillListByUserId(userid) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
+                    alert("数据加载出错", delegate: self)
                     return
                 }
                 hud.hide(true)
@@ -105,14 +106,14 @@ class SkillselectViewController: UIViewController,skillProrocol {
    
 
     func createTableViewHeaderView(){
-        print(self.dataSource.count)
+//        print(self.dataSource.count)
         let startMargin = (WIDTH - 4 * (WIDTH*80/375) ) / 5
         
         headerView.frame = CGRectMake(0, 0, WIDTH, 250)
         //        view.backgroundColor = UIColor.grayColor()
         let myTableViwWidth = WIDTH
         let margin:CGFloat = (myTableViwWidth-CGFloat(self.totalloc) * WIDTH*95/375)/(CGFloat(self.totalloc)+1);
-        print(margin)
+//        print(margin)
         for i in 0..<self.dataSource.count{
             let row:Int = i / totalloc;//行号
             //1/3=0,2/3=0,3/3=1;

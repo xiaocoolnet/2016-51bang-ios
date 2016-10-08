@@ -51,6 +51,9 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     var myPhotoCount = NSInteger()
     let photoPushButton = UIButton()
     
+    let dingWeiImageView = UIButton()
+    let clearButtonOfBack = UIButton()
+    
     var mainHelper = MainHelper()
     var myDatas : Array<GoodsInfo>?
     var isEdit = Bool()
@@ -92,8 +95,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     var rightKind:Array<[String]>?
     override func viewWillAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = true
-        let myindexPaths = NSIndexPath.init(forRow: 3, inSection: 0)
-        mytableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Fade)
+//        let myindexPaths = NSIndexPath.init(forRow: 3, inSection: 0)
+//        mytableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Fade)
         if address == "" {
             alert("请打开定位服务",delegate:self)
         }
@@ -916,6 +919,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
                 
             }else if indexPath.row == 3{
+                dingWeiImageView.removeFromSuperview()
+                clearButtonOfBack.removeFromSuperview()
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell2")as! FabuTableViewCell2
                 cell.title.text = "位置"
                 if !self.ishaveNext{
@@ -947,10 +952,10 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     cell.textField.text = address
                     address1 = address
                 }
-                let dingWeiImageView = UIButton()
+                
                 dingWeiImageView.frame = CGRectMake(WIDTH-30, (cell.frame.height-20)/2, 18, 20)
                 dingWeiImageView.setBackgroundImage(UIImage(named: "ic_wodeweizhi"), forState: UIControlState.Normal)
-                let clearButtonOfBack = UIButton()
+                
                 clearButtonOfBack.backgroundColor = UIColor.clearColor()
                 clearButtonOfBack.frame = CGRectMake(0, 0, WIDTH, cell.frame.height)
                 

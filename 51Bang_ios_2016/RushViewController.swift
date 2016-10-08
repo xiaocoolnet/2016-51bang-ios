@@ -107,7 +107,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         backClearButton.backgroundColor = UIColor.clearColor()
         backClearButton.addTarget(self, action: #selector(self.hidenJiahao), forControlEvents: .TouchUpInside)
         self.view.addSubview(backClearButton)
-        self.backClearButton.hidden = false
+        self.backClearButton.hidden = true
         self.view.addSubview(jiahaoView)
         self.jiahaoView.layer.masksToBounds = true
         self.jiahaoView.layer.borderColor = COLOR.CGColor
@@ -636,7 +636,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         opt.appScheme = "a51bang://a51bang"
         let start = BMKPlanNode()
         var coor1 = CLLocationCoordinate2D.init()
-        if dataSource![sender.tag].latitude != nil && dataSource![sender.tag].longitude != nil && dataSource![sender.tag].latitude! as String != "" && dataSource![sender.tag].longitude! as String != ""{
+        if dataSource![sender.tag-1000].latitude != nil && dataSource![sender.tag-1000].longitude != nil && dataSource![sender.tag-1000].latitude! as String != "" && dataSource![sender.tag-1000].longitude! as String != ""{
             print(dataSource![sender.tag].latitude)
             coor1.latitude = CLLocationDegrees(dataSource![sender.tag].latitude! as String)!
             coor1.longitude = CLLocationDegrees(dataSource![sender.tag].longitude! as String)!

@@ -51,6 +51,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
             shopHelper.getMyFaBu(userid) { (success, response) in
                 if !success {
+                    hud.hide(true)
                     return
                 }
                 hud.hide(true)
