@@ -64,6 +64,19 @@ class OrderTableViewCell: UITableViewCell {
             self.snatchButton.enabled = true
         }
         
+        
+        if info.photo == nil {
+            self.icon.image = UIImage(named:"ic_moren")
+        }else{
+            let photoUrl:String = Bang_Open_Header+"uploads/images/"+info.photo!
+//            print(photoUrl)
+            self.icon.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
+        }
+        
+//        if info.photo {
+//            <#code#>
+//        }
+        
         if info.title != "" && info.title != nil{
             self.title.text = info.title
         }
@@ -82,8 +95,8 @@ class OrderTableViewCell: UITableViewCell {
         if info.name != "" && info.name != nil{
             self.username.text = info.name        }
         
-        if info.type_parentname != "" && info.type_parentname != nil{
-            self.typeLabel.setTitle(info.type_parentname!, forState: .Normal)
+        if info.description != "" && info.description != nil{
+            self.typeLabel.setTitle(info.description!, forState: .Normal)
         }
         
         

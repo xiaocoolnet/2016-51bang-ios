@@ -369,6 +369,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 //                    self.hidesBottomBarWhenPushed = false
 //                    return
                     alert("请先进行实名认证", delegate: self)
+                    return
                     
                 }
             }
@@ -426,7 +427,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         let flog = searcher.geoCode(geoCodeSearchOption)
         print(flog)
         
-        mainHelper.checkCity(city) { (success, response) in
+        mainHelper.checkCity(quName) { (success, response) in
             print(response)
             if !success{
                 

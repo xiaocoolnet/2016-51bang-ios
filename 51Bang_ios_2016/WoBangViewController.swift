@@ -440,9 +440,21 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
     
     func qiangdan(sender:UIButton){
         
+        var userid = String()
+        let ud = NSUserDefaults.standardUserDefaults()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid")as! String
+        }
+        //         = ud.objectForKey("userid")as! String
+        if userid == self.dataSource![sender.tag-10000].userid {
+            alert("不能抢自己的单", delegate: self)
+            return
+        }
+        
+        
         let vc = MineViewController()
         vc.Checktoubao()
-        let ud = NSUserDefaults.standardUserDefaults()
+//        let ud = NSUserDefaults.standardUserDefaults()
         if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
             
             
@@ -474,9 +486,17 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
         
         print("抢单")
 //        let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid")as! String
-        let longitude = ud.objectForKey("longitude")as! String
-        let latitude = ud.objectForKey("latitude")as! String
+        var longitude = String()
+        var latitude = String()
+//        let address = String()
+//        let userid = ud.objectForKey("userid")as! String
+        if ud.objectForKey("longitude") != nil && ud.objectForKey("latitude") != nil && ud.objectForKey("myAddress") != nil {
+            longitude = ud.objectForKey("longitude") as! String
+            latitude = ud.objectForKey("latitude") as! String
+//            address = ud.objectForKey("myAddress")
+        }
+//        let longitude = ud.objectForKey("longitude")as! String
+//        let latitude = ud.objectForKey("latitude")as! String
         print(longitude)
         
         print(latitude)

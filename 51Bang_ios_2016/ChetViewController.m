@@ -87,13 +87,19 @@
             }
             NSLog(@"%@",[NSString stringWithFormat:@"%@",[_datasource2[i] objectForKey:@"time"]]);
             if ([[NSString stringWithFormat:@"%@",[_datasource2[i] objectForKey:@"time"]] isEqualToString:@"(null)"]) {
-                
+                NSLog(@"%@",dicValues);
+                messModel *mess=[[messModel alloc]initWithModel:dicValues];
+                modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:YES];
+                //            frameModel.myself = YES;
+                [self.arrModelData addObject:frameModel];
+            }else{
+                NSLog(@"%@",dicValues);
+                messModel *mess=[[messModel alloc]initWithModel:dicValues];
+                modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:[self timeIsEqual:nowTime]];
+                //            frameModel.myself = YES;
+                [self.arrModelData addObject:frameModel];
             }
-            NSLog(@"%@",dicValues);
-            messModel *mess=[[messModel alloc]initWithModel:dicValues];
-            modelFrame *frameModel=[modelFrame modelFrame:mess timeIsEqual:[self timeIsEqual:nowTime]];
-//            frameModel.myself = YES;
-            [self.arrModelData addObject:frameModel];
+           
             
         }
         
@@ -256,15 +262,18 @@
             customCell.otherPhoto = self.datasource2[0][@"receive_face"];
         }
         if (self.datasource2.count==0 || self.datasource2[0][@"send_face"] == nil) {
+            if ([[NSUserDefaults standardUserDefaults] objectForKey:@"photo"] != nil) {
+                NSUserDefaults *photo = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo"];
+                NSString *url = [NSString stringWithFormat:@"%@",photo];
+                customCell.selfPhoto = url;
+            }
             
-            NSUserDefaults *photo = [[NSUserDefaults standardUserDefaults] objectForKey:@"photo"];
-            NSString *url = [NSString stringWithFormat:@"%@",photo];
             //        NSString *url = [NSString stringWithFormat:@"http://bang.xiaocool.net/uploads/images/%@",photo];
             
             //        UIImage *image = [[UIImage alloc]init];
             //        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
             //        image = [UIImage imageWithData:data];
-            customCell.selfPhoto = url;
+            
         }
     }
     

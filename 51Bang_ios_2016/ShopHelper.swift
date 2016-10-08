@@ -64,7 +64,7 @@ class ShopHelper: NSObject {
             "goodsname":goodsname,
             "oprice":oprice,
             "price":price,
-            "picture":photoUrl,
+            "picturelist":photoUrl,
             "description":desc,
             "unit":unit,
             "latitude":latitude,

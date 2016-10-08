@@ -64,6 +64,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if self.badgeView1.hidden && self.badgeView2.hidden && self.badgeView3.hidden && self.badgeView4.hidden && self.badgeView5.hidden{
             let view = self.tabBarController?.tabBar.viewWithTag(888)
             view?.removeFromSuperview()
+            UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         }
         
         

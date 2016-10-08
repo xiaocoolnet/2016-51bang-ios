@@ -56,7 +56,7 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
     
     func createTableView(){
         
-        self.mytableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        self.mytableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         mytableView.delegate = self
         mytableView.dataSource = self
         mytableView.registerNib(UINib(nibName: "walletDetailTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
@@ -108,6 +108,7 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell")as! walletDetailTableViewCell
+        cell.shouRu.text = "提取金额："
         let info = self.dataSource[indexPath.row]
         cell.setValueWithMyInfo(info)
         return cell

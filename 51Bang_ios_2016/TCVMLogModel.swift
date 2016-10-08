@@ -254,8 +254,9 @@ class TCVMLogModel: NSObject {
             print("++++")
             if result.status == "success"{
                 print(result.status)
-                handle(success: true, response: result.status)
+                handle(success: true, response: result.data)
             }else{
+                handle(success: false, response: result.errorData)
 //                alert(result.data!, delegate: self)
                 print(result.data)
             }
@@ -310,6 +311,7 @@ class TCVMLogModel: NSObject {
             }else{
                 //                alert(result.data!, delegate: self)
                 print(result.data)
+                handle(success: false, response: result.errorData)
             }
             
             

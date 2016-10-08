@@ -179,16 +179,40 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
     
     //MARK:取消订单
     func quxiao(){
-        let myInfo = self.dataSource[0] as! fadanDetaiInfo
-        let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid") as! String
-        helper.cancleOrder(userid, taskid: info.id!) { (success, response) in
         
-            print(response)
-            alert("取消成功", delegate: self)
-            self.navigationController?.popViewControllerAnimated(true)
-        }
-    
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "确认取消任务？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Default,  handler: { action in
+            
+            
+            
+        })
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        
+                                        let ud = NSUserDefaults.standardUserDefaults()
+                                        let userid = ud.objectForKey("userid") as! String
+                                        self.helper.cancleOrder(userid, taskid: self.info.id!) { (success, response) in
+                                            
+                                            print(response)
+                                            alert("取消成功", delegate: self)
+                                            self.navigationController?.popViewControllerAnimated(true)
+                                        }
+
+                                        
+                                        
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        delegate.window?.rootViewController!.presentViewController(alertController, animated: true, completion: nil)
+        
+        
+        
+//        let myInfo = self.dataSource[0] as! fadanDetaiInfo
+        
     }
     
     
