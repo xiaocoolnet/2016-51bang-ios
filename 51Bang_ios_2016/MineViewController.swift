@@ -851,6 +851,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if tableView.tag == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)as!MineTableViewCell
             cell.selectionStyle = .None
+//            for view in cell.subviews {
+//                view.removeFromSuperview()
+//            }
             
             if indexPath.section == 0 {
                 //                let top = UIView(frame: CGRectMake(0, 0, WIDTH, WIDTH*126/375))
@@ -889,6 +892,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     label.text = "4000608856"
                     label.textColor = COLOR
                     label.font = UIFont.systemFontOfSize(13)
+                    cell.addSubview(label)
+                }else{
+                    let label = UILabel.init(frame: CGRectMake(WIDTH-100, 5, 90, 30))
                     cell.addSubview(label)
                 }
                 
