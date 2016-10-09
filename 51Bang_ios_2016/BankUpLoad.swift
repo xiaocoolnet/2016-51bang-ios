@@ -135,6 +135,7 @@ class BankUpLoad {
                 
                 let result = Http(JSONDecoder(json!))
                 print("JSON是",json)
+                print(Request)
                 if result.status == "success"{
                     print("支付宝资料上传成功")
                      Targert.navigationController?.pushViewController(pushVc, animated: true)

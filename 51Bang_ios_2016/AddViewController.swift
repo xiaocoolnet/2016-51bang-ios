@@ -890,6 +890,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //            cell.accessoryType = .DisclosureIndicator
                 return cell
             }else if indexPath.row == 1{
+                dingWeiImageView.removeFromSuperview()
+                clearButtonOfBack.removeFromSuperview()
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell2")as! FabuTableViewCell2
                 cell.title.text = "价格"
                 cell.textField.tag = 5
@@ -897,13 +899,15 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 cell.textField.delegate = self
                 cell.selectionStyle = .None
                 cell.textField.borderStyle = .None
+                cell.textField.placeholder = "请输入价格"
                 if (self.myDatas?.count>0&&isEdit == true && self.myDatas![0].price != nil){
                     cell.textField.text = self.myDatas![0].price
                 }
                 tableView.separatorStyle = .None
                 return cell
             }else if indexPath.row == 2{
-                
+                dingWeiImageView.removeFromSuperview()
+                clearButtonOfBack.removeFromSuperview()
                 let cell = mytableView.dequeueReusableCellWithIdentifier("cell2")as! FabuTableViewCell2
                 cell.title.text = "原价"
                 cell.textField.tag = 6
@@ -911,6 +915,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 if (self.myDatas?.count>0&&isEdit == true && self.myDatas![0].oprice != nil){
                     cell.textField.text = self.myDatas![0].oprice
                 }
+                cell.textField.placeholder = "请输入价格"
                 cell.textField.delegate = self
                 cell.selectionStyle = .None
                 cell.textField.borderStyle = .None
@@ -1161,7 +1166,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
-        self.photoArray.removeAllObjects()
+//        self.photoArray.removeAllObjects()
         for imagess in photos {
             photoArray.addObject(imagess)
         }

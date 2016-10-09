@@ -29,9 +29,9 @@
     [super layoutSubviews];
     if (self.areaArray.count != 0) {
         NSLog(@"%ld,%ld,%ld",(long)self.row1,(long)self.row2,(long)self.row3);
-        self.selectString = [NSString stringWithFormat:@"%@-%@-%@",self.provincesArray[0],self.cityArray[0],self.areaArray[0]];
+        self.selectString = [NSString stringWithFormat:@"%@%@%@",self.provincesArray[0],self.cityArray[0],self.areaArray[0]];
     } else {
-        self.selectString = [NSString stringWithFormat:@"%@-%@",self.provincesArray[0],self.cityArray[0]];
+        self.selectString = [NSString stringWithFormat:@"%@%@",self.provincesArray[0],self.cityArray[0]];
     }
 }
 - (void)addPickerView
