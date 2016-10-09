@@ -65,7 +65,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60
+        return 55
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2 {
@@ -80,7 +80,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        return 8
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
