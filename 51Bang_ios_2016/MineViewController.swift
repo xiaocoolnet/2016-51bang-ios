@@ -511,7 +511,11 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }else if ids == "3"{
             warningStr = "您的接单对方已评价，是否查看？"
             //       vc.sign = 3
+        }else if ids == "-1"{
+            warningStr = "您的接单对方已取消，是否查看？"
+            
         }
+        
         //        else if ids == "4"{
         //            warningStr = "服务者评价您的发单，是否查看？"
         ////            vc.sign = 4

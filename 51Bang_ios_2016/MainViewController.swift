@@ -405,6 +405,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
 //        let cityNsstring = city as NSString
         var count = Int()
+        var myArray1 = NSMutableArray()
         for a in city.characters{
             if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
                 break
@@ -415,6 +416,17 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         userLocationCenter.setObject(cutyName, forKey: "cityName")
         
         quName = city.substringFromIndex(city.startIndex.advancedBy(count+1))
+        var quCount = Int()
+        for a in quName.characters{
+            if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
+                myArray1.addObject(quCount)
+            }
+            
+            quCount = quCount + 1
+        }
+        if myArray1.count>1 {
+            quName = quName.substringFromIndex(quName.startIndex.advancedBy((myArray1[0] as! Int)+1))
+        }
         print(cutyName)
         print(quName)
         location.setTitle(quName, forState: UIControlState.Normal)

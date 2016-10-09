@@ -263,6 +263,9 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
     }
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
+        let hud1 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud1.animationType = .Zoom
+        hud1.labelText = "正在努力加载"
         if self.tagOfButton == 1 {
             let data:NSData = UIImageJPEGRepresentation(photos[0] , 1.0)!
 //            let data = UIImageJPEGRepresentation((info[UIImagePickerControllerEditedImage] as? UIImage)!, 0.1)!
@@ -278,6 +281,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                         dispatch_async(dispatch_get_main_queue(), {
                             if result.status! == "success"{
                                 self.array.setValue(result.data!, forKey: "positive_pic")
+                                hud1.hide(true)
                                 //                            self.imagenameArray.addObject(result.data!)
                                 //                            self.imagename = result.data!
                                 
@@ -288,6 +292,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                                 hud.margin = 10.0
                                 hud.removeFromSuperViewOnHide = true
                                 hud.hide(true, afterDelay: 1)
+                                hud1.hide(true)
                             }
                         })
                     }
@@ -309,6 +314,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                         dispatch_async(dispatch_get_main_queue(), {
                             if result.status! == "success"{
                                 self.array.setValue(result.data!, forKey: "opposite_pic")
+                                hud1.hide(true)
                                 //                            self.imagenameArray.addObject(result.data!)
                                 //                            self.imagename = result.data!
                                 
@@ -319,6 +325,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                                 hud.margin = 10.0
                                 hud.removeFromSuperViewOnHide = true
                                 hud.hide(true, afterDelay: 1)
+                                hud1.hide(true)
                             }
                         })
                     }
@@ -340,6 +347,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                         dispatch_async(dispatch_get_main_queue(), {
                             if result.status! == "success"{
                                 self.array.setValue(result.data!, forKey: "driver_pic")
+                                hud1.hide(true)
                                 //                            self.imagenameArray.addObject(result.data!)
                                 //                            self.imagename = result.data!
                                 
@@ -350,6 +358,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
                                 hud.margin = 10.0
                                 hud.removeFromSuperViewOnHide = true
                                 hud.hide(true, afterDelay: 1)
+                                hud1.hide(true)
                             }
                         })
                     }
