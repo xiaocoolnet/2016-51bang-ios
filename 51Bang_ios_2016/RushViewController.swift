@@ -537,7 +537,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         }
         
         cell.snatchButton.tag = indexPath.row+10000
-        print(cell.location.text!)
+//        print(cell.location.text!)
         //        pushMapButton.removeFromSuperview()
         
         cell.pushMapButton.tag = indexPath.row
