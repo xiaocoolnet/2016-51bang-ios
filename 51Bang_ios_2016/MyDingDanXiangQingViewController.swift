@@ -285,7 +285,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 cell.name.removeFromSuperview()
                 cell.addSubview(textField)
                 textField.userInteractionEnabled = false
-                if self.info.state == "1" {
+                if self.info.state == "100" {//暂时不考虑对订单进行修改
                     cell.addSubview(deleteButton)
                     cell.addSubview(addButton)
                     textField.userInteractionEnabled = true
@@ -351,6 +351,17 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if indexPath.section == 1 {
+            if indexPath.row == 0{
+                let next = BusnissViewController()
+                if self.info.gid != nil {
+                    next.id = self.info.gid! as String
+                    self.navigationController?.pushViewController(next, animated: true)
+                }
+                
+            }
+        }
 //        if self.info.state == "1"{
 //            if indexPath.section == 2 && indexPath.row == 2 {
 //                let vc = myAddressViewController()
