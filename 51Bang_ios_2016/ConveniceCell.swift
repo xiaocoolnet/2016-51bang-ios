@@ -22,6 +22,8 @@ class ConveniceCell: UITableViewCell{
     var timeLabel = UILabel()
     var messageButton = UIButton()
     var phone = UIButton()
+    var deletebutton = UIButton()
+    var accountnumberButton = UIButton()
     var predicate = NSPredicate()
     //    var phoneStr = String()
     
@@ -86,7 +88,7 @@ class ConveniceCell: UITableViewCell{
         
         super.init(style: UITableViewCellStyle.Default , reuseIdentifier: "resucell")
         
-        self.sd_addSubviews([userImage,userName,timeLabel,messageButton,phone,contenLabel,imshow])
+        self.sd_addSubviews([userImage,userName,timeLabel,messageButton,phone,deletebutton,accountnumberButton,contenLabel,imshow])
         
         userImage.frame = CGRectMake(10, 10, 50, 50)
         userImage.layer.masksToBounds = true
@@ -139,6 +141,20 @@ class ConveniceCell: UITableViewCell{
             .topEqualToView(phone)
         messageButton.setImage(UIImage.init(named: "ic_xiaoxi-xiao"), forState: UIControlState.Normal)
         
+        deletebutton.sd_layout()
+            .widthIs(35)
+            .heightIs(35)
+            .rightSpaceToView(messageButton,0)
+            .topEqualToView(messageButton)
+        deletebutton.setImage(UIImage.init(named: "ic_delete"), forState: UIControlState.Normal)
+        
+        accountnumberButton.sd_layout()
+            .widthIs(35)
+            .heightIs(35)
+            .rightSpaceToView(messageButton,0)
+            .topEqualToView(messageButton)
+        accountnumberButton.setImage(UIImage.init(named: "ic_jubao"), forState: UIControlState.Normal)
+        
         
         contenLabel.sd_layout()
             .leftSpaceToView(self,10)
@@ -172,6 +188,7 @@ class ConveniceCell: UITableViewCell{
             
             imview.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "1.png"))
             
+//            imview.contentMode = .Redraw
             switch imcount / 3 {
             case 0:
                 imview.frame = CGRectMake( CGFloat( imcount ) * (WIDTH-5) / 3 + 5  , ( CGFloat (imcount / 3) ) * (WIDTH-5) / 3, (WIDTH) / 3 - 5 , WIDTH / 3 )

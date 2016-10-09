@@ -1318,4 +1318,76 @@
         }
     }
 
+    //删除发布的帖子
+    func Deletebbspost(userid:NSString,id:NSString,handle:ResponseBlock){
+        
+        let url = Bang_URL_Header+"deletebbspost"
+        let param = [
+            
+            "userid":userid,
+            "id":id
+            
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+        
+    }
+    
+    //便民圈举报
+    func Report(userid:NSString,type:NSString,refid:NSString,content:NSString,handle:ResponseBlock){
+        let url = Bang_URL_Header+"Report"
+       
+        let param = [
+            
+            "userid":userid,
+            "type":type,
+            "refid":refid,
+            "content":content
+            
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.data)
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+
 }

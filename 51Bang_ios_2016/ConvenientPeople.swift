@@ -348,6 +348,21 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     cell.phone.tag = indexPath.row-1+100
                     cell.phone.addTarget(self, action: #selector(self.callPhone(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.messageButton.tag = indexPath.row-1
+                    
+                    let user = NSUserDefaults.standardUserDefaults()
+                    let userid = user.objectForKey("userid") as! String
+                    if userid == (dataSource2[indexPath.row-1] as! TCHDInfo).userid! {
+                        cell.deletebutton.hidden = false
+                        cell.accountnumberButton.hidden = true
+                        cell.deletebutton.addTarget(self, action: #selector(self.deletemyfabu(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                        cell.deletebutton.tag = indexPath.row-1+1000
+                    }else{
+                        cell.deletebutton.hidden = true
+                        cell.accountnumberButton.hidden = false
+                        cell.accountnumberButton.addTarget(self, action: #selector(self.accountnumber(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                        cell.accountnumberButton.tag = indexPath.row-1+10000
+
+                    }
                     return cell
                 }else{
                     let cell = UITableViewCell()
@@ -362,8 +377,82 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
     }
     
+    func deletemyfabu(sender:UIButton){
+        //        print(self.info?.phone)
+        if loginSign == 0 {
+            
+            alert("请先登录", delegate: self)
+            
+        }else{
+            
+            let alertController = UIAlertController(title: "系统提示",
+                                                        message: "确定要删除发布信息？", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+        handler: { action in
+            
+            let user = NSUserDefaults.standardUserDefaults()
+            let userid = user.objectForKey("userid") as! String
+            let mainhelper = MainHelper()
+            mainhelper.Deletebbspost(userid, id: (self.dataSource2[sender.tag-1000] as! TCHDInfo).mid!, handle: { (success, response) in
+                if !success{
+                    return
+                }
+                self.dataSource2.removeObject(self.dataSource2[sender.tag-1000] as! TCHDInfo)
+                
+                let myindexPaths = NSIndexPath.init(forRow:
+                    sender.tag-1000, inSection: 0)
+                self.convenienceTable.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
+                self.convenienceTable.reloadData()
+                 alert("内容已删除", delegate: self)
+               
+            })
+                                                
+                                                
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+        }
+    }
+
     
-    
+    func accountnumber(sender:UIButton){
+        //        print(self.info?.phone)
+        if loginSign == 0 {
+            
+            alert("请先登录", delegate: self)
+            
+        }else{
+            
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: "确定要举报？", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            let user = NSUserDefaults.standardUserDefaults()
+                                            let userid = user.objectForKey("userid") as! String
+                                            let mainhelper = MainHelper()
+                                            mainhelper.Report(userid, type: "1", refid: (self.dataSource2[sender.tag-10000] as! TCHDInfo).mid!, content: (self.dataSource2[sender.tag-10000] as! TCHDInfo).content!, handle: { (success, response) in
+                                                if !success{
+                                                    return
+                                                }
+                                                
+                                                alert("内容已举报", delegate: self)
+                                               
+                                            })
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+        }
+    }
+
     func callPhone(sender:UIButton){
 //        print(self.info?.phone)
         if loginSign == 0 {
