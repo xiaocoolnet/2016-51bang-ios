@@ -853,7 +853,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if tableView.tag == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)as!MineTableViewCell
+            let cell = (NSBundle.mainBundle().loadNibNamed("MineTableViewCell", owner: nil, options: nil).first as? MineTableViewCell)!
+            
+//            let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)as!MineTableViewCell
             cell.selectionStyle = .None
 //            for view in cell.subviews {
 //                view.removeFromSuperview()

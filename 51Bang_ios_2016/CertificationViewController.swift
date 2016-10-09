@@ -9,6 +9,7 @@
 import UIKit
 import AssetsLibrary
 import MBProgressHUD
+import SVProgressHUD
 
 class CertificationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate ,TZImagePickerControllerDelegate{
     
@@ -481,6 +482,24 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         if array.count<5 {
             alert("请填写完整信息", delegate: self)
+            return
+        }
+        
+        var regex:String?
+        regex = "^[xX0-9]{15,18}$"
+        let predicate = NSPredicate.init(format: "SELF MATCHES %@",regex!)
+        let flags = predicate.evaluateWithObject(presonId!.text! as NSString)
+        if !flags{
+            SVProgressHUD.showErrorWithStatus("请输入15位或18位身份证号!")
+            return
+        }
+        
+        var regex1:String?
+        regex1 = "^[0-9]{7,15}$"
+        let predicate1 = NSPredicate.init(format: "SELF MATCHES %@",regex1!)
+        let flags1 = predicate1.evaluateWithObject(emergencyPhone!.text! as NSString)
+        if !flags1{
+            SVProgressHUD.showErrorWithStatus("请输入正确手机号!")
             return
         }
         
