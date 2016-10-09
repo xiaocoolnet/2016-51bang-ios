@@ -29,12 +29,12 @@ class OrderTableViewCell: UITableViewCell {
     
     @IBOutlet weak var price: UILabel!
     
-    @IBOutlet weak var location: UILabel!
+    @IBOutlet weak var location: AutoScrollLabel!
     
     @IBOutlet weak var snatchButton: UIButton!
     
     
-    @IBOutlet weak var fuwudidian: UILabel!
+    @IBOutlet weak var fuwudidian: AutoScrollLabel!
     
     @IBOutlet weak var distnce: UILabel!
     
@@ -87,10 +87,22 @@ class OrderTableViewCell: UITableViewCell {
             self.desc.text = info.expirydate
         }
         if info.address != "" && info.address != nil{
-            self.location.text = info.address
+            
+            self.location.labelSpacing = 30 // distance between start and end labels
+            self.location.pauseInterval = 1.7 // seconds of pause before scrolling starts again
+            self.location.scrollSpeed = 30 // pixels per second
+            self.location.fadeLength = 12
+            self.location.scrollDirection = AutoScrollDirection.Left
+            self.location.text = info.address! as String
         }
         if info.saddress != "" && info.saddress != nil{
-            self.fuwudidian.text = info.saddress
+            
+            self.fuwudidian.labelSpacing = 30 // distance between start and end labels
+            self.fuwudidian.pauseInterval = 1.7 // seconds of pause before scrolling starts again
+            self.fuwudidian.scrollSpeed = 30 // pixels per second
+            self.fuwudidian.fadeLength = 12
+            self.fuwudidian.scrollDirection = AutoScrollDirection.Left
+            self.fuwudidian.text = info.saddress! as String
         }
         if info.name != "" && info.name != nil{
             self.username.text = info.name        }

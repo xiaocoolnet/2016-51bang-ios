@@ -390,6 +390,7 @@
 		77361BA51D939791003F96F5 /* Bugtags.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77361BA11D939791003F96F5 /* Bugtags.framework */; };
 		77361BA61D939791003F96F5 /* Bugtags.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77361BA21D939791003F96F5 /* Bugtags.podspec */; };
 		77361BA71D939791003F96F5 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 77361BA31D939791003F96F5 /* README.md */; };
+		77F525551DAA347C001B2DE3 /* AutoScrollLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */; };
 		816E0F001D388991000D7542 /* MineGetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816E0EFF1D388990000D7542 /* MineGetModel.swift */; };
 		818071621D40F3FE00FBB2DB /* Wallect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818071611D40F3FE00FBB2DB /* Wallect.swift */; };
 		8190BA9E1D38C5BC00468D4D /* MyFaDan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8190BA9D1D38C5BC00468D4D /* MyFaDan.swift */; };
@@ -1030,6 +1031,7 @@
 		77361BA11D939791003F96F5 /* Bugtags.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugtags.framework; sourceTree = "<group>"; };
 		77361BA21D939791003F96F5 /* Bugtags.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bugtags.podspec; sourceTree = "<group>"; };
 		77361BA31D939791003F96F5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoScrollLabel.swift; sourceTree = "<group>"; };
 		816E0EFF1D388990000D7542 /* MineGetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineGetModel.swift; sourceTree = "<group>"; };
 		818071611D40F3FE00FBB2DB /* Wallect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallect.swift; sourceTree = "<group>"; };
 		8190BA9D1D38C5BC00468D4D /* MyFaDan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyFaDan.swift; sourceTree = "<group>"; };
@@ -1229,6 +1231,7 @@
 		0D10A6241D50AE550004903C /* ThirdPackage */ = {
 			isa = PBXGroup;
 			children = (
+				77F525531DAA3464001B2DE3 /* AutoScrollLabel */,
 				77361B9E1D93970D003F96F5 /* BugTags */,
 				F2EEFA131D81454F008FD274 /* 聊天界面 */,
 				F2DAD9931D76C13C00200B5D /* SocialSDK */,
@@ -2245,6 +2248,14 @@
 			path = "Bugtags-iOS-1.3.1";
 			sourceTree = "<group>";
 		};
+		77F525531DAA3464001B2DE3 /* AutoScrollLabel */ = {
+			isa = PBXGroup;
+			children = (
+				77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */,
+			);
+			name = AutoScrollLabel;
+			sourceTree = "<group>";
+		};
 		CFA145760FF79DF03531E71B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2734,7 +2745,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		654295CFE0A5D8F5446D9914 /* [CP] Embed Pods Frameworks */ = {
@@ -2838,7 +2849,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FCA5D07B604B8C10D39E5F11 /* [CP] Check Pods Manifest.lock */ = {
@@ -2853,7 +2864,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3142,6 +3153,7 @@
 				1FF073C71D30E6320074C477 /* FuWuHomePageViewController.swift in Sources */,
 				F24745291D6D51CF00870363 /* SGGroupCell.m in Sources */,
 				816E0F001D388991000D7542 /* MineGetModel.swift in Sources */,
+				77F525551DAA347C001B2DE3 /* AutoScrollLabel.swift in Sources */,
 				188D4C6C1D1691D4005334D2 /* MarriageTableViewCell.swift in Sources */,
 				1FE489241D48958B00D2E684 /* MessageModel.swift in Sources */,
 				1FD128A31D264C8700DE9D74 /* SalaryTableViewCell.swift in Sources */,
