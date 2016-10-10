@@ -251,7 +251,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
             cell.snatchButton.addTarget(self, action: #selector(self.qiangdan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }
         cell.snatchButton.tag = indexPath.row+10000
-        print(cell.location.text!)
+
 //        pushMapButton.removeFromSuperview()
         
         cell.pushMapButton.tag = indexPath.row
