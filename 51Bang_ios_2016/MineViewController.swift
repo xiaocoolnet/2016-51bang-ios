@@ -442,6 +442,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }else if ids == "4"{
             warningStr = "服务者评价您的发单，是否查看？"
             vc.sign = 4
+        }else{
+            warningStr = "您的发单状态发生变化，是否查看？"
         }
         if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
             let alertController = UIAlertController(title: "系统提示",
@@ -514,6 +516,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }else if ids == "-1"{
             warningStr = "您的接单对方已取消，是否查看？"
             
+        }else{
+            warningStr = "您的接单状态发生变化，是否查看？"
         }
         
         //        else if ids == "4"{
