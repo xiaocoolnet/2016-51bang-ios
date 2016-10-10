@@ -303,6 +303,11 @@ class SkillselectViewController: UIViewController,skillProrocol {
             var positive_pic = String()
             var opposite_pic = String()
             var driver_pic = String()
+            var city = String()
+            var name = String()
+            var idcard = String()
+            var contactperson = String()
+            var contactphone = String()
             if array["positive_pic"] == nil {
                 positive_pic = ""
             }else{
@@ -318,7 +323,31 @@ class SkillselectViewController: UIViewController,skillProrocol {
             }else{
                 driver_pic = array["driver_pic"] as! String
             }
-            
+            if array["city"] == nil {
+                city = ""
+            }else{
+                city = array["city"] as! String
+            }
+            if array["name"] == nil {
+                name = ""
+            }else{
+                name = array["name"] as! String
+            }
+            if array["idcard"] == nil {
+                idcard = ""
+            }else{
+                idcard = array["idcard"] as! String
+            }
+            if array["contactperson"] == nil {
+                contactperson = ""
+            }else{
+                contactperson = array["contactperson"] as! String
+            }
+            if array["contactphone"] == nil {
+                contactphone = ""
+            }else{
+                contactphone = array["contactphone"] as! String
+            }
             
             
             //            let strrr = NSMutableString()
@@ -340,7 +369,7 @@ class SkillselectViewController: UIViewController,skillProrocol {
             }else{
                 print(array)
                 
-                skillHelper.identityAffirm(userid, city: array["city"] as! String, realname:array["name"] as! String, idcard: array["idcard"] as! String, contactperson: array["contactperson"] as! String, contactphone: array["contactphone"] as! String, positive_pic:positive_pic, opposite_pic:opposite_pic, driver_pic: driver_pic,types:types as String) { (success, response) in
+                skillHelper.identityAffirm(userid, city: city, realname:name, idcard: idcard, contactperson: contactperson, contactphone: contactphone, positive_pic:positive_pic, opposite_pic:opposite_pic, driver_pic: driver_pic,types:types as String) { (success, response) in
                     if success{
                         hud1.hide(true)
                         self.btn.userInteractionEnabled = true

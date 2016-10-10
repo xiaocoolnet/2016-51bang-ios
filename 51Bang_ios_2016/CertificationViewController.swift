@@ -426,6 +426,8 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
     
     //代理方法
     func nextToView() {
+        let userdefault = NSUserDefaults.standardUserDefaults()
+        userdefault.removeObjectForKey("infomation")
         print("下一步")
         let city = self.view.viewWithTag(10) as? UILabel
         let name = self.view.viewWithTag(11) as? UITextField
@@ -476,10 +478,10 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         //        array.addObject(data1)
         //        array.addObject(data2)
         //        array.addObject(data3)
-        let userdefault = NSUserDefaults.standardUserDefaults()
+//        let userdefault = NSUserDefaults.standardUserDefaults()
         userdefault.setObject(array, forKey: "infomation")
         //        let vc = SkillViewController()
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+//        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         if array.count<5 {
             alert("请填写完整信息", delegate: self)
             return

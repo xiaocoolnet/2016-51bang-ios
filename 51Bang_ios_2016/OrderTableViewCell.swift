@@ -94,6 +94,8 @@ class OrderTableViewCell: UITableViewCell {
             self.location.fadeLength = 12
             self.location.scrollDirection = AutoScrollDirection.Left
             self.location.text = info.address! as String
+        }else{
+            self.location.text = ""
         }
         if info.saddress != "" && info.saddress != nil{
             
@@ -103,9 +105,12 @@ class OrderTableViewCell: UITableViewCell {
             self.fuwudidian.fadeLength = 12
             self.fuwudidian.scrollDirection = AutoScrollDirection.Left
             self.fuwudidian.text = info.saddress! as String
+        }else{
+            self.fuwudidian.text = ""
         }
         if info.name != "" && info.name != nil{
-            self.username.text = info.name        }
+            self.username.text = info.name
+        }
         
         if info.description != "" && info.description != nil{
             self.typeLabel.setTitle(info.description!, forState: .Normal)
