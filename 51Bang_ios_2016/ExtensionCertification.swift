@@ -41,6 +41,7 @@ extension CertificationViewController{
             buttonfirm2.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
             labelfirm2.frame =  CGRectMake(0, 40, WIDTH/2, 3)
             butTag = 2
+            self.title = "身份认证"
             myTableView.hidden = false
             scrollView.hidden = true
             

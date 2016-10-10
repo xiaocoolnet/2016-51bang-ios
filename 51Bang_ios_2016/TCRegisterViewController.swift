@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import MBProgressHUD
 
 
 class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
@@ -113,6 +114,10 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
             return
         }
         //裁剪后图片
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        //        hud.mode = .Text
+        hud.labelText = "正在努力加载"
         let image = info[UIImagePickerControllerEditedImage] as! UIImage
         avatarBtn.setImage(image, forState: .Normal)
         let data = UIImageJPEGRepresentation(image, 0.1)!
@@ -123,6 +128,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
             dispatch_async(dispatch_get_main_queue(), {
                 let result = Http(JSONDecoder(data))
+                hud.hide(true)
                 if result.status != nil {
                     if result.status! == "success"{
                         let imageName = result.data!
@@ -174,8 +180,10 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         completeBtn.layer.cornerRadius = 8
         phoneNumber.layer.borderWidth = 2
         phoneNumber.layer.borderColor = UIColor.whiteColor().CGColor
+        phoneNumber.keyboardType = UIKeyboardType.PhonePad
         identifyNumber.layer.borderWidth = 2
         identifyNumber.layer.borderColor = UIColor.whiteColor().CGColor
+        identifyNumber.keyboardType = UIKeyboardType.PhonePad
         passwordNumber.layer.borderWidth = 2
         passwordNumber.layer.borderColor = UIColor.whiteColor().CGColor
 //        realName.layer.borderWidth = 2

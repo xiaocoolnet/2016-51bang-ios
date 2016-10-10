@@ -79,12 +79,18 @@ class OrderTableViewCell: UITableViewCell {
         
         if info.title != "" && info.title != nil{
             self.title.text = info.title
+        }else{
+            self.title.text = ""
         }
         if info.price != "" && info.price != nil{
             self.price.text = info.price
+        }else{
+            self.price.text = "0"
         }
         if info.expirydate != "" && info.expirydate != nil{
             self.desc.text = info.expirydate
+        }else{
+            self.desc.text = ""
         }
         if info.address != "" && info.address != nil{
             
@@ -110,10 +116,17 @@ class OrderTableViewCell: UITableViewCell {
         }
         if info.name != "" && info.name != nil{
             self.username.text = info.name
+        }else{
+            if info.phone != nil {
+                self.username.text = info.phone
+            }
+            
         }
         
         if info.description != "" && info.description != nil{
             self.typeLabel.setTitle(info.description!, forState: .Normal)
+        }else{
+            self.typeLabel.setTitle("", forState: .Normal)
         }
         
         
@@ -121,6 +134,8 @@ class OrderTableViewCell: UITableViewCell {
             let str = timeStampToString(info.expirydate!)
 //            self.time.text = str
             self.desc.text = str+"前有效"
+        }else{
+            self.desc.text = ""
         }
         if info.time != "" && info.time != nil{
             let str = timeStampToString(info.time!)

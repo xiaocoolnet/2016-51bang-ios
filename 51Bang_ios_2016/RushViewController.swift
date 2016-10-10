@@ -12,7 +12,10 @@ import MJRefresh
 
 class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITableViewDataSource{
 
-    
+    var dataSource1 = SkillModel()
+    let skillHelper = RushHelper()
+    var backView = UIView()
+    var ddddd = UIDynamicAnimator()
     var distance = NSString()
     var cityName = String()
     var longitude = String()
@@ -38,9 +41,11 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         function.CheckRenzheng()
         let ud = NSUserDefaults.standardUserDefaults()
         print(ud.objectForKey("ss"))
+        if (ud.objectForKey("quName") != nil) {
+            self.cityName = ud.objectForKey("quName") as! String
+        }
         if(ud.objectForKey("ss") != nil){
-            
-            
+        
             
         if(ud.objectForKey("ss") as! String == "yes")
             
@@ -50,6 +55,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             certifyImage.hidden = true
             self.myTableView.hidden = false
             self.title = "抢单"
+            self.backView.hidden = false
             
             }
         else{
@@ -57,9 +63,32 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             certiBtn.hidden = false
             certifyImage.hidden = false
             self.myTableView.hidden = true
+            self.backView.hidden = true
             self.title = "认证"
             }
         }
+        
+//        let mybackView = UIView.init(frame: CGRectMake(0, -HEIGHT+100, WIDTH, HEIGHT*2+100))
+//        self.view.addSubview(mybackView)
+        
+        
+        
+        self.GetData1()
+//        ddddd = UIDynamicAnimator.init(referenceView: mybackView)
+//        self.backView.transform=CGAffineTransformMakeRotation(90)
+//        let gravity = UIGravityBehavior.init()
+//        gravity.magnitude = 5
+////        gravity.gravityDirection=CGVectorMake(1, 1)
+//        gravity.addItem(backView)
+//        
+//        let collision = UICollisionBehavior.init()
+//        collision.addItem(backView)
+//        
+//        collision.translatesReferenceBoundsIntoBoundary = true
+//        ddddd.addBehavior(gravity)
+//        ddddd.addBehavior(collision)
+        
+        
         self.tabBarController?.selectedIndex = 1
         if(ud.objectForKey("userid")==nil)
         {
@@ -80,14 +109,29 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         super.viewDidLoad()
         
         
-       
+        let ud = NSUserDefaults.standardUserDefaults()
+        if (ud.objectForKey("quName") != nil) {
+            self.cityName = ud.objectForKey("quName") as! String
+        }
         
         sign = 0
         self.createRightItemWithTitle("我的任务")
         self.createLeftItem()
         self.createTableView()
         setBtnAndImage()
+        
         self.GetData()
+        
+        backView = UIView.init(frame: CGRectMake(0, -HEIGHT, WIDTH, HEIGHT))
+        backView.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(backView)
+        
+        let jinengButton = UIButton.init(frame: CGRectMake(0, 150, WIDTH, 50))
+        jinengButton.backgroundColor = COLOR
+        jinengButton.addTarget(self, action: #selector(self.goJineng), forControlEvents: UIControlEvents.TouchUpInside)
+        jinengButton.setTitle("您还没有注册技能，点击我去修改技能", forState: UIControlState.Normal)
+        self.backView.addSubview(jinengButton)
+        
         
         self.jiahaoView.frame = CGRectMake(WIDTH-110, -110, 100, 101)
         self.jiahaoView.backgroundColor = COLOR
@@ -265,6 +309,53 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
 //        }
         
 
+    }
+    
+    
+    func GetData1(){//获取当前用户的技能
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        
+        let userid =  ud.objectForKey("userid") as! String
+        
+        let hud = MBProgressHUD.init()
+        hud.animationType = .Zoom
+        
+        hud.labelText = "正在努力加载"
+        
+        skillHelper.getSkillListByUserId(userid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if !success {
+                    hud.hide(true)
+                    alert("数据加载出错", delegate: self)
+                    return
+                }
+                hud.hide(true)
+                print(response)
+                self.dataSource1 = response as! SkillModel
+                if self.dataSource1.skilllist.count<1{
+                    UIView.animateWithDuration(0.4, animations: {
+                        self.backView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+                    })
+                }else{
+                    UIView.animateWithDuration(0.4, animations: {
+                        self.backView.frame = CGRectMake(0, -HEIGHT, WIDTH, HEIGHT)
+                    })
+                }
+                //                print(self.dataSource)
+                //                print(self.dataSource.count)
+                //                print(self.dataSource1.skilllist[0].type)
+//                for skillSelect in self.dataSource1.skilllist {
+//                    if !self.jiNengID.containsObject(skillSelect.type!){
+//                        self.jiNengID.addObject(skillSelect.type!)
+//                    }
+//                    
+//                    
+//                }
+//                self.createTableViewHeaderView()
+                
+            })
+        }
     }
     
     

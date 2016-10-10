@@ -52,9 +52,9 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         
         isAgree = false
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.nextView(_:)),
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.nextView),
                                                          name: "payResult", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.backpayForweixin(_:)),
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.backpayForweixin),
                                                          name: "backForPAy", object: nil)
         self.title = "订单支付"
         self.createTableView()
@@ -243,12 +243,36 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     
                     let diss = dic as NSDictionary
                     if diss["resultStatus"]?.intValue == 9000{
-                        
+                        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                        hud.animationType = .Zoom
+                        //        hud.mode = .Text
+                        hud.labelText = "正在努力加载"
+                        if self.isRenwu == true {
+                            self.mainhelper.upALPState("1_"+self.numForGoodS, state: "1", type: "1", handle: { (success, response) in
+                                if !success{
+                                    alert("支付未成功，如有疑问请联系客服", delegate: self)
+                                }
+                                hud.hide(true)
+                                //                self.tabBarController?.selectedIndex = 0
+                                let vc = WoBangPageViewController()
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            })
+                        }else{
+                            self.mainhelper.upALPState("1_"+self.numForGoodS, state: "1", type: "2", handle: { (success, response) in
+                                if !success{
+                                    alert("支付未成功，如有疑问请联系客服", delegate: self)
+                                }
+                                hud.hide(true)
+                                //                self.tabBarController?.selectedIndex = 3
+                                let vc = MyBookDan()
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            })
+                        }
                     }
 
                     
-                    let vc = MyBookDan()
-                    self.navigationController?.pushViewController(vc, animated: true)
+//                    let vc = MyBookDan()
+//                    self.navigationController?.pushViewController(vc, animated: true)
                     
                     
                 }
@@ -425,7 +449,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
     }
     
-    func backpayForweixin(notification: NSNotification)  {
+    func backpayForweixin()  {
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         //        hud.mode = .Text
@@ -456,7 +480,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
 //        self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func nextView(notification: NSNotification){
+    func nextView(){
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         //        hud.mode = .Text

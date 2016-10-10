@@ -84,6 +84,8 @@
 		<string>mqq</string>
 		<string>mqqapi</string>
 		<string>mqqopensdkapiV2</string>
+		<string>wechat</string>
+		<string>weixin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

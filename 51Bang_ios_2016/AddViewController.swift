@@ -95,8 +95,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     var rightKind:Array<[String]>?
     override func viewWillAppear(animated: Bool) {
         self.tabBarController?.tabBar.hidden = true
-//        let myindexPaths = NSIndexPath.init(forRow: 3, inSection: 0)
-//        mytableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Fade)
+        let myindexPaths = NSIndexPath.init(forRow: 3, inSection: 0)
+        mytableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Fade)
         if address == "" {
             alert("请打开定位服务",delegate:self)
         }
@@ -900,6 +900,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 cell.selectionStyle = .None
                 cell.textField.borderStyle = .None
                 cell.textField.placeholder = "请输入价格"
+                cell.textField.text = ""
                 if (self.myDatas?.count>0&&isEdit == true && self.myDatas![0].price != nil){
                     cell.textField.text = self.myDatas![0].price
                 }
@@ -915,6 +916,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 if (self.myDatas?.count>0&&isEdit == true && self.myDatas![0].oprice != nil){
                     cell.textField.text = self.myDatas![0].oprice
                 }
+                cell.textField.text = ""
                 cell.textField.placeholder = "请输入价格"
                 cell.textField.delegate = self
                 cell.selectionStyle = .None
@@ -1166,7 +1168,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
-//        self.photoArray.removeAllObjects()
+        self.photoArray.removeAllObjects()
         for imagess in photos {
             photoArray.addObject(imagess)
         }

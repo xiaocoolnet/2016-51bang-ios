@@ -164,38 +164,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 //                let vc = WoBangPageViewController()
 //                pointNum = pointNum+1
 //                application.applicationIconBadgeNumber = pointNum
-            }
-            
-            if userInfo["v"] != nil && userInfo["key"] as! String == "newMessage" {
+            }else if userInfo["v"] != nil && userInfo["key"] as! String == "newMessage" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("newMessage", object: dic)
 //                pointNum = pointNum+1
 //                application.applicationIconBadgeNumber = pointNum
-            }
+            }else
             if userInfo["key"] as! String == "sendTaskType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("sendTaskType", object: dic)
                 
-            }
+            }else
             if userInfo["key"] as! String == "acceptTaskType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("acceptTaskType", object: dic)
-            }
+            }else
             if userInfo["key"] as! String == "buyOrderType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("buyOrderType", object: dic)
-            }
+            }else
             if userInfo["key"] as! String == "businessOrderType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("businessOrderType", object: dic)
-            }
+            }else
             if userInfo["key"] as! String == "loginFromOther" {
 //                let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("loginFromOther", object: nil)
-            }
+            }else
             if userInfo["key"] as! String == "certificationType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("certificationType", object: dic)
+            }else{
+                
+                alert(userInfo["key"] as! String, delegate: self)
             }
 
         }
@@ -214,6 +215,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     }
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        WXApi.handleOpenURL(url, delegate: self)
         if url.host == "safepay"{
         
             AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: { (resultDict:[NSObject : AnyObject]!) in

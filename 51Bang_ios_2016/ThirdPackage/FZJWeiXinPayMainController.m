@@ -128,7 +128,11 @@
     
     req.sign                = [self createMd5Sign:signParams];//二次签名
     
-    [WXApi sendReq:req];
+//    BOOL  isSeccess =  [WXApi sendReq:req];
+    if (![WXApi sendReq:req]) {
+        UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"您未安装微信！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
     
 }
 -(NSString *)timeStamp{

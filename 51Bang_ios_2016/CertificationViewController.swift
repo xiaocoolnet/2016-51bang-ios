@@ -11,7 +11,7 @@ import AssetsLibrary
 import MBProgressHUD
 import SVProgressHUD
 
-class CertificationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate ,TZImagePickerControllerDelegate{
+class CertificationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate ,TZImagePickerControllerDelegate,UIScrollViewDelegate{
     
     //@IBOutlet weak var myTableView: UITableView!
     var myTableView = UITableView.init()
@@ -529,11 +529,17 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         presonId?.resignFirstResponder()
         emergency?.resignFirstResponder()
         emergencyPhone?.resignFirstResponder()
+        nameTextField.resignFirstResponder()
+        certifyField.resignFirstResponder()
+        baoNumber.resignFirstResponder()
+        phoneVerify.resignFirstResponder()
+        
     }
     
     func setScrolView()
     {
         scrollView.frame = CGRectMake(0, 48, WIDTH, self.view.frame.size.height )
+        scrollView.delegate = self
         scrollView.backgroundColor = UIColor.whiteColor()
         scrollView.showsVerticalScrollIndicator = true
         scrollView.flashScrollIndicators()
@@ -648,6 +654,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         certifyField.frame = CGRectMake(15, nameTextField.frame.origin.y + 35 + 15, WIDTH - 30, 35)
         certifyField.layer.masksToBounds = true
         certifyField.layer.cornerRadius = 10
+        certifyField.keyboardType = .NumberPad
         certifyField.layer.borderColor = UIColor(red: 221 / 255.0, green: 221 / 255.0, blue: 221 / 255.0, alpha: 1.0).CGColor
         certifyField.layer.borderWidth = 1
         sethoder(certifyField, size: 13, str: "   请输入身份证号码")
@@ -666,6 +673,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         phoneVerify.layer.cornerRadius = 10
         phoneVerify.layer.borderColor = UIColor(red: 221 / 255.0, green: 221 / 255.0, blue: 221 / 255.0, alpha: 1.0).CGColor
         phoneVerify.layer.borderWidth = 1
+        phoneVerify.keyboardType = .NumberPad
         sethoder(phoneVerify, size: 13, str: "   请输入短信验证码")
         scrollView.addSubview(phoneVerify)
         

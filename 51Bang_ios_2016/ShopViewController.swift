@@ -12,7 +12,9 @@ import MJRefresh
 class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate,ViewControllerDelegate {
     
 //    @IBOutlet weak var myTableView: UITableView!
+    @IBOutlet weak var fenLeiType: UIBarButtonItem!
     var myTableView = UITableView()
+    let leftTypeButton = UIButton()//左侧全部分类按钮
     var showLogin = false
     var type = String()
     let shopHelper = ShopHelper()
@@ -37,6 +39,19 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 //    var array = ["餐饮美食","休闲/娱乐/酒店","服饰/箱包","运动户外/休闲/健身","日用百货","培训机构/教育器材","汽车用品/买卖","二手买卖","家纺家饰/家装建材","美装日化/美容美发","代购进口产品","黄金珠宝","数码家电/安全防护/电工电气","印刷广告/包装市场/行政采购","照明/电子/五金工具/机械/仪器仪表","橡塑/精细/钢材","纺织、皮革市场","医药保健","货运/物流","食品/海鲜/果蔬/农产品/茶叶","婚纱摄影/个人写真","其他"]
     override func viewWillAppear(animated: Bool) {
         self.GetData()
+//        
+        
+        leftTypeButton.backgroundColor = COLOR
+        leftTypeButton.frame = CGRectMake(0, 0, 100, 40)
+        leftTypeButton.setTitle("全部分类", forState:UIControlState.Normal)
+        leftTypeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+//        leftTypeButton.titleLabel?.textAlignment = .Left
+        leftTypeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        leftTypeButton.addTarget(self, action: #selector(self.goToMenu), forControlEvents: UIControlEvents.TouchUpInside)
+//        self.fenLeiType.customView = leftTypeButton
+        let aaa = UIBarButtonItem.init(customView: leftTypeButton)
+        self.navigationItem.leftBarButtonItem = aaa
+        
 
         self.tabBarController?.tabBar.hidden = false
         self.navigationController?.navigationBar.hidden = false
@@ -47,6 +62,9 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.viewDidLoad()
         self.title = "特卖"
         self.view.backgroundColor = UIColor.whiteColor()
+        
+        
+        
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]
         
         isShow = false
@@ -254,8 +272,10 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if indexPath.row == 0{
                 self.type = ""
                 isShow = false
+                 self.leftTypeButton.setTitle("全部分类", forState: UIControlState.Normal)
             }else{
                 self.type = self.myDic![indexPath.row - 1].id!
+                self.leftTypeButton.setTitle(self.myDic![indexPath.row - 1].name!, forState: UIControlState.Normal)
                 dataSource2.removeAllObjects()
                 for myInfo in self.dataSource! {
                     if self.type == myInfo.type {

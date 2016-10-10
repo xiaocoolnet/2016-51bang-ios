@@ -80,6 +80,7 @@ class SkillselectViewController: UIViewController,skillProrocol {
         skillHelper.getSkillListByUserId(userid) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
+                    hud.hide(true)
                     alert("数据加载出错", delegate: self)
                     return
                 }

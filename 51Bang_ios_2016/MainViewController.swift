@@ -373,12 +373,13 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                     
                 }
             }
+            self.tabBarController?.selectedIndex = 1
             
-            let vc = WoBangPageViewController()
-            vc.navigationController?.title = "抢单"
-            vc.longitude = self.longitude
-            vc.latitude = self.latitude
-                self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = WoBangPageViewController()
+//            vc.navigationController?.title = "抢单"
+//            vc.longitude = self.longitude
+//            vc.latitude = self.latitude
+//                self.navigationController?.pushViewController(vc, animated: true)
             
             
         }else{
@@ -405,7 +406,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
 //        let cityNsstring = city as NSString
         var count = Int()
-        var myArray1 = NSMutableArray()
+        let myArray1 = NSMutableArray()
         for a in city.characters{
             if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
                 break
@@ -429,6 +430,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         }
         print(cutyName)
         print(quName)
+        
+        userLocationCenter.setObject(quName, forKey: "quName")
+        
         location.setTitle(quName, forState: UIControlState.Normal)
         location.sizeToFit()
         let searcher = BMKGeoCodeSearch()
@@ -675,6 +679,18 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             userLocationCenter.setObject(cutyName, forKey: "cityName")
             
             quName = strr.substringFromIndex(strr.startIndex.advancedBy(count+1))
+            let myArray1 = NSMutableArray()
+            var quCount = Int()
+            for a in quName.characters{
+                if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
+                    myArray1.addObject(quCount)
+                }
+                
+                quCount = quCount + 1
+            }
+            if myArray1.count>1 {
+                quName = quName.substringFromIndex(quName.startIndex.advancedBy((myArray1[0] as! Int)+1))
+            }
             self.mapView.removeAnnotations(self.biaoZhuArray as [AnyObject])
             self.getWeiZhi()
         }
