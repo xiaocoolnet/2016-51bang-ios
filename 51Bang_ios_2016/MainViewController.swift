@@ -801,6 +801,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 userLocationCenter.setObject(userLocation.title, forKey: "myAddress")
                 
             }
+//            print(userLocation.)
             
             
         locationService.stopUserLocationService()
@@ -847,25 +848,35 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if result != nil {
             if( result.poiList.first != nil)
             {
-                CommitOrderViewController.FirstLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
-                LocationViewController.firstAddress = result.address
-                CommitOrderViewController.SecondLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
-                LocationViewController.secondAddress = result.address
-                MainViewController.BMKname =  (result.poiList[0] as! BMKPoiInfo).name
-                MainViewController.city = (result.poiList[0] as! BMKPoiInfo).city
+                
                 self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
                 self.streetNameStr = result.addressDetail.streetName
-                print(dingWeiStr)
+                
+                CommitOrderViewController.FirstLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
+                LocationViewController.firstAddress = dingWeiStr+streetNameStr
+                CommitOrderViewController.SecondLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
+                LocationViewController.secondAddress = dingWeiStr+streetNameStr
+                MainViewController.BMKname =  dingWeiStr+streetNameStr
+                MainViewController.city = (result.poiList[0] as! BMKPoiInfo).city
+                
+//                print(dingWeiStr)
+//                print(result.addressDetail.district)
                 if (isDingwei) {
                     
                     userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
+                    if userLocationCenter.objectForKey("quName") == nil {
+                        userLocationCenter.setObject(result.addressDetail.district, forKey: "quName")
+                    }
+                    
+//                    print(self.dingWeiStr)
                     userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
+//                    print(self.streetNameStr)
                     postMyaddress()
                     isDingwei = false
                 }
                 address = MainViewController.BMKname
 //                print(result.addressDetail.city)
-                print(result.addressDetail.streetName)
+//                print(result.addressDetail.streetName)
 //                print(result.addressDetail.district)
                 
                 pointAnmation.coordinate = mapView.region.center

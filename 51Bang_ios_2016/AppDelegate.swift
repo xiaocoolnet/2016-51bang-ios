@@ -158,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         pointNum = pointNum+1
         application.applicationIconBadgeNumber = pointNum
     //所在城市有新任务
-        if userInfo["key"] != nil && userInfo["v"] != nil{
+        if userInfo["key"] != nil {
             if  userInfo["key"] as! String == "newTask" {
                 NSNotificationCenter.defaultCenter().postNotificationName("newTasksss", object: nil)
 //                let vc = WoBangPageViewController()
@@ -195,10 +195,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("certificationType", object: dic)
             }else{
-                
-                alert(userInfo["key"] as! String, delegate: self)
+                let dic = ["name":userInfo["key"]! as! String]
+                NSNotificationCenter.defaultCenter().postNotificationName("CustomPushType", object: dic)
+//                alert(userInfo["key"] as! String, delegate: self)
             }
 
+        }else{
+            let strr = userInfo["aps"] as! NSDictionary
+//            print(strr["alert"])
+            
+            alert(strr["alert"] as! String, delegate: self)
         }
         
         

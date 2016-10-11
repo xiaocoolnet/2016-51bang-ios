@@ -16,7 +16,13 @@ class ShopHelper: NSObject {
 //        let param = [
 //            "id":"0"
 //        ];
-        Alamofire.request(.GET, url, parameters: nil).response { request, response, json, error in
+        let ud = NSUserDefaults.standardUserDefaults()
+        var cityName = String()
+        if (ud.objectForKey("quName") != nil) {
+            cityName = ud.objectForKey("quName") as! String
+        }
+
+        Alamofire.request(.GET, url, parameters: ["city":cityName]).response { request, response, json, error in
             print(request)
             if(error != nil){
                 handle(success: false, response: error?.description)

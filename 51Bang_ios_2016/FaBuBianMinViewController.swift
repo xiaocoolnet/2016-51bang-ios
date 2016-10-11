@@ -747,18 +747,39 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func fabuAction() {
         
+        var adress2 = String()
+        var longitude = String()
+        var latitude = String()
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        if ud.objectForKey("subLocality") != nil && ud.objectForKey("quName") != nil && ud.objectForKey("streetName") != nil {
+            adress2 = ud.objectForKey("subLocality") as! String + (ud.objectForKey("quName") as! String) + (ud.objectForKey("streetName") as! String)
+        }
+        
+        if ud.objectForKey("longitude") != nil {
+            longitude = ud.objectForKey("longitude") as! String
+        }
+        if ud.objectForKey("latitude") != nil {
+            latitude = ud.objectForKey("latitude") as! String
+        }
+//        userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
+//        userLocationCenter.setObject(result.addressDetail.district, forKey: "quName")
+//        //                    print(self.dingWeiStr)
+//        userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
+        
+        
         print("发表评论")
         
         let textView = self.view.viewWithTag(1)as! PlaceholderTextView
         print(textView.text)
         
-        let ud = NSUserDefaults.standardUserDefaults()
+//        let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         let userPhone = ud.objectForKey("phone")as! String
         
         print(userid)
         print(self.photoNameArr)
-        mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime)) { (success, response) in
+        mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime),address2:adress2,longitude:longitude,latitude:latitude) { (success, response) in
             print(response)
             if !success{
                 alert("亲，请拨打4000608856申请VIP客户才能多发哦😀", delegate: self)
@@ -773,7 +794,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             
         }
         
-        self.navigationController?.popViewControllerAnimated(true)
+//        self.navigationController?.popViewControllerAnimated(true)
         
         
     }

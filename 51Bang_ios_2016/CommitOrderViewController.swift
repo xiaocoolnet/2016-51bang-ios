@@ -1880,6 +1880,20 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     //MARK:skill协议方法
     func sendMessage(arr:NSArray){
+        print(arr)
+        if arr.count>0 {
+            self.jiNengID.removeAllObjects()
+            for i in 0..<self.dataSource.count{
+                let button1 = self.view.viewWithTag(i+500)as! UIButton
+                button1.backgroundColor = RGREY
+                let label1 =  button1.subviews[0]as! UILabel
+                label1.textColor = COLOR
+            }
+        }
+        
+        
+        
+        
         
         let button = self.view.viewWithTag(self.selectedIndex)as! UIButton
         

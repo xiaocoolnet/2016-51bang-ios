@@ -29,8 +29,8 @@ class MyFaDanCell: UITableViewCell {
         self.selectionStyle = UITableViewCellSelectionStyle.None
         self.backgroundColor = UIColor.clearColor()
         
-        Middle.frame = CGRectMake(0, 45, WIDTH, 120)
-        Bottom.frame = CGRectMake(0, 170, WIDTH, 40)
+        Middle.frame = CGRectMake(0, 42, WIDTH, 120)
+        Bottom.frame = CGRectMake(0, 164, WIDTH, 40)
         taskStatu.backgroundColor = UIColor.whiteColor()
         Middle.backgroundColor = UIColor.whiteColor()
         Bottom.backgroundColor = UIColor.whiteColor()
@@ -223,11 +223,12 @@ class MyFaDanCell: UITableViewCell {
         
         
         Tip.textColor = UIColor.orangeColor()
+        Tip.font = UIFont.systemFontOfSize(13)
         Tip.adjustsFontSizeToFitWidth = true
         Tip.frame = CGRectMake(payMoney.width + 10, 0, 130, 40)
         Bottom.addSubview(Tip)
        
-        payBtn.frame = CGRectMake(WIDTH - 60, 5,50 , 30)
+        payBtn.frame = CGRectMake(WIDTH - 80, 5,70 , 30)
         payBtn.titleLabel?.font = UIFont.systemFontOfSize(12)
         
         if self.modell.paystatus != nil {

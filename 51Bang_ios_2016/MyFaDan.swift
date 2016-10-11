@@ -162,6 +162,8 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         
         let HeaderView = UIView.init(frame: CGRectMake(0, 0, WIDTH, 0.01))
         mTable.tableHeaderView = HeaderView
+        mTable.sectionHeaderHeight = 1
+        mTable.sectionFooterHeight = 5
     
         mTable.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
@@ -538,12 +540,12 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
+//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 1
+//    }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 210
+        return 204
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

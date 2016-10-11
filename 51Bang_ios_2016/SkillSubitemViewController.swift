@@ -190,6 +190,8 @@ class SkillSubitemViewController: UIViewController {
     func click(btn:UIButton){
         print(btn.tag)
         
+        
+        
         if selectArr.count == 0{
             btn.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
             selectArr.addObject(btn)
@@ -199,6 +201,9 @@ class SkillSubitemViewController: UIViewController {
         }else{
             print(selectArr.count)
             if !selectArr.containsObject(btn){
+                
+                (selectArr[0] as! UIButton ).setImage(UIImage(named: "ic_weixuanze"), forState: UIControlState.Normal)
+                selectArr.removeLastObject()
                 btn.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
                 selectArr.addObject(btn)
                 //                    self.payMode = cell.title.text!

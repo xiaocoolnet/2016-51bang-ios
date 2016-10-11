@@ -409,7 +409,7 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
         }
         
         if isWobangPush {
-            LocationViewController.myAddressOfpoint = (result.poiList[0] as! BMKPoiInfo).name
+            LocationViewController.myAddressOfpoint = result.addressDetail.city + result.addressDetail.district + (result.poiList[0] as! BMKPoiInfo).name
             LocationViewController.pointOfSelected = result.location
         }
         

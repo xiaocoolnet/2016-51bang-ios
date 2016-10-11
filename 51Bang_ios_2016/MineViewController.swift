@@ -177,6 +177,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.businessOrderType(_:)), name:"businessOrderType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.loginFromOther), name:"loginFromOther", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.certificationType(_:)), name:"certificationType", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.CustomPushType(_:)), name:"CustomPushType", object: nil)
+        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -774,6 +776,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }else if ids == "4"{
             alert("保险认证失败", delegate: self)
         }
+    }
+    
+    func CustomPushType(notification:NSNotification){
+        let keyStr = notification.object?.valueForKey("name") as? String
+        
+        alert(keyStr!, delegate: self)
     }
     
     

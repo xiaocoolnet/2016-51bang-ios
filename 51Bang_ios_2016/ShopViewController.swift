@@ -38,6 +38,10 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var rightKind:Array<[String]>?
 //    var array = ["餐饮美食","休闲/娱乐/酒店","服饰/箱包","运动户外/休闲/健身","日用百货","培训机构/教育器材","汽车用品/买卖","二手买卖","家纺家饰/家装建材","美装日化/美容美发","代购进口产品","黄金珠宝","数码家电/安全防护/电工电气","印刷广告/包装市场/行政采购","照明/电子/五金工具/机械/仪器仪表","橡塑/精细/钢材","纺织、皮革市场","医药保健","货运/物流","食品/海鲜/果蔬/农产品/茶叶","婚纱摄影/个人写真","其他"]
     override func viewWillAppear(animated: Bool) {
+        
+        
+        
+        
         self.GetData()
 //        
         
@@ -68,27 +72,6 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]
         
         isShow = false
-        mainHelper.getDicList("3",handle: {[unowned self] (success, response) in
-            dispatch_async(dispatch_get_main_queue(), {
-                if !success {
-                    return
-                }
-//                print(response)
-                
-                self.myDic?.removeAll()
-                self.myDic = response as? Array<DicInfo> ?? []
-//                for name in self.myDic!{
-//                    print(name.id)
-//                    print(name.name)
-//                }
-                self.leftTableView.reloadData()
-//                print(self.myDic![0].id)
-//                
-//                print(self.myDic?.count)
-                
-                //                }
-            })
-            })
         
         // Do any additional setup after loading the view.
     }
@@ -103,6 +86,8 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         shopHelper.getGoodsList({[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
+                    hud.hide(true)
+                    alert("暂无数据", delegate: self)
                     return
                 }
                 hud.hide(true)
@@ -334,7 +319,28 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     @IBAction func goToMenu(sender: AnyObject) {
         print("菜单")
-        
+        mainHelper.getDicList("3",handle: {[unowned self] (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if !success {
+                    return
+                }
+                //                print(response)
+                
+                self.myDic?.removeAll()
+                self.myDic = response as? Array<DicInfo> ?? []
+                //                for name in self.myDic!{
+                //                    print(name.id)
+                //                    print(name.name)
+                //                }
+                self.leftTableView.reloadData()
+                //                print(self.myDic![0].id)
+                //
+                //                print(self.myDic?.count)
+                
+                //                }
+            })
+            })
+
         
         if isShow == false {
             coverView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-48)
