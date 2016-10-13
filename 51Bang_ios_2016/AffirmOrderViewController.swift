@@ -154,14 +154,14 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 cell.CNEE.text = "数量"
                 cell.selectionStyle = .None
                 //                cell.name.text = "103.3元"
-                textField.frame = CGRectMake(WIDTH-50, 10, 30, cell.CNEE.frame.size.height)
+                textField.frame = CGRectMake(WIDTH-80, 10, 50, cell.CNEE.frame.size.height)
 //                textField.borderStyle = .Line
                 textField.layer.masksToBounds = true
                 textField.layer.borderWidth = 1
                 textField.font = UIFont.systemFontOfSize(14)
                 textField.text = "1"
                 textField.delegate = self
-                addButton.frame = CGRectMake(textField.frame.origin.x+32, 10, 20, cell.CNEE.frame.size.height)
+                addButton.frame = CGRectMake(textField.frame.origin.x+52, 10, 20, cell.CNEE.frame.size.height)
                 //                addButton.backgroundColor = UIColor.redColor()
                 addButton.setTitle("加", forState: UIControlState.Normal)
                 addButton.setImage(UIImage(named: "ic_jia-lv"), forState: UIControlState.Normal)
@@ -234,7 +234,9 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func changeWord(string:String){
         citynameStr = "地址：" + string
-        self.myTableView.reloadData()
+        let myindexPaths = NSIndexPath.init(forRow: 2, inSection: 2)
+        self.myTableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Fade)
+//        self.myTableView.reloadData()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

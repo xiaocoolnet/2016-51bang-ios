@@ -47,6 +47,15 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         isShow3 = false
         self.types = ""
         self.sort = "1"
+        self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
+        self.myTableView.delegate = self
+        self.myTableView.dataSource = self
+        self.myTableView.backgroundColor = RGREY
+        self.myTableView.tag = 0
+        
+        
+        self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
+        self.view.addSubview(self.myTableView)
 //        isworking = "0"
         self.myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
@@ -100,18 +109,15 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
                 print(self.rzbDataSource!.count)
                 
-                self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
-                self.myTableView.delegate = self
-                self.myTableView.dataSource = self
-                self.myTableView.backgroundColor = RGREY
-                self.myTableView.tag = 0
                 
-
-                self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
-                self.view.addSubview(self.myTableView)
                 self.myTableView.reloadData()
+                
+                if  types == "" && sort == "1"{
+                    self.GetData()
+                    
+                }
              
-                self.GetData()
+                
 
                 
             })
@@ -464,8 +470,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             self.navigationController?.pushViewController(vc, animated: true)
         }else if tableView.tag == 1{
             
-            coverView.removeFromSuperview()
-            leftTableView.removeFromSuperview()
+            coverView.hidden = true
+            leftTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH/3,0)
             isShow1 = false
             let cell = self.view.viewWithTag(5)as? RenZhengBangHeaderViewCell
 //            cell?.selectedBackgroundView = UIView.init(frame: (cell?.frame)!)
@@ -484,8 +490,9 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             
         }else if tableView.tag == 2{
             
-            coverView.removeFromSuperview()
-            middleTableView.removeFromSuperview()
+            coverView.hidden = true
+//            middleTableView.hidden = true
+            middleTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,0)
             isShow2 = false
             let view = self.view.viewWithTag(5)as? RenZhengBangHeaderViewCell
             
@@ -495,8 +502,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             self.GetData1(self.sort, types: self.types)
             
         }else{
-            coverView.removeFromSuperview()
-            rightTableView.removeFromSuperview()
+            coverView.hidden = true
+            rightTableView.frame = CGRectMake(0, WIDTH*50/375, WIDTH,0)
             isShow3 = false
             let view = self.view.viewWithTag(5)as? RenZhengBangHeaderViewCell
             view?.label3.text = rightArr[indexPath.row]
