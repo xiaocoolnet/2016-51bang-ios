@@ -133,6 +133,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
+                    hud.hide(true)
                     return
                 }
                 hud.hide(true)

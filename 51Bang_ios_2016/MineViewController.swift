@@ -760,6 +760,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         JPUSHService.setTags(nil, aliasInbackground: "99999999")
         loginSign = 0
         self.tabBarController?.selectedIndex = 3
+        if self.tabBarController?.selectedIndex == 3 {
+            self.tabBarController?.selectedIndex = 1
+        }
     }
     
     
@@ -792,6 +795,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         JPUSHService.setTags(nil, aliasInbackground: "99999999")
         loginSign = 0
         self.tabBarController?.selectedIndex = 3
+        if self.tabBarController?.selectedIndex == 3 {
+            self.tabBarController?.selectedIndex = 1
+        }
         
         
         //        let a = MineViewController()

@@ -97,7 +97,7 @@
         let url = Bang_URL_Header+"checkLogin"
         let param1 = [
             
-            "type":userid
+            "userid":userid,
             
         ];
         Alamofire.request(.GET, url, parameters: param1).response { request, response, json, error in
@@ -115,8 +115,7 @@
 //                    print(result.datas.count)
                     handle(success: true, response: result.data)
                     
-                    
-                }else{
+                                }else{
                     handle(success: false, response: result.errorData)
                     
                 }
@@ -124,6 +123,8 @@
             
         }
     }
+    
+    
     
     //获取是否工作中
     func GetWorkingState(userid:String,handle:ResponseBlock){
@@ -133,6 +134,7 @@
             "userid":userid
             
         ];
+        isMemberOfClass(NSNull)
         Alamofire.request(.GET, url, parameters: param1).response { request, response, json, error in
             print(request)
             if(error != nil){
@@ -1303,9 +1305,9 @@
         
         let param = [
             
-            "send_uid":userid,
-            "receive_uid":money,
-            "content":banktype
+            "userid":userid,
+            "money":money,
+            "banktype":banktype
             
         ];
         

@@ -140,6 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     func networkDidReceiveMessage(){
         JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
             var registrationIDs = String()
+            
             if registrationID == nil{
                 registrationIDs = ""
             }else{
@@ -148,6 +149,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             
             
             let ud = NSUserDefaults.standardUserDefaults()
+            
+            ud.setObject(registrationIDs, forKey: "registrationIDs")
             if ud.objectForKey("phone") != nil && ud.objectForKey("pwd") != nil{
                 let num = ud.objectForKey("phone") as! String
                 let pwd = ud.objectForKey("pwd") as! String
@@ -217,7 +220,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             }else
             if userInfo["key"] as! String == "loginFromOther" {
 //                let dic = ["name":userInfo["v"]! as! String];
-                NSNotificationCenter.defaultCenter().postNotificationName("loginFromOther", object: nil)
+                let ud = NSUserDefaults.standardUserDefaults()
+                if ud.objectForKey("registrationIDs") != nil {
+                    let registrationIDs = ud.objectForKey("registrationIDs") as! String
+                    let dic = userInfo["v"]! as! String
+                    if dic !=  registrationIDs {
+                         NSNotificationCenter.defaultCenter().postNotificationName("loginFromOther", object: nil)
+                    }else{
+                        UIApplication.sharedApplication().applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber - 1
+                    }
+                   
+                }
+                
+                
             }else
             if userInfo["key"] as! String == "certificationType" {
                 let dic = ["name":userInfo["v"]! as! String];
@@ -389,41 +404,78 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     func applicationDidBecomeActive(application: UIApplication) {
         
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        let ud = NSUserDefaults.standardUserDefaults()
-        if (ud.objectForKey("userid") != nil) {
-            let userids = ud.objectForKey("userid") as! String
-            mainhelper.checkIslogin(userids, handle: { (success, response) in
-                if success{
-                    let userDatas = NSUserDefaults.standardUserDefaults()
-//                    print(userDatas.objectForKey("userid"))
-                    userDatas.removeObjectForKey("userid")
-                    if userDatas.objectForKey("name") != nil {
-                        userDatas.removeObjectForKey("name")
+
+        if (JPUSHService.registrationID() != nil) {
+//            print(JPUSHService.registrationID())
+            let ud = NSUserDefaults.standardUserDefaults()
+            if (ud.objectForKey("userid") != nil) {
+                let userids = ud.objectForKey("userid") as! String
+                mainhelper.checkIslogin(userids, handle: { (success, response) in
+                    if !success{
+                        let userDatas = NSUserDefaults.standardUserDefaults()
+                        //                    print(userDatas.objectForKey("userid"))
+                        userDatas.removeObjectForKey("userid")
+                        if userDatas.objectForKey("name") != nil {
+                            userDatas.removeObjectForKey("name")
+                        }
+                        
+                        if userDatas.objectForKey("photo") != nil {
+                            userDatas.removeObjectForKey("photo")
+                        }
+                        if userDatas.objectForKey("sex") != nil {
+                            userDatas.removeObjectForKey("sex")
+                        }
+                        
+                        if userDatas.objectForKey("pwd") != nil {
+                            userDatas.removeObjectForKey("pwd")
+                        }
+                        if userDatas.objectForKey("userphoto") != nil {
+                            userDatas.removeObjectForKey("userphoto")
+                        }
+                        
+                        if userDatas.objectForKey("ss") != nil {
+                            userDatas.removeObjectForKey("ss")
+                        }
+                        JPUSHService.setTags(nil, aliasInbackground: "99999999")
+                        loginSign = 0
+                        //                    self.tabBarController?.selectedIndex = 3
                     }
-                    
-                    if userDatas.objectForKey("photo") != nil {
-                        userDatas.removeObjectForKey("photo")
+                    else{
+                        let registrationID = response as! String
+                        if JPUSHService.registrationID() != registrationID{
+                            let userDatas = NSUserDefaults.standardUserDefaults()
+                            //                    print(userDatas.objectForKey("userid"))
+                            userDatas.removeObjectForKey("userid")
+                            if userDatas.objectForKey("name") != nil {
+                                userDatas.removeObjectForKey("name")
+                            }
+                            
+                            if userDatas.objectForKey("photo") != nil {
+                                userDatas.removeObjectForKey("photo")
+                            }
+                            if userDatas.objectForKey("sex") != nil {
+                                userDatas.removeObjectForKey("sex")
+                            }
+                            
+                            if userDatas.objectForKey("pwd") != nil {
+                                userDatas.removeObjectForKey("pwd")
+                            }
+                            if userDatas.objectForKey("userphoto") != nil {
+                                userDatas.removeObjectForKey("userphoto")
+                            }
+                            
+                            if userDatas.objectForKey("ss") != nil {
+                                userDatas.removeObjectForKey("ss")
+                            }
+                            JPUSHService.setTags(nil, aliasInbackground: "99999999")
+                            loginSign = 0
+                        }
                     }
-                    if userDatas.objectForKey("sex") != nil {
-                        userDatas.removeObjectForKey("sex")
-                    }
-                    
-                    if userDatas.objectForKey("pwd") != nil {
-                        userDatas.removeObjectForKey("pwd")
-                    }
-                    if userDatas.objectForKey("userphoto") != nil {
-                        userDatas.removeObjectForKey("userphoto")
-                    }
-                    
-                    if userDatas.objectForKey("ss") != nil {
-                        userDatas.removeObjectForKey("ss")
-                    }
-                    JPUSHService.setTags(nil, aliasInbackground: "99999999")
-                    loginSign = 0
-//                    self.tabBarController?.selectedIndex = 3
-                }
-            })
+                })
+            }
+
         }
+        
         
     }
 

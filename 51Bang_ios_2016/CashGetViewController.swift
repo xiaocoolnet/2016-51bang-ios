@@ -166,6 +166,7 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
                     return
                 }
                     alert("提现已请求,最迟次日到账", delegate: self)
+                self.navigationController?.popViewControllerAnimated(true)
             }
            
         }
