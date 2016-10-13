@@ -8,16 +8,16 @@
 
 import UIKit
 
-class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,ChangeWordDelegate {
+class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,ChangeWordDelegate,UITextViewDelegate {
     
     let myTableView = TPKeyboardAvoidingTableView()
-    let textField = UITextField()
+    let textField = UITextView()
     var remark = String()
     let addButton = UIButton()
     let deleteButton = UIButton()
     let mainHelper = MainHelper()
     var citynameStr = String()
-    var num = 1
+    var num = Float()
     var info = GoodsInfo2()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -28,6 +28,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
         self.title = "确认订单"
+        num = 1
         self.citynameStr = "请选择送货地址👉"
         self.createTableView()
         // Do any additional setup after loading the view.
@@ -154,9 +155,12 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 cell.selectionStyle = .None
                 //                cell.name.text = "103.3元"
                 textField.frame = CGRectMake(WIDTH-50, 10, 30, cell.CNEE.frame.size.height)
-                textField.borderStyle = .Line
-                
+//                textField.borderStyle = .Line
+                textField.layer.masksToBounds = true
+                textField.layer.borderWidth = 1
+                textField.font = UIFont.systemFontOfSize(14)
                 textField.text = "1"
+                textField.delegate = self
                 addButton.frame = CGRectMake(textField.frame.origin.x+32, 10, 20, cell.CNEE.frame.size.height)
                 //                addButton.backgroundColor = UIColor.redColor()
                 addButton.setTitle("加", forState: UIControlState.Normal)
@@ -264,8 +268,30 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         self.myTableView.frame.origin.y = -50
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
     }
+//    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+//        print("0000000")
+//        return true
+//    }
+    
+    func textViewDidChange(textView: UITextView) {
+        if textField == textView {
+            print(self.textField.text!)
+            let xiaoji = self.view.viewWithTag(99)as! UILabel
+            var price = Float()
+            if self.textField.text! == "" || self.textField.text == nil{
+                price = 0
+                self.num = 0
+            }else{
+                self.num = Float(self.textField.text)!
+                price = Float(self.textField.text!)! * Float(self.info.price!)!
+            }
+            
+            xiaoji.text = String(price)
+        }
+    }
     
     func textFieldDidBeginEditing(textField: UITextField) {
+//        print("0000000")
         let offset:CGFloat = 1
         UIView.animateWithDuration(0.4, animations: {
             if offset > 0{
@@ -283,13 +309,23 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64-50)
         
     }
+//    func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        print("000")
+//        return true
+//    }
     
+//    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+//        num = Int(self.textField.text!)!
+//        
+//        return true
+//    }
     func add(){
         
-        num = Int(self.textField.text!)!
+        num = Float(self.textField.text!)!
         //        if num > 0 || num<100 {
         //            print(num)
         self.textField.text = String(num+1)
+        num = num + 1
         let xiaoji = self.view.viewWithTag(99)as! UILabel
         let price = Float(self.textField.text!)! * Float(self.info.price!)!
         xiaoji.text = String(price)
@@ -308,7 +344,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         
         //        addButton.setImage(UIImage(named: "ic_jia-hui"), forState: UIControlState.Normal)
         //        deleteButton.setImage(UIImage(named: "ic_jian-lv"), forState: UIControlState.Normal)
-        num = Int(self.textField.text!)!
+        num = Float(self.textField.text!)!
         self.deleteButton.enabled = true
         print(num)
         if num > 1 {
@@ -318,7 +354,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             let xiaoji = self.view.viewWithTag(99)as! UILabel
             let price = Float(self.textField.text!)! * Float(self.info.price!)!
             xiaoji.text = String(price)
-            
+            num = num - 1
             //            if num < 100 {
             //                self.deleteButton.enabled = true
             //            }

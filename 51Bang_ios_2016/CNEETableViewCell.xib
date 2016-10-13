@@ -15,9 +15,9 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收货人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jez-oJ-5R3">
-                        <rect key="frame" x="10" y="5" width="80" height="33"/>
+                        <rect key="frame" x="10" y="5" width="139" height="33"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="80" id="Vrn-B3-EUN"/>
+                            <constraint firstAttribute="width" constant="139" id="Vrn-B3-EUN"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

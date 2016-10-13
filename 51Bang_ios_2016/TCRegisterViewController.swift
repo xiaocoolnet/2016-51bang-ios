@@ -23,6 +23,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     @IBOutlet weak var secretBtn: UIButton!
     @IBOutlet weak var completeBtn: UIButton!
     
+    @IBOutlet weak var baomiButton: UIButton!
     @IBOutlet weak var avatarBtn: UIButton!
     @IBOutlet weak var manBtn: UIButton!
     @IBOutlet weak var womenBtn: UIButton!
@@ -309,6 +310,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     @IBAction func manBtnClicked(sender: AnyObject) {
         manBtn.setImage(UIImage(named: "ic_tongyixuanzhong"), forState: .Normal)
         womenBtn.setImage(UIImage(named: "ic_weixuanzhong"), forState: .Normal)
+        baomiButton.setImage(UIImage(named: "ic_weixuanzhong"), forState: .Normal)
         sex = 1
 //        if !hasAvatar {
 //            avatarBtn.setImage(UIImage(named:"avatar_nan"), forState: .Normal)
@@ -319,6 +321,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     @IBAction func womenBtnClicked(sender: AnyObject) {
         manBtn.setImage(UIImage(named: "ic_weixuanzhong"), forState: .Normal)
         womenBtn.setImage(UIImage(named: "ic_tongyixuanzhong"), forState: .Normal)
+        baomiButton.setImage(UIImage(named: "ic_weixuanzhong"), forState: .Normal)
         sex = 0
 //        if  !hasAvatar {
 //            avatarBtn.setImage(UIImage(named:"avatar_nv"), forState: .Normal)
@@ -326,6 +329,12 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
 //        }
     }
     
+    @IBAction func baoMiButtonAction(sender: AnyObject) {
+        
+        manBtn.setImage(UIImage(named: "ic_weixuanzhong"), forState: .Normal)
+        womenBtn.setImage(UIImage(named: "ic_weixuanzhong"), forState: .Normal)
+        baomiButton.setImage(UIImage(named: "ic_tongyixuanzhong"), forState: .Normal)
+    }
     @IBAction func avatarBtnClicked(sender: AnyObject) {
         
         presentViewController(myActionSheet!, animated: true, completion:nil)

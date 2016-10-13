@@ -63,6 +63,12 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     var userLocationCenter = NSUserDefaults.standardUserDefaults()
     override func viewWillAppear(animated: Bool) {
         
+        
+        if userLocationCenter.objectForKey("quName") != nil{
+            location.setTitle(userLocationCenter.objectForKey("quName") as? String, forState: UIControlState.Normal)
+        }
+        
+        
         locationService = BMKLocationService()
         locationService.delegate = self
         locationService.startUserLocationService()
@@ -162,6 +168,14 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         self.flagLocation = self.savedLocation
         let function = BankUpLoad()
         function.CheckRenzheng()
+        
+        
+        let ud1 = NSUserDefaults.standardUserDefaults()
+        if ud1.objectForKey("userid") != nil {
+            let userid = ud1.objectForKey("userid")as! String
+            JPUSHService.setTags(nil, aliasInbackground:userid)
+        }
+        
         
         //接受通知
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)

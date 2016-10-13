@@ -90,6 +90,42 @@
         }
     }
     
+    
+    
+    //检查是否需要重新登录
+    func checkIslogin(userid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"checkLogin"
+        let param1 = [
+            
+            "userid":userid,
+            
+        ];
+        Alamofire.request(.GET, url, parameters: param1).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+//                    print(result.datas)
+//                    print(result.datas.count)
+                    handle(success: true, response: result.data)
+                    
+                                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    
+    
     //获取是否工作中
     func GetWorkingState(userid:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"GetWorkingState"
@@ -98,6 +134,7 @@
             "userid":userid
             
         ];
+        isMemberOfClass(NSNull)
         Alamofire.request(.GET, url, parameters: param1).response { request, response, json, error in
             print(request)
             if(error != nil){
@@ -1268,9 +1305,9 @@
         
         let param = [
             
-            "send_uid":userid,
-            "receive_uid":money,
-            "content":banktype
+            "userid":userid,
+            "money":money,
+            "banktype":banktype
             
         ];
         
