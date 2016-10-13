@@ -179,6 +179,10 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.certificationType(_:)), name:"certificationType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.CustomPushType(_:)), name:"CustomPushType", object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.prohibitVisit(_:)), name:"prohibitVisit", object: nil)
+        
+        
+        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -726,6 +730,39 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
     }
     
+    func prohibitVisit(notification:NSNotification){
+        let ids = notification.object?.valueForKey("name") as? String
+        alert(ids!, delegate: self)
+        let userDatas = NSUserDefaults.standardUserDefaults()
+        print(userDatas.objectForKey("userid"))
+        userDatas.removeObjectForKey("userid")
+        if userDatas.objectForKey("name") != nil {
+            userDatas.removeObjectForKey("name")
+        }
+        
+        if userDatas.objectForKey("photo") != nil {
+            userDatas.removeObjectForKey("photo")
+        }
+        if userDatas.objectForKey("sex") != nil {
+            userDatas.removeObjectForKey("sex")
+        }
+        
+        if userDatas.objectForKey("pwd") != nil {
+            userDatas.removeObjectForKey("pwd")
+        }
+        if userDatas.objectForKey("userphoto") != nil {
+            userDatas.removeObjectForKey("userphoto")
+        }
+        
+        if userDatas.objectForKey("ss") != nil {
+            userDatas.removeObjectForKey("ss")
+        }
+        JPUSHService.setTags(nil, aliasInbackground: "99999999")
+        loginSign = 0
+        self.tabBarController?.selectedIndex = 3
+    }
+    
+    
     func loginFromOther(){
         alert("您的账号在其他地方登陆", delegate: self)
         let userDatas = NSUserDefaults.standardUserDefaults()
@@ -752,7 +789,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if userDatas.objectForKey("ss") != nil {
             userDatas.removeObjectForKey("ss")
         }
-        
+        JPUSHService.setTags(nil, aliasInbackground: "99999999")
         loginSign = 0
         self.tabBarController?.selectedIndex = 3
         
@@ -1153,7 +1190,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             dispatch_async(dispatch_get_main_queue(), {
                 if success == false {
                     if response != nil {
-                        SVProgressHUD.showErrorWithStatus(response as! String)
+                        alert(response as! String, delegate: self)
                     }else{
                         SVProgressHUD.showErrorWithStatus("账号或密码错误！")
                     }

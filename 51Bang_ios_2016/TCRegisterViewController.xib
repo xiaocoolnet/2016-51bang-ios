@@ -11,6 +11,7 @@
                 <outlet property="areaCodeBtn" destination="KIQ-yW-Aao" id="qcv-OK-97u"/>
                 <outlet property="avatarBtn" destination="25w-BE-UX4" id="q0L-Us-eya"/>
                 <outlet property="backViewHeight" destination="m2k-Iv-bVa" id="eiR-WN-VWP"/>
+                <outlet property="baomiButton" destination="5Ga-Ip-Bf5" id="ht2-iz-jjZ"/>
                 <outlet property="completeBtn" destination="MdC-ES-Cqh" id="ngM-KY-xIe"/>
                 <outlet property="getIDButton" destination="oF3-iH-JRl" id="S5Q-uC-uQ8"/>
                 <outlet property="identifyNumber" destination="F9n-QO-W1N" id="sWI-Pb-DJh"/>
@@ -94,14 +95,28 @@
                                                         <action selector="womenBtnClicked:" destination="-1" eventType="touchUpInside" id="oRK-k9-21R"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ga-Ip-Bf5">
+                                                    <rect key="frame" x="227" y="14" width="85" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="85" id="fh9-Om-PtJ"/>
+                                                    </constraints>
+                                                    <state key="normal" title="   保密" image="ic_weixuanzhong">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="baoMiButtonAction:" destination="-1" eventType="touchUpInside" id="BuG-Ha-rMh"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="QcE-8F-1ea" firstAttribute="top" secondItem="5Ga-Ip-Bf5" secondAttribute="bottom" constant="13" id="0c1-tf-EgY"/>
                                                 <constraint firstAttribute="trailing" secondItem="QcE-8F-1ea" secondAttribute="trailing" id="D1m-BV-wD9"/>
                                                 <constraint firstItem="9Eg-G8-QNn" firstAttribute="leading" secondItem="as7-pc-miH" secondAttribute="trailing" constant="42" id="Gby-JC-Sl5"/>
                                                 <constraint firstItem="9Eg-G8-QNn" firstAttribute="centerY" secondItem="dvZ-m0-nqw" secondAttribute="centerY" id="Q0m-Jf-nid"/>
                                                 <constraint firstItem="QcE-8F-1ea" firstAttribute="leading" secondItem="dvZ-m0-nqw" secondAttribute="leading" id="QQa-9j-NcW"/>
                                                 <constraint firstItem="as7-pc-miH" firstAttribute="centerY" secondItem="dvZ-m0-nqw" secondAttribute="centerY" id="fT9-Hl-WHU"/>
                                                 <constraint firstItem="as7-pc-miH" firstAttribute="leading" secondItem="dvZ-m0-nqw" secondAttribute="leading" constant="18" id="fh9-yD-7aE"/>
+                                                <constraint firstItem="5Ga-Ip-Bf5" firstAttribute="leading" secondItem="9Eg-G8-QNn" secondAttribute="trailing" constant="25" id="oeg-dH-yOF"/>
                                                 <constraint firstAttribute="height" constant="50" id="pWa-kr-SPa"/>
                                                 <constraint firstAttribute="bottom" secondItem="QcE-8F-1ea" secondAttribute="bottom" id="zE0-Ga-azE"/>
                                             </constraints>

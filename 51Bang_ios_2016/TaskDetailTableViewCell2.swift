@@ -14,10 +14,17 @@ class TaskDetailTableViewCell2: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     
     
-    @IBOutlet weak var desc: UILabel!
+    @IBOutlet weak var desc: AutoScrollLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.desc.labelSpacing = 30 // distance between start and end labels
+        self.desc.font = UIFont.systemFontOfSize(14)
+        self.desc.pauseInterval = 1.7 // seconds of pause before scrolling starts again
+        self.desc.scrollSpeed = 30 // pixels per second
+        self.desc.fadeLength = 12
+        self.desc.scrollDirection = AutoScrollDirection.Left
+//        self.location.text = info.address! as String
         // Initialization code
     }
 

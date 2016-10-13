@@ -76,7 +76,7 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
             myTableView.scrollEnabled = false
             self.view.addSubview(myTableView)
             
-            let buttonQueren = UIButton.init(frame: CGRectMake(30, 220, WIDTH-60, 50))
+            let buttonQueren = UIButton.init(frame: CGRectMake(30, 180, WIDTH-60, 50))
             buttonQueren.setTitle("确认转出", forState: UIControlState.Normal)
             buttonQueren.backgroundColor = COLOR
             buttonQueren.cornerRadius = 10

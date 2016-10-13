@@ -139,7 +139,7 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
         }
         
         
-        
+        JPUSHService.setTags(nil, aliasInbackground: "99999999")
         
         loginSign = 0
         let a = MineViewController()

@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     var _mapManager: BMKMapManager?
     let mainhelper = MainHelper()
     var pointNum = Int()
+    let logVM = TCVMLogModel()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let options = BugtagsOptions()
@@ -28,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         APOpenAPI.registerApp("2016083001821606", withDescription: "a51bang")
 //        WXApi.registerApp("wx5bbd35eed5255733", withDescription: "51bang")//第二次
         TencentOAuth(appId: "1105589363", andDelegate: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.networkDidReceiveMessage), name:kJPFNetworkDidLoginNotification, object: nil)
        
 //         WXApi.registerApp("wx765b8c5e08253264", withDescription: "51bang")
          //WXApi.registerApp("wxe61df5d7fee96861", withDescription: "51bang1")
@@ -130,10 +131,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             NSLog("manager start failed!")
         }
         
-
+        
         
         return true
     }
+    
+    
+    func networkDidReceiveMessage(){
+        JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
+            var registrationIDs = String()
+            if registrationID == nil{
+                registrationIDs = ""
+            }else{
+                registrationIDs = registrationID
+            }
+            
+            
+            let ud = NSUserDefaults.standardUserDefaults()
+            if ud.objectForKey("phone") != nil && ud.objectForKey("pwd") != nil{
+                let num = ud.objectForKey("phone") as! String
+                let pwd = ud.objectForKey("pwd") as! String
+                self.logVM.login(num, password: pwd,registrationID:registrationIDs, handle: { [unowned self] (success, response) in
+                    
+                    })
+
+            }
+            
+            
+        
+    })
+    }
+    
     
     func applicationWillEnterForeground(application: UIApplication) {
         
@@ -194,17 +222,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             if userInfo["key"] as! String == "certificationType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("certificationType", object: dic)
-            }else{
+            }else
+                if userInfo["key"] as! String == "prohibitVisit" {
+                    if userInfo["aps"] != nil {
+                        let strr = userInfo["aps"] as! NSDictionary
+                        if strr["alert"] != nil {
+//                            alert(strr["alert"] as! String, delegate: self)
+                            let dic = ["name":strr["alert"] as! String]
+                            NSNotificationCenter.defaultCenter().postNotificationName("prohibitVisit", object: dic)
+                        }
+                    }
+
+                   
+                }
+            
+            else{
+                    
                 let dic = ["name":userInfo["key"]! as! String]
                 NSNotificationCenter.defaultCenter().postNotificationName("CustomPushType", object: dic)
 //                alert(userInfo["key"] as! String, delegate: self)
             }
 
         }else{
-            let strr = userInfo["aps"] as! NSDictionary
+            if userInfo["aps"] != nil {
+                let strr = userInfo["aps"] as! NSDictionary
+                if strr["alert"] != nil {
+                    alert(strr["alert"] as! String, delegate: self)
+                }
+            }
+            
 //            print(strr["alert"])
             
-            alert(strr["alert"] as! String, delegate: self)
+            
         }
         
         
@@ -338,7 +387,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 //    }
 
     func applicationDidBecomeActive(application: UIApplication) {
+        
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        let ud = NSUserDefaults.standardUserDefaults()
+        if (ud.objectForKey("userid") != nil) {
+            let userids = ud.objectForKey("userid") as! String
+            mainhelper.checkIslogin(userids, handle: { (success, response) in
+                if success{
+                    let userDatas = NSUserDefaults.standardUserDefaults()
+//                    print(userDatas.objectForKey("userid"))
+                    userDatas.removeObjectForKey("userid")
+                    if userDatas.objectForKey("name") != nil {
+                        userDatas.removeObjectForKey("name")
+                    }
+                    
+                    if userDatas.objectForKey("photo") != nil {
+                        userDatas.removeObjectForKey("photo")
+                    }
+                    if userDatas.objectForKey("sex") != nil {
+                        userDatas.removeObjectForKey("sex")
+                    }
+                    
+                    if userDatas.objectForKey("pwd") != nil {
+                        userDatas.removeObjectForKey("pwd")
+                    }
+                    if userDatas.objectForKey("userphoto") != nil {
+                        userDatas.removeObjectForKey("userphoto")
+                    }
+                    
+                    if userDatas.objectForKey("ss") != nil {
+                        userDatas.removeObjectForKey("ss")
+                    }
+                    JPUSHService.setTags(nil, aliasInbackground: "99999999")
+                    loginSign = 0
+//                    self.tabBarController?.selectedIndex = 3
+                }
+            })
+        }
+        
     }
 
     func applicationWillTerminate(application: UIApplication) {
