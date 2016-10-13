@@ -957,6 +957,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 //        }
 
         let vc = SkillSubitemViewController()
+        vc.isBangwo = true
         let model = self.dataSource[btn.tag-500]
         infosss = model.clist
         vc.jinengID = self.jiNengID
