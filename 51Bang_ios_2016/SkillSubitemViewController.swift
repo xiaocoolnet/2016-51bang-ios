@@ -24,6 +24,8 @@ class SkillSubitemViewController: UIViewController {
     var jinengID = NSMutableArray()
     let selectArr = NSMutableArray()
     let mySrcollView = UIScrollView()
+    var isBangwo = Bool()
+    
     
     var delegate : skillProrocol?
     let backview = UIView.init(frame: CGRectMake(0, 0, WIDTH, 64))
@@ -201,9 +203,11 @@ class SkillSubitemViewController: UIViewController {
         }else{
             print(selectArr.count)
             if !selectArr.containsObject(btn){
+                if isBangwo {
+                    (selectArr[0] as! UIButton ).setImage(UIImage(named: "ic_weixuanze"), forState: UIControlState.Normal)
+                    selectArr.removeLastObject()
+                }
                 
-                (selectArr[0] as! UIButton ).setImage(UIImage(named: "ic_weixuanze"), forState: UIControlState.Normal)
-                selectArr.removeLastObject()
                 btn.setImage(UIImage(named: "ic_xuanze"), forState: UIControlState.Normal)
                 selectArr.addObject(btn)
                 //                    self.payMode = cell.title.text!
