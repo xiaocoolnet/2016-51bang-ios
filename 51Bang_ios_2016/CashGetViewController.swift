@@ -158,6 +158,19 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
                     alert("提现金额未满100元", delegate: self)
                     return
                 }
+                if info.availablemoney != nil {
+                    if Double(textField.text!) > Double(info.availablemoney!){
+                        alert("余额不足", delegate: self)
+                        return
+                    }
+                }else{
+                    alert("余额不足", delegate: self)
+                    return
+                }
+                
+            }else{
+                alert("请输入提现金额", delegate: self)
+                return
             }
             
             mainHelper.ApplyWithdraw(userid, money: textField.text!, banktype: banktype) { (success, response) in

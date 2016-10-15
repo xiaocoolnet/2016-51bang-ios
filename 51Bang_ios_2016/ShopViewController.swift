@@ -403,6 +403,8 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.navigationController?.pushViewController(vc, animated: true)
             //            vc.title = "特卖发布"
         }
+//        let vc = OrderCommentViewController()
+//        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {

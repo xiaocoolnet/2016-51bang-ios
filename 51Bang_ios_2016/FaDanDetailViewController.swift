@@ -9,7 +9,7 @@
 import UIKit
 
 class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-   
+   var dataSource4 : Array<commentlistInfo>?
     let myTableView = UITableView()
     let mainHelper = MainHelper()
     var dataSource = NSMutableArray()
@@ -31,6 +31,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
         self.title = "订单详情"
+        self.dataSource4 = self.info.commentlist
 //        button.hidden = false
         self.getData()
        //TaskDetailTableViewCell2
@@ -174,6 +175,11 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row > 7 {
+            let str = dataSource4![indexPath.row-7].content
+            let height = calculateHeight( str!, size: 13, width: WIDTH - 10 )
+            return 75 + height + 20
+        }
         return 50
     }
     
@@ -226,10 +232,16 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        if self.dataSource4!.count > 0 {
+            return 8 + (self.dataSource4!.count)
+        }else{
+            return 7
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+      
         
        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as! TaskDetailTableViewCell2
         cell.selectionStyle = .None
@@ -265,12 +277,48 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
 //            cell.title.text = "上门时间"
 //            let time = timeStampToString(myInfo.time!)
 //            cell.desc.text = time
-        }else{
+        }else if indexPath.row == 6{
             
             cell.title.text = "有效期"
             let time = timeStampToString(myInfo.expirydate!)
             cell.desc.text = time
 //            cell.desc.text = myInfo.order_num
+        }else if indexPath.row == 7{
+            let cell = UITableViewCell()
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            let view1 = UIView.init(frame: CGRectMake(0, 0, WIDTH, 10))
+            view1.backgroundColor = RGREY
+            view1.userInteractionEnabled = false
+            cell.addSubview(view1)
+            
+            let labelcomment = UILabel.init(frame: CGRectMake(20, 15, 60, 38))
+            labelcomment.text = "评价"
+            labelcomment.userInteractionEnabled = true
+            cell.addSubview(labelcomment)
+            
+            let view2 = UIView.init(frame: CGRectMake(0, 48, WIDTH, 2))
+            view2.backgroundColor = RGREY
+            view2.userInteractionEnabled = false
+            cell.addSubview(view2)
+            
+            return cell
+        }else{
+            if self.dataSource4?.count>0 {
+                let cell = ConveniceCell.init(myinfo: self.dataSource4![indexPath.row-3] )
+                //                print(self.dataSource![indexPath.row-3].add_time)
+                //                print(self.dataSource![indexPath.row-3].id)
+                //                print(self.dataSource![indexPath.row-3].content)
+                //                print(self.dataSource![indexPath.row-3].name)
+                //                print(self.dataSource![indexPath.row-3].userid)
+                //                print(self.dataSource![indexPath.row-3].photo)
+                //                print(self.dataSource![indexPath.row-2].add_time)
+                return cell
+            }else{
+                let cell = UITableViewCell()
+                cell.backgroundColor = UIColor.clearColor()
+                return cell
+            }
+            
         }
         return cell
     }

@@ -31,6 +31,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     var tchdDataSource:Array<TCHDInfo>?
     var rzbDataSource : Array<RzbInfo>?
     var dataSource3 : Array<chatInfo>?
+//    let middleArr = ["服务最多","离我最近"]
     let middleArr = ["服务最多","评分最多","离我最近"]
     let rightArr = ["全部","在线"]
     
@@ -83,11 +84,18 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         
         let userLocationCenter = NSUserDefaults.standardUserDefaults()
         var cityname = String()
-        if userLocationCenter.objectForKey("cityName") != nil {
-            cityname = userLocationCenter.objectForKey("cityName") as! String
+//        var latitude = String()
+//        var longitude = String()
+        if userLocationCenter.objectForKey("quName") != nil {
+            cityname = userLocationCenter.objectForKey("quName") as! String
         }
+//        if userLocationCenter.objectForKey("latitude") != nil && userLocationCenter.objectForKey("longitude") != nil{
+//            latitude = userLocationCenter.objectForKey("latitude") as! String
+//            longitude = userLocationCenter.objectForKey("longitude") as! String
+//        }
         
-        mainHelper.GetRzbList ("" ,sort:sort,type:types, handle: {[unowned self](success, response) in
+        
+        mainHelper.GetRzbList (cityname ,sort:sort,type:types, handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     alert("暂无数据", delegate: self)
@@ -498,7 +506,12 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             
             
             view?.label2.text = middleArr[indexPath.row]
-            self.sort = String(indexPath.row)
+            self.sort = String(indexPath.row+1)
+//            if middleArr[indexPath.row] == "服务最多" {
+//                self.sort  =  "1"
+//            }else{
+//                self.sort  =  "3"
+//            }
             self.GetData1(self.sort, types: self.types)
             
         }else{

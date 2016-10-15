@@ -102,16 +102,19 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             
             
             let ud = NSUserDefaults.standardUserDefaults()
-            
-            if(ud.objectForKey("ss") as! String == "no")
-            {
-                let vc  = WobangRenZhengController()
-                self.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
-                self.hidesBottomBarWhenPushed = false
-                return
-                
+            if ud.objectForKey("ss") != nil {
+                if(ud.objectForKey("ss") as! String == "no")
+                {
+                    let vc  = WobangRenZhengController()
+                    self.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    self.hidesBottomBarWhenPushed = false
+                    return
+                    
+                }
             }
+            
+            
             //            let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
             //            let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("AddView")
             //            self.navigationController?.pushViewController(vc, animated: true)
@@ -268,9 +271,9 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             }
             self.dataSource = response as? Array<TCHDInfo> ?? []
             self.convenienceTable.mj_footer.endRefreshing()
-//            if self.dataSource?.count == 0{
-//                self.convenienceTable.mj_footer.endRefreshingWithNoMoreData()
-//            }
+            if self.dataSource?.count == 0{
+                self.convenienceTable.mj_footer.endRefreshingWithNoMoreData()
+            }
             for data in self.dataSource!{
                 
                 self.dataSource2.addObject(data)
@@ -350,7 +353,11 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     cell.messageButton.tag = indexPath.row-1
                     
                     let user = NSUserDefaults.standardUserDefaults()
-                    let userid = user.objectForKey("userid") as! String
+                    var userid = String()
+                    if user.objectForKey("userid") != nil {
+                        userid = user.objectForKey("userid") as! String
+                    }
+                    
                     if userid == (dataSource2[indexPath.row-1] as! TCHDInfo).userid! {
                         cell.deletebutton.hidden = false
                         cell.accountnumberButton.hidden = true

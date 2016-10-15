@@ -13,6 +13,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     var myPhotoArray = NSMutableArray()
     var collectionV:UICollectionView?
     var taskInfo = TaskInfo()
+    var dataSource : Array<commentlistInfo>?//评价
     var dataSource3 : Array<chatInfo>?
     let mainHelper = MainHelper()
     var soundName = NSURL()
@@ -27,6 +28,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         print(taskInfo)
+        self.dataSource = self.taskInfo.commentlist
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.backgroundColor = RGREY
         myTableView.delegate = self
@@ -58,10 +60,25 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        
+        if self.dataSource?.count > 0 {
+            return 8 + (self.dataSource?.count)!
+        }else{
+            return 7
+        }
+        
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        if indexPath.row > 7 {
+            let str = dataSource![indexPath.row-7].content
+            let height = calculateHeight( str!, size: 13, width: WIDTH - 10 )
+            return 75 + height + 20
+        }
+        
+        
+        
         if indexPath.row == 0 {
             return 80
         }else if indexPath.row == 3{
@@ -87,6 +104,10 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        
+        
+        
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("cell1") as! TaskDetailTableViewCell1
             cell.call.addTarget(self, action: #selector(self.callPhone), forControlEvents: UIControlEvents.TouchUpInside)
@@ -271,7 +292,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
             cell.desc.text = self.taskInfo.address
             return cell
             
-        }else{
+        }else if indexPath.row == 6{
             let cell = tableView.dequeueReusableCellWithIdentifier("cell2") as! TaskDetailTableViewCell2
             cell.title.text = "有效期"
             cell.selectionStyle = .None
@@ -279,6 +300,41 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
             cell.desc.text = time
             tableView.separatorStyle = .None
             return cell
+        }else if indexPath.row == 7{
+            let cell = UITableViewCell()
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            let view1 = UIView.init(frame: CGRectMake(0, 0, WIDTH, 10))
+            view1.backgroundColor = RGREY
+            view1.userInteractionEnabled = false
+            cell.addSubview(view1)
+            
+            let labelcomment = UILabel.init(frame: CGRectMake(20, 15, 60, 38))
+            labelcomment.text = "评价"
+            labelcomment.userInteractionEnabled = true
+            cell.addSubview(labelcomment)
+            
+            let view2 = UIView.init(frame: CGRectMake(0, 48, WIDTH, 2))
+            view2.backgroundColor = RGREY
+            view2.userInteractionEnabled = false
+            cell.addSubview(view2)
+            
+            return cell
+        }else{
+            if self.dataSource?.count>0 {
+                let cell = ConveniceCell.init(myinfo: self.dataSource![indexPath.row-3] )
+                //                print(self.dataSource![indexPath.row-3].add_time)
+                //                print(self.dataSource![indexPath.row-3].id)
+                //                print(self.dataSource![indexPath.row-3].content)
+                //                print(self.dataSource![indexPath.row-3].name)
+                //                print(self.dataSource![indexPath.row-3].userid)
+                //                print(self.dataSource![indexPath.row-3].photo)
+                //                print(self.dataSource![indexPath.row-2].add_time)
+                return cell
+            }else{
+                let cell = UITableViewCell()
+                cell.backgroundColor = UIColor.clearColor()
+                return cell
+            }
         }
 
     }

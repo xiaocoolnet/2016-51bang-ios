@@ -17,6 +17,7 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
     var tag = Int()
     override func viewWillAppear(animated: Bool) {
         self.title = "我的收藏"
+        
         self.getData()
         self.navigationController?.navigationBar.hidden = false
         self.tabBarController?.tabBar.hidden = true
@@ -114,7 +115,7 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = GREY
         // Do any additional setup after loading the view.
     }
 

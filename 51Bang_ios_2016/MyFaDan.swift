@@ -399,8 +399,22 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 cell.goZhuye.tag = indexPath.section+500
                 cell.setValueWithInfo(self.dataSource1![indexPath.section])
                 cell.selectionStyle = .None
-                cell.pingjia.hidden = true
-                cell.pingjia.addTarget(self, action: #selector(self.goPingJia), forControlEvents: UIControlEvents.TouchUpInside)
+                
+                if self.dataSource1![indexPath.section].commentlist.count>0 {
+                    cell.pingjia.setTitle("已评价", forState:UIControlState.Normal)
+                    cell.pingjia.tag = indexPath.section+200
+                    cell.pingjia.setTitleColor(UIColor.orangeColor(), forState: .Normal)
+                    cell.pingjia.userInteractionEnabled = false
+                }else{
+                    cell.pingjia.setTitle("评价", forState:UIControlState.Normal)
+                    cell.pingjia.userInteractionEnabled = true
+                    cell.pingjia.setTitleColor(COLOR, forState: .Normal)
+                    cell.pingjia.tag = indexPath.section+200
+                    cell.pingjia.addTarget(self, action: #selector(self.goPingJia(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                }
+                
+//                cell.pingjia.hidden = true
+                
                 return cell
             }else{
                 let cell = UITableViewCell()
@@ -533,10 +547,14 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func goPingJia(){
+    func goPingJia(sender:UIButton){
     
-        let vc = PingJiaViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        let orderCommentViewController = OrderCommentViewController()
+        orderCommentViewController.idStr = self.dataSource1![sender.tag-200].id!
+        orderCommentViewController.order_num = self.dataSource1![sender.tag-200].order_num!
+        orderCommentViewController.usertype = "1"
+        orderCommentViewController.types = "1"
+        self.navigationController?.pushViewController(orderCommentViewController, animated: true)
     
     }
     

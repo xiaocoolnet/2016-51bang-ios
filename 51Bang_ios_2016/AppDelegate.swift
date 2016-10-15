@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 //         WXApi.registerApp("wx765b8c5e08253264", withDescription: "51bang")
          //WXApi.registerApp("wxe61df5d7fee96861", withDescription: "51bang1")
         
-        
+//        self.window?.rootViewController?.tabBarController?.selectedIndex = 3
         //推送
         //通知类型（这里将声音、消息、提醒角标都给加上）
         let userSettings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert],
@@ -438,6 +438,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                         }
                         JPUSHService.setTags(nil, aliasInbackground: "99999999")
                         loginSign = 0
+                        self.window?.rootViewController?.tabBarController?.selectedIndex = 3
                         //                    self.tabBarController?.selectedIndex = 3
                     }
                     else{
@@ -469,6 +470,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                             }
                             JPUSHService.setTags(nil, aliasInbackground: "99999999")
                             loginSign = 0
+                            self.window?.rootViewController?.tabBarController?.selectedIndex = 3
                         }
                     }
                 })

@@ -632,8 +632,14 @@
         
         // url	String	"http://bang.xiaocool.net/index.php?g=apps&m=index&a=getAuthenticationUserList"
         let url = Bang_URL_Header+"getAuthenticationUserList"
-        
-        Alamofire.request(.GET, url, parameters: ["cityname":cityname,"sort":sort,"type":type]).response { request, response, json, error in
+        let userLocationCenter = NSUserDefaults.standardUserDefaults()
+        var latitude = String()
+        var longitude = String()
+        if userLocationCenter.objectForKey("latitude") != nil && userLocationCenter.objectForKey("longitude") != nil{
+            latitude = userLocationCenter.objectForKey("latitude") as! String
+            longitude = userLocationCenter.objectForKey("longitude") as! String
+        }
+        Alamofire.request(.GET, url, parameters: ["cityname":cityname,"sort":sort,"type":type,"latitude":latitude,"longitude":longitude]).response { request, response, json, error in
             print(request)
             if(error != nil){
                 handle(success: false, response: error?.description)
@@ -949,8 +955,11 @@
     //
     //    }
     //发布评论
-    func upLoadComment(userid:NSString,id:NSString,content:NSString,type:NSString,photo:NSString,handle:ResponseBlock){
-        let url = Bang_URL_Header+"SetComment"
+    /*
+     orderid(订单编号),type(任务是1,商城是2),usertype(1= 》发布者，2=》购买者)
+  */
+    func upLoadComment(userid:NSString,id:NSString,content:NSString,type:NSString,photo:NSString,usertype:String,score:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"SetEvaluate"
         //        let photoUrl = NSMutableString()
         //        for i in 0..<photo.count {
         //            if i == photo.count-1{
@@ -965,11 +974,14 @@
         let param = [
             
             "userid":userid,
-            "id":id,
+            "orderid":id,
             "content":content,
             "type":type,
             //            "photo":photoUrl
-            "photo":photo
+            "photo":photo,
+            "usertype":usertype,
+            "score":score
+            
         ];
         
         
@@ -988,7 +1000,7 @@
                     handle(success: true, response: result.data)
                     
                 }else{
-                    //                    handle(success: false, response: result.errorData)
+                    handle(success: false, response: result.errorData)
                     
                 }
             }

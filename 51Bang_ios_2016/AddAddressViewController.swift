@@ -111,7 +111,11 @@ class AddAddressViewController: UIViewController,UITextFieldDelegate {
 //        let mylatitude = removeOptionWithString(latitude)
 //        print(mylongtitude)
 //        print(mylatitude)
-        let userid = ud.objectForKey("userid")as! String
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+             userid = ud.objectForKey("userid")as! String
+        }
+        
 //        let textView = self.view.viewWithTag(10)as!UITextView
         print(textView.text)
 //        if textView.text == "添加新地址" {

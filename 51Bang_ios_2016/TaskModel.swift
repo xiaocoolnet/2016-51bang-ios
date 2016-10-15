@@ -172,7 +172,7 @@ class TaskInfo: JSONJoy {
     var idcard:String?
     var files:String?
     var evaluate:String?
-    var commentlist:String?
+    var commentlist:[commentlistInfo]
     var apply:applyModel?
     var pic:[PicInfos]?
     var record:String?
@@ -182,6 +182,8 @@ class TaskInfo: JSONJoy {
     
     init(){
         pic = Array<PicInfos>()
+//        pic = Array<PicInfos>()
+        commentlist = Array<commentlistInfo>()
     }
     required init(_ decoder: JSONDecoder){
         
@@ -217,7 +219,7 @@ class TaskInfo: JSONJoy {
         files = decoder["files"].string
         evaluate = decoder["evaluate"].string
         type_parentname = decoder["type_parentname"].string
-        
+        commentlist = Array<commentlistInfo>()
 
 
         apply = applyModel()
@@ -228,6 +230,11 @@ class TaskInfo: JSONJoy {
 //        if decoder["files"].dictionary != nil {
 ////            apply = decoder["files"].dictionary
 //        }
+        if decoder["commentlist"].array != nil {
+            for childs: JSONDecoder in decoder["commentlist"].array!{
+                self.commentlist.append(commentlistInfo(childs))
+            }
+        }
         
         pic = Array<PicInfos>()
         if decoder["files"].array != nil {

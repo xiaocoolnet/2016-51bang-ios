@@ -427,7 +427,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             }
             count = count + 1
         }
-        cutyName = city.substringToIndex(city.startIndex.advancedBy(count+1))
+        print(count)
+        cutyName = (city as NSString).substringToIndex(count+1)
         userLocationCenter.setObject(cutyName, forKey: "cityName")
         
         quName = city.substringFromIndex(city.startIndex.advancedBy(count+1))
@@ -441,6 +442,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         }
         if myArray1.count>1 {
             quName = quName.substringFromIndex(quName.startIndex.advancedBy((myArray1[0] as! Int)+1))
+            cutyName = (city as NSString).substringToIndex((count+1+(myArray1[0] as! Int)+1))
+            print(cutyName)
+            userLocationCenter.setObject(cutyName, forKey: "cityName")
         }
         print(cutyName)
         print(quName)

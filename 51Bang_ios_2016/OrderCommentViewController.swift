@@ -6,6 +6,7 @@
 //  Copyright © 2016年 校酷网络科技公司. All rights reserved.
 //
 
+
 import UIKit
 import MBProgressHUD
 import AVFoundation
@@ -33,6 +34,10 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
     var collectionV:UICollectionView?
     let photoNameArr = NSMutableArray()
     let mainHelper = MainHelper()
+    var WEIXUAN = "ic_yellow_bian"
+    var XUANZHONG = "ic_yellowstar_quan"
+    var usertype = String()
+    var types = String()
     
     var processHandle:TimerHandle?
     var finishHandle:TimerHandle?
@@ -40,7 +45,7 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "发表评论"
+        self.title = "发表评价"
         self.tabBarController?.tabBar.hidden = true
         type = 0
         self.gradeNum = "1"
@@ -118,7 +123,7 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
         
         //添加五角星打分
         
-//        gradeView()
+        gradeView()
         
        
         headerView.addSubview(textView)
@@ -140,34 +145,34 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
         dafenLabel.textColor = COLOR
         self.backView.addSubview(dafenLabel)
         
-        self.dafenButton1.frame = CGRectMake(100, 0, 50, 50)
+        self.dafenButton1.frame = CGRectMake(100, 13, 24, 24)
         self.dafenButton1.backgroundColor = RGREY
-        self.dafenButton1.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Normal)
+        self.dafenButton1.setImage(UIImage(named: XUANZHONG), forState: UIControlState.Normal)
 //        self.dafenButton1.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
         self.dafenButton1.addTarget(self, action: #selector(self.dafenButton1Action), forControlEvents: UIControlEvents.TouchUpInside)
         
-        self.dafenButton2.frame = CGRectMake(100+70, 0, 50, 50)
+        self.dafenButton2.frame = CGRectMake(100+35, 13, 24, 24)
         self.dafenButton2.backgroundColor = RGREY
-        self.dafenButton2.setImage(UIImage(named: "ic_QQ-1"), forState: UIControlState.Normal)
-        self.dafenButton2.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
+        self.dafenButton2.setImage(UIImage(named: WEIXUAN), forState: UIControlState.Normal)
+        self.dafenButton2.setImage(UIImage(named: XUANZHONG), forState: UIControlState.Selected)
         self.dafenButton2.addTarget(self, action: #selector(self.dafenButton2Action), forControlEvents: UIControlEvents.TouchUpInside)
         
-        self.dafenButton3.frame = CGRectMake(100+140, 0, 50, 50)
+        self.dafenButton3.frame = CGRectMake(100+70, 13, 24, 24)
         self.dafenButton3.backgroundColor = RGREY
-        self.dafenButton3.setImage(UIImage(named: "ic_QQ-1"), forState: UIControlState.Normal)
-        self.dafenButton3.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
+        self.dafenButton3.setImage(UIImage(named: WEIXUAN), forState: UIControlState.Normal)
+        self.dafenButton3.setImage(UIImage(named: XUANZHONG), forState: UIControlState.Selected)
         self.dafenButton3.addTarget(self, action: #selector(self.dafenButton3Action), forControlEvents: UIControlEvents.TouchUpInside)
         
-        self.dafenButton4.frame = CGRectMake(100+210, 0, 50, 50)
+        self.dafenButton4.frame = CGRectMake(100+105, 13, 24, 24)
         self.dafenButton4.backgroundColor = RGREY
-        self.dafenButton4.setImage(UIImage(named: "ic_QQ-1"), forState: UIControlState.Normal)
-        self.dafenButton4.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
+        self.dafenButton4.setImage(UIImage(named: WEIXUAN), forState: UIControlState.Normal)
+        self.dafenButton4.setImage(UIImage(named: XUANZHONG), forState: UIControlState.Selected)
         self.dafenButton4.addTarget(self, action: #selector(self.dafenButton4Action), forControlEvents: UIControlEvents.TouchUpInside)
         
-        self.dafenButton5.frame = CGRectMake(100+280, 0, 50, 50)
+        self.dafenButton5.frame = CGRectMake(100+140, 13, 24, 24)
         self.dafenButton5.backgroundColor = RGREY
-        self.dafenButton5.setImage(UIImage(named: "ic_QQ-1"), forState: UIControlState.Normal)
-        self.dafenButton5.setImage(UIImage(named: "ic_kongjianF"), forState: UIControlState.Selected)
+        self.dafenButton5.setImage(UIImage(named: WEIXUAN), forState: UIControlState.Normal)
+        self.dafenButton5.setImage(UIImage(named: XUANZHONG), forState: UIControlState.Selected)
         self.dafenButton5.addTarget(self, action: #selector(self.dafenButton5Action), forControlEvents: UIControlEvents.TouchUpInside)
         
         self.backView.addSubview(self.dafenButton1)
@@ -393,38 +398,38 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
         print(userid)
         print(self.photoNameArr)
         if photoNameArr.count > 0{
-            mainHelper.upLoadComment(userid, id: idStr, content: textView.text, type: "3",photo:photoNameArr[0] as! NSString) { (success, response) in
+            mainHelper.upLoadComment(userid, id: idStr, content: textView.text, type:types,photo:photoNameArr[0] as! NSString,usertype:usertype,score:gradeNum) { (success, response) in
                 print(response)
                 if !success{
                     alert("数据加载出错请重试", delegate: self)
                     return
                 }
                 self.hud1.hide(true)
-                self.mainHelper.gaiBianDingdan(self.order_num, state: "10", handle: { (success, response) in
-                    if !success{
-                        alert("数据加载出错请重试", delegate: self)
-                        return
-                    }
-                })
+//                self.mainHelper.gaiBianDingdan(self.order_num, state: "10", handle: { (success, response) in
+//                    if !success{
+//                        alert("数据加载出错请重试", delegate: self)
+//                        return
+//                    }
+//                })
                 self.navigationController?.popViewControllerAnimated(true)
                 
             }
             
             
         }else{
-            mainHelper.upLoadComment(userid, id: idStr, content: textView.text, type: "3",photo:"01.png") { (success, response) in
+            mainHelper.upLoadComment(userid, id: idStr, content: textView.text, type: types,photo:"01.png",usertype:usertype,score:gradeNum) { (success, response) in
                 
                 if !success{
                     alert("数据加载出错请重试", delegate: self)
                     return
                 }
                 self.hud1.hide(true)
-                self.mainHelper.gaiBianDingdan(self.order_num, state: "10", handle: { (success, response) in
-                    if !success{
-                        alert("数据加载出错请重试", delegate: self)
-                        return
-                    }
-                })
+//                self.mainHelper.gaiBianDingdan(self.order_num, state: "10", handle: { (success, response) in
+//                    if !success{
+//                        alert("数据加载出错请重试", delegate: self)
+//                        return
+//                    }
+//                })
 
                 self.navigationController?.popViewControllerAnimated(true)
                 

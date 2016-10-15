@@ -45,7 +45,7 @@ class PingJiaViewController: UIViewController {
         }
     
         let button = UIButton.init(frame: CGRectMake(0, HEIGHT-108, WIDTH, 50))
-        button.setTitle("发表评论", forState: UIControlState.Normal)
+        button.setTitle("发表评价", forState: UIControlState.Normal)
         button.backgroundColor = COLOR
         self.view.addSubview(button)
     }
