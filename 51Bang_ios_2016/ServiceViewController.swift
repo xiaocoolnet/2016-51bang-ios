@@ -140,6 +140,7 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
         
         
         JPUSHService.setTags(nil, aliasInbackground: "99999999")
+        NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
         
         loginSign = 0
         let a = MineViewController()

@@ -34,8 +34,8 @@ class TCVMLogModel: NSObject {
                 print(result.data)
                 handle(success: true, response: result.data)
              }else{
-                handle(success: false, response: result.data)
-                print(result.data)
+                handle(success: false, response: result.errorData)
+//                print(result.data)
                 
             }
  

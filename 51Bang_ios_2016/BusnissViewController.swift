@@ -712,12 +712,12 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //            }
             
             var shangHuid = String()
-            if goodsInfo.id != nil {
-                 shangHuid = goodsInfo.id!
+            if goodsInfo.userid != nil {
+                 shangHuid = goodsInfo.userid!
             }
             
             let img = UIImagePNGRepresentation(UIImage.init(named: "图标")!)
-            let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid), title: "我注册了51bang，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
+            let newsObj = QQApiNewsObject(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid), title: "我注册了51bang，发布了商品，来加入吧", description: "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台", previewImageData: img, targetContentType: QQApiURLTargetTypeNews)
             
             
             let req = SendMessageToQQReq(content: newsObj)
@@ -729,7 +729,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 sendReq.scene = 0
                 let urlMessage = WXMediaMessage.init()
                 urlMessage.setThumbImage(UIImage(named: "图标"))
-                urlMessage.title = "我注册了51bang，来加入吧"
+                urlMessage.title = "我注册了51bang，发布了商品，来加入吧"
                 urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
                 let webObj = WXWebpageObject.init()
                 webObj.webpageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid
@@ -744,7 +744,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 sendReq.scene = 1
                 //sendReq.text = "测试，请忽略"
                 let urlMessage = WXMediaMessage.init()
-                urlMessage.title = "我注册了51bang，来加入吧"
+                urlMessage.title = "我注册了51bang，发布了商品，来加入吧"
                 urlMessage.description = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台"
                 urlMessage.setThumbImage(UIImage(named: "图标"))
                 let webObj = WXWebpageObject.init()
@@ -760,7 +760,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 //            let textObj = APShareTextObject()
                 webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid;
                 
-                message.title = "我注册了51bang，来加入吧";
+                message.title = "我注册了51bang，发布了商品，来加入吧";
                 message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
                 
                 //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";
@@ -785,7 +785,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 //            let textObj = APShareTextObject()
                 webObj.wepageUrl = Bang_Open_Header+"index.php?g=portal&m=article&a=shop&id="+shangHuid;
                 
-                message.title = "我注册了51bang，来加入吧";
+                message.title = "我注册了51bang，发布了商品，来加入吧";
                 message.desc = "基于同城个人，商户服务 。商品购买。给个人，商户提供交流与服务平台";
                 message.thumbData = UIImagePNGRepresentation(UIImage(named: "图标")!)
                 //            message.thumbUrl = "http://img.sucaifengbao.com/vector/logosjbz/31_309_bp.jpg";

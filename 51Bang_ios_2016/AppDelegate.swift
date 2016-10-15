@@ -138,31 +138,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
     
     
     func networkDidReceiveMessage(){
-        JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
-            var registrationIDs = String()
-            
-            if registrationID == nil{
-                registrationIDs = ""
-            }else{
-                registrationIDs = registrationID
-            }
-            
-            
-            let ud = NSUserDefaults.standardUserDefaults()
-            
-            ud.setObject(registrationIDs, forKey: "registrationIDs")
-            if ud.objectForKey("phone") != nil && ud.objectForKey("pwd") != nil{
-                let num = ud.objectForKey("phone") as! String
-                let pwd = ud.objectForKey("pwd") as! String
-                self.logVM.login(num, password: pwd,registrationID:registrationIDs, handle: { [unowned self] (success, response) in
-                    
-                    })
-
-            }
-            
-            
+        NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
         
-    })
+        
+//        JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
+//            var registrationIDs = String()
+//            
+//            if registrationID == nil{
+//                registrationIDs = ""
+//            }else{
+//                registrationIDs = registrationID
+//            }
+//            
+//            
+//            let ud = NSUserDefaults.standardUserDefaults()
+//            
+//            ud.setObject(registrationIDs, forKey: "registrationIDs")
+//            if ud.objectForKey("phone") != nil && ud.objectForKey("pwd") != nil{
+//                let num = ud.objectForKey("phone") as! String
+//                let pwd = ud.objectForKey("pwd") as! String
+////                self.logVM.login(num, password: pwd,registrationID:registrationIDs, handle: { [unowned self] (success, response) in
+////                    
+////                    })
+//
+//            }
+//            
+//            
+//        
+//    })
     }
     
     
@@ -238,6 +241,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("certificationType", object: dic)
             }else
+                if userInfo["key"] as! String == "WithdrawSuccess" {
+//                    let dic = ["name":userInfo["v"]! as! String];
+                   alert("您的提现申请已成功打款，请查收", delegate: self)
+                }
+            
+            
+            else
                 if userInfo["key"] as! String == "prohibitVisit" {
                     if userInfo["aps"] != nil {
                         let strr = userInfo["aps"] as! NSDictionary
@@ -439,6 +449,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                         JPUSHService.setTags(nil, aliasInbackground: "99999999")
                         loginSign = 0
                         self.window?.rootViewController?.tabBarController?.selectedIndex = 3
+                        NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
+//                        UIApplication.sharedApplication().registerForRemoteNotifications()
                         //                    self.tabBarController?.selectedIndex = 3
                     }
                     else{
@@ -470,6 +482,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                             }
                             JPUSHService.setTags(nil, aliasInbackground: "99999999")
                             loginSign = 0
+                            NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
                             self.window?.rootViewController?.tabBarController?.selectedIndex = 3
                         }
                     }

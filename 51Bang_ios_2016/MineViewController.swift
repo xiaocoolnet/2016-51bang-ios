@@ -15,7 +15,7 @@ protocol ViewControllerDelegate:NSObjectProtocol {
 
 var loginSign = 0
 class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSource ,MineDelegate{
-    
+    var login = UIButton()//登陆按钮
     let badgeView1 = UIView()//小红点
     let badgeView2 = UIView()//小红点
     let badgeView3 = UIView()//小红点
@@ -58,7 +58,11 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var phoneTextfield = UITextField()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        
+        JPUSHService.registrationIDCompletionHandler { (resCode, registrationID) in
+            if registrationID != nil{
+                self.login.userInteractionEnabled = true
+            }
+        }
         isShow = false
         
         if self.badgeView1.hidden && self.badgeView2.hidden && self.badgeView3.hidden && self.badgeView4.hidden && self.badgeView5.hidden{
@@ -180,9 +184,14 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.CustomPushType(_:)), name:"CustomPushType", object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.prohibitVisit(_:)), name:"prohibitVisit", object: nil)
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.changeButton), name:"getRegistrationID", object: nil)
         
         
-        
+    }
+    
+    
+    func changeButton(){
+        login.userInteractionEnabled = true
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -226,12 +235,13 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         firstTableView.dataSource = self
         firstTableView.registerNib(UINib(nibName: "LoginPhoneTableViewCell",bundle: nil), forCellReuseIdentifier: "phone")
         firstTableView.registerNib(UINib(nibName: "LoginPwdTableViewCell",bundle: nil), forCellReuseIdentifier: "pwd")
-        let login = UIButton.init(frame: CGRectMake(10,firstTableView.frame.origin.y+firstTableView.frame.size.height+30 , WIDTH-20, WIDTH*50/375))
+        login = UIButton.init(frame: CGRectMake(10,firstTableView.frame.origin.y+firstTableView.frame.size.height+30 , WIDTH-20, WIDTH*50/375))
         login.setTitle("登陆", forState: UIControlState.Normal)
         login.backgroundColor = COLOR
         login.layer.cornerRadius = 10
         //        btn.backgroundColor = COLOR
-        login.addTarget(self, action: #selector(self.login), forControlEvents: UIControlEvents.TouchUpInside)
+        login.userInteractionEnabled = false
+        login.addTarget(self, action: #selector(self.loginAction), forControlEvents: UIControlEvents.TouchUpInside)
         let button1 = UIButton.init(frame: CGRectMake(130, login.frame.origin.y+login.frame.size.height+30, WIDTH*100/375, WIDTH*30/375))
         button1.setTitle("忘记密码?", forState: UIControlState.Normal)
         button1.setTitleColor(COLOR, forState: UIControlState.Normal)
@@ -794,6 +804,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         JPUSHService.setTags(nil, aliasInbackground: "99999999")
         loginSign = 0
+        NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
         self.tabBarController?.selectedIndex = 3
         if self.tabBarController?.selectedIndex == 3 {
             self.tabBarController?.selectedIndex = 1
@@ -809,15 +820,15 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if ids == "1" {
             let function = BankUpLoad()
             function.CheckRenzheng()
-            alert("身份认证成功", delegate: self)
+            alert("亲，您已经通过51帮身份认证，祝您使用愉快", delegate: self)
         }else if ids == "2"{
-            alert("身份认证失败", delegate: self)
+            alert("亲，您的资料未通过审核，请重新上传认证，谢谢！", delegate: self)
         }else if ids == "3"{
             let vc = MineViewController()
             vc.Checktoubao()
-            alert("保险认证成功", delegate: self)
+            alert("亲，您已经通过51帮保险认证，祝您使用愉快", delegate: self)
         }else if ids == "4"{
-            alert("保险认证失败", delegate: self)
+            alert("亲，您的保险资料未通过审核，请重新上传认证，谢谢！", delegate: self)
         }
     }
     
@@ -1148,7 +1159,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     
-    func login(){
+    func loginAction(){
         JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
             var registrationIDs = String()
             if registrationID == nil{
@@ -1197,6 +1208,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 if success == false {
                     if response != nil {
                         alert(response as! String, delegate: self)
+                        SVProgressHUD.dismiss()
                     }else{
                         SVProgressHUD.showErrorWithStatus("账号或密码错误！")
                     }
