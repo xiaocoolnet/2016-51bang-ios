@@ -13,8 +13,9 @@ class ShopHeaderViewCell: UITableViewCell {
     
     @IBOutlet weak var headerImage: UIImageView!
     
-    @IBOutlet weak var desciption: UILabel!
+    @IBOutlet weak var desciption: UITextView!
     
+    @IBOutlet weak var desciptionHeight: NSLayoutConstraint!
     
     @IBOutlet weak var price: UILabel!
     
@@ -28,7 +29,7 @@ class ShopHeaderViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        desciption.userInteractionEnabled = false
 
         // Initialization code
     }

@@ -374,10 +374,11 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             //            }
             headerView.desciption.text = goodsInfo.description
             //            headerView.desciption.adjustsFontSizeToFitWidth = true
-            let height = calculateHeight(goodsInfo.description!, size: 15, width:WIDTH-16)
+            let height = calculateHeight(goodsInfo.description!, size: 16, width:WIDTH-16)
             print(height)
+            headerView.desciptionHeight.constant = height+10
             headerView.desciption.frame.size.height = height+10
-            headerView.frame.size.height = 345
+            headerView.frame.size.height = 275 + height+10
         }else{
             headerView.desciption.text = ""
             headerView.desciption.removeFromSuperview()
