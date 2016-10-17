@@ -66,8 +66,16 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
         }else{
             
-//            let ud = NSUserDefaults.standardUserDefaults()
-//            
+            let ud = NSUserDefaults.standardUserDefaults()
+            if ud.objectForKey("userid") != nil{
+                if goodsInfo.userid != nil {
+                    if goodsInfo.userid as String == ud.objectForKey("userid") as! String {
+                        alert("不能购买自己的商品", delegate: self)
+                        return
+                    }
+                }
+            }
+//
 //            if(ud.objectForKey("ss") as! String == "no")
 //            {
 //                let vc  = WobangRenZhengController()
@@ -95,17 +103,17 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     return
                 }else{
                     hud.hide(true)
-                    print(response)
+//                    print(response)
                     //                  Http(JSONDecoder(data))
                     self.goodsInfo = response as! GoodsInfo2
-                    print(self.goodsInfo)
-                    print(self.goodsInfo.id)
-                    print(self.goodsInfo.price)
-                    print(self.goodsInfo.pic)
-                    print(self.goodsInfo.goodsname)
-                    print(self.goodsInfo.address)
-                    print(self.goodsInfo.longitude)
-                    print(self.goodsInfo.latitude)
+//                    print(self.goodsInfo)
+//                    print(self.goodsInfo.id)
+//                    print(self.goodsInfo.price)
+//                    print(self.goodsInfo.pic)
+//                    print(self.goodsInfo.goodsname)
+//                    print(self.goodsInfo.address)
+//                    print(self.goodsInfo.longitude)
+//                    print(self.goodsInfo.latitude)
                     self.viewDidLoad()
                     self.myTableView.reloadData()
                 }

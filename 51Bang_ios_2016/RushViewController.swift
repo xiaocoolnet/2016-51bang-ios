@@ -623,27 +623,35 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         let nowDateStr:NSTimeInterval = now.timeIntervalSince1970
         let timeStampNow = Int(nowDateStr)
         var timeStampOrder = Int()
-        
-        if self.dataSource![indexPath.row].expirydate != nil{
-            timeStampOrder = Int(self.dataSource![indexPath.row].expirydate!)!
-            if timeStampOrder < timeStampNow {
-                cell.snatchButton.setTitle("已过期", forState: UIControlState.Normal)
-                cell.snatchButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-                cell.snatchButton.enabled = false
-            }else{
-                if self.dataSource![indexPath.row].state == "1" {
-                    cell.snatchButton.addTarget(self, action: #selector(self.qiangdan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-                }else{
-                    cell.snatchButton.setTitle("已被抢", forState: UIControlState.Normal)
+        if self.dataSource![indexPath.row].state == "1" {
+            
+            if self.dataSource![indexPath.row].expirydate != nil{
+                timeStampOrder = Int(self.dataSource![indexPath.row].expirydate!)!
+                if timeStampOrder < timeStampNow {
+                    cell.snatchButton.setTitle("已过期", forState: UIControlState.Normal)
                     cell.snatchButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
                     cell.snatchButton.enabled = false
+                }else{
+                    cell.snatchButton.setTitle("立即抢单", forState: UIControlState.Normal)
+                    cell.snatchButton.addTarget(self, action: #selector(self.qiangdan(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                    cell.snatchButton.enabled = true
                 }
+
+            }else{
+                cell.snatchButton.setTitle("无效", forState: UIControlState.Normal)
+                cell.snatchButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+                cell.snatchButton.enabled = false
             }
+            
+            
+            
+            
         }else{
-            cell.snatchButton.setTitle("无效", forState: UIControlState.Normal)
+            cell.snatchButton.setTitle("已被抢", forState: UIControlState.Normal)
             cell.snatchButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
             cell.snatchButton.enabled = false
         }
+        
         
         
         
