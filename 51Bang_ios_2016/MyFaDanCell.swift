@@ -143,7 +143,17 @@ class MyFaDanCell: UITableViewCell {
         taskNum.text = " 任务号："+Num
         taskNum.frame = CGRectMake(0, 0, WIDTH, 40)
         Middle.addSubview(taskNum)
-        let taskName = UILabel()
+        
+        let taskName = AutoScrollLabel()
+        
+        taskName.labelSpacing = 30 // distance between start and end labels
+//        taskName.font = UIFont.systemFontOfSize(15)
+        taskName.pauseInterval = 1.7 // seconds of pause before scrolling starts again
+        taskName.scrollSpeed = 30 // pixels per second
+        taskName.fadeLength = 12
+        taskName.scrollDirection = AutoScrollDirection.Left
+        
+        
         taskName.text = " " + Name
         taskName.frame = CGRectMake(0, 40, WIDTH, 40)
         Middle.addSubview(taskName)

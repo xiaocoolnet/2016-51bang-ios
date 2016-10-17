@@ -37,7 +37,7 @@ class ShopTableViewCell: UITableViewCell {
             self.context.text = goodsInfo.description
         }
         
-        self.comment.text = "评论\(goodsInfo.commentlist.count)条"
+        self.comment.text = "评价\(goodsInfo.commentlist.count)条"
         
         if goodsInfo.oprice != nil {
             self.title.text = goodsInfo.goodsname

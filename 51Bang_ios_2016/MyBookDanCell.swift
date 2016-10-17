@@ -237,7 +237,7 @@ class MyBookDanCell: UITableViewCell {
         let orderCommentViewController = OrderCommentViewController()
         orderCommentViewController.idStr = self.idStr
         orderCommentViewController.order_num = order_num
-        orderCommentViewController.usertype = "2"
+        orderCommentViewController.usertype = "1"
         orderCommentViewController.types = "2"
         targets.navigationController?.pushViewController(orderCommentViewController, animated: true)
     }

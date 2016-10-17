@@ -1057,6 +1057,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 
                 
                 let bookDanVc = MyBookDan()
+                self.badgeView5.hidden = true
                 bookDanVc.isNotSigle = true
                 bookDanVc.sign = 0
                 self.hidesBottomBarWhenPushed = true

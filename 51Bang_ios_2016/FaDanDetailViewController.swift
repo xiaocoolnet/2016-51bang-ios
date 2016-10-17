@@ -32,6 +32,8 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
         self.view.backgroundColor = RGREY
         self.title = "订单详情"
         self.dataSource4 = self.info.commentlist
+        print(dataSource4?.count)
+//        print(self.info.commentlist)
 //        button.hidden = false
         self.getData()
        //TaskDetailTableViewCell2
@@ -176,7 +178,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row > 7 {
-            let str = dataSource4![indexPath.row-7].content
+            let str = dataSource4![indexPath.row-8].content
             let height = calculateHeight( str!, size: 13, width: WIDTH - 10 )
             return 75 + height + 20
         }
@@ -304,7 +306,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
             return cell
         }else{
             if self.dataSource4?.count>0 {
-                let cell = ConveniceCell.init(myinfo: self.dataSource4![indexPath.row-3] )
+                let cell = ConveniceCell.init(myinfo: self.dataSource4![indexPath.row-8] )
                 //                print(self.dataSource![indexPath.row-3].add_time)
                 //                print(self.dataSource![indexPath.row-3].id)
                 //                print(self.dataSource![indexPath.row-3].content)

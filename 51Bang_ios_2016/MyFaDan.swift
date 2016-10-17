@@ -270,7 +270,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func finshBtnAction()
     {
         sign = 0
-        GetYWCData("5")
+        GetYWCData("5,6,7,10")
         self.dataSource?.removeAll()
         
 //        self.GetYWCData("4")
@@ -552,7 +552,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         let orderCommentViewController = OrderCommentViewController()
         orderCommentViewController.idStr = self.dataSource1![sender.tag-200].id!
         orderCommentViewController.order_num = self.dataSource1![sender.tag-200].order_num!
-        orderCommentViewController.usertype = "1"
+        orderCommentViewController.usertype = "2"
         orderCommentViewController.types = "1"
         self.navigationController?.pushViewController(orderCommentViewController, animated: true)
     

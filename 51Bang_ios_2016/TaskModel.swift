@@ -230,8 +230,8 @@ class TaskInfo: JSONJoy {
 //        if decoder["files"].dictionary != nil {
 ////            apply = decoder["files"].dictionary
 //        }
-        if decoder["commentlist"].array != nil {
-            for childs: JSONDecoder in decoder["commentlist"].array!{
+        if decoder["evaluate"].array != nil {
+            for childs: JSONDecoder in decoder["evaluate"].array!{
                 self.commentlist.append(commentlistInfo(childs))
             }
         }

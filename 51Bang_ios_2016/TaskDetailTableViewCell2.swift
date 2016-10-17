@@ -19,7 +19,7 @@ class TaskDetailTableViewCell2: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.desc.labelSpacing = 30 // distance between start and end labels
-        self.desc.font = UIFont.systemFontOfSize(14)
+        self.desc.font = UIFont.systemFontOfSize(13)
         self.desc.pauseInterval = 1.7 // seconds of pause before scrolling starts again
         self.desc.scrollSpeed = 30 // pixels per second
         self.desc.fadeLength = 12

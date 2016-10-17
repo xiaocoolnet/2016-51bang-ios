@@ -72,7 +72,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if indexPath.row > 7 {
-            let str = dataSource![indexPath.row-7].content
+            let str = dataSource![indexPath.row-8].content
             let height = calculateHeight( str!, size: 13, width: WIDTH - 10 )
             return 75 + height + 20
         }
@@ -321,7 +321,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
             return cell
         }else{
             if self.dataSource?.count>0 {
-                let cell = ConveniceCell.init(myinfo: self.dataSource![indexPath.row-3] )
+                let cell = ConveniceCell.init(myinfo: self.dataSource![indexPath.row-8] )
                 //                print(self.dataSource![indexPath.row-3].add_time)
                 //                print(self.dataSource![indexPath.row-3].id)
                 //                print(self.dataSource![indexPath.row-3].content)
