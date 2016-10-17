@@ -356,7 +356,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         if sign == 0 {
             
-            mydataSource = dataSource1
+            mydataSource = dataSource
         }else if sign == 1{
             mydataSource = dataSource1
             
@@ -452,7 +452,7 @@ class MyTaskViewController: UIViewController,UITableViewDelegate,UITableViewData
         
         if sign == 0 {
             
-            mydataSource = dataSource1
+            mydataSource = dataSource
         }else if sign == 1{
             mydataSource = dataSource1
             
