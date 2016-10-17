@@ -100,6 +100,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 if !success {
                     alert("暂无数据", delegate: self)
                     self.myTableView.mj_header.endRefreshing()
+                    self.rzbDataSource = nil
+                    self.myTableView.reloadData()
 //                    self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
 ////                    self.myTableView.delegate = self
 ////                    self.myTableView.dataSource = self
