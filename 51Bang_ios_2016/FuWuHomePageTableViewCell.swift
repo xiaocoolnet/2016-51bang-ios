@@ -17,7 +17,7 @@ class FuWuHomePageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var fuwuNum: UILabel!
     
-    @IBOutlet weak var city: UILabel!
+    @IBOutlet weak var city: AutoScrollLabel!
     @IBOutlet weak var name: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,7 +38,14 @@ class FuWuHomePageTableViewCell: UITableViewCell {
         }
         
         self.name.text = info.name
-        self.city.text = info.city
+        city.labelSpacing = 30 // distance between start and end labels
+        //        taskName.font = UIFont.systemFontOfSize(15)
+        city.pauseInterval = 1.7 // seconds of pause before scrolling starts again
+        city.scrollSpeed = 30 // pixels per second
+        city.fadeLength = 12
+        city.scrollDirection = AutoScrollDirection.Left
+        city.textColor = UIColor.whiteColor()
+        self.city.text = info.address
         self.serviceStatus.frame.size.width = WIDTH*75/375
         if info.photo == "" {
             

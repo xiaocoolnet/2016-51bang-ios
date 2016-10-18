@@ -389,6 +389,7 @@
 		77361BA51D939791003F96F5 /* Bugtags.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77361BA11D939791003F96F5 /* Bugtags.framework */; };
 		77361BA61D939791003F96F5 /* Bugtags.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77361BA21D939791003F96F5 /* Bugtags.podspec */; };
 		77361BA71D939791003F96F5 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 77361BA31D939791003F96F5 /* README.md */; };
+		773F21CF1DB627F800A90160 /* FuWuHomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */; };
 		77F525551DAA347C001B2DE3 /* AutoScrollLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */; };
 		816E0F001D388991000D7542 /* MineGetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816E0EFF1D388990000D7542 /* MineGetModel.swift */; };
 		818071621D40F3FE00FBB2DB /* Wallect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818071611D40F3FE00FBB2DB /* Wallect.swift */; };
@@ -1029,6 +1030,7 @@
 		77361BA11D939791003F96F5 /* Bugtags.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugtags.framework; sourceTree = "<group>"; };
 		77361BA21D939791003F96F5 /* Bugtags.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bugtags.podspec; sourceTree = "<group>"; };
 		77361BA31D939791003F96F5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FuWuHomePageTableViewCell.xib; sourceTree = "<group>"; };
 		77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoScrollLabel.swift; sourceTree = "<group>"; };
 		816E0EFF1D388990000D7542 /* MineGetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineGetModel.swift; sourceTree = "<group>"; };
 		818071611D40F3FE00FBB2DB /* Wallect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallect.swift; sourceTree = "<group>"; };
@@ -1791,6 +1793,7 @@
 				1FF073C21D30DE960074C477 /* FuWuTableViewCell.swift */,
 				1FF073C31D30DE960074C477 /* FuWuTableViewCell.xib */,
 				1FF073C81D30E7370074C477 /* FuWuHomePageTableViewCell.swift */,
+				773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */,
 				1FECB3EE1D3CE19900588A8D /* SoundCollectionViewCell.swift */,
 				1FECB3EF1D3CE19900588A8D /* SoundCollectionViewCell.xib */,
 				1FECB3F21D3CFD5E00588A8D /* MyTaskTableViewCell1.swift */,
@@ -2571,6 +2574,7 @@
 				0DD5110B1D51D16E00FE88C2 /* ZLNoAuthorityViewController.xib in Resources */,
 				1F9B0DF21D36307B00C7CA52 /* MineHeaderCell.xib in Resources */,
 				18D881351D151D820067218F /* LaunchScreen.storyboard in Resources */,
+				773F21CF1DB627F800A90160 /* FuWuHomePageTableViewCell.xib in Resources */,
 				1FD128A41D264C8700DE9D74 /* SalaryTableViewCell.xib in Resources */,
 				1F0DF18C1D2B5D5F00D45390 /* ConvenienceHeaderViewCell.xib in Resources */,
 				1FF073C11D30CAA80074C477 /* QuanBuFenLeiTableViewCell.xib in Resources */,

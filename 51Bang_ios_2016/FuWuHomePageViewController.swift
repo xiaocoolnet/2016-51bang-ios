@@ -41,6 +41,7 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
         myTableView.frame = CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+12))
         myTableView.delegate = self
         myTableView.dataSource = self
+        myTableView.tableFooterView = UIView()
         self.view.addSubview(myTableView)
 //        myTableView.backgroundColor
     }
