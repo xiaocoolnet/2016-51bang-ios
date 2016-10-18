@@ -359,7 +359,6 @@
 		1FF073C51D30DE960074C477 /* FuWuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF073C31D30DE960074C477 /* FuWuTableViewCell.xib */; };
 		1FF073C71D30E6320074C477 /* FuWuHomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF073C61D30E6320074C477 /* FuWuHomePageViewController.swift */; };
 		1FF073CA1D30E7370074C477 /* FuWuHomePageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF073C81D30E7370074C477 /* FuWuHomePageTableViewCell.swift */; };
-		1FF073CB1D30E7370074C477 /* FuWuHomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF073C91D30E7370074C477 /* FuWuHomePageTableViewCell.xib */; };
 		1FF43B581D29EF5D00091F79 /* ShopHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF43B571D29EF5D00091F79 /* ShopHelper.swift */; };
 		1FF43B5A1D29EFEF00091F79 /* GoodsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF43B591D29EFEF00091F79 /* GoodsModel.swift */; };
 		1FF43B5D1D2A0B7F00091F79 /* SiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF43B5B1D2A0B7F00091F79 /* SiteTableViewCell.swift */; };
@@ -999,7 +998,6 @@
 		1FF073C31D30DE960074C477 /* FuWuTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FuWuTableViewCell.xib; sourceTree = "<group>"; };
 		1FF073C61D30E6320074C477 /* FuWuHomePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuWuHomePageViewController.swift; sourceTree = "<group>"; };
 		1FF073C81D30E7370074C477 /* FuWuHomePageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuWuHomePageTableViewCell.swift; sourceTree = "<group>"; };
-		1FF073C91D30E7370074C477 /* FuWuHomePageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FuWuHomePageTableViewCell.xib; sourceTree = "<group>"; };
 		1FF43B571D29EF5D00091F79 /* ShopHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopHelper.swift; sourceTree = "<group>"; };
 		1FF43B591D29EFEF00091F79 /* GoodsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodsModel.swift; sourceTree = "<group>"; };
 		1FF43B5B1D2A0B7F00091F79 /* SiteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SiteTableViewCell.swift; sourceTree = "<group>"; };
@@ -1793,7 +1791,6 @@
 				1FF073C21D30DE960074C477 /* FuWuTableViewCell.swift */,
 				1FF073C31D30DE960074C477 /* FuWuTableViewCell.xib */,
 				1FF073C81D30E7370074C477 /* FuWuHomePageTableViewCell.swift */,
-				1FF073C91D30E7370074C477 /* FuWuHomePageTableViewCell.xib */,
 				1FECB3EE1D3CE19900588A8D /* SoundCollectionViewCell.swift */,
 				1FECB3EF1D3CE19900588A8D /* SoundCollectionViewCell.xib */,
 				1FECB3F21D3CFD5E00588A8D /* MyTaskTableViewCell1.swift */,
@@ -2578,7 +2575,6 @@
 				1F0DF18C1D2B5D5F00D45390 /* ConvenienceHeaderViewCell.xib in Resources */,
 				1FF073C11D30CAA80074C477 /* QuanBuFenLeiTableViewCell.xib in Resources */,
 				1FD128A81D2653C200DE9D74 /* DeadlineTableViewCell.xib in Resources */,
-				1FF073CB1D30E7370074C477 /* FuWuHomePageTableViewCell.xib in Resources */,
 				1FF43B7E1D2A587B00091F79 /* FabuTableViewCell4.xib in Resources */,
 				18D5961D1D17F06400BDBCD6 /* TableViewCell.xib in Resources */,
 				1FE1220A1D227B4F00C0BE0B /* OrderTableViewCell.xib in Resources */,

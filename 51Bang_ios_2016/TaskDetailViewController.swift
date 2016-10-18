@@ -73,7 +73,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         
         if indexPath.row > 7 {
             let str = dataSource![indexPath.row-8].content
-            let height = calculateHeight( str!, size: 13, width: WIDTH - 10 )
+            let height = calculateHeight( str!, size: 15, width: WIDTH - 10 )
             return 75 + height + 20
         }
         

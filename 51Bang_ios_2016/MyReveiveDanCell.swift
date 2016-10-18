@@ -112,7 +112,7 @@ class MyReceiveDanCell: UITableViewCell{
             ST.text = "请求付款"
         }else if Data.state! == "5"{
             ST.text = "已付款"
-        }else if Data.state! == "－1"{
+        }else if Data.state! == "-1"{
             ST.text = "已取消"
         }
         ST.adjustsFontSizeToFitWidth = true

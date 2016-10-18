@@ -155,7 +155,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
             let str = dataSource![indexPath.row-3].content
             let height = calculateHeight( str!, size: 15, width: WIDTH - 10 )
-            return 75 + height + 20
+            return 75 + height + 20 + 40
         }
         
         
@@ -285,7 +285,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         //        isFavorite = false
         self.view.backgroundColor = RGREY
         //        getData()
-        self.dataSource = self.goodsInfo.commentlist
+//        self.dataSource = self.goodsInfo.commentlist
         //        let ud = NSUserDefaults.standardUserDefaults()
         //        let userid = ud.objectForKey("userid")as! String
         

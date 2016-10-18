@@ -235,8 +235,8 @@ class GoodsInfo2: JSONJoy {
             }
         }
         
-        if decoder["evaluate"].array != nil {
-            for childs: JSONDecoder in decoder["evaluate"].array!{
+        if decoder["commentlist"].array != nil {
+            for childs: JSONDecoder in decoder["commentlist"].array!{
                 self.commentlist.append(commentlistInfo(childs))
             }
         }

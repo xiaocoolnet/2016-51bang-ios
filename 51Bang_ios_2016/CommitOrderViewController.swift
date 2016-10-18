@@ -637,11 +637,24 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             userDefault.setObject(response!, forKey: "ordernumber")
             print("上传合同")
             self.hud1.hide(true)
-            let vc = UploadContractViewController()
-            vc.numofGoods = response! as! String
-            vc.price = self.price
-            vc.goodName = self.taskTitle
+            
+            let vc = PayViewController()
+            vc.isRenwu = true
+            vc.numForGoodS = response! as! String
+//            if self.salary == "" {
+//                vc.price = 0
+//            }else{
+//                vc.price = Double(self.salary)!
+//            }
+            vc.price = Double(self.price)!
+            vc.body = self.taskDescription
             self.navigationController?.pushViewController(vc, animated: true)
+            
+////            let vc = UploadContractViewController()
+//            vc.numofGoods = response! as! String
+//            vc.price = self.price
+//            vc.goodName = self.taskTitle
+//            self.navigationController?.pushViewController(vc, animated: true)
         })
 
         
@@ -1929,6 +1942,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 //                
 //            }
             self.taskDescription = self.dataSource[self.selectedIndex-500].name!
+//            self.taskTitle = 
 //            print(strrr)
             
 //            print(self.type )

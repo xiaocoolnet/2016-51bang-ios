@@ -166,6 +166,7 @@ class commentlistInfo:JSONJoy{
     var name:String?
     var userid :String?
     var photo :String?
+    var score :String?
     
     
     //    var pictureurl:String?
@@ -176,10 +177,11 @@ class commentlistInfo:JSONJoy{
         
         content = decoder["content"].string
         add_time = decoder["add_time"].string
-        name = decoder["name"].string
+        name = decoder["username"].string
         id = decoder["id"].string
         userid = decoder["userid"].string
         photo = decoder["photo"].string
+        score = decoder["score"].string
         
     }
     

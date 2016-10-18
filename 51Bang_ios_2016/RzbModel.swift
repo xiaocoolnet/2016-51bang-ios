@@ -85,8 +85,12 @@ class RzbInfo: JSONJoy {
     var photo:String
     var isworking :String
     var skilllist :[SkilllistModel]
+    var commentlist:[commentlistInfo]
     
-    
+//    init(){
+////        pic = Array<PicInfos>()
+//        commentlist = Array<commentlistInfo>()
+//    }
     
     required init(_ decoder:JSONDecoder){
         name = decoder["name"].string ?? ""
@@ -112,12 +116,19 @@ class RzbInfo: JSONJoy {
         orderNum = decoder["orderNum"].string ?? ""
         serviceCount = decoder["serviceCount"].string ?? ""
         skilllist = Array<SkilllistModel>()
+        commentlist = Array<commentlistInfo>()
         for childs: JSONDecoder in decoder["skilllist"].array!{
-            print(childs)
+//            print(childs)
             print(SkilllistModel(childs))
             skilllist.append(SkilllistModel(childs))
 //            print(skilllist)
 //                                array.append(SkillModel(childs))
+        }
+        if decoder["evaluatelist"].array != nil {
+//            print(childs)
+            for childs: JSONDecoder in decoder["evaluatelist"].array!{
+                self.commentlist.append(commentlistInfo(childs))
+            }
         }
     }
     

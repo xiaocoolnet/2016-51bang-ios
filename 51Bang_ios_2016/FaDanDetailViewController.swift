@@ -179,8 +179,8 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row > 7 {
             let str = dataSource4![indexPath.row-8].content
-            let height = calculateHeight( str!, size: 13, width: WIDTH - 10 )
-            return 75 + height + 20
+            let height = calculateHeight( str!, size: 15, width: WIDTH - 10 )
+            return 75 + height + 20 + 40
         }
         return 50
     }
@@ -273,7 +273,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
         }else if indexPath.row == 5{
             
             cell.title.text = "服务地址"
-            cell.desc.text = myInfo.address
+            cell.desc.text = myInfo.saddress
 //        }else if indexPath.row == 7{
 //            
 //            cell.title.text = "上门时间"

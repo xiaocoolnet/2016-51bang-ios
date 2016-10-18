@@ -8,12 +8,15 @@
 
 import UIKit
 
-class FuWuHomePageViewController: UIViewController {
+class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     //    let myTableView = UITableView()
     var dataSource : Array<SkilllistModel>?
+    var dataSource4 : Array<commentlistInfo>?
     var isUserid = Bool()
     var userid = String()
+    let myTableView = UITableView()
+    
     let skillHelper = RushHelper()
     var headerView = FuWuHomePageTableViewCell()
     let totalloc:Int = 5
@@ -24,10 +27,22 @@ class FuWuHomePageViewController: UIViewController {
         self.view.backgroundColor = RGREY
         self.tabBarController?.tabBar.hidden = true
 //        self.navigationController?.title = "服务主页"
+        self.dataSource4 = self.info!.commentlist
         
+        print(dataSource4?.count)
+//        print(self.info!.commentlist)
         
         self.GetData()
         // Do any additional setup after loading the view.
+    }
+    
+    
+    func createTableView(){
+        myTableView.frame = CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+12))
+        myTableView.delegate = self
+        myTableView.dataSource = self
+        self.view.addSubview(myTableView)
+//        myTableView.backgroundColor
     }
     
     func GetData(){
@@ -82,8 +97,8 @@ class FuWuHomePageViewController: UIViewController {
     }
     
     func createView(){
-        
-        let view2 = UIScrollView .init(frame: CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+10)))
+        self.createTableView()
+        let view2 = UIView .init(frame: CGRectMake(0, 0, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+10)))
         view2.backgroundColor = UIColor.whiteColor()
         let margin:CGFloat = (WIDTH-CGFloat(self.totalloc) * WIDTH*73/375)/(CGFloat(self.totalloc)+1);
         print(margin)
@@ -116,9 +131,69 @@ class FuWuHomePageViewController: UIViewController {
         }
 //        self.view.addSubview(view2)
         let height1 = (CGFloat((self.dataSource?.count)!+4)/5)*(WIDTH*35/375 + 6)
-        view2.contentSize = CGSizeMake(WIDTH, height1)
-        self.view.addSubview(view2)
+        view2.frame = CGRectMake(0, 0, WIDTH, height1)
+        myTableView.tableHeaderView = view2
+//        self.view.addSubview(view2)
     }
+    //MARK--tableview
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 50
+        }else{
+            let str = dataSource4![indexPath.row-1].content
+            let height = calculateHeight( str!, size: 15, width: WIDTH - 10 )
+            return 75 + height + 20 + 40
+        }
+        
+        
+    }
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.dataSource4!.count > 0 {
+            return (self.dataSource4!.count)+1
+        }
+        return 0
+    }
+     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.row == 0{
+            let cell = UITableViewCell()
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            let view1 = UIView.init(frame: CGRectMake(0, 0, WIDTH, 10))
+            view1.backgroundColor = RGREY
+            view1.userInteractionEnabled = false
+            cell.addSubview(view1)
+            
+            let labelcomment = UILabel.init(frame: CGRectMake(20, 15, 60, 38))
+            labelcomment.text = "评价"
+            labelcomment.userInteractionEnabled = true
+            cell.addSubview(labelcomment)
+            
+            let view2 = UIView.init(frame: CGRectMake(0, 48, WIDTH, 2))
+            view2.backgroundColor = RGREY
+            view2.userInteractionEnabled = false
+            cell.addSubview(view2)
+            
+            return cell
+        }else{
+            if self.dataSource4?.count>0 {
+                let cell = ConveniceCell.init(myinfo: self.dataSource4![indexPath.row-1] )
+                //                print(self.dataSource![indexPath.row-3].add_time)
+                //                print(self.dataSource![indexPath.row-3].id)
+                //                print(self.dataSource![indexPath.row-3].content)
+                //                print(self.dataSource![indexPath.row-3].name)
+                //                print(self.dataSource![indexPath.row-3].userid)
+                //                print(self.dataSource![indexPath.row-3].photo)
+                //                print(self.dataSource![indexPath.row-2].add_time)
+                return cell
+            }else{
+                let cell = UITableViewCell()
+                cell.backgroundColor = UIColor.clearColor()
+                return cell
+            }
+            
+        }
+    }
+    
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -245,10 +245,13 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if type == ""{
                 next.id = self.dataSource![indexPath.row].id!
 //                print(next.id)
+                next.dataSource = self.dataSource![indexPath.row].commentlist
             }else{
                 next.id = (self.dataSource2[indexPath.row] as! GoodsInfo).id!
+                next.dataSource = (self.dataSource2[indexPath.row] as! GoodsInfo).commentlist
 //                print(next.id)
             }
+            
             self.navigationController?.pushViewController(next, animated: true)
             //            next.title = "风景自助"
         }else if tableView.tag == 1{

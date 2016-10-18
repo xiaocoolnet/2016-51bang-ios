@@ -15,7 +15,7 @@ class ConveniceCell: UITableViewCell{
     static var heighArray = []
     var myPhotoArray = NSMutableArray()
     var myDelegate:pushDelegate?
-    
+    let backView = UIView()
     var boFangButton = UIButton()
     var userImage = UIImageView()
     var userName = UILabel()
@@ -42,7 +42,7 @@ class ConveniceCell: UITableViewCell{
     let imshow = UIView()
     init (myinfo:commentlistInfo){
          super.init(style: UITableViewCellStyle.Default , reuseIdentifier: "resucell")
-        self.sd_addSubviews([userImage,userName,timeLabel,contenLabel])
+        self.sd_addSubviews([userImage,userName,timeLabel,contenLabel,backView])
         userImage.frame = CGRectMake(10, 10, 50, 50)
         userImage.layer.masksToBounds = true
         userImage.cornerRadius = 25
@@ -81,6 +81,45 @@ class ConveniceCell: UITableViewCell{
             .topSpaceToView(userImage,10)
             .autoHeightRatio(0)
         contenLabel.text = myinfo.content
+        
+        
+        backView.backgroundColor = UIColor.whiteColor()
+        backView.sd_layout()
+            .widthIs(WIDTH+2)
+            .heightIs(40)
+            .leftSpaceToView(self,-1)
+//            .rightSpaceToView(self,10)
+            .bottomSpaceToView(self,-1)
+        backView.layer.masksToBounds =  true
+        backView.layer.borderWidth = 1
+        backView.layer.borderColor = COLOR.CGColor
+        var count = Int()
+        count = 1
+        if myinfo.score != nil {
+            count = Int(myinfo.score!)!
+        }
+        
+        let myLabel = UILabel()
+        myLabel.frame = CGRectMake(10, 0, 55, 40)
+        myLabel.text = "积分:"
+        myLabel.backgroundColor = UIColor.whiteColor()
+        myLabel.textColor = COLOR
+        myLabel.font = UIFont.systemFontOfSize(15)
+        backView.addSubview(myLabel)
+        
+        
+        for  index in 0...count-1 {
+            let imageView = UIImageView.init(frame: CGRectMake(70+CGFloat(index*40), 5, 24, 24))
+            imageView.image = UIImage(named: "ic_yellowstar_quan")
+            backView.addSubview(imageView)
+        }
+        for index in 0...5-count  {
+            let imageView = UIImageView.init(frame: CGRectMake(70+CGFloat((5-index-1)*40), 5, 24, 24))
+            imageView.image = UIImage(named: "ic_yellow_bian")
+            backView.addSubview(imageView)
+        }
+        self.addSubview(backView)
+        
         
         
     }

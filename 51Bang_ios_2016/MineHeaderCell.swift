@@ -16,7 +16,7 @@ class MineHeaderCell: UITableViewCell {
     @IBOutlet weak var sex: UIImageView!
     
     
-    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var name: AutoScrollLabel!
     
     
     @IBOutlet weak var phone: UILabel!
@@ -35,6 +35,13 @@ class MineHeaderCell: UITableViewCell {
         let ud = NSUserDefaults.standardUserDefaults()
         phone.text = ud.objectForKey("phone") as? String
         name.text = ud.objectForKey("name") as? String
+        name.labelSpacing = 30 // distance between start and end labels
+        //        taskName.font = UIFont.systemFontOfSize(15)
+        name.pauseInterval = 1.7 // seconds of pause before scrolling starts again
+        name.scrollSpeed = 30 // pixels per second
+        name.fadeLength = 12
+        name.textColor = UIColor.whiteColor()
+        name.scrollDirection = AutoScrollDirection.Left
     }
     
     override func setSelected(selected: Bool, animated: Bool) {
