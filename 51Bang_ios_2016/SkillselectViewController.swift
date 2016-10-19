@@ -386,7 +386,7 @@ class SkillselectViewController: UIViewController,skillProrocol {
                     }else{
                         hud1.hide(true)
                         self.btn.userInteractionEnabled = true
-                        let alert = UIAlertView.init(title: "温馨提示", message: "认证失败", delegate: self, cancelButtonTitle: "确定")
+                        let alert = UIAlertView.init(title: "温馨提示", message: response as? String, delegate: self, cancelButtonTitle: "确定")
                         alert.show()
                     }
                 }
