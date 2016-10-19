@@ -165,7 +165,12 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 2 {
-            return 3
+            if info.time != nil{
+                return 4
+            }else{
+                return 3
+            }
+            
         }else if section == 0{
             return 2
         }else{
@@ -334,7 +339,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 //                cell.selectionStyle = .None
                 //                cell.bottomLabel.removeFromSuperview()
                 return cell
-            }else{
+            }else if indexPath.row == 2{
                 let cell  = UITableViewCell.init(style: UITableViewCellStyle.Value1, reuseIdentifier: "cell4")
                 cell.selectionStyle = .None
 //                if self.info.state == "1"{
@@ -344,6 +349,11 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 cell.textLabel?.text = citynameStr
                 return cell
                 
+            }else {
+                let cell  = UITableViewCell.init(style: UITableViewCellStyle.Value1, reuseIdentifier: "cell4")
+                cell.selectionStyle = .None
+                cell.textLabel?.text = "下单时间："+timeStampToString(info.time!)
+                return cell
             }
             
         }

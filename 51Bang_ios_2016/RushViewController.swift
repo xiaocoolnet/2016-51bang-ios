@@ -227,10 +227,10 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         var latitude = String()
         var isworking = String()
         var cutyName = String()
-        
-        
-        let strrr = String( ud.objectForKey("subLocality")! as! String)
-        
+        var strrr = String()
+        if ud.objectForKey("subLocality") != nil {
+            strrr = String( ud.objectForKey("subLocality")! as! String)
+        }
         
         if ud.objectForKey("subLocality") != nil && strrr != "0" && ud.objectForKey("streetName") != nil && ud.objectForKey("streetName") as! String != ""{
             subLocality = ud.objectForKey("subLocality") as! String
@@ -240,9 +240,15 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         }
         if ud.objectForKey("longitude") != nil {
             longitude = ud.objectForKey("longitude") as! String
+        }else{
+            alert("请打开定位", delegate: self)
+            return
         }
         if ud.objectForKey("latitude") != nil {
             latitude = ud.objectForKey("latitude") as! String
+        }else{
+            alert("请打开定位", delegate: self)
+            return
         }
         
         

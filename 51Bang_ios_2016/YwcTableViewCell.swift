@@ -61,6 +61,17 @@ class YwcTableViewCell: UITableViewCell {
             str1.addAttribute(NSUnderlineStyleAttributeName, value: number, range: range1)
             str1.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: range1)
             self.jiedanren.attributedText = str1
+        }else if info.apply?.name == nil && info.apply?.phone != nil{
+            self.jiedanren.textColor = UIColor.blueColor()
+            
+            let str1 = NSMutableAttributedString(string: (info.apply?.phone)!)
+            let range1 = NSRange(location: 0, length: str1.length)
+            let number = NSNumber(integer:NSUnderlineStyle.StyleSingle.rawValue)//此处需要转换为NSNumber 不然不对,rawValue转换为integer
+            str1.addAttribute(NSUnderlineStyleAttributeName, value: number, range: range1)
+            str1.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range: range1)
+            self.jiedanren.attributedText = str1
+        }else{
+            self.jiedanren.text = "无人接单"
         }
         
         

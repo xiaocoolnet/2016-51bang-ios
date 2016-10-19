@@ -390,6 +390,8 @@
 		77361BA61D939791003F96F5 /* Bugtags.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77361BA21D939791003F96F5 /* Bugtags.podspec */; };
 		77361BA71D939791003F96F5 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 77361BA31D939791003F96F5 /* README.md */; };
 		773F21CF1DB627F800A90160 /* FuWuHomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */; };
+		77D0AA751DB7423F00FB5A52 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */; };
+		77D0AA761DB7423F00FB5A52 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */; };
 		77F525551DAA347C001B2DE3 /* AutoScrollLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */; };
 		816E0F001D388991000D7542 /* MineGetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816E0EFF1D388990000D7542 /* MineGetModel.swift */; };
 		818071621D40F3FE00FBB2DB /* Wallect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818071611D40F3FE00FBB2DB /* Wallect.swift */; };
@@ -1031,6 +1033,8 @@
 		77361BA21D939791003F96F5 /* Bugtags.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bugtags.podspec; sourceTree = "<group>"; };
 		77361BA31D939791003F96F5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FuWuHomePageTableViewCell.xib; sourceTree = "<group>"; };
+		77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoScrollLabel.swift; sourceTree = "<group>"; };
 		816E0EFF1D388990000D7542 /* MineGetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineGetModel.swift; sourceTree = "<group>"; };
 		818071611D40F3FE00FBB2DB /* Wallect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallect.swift; sourceTree = "<group>"; };
@@ -1627,6 +1631,8 @@
 				189757CD1D162A530083FE46 /* ServiceViewController.swift */,
 				189757CF1D162AAA0083FE46 /* MoreServiceViewController.swift */,
 				1FD8C7E71D48FB38008BCE96 /* JiaoChengViewController.swift */,
+				77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */,
+				77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */,
 			);
 			name = "本App";
 			sourceTree = "<group>";
@@ -2634,6 +2640,7 @@
 				1FACE7631D2F508A0005282E /* AlipaySDK.bundle in Resources */,
 				1F9B0E181D36765D00C7CA52 /* LoginHeaderCell.xib in Resources */,
 				1FD128A01D264B4700DE9D74 /* LocationTableViewCell.xib in Resources */,
+				77D0AA761DB7423F00FB5A52 /* AboutViewController.xib in Resources */,
 				18D5963B1D17F08E00BDBCD6 /* unicode_to_hanyu_pinyin.txt in Resources */,
 				1FD8C7DE1D48BAB5008BCE96 /* faDanDetailHeaderTableViewCell.xib in Resources */,
 				0DD511001D51D16E00FE88C2 /* btn_original_circle@3x.png in Resources */,
@@ -3132,6 +3139,7 @@
 				0DEFF3C01D60250000BC7BF1 /* MyCollectionViewCell.swift in Sources */,
 				184053B41D15301F008A2BAB /* Http.swift in Sources */,
 				A44263A21D92AFD800F9DFB6 /* CashGetViewController.swift in Sources */,
+				77D0AA751DB7423F00FB5A52 /* AboutViewController.swift in Sources */,
 				1FF073C01D30CAA80074C477 /* QuanBuFenLeiTableViewCell.swift in Sources */,
 				1FF43B5D1D2A0B7F00091F79 /* SiteTableViewCell.swift in Sources */,
 				F2EEFA1D1D81455B008FD274 /* Foundation+Log.m in Sources */,

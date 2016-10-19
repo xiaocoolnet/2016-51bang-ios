@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDelegate,BMKGeneralDelegate,TencentApiInterfaceDelegate,WXApiDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDelegate,BMKGeneralDelegate,TencentApiInterfaceDelegate,WXApiDelegate,TencentSessionDelegate {
 
     var window: UIWindow?
     var _mapManager: BMKMapManager?
@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         WXApi.registerApp("wx765b8c5e082532b4", withDescription: "a51bang")
         APOpenAPI.registerApp("2016083001821606", withDescription: "a51bang")
 //        WXApi.registerApp("wx5bbd35eed5255733", withDescription: "51bang")//第二次
-        TencentOAuth(appId: "1105589363", andDelegate: nil)
+        TencentOAuth(appId: "1105589363", andDelegate: self)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.networkDidReceiveMessage), name:kJPFNetworkDidLoginNotification, object: nil)
        
 //         WXApi.registerApp("wx765b8c5e08253264", withDescription: "51bang")
@@ -135,30 +135,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         
         return true
     }
+    func tencentDidLogin(){
+        
+    }
+    func tencentDidNotLogin(cancelled: Bool) {
+        
+    }
+    func tencentDidNotNetWork(){
+        
+    }
     
     
     func networkDidReceiveMessage(){
         NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
         
-        
+        JPUSHService.registrationIDCompletionHandler { (resCode, registrationID) in
+            let registrationIDs = registrationID as String
+            let ud = NSUserDefaults.standardUserDefaults()
+            ud.setObject(registrationIDs, forKey: "registrationID")
+            
+        }
 //        JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
-//            var registrationIDs = String()
-//            
-//            if registrationID == nil{
-//                registrationIDs = ""
-//            }else{
-//                registrationIDs = registrationID
-//            }
-//            
-//            
-//            let ud = NSUserDefaults.standardUserDefaults()
-//            
-//            ud.setObject(registrationIDs, forKey: "registrationIDs")
-//            if ud.objectForKey("phone") != nil && ud.objectForKey("pwd") != nil{
-//                let num = ud.objectForKey("phone") as! String
-//                let pwd = ud.objectForKey("pwd") as! String
-////                self.logVM.login(num, password: pwd,registrationID:registrationIDs, handle: { [unowned self] (success, response) in
-////                    
+            ////
 ////                    })
 //
 //            }
@@ -454,37 +452,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                         //                    self.tabBarController?.selectedIndex = 3
                     }
                     else{
-                        let registrationID = response as! String
-                        if JPUSHService.registrationID() != registrationID{
-                            let userDatas = NSUserDefaults.standardUserDefaults()
-                            //                    print(userDatas.objectForKey("userid"))
-                            userDatas.removeObjectForKey("userid")
-                            if userDatas.objectForKey("name") != nil {
-                                userDatas.removeObjectForKey("name")
+                        let ud = NSUserDefaults.standardUserDefaults()
+                        if ud.objectForKey("registrationID") != nil{
+                            let registrationID = response as! String
+                            if (ud.objectForKey("registrationID") as! String) != registrationID{
+                                print(registrationID)
+                                let userDatas = NSUserDefaults.standardUserDefaults()
+                                //                    print(userDatas.objectForKey("userid"))
+                                userDatas.removeObjectForKey("userid")
+                                if userDatas.objectForKey("name") != nil {
+                                    userDatas.removeObjectForKey("name")
+                                }
+                                
+                                if userDatas.objectForKey("photo") != nil {
+                                    userDatas.removeObjectForKey("photo")
+                                }
+                                if userDatas.objectForKey("sex") != nil {
+                                    userDatas.removeObjectForKey("sex")
+                                }
+                                
+                                if userDatas.objectForKey("pwd") != nil {
+                                    userDatas.removeObjectForKey("pwd")
+                                }
+                                if userDatas.objectForKey("userphoto") != nil {
+                                    userDatas.removeObjectForKey("userphoto")
+                                }
+                                
+                                if userDatas.objectForKey("ss") != nil {
+                                    userDatas.removeObjectForKey("ss")
+                                }
+                                JPUSHService.setTags(nil, aliasInbackground: "99999999")
+                                loginSign = 0
+                                NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
+                                self.window?.rootViewController?.tabBarController?.selectedIndex = 3
                             }
-                            
-                            if userDatas.objectForKey("photo") != nil {
-                                userDatas.removeObjectForKey("photo")
-                            }
-                            if userDatas.objectForKey("sex") != nil {
-                                userDatas.removeObjectForKey("sex")
-                            }
-                            
-                            if userDatas.objectForKey("pwd") != nil {
-                                userDatas.removeObjectForKey("pwd")
-                            }
-                            if userDatas.objectForKey("userphoto") != nil {
-                                userDatas.removeObjectForKey("userphoto")
-                            }
-                            
-                            if userDatas.objectForKey("ss") != nil {
-                                userDatas.removeObjectForKey("ss")
-                            }
-                            JPUSHService.setTags(nil, aliasInbackground: "99999999")
-                            loginSign = 0
-                            NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
-                            self.window?.rootViewController?.tabBarController?.selectedIndex = 3
                         }
+                        
                     }
                 })
             }

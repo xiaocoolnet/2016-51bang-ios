@@ -343,58 +343,69 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             if loginSign == 0 {
                 
                 self.tabBarController?.selectedIndex = 3
+                return
                 
             }
-            
-            else if(MainViewController.renZhengStatue == 0)
-            {
-                let vc  = WobangRenZhengController()
+            let ud = NSUserDefaults.standardUserDefaults()
+            if ud.objectForKey("ss") != nil{
+                if(ud.objectForKey("ss") as! String == "no")
+                {
+                    
+                    
                 
-//                vc.cityName = self.cityName
-//                vc.longitude = self.longitude
-//                vc.latitude = self.latitude
-//                vc.address = address
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                                             handler: { action in
+                                                
 
-                self.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
-                self.hidesBottomBarWhenPushed = false
-            }else{
+                                                self.tabBarController?.selectedIndex = 1
+                                                
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                return
+                
+
+                    
+                }
+            }
+
+            
                 
                 
                 
                 let vc = CommitOrderViewController()
-                //let string = self.administrativeArea+self.cityName+self.thoroughfare
-               
-//                vc.cityName = self.cityName
-//                vc.longitude = self.longitude
-//                vc.latitude = self.latitude
-//                vc.address = address
                 self.navigationController?.pushViewController(vc, animated: true)
-            }
+            
             
         }else if btn.tag == 1{
             let ud = NSUserDefaults.standardUserDefaults()
             if ud.objectForKey("ss") != nil{
                 if(ud.objectForKey("ss") as! String == "no")
                 {
-//                    let vc  = WobangRenZhengController()
-//                    self.hidesBottomBarWhenPushed = true
-//                    self.navigationController?.pushViewController(vc, animated: true)
-//                    self.hidesBottomBarWhenPushed = false
-//                    return
-                    alert("请先进行实名认证", delegate: self)
+                    
+                    
+                    
+                    let alertController = UIAlertController(title: "系统提示",
+                                                            message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                    let okAction = UIAlertAction(title: "确定", style: .Default,
+                                                 handler: { action in
+                                                    
+                                                    self.tabBarController?.selectedIndex = 1
+                                                    
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
                     return
                     
                 }
             }
             self.tabBarController?.selectedIndex = 1
-            
-//            let vc = WoBangPageViewController()
-//            vc.navigationController?.title = "抢单"
-//            vc.longitude = self.longitude
-//            vc.latitude = self.latitude
-//                self.navigationController?.pushViewController(vc, animated: true)
-            
             
         }else{
             let vc = ConvenientPeople()

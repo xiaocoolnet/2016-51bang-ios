@@ -430,9 +430,11 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func goMyZhuye(sender:UIButton){
         let vc = FuWuHomePageViewController()
         vc.isUserid = true
+        print(self.dataSource![sender.tag-1000].apply!.userid)
 //        print(self.dataSource![sender.tag-1000].apply!.userid)
         if self.dataSource![sender.tag-1000].apply!.userid != nil {
             vc.userid = self.dataSource![sender.tag-1000].apply!.userid!
+            
         }
         
         self.navigationController?.pushViewController(vc, animated: true)

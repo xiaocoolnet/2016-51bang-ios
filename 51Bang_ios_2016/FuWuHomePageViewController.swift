@@ -27,7 +27,11 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
         self.view.backgroundColor = RGREY
         self.tabBarController?.tabBar.hidden = true
 //        self.navigationController?.title = "服务主页"
-        self.dataSource4 = self.info!.commentlist
+        
+        if info != nil {
+            self.dataSource4 = self.info!.commentlist
+        }
+        
         
         print(dataSource4?.count)
 //        print(self.info!.commentlist)
@@ -62,6 +66,10 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.headerView.setValueWithInfo(response as! RzbInfo)
                 self.view.addSubview(self.headerView)
                 self.dataSource = (response as! RzbInfo).skilllist
+                if self.dataSource4 == nil{
+                    self.dataSource4 = (response as! RzbInfo).commentlist
+                }
+                
                 self.createView()
             })
         }else{

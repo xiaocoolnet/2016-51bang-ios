@@ -16,7 +16,7 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
         
     }
     private  var mTable = UITableView()
-    private  let Titles:[String] = ["培训教程","常见问题","用户者服务协议","去评分","清除缓存"]
+    private  let Titles:[String] = ["培训教程","常见问题","用户者服务协议","去评分","清除缓存","关于51帮"]
     override func viewDidLoad() {
         super.viewDidLoad()
         mTable = UITableView.init(frame: CGRectMake(0, 0, WIDTH, self.view.frame.height), style: UITableViewStyle.Grouped)
@@ -30,7 +30,7 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
         if(section == 0)
         {
         
-            return 5
+            return 6
         }else{
             return 1
         }
@@ -45,7 +45,7 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
    
         }else if indexPath.section == 0{
             if indexPath.row == 3 {
-                alert("暂未上架,无法评分", delegate: self)
+                UIApplication.sharedApplication().openURL(NSURL.init(string:  "https://itunes.apple.com/us/app/51bang/id1126234890?l=zh&ls=1&mt=8")!)
             }else if indexPath.row == 4{
                 var fileArray = [String]()
                 let defauleManager = NSFileManager.defaultManager
@@ -75,6 +75,9 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
                 let string = String(format: "%.2f" , pathNum/1024/1024)
             
                 alert("已清除"+string  + "M缓存", delegate: self)
+            }else if indexPath.row == 4{
+                
+                
             }else{
                 let vc = JiaoChengViewController()
                 vc.sign = indexPath.row
