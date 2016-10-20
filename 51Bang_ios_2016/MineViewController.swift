@@ -56,6 +56,14 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let labImg:[String] = ["ic_qianbao","ic_qiandao","ic_xiaoxi"]
     var pwdTextfield = UITextField()
     var phoneTextfield = UITextField()
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        self.navigationController?.navigationBar.hidden = true
+        self.tabBarController?.tabBar.hidden = false
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         JPUSHService.registrationIDCompletionHandler { (resCode, registrationID) in

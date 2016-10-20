@@ -139,7 +139,7 @@ class ShopHelper: NSObject {
                     handle(success: true, response: result.data)
                     
                 }else{
-                    //                    handle(success: false, response: result.errorData)
+                    handle(success: false, response: result.errorData)
                     
                 }
             }
@@ -333,9 +333,14 @@ class ShopHelper: NSObject {
     }
 
     //下架
-    func XiaJia(id:NSString,handle:ResponseBlock){
-    
-        let url = Bang_URL_Header+"DeleteGoods"
+    func XiaJia(id:NSString,isShangjia:String,handle:ResponseBlock){
+        var url = String()
+        
+        if isShangjia == "1" {
+            url = Bang_URL_Header+"Shangjia"
+        }else{
+            url = Bang_URL_Header+"Xiajia"
+        }
         let param = [
             
             "id":id

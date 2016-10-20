@@ -219,6 +219,9 @@ class ConveniceCell: UITableViewCell{
             let imview = UIImageView()
             
             imview.tag = imcount+100
+            if imcount > 8 {
+                break
+            }
             
             let url = Bang_Image_Header+info.pic[imcount].pictureurl!
             

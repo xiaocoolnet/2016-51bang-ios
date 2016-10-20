@@ -34,6 +34,20 @@ class MyFabuTableViewCell: UITableViewCell {
 
     func setValueWithInfo(goodsInfo:GoodsInfo){
         
+        if goodsInfo.racking != nil{
+            if goodsInfo.racking! as String == "0" {
+//                distance.text = "已上架"
+                delete.setTitle("下架", forState: .Normal)
+            }else{
+//                distance.text = "已下架"
+                delete.setTitle("上架", forState: .Normal)
+            }
+            
+            
+        }else{
+            distance.text = "未知"
+        }
+        
         if goodsInfo.goodsname != nil{
             self.title.text = goodsInfo.goodsname
         }else{

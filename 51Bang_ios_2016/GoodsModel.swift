@@ -78,6 +78,7 @@ class GoodsInfo: JSONJoy {
     var commentlist:[commentlistInfo]
     var status:String?
     var delivery: String?
+    var racking:String?
     
     var pic:[PicInfos]
     init(){
@@ -103,6 +104,7 @@ class GoodsInfo: JSONJoy {
         commentlist = Array<commentlistInfo>()
         status = decoder["statue"].string
         delivery = decoder["delivery"].string
+        racking = decoder["racking"].string
         pic = Array<PicInfos>()
         if decoder["picturelist"].array != nil {
             for childs: JSONDecoder in decoder["picturelist"].array!{

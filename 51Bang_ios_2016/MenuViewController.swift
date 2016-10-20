@@ -126,15 +126,18 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("MyFabuTableViewCell")as! MyFabuTableViewCell
         
+        
         if isShow{
             cell.delete.hidden = false
             cell.edit.hidden = false
+//            cell.distance.hidden = false
         }else{
             cell.delete.hidden = true
             cell.edit.hidden = true
         }
         cell.delete.tag = indexPath.row
         cell.delete.addTarget(self, action:#selector(self.onClick(_:)) , forControlEvents: UIControlEvents.TouchUpInside)
+        cell.edit.hidden = true
         cell.edit.tag = indexPath.row+100
         cell.edit.addTarget(self, action:#selector(self.editAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.setValueWithInfo(self.dataSource![indexPath.row])
@@ -171,6 +174,8 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             //                let meter:String = "\(meters)"
             //                let array = meter.componentsSeparatedByString(".")
             print(meters)
+                    
+            
             if meters > 1000{
                 cell.distance.text = "1000+km"
             }else{
@@ -218,20 +223,30 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         let info = self.dataSource![btn.tag]
         print(info.id)
-        shopHelper.XiaJia(info.id!) { (success, response) in
+        
+        let types = self.dataSource![btn.tag].racking! as String
+        var alertStr = ""
+        if types == "0" {
+            alertStr = "商品已下架"
+        }else{
+            alertStr = "商品已上架"
+        }
+        
+        shopHelper.XiaJia(info.id!,isShangjia: types) { (success, response) in
             if !success {
-                
+                alert("操作失败，请重试", delegate: self)
                 return
             }else{
-                self.dataSource?.removeAtIndex(self.row)
-                let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
-                self.myTableView.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
+                self.getData()
+//                self.dataSource?.removeAtIndex(self.row)
+//                let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
+//                self.myTableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
                 self.myTableView.reloadData()
                 //             self.dataSource = response as? Array<GoodsInfo> ?? []
                 //            print(self.dataSource?.count)
                 //            print(self.dataSource)
                 //             self.myTableView.reloadData()
-                alert("商品已下架", delegate: self)
+                alert(alertStr, delegate: self)
             }
             
             
