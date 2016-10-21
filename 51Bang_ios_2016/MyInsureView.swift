@@ -54,6 +54,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         self.navigationController?.navigationBar.hidden = true
         
         photoPushButton.userInteractionEnabled = true
+        scrollView.contentSize = CGSizeMake(WIDTH, iView.frame.size.height + statuFrame.height + 64+50)
 //        let userPic = NSUserDefaults.standardUserDefaults()
 //        if( userPic.objectForKey("photoss") != nil )
 //        {

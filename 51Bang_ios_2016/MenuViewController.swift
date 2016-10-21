@@ -137,7 +137,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         cell.delete.tag = indexPath.row
         cell.delete.addTarget(self, action:#selector(self.onClick(_:)) , forControlEvents: UIControlEvents.TouchUpInside)
-        cell.edit.hidden = true
+//        cell.edit.hidden = true
         cell.edit.tag = indexPath.row+100
         cell.edit.addTarget(self, action:#selector(self.editAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.setValueWithInfo(self.dataSource![indexPath.row])
@@ -204,14 +204,33 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func editAction(btn:UIButton){
-        let addVC = AddViewController()
-        addVC.isEdit = true
-        addVC.isEditsss = true
-        addVC.myDatas = [self.dataSource![btn.tag-100]]
-//        print(self.dataSource![btn.tag-100].address)
-//        print(self.dataSource![btn.tag-100].goodsname)
-//        print(self.dataSource![btn.tag-100].id)
-        self.navigationController?.pushViewController(addVC, animated: true)
+        self.row = btn.tag-100
+        if self.dataSource?.count == 0 {
+            return
+        }
+        let info = self.dataSource![self.row]
+        shopHelper.deleteOrder(info.id!) { (success, response) in
+            if !success {
+                alert("操作失败，请重试", delegate: self)
+                return
+            }else{
+                self.dataSource?.removeAtIndex(self.row)
+                let myindexPaths = NSIndexPath.init(forRow: self.row, inSection: 0)
+                self.myTableView.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
+
+                self.getData()
+                self.myTableView.reloadData()
+                alert("已删除", delegate: self)
+        }
+        }
+//        let addVC = AddViewController()
+//        addVC.isEdit = true
+//        addVC.isEditsss = true
+//        addVC.myDatas = [self.dataSource![btn.tag-100]]
+////        print(self.dataSource![btn.tag-100].address)
+////        print(self.dataSource![btn.tag-100].goodsname)
+////        print(self.dataSource![btn.tag-100].id)
+//        self.navigationController?.pushViewController(addVC, animated: true)
         
     }
     
@@ -238,9 +257,6 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 return
             }else{
                 self.getData()
-//                self.dataSource?.removeAtIndex(self.row)
-//                let myindexPaths = NSIndexPath.init(forRow: btn.tag, inSection: 0)
-//                self.myTableView.reloadRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
                 self.myTableView.reloadData()
                 //             self.dataSource = response as? Array<GoodsInfo> ?? []
                 //            print(self.dataSource?.count)

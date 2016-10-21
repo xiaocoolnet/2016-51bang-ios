@@ -36,6 +36,7 @@ class BankBandViewController: UIViewController {
         {
             bankSelect.setTitle( BankSelectVc.banName , forState: UIControlState.Normal )
         }
+        getPhoneVerityBtn.userInteractionEnabled = true
         
     }
     
@@ -110,7 +111,7 @@ class BankBandViewController: UIViewController {
         sethoder(phoneVerify, size: 13, str: "   请输入短信验证码")
         scrollView.addSubview(phoneVerify)
         
-        
+        getPhoneVerityBtn.userInteractionEnabled = true
         getPhoneVerityBtn = UIButton.init(frame: CGRectMake(phoneVerify.frame.size.width - 100, 0,100, 35))
         getPhoneVerityBtn.setTitle("获取短信验证码", forState: UIControlState.Normal)
         getPhoneVerityBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
@@ -136,7 +137,7 @@ class BankBandViewController: UIViewController {
         }else
             
         {
-            
+            getPhoneVerityBtn.userInteractionEnabled = true
             timer.invalidate()
             timeCount = 30
             getPhoneVerityBtn.userInteractionEnabled = true
@@ -253,7 +254,7 @@ class BankBandViewController: UIViewController {
     
     func getPhoneVerifyAction()
     {
-        
+        getPhoneVerityBtn.userInteractionEnabled = false
         print("开始发送")
         let userData = NSUserDefaults.standardUserDefaults()
         let phoneNum = userData.objectForKey("phone") as! String

@@ -677,7 +677,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         sethoder(phoneVerify, size: 13, str: "   请输入短信验证码")
         scrollView.addSubview(phoneVerify)
         
-        
+        getPhoneVerityBtn.userInteractionEnabled = true
         getPhoneVerityBtn = UIButton.init(frame: CGRectMake(phoneVerify.frame.size.width - 100, 0,100, 35))
         getPhoneVerityBtn.setTitle("获取短信验证码", forState: UIControlState.Normal)
         getPhoneVerityBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
@@ -824,7 +824,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
     
     func getPhoneVerifyAction()
     {
-        
+        getPhoneVerityBtn.userInteractionEnabled = false
         print("开始发送")
         let userData = NSUserDefaults.standardUserDefaults()
         var phoneNum = String()
@@ -834,7 +834,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
 //        let phoneNum = userData.objectForKey("phone") as! String
         let getphoneMessage = BankUpLoad()
         getphoneMessage.requestMessage(phoneNum)
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(CertificationViewController.timego), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.timego), userInfo: nil, repeats: true)
     }
     
     

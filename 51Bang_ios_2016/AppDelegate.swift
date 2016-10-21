@@ -8,6 +8,8 @@
 
 import UIKit
 
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDelegate,BMKGeneralDelegate,TencentApiInterfaceDelegate,WXApiDelegate,TencentSessionDelegate {
 
@@ -43,6 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             //可以添加自定义categories
             JPUSHService.registerForRemoteNotificationTypes(userSettings.types.rawValue,
                                                             categories: nil)
+        }else if ((UIDevice.currentDevice().systemVersion as NSString).floatValue >= 10.0) {
+            let entity  = JPUSHRegisterEntity.init()
+            entity.types = 1|2|3
+            JPUSHService.registerForRemoteNotificationConfig(entity, delegate: nil)
+            
         }
         else {
             //categories 必须为nil
@@ -51,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         }
         
         // 启动JPushSDK
-        JPUSHService.setupWithOption(nil, appKey: "9d8ff2f94d6c180efb085b1a",
+        JPUSHService.setupWithOption(launchOptions, appKey: "9d8ff2f94d6c180efb085b1a",
                                      channel: "Publish Channel", apsForProduction: true)
         
 //        let defau = NSNotificationCenter.defaultCenter()
@@ -179,9 +186,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         //注册 DeviceToken
         JPUSHService.registerDeviceToken(deviceToken)
     }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        JPUSHService.handleRemoteNotification(userInfo)
+    }
     func application(application: UIApplication,
                      didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                                                   fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+//        print(userInfo["sound"])
         //增加IOS 7的支持
         JPUSHService.handleRemoteNotification(userInfo)
         completionHandler(UIBackgroundFetchResult.NewData)
@@ -270,7 +282,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             if userInfo["aps"] != nil {
                 let strr = userInfo["aps"] as! NSDictionary
                 if strr["alert"] != nil {
-                    alert(strr["alert"] as! String, delegate: self)
+                    if !strr["alert"]!.isKindOfClass(NSString) {
+                        alert(strr["alert"]!["body"] as! String, delegate: self)
+                        return
+                    }else{
+                        alert(strr["alert"] as! String, delegate: self)
+                    }
+                    
                 }
             }
             
@@ -282,9 +300,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         
         //userinfo表示可以选择的type类型
         
-//        completionHandler()
+        completionHandler(UIBackgroundFetchResult.NewData)
         
     }
+    
     
     func application(application: UIApplication,
                      didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -521,6 +540,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             NSLog("授权失败，错误代码：Error\(iError)");
         }
     }
+    
+    //MARK:------JPUSHRegisterDelegate
+    
+
 
 }
 
