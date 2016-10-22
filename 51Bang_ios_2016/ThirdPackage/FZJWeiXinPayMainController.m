@@ -48,7 +48,7 @@
     [self.view addSubview:testBtn];
     
 }
--(void)testStart:(NSString*)price orderName:(NSString*)orderName numOfGoods:(NSString*)numOfGoods{
+-(void)testStart:(NSString*)price orderName:(NSString*)orderName numOfGoods:(NSString*)numOfGoods isRenwu:(BOOL) isRenwu{
     //    https://pay.weixin.qq.com/wiki/doc/api/app.php?chapter=9_1
     
 /**************************************************** 订单信息 *******************************************************************/
@@ -132,6 +132,15 @@
     if (![WXApi sendReq:req]) {
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"您未安装微信！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
+    }else{
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        if (isRenwu) {
+            [user setObject:@"renwuBook" forKey:@"comeFromWechat"];
+        }else{
+            [user setObject:@"bookDan" forKey:@"comeFromWechat"];
+        }
+        
+        
     }
     
 }

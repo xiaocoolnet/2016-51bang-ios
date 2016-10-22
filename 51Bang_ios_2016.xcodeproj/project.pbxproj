@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05DE2F841DBB56850078D937 /* order1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 05DE2F831DBB56850078D937 /* order1.caf */; };
 		0D0B1E911D53312F00DF1440 /* WobangRenZhengController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B1E901D53312F00DF1440 /* WobangRenZhengController.swift */; };
 		0D0B1E971D53610200DF1440 /* setPlacehoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B1E961D53610200DF1440 /* setPlacehoder.m */; };
 		0D10A6231D50A6D50004903C /* TPKeyboardAvoiding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D10A6221D50A6D50004903C /* TPKeyboardAvoiding.framework */; };
@@ -501,6 +502,7 @@
 /* Begin PBXFileReference section */
 		01AE63D29126A11F15C68BE5 /* Pods_51Bang_ios_2016Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_51Bang_ios_2016Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04948237FFFF772D30F17F97 /* Pods-51Bang_ios_2016UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-51Bang_ios_2016UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-51Bang_ios_2016UITests/Pods-51Bang_ios_2016UITests.release.xcconfig"; sourceTree = "<group>"; };
+		05DE2F831DBB56850078D937 /* order1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = order1.caf; sourceTree = "<group>"; };
 		0D0B1E901D53312F00DF1440 /* WobangRenZhengController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WobangRenZhengController.swift; sourceTree = "<group>"; };
 		0D0B1E951D53610200DF1440 /* setPlacehoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setPlacehoder.h; sourceTree = "<group>"; };
 		0D0B1E961D53610200DF1440 /* setPlacehoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setPlacehoder.m; sourceTree = "<group>"; };
@@ -1666,6 +1668,7 @@
 		18D8811E1D151D820067218F = {
 			isa = PBXGroup;
 			children = (
+				05DE2F831DBB56850078D937 /* order1.caf */,
 				779CD7EB1DBA137900BF84E6 /* kakao.caf */,
 				F2EF8D9F1D6EC060008C495E /* SDKExport */,
 				18D881581D151E080067218F /* Podfile */,
@@ -2586,6 +2589,7 @@
 				773F21CF1DB627F800A90160 /* FuWuHomePageTableViewCell.xib in Resources */,
 				1FD128A41D264C8700DE9D74 /* SalaryTableViewCell.xib in Resources */,
 				1F0DF18C1D2B5D5F00D45390 /* ConvenienceHeaderViewCell.xib in Resources */,
+				05DE2F841DBB56850078D937 /* order1.caf in Resources */,
 				1FF073C11D30CAA80074C477 /* QuanBuFenLeiTableViewCell.xib in Resources */,
 				1FD128A81D2653C200DE9D74 /* DeadlineTableViewCell.xib in Resources */,
 				1FF43B7E1D2A587B00091F79 /* FabuTableViewCell4.xib in Resources */,

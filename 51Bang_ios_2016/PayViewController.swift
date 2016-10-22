@@ -50,6 +50,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         print(self.subject)
         print(self.body)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.goOrderList), name:"goOrderList", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.goRenwuList), name:"goRenwuList", object: nil)
         
         isAgree = false
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.nextView),
@@ -105,6 +107,17 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.view.addSubview(myTableView)
         //        self.view.addSubview(bottom)
     }
+    
+    func goOrderList(){
+        let bookVC = MyBookDan()
+        self.navigationController?.pushViewController(bookVC, animated: true)
+    }
+    func goRenwuList(){
+        let bookVC = MyFaDan()
+        self.navigationController?.pushViewController(bookVC, animated: true)
+        
+    }
+    
     
     func xieyi(btn:UIButton){
         
@@ -281,12 +294,12 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         }else if self.payMode == "微信"{
             //微信支付
             print("微信支付")
-            
+            print(subject)
             let aa = FZJWeiXinPayMainController()
             print(String(price))
             print(body.length)
-            if body.length == 0 {
-                body = "无商品名称"
+            if subject.length == 0 {
+                subject = "无商品名称"
             }
             if price == 0{
                 alert("金额不能为0", delegate: self)
@@ -296,7 +309,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("订单错误", delegate: self)
                 return
             }
-            aa.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum);
+            aa.testStart(String(Int(price*100)) ,orderName: subject as String,numOfGoods:orderNum,isRenwu:self.isRenwu);
 //            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
             
 //            let vc = MyBookDan()

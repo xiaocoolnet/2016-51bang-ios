@@ -106,7 +106,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         super.viewDidLoad()
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]
         self.title = "特卖发布"
-        
+        mytextView.delegate = self
         mainHelper.getDicList("3",handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
@@ -453,7 +453,13 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             self.btn.enabled = true
             return
         }
-        
+        print(self.mytextView.text!.characters.count)
+        if self.mytextView.text!.characters.count > 35{
+            alert("商品名称不差过35个字", delegate: self)
+            self.hud1.hidden = true
+            self.btn.enabled = true
+            return
+        }
         
        
         
@@ -1410,7 +1416,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func textFieldDidEndEditing(textField: UITextField) {
         self.mytableView.frame.origin.y = 0
-        
+//        print(self.mytextView.text!.characters.count)
     }
     
     override func didReceiveMemoryWarning() {

@@ -430,11 +430,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 
     func applicationDidBecomeActive(application: UIApplication) {
         
+        print(application)
+        let ud = NSUserDefaults.standardUserDefaults()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-
+        if ud.objectForKey("comeFromWechat") != nil {
+            if ud.objectForKey("comeFromWechat") as! String == "bookDan" {
+               NSNotificationCenter.defaultCenter().postNotificationName("goOrderList", object: nil)
+                ud.removeObjectForKey("comeFromWechat")
+            }else{
+                NSNotificationCenter.defaultCenter().postNotificationName("goRenwuList", object: nil)
+                ud.removeObjectForKey("comeFromWechat")
+            }
+        }
+        
         if (JPUSHService.registrationID() != nil) {
 //            print(JPUSHService.registrationID())
-            let ud = NSUserDefaults.standardUserDefaults()
+            
             if (ud.objectForKey("userid") != nil) {
                 let userids = ud.objectForKey("userid") as! String
                 mainhelper.checkIslogin(userids, handle: { (success, response) in
