@@ -198,7 +198,7 @@ class Wallect: UIViewController {
         headerImageView5.image = UIImage(named: "nextuser")
         
         let label5 = UILabel.init(frame: CGRectMake(30+25, 70-5+60+60, 120,50))
-        label5.text = "我的推广用户"
+        label5.text = "我的业务"
         let button5 = UIButton.init(frame: CGRectMake(WIDTH-40, 70+60+60, 20, 40))
         button5.setImage(UIImage(named: "ic_arrow_right"), forState: UIControlState.Normal)
         let button5Back = UIButton.init(frame: CGRectMake(0, 60+60+60, WIDTH, 60))

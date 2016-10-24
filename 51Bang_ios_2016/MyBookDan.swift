@@ -574,7 +574,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                             }
 
                                         }else if self.sign == 2{
-                                            self.mainHelper.gaiBianDingdan(self.DXFDataSource![sender.tag - 600].order_num!, state: "-1") { (success, response) in
+                                            self.mainHelper.gaiBianDingdan(self.DXFDataSource![sender.tag - 400].order_num!, state: "-1") { (success, response) in
                                                 if !success {
                                                     alert("订单取消失败请重试", delegate: self)
                                                     return

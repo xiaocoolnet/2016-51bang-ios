@@ -47,7 +47,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         if ut.objectForKey("userid") != nil {
             userid = ut.objectForKey("userid") as! String
         }
-        ShareButton.frame = CGRectMake( WIDTH / 2 - 100, self.view.frame.size.height - 300, 200, 40)
+        ShareButton.frame = CGRectMake( WIDTH / 2 - 100, self.view.frame.size.height - 300+80, 200, 40)
         ShareButton.backgroundColor = COLOR
         ShareButton.setTitle("分享给好友", forState: UIControlState.Normal)
         ShareButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -65,7 +65,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         self.view.addSubview(web)
         
         let myLabel = UILabel()
-        myLabel.frame = CGRectMake(0, self.view.frame.size.height-250, WIDTH, 50)
+        myLabel.frame = CGRectMake(0, self.view.frame.size.height-250+80, WIDTH, 50)
         myLabel.font = UIFont.systemFontOfSize(16)
         myLabel.textAlignment = .Center
         myLabel.text = "我的邀请码是："
@@ -84,7 +84,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         myShareAboutLabel.font = UIFont.systemFontOfSize(16)
         myShareAboutLabel.textAlignment = .Center
         
-        let str1 = NSMutableAttributedString(string: "查看推荐人机制")
+        let str1 = NSMutableAttributedString(string: "查看业务员机制")
         let range1 = NSRange(location: 0, length: str1.length)
         let number = NSNumber(integer:NSUnderlineStyle.StyleSingle.rawValue)//此处需要转换为NSNumber 不然不对,rawValue转换为integer
         str1.addAttribute(NSUnderlineStyleAttributeName, value: number, range: range1)
@@ -113,7 +113,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
     
         print("分享")
         UIView.animateWithDuration(0.4) { 
-            self.bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250-50 , WIDTH , 500+50)
+            self.bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250 , WIDTH , 500+50)
         }
         
     }
