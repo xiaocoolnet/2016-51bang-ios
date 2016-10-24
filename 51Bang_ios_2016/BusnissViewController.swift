@@ -135,7 +135,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         let share = UIButton.init(frame: CGRectMake(0, 0, 60, 30))
         share.setTitle("分享", forState: UIControlState.Normal)
-        share.addTarget(self, action: #selector(self.share), forControlEvents: UIControlEvents.TouchUpInside)
+        share.addTarget(self, action: #selector(self.shareAction), forControlEvents: UIControlEvents.TouchUpInside)
         rightNaviItem.addSubview(share)
         
         let rightNavigationItem = UIBarButtonItem.init(customView: rightNaviItem)
@@ -451,7 +451,9 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.view.addSubview(myTableView)
         self.view.addSubview(footView!)
         self.getBottom()
-        bottom.hidden = true
+        UIView.animateWithDuration(0.4) {
+            self.bottom.frame = CGRectMake(0, HEIGHT, WIDTH , 500+50)
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -581,14 +583,17 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             
         }
     }
-    func share(){
-        bottom.hidden = false
+    func shareAction(){
+//        bottom.hidden = false
+        UIView.animateWithDuration(0.4) {
+            self.bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250-50+50, WIDTH , 500+50)
+        }
     }
     
     //MARK:分享
     func getBottom(){
         
-        bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250-50+50, WIDTH , 500+50)
+        bottom.frame = CGRectMake(0, HEIGHT, WIDTH , 500+50)
         bottom.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(bottom)
         
@@ -818,16 +823,22 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 
                 
                 _ = QQApiInterface.sendReq(req)
-                bottom.hidden = true
+                UIView.animateWithDuration(0.4) {
+                    self.bottom.frame = CGRectMake(0, HEIGHT, WIDTH , 500+50)
+                }
             case 6:
-                bottom.hidden = true
+                UIView.animateWithDuration(0.4) {
+                    self.bottom.frame = CGRectMake(0, HEIGHT, WIDTH , 500+50)
+                }
             case 9:
                 //            var newsObj = QQApiNewsObject()
                 
                 
                 
                 _ = QQApiInterface.SendReqToQZone(req)
-                bottom.hidden = true
+                UIView.animateWithDuration(0.4) {
+                    self.bottom.frame = CGRectMake(0, HEIGHT, WIDTH , 500+50)
+                }
             default:
                 print("微博")
             }

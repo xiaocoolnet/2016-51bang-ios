@@ -101,9 +101,10 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             shopHelper.getMyFaBu(userid) { (success, response) in
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
+                     hud.hide(true)
                     return
                 }
-                hud.hide(true)
+               
                 print(response)
                 self.myTableView.mj_header.endRefreshing()
                 self.dataSource = response as? Array<GoodsInfo> ?? []

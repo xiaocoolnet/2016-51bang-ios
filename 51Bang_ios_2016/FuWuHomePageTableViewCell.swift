@@ -27,6 +27,10 @@ class FuWuHomePageTableViewCell: UITableViewCell {
     
     func setValueWithInfo(info:RzbInfo){
         
+        if info.Ranking != "" {
+            paimingNum.text = info.Ranking
+        }
+        
         if info.isworking == "0" {
             serviceStatus.setTitle("休息中", forState: UIControlState.Normal)
         }

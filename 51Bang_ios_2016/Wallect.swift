@@ -148,7 +148,7 @@ class Wallect: UIViewController {
     
     func setThirdView(){
     
-        thirdView.frame = CGRectMake(0, 300, WIDTH, 120+60)
+        thirdView.frame = CGRectMake(0, 300, WIDTH, 120+120)
         thirdView.backgroundColor = UIColor.whiteColor()
         let headerImageView1  = UIImageView()
         headerImageView1.frame = CGRectMake(30, (50-17)/2+5, 18, 17)
@@ -191,9 +191,23 @@ class Wallect: UIViewController {
         button3Back.backgroundColor = UIColor.clearColor()
         button3Back.addTarget(self, action: #selector(self.nextView3), forControlEvents: UIControlEvents.TouchUpInside)
         
+        let line2 = UIView.init(frame: CGRectMake(0, 120+60, WIDTH, 1))
+        line2.backgroundColor = RGREY
+        let headerImageView5  = UIImageView()
+        headerImageView5.frame = CGRectMake(30, (50-17)/2+70-5+120, 18, 17)
+        headerImageView5.image = UIImage(named: "nextuser")
+        
+        let label5 = UILabel.init(frame: CGRectMake(30+25, 70-5+60+60, 120,50))
+        label5.text = "我的推广用户"
+        let button5 = UIButton.init(frame: CGRectMake(WIDTH-40, 70+60+60, 20, 40))
+        button5.setImage(UIImage(named: "ic_arrow_right"), forState: UIControlState.Normal)
+        let button5Back = UIButton.init(frame: CGRectMake(0, 60+60+60, WIDTH, 60))
+        button5Back.backgroundColor = UIColor.clearColor()
+        button5Back.addTarget(self, action: #selector(self.nextView4), forControlEvents: UIControlEvents.TouchUpInside)
         
         
-        TixianButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 50, 470+60, 100, 40))
+        
+        TixianButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 50, 470+60+60, 100, 40))
         TixianButton.backgroundColor = COLOR
         TixianButton.setTitle("提现", forState: UIControlState.Normal)
         TixianButton.clipsToBounds = true
@@ -201,7 +215,7 @@ class Wallect: UIViewController {
         TixianButton.layer.masksToBounds = true
         TixianButton.addTarget(self, action: #selector(self.Tixian), forControlEvents: UIControlEvents.TouchUpInside)
         self.scrollerAll.addSubview(TixianButton)
-        let TixianXiangJieButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 100, 520+60 , 200, 40))
+        let TixianXiangJieButton = UIButton.init(frame: CGRectMake(WIDTH/2 - 100, 520+60+60 , 200, 40))
         TixianXiangJieButton.backgroundColor = RGREY
         TixianXiangJieButton.setTitle("欲了解提现详解请点击此处", forState: UIControlState.Normal)
         TixianXiangJieButton.titleLabel?.font = UIFont.systemFontOfSize(13)
@@ -213,17 +227,23 @@ class Wallect: UIViewController {
         self.thirdView.addSubview(headerImageView1)
         self.thirdView.addSubview(headerImageView2)
         thirdView.addSubview(headerImageView3)
+        thirdView.addSubview(headerImageView5)
+        
         thirdView.addSubview(line)
         thirdView.addSubview(line1)
+        thirdView.addSubview(line2)
         thirdView.addSubview(label1)
         thirdView.addSubview(label2)
         thirdView.addSubview(label3)
+        thirdView.addSubview(label5)
         thirdView.addSubview(button1)
         thirdView.addSubview(button2)
         thirdView.addSubview(button3)
+        thirdView.addSubview(button5)
         thirdView.addSubview(button1Back)
         thirdView.addSubview(button2Back)
         thirdView.addSubview(button3Back)
+        thirdView.addSubview(button5Back)
         self.scrollerAll.addSubview(thirdView)
         
     }
@@ -257,6 +277,15 @@ class Wallect: UIViewController {
         let vc = WalletDetail3ViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func nextView4(){
+        
+//        let vc = WalletDetail3ViewController()
+//        self.navigationController?.pushViewController(vc, animated: true)
+        alert("程序员在玩命建设ing...", delegate: self)
+    }
+    
+    
     
     
     func backAction()

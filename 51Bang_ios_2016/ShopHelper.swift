@@ -318,7 +318,7 @@ class ShopHelper: NSObject {
                 print("---")
                 //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.datas)
+//                    print(result.datas)
                     handle(success: true, response: result.datas)
                     
                 }else{

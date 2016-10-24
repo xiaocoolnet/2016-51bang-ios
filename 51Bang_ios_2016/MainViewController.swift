@@ -26,7 +26,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     var longitude = String()
     var latitude = String()
     let backView = UIView()
-    let backMHView = UIView()
+//    let backMHView = UIView()
     var isDingwei = Bool()
     let mainhelper = MainHelper()
     static var locationForUser = CLLocation.init()
@@ -64,8 +64,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     override func viewWillAppear(animated: Bool) {
         
         
-        if userLocationCenter.objectForKey("quName") != nil{
-            location.setTitle(userLocationCenter.objectForKey("quName") as? String, forState: UIControlState.Normal)
+        if self.userLocationCenter.objectForKey("quName") != nil{
+            self.location.setTitle(self.userLocationCenter.objectForKey("quName") as? String, forState: UIControlState.Normal)
         }
         
         
@@ -152,7 +152,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         locationService.delegate = nil
         mapView.viewWillDisappear()
         mapView.delegate = nil
-        self.backMHView.removeFromSuperview()
+//        self.backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
         self.BeingBackMyPositonBtn.removeFromSuperview()
         
@@ -427,7 +427,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         print(city)
         self.city = city
         self.backView.removeFromSuperview()
-        self.backMHView.removeFromSuperview()
+//        self.backMHView.removeFromSuperview()
         
 //        let cityNsstring = city as NSString
         var count = Int()
@@ -472,62 +472,62 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         let flog = searcher.geoCode(geoCodeSearchOption)
         print(flog)
         
-        mainHelper.checkCity(quName) { (success, response) in
-            print(response)
-            if !success{
-                
-                self.backMHView.frame = CGRectMake(0, 0, WIDTH, self.view.bounds.height+15)
-                self.backMHView.backgroundColor = UIColor.grayColor()
-                self.backMHView.alpha = 0.5
-                UIApplication.sharedApplication().keyWindow!.addSubview(self.backMHView)
-                
-                self.backView.frame = CGRectMake(50,280, WIDTH-100, 150)
-                self.backView.backgroundColor = UIColor.whiteColor()
-                self.backView.layer.masksToBounds = true
-                self.backView.layer.cornerRadius = 8
-                
-                let label11 = UILabel.init(frame: CGRectMake(0, 0, WIDTH-100, 30))
-                label11.backgroundColor = UIColor.whiteColor()
-                label11.text = "当前城市未开通51帮同城服务"
-                label11.textColor = COLOR
-                label11.textAlignment = NSTextAlignment.Center
-                self.backView.addSubview(label11)
-                
-                let button11 = UIButton.init(frame: CGRectMake(0, 30, WIDTH-100, 50))
-                button11.backgroundColor = UIColor.whiteColor()
-                var titleStr = String()
-                titleStr = "请拨打400-0608-856"
-                let str = NSMutableAttributedString.init(string: titleStr)
-                str.addAttribute(NSForegroundColorAttributeName, value:COLOR, range: NSMakeRange(0,3))
-                str.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
-                //            str.addAttribute(NSUnderlineStyleAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
-                button11.setAttributedTitle(str, forState: UIControlState.Normal)
-                
-                
-                //            button11.setTitleColor(COLOR, forState: UIControlState.Normal)
-                button11.addTarget(self, action: #selector(self.phoneCall), forControlEvents: UIControlEvents.TouchUpInside)
-                self.backView.addSubview(button11)
-                let label22 = UILabel.init(frame: CGRectMake(0, 80, WIDTH-100, 30))
-                label22.backgroundColor = UIColor.whiteColor()
-                label22.text = "申请开通或代理"
-                label22.textColor = COLOR
-                label22.textAlignment = NSTextAlignment.Center
-                self.backView.addSubview(label22)
-                
-                let backbutton = UIButton.init(frame: CGRectMake((WIDTH-100)/2, 110, (WIDTH-100)/2, 40))
-                
-                backbutton.backgroundColor = UIColor.whiteColor()
-                backbutton.setTitle("返回城市选择", forState: UIControlState.Normal)
-                backbutton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-                backbutton.addTarget(self, action: #selector(self.backCityVc), forControlEvents: UIControlEvents.TouchUpInside)
-                self.backView.addSubview(backbutton)
-                
-                UIApplication.sharedApplication().keyWindow!.addSubview(self.backView)
-            }else{
-                self.backView.removeFromSuperview()
-                self.backMHView.removeFromSuperview()
-            }
-        }
+//        mainHelper.checkCity(quName) { (success, response) in
+//            print(response)
+//            if !success{
+////                
+//                self.backMHView.frame = CGRectMake(0, 0, WIDTH, self.view.bounds.height+15)
+//                self.backMHView.backgroundColor = UIColor.grayColor()
+//                self.backMHView.alpha = 0.5
+//                UIApplication.sharedApplication().keyWindow!.addSubview(self.backMHView)
+//                
+//                self.backView.frame = CGRectMake(50,280, WIDTH-100, 150)
+//                self.backView.backgroundColor = UIColor.whiteColor()
+//                self.backView.layer.masksToBounds = true
+//                self.backView.layer.cornerRadius = 8
+//                
+//                let label11 = UILabel.init(frame: CGRectMake(0, 0, WIDTH-100, 30))
+//                label11.backgroundColor = UIColor.whiteColor()
+//                label11.text = "当前城市未开通51帮同城服务"
+//                label11.textColor = COLOR
+//                label11.textAlignment = NSTextAlignment.Center
+//                self.backView.addSubview(label11)
+//                
+//                let button11 = UIButton.init(frame: CGRectMake(0, 30, WIDTH-100, 50))
+//                button11.backgroundColor = UIColor.whiteColor()
+//                var titleStr = String()
+//                titleStr = "请拨打400-0608-856"
+//                let str = NSMutableAttributedString.init(string: titleStr)
+//                str.addAttribute(NSForegroundColorAttributeName, value:COLOR, range: NSMakeRange(0,3))
+//                str.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
+//                //            str.addAttribute(NSUnderlineStyleAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
+//                button11.setAttributedTitle(str, forState: UIControlState.Normal)
+//                
+//                
+//                //            button11.setTitleColor(COLOR, forState: UIControlState.Normal)
+//                button11.addTarget(self, action: #selector(self.phoneCall), forControlEvents: UIControlEvents.TouchUpInside)
+//                self.backView.addSubview(button11)
+//                let label22 = UILabel.init(frame: CGRectMake(0, 80, WIDTH-100, 30))
+//                label22.backgroundColor = UIColor.whiteColor()
+//                label22.text = "申请开通或代理"
+//                label22.textColor = COLOR
+//                label22.textAlignment = NSTextAlignment.Center
+//                self.backView.addSubview(label22)
+//                
+//                let backbutton = UIButton.init(frame: CGRectMake((WIDTH-100)/2, 110, (WIDTH-100)/2, 40))
+//                
+//                backbutton.backgroundColor = UIColor.whiteColor()
+//                backbutton.setTitle("返回城市选择", forState: UIControlState.Normal)
+//                backbutton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+//                backbutton.addTarget(self, action: #selector(self.backCityVc), forControlEvents: UIControlEvents.TouchUpInside)
+//                self.backView.addSubview(backbutton)
+//                
+//                UIApplication.sharedApplication().keyWindow!.addSubview(self.backView)
+//            }else{
+//                self.backView.removeFromSuperview()
+//                self.backMHView.removeFromSuperview()
+//            }
+//        }
 //        if (city != "北京"||city != "烟台"||city != "上海"||city != "深圳"||city != "广州") {
 //            
 //            
@@ -537,14 +537,14 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     func phoneCall(){
         
-        backMHView.removeFromSuperview()
+//        backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
         UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://400-0608-856")!)
     }
     
     func backCityVc(){
        location.setTitle("定位", forState: UIControlState.Normal)
-        backMHView.removeFromSuperview()
+//        backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
         
         cityController = CityViewController(nibName: "CityViewController", bundle: nil)
@@ -895,7 +895,35 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                     userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
                     if userLocationCenter.objectForKey("quName") == nil {
                         userLocationCenter.setObject(result.addressDetail.district, forKey: "quName")
-                    }
+                   
+                    
+                    let alertController = UIAlertController(title: "系统提示",
+                                                            message: "亲，您当前定位城市为"+self.dingWeiStr+"，是否选择当前城市？", preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: "选择其他", style: .Cancel, handler: { action in
+                    
+                        self.cityController = CityViewController(nibName: "CityViewController", bundle: nil)
+                        self.cityController.delegate = self
+                        self.navigationController?.pushViewController(self.cityController, animated: true)
+                        
+                        self.cityController.title = "定位"
+                    
+                    })
+                    let okAction = UIAlertAction(title: "确定", style: .Default,
+                                                 handler: { action in
+                                                    
+//                                                    
+//                                                    if self.userLocationCenter.objectForKey("quName") == nil{
+                                                        self.location.setTitle(self.userLocationCenter.objectForKey("quName") as? String, forState: UIControlState.Normal)
+//                                                    }
+                                                    
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                     }
+                    
+                    
+                    
                     
 //                    print(self.dingWeiStr)
                     userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")

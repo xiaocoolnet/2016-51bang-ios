@@ -558,7 +558,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
                     self.Tip1.hidden = false
                     self.InsureBtn.hidden = false
                     self.InsureBtn.backgroundColor = COLOR
-                    self.scrollView.contentSize = CGSizeMake(WIDTH, self.iView.frame.size.height + self.statuFrame.height + 270)
+                    self.scrollView.contentSize = CGSizeMake(WIDTH, self.iView.frame.size.height + self.statuFrame.height + 270+50)
                     self.scrollView.hidden = false
                 }else if result.data == "-1"{
                     self.InsureBtn.hidden = true

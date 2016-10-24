@@ -35,7 +35,12 @@ class JiaoChengViewController: UIViewController {
             self.title = "评分"
             self.url = NSURL(string:"https://itunes.apple.com/us/app/51bang/id1126234890?l=zh&ls=1&mt=8")!
             
-        }else{
+        }else if sign == 100{
+            self.title = "推荐人机制"
+            self.url = NSURL(string:Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=9")!
+            
+        }
+        else{
             self.title = "关于51帮"
             self.url = NSURL(string:Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=8")!
         }

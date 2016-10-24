@@ -32,6 +32,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
 //    @IBOutlet weak var address: UITextField!
     @IBOutlet weak var backViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var InvitationNum: UITextField!
     
     @IBOutlet weak var xieyiButton: UIButton!
     @IBOutlet weak var agreeBut: UIButton!
@@ -185,6 +186,10 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         identifyNumber.layer.borderWidth = 2
         identifyNumber.layer.borderColor = UIColor.whiteColor().CGColor
         identifyNumber.keyboardType = UIKeyboardType.PhonePad
+        InvitationNum.layer.borderWidth = 2
+        InvitationNum.layer.borderColor = UIColor.whiteColor().CGColor
+        InvitationNum.keyboardType = UIKeyboardType.PhonePad
+        
         passwordNumber.layer.borderWidth = 2
         passwordNumber.layer.borderColor = UIColor.whiteColor().CGColor
 //        realName.layer.borderWidth = 2

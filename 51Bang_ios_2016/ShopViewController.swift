@@ -68,7 +68,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.view.backgroundColor = UIColor.whiteColor()
         
         
-        
+        self.createTableView()
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]
         
         isShow = false
@@ -88,6 +88,8 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 if !success {
                     hud.hide(true)
                     alert("暂无数据", delegate: self)
+                     self.dataSource?.removeAll()
+                    self.myTableView.reloadData()
                     return
                 }
                 hud.hide(true)
@@ -96,7 +98,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.dataSource = response as? Array<GoodsInfo> ?? []
 //                print(self.dataSource)
 //                print(self.dataSource?.count)
-                self.createTableView()
+                
                 //                self.ClistdataSource = response as? ClistList ?? []
                 self.myTableView.reloadData()
                 //self.configureUI()
@@ -163,7 +165,12 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 0 {
             if type == "" {
-                return (dataSource?.count)!
+                if dataSource == nil{
+                    return 0
+                }else{
+                    return (dataSource?.count)!
+                }
+                
             }else{
                 return dataSource2.count
             }

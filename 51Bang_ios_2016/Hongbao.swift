@@ -25,6 +25,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
     var cancelBtn = UIButton()
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBar.hidden = false
+        self.tabBarController?.tabBar.hidden = true
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,9 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         self.title = "分享"
         self.view.backgroundColor = RGREY
         SetBottomView()
-        bottom.hidden = true
+        UIView.animateWithDuration(0.4) {
+            self.bottom.frame = CGRectMake(0, HEIGHT , WIDTH , 500+50)
+        }
         
     }
     
@@ -44,7 +47,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         if ut.objectForKey("userid") != nil {
             userid = ut.objectForKey("userid") as! String
         }
-        ShareButton.frame = CGRectMake( WIDTH / 2 - 100, self.view.frame.size.height - 200, 200, 40)
+        ShareButton.frame = CGRectMake( WIDTH / 2 - 100, self.view.frame.size.height - 300, 200, 40)
         ShareButton.backgroundColor = COLOR
         ShareButton.setTitle("分享给好友", forState: UIControlState.Normal)
         ShareButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -56,11 +59,52 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
 //        shareImage.frame = CGRectMake(WIDTH/2-100, self.view.frame.size.height/2-200, 200, 200)
 //        self.view.addSubview(shareImage)
         let web = UIWebView()
-        web.frame = CGRectMake(WIDTH/2-150, self.view.frame.size.height/2-250, 300, 300)
+        web.frame = CGRectMake(WIDTH/2-125, self.view.frame.size.height/2-250, 250, 250)
         web.backgroundColor = RGREY
         web.loadRequest(NSURLRequest(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=qr&uid="+userid+"&type=1")!))
         self.view.addSubview(web)
+        
+        let myLabel = UILabel()
+        myLabel.frame = CGRectMake(0, self.view.frame.size.height-250, WIDTH, 50)
+        myLabel.font = UIFont.systemFontOfSize(16)
+        myLabel.textAlignment = .Center
+        myLabel.text = "我的邀请码是："
+        myLabel.textColor = COLOR
+        
+        self.view.addSubview(myLabel)
+        
+        
+        let myShareAboutButton = UIButton()
+        myShareAboutButton.frame = CGRectMake(0, HEIGHT - 150, WIDTH, 80)
+        myShareAboutButton.backgroundColor = UIColor.clearColor()
+        myShareAboutButton.addTarget(self, action: #selector(self.myShareAboutButtonAction), forControlEvents: .TouchUpInside)
+        
+        let myShareAboutLabel = UILabel()
+        myShareAboutLabel.frame = CGRectMake(0, HEIGHT - 150, WIDTH, 80)
+        myShareAboutLabel.font = UIFont.systemFontOfSize(16)
+        myShareAboutLabel.textAlignment = .Center
+        
+        let str1 = NSMutableAttributedString(string: "查看推荐人机制")
+        let range1 = NSRange(location: 0, length: str1.length)
+        let number = NSNumber(integer:NSUnderlineStyle.StyleSingle.rawValue)//此处需要转换为NSNumber 不然不对,rawValue转换为integer
+        str1.addAttribute(NSUnderlineStyleAttributeName, value: number, range: range1)
+        str1.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: range1)
+        myShareAboutLabel.attributedText = str1
+        self.view.addSubview(myShareAboutLabel)
+        self.view.addSubview(myShareAboutButton)
+        
 
+    }
+    
+    func myShareAboutButtonAction(){
+        
+        let webVc = JiaoChengViewController()
+        webVc.sign = 100
+//        let myShareAboutWebVc = UIWebView()
+//        myShareAboutWebVc.backgroundColor = RGREY
+//        myShareAboutWebVc.loadRequest(NSURLRequest(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=9")!))
+//        WebVc.view = myShareAboutWebVc
+        self.navigationController?.pushViewController(webVc, animated: true)
     }
     
     
@@ -69,7 +113,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
     
         print("分享")
         UIView.animateWithDuration(0.4) { 
-            self.bottom.hidden = false
+            self.bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250-50 , WIDTH , 500+50)
         }
         
     }
@@ -77,7 +121,7 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
     
     func SetBottomView()
     {
-        bottom.frame = CGRectMake(0, self.view.frame.size.height - 250-250-50 , WIDTH , 500+50)
+        bottom.frame = CGRectMake(0, HEIGHT , WIDTH , 500+50)
         bottom.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(bottom)
         
@@ -298,16 +342,22 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
             
             
             _ = QQApiInterface.sendReq(req)
-            bottom.hidden = true
+            UIView.animateWithDuration(0.4) {
+                self.bottom.frame = CGRectMake(0, HEIGHT , WIDTH , 500+50)
+            }
         case 6:
-            bottom.hidden = true
+            UIView.animateWithDuration(0.4) {
+                self.bottom.frame = CGRectMake(0, HEIGHT , WIDTH , 500+50)
+            }
         case 9:
             //            var newsObj = QQApiNewsObject()
             
             
             
             _ = QQApiInterface.SendReqToQZone(req)
-            bottom.hidden = true
+            UIView.animateWithDuration(0.4) {
+                self.bottom.frame = CGRectMake(0, HEIGHT , WIDTH , 500+50)
+            }
         default:
             print("微博")
         }

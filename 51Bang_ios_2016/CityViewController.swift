@@ -280,7 +280,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             switch(section){
             case 0: //定位城市
                 let ud = NSUserDefaults.standardUserDefaults()
-                if ud.objectForKey("subLocality") == nil && ud.objectForKey("subLocality") as! String == "0" {
+                if ud.objectForKey("subLocality") == nil || ud.objectForKey("subLocality") as! String == "0" {
                     let th = ""
 //                    print(<#T##items: Any...##Any#>)
                     if th.isEmpty {
