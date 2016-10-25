@@ -1009,7 +1009,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             if isFavorite == false {
                 
                 shopHelper.favorite(uid, type: "3", goodsid: self.goodsInfo.id!, title: self.goodsInfo.goodsname!, desc: self.goodsInfo.description!) { (success, response) in
-                    
+                    dispatch_async(dispatch_get_main_queue(), {
                     print(response)
                     let button = self.view.viewWithTag(10)as! UIButton
                     button.setImage(UIImage(named: "ic_yishoucang"), forState: UIControlState.Normal)
@@ -1017,11 +1017,13 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     self.headerView.favorite.userInteractionEnabled = true
                     isFavorite = true
                     ud.setObject(isFavorite, forKey: uid)
+                    })
                 }
             }else{
                 
                 //取消收藏
                 shopHelper.cancelFavoritefunc(uid, type: "3", goodsid: self.goodsInfo.id!, handle: { (success, response) in
+                    dispatch_async(dispatch_get_main_queue(), {
                     print(response)
                     let button = self.view.viewWithTag(10)as! UIButton
                     button.setImage(UIImage(named: "ic_weishoucang"), forState: UIControlState.Normal)
@@ -1029,6 +1031,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     self.headerView.favorite.userInteractionEnabled = true
                     isFavorite = false
                     ud.setObject(isFavorite, forKey: uid)
+                    })
                 })
                 
             }

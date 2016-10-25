@@ -50,6 +50,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 //            let userid = ud.objectForKey("userid")as! String
             
             shopHelper.getMyFaBu(userid) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     hud.hide(true)
                     return
@@ -66,6 +67,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 print(self.dataSource![0].address)
                 
                 self.myTableView.reloadData()
+                })
             }
         }
         
@@ -99,6 +101,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             hud.labelText = "正在努力加载"
             
             shopHelper.getMyFaBu(userid) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
                      hud.hide(true)
@@ -109,6 +112,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.myTableView.mj_header.endRefreshing()
                 self.dataSource = response as? Array<GoodsInfo> ?? []
                 self.myTableView.reloadData()
+                })
             }
         }
 
@@ -211,6 +215,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         let info = self.dataSource![self.row]
         shopHelper.deleteOrder(info.id!) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 alert("操作失败，请重试", delegate: self)
                 return
@@ -223,6 +228,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.myTableView.reloadData()
                 alert("已删除", delegate: self)
         }
+            })
         }
 //        let addVC = AddViewController()
 //        addVC.isEdit = true
@@ -253,6 +259,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         
         shopHelper.XiaJia(info.id!,isShangjia: types) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 alert("操作失败，请重试", delegate: self)
                 return
@@ -265,6 +272,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 //             self.myTableView.reloadData()
                 alert(alertStr, delegate: self)
             }
+            })
             
             
         }

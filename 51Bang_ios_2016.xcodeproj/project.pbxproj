@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05DE2F841DBB56850078D937 /* order1.caf in Resources */ = {isa = PBXBuildFile; fileRef = 05DE2F831DBB56850078D937 /* order1.caf */; };
 		0D0B1E911D53312F00DF1440 /* WobangRenZhengController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B1E901D53312F00DF1440 /* WobangRenZhengController.swift */; };
 		0D0B1E971D53610200DF1440 /* setPlacehoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B1E961D53610200DF1440 /* setPlacehoder.m */; };
 		0D10A6231D50A6D50004903C /* TPKeyboardAvoiding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D10A6221D50A6D50004903C /* TPKeyboardAvoiding.framework */; };
@@ -391,7 +390,10 @@
 		77361BA61D939791003F96F5 /* Bugtags.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77361BA21D939791003F96F5 /* Bugtags.podspec */; };
 		77361BA71D939791003F96F5 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 77361BA31D939791003F96F5 /* README.md */; };
 		773F21CF1DB627F800A90160 /* FuWuHomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */; };
-		779CD7EC1DBA137900BF84E6 /* kakao.caf in Resources */ = {isa = PBXBuildFile; fileRef = 779CD7EB1DBA137900BF84E6 /* kakao.caf */; };
+		7754A3BB1DBF5E3100C06FBA /* 被抢单.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B71DBF5E3100C06FBA /* 被抢单.caf */; };
+		7754A3BC1DBF5E3100C06FBA /* 发单超时.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B81DBF5E3100C06FBA /* 发单超时.caf */; };
+		7754A3BD1DBF5E3100C06FBA /* 购买了商品.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */; };
+		7754A3BE1DBF5E3100C06FBA /* 抢单取消.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */; };
 		77D0AA751DB7423F00FB5A52 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */; };
 		77D0AA761DB7423F00FB5A52 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */; };
 		77F525551DAA347C001B2DE3 /* AutoScrollLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */; };
@@ -502,7 +504,6 @@
 /* Begin PBXFileReference section */
 		01AE63D29126A11F15C68BE5 /* Pods_51Bang_ios_2016Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_51Bang_ios_2016Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		04948237FFFF772D30F17F97 /* Pods-51Bang_ios_2016UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-51Bang_ios_2016UITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-51Bang_ios_2016UITests/Pods-51Bang_ios_2016UITests.release.xcconfig"; sourceTree = "<group>"; };
-		05DE2F831DBB56850078D937 /* order1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = order1.caf; sourceTree = "<group>"; };
 		0D0B1E901D53312F00DF1440 /* WobangRenZhengController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WobangRenZhengController.swift; sourceTree = "<group>"; };
 		0D0B1E951D53610200DF1440 /* setPlacehoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = setPlacehoder.h; sourceTree = "<group>"; };
 		0D0B1E961D53610200DF1440 /* setPlacehoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = setPlacehoder.m; sourceTree = "<group>"; };
@@ -1036,7 +1037,10 @@
 		77361BA21D939791003F96F5 /* Bugtags.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bugtags.podspec; sourceTree = "<group>"; };
 		77361BA31D939791003F96F5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FuWuHomePageTableViewCell.xib; sourceTree = "<group>"; };
-		779CD7EB1DBA137900BF84E6 /* kakao.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kakao.caf; sourceTree = "<group>"; };
+		7754A3B71DBF5E3100C06FBA /* 被抢单.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "被抢单.caf"; sourceTree = "<group>"; };
+		7754A3B81DBF5E3100C06FBA /* 发单超时.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "发单超时.caf"; sourceTree = "<group>"; };
+		7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "购买了商品.caf"; sourceTree = "<group>"; };
+		7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "抢单取消.caf"; sourceTree = "<group>"; };
 		77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoScrollLabel.swift; sourceTree = "<group>"; };
@@ -1668,8 +1672,10 @@
 		18D8811E1D151D820067218F = {
 			isa = PBXGroup;
 			children = (
-				05DE2F831DBB56850078D937 /* order1.caf */,
-				779CD7EB1DBA137900BF84E6 /* kakao.caf */,
+				7754A3B71DBF5E3100C06FBA /* 被抢单.caf */,
+				7754A3B81DBF5E3100C06FBA /* 发单超时.caf */,
+				7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */,
+				7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */,
 				F2EF8D9F1D6EC060008C495E /* SDKExport */,
 				18D881581D151E080067218F /* Podfile */,
 				18D881291D151D820067218F /* 51Bang_ios_2016 */,
@@ -2581,6 +2587,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18D5963E1D17F23800BDBCD6 /* citydict.plist in Resources */,
+				7754A3BD1DBF5E3100C06FBA /* 购买了商品.caf in Resources */,
 				1F9B0E0A1D365D6300C7CA52 /* EditTableViewCell1.xib in Resources */,
 				1F9AEF721D3909060009B007 /* MyFabuTableViewCell.xib in Resources */,
 				0DD5110B1D51D16E00FE88C2 /* ZLNoAuthorityViewController.xib in Resources */,
@@ -2589,7 +2596,6 @@
 				773F21CF1DB627F800A90160 /* FuWuHomePageTableViewCell.xib in Resources */,
 				1FD128A41D264C8700DE9D74 /* SalaryTableViewCell.xib in Resources */,
 				1F0DF18C1D2B5D5F00D45390 /* ConvenienceHeaderViewCell.xib in Resources */,
-				05DE2F841DBB56850078D937 /* order1.caf in Resources */,
 				1FF073C11D30CAA80074C477 /* QuanBuFenLeiTableViewCell.xib in Resources */,
 				1FD128A81D2653C200DE9D74 /* DeadlineTableViewCell.xib in Resources */,
 				1FF43B7E1D2A587B00091F79 /* FabuTableViewCell4.xib in Resources */,
@@ -2634,11 +2640,13 @@
 				1FECB3E81D3C7F9900588A8D /* CNEETableViewCell.xib in Resources */,
 				1FF43B661D2A34DC00091F79 /* ShopHeaderView.xib in Resources */,
 				18D881591D151E080067218F /* Podfile in Resources */,
+				7754A3BC1DBF5E3100C06FBA /* 发单超时.caf in Resources */,
 				0DD511011D51D16E00FE88C2 /* btn_selected.png in Resources */,
 				F253E6DB1D7D1982009D2AF5 /* area副本.plist in Resources */,
 				189757D41D162D550083FE46 /* CouponTableViewCell.xib in Resources */,
 				1FACE7681D2FA3DE0005282E /* LianXiDianHuaTableViewCell.xib in Resources */,
 				188D4C591D168867005334D2 /* ThreeTableViewCell.xib in Resources */,
+				7754A3BE1DBF5E3100C06FBA /* 抢单取消.caf in Resources */,
 				189757EA1D16794C0083FE46 /* OneTableViewCell.xib in Resources */,
 				1FECB3EC1D3C832200588A8D /* CountTableViewCell.xib in Resources */,
 				0DD511091D51D16E00FE88C2 /* navBackBtn@2x.png in Resources */,
@@ -2650,6 +2658,7 @@
 				77D0AA761DB7423F00FB5A52 /* AboutViewController.xib in Resources */,
 				18D5963B1D17F08E00BDBCD6 /* unicode_to_hanyu_pinyin.txt in Resources */,
 				1FD8C7DE1D48BAB5008BCE96 /* faDanDetailHeaderTableViewCell.xib in Resources */,
+				7754A3BB1DBF5E3100C06FBA /* 被抢单.caf in Resources */,
 				0DD511001D51D16E00FE88C2 /* btn_original_circle@3x.png in Resources */,
 				1F7D5A1C1D4A033600536BD1 /* README.txt in Resources */,
 				1F0DF1961D2BA1EA00D45390 /* TaskDetailTableViewCell1.xib in Resources */,
@@ -2693,7 +2702,6 @@
 				A4F71F8D1D97CDBB00B4655D /* TCRegisterViewController.xib in Resources */,
 				18D596211D17F07700BDBCD6 /* CityViewController.xib in Resources */,
 				1FF073BD1D309E7F0074C477 /* RenZhengBangHeaderViewCell.xib in Resources */,
-				779CD7EC1DBA137900BF84E6 /* kakao.caf in Resources */,
 				189757EE1D1685D70083FE46 /* TwoTableViewCell.xib in Resources */,
 				F25289B91D6AE16700B8E6DC /* lame-3.99.5.tar.gz in Resources */,
 				1FF43B761D2A55D400091F79 /* FabuTableViewCell2.xib in Resources */,

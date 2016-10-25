@@ -102,11 +102,13 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
     
     func yiXiaofei(){
         mainHelper.gaiBianDingdan(self.info.order_num!, state: "4") { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success{
                 alert("数据请求失败请重试", delegate: self)
                 return
             }
             self.navigationController?.popViewControllerAnimated(true)
+            })
         }
     }
     
@@ -483,6 +485,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                                                 //                let ud = NSUserDefaults.standardUserDefaults()
                                                 //                let userid = ud.objectForKey("userid")as! String
                                                 self.mainHelper.gaiBianDingdan(self.info.order_num!, state: "-1") { (success, response) in
+                                                    dispatch_async(dispatch_get_main_queue(), {
                                                     if !success {
                                      alert("订单取消失败请重试", delegate: self)
                                                         return
@@ -492,7 +495,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                                                         
                                                     }
                                       self.navigationController?.popViewControllerAnimated(true)
-                                                    
+                                                    })
                                                 }
                                                 
                                                 
@@ -517,12 +520,14 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         
         if self.info.state == "2" && isSigle  {
             mainHelper.gaiBianDingdan(self.info.order_num!, state: "3", handle: { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     alert("提交失败请重试！", delegate: self)
                     return
                 }
                 alert("已通知买家！", delegate: self)
                 self.navigationController?.popViewControllerAnimated(true)
+                })
             })
         }else{
             let textview  = self.myTableView.viewWithTag(10) as!UITextField

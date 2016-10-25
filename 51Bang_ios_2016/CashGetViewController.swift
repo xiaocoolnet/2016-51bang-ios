@@ -44,6 +44,7 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
             let user = NSUserDefaults.standardUserDefaults()
             let userid = user.objectForKey("userid") as! String
             mainHelper.getUserBank(userid) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     hud.hidden = true
                     return
@@ -51,6 +52,7 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
                 hud.hidden = true
                 self.dataSource = response as! GetUserBankInfo
                 self.myTableView.reloadData()
+            })
             }
         }
         func getData2(){
@@ -61,10 +63,11 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
           let ud = NSUserDefaults.standardUserDefaults()
             let uid = ud.objectForKey("userid")as!String
             mainHelper2.getQianBaoData(uid) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
              self.info = response as! walletInfo
              hud.hidden = true
              self.myTableView.reloadData()
-    
+                })
          }
         
            }
@@ -174,12 +177,14 @@ class CashGetViewController: UIViewController,UITableViewDataSource,UITableViewD
             }
             
             mainHelper.ApplyWithdraw(userid, money: textField.text!, banktype: banktype) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     alert("提现请求失败", delegate: self)
                     return
                 }
                     alert("提现已请求,最迟次日到账", delegate: self)
                 self.navigationController?.popViewControllerAnimated(true)
+                })
             }
            
         }

@@ -122,10 +122,12 @@ class AddAddressViewController: UIViewController,UITextFieldDelegate {
 //            textView.text = ""
 //        }
         mainHelper.addAddress(userid, address: addressLabe.text! + self.textView.text!, longitude: "", latitude: "", isdefault: self.isdefault) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             alert("添加成功", delegate: self)
 //            let vc = myAddressViewController()
             self.navigationController?.popViewControllerAnimated(true)
 //            self.navigationController?.popToViewController(vc, animated: true)
+            })
         }
     
     }

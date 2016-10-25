@@ -530,17 +530,20 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         if (self.myDatas?.count>0&&isEditsss == true){
             shopHelper.reLoadTeMaiMessage(userid, type: type1, goodsname:self.mytextView.text!, oprice: oprice.text! as String, price: price.text! as String, desc: textView.text, unit: "",longitude:myLongitude,latitude:myLatitude,address:address1,delivery:typeLabelStr) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 print(response)
                 self.hud1.hidden = true
                 self.navigationController?.popViewControllerAnimated(true)
                 alert("发布成功", delegate: self)
                 
                 self.btn.enabled = true
+                })
             }
 
         }else{
             print(type1)
             shopHelper.upLoadTeMaiMessage(userid, type: type1, goodsname:self.mytextView.text!, oprice: oprice.text! , price: price.text!, desc: textView.text, photoArray: self.photoNameArr, unit: "",longitude:myLongitude,latitude:myLatitude,address:address1,delivery:typeLabelStr) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 print(response)
                 
                 
@@ -550,6 +553,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("发布成功", delegate: self)
                 
                 self.btn.enabled = true
+                })
             }
 
         }

@@ -346,6 +346,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         let user = NSUserDefaults.standardUserDefaults()
         let userid = user.objectForKey("userid") as! String
         mainHelper.UpdateUserInsurance(userid, photo: self.photoNameArr[0] as! NSString, expirydate: expirydate) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success{
                 alert("上传失败", delegate: self)
                 return
@@ -357,6 +358,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
             self.TopView.backgroundColor = COLOR
             self.photoPushButton.hidden = true
             self.view1.hidden = true
+            })
         }
     }
     

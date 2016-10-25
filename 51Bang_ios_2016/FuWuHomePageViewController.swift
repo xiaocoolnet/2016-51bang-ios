@@ -56,6 +56,7 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
         if self.isUserid {
 //            print(self.userid)
             skillHelper.getAuthenticationInfoByUserId(self.userid, handle: { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     alert("数据加载错误", delegate: self)
                     return
@@ -71,6 +72,7 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 
                 self.createView()
+                })
             })
         }else{
 //            HEIGHT

@@ -189,6 +189,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
         mainHelper.getMyOrder(uid, state: "",type:self.isNotSigle) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             print(response)
             if !success{
                 self.mTableview.mj_header.endRefreshing()
@@ -202,7 +203,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             print(self.AllDataSource)
             self.reloadMTableviwe(self.sign+1)
             self.mTableview.mj_header.endRefreshing()
-            
+            })
         }
     
     }
@@ -214,6 +215,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
         mainHelper.getMyOrder(uid, state: "1",type:self.isNotSigle) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             print(response)
             if !success{
                 self.hud.hidden = true
@@ -227,6 +229,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             print(self.DFKDataSource?.count)
             self.reloadMTableviwe(self.sign+1)
             self.mTableview.mj_header.endRefreshing()
+            })
         }
     
     }
@@ -235,6 +238,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
         mainHelper.getMyOrder(uid, state: "2,3",type:self.isNotSigle) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             print(response)
             if !success{
                 self.hud.hidden = true
@@ -248,6 +252,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             print(self.DXFDataSource?.count)
             self.reloadMTableviwe(self.sign+1)
             self.mTableview.mj_header.endRefreshing()
+            })
         }
     
     }
@@ -256,6 +261,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
         mainHelper.getMyOrder(uid, state: "4",type:self.isNotSigle) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             print(response)
             if !success{
                 self.hud.hidden = true
@@ -269,6 +275,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
             print(self.DPJDataSource?.count)
             self.reloadMTableviwe(self.sign+1)
             self.mTableview.mj_header.endRefreshing()
+            })
         }
     
     }
@@ -549,6 +556,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                         //                let userid = ud.objectForKey("userid")as! String
                                         if self.sign == 0{
                                             self.mainHelper.gaiBianDingdan(self.AllDataSource![sender.tag - 300].order_num!, state: "-1") { (success, response) in
+                                                dispatch_async(dispatch_get_main_queue(), {
                                                 if !success {
                                                     alert("订单取消失败请重试", delegate: self)
                                                     return
@@ -557,12 +565,14 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                                     
                                                     
                                                 }
+                                                })
                                         }
                                         
                                             
                                             
                                         }else if self.sign == 1{
                                             self.mainHelper.gaiBianDingdan(self.DFKDataSource![sender.tag - 600].order_num!, state: "-1") { (success, response) in
+                                                dispatch_async(dispatch_get_main_queue(), {
                                                 if !success {
                                                     alert("订单取消失败请重试", delegate: self)
                                                     return
@@ -571,10 +581,12 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                                     
                                                     
                                                 }
+                                                })
                                             }
 
                                         }else if self.sign == 2{
                                             self.mainHelper.gaiBianDingdan(self.DXFDataSource![sender.tag - 400].order_num!, state: "-1") { (success, response) in
+                                                dispatch_async(dispatch_get_main_queue(), {
                                                 if !success {
                                                     alert("订单取消失败请重试", delegate: self)
                                                     return
@@ -583,6 +595,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                                     
                                                     
                                                 }
+                                                })
                                             }
                                             
                                         }

@@ -38,12 +38,13 @@ class WallectDetailViewController: UIViewController,UITableViewDelegate,UITableV
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as!String
         mainHelper.getShouZhi(uid) { (success, response) in
-            
+            dispatch_async(dispatch_get_main_queue(), {
             self.dataSource = response as? Array<walletDetailInfo> ?? []
             hud.hidden = true
             print(self.dataSource.count)
 //            self.info = response as! walletDetailInfo
             self.createTableView()
+            })
 
         }
 
@@ -77,11 +78,13 @@ class WallectDetailViewController: UIViewController,UITableViewDelegate,UITableV
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as!String
         mainHelper.getShouZhi(uid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             self.mytableView.mj_header.endRefreshing()
             self.dataSource = response as? Array<walletDetailInfo> ?? []
             hud.hidden = true
             print(self.dataSource.count)
             self.createTableView()
+            })
             
         }
         

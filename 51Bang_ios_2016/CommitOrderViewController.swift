@@ -628,6 +628,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         
         
         mainHelper.upLoadOrder(userid, title: self.taskTitle, description: self.taskDescription, address:address , longitude: longitude, latitude: latitude, saddress:saddress,slongitude: slongitude, slatitude: slatitude, expirydate: expirydate, price: price, type: type, sound: self.sound, picurl: self.photoNameArr,soundtime:String(self.countTime), handle: { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success{
                 alert("任务提交失败", delegate: self)
                 return
@@ -655,6 +656,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 //            vc.price = self.price
 //            vc.goodName = self.taskTitle
 //            self.navigationController?.pushViewController(vc, animated: true)
+            })
         })
 
         

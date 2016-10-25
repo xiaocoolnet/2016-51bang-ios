@@ -34,15 +34,17 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
         
 //       let uid = ud.objectForKey("userid")as!String
        helper.getCollectionList(uid) { (success, response) in
+        dispatch_async(dispatch_get_main_queue(), {
             print(response)
             self.dataSource = response as? Array<CollectionInfo> ?? []
              print(self.dataSource)
              print(self.dataSource!.count)
             self.createTableView()
+            })
         }
         
         self.myTableView.reloadData()
-    
+        
     }
     func createTableView(){
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
@@ -67,12 +69,14 @@ class CollectionViewController: UIViewController,UITableViewDelegate,UITableView
         
         //       let uid = ud.objectForKey("userid")as!String
         helper.getCollectionList(uid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             print(response)
             self.dataSource = response as? Array<CollectionInfo> ?? []
              self.myTableView.mj_header.endRefreshing()
             print(self.dataSource)
             print(self.dataSource!.count)
             self.createTableView()
+            })
         }
         
         self.myTableView.reloadData()

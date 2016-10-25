@@ -42,6 +42,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
             let user = NSUserDefaults.standardUserDefaults()
             let userid = user.objectForKey("userid") as! String
             mainHelper.getUserBank(userid) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     hud.hidden = true
                     return
@@ -49,6 +50,7 @@ class WalletDetail3ViewController:UIViewController,UITableViewDataSource,UITable
                 hud.hidden = true
                 self.dataSource = response as! GetUserBankInfo
                 self.myTableView.reloadData()
+                })
             }
         }
         

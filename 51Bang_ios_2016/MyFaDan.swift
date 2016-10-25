@@ -464,11 +464,13 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                                         let ud = NSUserDefaults.standardUserDefaults()
                                         let userid = ud.objectForKey("userid")as! String
             self.mainHelper.gaiBianRenWu(userid,ordernum: self.dataSource![btn.tag].order_num!, state: "5", handle: { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     alert("付款失败请重试", delegate: self)
                     return
                 }
                 self.finshBtnAction()
+                })
             })
                                         
                                         

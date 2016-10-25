@@ -71,7 +71,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.login.userInteractionEnabled = true
             }
         }
-//        self.login.userInteractionEnabled = true
+        self.login.userInteractionEnabled = true
         isShow = false
         
         if self.badgeView1.hidden && self.badgeView2.hidden && self.badgeView3.hidden && self.badgeView4.hidden && self.badgeView5.hidden{
@@ -322,11 +322,13 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             })
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
+                                            
                                             let ud = NSUserDefaults.standardUserDefaults()
                                             let userid = ud.objectForKey("userid")as! String
                                             
                                             self.mainhelper.getChatMessage(userid, receive_uid: ids!) { (success, response) in
-                                                
+                                                dispatch_async(dispatch_get_main_queue(), {
+                                                    
                                                 if !success {
                                                     alert("加载错误", delegate: self)
                                                     return
@@ -373,7 +375,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                                                 self.tabBarController?.selectedIndex = 3
                                                 self.navigationController?.pushViewController(vc, animated: true)
                                                 
-                                            }
+                                           })
+                                    }
                                             
                                             
                                             
@@ -383,13 +386,16 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             alertController.addAction(cancelAction)
             alertController.addAction(okAction)
             self.presentViewController(alertController, animated: true, completion: nil)
+                                            
         }else{
             
             let ud = NSUserDefaults.standardUserDefaults()
             let userid = ud.objectForKey("userid")as! String
             
             mainhelper.getChatMessage(userid, receive_uid: ids!) { (success, response) in
-                
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    
                 if !success {
                     alert("加载错误", delegate: self)
                     return
@@ -441,11 +447,13 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 //            }
                 self.tabBarController?.selectedIndex = 3
                 self.navigationController?.pushViewController(vc, animated: true)
-                
+               })
             }
             
             
         }
+            
+        
     }
     
     
@@ -1272,7 +1280,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     Alamofire.request(.GET, checkUrl, parameters: param ).response{
                         
                         request, response , json , error in
-                        
+                        dispatch_async(dispatch_get_main_queue(), {
                         let ud = NSUserDefaults.standardUserDefaults()
                         
                         
@@ -1292,7 +1300,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                             MainViewController.renZhengStatue = 0
                         }
                         
-                        
+                        })
                         
                     }
 //                    if(ud.objectForKey("userid")==nil)

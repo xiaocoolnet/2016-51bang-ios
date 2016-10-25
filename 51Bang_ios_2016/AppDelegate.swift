@@ -449,6 +449,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             if (ud.objectForKey("userid") != nil) {
                 let userids = ud.objectForKey("userid") as! String
                 mainhelper.checkIslogin(userids, handle: { (success, response) in
+                    dispatch_async(dispatch_get_main_queue(), {
                     if !success{
                         let userDatas = NSUserDefaults.standardUserDefaults()
                         //                    print(userDatas.objectForKey("userid"))
@@ -519,6 +520,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                         }
                         
                     }
+                    })
                 })
             }
 

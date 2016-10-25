@@ -612,7 +612,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             alert("请不要和自己说话", delegate: self)
         }else{
             mainHelper.getChatMessage(userid, receive_uid: rzbDataSource![sender.tag].id) { (success, response) in
-                
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     alert("加载错误", delegate: self)
                     return
@@ -656,7 +656,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 }else{
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
-                
+                })
                 
             }
             

@@ -186,6 +186,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         hud.animationType = .Zoom
         hud.labelText = "正在努力加载"
         mainHelper.GetTchdList("1", beginid: beginmid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 hud.hide(true)
                 alert("数据加载出错", delegate: self)
@@ -207,7 +208,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
 //            print(self.dataSource![0].record)
             
             self.convenienceTable.reloadData()
-            
+            })
         }
         
     }
@@ -239,6 +240,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func headerRefresh(){
         mainHelper.GetTchdList("1", beginid: "0") { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 self.convenienceTable.mj_header.endRefreshing()
                 return
@@ -251,7 +253,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 self.dataSource2.addObject(data)
             }
             self.convenienceTable.reloadData()
-            
+            })
         }
         
     }
@@ -265,6 +267,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         self.beginmid = String(myID)
         print(beginmid)
         mainHelper.GetTchdList("1", beginid: beginmid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 self.convenienceTable.mj_footer.endRefreshing()
                 return
@@ -280,7 +283,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             }
             
             self.convenienceTable.reloadData()
-            
+            })
         }
     }
     
@@ -402,6 +405,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             let userid = user.objectForKey("userid") as! String
             let mainhelper = MainHelper()
             mainhelper.Deletebbspost(userid, id: (self.dataSource2[sender.tag-1000] as! TCHDInfo).mid!, handle: { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     return
                 }
@@ -412,7 +416,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 self.convenienceTable.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
                 self.convenienceTable.reloadData()
                  alert("内容已删除", delegate: self)
-               
+                })
             })
                                                 
                                                 
@@ -443,12 +447,14 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                                             let userid = user.objectForKey("userid") as! String
                                             let mainhelper = MainHelper()
                                             mainhelper.Report(userid, type: "1", refid: (self.dataSource2[sender.tag-10000] as! TCHDInfo).mid!, content: (self.dataSource2[sender.tag-10000] as! TCHDInfo).content!, handle: { (success, response) in
+                                                dispatch_async(dispatch_get_main_queue(), {
                                                 if !success{
                                                     return
                                                 }
                                                 
                                                 alert("内容已举报", delegate: self)
                                                
+                                            })
                                             })
                                             
                                             
@@ -509,7 +515,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             alert("请不要和自己说话", delegate: self)
         }else{
         mainHelper.getChatMessage(userid, receive_uid: (dataSource2[sender.tag] as! TCHDInfo).userid!) { (success, response) in
-            
+            dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 alert("加载错误", delegate: self)
                 return
@@ -557,7 +563,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 self.navigationController?.pushViewController(vc, animated: true)
             }
            
-
+            })
           }
             
        }

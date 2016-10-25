@@ -780,6 +780,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         print(userid)
         print(self.photoNameArr)
         mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime),address2:adress2,longitude:longitude,latitude:latitude) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             print(response)
             if !success{
                 alert("亲，请拨打4000608856申请VIP客户才能多发哦😀", delegate: self)
@@ -791,7 +792,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             //                let aletView = UIAlertView.init(title: "提示", message:"发布成功", delegate: self, cancelButtonTitle: "确定")
             //                aletView.show()
             self.navigationController?.popViewControllerAnimated(true)
-            
+            })
         }
         
 //        self.navigationController?.popViewControllerAnimated(true)

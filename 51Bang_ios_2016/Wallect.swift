@@ -36,6 +36,7 @@ class Wallect: UIViewController {
         let uid = ud.objectForKey("userid")as!String
         print(uid)
         mainHelper.getQianBaoData(uid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             let myinfo1:walletInfo = response as! walletInfo
             self.info = response as! walletInfo
             print(myinfo1)
@@ -45,6 +46,7 @@ class Wallect: UIViewController {
             self.setTopView()
             self.setSecondView()
             self.setThirdView()
+            })
         }
     
     }

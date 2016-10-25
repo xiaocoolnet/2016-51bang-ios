@@ -203,6 +203,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         if ud.objectForKey("userid") != nil {
             mainHelper.GetWorkingState(ud.objectForKey("userid") as! String) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     alert("数据加载出错", delegate: self)
                     return
@@ -238,10 +239,12 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                     
                     if ud.objectForKey("userid") != nil {
                         self.mainHelper.BeginWorking(ud.objectForKey("userid") as! String, address: cutyName, longitude: longitude, latitude: latitude, isworking: isworking) { (success, response) in
+                            dispatch_async(dispatch_get_main_queue(), {
                             if !success {
                                 alert("数据加载出错", delegate: self)
                                 return
                             }
+                            })
                             
                         }
                     }
@@ -250,6 +253,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 }else{
                     
                 }
+                })
                 
                
             }

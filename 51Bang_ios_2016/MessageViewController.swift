@@ -50,6 +50,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         hud.labelText = "正在努力加载"
 
         mainhelper.getChatList(userid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 hud.hidden = true
                 alert("暂无数据", delegate: self)
@@ -61,6 +62,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
             print(self.dataSource)
             print(self.dataSource.count)
             self.myTableView.reloadData()
+            })
         }
     }
         
@@ -89,6 +91,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         hud.labelText = "正在努力加载"
         
         mainhelper.getChatList(userid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 hud.hidden = true
                 self.myTableView.mj_header.endRefreshing()
@@ -102,6 +105,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
             print(self.dataSource)
             print(self.dataSource.count)
             self.myTableView.reloadData()
+            })
         }
 
     }
@@ -156,7 +160,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         let userid = ud.objectForKey("userid")as! String
         
         mainhelper.getChatMessage(userid, receive_uid: receive_uid) { (success, response) in
-            
+            dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 alert("加载错误", delegate: self)
                 return
@@ -195,6 +199,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
 //                vc.datasource2.addObject(dic)
                 
             }
+                
             
             print(dat)
             vc.datasource2 = NSArray.init(array: dat) as Array
@@ -209,6 +214,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.navigationController?.pushViewController(vc, animated: true)
 
             self.myTableView.reloadData()
+            })
         }
 
         

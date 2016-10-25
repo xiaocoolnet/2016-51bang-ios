@@ -395,6 +395,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         let price = String( Float(self.num)*Float(self.info.price!)!)
         mainHelper.buyGoods(userid, roomname: self.info.goodsname, goodsid: self.info.id, goodnum: String(self.num), mobile: phone, remark: self.remark, money: price,delivery:self.info.delivery!,address:cityNamess) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success{
                 alert("订单提交失败", delegate: self)
                 return
@@ -410,6 +411,7 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             vc.subject = self.info.goodsname!
             vc.body = self.info.description!
             self.navigationController?.pushViewController(vc, animated: true)
+            })
         }
         
         

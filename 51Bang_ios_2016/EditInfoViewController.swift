@@ -136,6 +136,7 @@ class EditInfoViewController: UIViewController,UITableViewDelegate,UITableViewDa
                 if result.status != nil {
                     dispatch_async(dispatch_get_main_queue(), {
                         if result.status! == "success"{
+                            dispatch_async(dispatch_get_main_queue(), {
                             let imageName = result.data
                             let ud = NSUserDefaults.standardUserDefaults()
                             let userid = ud.objectForKey("userid")as! String
@@ -159,7 +160,7 @@ class EditInfoViewController: UIViewController,UITableViewDelegate,UITableViewDa
                                 ud.synchronize()
                                 self.myDelegate?.editePictureInMain()
                                 
-                                
+                                })
                             })
                             
                             

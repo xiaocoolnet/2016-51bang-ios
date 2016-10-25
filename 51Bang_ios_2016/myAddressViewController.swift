@@ -110,6 +110,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         mainHelper.getMyAddress(userid as String) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             print(".............")
             if  !success{
                 print("---------------")
@@ -127,6 +128,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
             
                 alert("您还没有添加地址",delegate: self)
             }
+            })
             
         }
        
@@ -154,6 +156,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         mainHelper.getMyAddress(userid as String) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if  !success{
                 self.myTableView.mj_header.endRefreshing()
                 let alert = UIAlertView.init(title:"提示", message: "数据加载异常或者您还没有地址", delegate: self, cancelButtonTitle: "确定")
@@ -168,7 +171,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
                 
                 alert("您还没有添加地址",delegate: self)
             }
-
+            })
         }
     }
     func nextView(){
@@ -246,8 +249,10 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
         let info = self.dataSource![self.row] 
         mainHelper.deleteAddress(self.userid as String, addressid: info.id!) { (success, response) in
 //            alert("删除成功",delegate: self)
+            dispatch_async(dispatch_get_main_queue(), {
             self.dataSource?.removeAtIndex(self.row)
             self.myTableView.reloadData()
+            })
         }
         
         

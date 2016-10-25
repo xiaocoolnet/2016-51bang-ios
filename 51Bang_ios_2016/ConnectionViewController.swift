@@ -68,18 +68,20 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
         print(userid)
         if info.state == "2" {
             mainHelper.gaiBianRenWu(userid,ordernum: info.order_num!, state: "3", handle: { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                      alert("通知失败，请重试", delegate: self)
                     self.button5.enabled = true
                     return
                 }
                  alert("已通知对方,请等待对方确认", delegate: self)
-                
+                })
             })
         }else if info.state == "3" {
             let ud = NSUserDefaults.standardUserDefaults()
             let userid = ud.objectForKey("userid")as! String
             mainHelper.gaiBianRenWu(userid,ordernum: info.order_num!, state: "4", handle: { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     self.button5.enabled = true
                     alert("通知失败，请重试", delegate: self)
@@ -87,6 +89,7 @@ class ConnectionViewController: UIViewController,UITableViewDelegate,UITableView
                 }
                 alert("已通知对方,请等待对方确认", delegate: self)
                 
+            })
             })
             
         }

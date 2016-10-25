@@ -43,6 +43,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
     func getData(){
     
         mainHelper.getFaDanDetail(info.id!) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             print("----")
             print(response)
             print("----")
@@ -52,6 +53,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
             self.dataSource1 = response as! fadanDetaiInfo
 
             self.createTableView()
+            })
         }
 
     }
@@ -201,10 +203,11 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
                                         let ud = NSUserDefaults.standardUserDefaults()
                                         let userid = ud.objectForKey("userid") as! String
                                         self.helper.cancleOrder(userid, taskid: self.info.id!) { (success, response) in
-                                            
+                                            dispatch_async(dispatch_get_main_queue(), {
                                             print(response)
                                             alert("取消成功", delegate: self)
                                             self.navigationController?.popViewControllerAnimated(true)
+                                            })
                                         }
 
                                         
@@ -377,7 +380,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
                 alert("请不要和自己说话", delegate: self)
             }else{
                 mainHelper.getChatMessage(userid, receive_uid: self.dataSource1.apply!.userid!) { (success, response) in
-                    
+                    dispatch_async(dispatch_get_main_queue(), {
                     if !success {
                         alert("加载错误", delegate: self)
                         return
@@ -424,6 +427,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
                     }else{
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
+                    })
                     
                     
                 }

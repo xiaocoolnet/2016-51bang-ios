@@ -39,6 +39,7 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as!String
         mainHelper.getTiXian(uid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success{
                 hud.hidden = true
                 alert("暂无数据或数据加载失败", delegate: self)
@@ -48,6 +49,7 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
             hud.hidden = true
             print(self.dataSource.count)
             self.createTableView()
+            })
             
         }
         
@@ -80,6 +82,7 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as!String
         mainHelper.getTiXian(uid) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
             if !success{
                 hud.hidden = true
                 self.mytableView.mj_header.endRefreshing()
@@ -91,6 +94,7 @@ class WalletDetail2ViewController: UIViewController,UITableViewDelegate,UITableV
             hud.hidden = true
             print(self.dataSource.count)
             self.createTableView()
+            })
             
         }
         
