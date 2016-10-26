@@ -71,6 +71,8 @@ class walletDetailInfo: JSONJoy {
     var balance:String?
     var type:String?
     var time:String?
+    var info:String?
+    
     init(){
         
     }
@@ -81,7 +83,7 @@ class walletDetailInfo: JSONJoy {
         balance = decoder["balance"].string
         type = decoder["type"].string
         time = decoder["time"].string
-        
+        info = decoder["info"].string
     }
     
 }

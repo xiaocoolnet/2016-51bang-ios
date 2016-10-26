@@ -24,6 +24,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     private let Statue = UILabel()
     private let TopView = UIView()
     private let InsureBtn = UIButton()
+    private let aboutTextView = UITextView()
     private let statuFrame = UIApplication.sharedApplication().statusBarFrame
     private let imageForInsurance = UIImageView.init()
     private let scrollView = UIScrollView.init()
@@ -54,7 +55,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         self.navigationController?.navigationBar.hidden = true
         
         photoPushButton.userInteractionEnabled = true
-        scrollView.contentSize = CGSizeMake(WIDTH, iView.frame.size.height + statuFrame.height + 64+50)
+        scrollView.contentSize = CGSizeMake(WIDTH, iView.frame.size.height + statuFrame.height + 64+50+100)
 //        let userPic = NSUserDefaults.standardUserDefaults()
 //        if( userPic.objectForKey("photoss") != nil )
 //        {
@@ -248,6 +249,10 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     //    }
     
     func pushPhotoAction(){
+        if photoArray.count != 3 {
+            alert("仔细阅读图片上传要求", delegate: self)
+            return
+        }
         //        print(photoArray.count)
         photoPushButton.userInteractionEnabled = false
         if label1.text == "请选择认证有效时间!" {
@@ -345,6 +350,8 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     func shangchuan(){
         let user = NSUserDefaults.standardUserDefaults()
         let userid = user.objectForKey("userid") as! String
+        
+        print(expirydate)
         mainHelper.UpdateUserInsurance(userid, photo: self.photoNameArr[0] as! NSString, expirydate: expirydate) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             if !success{
@@ -495,6 +502,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
             self.InsureBtn.userInteractionEnabled = true
             self.photoPushButton.hidden = true
             self.view1.hidden = true
+            self.aboutTextView.hidden = false
         }
         
     }
@@ -560,7 +568,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
                     self.Tip1.hidden = false
                     self.InsureBtn.hidden = false
                     self.InsureBtn.backgroundColor = COLOR
-                    self.scrollView.contentSize = CGSizeMake(WIDTH, self.iView.frame.size.height + self.statuFrame.height + 270+50)
+                    self.scrollView.contentSize = CGSizeMake(WIDTH, self.iView.frame.size.height + self.statuFrame.height + 270+50+100)
                     self.scrollView.hidden = false
                 }else if result.data == "-1"{
                     self.InsureBtn.hidden = true
@@ -571,7 +579,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
                     self.TopView.backgroundColor = COLOR
                     self.Tip1.hidden = true
                     self.iView.hidden = true
-                    self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90)
+                    self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90+100)
                     self.InsureBtn.hidden = true
                 }
               
@@ -588,7 +596,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     
     func setscrollView()
     {
-        iView.frame = CGRectMake(0, 170 - (statuFrame.height   + 40) + 70, WIDTH, WIDTH * 3068 / 750)
+        iView.frame = CGRectMake(0, 170 - (statuFrame.height   + 40) + 70+100, WIDTH, WIDTH * 3068 / 750)
         iView.image = UIImage.init(named: "weitoubao")
         scrollView.addSubview(iView)
         scrollView.frame = CGRectMake(0, statuFrame.height + 40, WIDTH, HEIGHT - (statuFrame.height + 40 ) )
@@ -685,6 +693,19 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         InsureBtn.addTarget(self, action: #selector(self.InsureAction), forControlEvents: UIControlEvents.TouchUpInside)
         InsureBtn.layer.masksToBounds = true
         InsureBtn.layer.cornerRadius = 10
+        
+        aboutTextView.frame = CGRectMake(10, 170 - (statuFrame.height   + 40) + 10+self.InsureBtn.frame.height+10, WIDTH - 20, 80)
+        aboutTextView.backgroundColor = RGREY
+        aboutTextView.textAlignment = .Center
+        aboutTextView.text = "***请上传包括手持身份证，身份证正面，投保凭证3张图片，谢谢合作！"
+        aboutTextView.layer.masksToBounds = true
+        aboutTextView.layer.cornerRadius = 10
+        aboutTextView.font = UIFont.systemFontOfSize(16)
+        aboutTextView.userInteractionEnabled = false
+        aboutTextView.textColor = UIColor.redColor()
+//        aboutTextView.
+        
+        scrollView.addSubview(aboutTextView)
         scrollView.addSubview(InsureBtn)
     }
     
@@ -694,7 +715,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         TopView.backgroundColor = UIColor.grayColor()
 //        InsureBtn.hidden = true
         
-        scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  statuFrame.height + 10 + 40)
+        scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  statuFrame.height + 10 + 40+100)
         
         cameraAction()
         
@@ -702,18 +723,23 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
+        
         self.photoArray.removeAllObjects()
         for imagess in photos {
             photoArray.addObject(imagess)
         }
         
-        if photoArray.count != 0 {
+        if photoArray.count == 3 {
             self.Statue.text = "准备上传"
             self.InsureBtn.userInteractionEnabled = false
+            self.aboutTextView.hidden = true
+        }else{
+            alert("仔细阅读图片上传要求", delegate: self)
+            return
         }
         //        self.setFrameForImage()
-        InsureBtn.hidden = true
-        scrollView.contentSize = CGSizeMake(WIDTH, iView.frame.size.height + statuFrame.height + 64)
+//        InsureBtn.hidden = true
+        scrollView.contentSize = CGSizeMake(WIDTH, iView.frame.size.height + statuFrame.height + 64+100)
         self.iView.hidden = true
         self.addCollectionViewPicture()
         if photoArray.count>0 {
@@ -739,7 +765,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     
     func cameraAction()
     {
-        let imagePickerVc = TZImagePickerController.init(maxImagesCount: 1, delegate:self)
+        let imagePickerVc = TZImagePickerController.init(maxImagesCount: 3, delegate:self)
         self.presentViewController(imagePickerVc, animated: true, completion: nil)
         //        let VC1 = ViewController1()
         ////        self.tabBarController?.tabBar.hidden = true

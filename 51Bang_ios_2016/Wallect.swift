@@ -282,9 +282,11 @@ class Wallect: UIViewController {
     
     func nextView4(){
         
-//        let vc = WalletDetail3ViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
-        alert("程序员在玩命建设ing...", delegate: self)
+        let vc = FriendListViewController()
+        vc.isNextGrade = true
+        vc.title = "我的业务"
+        self.navigationController?.pushViewController(vc, animated: true)
+//        alert("程序员在玩命建设ing...", delegate: self)
     }
     
     

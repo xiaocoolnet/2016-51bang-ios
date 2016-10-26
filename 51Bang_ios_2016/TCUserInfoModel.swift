@@ -41,6 +41,9 @@ class UserInfo: JSONJoy {
     var password:String?
     var xgtoken:String?
     var usertype:String?
+    var myreferral:String?
+    
+    
     
     required init(_ decoder:JSONDecoder){
         
@@ -58,6 +61,11 @@ class UserInfo: JSONJoy {
             address = ""
         }else{
             address = decoder["address"].string!
+        }
+        if decoder["myreferral"].string == nil {
+            myreferral = ""
+        }else{
+            myreferral = decoder["myreferral"].string!
         }
         
 //        address = decoder["address"].string!

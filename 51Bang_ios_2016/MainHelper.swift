@@ -664,6 +664,44 @@
         
         
     }
+    //获取我的下级推广客户
+    func GetNextGrade(userid:NSString,handle:ResponseBlock){
+        let url = Bang_URL_Header+"getMyIntroduceList"
+        let param = [
+            "userid":userid
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = RzbModel(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.datas)
+                    print(result.datas.count)
+                    
+                    
+                    
+                    handle(success: true, response: result.datas)
+                    
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+        
+        
+    }
+
+    
     
     func GetTaskList(userid:NSString,state:NSString,handle:ResponseBlock){
         let url = Bang_URL_Header+"getTaskListByUserid"

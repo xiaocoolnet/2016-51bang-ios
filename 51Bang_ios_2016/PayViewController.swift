@@ -136,7 +136,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         dateFormatter.dateFormat = "ddHHmmss"
         let dateStr = dateFormatter.stringFromDate(NSDate())
         var orderNum = String()
-        orderNum = dateStr + "_" + numForGoodS
+        orderNum = dateStr + "_" + numForGoodS + String(arc4random()%1000)
         
         print(self.payMode)
         if price == 0{
@@ -298,18 +298,18 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let aa = FZJWeiXinPayMainController()
             print(String(price))
             print(body.length)
-            if subject.length == 0 {
-                subject = "无商品名称"
+            if body.length == 0 || body.length>30{
+                body = "无效商品名称"
             }
             if price == 0{
                 alert("金额不能为0", delegate: self)
                 return
             }
-            if  self.numForGoodS.characters.count < 0{
+            if  self.numForGoodS.characters.count < 1{
                 alert("订单错误", delegate: self)
                 return
             }
-            aa.testStart(String(Int(price*100)) ,orderName: subject as String,numOfGoods:orderNum,isRenwu:self.isRenwu);
+            aa.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum,isRenwu:self.isRenwu);
 //            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
             
 //            let vc = MyBookDan()

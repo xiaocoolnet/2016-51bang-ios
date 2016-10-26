@@ -88,6 +88,7 @@
                 <outlet property="bottomView" destination="ylh-CJ-j06" id="Vec-WU-ey6"/>
                 <outlet property="money" destination="XAL-jW-SKU" id="Vut-kA-ut8"/>
                 <outlet property="moneyState" destination="gYS-35-n1r" id="iyZ-rm-I1s"/>
+                <outlet property="payOnline" destination="yDJ-ND-fw3" id="hrO-Db-a5c"/>
                 <outlet property="shouRu" destination="GGm-Ff-4O8" id="HDj-o1-l7X"/>
                 <outlet property="time" destination="WJX-Kj-LJb" id="sFb-n2-8dW"/>
             </connections>

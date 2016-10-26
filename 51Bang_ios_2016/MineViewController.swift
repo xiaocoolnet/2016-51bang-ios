@@ -1255,6 +1255,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 
                     }
                     
+                    ud.setObject(userInfo.myreferral, forKey: "myreferral")
                     ud.setObject(userInfo.xgtoken, forKey: "token")
                     ud.setObject(userInfo.name, forKey: "name")
                     ud.setObject(self.phoneNum, forKey: "phone")

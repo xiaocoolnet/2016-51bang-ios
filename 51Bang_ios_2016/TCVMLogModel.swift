@@ -76,10 +76,10 @@ class TCVMLogModel: NSObject {
     //注册
     func register(phone:String,password:String,
                   code:String,avatar:String,name:String,
-                sex:String,cardid:String,addr:String, handle:ResponseBlock){
+                  sex:String,cardid:String,addr:String,referral:String, handle:ResponseBlock){
         let url = Bang_URL_Header+"AppRegister"
         let paramDic = ["phone":phone,"password":password,
-                        "code":code,"name":name,"devicestate":"1","sex":sex
+                        "code":code,"name":name,"devicestate":"1","sex":sex,"referral":referral
                        ]
         requestManager?.GET(url, parameters: paramDic, success: { (task, response) in
             let result = Http(JSONDecoder(response!))

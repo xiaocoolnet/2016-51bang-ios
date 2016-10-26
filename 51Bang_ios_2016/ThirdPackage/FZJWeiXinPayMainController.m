@@ -97,6 +97,11 @@
     
     /***************************************************  统一下单，获取到prepay_id     ********************************************************************/
     NSString * prePayID = [self getPrePayId:packageParams];
+    if (prePayID == nil) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"订单错误" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return ;
+    }
     /***************************************************  获取到prepayid后进行第二次签名  ********************************************************************/
     //获取到prepayid后进行第二次签名
     NSString    *package, *time_stamp, *nonce_str;
@@ -129,9 +134,14 @@
     req.sign                = [self createMd5Sign:signParams];//二次签名
     
 //    BOOL  isSeccess =  [WXApi sendReq:req];
-    if (![WXApi sendReq:req]) {
+    if (![WXApi openWXApp]) {
         UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"您未安装微信！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
+    }else{
+        
+    }
+    if (![WXApi sendReq:req]) {
+        
     }else{
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
         if (isRenwu) {

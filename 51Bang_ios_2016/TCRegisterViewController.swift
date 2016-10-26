@@ -298,8 +298,13 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
             SVProgressHUD.showErrorWithStatus("请同意协议!")
             return
         }
+        var referral = String()
         
-        logVM?.register(phoneNumber.text!, password: passwordNumber.text!, code: identifyNumber.text!, avatar: avatarImageName, name: "",sex: String(sex), cardid: "", addr:"", handle: { [unowned self] (success, response) in
+        if InvitationNum.text == nil {
+            referral = ""
+        }
+        
+        logVM?.register(phoneNumber.text!, password: passwordNumber.text!, code: identifyNumber.text!, avatar: avatarImageName, name: "",sex: String(sex), cardid: "", addr:"",referral:referral, handle: { [unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if success {
                     SVProgressHUD.showSuccessWithStatus("注册成功")

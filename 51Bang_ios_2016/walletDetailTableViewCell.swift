@@ -15,6 +15,7 @@ class walletDetailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var money: UILabel!
 
+    @IBOutlet weak var payOnline: UILabel!
     
     @IBOutlet weak var time: UILabel!
     
@@ -33,11 +34,18 @@ class walletDetailTableViewCell: UITableViewCell {
     
 //        self.yu.text = info.balance
         self.moneyState.hidden = true
+        if info.info != nil {
+            self.payOnline.text = info.info
+        }else{
+            self.payOnline.text = "在线支付"
+        }
         if info.type == "0" {
             self.money.text = "-"+info.money!
+            self.shouRu.text = "支出"
 //            self.money.textColor = UIColor.greenColor()
         }else{
             self.money.text = "+"+info.money!
+            self.shouRu.text = "收入"
 //            self.money.textColor = UIColor.redColor()
         }
         

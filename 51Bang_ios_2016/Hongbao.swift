@@ -63,12 +63,17 @@ class Hongbao: UIViewController,TencentApiInterfaceDelegate {
         web.backgroundColor = RGREY
         web.loadRequest(NSURLRequest(URL: NSURL(string: Bang_Open_Header+"index.php?g=portal&m=article&a=qr&uid="+userid+"&type=1")!))
         self.view.addSubview(web)
+        var myreferral = String()
+        
+        if ut.objectForKey("myreferral") != nil {
+            myreferral = ut.objectForKey("myreferral") as! String
+        }
         
         let myLabel = UILabel()
         myLabel.frame = CGRectMake(0, self.view.frame.size.height-250+80, WIDTH, 50)
         myLabel.font = UIFont.systemFontOfSize(16)
         myLabel.textAlignment = .Center
-        myLabel.text = "我的邀请码是："
+        myLabel.text = "我的邀请码是："+myreferral
         myLabel.textColor = COLOR
         
         self.view.addSubview(myLabel)

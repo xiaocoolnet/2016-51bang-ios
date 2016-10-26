@@ -12,6 +12,9 @@ import MBProgressHUD
 
 class FriendListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    var isNextGrade = Bool()//我的业务或认证帮标记
+    
+    
     let myTableView = UITableView()
     var isShow1 = Bool()
     var isShow2 = Bool()
@@ -63,8 +66,16 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             self.headerRefresh()
             
         })
+        
         self.view.backgroundColor = RGREY
-        self.GetData1(sort,types: self.types)
+        if isNextGrade {
+            self.createrTableViewUI()
+            self.getNextGradeData()
+            self.navigationController?.navigationBar.hidden = false
+        }else{
+            self.GetData1(sort,types: self.types)
+        }
+        
         
         //        let view = UIView.init(frame: CGRectMake(0, 0, <#T##width: CGFloat##CGFloat#>, <#T##height: CGFloat##CGFloat#>))
         self.view.backgroundColor = UIColor.whiteColor()
@@ -72,6 +83,39 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    
+    func getNextGradeData(){
+        let ud = NSUserDefaults.standardUserDefaults()
+        var useridstr = String()
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+        if ud.objectForKey(useridstr) != nil {
+            useridstr = ud.objectForKey("userid") as! String
+        }
+        mainHelper.GetNextGrade("610") { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if !success {
+                    alert("暂无数据", delegate: self)
+                    self.myTableView.mj_header.endRefreshing()
+                    self.rzbDataSource = nil
+                    self.myTableView.reloadData()
+                    hud.hide(true)
+                    return
+                    
+                }
+                hud.hide(true)
+                self.myTableView.mj_header.endRefreshing()
+                self.rzbDataSource = response as? Array<RzbInfo> ?? []
+                print(self.rzbDataSource!.count)
+                
+                
+                self.myTableView.reloadData()
+            })
+        }
+        
     }
     
     
@@ -353,8 +397,14 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     
     func headerRefresh(){
-        self.GetData1(sort,types: self.types)
-        self.headerView.label3.text = "全部"
+        
+        if isNextGrade{
+            self.getNextGradeData()
+        }else{
+            self.GetData1(sort,types: self.types)
+            self.headerView.label3.text = "全部"
+        }
+        
     }
     
     
