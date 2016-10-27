@@ -603,7 +603,6 @@
         ];
         
         
-        
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)
             if(error != nil){

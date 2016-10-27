@@ -86,7 +86,11 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         hud.animationType = .Zoom
         hud.labelText = "正在努力加载"
         let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid")as! String
+         var userid = String()
+        if ud.objectForKey("userid") != nil{
+            userid = ud.objectForKey("userid")as! String
+        }
+        
         mainHelper.GetTaskList (userid,state: state,handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
@@ -122,7 +126,11 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         hud.animationType = .Zoom
         hud.labelText = "正在努力加载"
         let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid")as! String
+        var userid = String()
+        if ud.objectForKey("userid") != nil{
+            userid = ud.objectForKey("userid")as! String
+        }
+//        let userid = ud.objectForKey("userid")as! String
         mainHelper.GetTaskList (userid,state: state,handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
@@ -462,7 +470,11 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
         let okAction = UIAlertAction(title: "确定", style: .Default,
                                      handler: { action in
                                         let ud = NSUserDefaults.standardUserDefaults()
-                                        let userid = ud.objectForKey("userid")as! String
+                                        var userid = String()
+                                        if ud.objectForKey("userid") != nil{
+                                            userid = ud.objectForKey("userid")as! String
+                                        }
+//                                        let userid = ud.objectForKey("userid")as! String
             self.mainHelper.gaiBianRenWu(userid,ordernum: self.dataSource![btn.tag].order_num!, state: "5", handle: { (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                 if !success{

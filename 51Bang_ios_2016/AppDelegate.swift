@@ -447,7 +447,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 //            print(JPUSHService.registrationID())
             
             if (ud.objectForKey("userid") != nil) {
-                let userids = ud.objectForKey("userid") as! String
+                var userids = String()
+                if ud.objectForKey("userid") != nil{
+                    userids = ud.objectForKey("userid")as! String
+                }
+//                let userids = ud.objectForKey("userid") as! String
                 mainhelper.checkIslogin(userids, handle: { (success, response) in
                     dispatch_async(dispatch_get_main_queue(), {
                     if !success{

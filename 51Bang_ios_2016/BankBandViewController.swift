@@ -230,7 +230,11 @@ class BankBandViewController: UIViewController {
     func action()
     {
         let userData = NSUserDefaults.standardUserDefaults()
-        let phoneNum = userData.objectForKey("phone") as! String
+        var phoneNum = String()
+        if userData.objectForKey("phone") != nil{
+            phoneNum = userData.objectForKey("phone") as! String
+        }
+//        let phoneNum = userData.objectForKey("phone") as! String
         let vc = CommitOrderViewController()
         vc.cityName = self.cityName
         vc.longitude =   self.longitude
@@ -240,8 +244,11 @@ class BankBandViewController: UIViewController {
         let uploadFunction = BankUpLoad()
         if( ViewTag == 1)
         {
-            
-            uploadFunction.baoMessageRequest( userData.objectForKey("userid") as! String , name: nameTextField.text!, card:certifyField.text! , alipay: baoNumber.text!, phone: phoneNum, code: phoneVerify.text!, Targert: self, pushVc: vc)
+            var userid = String()
+            if userData.objectForKey("userid") != nil {
+                userid = userData.objectForKey("userid")as! String
+            }
+            uploadFunction.baoMessageRequest( userid , name: nameTextField.text!, card:certifyField.text! , alipay: baoNumber.text!, phone: phoneNum, code: phoneVerify.text!, Targert: self, pushVc: vc)
             
         }else{
             uploadFunction.bankMessageUpload( nameTextField.text! , idCard: certifyField.text! , bankName: BankSelectVc.banName , bankNum: baoNumber.text!, Phone: phoneNum, Code: phoneVerify.text! , Target: self,pushVc: vc )

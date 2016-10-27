@@ -301,48 +301,56 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         //        let bufferSize = representation.getBytes(imageBuffer, fromOffset: Int64(0),
         //                                                 length: Int(representation.size()), error: nil)
         //        let dataPhoto:NSData =  NSData(bytesNoCopy:imageBuffer ,length:bufferSize, freeWhenDone:true)
-        let image = self.photoArray[0]
-        let dataPhoto:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
-        var myImagess = UIImage()
-        myImagess = UIImage.init(data: dataPhoto)!
         
-        let data = UIImageJPEGRepresentation(myImagess, 0.1)!
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyyMMddHHmmss"
-        let dateStr = dateFormatter.stringFromDate(NSDate())
-        let imageName = "avatar" + dateStr
-        //        print(imageName)
-//        let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
-        
-        //上传图片
-        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg")  { [unowned self] (data) in
-            dispatch_async(dispatch_get_main_queue(), {
-                
-                let result = Http(JSONDecoder(data))
-                print(result.status)
-                if result.status != nil {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        if result.status! == "success"{
-                            self.photoNameArr.addObject(result.data!)
-//                            self.photoArrayOfPush.addObject(self.photoArray[0])
-//                            self.photoArray.removeObjectAtIndex(0)
-                            self.shangchuan()
-                            self.collectionV?.reloadData()
-//                            self.myPhotoCount = self.myPhotoCount + 1
-                            self.addCollectionViewPicture()
-                            
-                        }else{
-                            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-                            hud.mode = MBProgressHUDMode.Text;
-                            hud.labelText = "图片上传失败"
-                            hud.margin = 10.0
-                            hud.removeFromSuperViewOnHide = true
-                            hud.hide(true, afterDelay: 1)
-                        }
-                    })
-                }
-            })
+        for image in self.photoArray {
+            let dataPhoto:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
+            var myImagess = UIImage()
+            myImagess = UIImage.init(data: dataPhoto)!
+            
+            let data = UIImageJPEGRepresentation(myImagess, 0.1)!
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            let dateStr = dateFormatter.stringFromDate(NSDate())
+            let imageName = "avatar" + dateStr + String(arc4random()%1000)
+            //        print(imageName)
+            //        let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
+            
+            //上传图片
+            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg")  { [unowned self] (data) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    let result = Http(JSONDecoder(data))
+                    print(result.status)
+                    if result.status != nil {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            if result.status! == "success"{
+                                self.photoNameArr.addObject(result.data!)
+                                //                            self.photoArrayOfPush.addObject(self.photoArray[0])
+                                //                            self.photoArray.removeObjectAtIndex(0)
+                                if self.photoNameArr.count == 3{
+                                    self.shangchuan()
+                                }
+                                
+                                
+                                self.collectionV?.reloadData()
+                                //                            self.myPhotoCount = self.myPhotoCount + 1
+                                self.addCollectionViewPicture()
+                                
+                            }else{
+                                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                                hud.mode = MBProgressHUDMode.Text;
+                                hud.labelText = "图片上传失败"
+                                hud.margin = 10.0
+                                hud.removeFromSuperViewOnHide = true
+                                hud.hide(true, afterDelay: 1)
+                            }
+                        })
+                    }
+                })
+            }
+
         }
+//        let image = self.photoArray[0]
         
     }
     
@@ -570,10 +578,16 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
                     self.InsureBtn.backgroundColor = COLOR
                     self.scrollView.contentSize = CGSizeMake(WIDTH, self.iView.frame.size.height + self.statuFrame.height + 270+50+100)
                     self.scrollView.hidden = false
+                    self.aboutTextView.hidden = false
                 }else if result.data == "-1"{
                     self.InsureBtn.hidden = true
                     self.TopView.backgroundColor = COLOR
                     self.Statue.text = "认证中"
+                    self.Tip1.hidden = true
+                    self.iView.hidden = true
+                    self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90+100)
+                    self.InsureBtn.hidden = true
+                    self.aboutTextView.hidden = true
                 }else{
                     self.Statue.text = "已投保"
                     self.TopView.backgroundColor = COLOR
@@ -581,11 +595,19 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
                     self.iView.hidden = true
                     self.scrollView.contentSize = CGSizeMake(WIDTH,HEIGHT -  self.statuFrame.height + 10 + 40 + 90+100)
                     self.InsureBtn.hidden = true
+                    self.aboutTextView.hidden = true
                 }
               
             }else{
                 
-                print("未进行认证")
+                self.Statue.text = "未认证或认证失败"
+                self.Statue.adjustsFontSizeToFitWidth = true
+                self.TopView.backgroundColor = UIColor.grayColor()
+                self.Tip1.hidden = false
+                self.InsureBtn.hidden = false
+                self.InsureBtn.backgroundColor = COLOR
+                self.scrollView.contentSize = CGSizeMake(WIDTH, self.iView.frame.size.height + self.statuFrame.height + 270+50+100)
+                self.scrollView.hidden = false
                 
             }
             
@@ -723,7 +745,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
     
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
-        
+        self.photoNameArr.removeAllObjects()
         self.photoArray.removeAllObjects()
         for imagess in photos {
             photoArray.addObject(imagess)

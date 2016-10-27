@@ -240,7 +240,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     
     @IBAction func completeButtonAction(sender: AnyObject) {
         
-        
+        print(InvitationNum.text)
         
         if avatarImageName.isEmpty {
             SVProgressHUD.showErrorWithStatus("请选择头像！")
@@ -302,6 +302,8 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         
         if InvitationNum.text == nil {
             referral = ""
+        }else{
+            referral = InvitationNum.text! as String
         }
         
         logVM?.register(phoneNumber.text!, password: passwordNumber.text!, code: identifyNumber.text!, avatar: avatarImageName, name: "",sex: String(sex), cardid: "", addr:"",referral:referral, handle: { [unowned self] (success, response) in
