@@ -188,7 +188,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     func getAllData(){
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as! String
-        mainHelper.getMyOrder(uid, state: "",type:self.isNotSigle) { (success, response) in
+        mainHelper.getMyOrder(uid, state: "0,1,2,3,4,5,6,7,8,9,10",type:self.isNotSigle) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             print(response)
             if !success{

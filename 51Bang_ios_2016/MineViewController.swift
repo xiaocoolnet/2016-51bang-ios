@@ -71,7 +71,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.login.userInteractionEnabled = true
             }
         }
-        self.login.userInteractionEnabled = true
+//        self.login.userInteractionEnabled = true
         isShow = false
         
         if self.badgeView1.hidden && self.badgeView2.hidden && self.badgeView3.hidden && self.badgeView4.hidden && self.badgeView5.hidden{

@@ -36,7 +36,11 @@ class WallectDetailViewController: UIViewController,UITableViewDelegate,UITableV
         hud.mode = .Text
         hud.labelText = "正在努力加载"
         let ud = NSUserDefaults.standardUserDefaults()
-        let uid = ud.objectForKey("userid")as!String
+        var uid = String()
+        if ud.objectForKey("userid") != nil{
+            uid = ud.objectForKey("userid")as!String
+        }
+        
         mainHelper.getShouZhi(uid) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             self.dataSource = response as? Array<walletDetailInfo> ?? []

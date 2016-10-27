@@ -95,7 +95,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         if ud.objectForKey(useridstr) != nil {
             useridstr = ud.objectForKey("userid") as! String
         }
-        mainHelper.GetNextGrade("610") { (success, response) in
+        mainHelper.GetNextGrade(useridstr) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     alert("暂无数据", delegate: self)
@@ -109,6 +109,9 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 hud.hide(true)
                 self.myTableView.mj_header.endRefreshing()
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
+                if self.rzbDataSource?.count == 0{
+                     alert("暂无数据", delegate: self)
+                }
                 print(self.rzbDataSource!.count)
                 
                 

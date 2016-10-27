@@ -188,7 +188,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         identifyNumber.keyboardType = UIKeyboardType.PhonePad
         InvitationNum.layer.borderWidth = 2
         InvitationNum.layer.borderColor = UIColor.whiteColor().CGColor
-        InvitationNum.keyboardType = UIKeyboardType.PhonePad
+        InvitationNum.keyboardType = UIKeyboardType.Default
         
         passwordNumber.layer.borderWidth = 2
         passwordNumber.layer.borderColor = UIColor.whiteColor().CGColor
