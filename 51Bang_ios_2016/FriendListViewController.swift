@@ -92,7 +92,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.labelText = "正在努力加载"
-        if ud.objectForKey(useridstr) != nil {
+        if ud.objectForKey("userid") != nil {
             useridstr = ud.objectForKey("userid") as! String
         }
         mainHelper.GetNextGrade(useridstr) { (success, response) in

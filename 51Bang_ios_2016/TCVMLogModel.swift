@@ -81,13 +81,33 @@ class TCVMLogModel: NSObject {
         let paramDic = ["phone":phone,"password":password,
                         "code":code,"name":name,"devicestate":"1","sex":sex,"referral":referral
                        ]
-        requestManager?.GET(url, parameters: paramDic, success: { (task, response) in
+        
+        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
+            print(request)
             let result = Http(JSONDecoder(response!))
-            let responseStr = result.status == "success" ? nil : result.errorData
-            handle(success: result.status == "success",response: responseStr)
-            }, failure: { (task, error) in
-                handle(success: false,response: "网络错误")
-        })
+            print(result)
+            print(result.data)
+            print(result.status)
+            if result.status == "success"{
+//                print(result.datas)
+                handle(success: true, response: result.data)
+            }else{
+                handle(success: true, response: result.errorData)
+                print(result.data)
+            }
+            
+            
+        }
+
+        
+//        requestManager?.GET(url, parameters: paramDic, success: { (task, response) in
+//            
+//            let result = Http(JSONDecoder(response!))
+//            let responseStr = result.status == "success" ? nil : result.errorData
+//            handle(success: result.status == "success",response: responseStr)
+//            }, failure: { (task, error) in
+//                handle(success: false,response: "网络错误")
+//        })
     }
     //忘记密码
     func forgetPassword(phone:String,code:String,password:String,handle:ResponseBlock){
