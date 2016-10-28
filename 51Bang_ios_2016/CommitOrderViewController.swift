@@ -403,7 +403,11 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         hud1.animationType = .Zoom
         hud1.labelText = "正在努力加载"
         
-        
+        if Double(self.price) == nil{
+            alert("请填写正确格式的价格", delegate: self)
+            self.hud1.hide(true)
+            return
+        }
         if self.photoArray.count == 0 &&  mp3FilePath.absoluteString == ""{
             self.fabuAction()
             return
@@ -418,7 +422,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         a = 0
         
         if mp3FilePath.absoluteString != "" {
-            print(mp3FilePath.absoluteString)
+//            print(mp3FilePath.absoluteString)
             
             let data = NSData.init(contentsOfFile: self.mp3FilePath.path!)
 //            let fileURL = NSBundle.mainBundle().URLForResource("myselfRecord", withExtension: "mp3")
@@ -428,7 +432,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
             let dateStr = dateFormatter.stringFromDate(NSDate())
             let imageName = "record" + dateStr + userid
-            print(imageName)
+//            print(imageName)
             
 //            mainHelper.postMp3(data!, handle: { (success, response) in
 //                if success{
@@ -466,7 +470,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                                 if a == self.photoArray.count||self.photoArray.count == 0{
                                     self.fabuAction()
                                 }
-                                print("000000000000000000")
+//                                print("000000000000000000")
                                 
                             }else{
                                 let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -611,18 +615,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             return
 
         }
-        print(self.saddress)
-        print(self.slatitude)
-        print(self.slongitude)
-        print(self.address)
-        print(self.latitude)
-        print(self.longitude)
-        print(self.photoNameArr)
-        print(self.sound)
-        print(self.taskTitle)
-        print(self.taskDescription)
-        print(self.type)
-        print(self.expirydate)
+        
         
         
         
@@ -630,13 +623,14 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         mainHelper.upLoadOrder(userid, title: self.taskTitle, description: self.taskDescription, address:address , longitude: longitude, latitude: latitude, saddress:saddress,slongitude: slongitude, slatitude: slatitude, expirydate: expirydate, price: price, type: type, sound: self.sound, picurl: self.photoNameArr,soundtime:String(self.countTime), handle: { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             if !success{
+                self.hud1.hide(true)
                 alert("任务提交失败", delegate: self)
                 return
             }
             print(response!)
             let userDefault = NSUserDefaults.standardUserDefaults()
             userDefault.setObject(response!, forKey: "ordernumber")
-            print("上传合同")
+//            print("上传合同")
             self.hud1.hide(true)
             
             let vc = PayViewController()

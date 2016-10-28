@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
         let options = BugtagsOptions()
         options.trackingUserSteps = true
         options.trackingNetwork = true
-        Bugtags.startWithAppKey("61aa08ab63a722f5788c5bd02f878780", invocationEvent: BTGInvocationEventShake)
+        Bugtags.startWithAppKey("61aa08ab63a722f5788c5bd02f878780", invocationEvent: BTGInvocationEventNone)
         
         // Override point for customization after application launch.
        //WXApi.registerApp("wxe61df5d7fee96861")
