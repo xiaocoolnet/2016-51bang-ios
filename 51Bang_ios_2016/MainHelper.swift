@@ -1386,12 +1386,22 @@
     }
 
     //提交保险认证
-    func UpdateUserInsurance(userid:NSString,photo:NSString,expirydate:NSString,handle:ResponseBlock){
+    func UpdateUserInsurance(userid:NSString,photoArray:NSArray,expirydate:NSString,handle:ResponseBlock){
         let url = Bang_URL_Header+"UpdateUserInsurance"
+        let photoUrl = NSMutableString()
+        for i in 0..<photoArray.count {
+            if i == photoArray.count-1{
+                photoUrl.appendString(photoArray[i] as! String)
+            }else{
+                photoUrl.appendString(photoArray[i] as! String)
+                photoUrl.appendString(",")
+            }
+            
+        }
             let param = [
             "userid":userid,
             "expirydate":expirydate,
-            "photo":photo
+            "photo":photoUrl
         ];
         
         

@@ -60,6 +60,9 @@ class RenZhengBangTableViewCell: UITableViewCell {
         
         
         self.name.text = info.name
+        if info.name == "" {
+            self.name.text = info.phone
+        }
         //        self.desc.text = info.
         self.address.text = info.address
         if info.photo == ""{

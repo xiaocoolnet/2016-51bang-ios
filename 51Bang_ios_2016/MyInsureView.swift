@@ -360,7 +360,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         let userid = user.objectForKey("userid") as! String
         
         print(expirydate)
-        mainHelper.UpdateUserInsurance(userid, photo: self.photoNameArr[0] as! NSString, expirydate: expirydate) { (success, response) in
+        mainHelper.UpdateUserInsurance(userid, photoArray: self.photoNameArr, expirydate: expirydate) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             if !success{
                 alert("上传失败", delegate: self)
