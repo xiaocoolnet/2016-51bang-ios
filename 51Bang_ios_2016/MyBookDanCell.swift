@@ -79,10 +79,19 @@ class MyBookDanCell: UITableViewCell {
 //        }else{
         Statue.textColor = COLOR
         if Data.state == "4" {
-            Statue.text = "待评价"
-            Btn.setTitle("未评价", forState: UIControlState.Normal)
-            Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
-            Btn1.hidden = true
+            
+            if Data.commentlist.count>0{
+                Statue.text = "已评价"
+                Btn.setTitle("已评价", forState: UIControlState.Normal)
+                Btn.userInteractionEnabled = false
+                Btn1.hidden = true
+            }else{
+                Statue.text = "待评价"
+                Btn.setTitle("未评价", forState: UIControlState.Normal)
+                Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
+                Btn.userInteractionEnabled = true
+                Btn1.hidden = true
+            }
         }else if Data.state == "1"{
             Statue.text = "待付款"
             Btn.setTitle("待付款", forState: UIControlState.Normal)

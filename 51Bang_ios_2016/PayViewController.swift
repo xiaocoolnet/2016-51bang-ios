@@ -476,9 +476,9 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 }
                 hud.hide(true)
 //                self.tabBarController?.selectedIndex = 3
-                let vc = MyFaDan()
-                vc.sign = 1
-                self.navigationController?.pushViewController(vc, animated: true)
+//                let vc = MyFaDan()
+//                vc.sign = 1
+//                self.navigationController?.pushViewController(vc, animated: true)
             })
         }else{
             self.mainhelper.upALPState("1_"+numForGoodS, state: "2", type: "2", handle: { (success, response) in
@@ -487,8 +487,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 }
                 hud.hide(true)
 //                self.tabBarController?.selectedIndex = 3
-                let vc = MyBookDan()
-                self.navigationController?.pushViewController(vc, animated: true)
+//                let vc = MyBookDan()
+//                self.navigationController?.pushViewController(vc, animated: true)
             })
         }
 //        let vc = OrderDetailViewController()
