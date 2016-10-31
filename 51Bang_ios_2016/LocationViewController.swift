@@ -274,8 +274,8 @@ class LocationViewController: UIViewController,BMKMapViewDelegate,BMKGeoCodeSear
         
         if(tableView.tag == 0)
         {
-            
-            currentSelectRow = indexPath
+            let index = NSIndexPath.init(forRow: 0, inSection: 0)
+            currentSelectRow = index
             let loc = CLLocation.init(latitude: interstArray[indexPath.row].pt.latitude, longitude: interstArray[indexPath.row].pt.longitude)
             tableView.reloadData()
             createPointAnmation(loc, Title: "")

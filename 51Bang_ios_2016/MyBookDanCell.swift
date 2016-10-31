@@ -80,18 +80,13 @@ class MyBookDanCell: UITableViewCell {
         Statue.textColor = COLOR
         if Data.state == "4" {
             
-            if Data.commentlist.count>0{
-                Statue.text = "已评价"
-                Btn.setTitle("已评价", forState: UIControlState.Normal)
-                Btn.userInteractionEnabled = false
-                Btn1.hidden = true
-            }else{
+            
                 Statue.text = "待评价"
                 Btn.setTitle("未评价", forState: UIControlState.Normal)
                 Btn.addTarget(self, action: #selector(self.Comment), forControlEvents: UIControlEvents.TouchUpInside)
                 Btn.userInteractionEnabled = true
                 Btn1.hidden = true
-            }
+            
         }else if Data.state == "1"{
             Statue.text = "待付款"
             Btn.setTitle("待付款", forState: UIControlState.Normal)
@@ -121,10 +116,15 @@ class MyBookDanCell: UITableViewCell {
             Btn1.setTitle("取消订单", forState: UIControlState.Normal)
             Btn.setTitle("已支付", forState: UIControlState.Normal)
             Btn1.hidden = true
-        }
+        }else if Data.state == "5"{
+                Statue.text = "已评价"
+                Btn.setTitle("已评价", forState: UIControlState.Normal)
+                Btn.userInteractionEnabled = false
+                Btn1.hidden = true
+            
 
         
-//        }
+        }
         if self.isSigle {
             Btn.enabled = false
         }

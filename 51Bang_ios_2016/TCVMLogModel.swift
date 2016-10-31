@@ -78,7 +78,7 @@ class TCVMLogModel: NSObject {
                   code:String,avatar:String,name:String,
                   sex:String,cardid:String,addr:String,referral:String, handle:ResponseBlock){
         let url = Bang_URL_Header+"AppRegister"
-        let paramDic = ["phone":phone,"password":password,
+        let paramDic = ["phone":phone,"password":password,"avatar":avatar,
                         "code":code,"name":name,"devicestate":"1","sex":sex,"referral":referral
                        ]
         

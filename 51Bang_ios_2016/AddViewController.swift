@@ -389,9 +389,11 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     if result.status != nil {
                         dispatch_async(dispatch_get_main_queue(), {
                             if result.status! == "success"{
+                                
                                 self.photoNameArr.addObject(result.data!)
-                                print(a)
-                                print(self.photoArray.count)
+                                if self.photoNameArr.count > 9{
+                                    self.photoNameArr.removeLastObject()
+                                }
                                 
                                 if a == self.photoArray.count-1 && isRecord == true{
                                     self.fabuAction()
