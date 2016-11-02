@@ -1017,7 +1017,7 @@
             "type":type,
             //            "photo":photoUrl
             "photo":photo,
-            "usertype":usertype,
+            "receivetype":usertype,
             "score":score
             
         ];

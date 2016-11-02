@@ -71,7 +71,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.login.userInteractionEnabled = true
             }
         }
-        self.login.userInteractionEnabled = true
+//        self.login.userInteractionEnabled = true
         isShow = false
         
         if self.badgeView1.hidden && self.badgeView2.hidden && self.badgeView3.hidden && self.badgeView4.hidden && self.badgeView5.hidden{
@@ -1254,8 +1254,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         JPUSHService.setTags(nil, aliasInbackground: userInfo.id!)
 
                     }
+                    if userInfo.myreferral != nil{
+                        ud.setObject(userInfo.myreferral, forKey: "myreferral")
+                    }else{
+                        ud.setObject("暂无", forKey: "myreferral")
+                    }
                     
-                    ud.setObject(userInfo.myreferral, forKey: "myreferral")
                     ud.setObject(userInfo.xgtoken, forKey: "token")
                     ud.setObject(userInfo.name, forKey: "name")
                     ud.setObject(self.phoneNum, forKey: "phone")

@@ -395,7 +395,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="01" width="2560" height="1600"/>
+        <image name="01" width="160" height="125"/>
         <image name="ic_fuwudidian" width="10" height="16"/>
         <image name="ic_gongzi" width="14" height="14"/>
         <image name="ic_shangmendidian" width="14" height="17"/>

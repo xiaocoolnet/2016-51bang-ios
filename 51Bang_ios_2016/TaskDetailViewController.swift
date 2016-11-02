@@ -296,7 +296,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
             let cell = tableView.dequeueReusableCellWithIdentifier("cell2") as! TaskDetailTableViewCell2
             cell.title.text = "有效期"
             cell.selectionStyle = .None
-            let time = timeStampToString(self.taskInfo.time!)
+            let time = timeStampToString(self.taskInfo.expirydate!)
             cell.desc.text = time
             tableView.separatorStyle = .None
             return cell
