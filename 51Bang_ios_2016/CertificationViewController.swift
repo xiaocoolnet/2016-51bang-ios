@@ -654,7 +654,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         certifyField.frame = CGRectMake(15, nameTextField.frame.origin.y + 35 + 15, WIDTH - 30, 35)
         certifyField.layer.masksToBounds = true
         certifyField.layer.cornerRadius = 10
-        certifyField.keyboardType = .NumberPad
+//        certifyField.keyboardType = .NumberPad
         certifyField.layer.borderColor = UIColor(red: 221 / 255.0, green: 221 / 255.0, blue: 221 / 255.0, alpha: 1.0).CGColor
         certifyField.layer.borderWidth = 1
         sethoder(certifyField, size: 13, str: "   请输入身份证号码")
