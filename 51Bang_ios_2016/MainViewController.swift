@@ -92,7 +92,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         self.tabBarController?.tabBar.hidden = false
         self.navigationController?.navigationBar.hidden = false
          geocodeSearch.delegate = self
-        locationService.delegate = self
+//        locationService.delegate = self
         mapView.viewWillAppear()
         mapView.delegate = self
         CommitOrderViewController.ReturnTagForView = 0

@@ -223,6 +223,8 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 if isDingdan {
                     if info.username != nil {
                         cell.name.text = info.username! as String
+                    }else{
+                        cell.name.text = info.mobile! as String
                     }
                     
                 }else{
@@ -239,6 +241,8 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 if isDingdan {
                     if info.mobile != nil {
                         cell.name.text = info.mobile! as String
+                    }else{
+                        cell.name.text = ""
                     }
                     
                 }else{
