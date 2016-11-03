@@ -258,7 +258,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             
             
             else
-                if userInfo["key"] as! String == "prohibitVisit" {
+                if userInfo["key"] as! String == "prohibitVisit" || userInfo["key"] as! String == "deleteUser" {
                     if userInfo["aps"] != nil {
                         let strr = userInfo["aps"] as! NSDictionary
                         if strr["alert"] != nil {
@@ -484,7 +484,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                         self.window?.rootViewController?.tabBarController?.selectedIndex = 3
                         NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
 //                        UIApplication.sharedApplication().registerForRemoteNotifications()
-                        //                    self.tabBarController?.selectedIndex = 3
+                                            self.window?.rootViewController!.tabBarController?.selectedIndex = 3
+                        if self.window?.rootViewController?.tabBarController?.selectedIndex == 3{
+                            self.window?.rootViewController?.tabBarController?.selectedIndex = 0
+                        }
                     }
                     else{
                         let ud = NSUserDefaults.standardUserDefaults()
@@ -520,6 +523,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                                 loginSign = 0
                                 NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
                                 self.window?.rootViewController?.tabBarController?.selectedIndex = 3
+                                if self.window?.rootViewController?.tabBarController?.selectedIndex == 3{
+                                    self.window?.rootViewController?.tabBarController?.selectedIndex = 0
+                                }
                             }
                         }
                         
