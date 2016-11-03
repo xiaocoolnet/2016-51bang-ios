@@ -299,7 +299,13 @@ class ConveniceCell: UITableViewCell{
             imshow.frame = CGRectMake(0, 80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + 15, WIDTH, picHeight+80)
             
         }else{
-            imshow.frame = CGRectMake(0, 80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + 15 , WIDTH, picHeight)
+            var str = String()
+            if contenLabel.text != nil {
+                str = contenLabel.text!
+            }else{
+                str = ""
+            }
+            imshow.frame = CGRectMake(0, 80 + calculateHeight( str, size: 15, width: WIDTH - 20) + 15 , WIDTH, picHeight)
         }
         
 //        if self.info?.pic.count>0 {

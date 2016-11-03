@@ -45,16 +45,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.GetData()
 //        
         
-        leftTypeButton.backgroundColor = COLOR
-        leftTypeButton.frame = CGRectMake(0, 0, 100, 40)
-        leftTypeButton.setTitle("全部分类", forState:UIControlState.Normal)
-        leftTypeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-//        leftTypeButton.titleLabel?.textAlignment = .Left
-        leftTypeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        leftTypeButton.addTarget(self, action: #selector(self.goToMenu), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.fenLeiType.customView = leftTypeButton
-        let aaa = UIBarButtonItem.init(customView: leftTypeButton)
-        self.navigationItem.leftBarButtonItem = aaa
+        
         
 
         self.tabBarController?.tabBar.hidden = false
@@ -67,6 +58,16 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.title = "特卖"
         self.view.backgroundColor = UIColor.whiteColor()
         
+        leftTypeButton.backgroundColor = COLOR
+        leftTypeButton.frame = CGRectMake(0, 0, 100, 40)
+        leftTypeButton.setTitle("全部分类", forState:UIControlState.Normal)
+        leftTypeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        //        leftTypeButton.titleLabel?.textAlignment = .Left
+        leftTypeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        leftTypeButton.addTarget(self, action: #selector(self.goToMenu), forControlEvents: UIControlEvents.TouchUpInside)
+        //        self.fenLeiType.customView = leftTypeButton
+        let aaa = UIBarButtonItem.init(customView: leftTypeButton)
+        self.navigationItem.leftBarButtonItem = aaa
         
         self.createTableView()
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]

@@ -598,7 +598,15 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 return CGFloat(tableView.frame.height/CGFloat(FMArr.count))
             }else{
                 
-                let str = (dataSource2[indexPath.row-1] as! TCHDInfo).content
+                var str = (dataSource2[indexPath.row-1] as! TCHDInfo).content
+                if (dataSource2[indexPath.row-1] as! TCHDInfo).content != nil{
+                    str = (dataSource2[indexPath.row-1] as! TCHDInfo).content
+                }else{
+                    str = ""
+                }
+                
+                
+                
                 let piccount = (dataSource2[indexPath.row-1] as! TCHDInfo).pic.count
                 
                 let height = calculateHeight( str!, size: 15, width: WIDTH - 20 )

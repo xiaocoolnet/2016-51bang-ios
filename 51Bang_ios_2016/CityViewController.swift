@@ -94,7 +94,6 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         }else{
             
             self.dataHistoryCitys.addArray(object!);
-            
             object?.removeLast()
             
         }
