@@ -201,10 +201,13 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func changeButton(){
         login.userInteractionEnabled = true
-        self.tabBarController?.selectedIndex = 3
-        if self.tabBarController?.selectedIndex == 3{
-            self.tabBarController?.selectedIndex = 0
+        if loginSign == 0{
+            self.tabBarController?.selectedIndex = 3
+            if self.tabBarController?.selectedIndex == 3{
+                self.tabBarController?.selectedIndex = 0
+            }
         }
+        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
