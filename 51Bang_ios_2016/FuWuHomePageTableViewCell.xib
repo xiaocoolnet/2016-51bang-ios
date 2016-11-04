@@ -135,7 +135,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="01" width="2560" height="1600"/>
+        <image name="01" width="160" height="125"/>
         <image name="02" width="2560" height="1600"/>
         <image name="背景-服务中" width="105" height="30"/>
     </resources>
