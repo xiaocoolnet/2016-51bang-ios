@@ -5,7 +5,7 @@
 
 pod 'Alamofire', '3.4.1'
 pod 'AFNetworking', '3.1.0’
-pod 'SDWebImage', '3.7.6’
+pod 'SDWebImage'
 pod 'MJRefresh', '3.1.10’
 pod 'SVProgressHUD', '1.1.3’
 pod 'TPKeyboardAvoiding','1.3’

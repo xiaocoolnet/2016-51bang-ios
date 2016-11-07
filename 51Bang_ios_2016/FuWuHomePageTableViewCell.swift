@@ -49,7 +49,7 @@ class FuWuHomePageTableViewCell: UITableViewCell {
         city.scrollSpeed = 30 // pixels per second
         city.fadeLength = 12
         city.scrollDirection = AutoScrollDirection.Left
-        city.textColor = UIColor.blackColor()
+        city.textColor = UIColor.whiteColor()
         self.city.text = info.address
         self.serviceStatus.frame.size.width = WIDTH*75/375
         if info.photo == "" {

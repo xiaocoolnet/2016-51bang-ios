@@ -19,6 +19,7 @@ class ShopTableViewCell: UITableViewCell {
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var sales: UILabel!
     
+    @IBOutlet weak var goodnames: AutoScrollLabel!
     @IBOutlet weak var comment: UILabel!
     
     
@@ -28,35 +29,49 @@ class ShopTableViewCell: UITableViewCell {
         // Initialization code
     }
     func setValueWithModel(goodsInfo:GoodsInfo){
-        
+        title.hidden = true
         if goodsInfo.goodsname != nil {
-            self.title.text = goodsInfo.goodsname
+            self.goodnames.text = goodsInfo.goodsname
+        }else{
+            self.goodnames.text = ""
         }
         
         if goodsInfo.description != nil {
             self.context.text = goodsInfo.description
+        }else{
+            self.context.text = ""
         }
         
         self.comment.text = "评价\(goodsInfo.commentlist.count)条"
         
         if goodsInfo.oprice != nil {
             self.title.text = goodsInfo.goodsname
+        }else{
+            self.title.text = ""
         }
         
         if goodsInfo.goodsname != nil {
             self.oldPrice.text = goodsInfo.oprice!
+        }else{
+            self.oldPrice.text = ""
         }
         
         if goodsInfo.price != nil {
             self.price.text = "¥"+goodsInfo.price!
+        }else{
+            self.price.text = "¥"
         }
         
         if goodsInfo.sellnumber != nil {
             self.sales.text = "已售"+goodsInfo.sellnumber!
+        }else{
+            self.sales.text = "已售"
         }
         
         if goodsInfo.username != nil {
            self.username.text = goodsInfo.username!
+        }else{
+            self.username.text = ""
         }
         
         print(goodsInfo.goodsname)

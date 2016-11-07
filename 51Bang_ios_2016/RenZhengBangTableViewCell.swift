@@ -13,6 +13,7 @@ class RenZhengBangTableViewCell: UITableViewCell {
     
     @IBOutlet weak var topView: UIView!
     
+    @IBOutlet weak var names: AutoScrollLabel!
     
     @IBOutlet weak var rightView: UIView!
     
@@ -50,7 +51,7 @@ class RenZhengBangTableViewCell: UITableViewCell {
 
     func setValueWithInfo(info:RzbInfo){
         
-        
+        self.name.hidden = true
         
         if info.serviceCount != "" {
             FuwuNum.text = "服务"+info.serviceCount+"次"
@@ -59,9 +60,9 @@ class RenZhengBangTableViewCell: UITableViewCell {
         }
         
         
-        self.name.text = info.name
+        self.names.text = info.name
         if info.name == "" {
-            self.name.text = info.phone
+            self.names.text = info.phone
         }
         //        self.desc.text = info.
         self.address.text = info.address

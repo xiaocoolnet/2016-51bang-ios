@@ -27,7 +27,7 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
         self.view.backgroundColor = RGREY
         self.tabBarController?.tabBar.hidden = true
 //        self.navigationController?.title = "服务主页"
-        
+        self.title = "认证帮详情"
         if info != nil {
             self.dataSource4 = self.info!.commentlist
         }

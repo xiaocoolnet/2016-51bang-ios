@@ -33,7 +33,7 @@ DEPENDENCIES:
   - libWeChatSDK (= 1.7.1)
   - MBProgressHUD (= 0.9.2)
   - MJRefresh (= 3.1.10)
-  - SDWebImage (= 3.7.6)
+  - SDWebImage
   - SVProgressHUD (= 1.1.3)
   - TPKeyboardAvoiding (= 1.3)
   - ZLPhotoBrowser (= 1.0.7)
@@ -50,6 +50,6 @@ SPEC CHECKSUMS:
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
   ZLPhotoBrowser: f0c01ea435582fb33fca56feccac40bdcdeb799e
 
-PODFILE CHECKSUM: d9766e46bf254b7f576613d19e17e2a83b5aeb0c
+PODFILE CHECKSUM: f1c854a363dd7fb792fec12d1d65ab30b4464e94
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1

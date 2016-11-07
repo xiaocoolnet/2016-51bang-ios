@@ -44,15 +44,25 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F5E-tR-XRr" customClass="AutoScrollLabel" customModule="_1Bang_ios_2016" customModuleProvider="target">
+                                <rect key="frame" x="95" y="9" width="89" height="23"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="89" id="K9F-B0-EqQ"/>
+                                    <constraint firstAttribute="height" constant="23" id="aws-js-2PB"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sLX-KQ-DI3" firstAttribute="top" secondItem="qja-tj-fCs" secondAttribute="bottom" constant="5" id="8Kf-eS-PpX"/>
                             <constraint firstItem="qja-tj-fCs" firstAttribute="leading" secondItem="xqO-MK-VV0" secondAttribute="trailing" constant="7" id="8lf-gV-HKv"/>
                             <constraint firstItem="sLX-KQ-DI3" firstAttribute="top" secondItem="pkY-Ld-AlN" secondAttribute="top" constant="35" id="BBA-zU-qxA"/>
+                            <constraint firstItem="F5E-tR-XRr" firstAttribute="top" secondItem="pkY-Ld-AlN" secondAttribute="top" constant="9" id="DwV-I9-eJI"/>
                             <constraint firstItem="sLX-KQ-DI3" firstAttribute="leading" secondItem="pkY-Ld-AlN" secondAttribute="leading" constant="72" id="NxD-xy-z4S"/>
                             <constraint firstItem="xqO-MK-VV0" firstAttribute="leading" secondItem="pkY-Ld-AlN" secondAttribute="leading" constant="72" id="U4g-b4-Aht"/>
                             <constraint firstItem="xqO-MK-VV0" firstAttribute="top" secondItem="pkY-Ld-AlN" secondAttribute="top" constant="12" id="fHn-gb-Kik"/>
+                            <constraint firstItem="F5E-tR-XRr" firstAttribute="leading" secondItem="xqO-MK-VV0" secondAttribute="trailing" constant="8" id="oKA-iV-qTg"/>
                             <constraint firstItem="qja-tj-fCs" firstAttribute="top" secondItem="pkY-Ld-AlN" secondAttribute="top" constant="9" id="pTh-9V-duI"/>
                         </constraints>
                     </view>
@@ -72,10 +82,10 @@
                         <state key="normal" title="Button" image="ic_weizhi拷贝2"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.2km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kC4-KY-7CJ">
-                        <rect key="frame" x="242" y="22" width="157" height="17"/>
+                        <rect key="frame" x="278" y="22" width="121" height="17"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="8A6-N8-IwU"/>
-                            <constraint firstAttribute="width" constant="157" id="glX-SY-2vF"/>
+                            <constraint firstAttribute="width" constant="121" id="glX-SY-2vF"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -211,6 +221,7 @@
                 <outlet property="leftView" destination="5RJ-My-8w5" id="Cgx-N4-32g"/>
                 <outlet property="message" destination="pq2-k0-BWe" id="z9V-bD-1Tb"/>
                 <outlet property="name" destination="qja-tj-fCs" id="dC3-u9-dWF"/>
+                <outlet property="names" destination="F5E-tR-XRr" id="l0d-h1-FDT"/>
                 <outlet property="otherView" destination="pkY-Ld-AlN" id="pMY-G9-grF"/>
                 <outlet property="pingjia" destination="JdB-JV-whe" id="i4Q-dV-JQa"/>
                 <outlet property="rightView" destination="aIh-cC-YV1" id="RDH-WY-RPc"/>
@@ -221,7 +232,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="01" width="2560" height="1600"/>
+        <image name="01" width="160" height="125"/>
         <image name="daV" width="15" height="15"/>
         <image name="ic_weizhi拷贝2" width="22" height="20"/>
         <image name="ic_xiaoxi-xiao" width="20" height="19"/>

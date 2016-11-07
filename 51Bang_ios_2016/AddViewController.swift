@@ -1180,7 +1180,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
-        self.photoArray.removeAllObjects()
+//        self.photoArray.removeAllObjects()
         for imagess in photos {
             photoArray.addObject(imagess)
         }
