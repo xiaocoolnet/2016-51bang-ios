@@ -59,7 +59,12 @@ class ConveniceCell: UITableViewCell{
             .heightIs(25)
             .topEqualToView(userImage)
             .leftSpaceToView(userImage,5)
-        userName.text = myinfo.name
+        if myinfo.name == nil || myinfo.name == "" {
+            userName.text = myinfo.username
+        }else{
+            userName.text = myinfo.name
+        }
+        
         userName.textColor = COLOR
         
         timeLabel.sd_layout()

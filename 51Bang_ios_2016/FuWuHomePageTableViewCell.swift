@@ -13,6 +13,7 @@ class FuWuHomePageTableViewCell: UITableViewCell {
     @IBOutlet weak var serviceStatus: UIButton!
     @IBOutlet weak var paimingNum: UILabel!
     
+    @IBOutlet weak var rankingLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
     
     @IBOutlet weak var fuwuNum: UILabel!
@@ -28,7 +29,7 @@ class FuWuHomePageTableViewCell: UITableViewCell {
     func setValueWithInfo(info:RzbInfo){
         
         if info.Ranking != "" {
-            paimingNum.text = info.Ranking
+            rankingLabel.text = info.Ranking
         }
         
         if info.isworking == "0" {
@@ -48,7 +49,7 @@ class FuWuHomePageTableViewCell: UITableViewCell {
         city.scrollSpeed = 30 // pixels per second
         city.fadeLength = 12
         city.scrollDirection = AutoScrollDirection.Left
-        city.textColor = UIColor.whiteColor()
+        city.textColor = UIColor.blackColor()
         self.city.text = info.address
         self.serviceStatus.frame.size.width = WIDTH*75/375
         if info.photo == "" {

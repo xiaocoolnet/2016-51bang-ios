@@ -23,10 +23,10 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6k-oS-Bjp">
-                        <rect key="frame" x="98" y="3" width="183" height="20"/>
+                        <rect key="frame" x="98" y="3" width="167" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="ACn-fU-RRC"/>
-                            <constraint firstAttribute="width" constant="183" id="gCr-rP-rqg"/>
+                            <constraint firstAttribute="width" constant="167" id="gCr-rP-rqg"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -153,6 +153,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="01" width="2560" height="1600"/>
+        <image name="01" width="160" height="125"/>
     </resources>
 </document>

@@ -37,17 +37,9 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let rightArr6 = ["全部","足疗按摩","运动健身","KTV","其他养生保健","游乐园","其他游乐活动"]
     var rightKind:Array<[String]>?
 //    var array = ["餐饮美食","休闲/娱乐/酒店","服饰/箱包","运动户外/休闲/健身","日用百货","培训机构/教育器材","汽车用品/买卖","二手买卖","家纺家饰/家装建材","美装日化/美容美发","代购进口产品","黄金珠宝","数码家电/安全防护/电工电气","印刷广告/包装市场/行政采购","照明/电子/五金工具/机械/仪器仪表","橡塑/精细/钢材","纺织、皮革市场","医药保健","货运/物流","食品/海鲜/果蔬/农产品/茶叶","婚纱摄影/个人写真","其他"]
-    override func viewWillAppear(animated: Bool) {
-        
-        
-        
-        
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
         self.GetData()
-//        
-        
-        
-        
-
         self.tabBarController?.tabBar.hidden = false
         self.navigationController?.navigationBar.hidden = false
         
