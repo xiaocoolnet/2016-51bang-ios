@@ -59,7 +59,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         self.tableview.delegate = self
         self.tableview.dataSource = self
         searchCityArray = NSArray()
-        dataHistoryCitys = SpecifyArray(max: 1);
+        dataHistoryCitys = SpecifyArray(max: 2);
         if isNotDingwei {
             tableview.sectionHeaderHeight = 0
         }

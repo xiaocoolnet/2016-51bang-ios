@@ -70,7 +70,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func GetData(){
-        
+
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.mode = .Text

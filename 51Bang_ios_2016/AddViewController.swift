@@ -336,7 +336,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let dateStr = dateFormatter.stringFromDate(NSDate())
             let imageName = "avatar" + dateStr + "record" + String(arc4random() % 10000) + userid
             print(imageName)
-            ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord", finish: { [unowned self] (data) in
+            ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord",url:self.mp3FilePath, finish: { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let result = Http(JSONDecoder(data))
@@ -1330,31 +1330,42 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func lookPhotos(sender:UIButton)  {
         
-        let lookPhotosImageView = UIImageView()
-        lookPhotosImageView.backgroundColor = UIColor.whiteColor()
-        lookPhotosImageView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
-        
-        let image = self.photoArray[sender.tag]
-        let data:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
-        
-        //        let representation =  self.photoArray[sender.tag].asset.defaultRepresentation()
-        //        let imageBuffer = UnsafeMutablePointer<UInt8>.alloc(Int(representation.size()))
-        //        let bufferSize = representation.getBytes(imageBuffer, fromOffset: Int64(0),
-        //                                                 length: Int(representation.size()), error: nil)
-        //        let data:NSData =  NSData(bytesNoCopy:imageBuffer ,length:bufferSize, freeWhenDone:true)
-        
-        var myImagess = UIImage()
-        myImagess = UIImage.init(data: data)!
-        lookPhotosImageView.image = myImagess
-        
-        lookPhotosImageView.contentMode = .ScaleAspectFit
-        //        let singleTap1 = UITapGestureRecognizer()
-        //        singleTap1.addTarget(self, action: #selector(self.backMyView))
-        //        lookPhotosImageView.addGestureRecognizer(singleTap1)
-        let myVC = UIViewController()
+        let myVC = LookPhotoVC()
+        myVC.hidesBottomBarWhenPushed = true
+       
+        myVC.myPhotoArray =  self.photoArray
         myVC.title = "查看图片"
-        myVC.view.addSubview(lookPhotosImageView)
+        myVC.count = sender.tag
+        print(sender.tag)
+        
         self.navigationController?.pushViewController(myVC, animated: true)
+         myVC.hidesBottomBarWhenPushed = false
+        
+//        let lookPhotosImageView = UIImageView()
+//        lookPhotosImageView.backgroundColor = UIColor.whiteColor()
+//        lookPhotosImageView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
+//        
+//        let image = self.photoArray[sender.tag]
+//        let data:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
+//        
+//        //        let representation =  self.photoArray[sender.tag].asset.defaultRepresentation()
+//        //        let imageBuffer = UnsafeMutablePointer<UInt8>.alloc(Int(representation.size()))
+//        //        let bufferSize = representation.getBytes(imageBuffer, fromOffset: Int64(0),
+//        //                                                 length: Int(representation.size()), error: nil)
+//        //        let data:NSData =  NSData(bytesNoCopy:imageBuffer ,length:bufferSize, freeWhenDone:true)
+//        
+//        var myImagess = UIImage()
+//        myImagess = UIImage.init(data: data)!
+//        lookPhotosImageView.image = myImagess
+//        
+//        lookPhotosImageView.contentMode = .ScaleAspectFit
+//        //        let singleTap1 = UITapGestureRecognizer()
+//        //        singleTap1.addTarget(self, action: #selector(self.backMyView))
+//        //        lookPhotosImageView.addGestureRecognizer(singleTap1)
+//        let myVC = UIViewController()
+//        myVC.title = "查看图片"
+//        myVC.view.addSubview(lookPhotosImageView)
+//        self.navigationController?.pushViewController(myVC, animated: true)
         
     }
     

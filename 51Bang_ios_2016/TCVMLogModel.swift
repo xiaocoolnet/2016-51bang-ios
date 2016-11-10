@@ -11,7 +11,7 @@ import AFNetworking
 import Alamofire
 
 typealias ResponseBlock = (success:Bool,response:AnyObject?)->Void
-
+typealias DownMP3Block = (success:Bool,response:String)->Void
 class TCVMLogModel: NSObject {
     var requestManager:AFHTTPSessionManager?
     

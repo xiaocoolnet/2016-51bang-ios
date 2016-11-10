@@ -51,6 +51,7 @@ class TableViewHeadSectionCell: UITableViewCell,UICollectionViewDelegate,UIColle
         collectionView.registerNib(nib, forCellWithReuseIdentifier: "cell");
         let cell:CollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! CollectionViewCell;
         cell.addData(self.data[indexPath.row]);
+//        print(self.data[indexPath.row])
         return cell;
     }
     

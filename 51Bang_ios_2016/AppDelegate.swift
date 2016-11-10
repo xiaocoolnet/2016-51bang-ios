@@ -385,7 +385,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                         print("OK")
 //                        NSNotificationCenter.defaultCenter().postNotificationName("payBack", object: nil)
 //                        let vc = OrderDetailViewController()
-                        NSNotificationCenter.defaultCenter().postNotificationName("payResult", object: "success", userInfo: nil)
+//                        NSNotificationCenter.defaultCenter().postNotificationName("payResult", object: "success", userInfo: nil)
 //                        self.navigationController?.pushViewController(vc, animated: true)
                     }else if resultStatus == "8000" {
                         print("正在处理中")

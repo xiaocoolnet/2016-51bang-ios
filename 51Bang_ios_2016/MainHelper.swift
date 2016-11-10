@@ -358,39 +358,78 @@
 //    
     
     //语音下载
-    func downloadRecond(recordName:String) {
+    func downloadRecond(recordName:String, handles:DownMP3Block) {
         
         let url = Bang_Image_Header+recordName
         let destination = Alamofire.Request.suggestedDownloadDestination(
             directory: .DocumentDirectory, domain: .UserDomainMask)
         print(destination)
         
-        Alamofire.download(.GET, url, destination: destination)
-            .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-                let percent = totalBytesRead*100/totalBytesExpectedToRead
-                print("已下载：\(totalBytesRead)  当前进度：\(percent)%")
-            }
-            .response { (request, response, _, error) in
-                print(response)
-                let fileManager = NSFileManager.defaultManager()
-                let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
-                    inDomains: .UserDomainMask)[0]
-                let pathComponent = response!.suggestedFilename
-                let pathUrl = directoryURL.URLByAppendingPathComponent(pathComponent!)
-                print(pathUrl)
+        let directoryURL = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        
+        
+        let fileManager = NSFileManager.defaultManager()
+//        let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
+//                                                        inDomains: .UserDomainMask)[0]
+//        let pathComponent = recordName.suggestedFilename
+        
+        let pathUrl = directoryURL.stringByAppendingString("/" + recordName)
+        let b = NSURL.init(fileURLWithPath: pathUrl, isDirectory: true)
+       
+
+//        if fileManager.fileExistsAtPath(pathUrl) {
+//            handles(success: true, response: pathUrl)
+//            return
+//        }
+        Alamofire.download(.GET, url) {
+            temporaryURL, response in
+            let fileManager = NSFileManager.defaultManager()
+            let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
+                                                            inDomains: .UserDomainMask)[0]
+            let pathComponent = response.suggestedFilename
+            
+            let a = directoryURL.URLByAppendingPathComponent(pathComponent!)
+            print(a)
+            
+//            dispatch_async(dispatch_get_main_queue(), {
+//                let url = NSBundle.mainBundle().URLForResource("杨宗纬 - 空白格", withExtension: ".mp3")
+                
                 do{
                     self.audioSession = AVAudioSession.sharedInstance()
                     try self.audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
                     try self.audioSession.setActive(true)
-                    self.audioPlayer = try AVAudioPlayer.init(contentsOfURL:pathUrl)
+                    self.audioPlayer = try AVAudioPlayer.init(contentsOfURL:a)
                     self.audioPlayer!.prepareToPlay()
                     //                    self.audioPlayer!.numberOfLoops = -1
                     self.audioPlayer!.volume = 1;
                     self.audioPlayer!.play()
                 }catch{
+                   
                     print("1233444")
                 }
+//            })
+            
+            
+            return directoryURL.URLByAppendingPathComponent(pathComponent!)
         }
+        
+//        Alamofire.download(.GET, url, destination: destination)
+//            .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+//                let percent = totalBytesRead*100/totalBytesExpectedToRead
+//                print("已下载：\(totalBytesRead)  当前进度：\(percent)%")
+//            }
+//            .response { (request, response, _, error) in
+//                print(response)
+//                print(error)
+//                if error != nil{
+//                    handles(success: true, response: "失败")
+//                    return
+//                }
+//                handles(success: true, response: pathUrl)
+//                
+//                
+//                
+//                       }
         
 //        var pathUrl = NSURL()
         

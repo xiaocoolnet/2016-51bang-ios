@@ -409,7 +409,10 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             print(xiaoji.text!)
             vc.price = ((xiaoji.text)! as NSString).doubleValue
             vc.subject = self.info.goodsname!
-            vc.body = self.info.description!
+                if self.info.description != nil{
+                    vc.body = self.info.description!
+                }
+            
             self.navigationController?.pushViewController(vc, animated: true)
             })
         }

@@ -456,7 +456,6 @@
 		F25289AE1D6ADF2D00B8E6DC /* AudioWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F25289AD1D6ADF2D00B8E6DC /* AudioWrapper.m */; };
 		F25289B71D6AE16700B8E6DC /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = F25289B11D6AE16700B8E6DC /* .gitignore */; };
 		F25289B81D6AE16700B8E6DC /* build-lame-framework.sh in Resources */ = {isa = PBXBuildFile; fileRef = F25289B21D6AE16700B8E6DC /* build-lame-framework.sh */; };
-		F25289B91D6AE16700B8E6DC /* lame-3.99.5.tar.gz in Resources */ = {isa = PBXBuildFile; fileRef = F25289B31D6AE16700B8E6DC /* lame-3.99.5.tar.gz */; };
 		F25289BA1D6AE16700B8E6DC /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F25289B41D6AE16700B8E6DC /* lame.framework */; };
 		F25289BB1D6AE16700B8E6DC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F25289B51D6AE16700B8E6DC /* LICENSE */; };
 		F25289BC1D6AE16700B8E6DC /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = F25289B61D6AE16700B8E6DC /* README.md */; };
@@ -1045,6 +1044,7 @@
 		77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		77E2DCDE1DC7337B00CDC80A /* 自定义声音.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "自定义声音.caf"; sourceTree = "<group>"; };
+		77E4E3461DD2D09600AAA5A4 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoScrollLabel.swift; sourceTree = "<group>"; };
 		816E0EFF1D388990000D7542 /* MineGetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineGetModel.swift; sourceTree = "<group>"; };
 		818071611D40F3FE00FBB2DB /* Wallect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Wallect.swift; sourceTree = "<group>"; };
@@ -1122,7 +1122,6 @@
 		F25289AD1D6ADF2D00B8E6DC /* AudioWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioWrapper.m; sourceTree = "<group>"; };
 		F25289B11D6AE16700B8E6DC /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		F25289B21D6AE16700B8E6DC /* build-lame-framework.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "build-lame-framework.sh"; sourceTree = "<group>"; };
-		F25289B31D6AE16700B8E6DC /* lame-3.99.5.tar.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = "lame-3.99.5.tar.gz"; sourceTree = "<group>"; };
 		F25289B41D6AE16700B8E6DC /* lame.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lame.framework; sourceTree = "<group>"; };
 		F25289B51D6AE16700B8E6DC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		F25289B61D6AE16700B8E6DC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -2394,9 +2393,9 @@
 		F25289B01D6AE16700B8E6DC /* mp3lame-for-iOS-master */ = {
 			isa = PBXGroup;
 			children = (
+				77E4E3461DD2D09600AAA5A4 /* lame.h */,
 				F25289B11D6AE16700B8E6DC /* .gitignore */,
 				F25289B21D6AE16700B8E6DC /* build-lame-framework.sh */,
-				F25289B31D6AE16700B8E6DC /* lame-3.99.5.tar.gz */,
 				F25289B41D6AE16700B8E6DC /* lame.framework */,
 				F25289B51D6AE16700B8E6DC /* LICENSE */,
 				F25289B61D6AE16700B8E6DC /* README.md */,
@@ -2706,7 +2705,6 @@
 				18D596211D17F07700BDBCD6 /* CityViewController.xib in Resources */,
 				1FF073BD1D309E7F0074C477 /* RenZhengBangHeaderViewCell.xib in Resources */,
 				189757EE1D1685D70083FE46 /* TwoTableViewCell.xib in Resources */,
-				F25289B91D6AE16700B8E6DC /* lame-3.99.5.tar.gz in Resources */,
 				1FF43B761D2A55D400091F79 /* FabuTableViewCell2.xib in Resources */,
 				189757D81D163A0A0083FE46 /* IdentityTableViewCell.xib in Resources */,
 				0DD511041D51D16E00FE88C2 /* btn_unselected.png in Resources */,
@@ -3372,6 +3370,7 @@
 					"${SDK_ROOT}/usr/include/libxml2",
 					"$(SRCROOT)/openssl",
 					"$(SRCROOT)/Util",
+					"$(SRCROOT)/mp3lame-for-iOS-master",
 				);
 				INFOPLIST_FILE = 51Bang_ios_2016/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3391,6 +3390,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/YiXinSDK",
 					"$(PROJECT_DIR)/51Bang_ios_2016/SocialSDK",
 					"$(PROJECT_DIR)/51Bang_ios_2016/Jpush",
+					"$(PROJECT_DIR)/51Bang_ios_2016/mp3lame-for-iOS-master",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
@@ -3461,6 +3461,7 @@
 					"${SDK_ROOT}/usr/include/libxml2",
 					"$(SRCROOT)/openssl",
 					"$(SRCROOT)/Util",
+					"$(SRCROOT)/mp3lame-for-iOS-master",
 				);
 				INFOPLIST_FILE = 51Bang_ios_2016/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3480,6 +3481,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/YiXinSDK",
 					"$(PROJECT_DIR)/51Bang_ios_2016/SocialSDK",
 					"$(PROJECT_DIR)/51Bang_ios_2016/Jpush",
+					"$(PROJECT_DIR)/51Bang_ios_2016/mp3lame-for-iOS-master",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (

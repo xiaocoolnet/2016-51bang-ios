@@ -174,9 +174,18 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 dic.setObject(self.dataSource2[num].id!, forKey: "id")
                 dic.setObject(self.dataSource2[num].send_uid!, forKey: "send_uid")
                 dic.setObject(self.dataSource2[num].receive_uid!, forKey: "receive_uid")
-                dic.setObject(self.dataSource2[num].content!, forKey: "content")
-                dic.setObject(self.dataSource2[num].status!, forKey: "status")
-                dic.setObject(self.dataSource2[num].create_time!, forKey: "create_time")
+                if self.dataSource2[num].content != nil{
+                    dic.setObject(self.dataSource2[num].content!, forKey: "content")
+                }else{
+                    dic.setObject("", forKey: "content")
+                }
+                if self.dataSource2[num].status != nil{
+                    dic.setObject(self.dataSource2[num].status!, forKey: "status")
+                }
+                if self.dataSource2[num].create_time != nil{
+                    dic.setObject(self.dataSource2[num].create_time!, forKey: "create_time")
+                }
+                
                 if self.dataSource2[num].send_face != nil{
                     dic.setObject(self.dataSource2[num].send_face!, forKey: "send_face")
                 }

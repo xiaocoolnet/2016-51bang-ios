@@ -457,7 +457,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 //            
 //            
 //            
-            ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord", finish: { [unowned self] (data) in
+            ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord", url:self.mp3FilePath,finish: { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let result = Http(JSONDecoder(data))
@@ -1123,28 +1123,40 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     func lookPhotos(sender:UIButton)  {
-        let lookPhotosImageView = UIImageView()
-        lookPhotosImageView.backgroundColor = UIColor.whiteColor()
-        lookPhotosImageView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         
-//        let imageBuffer = UnsafeMutablePointer<UInt8>.alloc(Int(representation.size()))
-//        let bufferSize = representation.getBytes(imageBuffer, fromOffset: Int64(0),
-//                                                 length: Int(representation.size()), error: nil)
-//        let data:NSData =  NSData(bytesNoCopy:imageBuffer ,length:bufferSize, freeWhenDone:true)
-        let image = photoArray[sender.tag]
-        let data:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
-        var myImagess = UIImage()
-        myImagess = UIImage.init(data: data)!
-        lookPhotosImageView.image = myImagess
         
-        lookPhotosImageView.contentMode = .ScaleAspectFit
-        //        let singleTap1 = UITapGestureRecognizer()
-        //        singleTap1.addTarget(self, action: #selector(self.backMyView))
-        //        lookPhotosImageView.addGestureRecognizer(singleTap1)
-        let myVC = UIViewController()
+        let myVC = LookPhotoVC()
+        myVC.hidesBottomBarWhenPushed = true
+        myVC.myPhotoArray =  photoArray
+//        print(myPhotoArray)
         myVC.title = "查看图片"
-        myVC.view.addSubview(lookPhotosImageView)
+        myVC.count = sender.tag
         self.navigationController?.pushViewController(myVC, animated: true)
+        myVC.hidesBottomBarWhenPushed = false
+        
+        
+//        let lookPhotosImageView = UIImageView()
+//        lookPhotosImageView.backgroundColor = UIColor.whiteColor()
+//        lookPhotosImageView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
+//        
+////        let imageBuffer = UnsafeMutablePointer<UInt8>.alloc(Int(representation.size()))
+////        let bufferSize = representation.getBytes(imageBuffer, fromOffset: Int64(0),
+////                                                 length: Int(representation.size()), error: nil)
+////        let data:NSData =  NSData(bytesNoCopy:imageBuffer ,length:bufferSize, freeWhenDone:true)
+//        let image = photoArray[sender.tag]
+//        let data:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
+//        var myImagess = UIImage()
+//        myImagess = UIImage.init(data: data)!
+//        lookPhotosImageView.image = myImagess
+//        
+//        lookPhotosImageView.contentMode = .ScaleAspectFit
+//        //        let singleTap1 = UITapGestureRecognizer()
+//        //        singleTap1.addTarget(self, action: #selector(self.backMyView))
+//        //        lookPhotosImageView.addGestureRecognizer(singleTap1)
+//        let myVC = UIViewController()
+//        myVC.title = "查看图片"
+//        myVC.view.addSubview(lookPhotosImageView)
+//        self.navigationController?.pushViewController(myVC, animated: true)
         
     }
 

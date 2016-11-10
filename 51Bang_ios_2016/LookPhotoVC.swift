@@ -42,6 +42,14 @@ class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDat
 
         // Do any additional setup after loading the view.
     }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        self.navigationController?.navigationBar.hidden = true
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.hidden = true
+    }
     override func viewDidLayoutSubviews() {
 //        super.viewDidLayoutSubviews()
         mycollection!.contentOffset = CGPointMake(WIDTH*CGFloat(count),0)
@@ -62,7 +70,12 @@ class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDat
         lookPhotosImageView.backgroundColor = UIColor.whiteColor()
         lookPhotosImageView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         
-        lookPhotosImageView.image = (myPhotoArray[indexPath.item] as? UIImageView)?.image
+        
+        if myPhotoArray[indexPath.item].isKindOfClass(UIImageView){
+            lookPhotosImageView.image = (myPhotoArray[indexPath.item] as? UIImageView)?.image
+        }else{
+            lookPhotosImageView.image = myPhotoArray[indexPath.item] as? UIImage
+        }
         
         lookPhotosImageView.contentMode = .ScaleAspectFit
         cell.addSubview(lookPhotosImageView)
@@ -70,7 +83,18 @@ class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDat
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.popViewControllerAnimated(true)
+        if self.navigationController?.navigationBar.hidden == true {
+            UIView.animateWithDuration(0.3) {
+                self.navigationController?.navigationBar.hidden = false
+        }
+        
+        }else{
+            UIView.animateWithDuration(0.3) {
+                self.navigationController?.navigationBar.hidden = true
+            }
+        }
+        
+//        self.navigationController?.popViewControllerAnimated(true)
     }
 
     override func didReceiveMemoryWarning() {

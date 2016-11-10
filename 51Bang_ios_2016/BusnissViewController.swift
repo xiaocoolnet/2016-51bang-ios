@@ -225,7 +225,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 cell.title.text = self.goodsInfo.address
                 cell.title.adjustsFontSizeToFitWidth = true
             }
-            print(cell.title.text)
+//            print(cell.title.text)
             cell.title.adjustsFontSizeToFitWidth = true
             cell.selectionStyle = .None
             return cell
@@ -345,7 +345,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 headerPhotoView.frame = CGRectMake(CGFloat(num) * WIDTH, 0, WIDTH, 220)
                 headerPhotoView.sd_setImageWithURL(NSURL(string:Bang_Image_Header+goodsInfo.pic[num].pictureurl!), placeholderImage: UIImage.init(named: "01"))
                 scrollView.addSubview(headerPhotoView)
-                headerPhotoView.userInteractionEnabled = true
+//                headerPhotoView.userInteractionEnabled = true
                 //
                 //                let backButton = UIButton()
                 //                backButton.frame = CGRectMake(CGFloat(num) * WIDTH, 0, WIDTH, 220)
@@ -354,9 +354,14 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                 //                backButton.tag = num
                 //                headerView.addSubview(backButton)
                 //                backButton .addTarget(self, action:#selector(self.lookImage(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-                let tapGR = UITapGestureRecognizer(target: self, action: #selector(BusnissViewController.lookImage(_:)))
-                headerPhotoView.addGestureRecognizer(tapGR)
+//                let tapGR = UITapGestureRecognizer(target: self, action: #selector(BusnissViewController.lookImage(_:)))
+//                headerPhotoView.addGestureRecognizer(tapGR)
                 myPhotoArray.addObject(headerPhotoView)
+                let mybutton = UIButton.init(frame: headerPhotoView.frame)
+                mybutton.backgroundColor = UIColor.clearColor()
+                mybutton.tag = num
+                mybutton.addTarget(self, action: #selector(self.lookImage(_:)), forControlEvents: .TouchUpInside)
+                scrollView.addSubview(mybutton)
             }
             
         }else{
@@ -490,15 +495,16 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         }
     }
     
-    func lookImage(sender:UITapGestureRecognizer) {
+    func lookImage(sender:UIButton) {
         
         let myVC = LookPhotoVC()
+        myVC.hidesBottomBarWhenPushed = true
         myVC.myPhotoArray =  myPhotoArray
         print(myPhotoArray)
         myVC.title = "查看图片"
-        myVC.count = headerView.tag
+        myVC.count = sender.tag
         self.navigationController?.pushViewController(myVC, animated: true)
-        
+        myVC.hidesBottomBarWhenPushed = false
     }
     
     func myfabu(){
@@ -1079,25 +1085,35 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func lookPhotos(sender:UIButton)  {
         
-        let lookPhotosImageView = UIImageView()
-        lookPhotosImageView.backgroundColor = UIColor.whiteColor()
-        lookPhotosImageView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         
-        let image = photoArr[sender.tag]
-        let data:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
-        var myImagess = UIImage()
-        myImagess = UIImage.init(data: data)!
-        lookPhotosImageView.image = myImagess
         
-        lookPhotosImageView.contentMode = .ScaleAspectFit
-        
-        let myVC = UIViewController()
+        let myVC = LookPhotoVC()
+        myVC.myPhotoArray =  self.photoArr
         myVC.title = "查看图片"
-        self.navigationController?.navigationBar.hidden = false
-        self.tabBarController?.tabBar.hidden = true
-        myVC.tabBarController?.tabBar.hidden = true
-        myVC.view.addSubview(lookPhotosImageView)
+        myVC.count = sender.tag
+        print(sender.tag)
+        
         self.navigationController?.pushViewController(myVC, animated: true)
+        
+//        let lookPhotosImageView = UIImageView()
+//        lookPhotosImageView.backgroundColor = UIColor.whiteColor()
+//        lookPhotosImageView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
+//        
+//        let image = photoArr[sender.tag]
+//        let data:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
+//        var myImagess = UIImage()
+//        myImagess = UIImage.init(data: data)!
+//        lookPhotosImageView.image = myImagess
+//        
+//        lookPhotosImageView.contentMode = .ScaleAspectFit
+//        
+//        let myVC = UIViewController()
+//        myVC.title = "查看图片"
+//        self.navigationController?.navigationBar.hidden = false
+//        self.tabBarController?.tabBar.hidden = true
+//        myVC.tabBarController?.tabBar.hidden = true
+//        myVC.view.addSubview(lookPhotosImageView)
+//        self.navigationController?.pushViewController(myVC, animated: true)
         
     }
     

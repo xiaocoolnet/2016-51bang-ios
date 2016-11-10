@@ -52,11 +52,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     //    var audioPlayer:AVAudioPlayer!
     let timeButton = UIButton()
     ////定义音频的编码参数，这部分比较重要，决定录制音频文件的格式、音质、容量大小等，建议采用AAC的编码方式
-    let recordSetting = [AVSampleRateKey : NSNumber(float: Float(44100.0)),//声音采样率
+    let recordSetting = [AVSampleRateKey : NSNumber(float: Float(8000)),//声音采样率
         AVFormatIDKey : NSNumber(int: Int32(kAudioFormatLinearPCM)),//编码格式
         AVNumberOfChannelsKey : NSNumber(int: 2),//采集音轨
         AVEncoderAudioQualityKey : NSNumber(int: Int32(AVAudioQuality.High.rawValue)),//音频质量
-        AVLinearPCMBitDepthKey: NSNumber(int: 2)
+//        AVLinearPCMBitDepthKey: NSNumber(int: 2)
     ]
     
     func keyboardWillShow(note:NSNotification){
@@ -300,7 +300,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func overRecord(){
         
-        mp3FilePath = NSURL.init(string: NSTemporaryDirectory().stringByAppendingString("myselfRecord.mp3"))!
+        mp3FilePath = NSURL.init(string: NSTemporaryDirectory().stringByAppendingString("myselfRecord.MP3"))!
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             self.mp3FilePath = NSURL.init(string: AudioWrapper.audioPCMtoMP3(self.recordUrl.absoluteString, self.mp3FilePath.absoluteString))!
@@ -414,14 +414,14 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             }
             
             
-            if (recordUrl.absoluteString != "") {
-                try self.audioPlayer = AVAudioPlayer.init(contentsOfURL: self.recordUrl)
-            }
+//            if (recordUrl.absoluteString != "") {
+//                try self.audioPlayer = AVAudioPlayer.init(contentsOfURL: self.recordUrl)
+//            }
             audioPlayer!.prepareToPlay()
             audioPlayer!.volume = 1;
             audioPlayer!.play()
         }catch{
-            
+            print("1233444")
         }
         
     }
@@ -632,7 +632,12 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         if mp3FilePath.absoluteString != "" {
             print(mp3FilePath.absoluteString)
             
-            let data = NSData.init(contentsOfFile: self.mp3FilePath.path!)
+            let data = NSData.init(contentsOfFile: self.recordUrl.path!)
+            
+//            let fileManager = NSFileManager.defaultManager()
+//            
+//            let data1 = fileManager.contentsAtPath(self.mp3FilePath.path!)
+            
             
 //            Alamofire.upload(.POST, "http://httpbin.org/post", file: self.mp3FilePath)
             
@@ -652,11 +657,21 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             
             
             let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy:MM:dd:HH:mm:ss:SSS"
+            dateFormatter.dateFormat = "ddHHmmssSSS"
             let dateStr = dateFormatter.stringFromDate(NSDate())
-            let imageName = "avatar" + dateStr + "record"+userid
+            let imageName = "record" + dateStr +  userid + String(Int(arc4random()%10000)+1)
+//            self.sound = imageName
+//            self.fabuAction()
+            
+            
+            
+            
+            
+            
+            
+            
             print(imageName)
-            ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord", finish: { [unowned self] (data) in
+            ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord", url:self.mp3FilePath, finish: { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let result = Http(JSONDecoder(data))
@@ -667,6 +682,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                             if result.status! == "success"{
                                 isRecord = true
                                 self.sound = result.data!
+                                print(self.sound)
                                 if a == self.photoArray.count-1||self.photoArray.count == 0{
                                     self.fabuAction()
                                 }

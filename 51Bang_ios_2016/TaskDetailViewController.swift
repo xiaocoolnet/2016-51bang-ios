@@ -342,7 +342,15 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     
     func boFangButtonActions(){
         
-        mainHelper.downloadRecond(self.taskInfo.record!)
+        mainHelper.downloadRecond(self.taskInfo.record!){ (success, response) in
+            if !success{
+                alert("加载语音失败", delegate: self)
+                return
+            }
+            let str = response
+            print(str)
+        }
+
         
 //        print("0000")
 //        do{
@@ -363,11 +371,14 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
+        
         let myVC = LookPhotoVC()
+        myVC.hidesBottomBarWhenPushed = true
         myVC.myPhotoArray =  myPhotoArray
         myVC.count = indexPath.item
         myVC.title = "查看图片"
         self.navigationController?.pushViewController(myVC, animated: true)
+        myVC.hidesBottomBarWhenPushed = false
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

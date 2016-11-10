@@ -6,6 +6,7 @@
 //
 
 #import "ConnectModel.h"
+#import "AFNetworking.h"
 @implementation ConnectModel
 - (instancetype)init
 {
@@ -25,11 +26,11 @@
         p.myBolck(p.myData);
     }
 }
-+ (void)uploadWithVideoName:(NSString *)name imageData:(NSData *)imageData URL:(NSString *)url finish:(ConnectBlock)block
++ (void)uploadWithVideoName:(NSString *)name imageData:(NSData *)imageData URL:(NSString *)url url:(NSURL *)url1 finish:(ConnectBlock)block
 {
     ConnectModel * p = [[ConnectModel alloc] init];
     p.myBolck = block;
-    [p startFormConnectWithVideoName:name URL:url imageData:imageData];
+    [p startFormConnectWithVideoName:name URL:url url:url1 imageData:imageData];
 }
 - (void)startFormConnectWithImageName:(NSString *)name URL:(NSString *)defaulturl imageData:(NSData *)imageData
 {
@@ -52,8 +53,36 @@
     [request setValue:content forHTTPHeaderField:@"Content-Type"];
     [NSURLConnection connectionWithRequest:request delegate:self];
 }
-- (void)startFormConnectWithVideoName:(NSString *)name URL:(NSString *)defaulturl imageData:(NSData *)imageData
+- (void)startFormConnectWithVideoName:(NSString *)name URL:(NSString *)defaulturl url:(NSURL *)url1 imageData:(NSData *)imageData
 {
+//    //会话管理对象
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    //设置返回数据的格式
+//    //2.上传文件
+//    NSDictionary *dict = @{@"username":@"1234"};
+////    NSString *url = @"1235466";
+//    
+//    [manager POST:defaulturl parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+//        //上传文件参数
+////        UIImage *image = [UIImage imageNamed:@"4.png"];
+////        NSData *data = UIImagePNGRepresentation(image);
+//        //这个就是参数
+////        [formData appendPartWithFileData:imageData name:@"file" fileName:[NSString stringWithFormat:@"%@.%@",name,@"mp3"] mimeType:@"audio/MP3"];
+//       
+//        [formData appendPartWithFileURL:url1 name:[NSString stringWithFormat:@"%@.%@",name,@"mp3"] error:nil];
+//    } progress:^(NSProgress * _Nonnull uploadProgress) {
+//        //打印上传进度
+//        NSLog(@"%lf",1.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount);
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"请求成功");
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"请求失败");
+//    }];
+    
+    
+    
+    
+    
     NSURL * url = [NSURL URLWithString:defaulturl];
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];

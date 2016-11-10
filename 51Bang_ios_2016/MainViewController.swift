@@ -821,6 +821,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 //            print(userLocation.title)
             pointAnmation.coordinate = userLocation.location.coordinate
             pointAnmation.title = userLocation.title
+            print(userLocation.title)
             
             mapView.addAnnotation(pointAnmation)
             
@@ -879,11 +880,12 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     //接收反向地理编码结果
     func onGetReverseGeoCodeResult(searcher: BMKGeoCodeSearch!, result: BMKReverseGeoCodeResult!, errorCode error: BMKSearchErrorCode) {
         if result != nil {
+            
             if( result.poiList.first != nil)
             {
                 
                 self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
-                self.streetNameStr = result.addressDetail.streetName
+                self.streetNameStr = (result.poiList[0] as! BMKPoiInfo).name
                 
                 CommitOrderViewController.FirstLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
                 LocationViewController.firstAddress = dingWeiStr+streetNameStr
@@ -941,7 +943,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 //                print(result.addressDetail.district)
                 
                 pointAnmation.coordinate = mapView.region.center
-                pointAnmation.title = MainViewController.BMKname
+                pointAnmation.title = (result.poiList[0] as! BMKPoiInfo).name
                 mapView.addAnnotation(pointAnmation)
                 
                 mapView.selectAnnotation(pointAnmation, animated: true)

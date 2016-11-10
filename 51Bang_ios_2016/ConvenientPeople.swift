@@ -338,7 +338,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 print( self.dataSource2 )
                 if(self.dataSource2.count > 0 )
                 {
-                    print((dataSource2[indexPath.row-1] as! TCHDInfo).record)
+//                    print((dataSource2[indexPath.row-1] as! TCHDInfo).record)
                     self.boFangButton.removeFromSuperview()
                     let cell = ConveniceCell.init(info: self.dataSource2[indexPath.row-1] as! TCHDInfo )
                     //                    if self.dataSource![indexPath.row-1].record != nil || self.dataSource![indexPath.row-1].record != "" {
@@ -572,7 +572,15 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func boFangButtonActions(sender:UIButton){
         
-        mainHelper.downloadRecond((self.dataSource2[sender.tag] as! TCHDInfo).record!)
+        mainHelper.downloadRecond((self.dataSource2[sender.tag] as! TCHDInfo).record!){ (success, response) in
+            if !success{
+                alert("加载语音失败", delegate: self)
+                return
+            }
+//            let str = response
+            
+//            print(response)
+        }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

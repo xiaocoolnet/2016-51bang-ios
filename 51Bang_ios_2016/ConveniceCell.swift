@@ -329,11 +329,13 @@ class ConveniceCell: UITableViewCell{
     func lookImage(sender:UIButton) {
         
         let myVC = LookPhotoVC()
+         myVC.hidesBottomBarWhenPushed = true
         myVC.myPhotoArray =  myPhotoArray
         myVC.title = "查看图片"
         myVC.count = sender.tag
         print(sender.tag)
         myDelegate!.pushVC(myVC)
+         myVC.hidesBottomBarWhenPushed = false
         
     }
     

@@ -249,7 +249,13 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //            发送通知
 //                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.payback(_:)), name:"payBack", object: nil)
                 
-                
+                let user = NSUserDefaults.standardUserDefaults()
+                if (isRenwu) {
+                    user.setObject("renwuBook",forKey:"comeFromWechat")
+                }else{
+                    user.setObject("bookDan",forKey:"comeFromWechat")
+                }
+
                 AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme) { (dic)-> Void in
                     
                     print(dic)
