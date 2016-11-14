@@ -74,7 +74,7 @@ class ShopTableViewCell: UITableViewCell {
             self.username.text = ""
         }
         
-        print(goodsInfo.goodsname)
+//        print(goodsInfo.goodsname)
         if goodsInfo.pic.count>0 {
             
             let imageUrl = Bang_Image_Header+goodsInfo.pic[0].pictureurl!

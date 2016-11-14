@@ -1186,6 +1186,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func loginAction(){
         JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
+            SVProgressHUD.show()
             var registrationIDs = String()
             if registrationID == nil{
                 registrationIDs = ""
@@ -1207,8 +1208,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.pwd = self.pwdTextfield.text
             }
             
-            print(self.phoneNum!)
-            print(self.pwd!)
+//            print(self.phoneNum!)
+//            print(self.pwd!)
             if (self.phoneNum!.isEmpty) {
                 SVProgressHUD.showErrorWithStatus("请输入手机号！")
                 return
@@ -1226,7 +1227,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func loginWithNum(num:String,pwd:String,registrationID:String){
-        SVProgressHUD.show()
+        
         let password = self.view.viewWithTag(101)as! UITextField
         logVM!.login(num, password: pwd,registrationID:registrationID, handle: { [unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
@@ -1235,7 +1236,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         alert(response as! String, delegate: self)
                         SVProgressHUD.dismiss()
                     }else{
-                        SVProgressHUD.showErrorWithStatus("账号或密码错误！")
+//                        SVProgressHUD.showErrorWithStatus("账号或密码错误！")
+                        alert("账号或密码错误！", delegate: self)
+                        SVProgressHUD.dismiss()
                     }
                     return
                 }else{
@@ -1271,8 +1274,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(userInfo.name, forKey: "name")
                     ud.setObject(self.phoneNum, forKey: "phone")
                     ud.setObject(self.pwd, forKey: "pwd")
-                    print(userInfo.photo)
-                    print(userInfo.sex)
+//                    print(userInfo.photo)
+//                    print(userInfo.sex)
                     if userInfo.photo != "" && userInfo.photo != nil{
                         ud.setObject(userInfo.photo, forKey: "photo")
                     }

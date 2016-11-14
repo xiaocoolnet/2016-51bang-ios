@@ -61,6 +61,13 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
     @IBAction func loginAction(sender: AnyObject) {
         print("login")
         JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
+            
+            var registrationIDs = String()
+            if registrationID == nil{
+                registrationIDs = ""
+            }else{
+                registrationIDs = registrationID
+            }
             if (self.phoneNumber.text!.isEmpty) {
                 SVProgressHUD.showErrorWithStatus("请输入手机号！")
                 return
@@ -69,7 +76,7 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
                 SVProgressHUD.showErrorWithStatus("请输入密码！")
                 return
             }
-            self.loginWithNum(self.phoneNumber.text!, pwd: self.password.text!,registrationID:registrationID)
+            self.loginWithNum(self.phoneNumber.text!, pwd: self.password.text!,registrationID:registrationIDs)
             
             })
         
@@ -81,9 +88,11 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
             dispatch_async(dispatch_get_main_queue(), {
                 if success == false {
                     if response != nil {
-                        SVProgressHUD.showErrorWithStatus(response as! String)
+                        alert(response as! String, delegate: self)
+//                        SVProgressHUD.showErrorWithStatus(response as! String)
                     }else{
-                        SVProgressHUD.showErrorWithStatus("登录失败")
+                        alert("登录失败", delegate: self)
+//                        SVProgressHUD.showErrorWithStatus("登录失败")
                     }
                     return
                 }else{
