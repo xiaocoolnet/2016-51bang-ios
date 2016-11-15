@@ -394,6 +394,7 @@
 		7754A3BC1DBF5E3100C06FBA /* 发单超时.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B81DBF5E3100C06FBA /* 发单超时.caf */; };
 		7754A3BD1DBF5E3100C06FBA /* 购买了商品.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */; };
 		7754A3BE1DBF5E3100C06FBA /* 抢单取消.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */; };
+		778F60C31DDAB4A1000D41EA /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */; };
 		77D0AA751DB7423F00FB5A52 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */; };
 		77D0AA761DB7423F00FB5A52 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */; };
 		77E2DCDF1DC7337B00CDC80A /* 自定义声音.caf in Resources */ = {isa = PBXBuildFile; fileRef = 77E2DCDE1DC7337B00CDC80A /* 自定义声音.caf */; };
@@ -436,7 +437,6 @@
 		F2312B371D6987DB00635ADA /* OrderCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2312B361D6987DB00635ADA /* OrderCommentViewController.swift */; };
 		F2312B3B1D69BF7D00635ADA /* CommentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2312B3A1D69BF7D00635ADA /* CommentListCell.swift */; };
 		F23A21951D87AC0200DDB3AB /* CodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23A21941D87AC0200DDB3AB /* CodeViewController.swift */; };
-		F23A219A1D8957BB00DDB3AB /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F23A21981D8957BB00DDB3AB /* jpush-ios-2.1.9.a */; };
 		F23A219C1D8957E700DDB3AB /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23A219B1D8957E700DDB3AB /* CoreFoundation.framework */; };
 		F23A219E1D89583200DDB3AB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F23A219D1D89583200DDB3AB /* Security.framework */; };
 		F23C55961D6577000094E2B7 /* ViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23C55941D6577000094E2B7 /* ViewController1.swift */; };
@@ -1041,6 +1041,8 @@
 		7754A3B81DBF5E3100C06FBA /* 发单超时.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "发单超时.caf"; sourceTree = "<group>"; };
 		7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "购买了商品.caf"; sourceTree = "<group>"; };
 		7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "抢单取消.caf"; sourceTree = "<group>"; };
+		778F60C01DDAB168000D41EA /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
 		77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		77E2DCDE1DC7337B00CDC80A /* 自定义声音.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "自定义声音.caf"; sourceTree = "<group>"; };
@@ -1093,8 +1095,6 @@
 		F2312B361D6987DB00635ADA /* OrderCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCommentViewController.swift; sourceTree = "<group>"; };
 		F2312B3A1D69BF7D00635ADA /* CommentListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentListCell.swift; sourceTree = "<group>"; };
 		F23A21941D87AC0200DDB3AB /* CodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeViewController.swift; sourceTree = "<group>"; };
-		F23A21981D8957BB00DDB3AB /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
-		F23A21991D8957BB00DDB3AB /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		F23A219B1D8957E700DDB3AB /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		F23A219D1D89583200DDB3AB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		F23C55941D6577000094E2B7 /* ViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController1.swift; sourceTree = "<group>"; };
@@ -1182,7 +1182,6 @@
 				1FACE6701D2F3D460005282E /* SystemConfiguration.framework in Frameworks */,
 				1FACE66C1D2F3CC10005282E /* libz.tbd in Frameworks */,
 				F23A219C1D8957E700DDB3AB /* CoreFoundation.framework in Frameworks */,
-				F23A219A1D8957BB00DDB3AB /* jpush-ios-2.1.9.a in Frameworks */,
 				0D10A6231D50A6D50004903C /* TPKeyboardAvoiding.framework in Frameworks */,
 				1F7D5A261D4A072D00536BD1 /* JavaScriptCore.framework in Frameworks */,
 				77361BA51D939791003F96F5 /* Bugtags.framework in Frameworks */,
@@ -1191,6 +1190,7 @@
 				1F7D5A0E1D4A033600536BD1 /* ShareSDKInterfaceAdapter.framework in Frameworks */,
 				1F1F5F931D337D34005616DD /* libsqlite3.tbd in Frameworks */,
 				1F1F5F8B1D337121005616DD /* libxml2.tbd in Frameworks */,
+				778F60C31DDAB4A1000D41EA /* jpush-ios-2.1.9.a in Frameworks */,
 				1F7D5A191D4A033600536BD1 /* libWeiboSDK.a in Frameworks */,
 				1F7D5A181D4A033600536BD1 /* RennSDK.framework in Frameworks */,
 				F25289BA1D6AE16700B8E6DC /* lame.framework in Frameworks */,
@@ -2331,8 +2331,8 @@
 		F23A21971D8957BB00DDB3AB /* Jpush */ = {
 			isa = PBXGroup;
 			children = (
-				F23A21981D8957BB00DDB3AB /* jpush-ios-2.1.9.a */,
-				F23A21991D8957BB00DDB3AB /* JPUSHService.h */,
+				778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */,
+				778F60C01DDAB168000D41EA /* JPUSHService.h */,
 			);
 			path = Jpush;
 			sourceTree = "<group>";
