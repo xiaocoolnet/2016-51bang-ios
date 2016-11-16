@@ -10,13 +10,18 @@
 #import "messModel.h"
 #import "modelFrame.h"
 #import "CustomTableViewCell.h"
-//#import "MainHelper.swift"
+#import "MainHelper.swift"
 #import <AFNetworking/AFNetworking.h>
 #import <UIKit/UIKit.h>
+//#import "51Bang_ios_2016-Swift.h"
 
 
 #define HEIGHTS [UIScreen mainScreen].bounds.size.height
 #define WIDTHS [UIScreen mainScreen].bounds.size.width
+
+#define Bang_Open_Header @"http://bang.xiaocool.net/"
+//#define Bang_Open_Header @"http://www.my51bang.com/"
+
 @interface ChetViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 

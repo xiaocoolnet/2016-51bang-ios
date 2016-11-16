@@ -851,7 +851,7 @@ class MyInsure: UIViewController , UIImagePickerControllerDelegate,UINavigationC
         let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
         
         //        上传图片
-        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: "http://www.my51bang.com/index.php?g=apps&m=index&a=UpdateUserInsurance&\(id)&a=uploadimg") { [unowned self] (data) in
+        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_Open_Header+"index.php?g=apps&m=index&a=UpdateUserInsurance&\(id)&a=uploadimg") { [unowned self] (data) in
             dispatch_async(dispatch_get_main_queue(), {
                 
                 let result = Http(JSONDecoder(data))

@@ -7,6 +7,7 @@
 
 import UIKit
 import SVProgressHUD
+import Alamofire
 
 class TCLoginViewController: UIViewController,UIScrollViewDelegate {
     
@@ -61,6 +62,13 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
     @IBAction func loginAction(sender: AnyObject) {
         print("login")
         JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
+            
+            var registrationIDs = String()
+            if registrationID == nil{
+                registrationIDs = ""
+            }else{
+                registrationIDs = registrationID
+            }
             if (self.phoneNumber.text!.isEmpty) {
                 SVProgressHUD.showErrorWithStatus("请输入手机号！")
                 return
@@ -69,7 +77,7 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
                 SVProgressHUD.showErrorWithStatus("请输入密码！")
                 return
             }
-            self.loginWithNum(self.phoneNumber.text!, pwd: self.password.text!,registrationID:registrationID)
+            self.loginWithNum(self.phoneNumber.text!, pwd: self.password.text!,registrationID:registrationIDs)
             
             })
         
@@ -81,9 +89,11 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
             dispatch_async(dispatch_get_main_queue(), {
                 if success == false {
                     if response != nil {
-                        SVProgressHUD.showErrorWithStatus(response as! String)
+                        alert(response as! String, delegate: self)
+//                        SVProgressHUD.showErrorWithStatus(response as! String)
                     }else{
-                        SVProgressHUD.showErrorWithStatus("登录失败")
+                        alert("登录失败", delegate: self)
+//                        SVProgressHUD.showErrorWithStatus("登录失败")
                     }
                     return
                 }else{
@@ -97,7 +107,7 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
                     
                     
 //                    ud.setObject([USER_NAME:self.phoneNumber.text!,USER_PWD:self.password.text!], forKey: LOGINFO_KEY)
-                    self.loginSuccess()
+                    self.loginSuccess(response!)
                 }
             })
             })
@@ -126,11 +136,93 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
         view.endEditing(true)
     }
     
-    func loginSuccess(){
-        print("登陆成功")
+    func loginSuccess(response:AnyObject){
+    
+        
+        
+        let userInfo = response as! UserInfo
+       
+        //                    print()
+        loginSign = 1
+        
+        SVProgressHUD.showSuccessWithStatus("登录成功")
+        self.navigationController?.navigationBar.hidden = true
+        let ud = NSUserDefaults.standardUserDefaults()
+        //                    ud.setObject(userInfo.id, forKey: "uid")
+        ud.setObject(userInfo.id, forKey: "userid")
+        //                    let defalutid = NSUserDefaults.standardUserDefaults()
+        //                    let studentid = defalutid.stringForKey("userid")
+        //                    let udid = String( UIDevice.currentDevice().identifierForVendor!)
+        //                    print(udid)
+        //                    let settt = NSSet.init(array: [udid])
+        if userInfo.id != nil && userInfo.id! != ""{
+            JPUSHService.setTags(nil, aliasInbackground: userInfo.id!)
+            
+        }
+        if userInfo.myreferral != nil{
+            ud.setObject(userInfo.myreferral, forKey: "myreferral")
+        }else{
+            ud.setObject("暂无", forKey: "myreferral")
+        }
+        
+        ud.setObject(userInfo.xgtoken, forKey: "token")
+        ud.setObject(userInfo.name, forKey: "name")
+        if userInfo.photo != "" && userInfo.photo != nil{
+            ud.setObject(userInfo.photo, forKey: "photo")
+        }
+        if userInfo.sex != "" && userInfo.sex != nil{
+            ud.setObject(userInfo.sex, forKey: "sex")
+        }
+        
+        
+        ud.synchronize()
+        password.resignFirstResponder()
+        //登录成功
+        let udid = UIDevice.currentDevice().systemVersion
+        var ns2 = String()
+        print(udid)
+        print(udid.characters.count)
+        if udid.characters.count > 3 {
+            ns2=(udid as NSString).substringToIndex(3)
+        }else{
+            ns2 = udid
+        }
+        
+        print(ns2)
+        if Double(ns2) < 9 {
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: "建议使用iOS9.0以上版本体检更顺畅,是否去更新？（点击界面中的软件更新）", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            let url = NSURL.init(string: "prefs:root=General")
+                                            if UIApplication.sharedApplication().canOpenURL(url!){
+                                                UIApplication.sharedApplication().openURL(url!)
+                                            }
+                                            
+                                            
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+        
+        
+        let a = MineViewController()
+        self.navigationController?.pushViewController(a, animated: true)
+        
+    
+    
+    }
+
+
+
 //        //controller
 //        let appGuideController = UITabBarController()
-//        
+//
 //        let homePage:UIViewController = TCHomePageController(nibName: "TCHomePageController", bundle:nil)
 //        homePage.title = "首页"
 //        setTabbarItemAttribute(homePage, normalImageName: "ic_home", selectedImageName: "ic_home-0")
@@ -160,7 +252,7 @@ class TCLoginViewController: UIViewController,UIScrollViewDelegate {
 //        appGuideController.tabBar.barTintColor = .whiteColor()
 //        let window  = UIApplication.sharedApplication().keyWindow;
 //        window?.rootViewController = appGuideController;
-    }
+    
     func setTabbarItemAttribute(controller:UIViewController,normalImageName:String,selectedImageName:String){
         controller.tabBarItem.image = UIImage(named: normalImageName)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
         controller.tabBarItem.selectedImage = UIImage(named: selectedImageName)?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)

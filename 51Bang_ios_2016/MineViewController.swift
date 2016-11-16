@@ -62,7 +62,10 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.viewDidAppear(true)
         self.navigationController?.navigationBar.hidden = true
         self.tabBarController?.tabBar.hidden = false
+        self.login.userInteractionEnabled = true
+        self.login.backgroundColor = COLOR
     }
+    
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -256,8 +259,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         login.backgroundColor = COLOR
         login.layer.cornerRadius = 10
         //        btn.backgroundColor = COLOR
-        login.userInteractionEnabled = false
-        login.addTarget(self, action: #selector(self.loginAction), forControlEvents: UIControlEvents.TouchUpInside)
+//        login.userInteractionEnabled = false
+        login.addTarget(self, action: #selector(self.loginAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         let button1 = UIButton.init(frame: CGRectMake(130, login.frame.origin.y+login.frame.size.height+30, WIDTH*100/375, WIDTH*30/375))
         button1.setTitle("忘记密码?", forState: UIControlState.Normal)
         button1.setTitleColor(COLOR, forState: UIControlState.Normal)
@@ -1184,16 +1187,14 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     
-    func loginAction(){
-        JPUSHService.registrationIDCompletionHandler({ (resCode, registrationID) in
-            var registrationIDs = String()
-            if registrationID == nil{
+    func loginAction(sender:UIButton){
+        sender.backgroundColor = UIColor.grayColor()
+        
+            SVProgressHUD.show()
+            var registrationIDs = JPUSHService.registrationID()
+            if registrationIDs == nil{
                 registrationIDs = ""
-            }else{
-                registrationIDs = registrationID
             }
-//            print(registrationID)
-            print("login")
             self.pwdTextfield.resignFirstResponder()
             self.phoneTextfield.resignFirstResponder()
             let phoneNumber = self.view.viewWithTag(100)as! UITextField
@@ -1207,26 +1208,28 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.pwd = self.pwdTextfield.text
             }
             
-            print(self.phoneNum!)
-            print(self.pwd!)
+//            print(self.phoneNum!)
+//            print(self.pwd!)
             if (self.phoneNum!.isEmpty) {
                 SVProgressHUD.showErrorWithStatus("请输入手机号！")
+                self.login.backgroundColor = COLOR
                 return
             }
             if (self.pwd!.isEmpty) {
                 SVProgressHUD.showErrorWithStatus("请输入密码！")
+                self.login.backgroundColor = COLOR
                 return
             }
             
             self.loginWithNum(self.phoneNum! as String, pwd: self.pwd! as String,registrationID:registrationIDs)
-        })
+        
         
         
         
     }
     
     func loginWithNum(num:String,pwd:String,registrationID:String){
-        SVProgressHUD.show()
+        
         let password = self.view.viewWithTag(101)as! UITextField
         logVM!.login(num, password: pwd,registrationID:registrationID, handle: { [unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
@@ -1235,8 +1238,11 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         alert(response as! String, delegate: self)
                         SVProgressHUD.dismiss()
                     }else{
-                        SVProgressHUD.showErrorWithStatus("账号或密码错误！")
+//                        SVProgressHUD.showErrorWithStatus("账号或密码错误！")
+                        alert("账号或密码错误！", delegate: self)
+                        SVProgressHUD.dismiss()
                     }
+                    self.login.backgroundColor = COLOR
                     return
                 }else{
                     print(response)
@@ -1271,8 +1277,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     ud.setObject(userInfo.name, forKey: "name")
                     ud.setObject(self.phoneNum, forKey: "phone")
                     ud.setObject(self.pwd, forKey: "pwd")
-                    print(userInfo.photo)
-                    print(userInfo.sex)
+//                    print(userInfo.photo)
+//                    print(userInfo.sex)
                     if userInfo.photo != "" && userInfo.photo != nil{
                         ud.setObject(userInfo.photo, forKey: "photo")
                     }

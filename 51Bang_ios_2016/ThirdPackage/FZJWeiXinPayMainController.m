@@ -20,6 +20,7 @@
 #define IP_ADDR_IPv4    @"ipv4"
 #define IP_ADDR_IPv6    @"ipv6"
 
+
 #import "ApiXml.h"
 
 //#define APP_KEY @"wx5bbd35eed5255733" //微信支付的appid(不是微信分享的appid)第二个

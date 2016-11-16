@@ -24,23 +24,40 @@ class TCVMLogModel: NSObject {
     func login(phoneNum:String,password:String,registrationID:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"applogin"
         let paramDic = ["phone":phoneNum,"password":password,"registrationID":registrationID,"devicestate":"1"]
-        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
-            print(request)
-             let result = TCUserInfoModel(JSONDecoder(json!))
-             print(result)
-             print(result.data)
-             print(result.status)
-             if result.status == "success"{
+        
+        requestManager?.GET(url, parameters: paramDic, success: { (task, obj) in
+            let result = TCUserInfoModel(JSONDecoder(obj!))
+            if result.status == "success"{
                 print(result.data)
                 handle(success: true, response: result.data)
-             }else{
+            }else{
                 handle(success: false, response: result.errorData)
-//                print(result.data)
                 
             }
- 
+//            handle(success: true, response: result.data)
             
-        }
+            }, failure: { (task, error) in
+            handle(success: false, response: "请求失败")
+        })
+        
+//        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
+////            print(request)
+//             let result = TCUserInfoModel(JSONDecoder(json!))
+//             print(result)
+//             print(result.data)
+//             print(result.status)
+//             if result.status == "success"{
+//                print(result.data)
+//                handle(success: true, response: result.data)
+//             }else{
+//                handle(success: false, response: result.errorData)
+////                print(result.data)
+//
+//                
+//            }
+// 
+//            
+//        }
         
 //        requestManager?.GET(url, parameters: paramDic, success: { (task, response) in
 //            let result = TCUserInfoModel(JSONDecoder(response!))

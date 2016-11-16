@@ -198,7 +198,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             cell.addSubview(viewzhegai)
             
             cell.selectionStyle = .None
-            print(self.dataSource![indexPath.row].price)
+//            print(self.dataSource![indexPath.row].price)
             //            if type == dataSource![indexPath.row].type {
             if type == ""{
                 let goodsInfo = self.dataSource![indexPath.row]
@@ -381,7 +381,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     @IBAction func goToAdd(sender: AnyObject) {
         print("增加")
-        print(loginSign)
+//        print(loginSign)
         if loginSign == 0 {
             
             self.tabBarController?.selectedIndex = 3
