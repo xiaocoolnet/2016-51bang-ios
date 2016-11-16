@@ -205,7 +205,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 order.totalFee = String(self.price); //商品价格
             }
             
-            order.notifyURL =  "http://www.my51bang.com/apps/index/AlipayNotify"; //回调URL，这个URL是在支付之后，支付宝通知后台服务器，使数据同步更新，必须填，不然支付无法成功
+            order.notifyURL =  Bang_Open_Header+"apps/index/AlipayNotify"; //回调URL，这个URL是在支付之后，支付宝通知后台服务器，使数据同步更新，必须填，不然支付无法成功
             //下面的参数是固定的，不需要改变
             order.service = "mobile.securitypay.pay";
             order.paymentType = "1";

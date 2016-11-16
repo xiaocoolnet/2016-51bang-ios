@@ -49,8 +49,21 @@ class ShopHelper: NSObject {
     
     //发布特卖
     func upLoadTeMaiMessage(userid:NSString,type:NSString,goodsname:NSString,oprice:NSString,price:NSString,desc:NSString,photoArray:NSArray,unit:NSString,longitude:NSString,latitude:NSString,address:NSString,delivery:String, handle:ResponseBlock){
-        print(goodsname)
-        print(photoArray)
+//        print(goodsname)
+//        print(photoArray)
+        let userLocationCenter = NSUserDefaults.standardUserDefaults()
+        var UserLatitude = String()
+        var UserLongitude = String()
+        var UserLocation = String()
+        if userLocationCenter.objectForKey("latitude") != nil {
+            UserLatitude = userLocationCenter.objectForKey("latitude") as! String
+        }
+        if userLocationCenter.objectForKey("longitude") != nil {
+            UserLongitude = userLocationCenter.objectForKey("longitude") as! String
+        }
+        if userLocationCenter.objectForKey("UserLocation") != nil {
+            UserLocation = userLocationCenter.objectForKey("UserLocation") as! String
+        }
         let url = Bang_URL_Header+"PublishGoods"
         let photoUrl = NSMutableString()
         for i in 0..<photoArray.count {
@@ -76,7 +89,10 @@ class ShopHelper: NSObject {
             "latitude":latitude,
             "longitude":longitude,
             "address":address,
-            "delivery":delivery
+            "delivery":delivery,
+            "UserLatitude":UserLatitude,
+            "UserLongitude":UserLongitude,
+            "UserLocation":UserLocation
         ];
         
         
@@ -105,6 +121,19 @@ class ShopHelper: NSObject {
     
     //更新我的发布
     func reLoadTeMaiMessage(userid:NSString,type:NSString,goodsname:NSString,oprice:NSString,price:NSString,desc:NSString,unit:NSString,longitude:NSString,latitude:NSString,address:NSString,delivery:String, handle:ResponseBlock){
+        let userLocationCenter = NSUserDefaults.standardUserDefaults()
+        var UserLatitude = String()
+        var UserLongitude = String()
+        var UserLocation = String()
+        if userLocationCenter.objectForKey("latitude") != nil {
+            UserLatitude = userLocationCenter.objectForKey("latitude") as! String
+        }
+        if userLocationCenter.objectForKey("longitude") != nil {
+            UserLongitude = userLocationCenter.objectForKey("longitude") as! String
+        }
+        if userLocationCenter.objectForKey("UserLocation") != nil {
+            UserLocation = userLocationCenter.objectForKey("UserLocation") as! String
+        }
         print(goodsname)
         let url = Bang_URL_Header+"UpdateGoodsInfo"
         
@@ -120,7 +149,10 @@ class ShopHelper: NSObject {
             "latitude":latitude,
             "longitude":longitude,
             "address":address,
-            "delivery":delivery
+            "delivery":delivery,
+            "UserLatitude":UserLatitude,
+            "UserLongitude":UserLongitude,
+            "UserLocation":UserLocation
         ];
         
         

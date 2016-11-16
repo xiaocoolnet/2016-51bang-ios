@@ -897,7 +897,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
 //                print(dingWeiStr)
 //                print(result.addressDetail.district)
                 if (isDingwei) {
-                    
+                    userLocationCenter.setObject(dingWeiStr+streetNameStr, forKey: "UserLocation")
                     userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
                     if userLocationCenter.objectForKey("quName") == nil {
                         userLocationCenter.setObject(result.addressDetail.district, forKey: "quName")
