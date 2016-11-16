@@ -197,7 +197,6 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", self.URL_Str,@"index.php?g=apps&m=index&a=SendChatData"];
     
     [manager POST:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        printf("上传成功");
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         printf("上传失败");
         NSLog(@"%@",error);
@@ -354,7 +353,6 @@
     //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSDictionary *parameters = @{@"send_uid":userid,@"receive_uid":_receive_uid,@"content":_inputMess.text};
     NSString *url = [NSString stringWithFormat:@"%@%@", self.URL_Str,@"index.php?g=apps&m=index&a=SendChatData"];
-//    NSString *url = @"http://www.my51bang.com/index.php?g=apps&m=index&a=SendChatData";
     
     [manager POST:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         printf("上传成功");
