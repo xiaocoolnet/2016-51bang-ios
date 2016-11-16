@@ -29,6 +29,7 @@
 @property (nonatomic,assign)NSMutableArray *dataSource;
 @property (nonatomic,assign)NSTimer *timer;
 @property (nonatomic,assign)NSInteger num;
+@property (nonatomic,strong)NSString *URL_Str;
 
 @end
 @implementation ChetViewController
@@ -49,6 +50,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.URL_Str = @"http://bang.xiaocool.net/";
+//    self.URL_Str = @"http://www.my51bang.com/";
     [self someSet];
     
     if (_titleTop != nil) {
@@ -191,7 +194,7 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
 //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSDictionary *parameters = @{@"send_uid":userid,@"receive_uid":_receive_uid,@"content":_inputMess.text};
-    NSString *url = @"http://www.my51bang.com/index.php?g=apps&m=index&a=SendChatData";
+    NSString *url = [NSString stringWithFormat:@"%@%@", self.URL_Str,@"index.php?g=apps&m=index&a=SendChatData"];
     
     [manager POST:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         printf("上传成功");
@@ -350,7 +353,8 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSDictionary *parameters = @{@"send_uid":userid,@"receive_uid":_receive_uid,@"content":_inputMess.text};
-    NSString *url = @"http://www.my51bang.com/index.php?g=apps&m=index&a=SendChatData";
+    NSString *url = [NSString stringWithFormat:@"%@%@", self.URL_Str,@"index.php?g=apps&m=index&a=SendChatData"];
+//    NSString *url = @"http://www.my51bang.com/index.php?g=apps&m=index&a=SendChatData";
     
     [manager POST:url parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         printf("上传成功");

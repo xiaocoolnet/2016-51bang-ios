@@ -26,7 +26,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     var longitude = String()
     var latitude = String()
     let backView = UIView()
-//    let backMHView = UIView()
+    //    let backMHView = UIView()
     var isDingwei = Bool()
     let mainhelper = MainHelper()
     static var locationForUser = CLLocation.init()
@@ -77,7 +77,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         for view in self.topView.subviews {
             view.removeFromSuperview()
         }
-//        self.topView.removeFromSuperview()
+        //        self.topView.removeFromSuperview()
         self.mapView.removeFromSuperview()
         setBMKMpaview()
         createTopView()
@@ -91,8 +91,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = false
         self.navigationController?.navigationBar.hidden = false
-         geocodeSearch.delegate = self
-//        locationService.delegate = self
+        geocodeSearch.delegate = self
+        //        locationService.delegate = self
         mapView.viewWillAppear()
         mapView.delegate = self
         CommitOrderViewController.ReturnTagForView = 0
@@ -104,17 +104,17 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         geoCodeSearchOption.address = quName
         let flog = searcher.geoCode(geoCodeSearchOption)
         print(flog)
-//        self.mapView.removeFromSuperview()
-//        setBMKMpaview()
+        //        self.mapView.removeFromSuperview()
+        //        setBMKMpaview()
         
         
-//        let annoImage = UIButton()
-//        let point = CGPointMake(self.mapView.center.x, self.mapView.center.y - 13)
-//        annoImage.center = point
-//        annoImage.bounds = CGRectMake(0, 0, 20, 26)
-//        annoImage.backgroundColor = UIColor.redColor()
-//        self.annoImage = annoImage
-//        self.view.addSubview(self.annoImage)
+        //        let annoImage = UIButton()
+        //        let point = CGPointMake(self.mapView.center.x, self.mapView.center.y - 13)
+        //        annoImage.center = point
+        //        annoImage.bounds = CGRectMake(0, 0, 20, 26)
+        //        annoImage.backgroundColor = UIColor.redColor()
+        //        self.annoImage = annoImage
+        //        self.view.addSubview(self.annoImage)
         
         let buttons = UIButton.init(type: UIButtonType.Custom)
         buttons.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
@@ -132,27 +132,27 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     override func viewWillDisappear(animated: Bool) {
         
-       print(String(MainViewController.userLocationForChange.coordinate.latitude))
+        print(String(MainViewController.userLocationForChange.coordinate.latitude))
         if (userLocationCenter.objectForKey("myAddress") == nil) {
             
             
         }
         print(self.dingWeiStr)
         
-//        if (isDingwei) {
-//            
-//            userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
-//            userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
-//            isDingwei = false
-//        }else{
-//            userLocationCenter.setObject("0", forKey: "subLocality")
-//        }
+        //        if (isDingwei) {
+        //
+        //            userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
+        //            userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
+        //            isDingwei = false
+        //        }else{
+        //            userLocationCenter.setObject("0", forKey: "subLocality")
+        //        }
         
         geocodeSearch.delegate = nil
         locationService.delegate = nil
         mapView.viewWillDisappear()
         mapView.delegate = nil
-//        self.backMHView.removeFromSuperview()
+        //        self.backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
         self.BeingBackMyPositonBtn.removeFromSuperview()
         
@@ -180,22 +180,22 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         //接受通知
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)
         
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newTask), name:"newTasksss", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newMessage(_:)), name:"newMessage", object: nil)
-//        
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.sendTaskType(_:)), name:"sendTaskType", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.acceptTaskType(_:)), name:"acceptTaskType", object: nil)
-//        
-//         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.buyOrderType(_:)), name:"buyOrderType", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.businessOrderType(_:)), name:"businessOrderType", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.loginFromOther), name:"loginFromOther", object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.certificationType(_:)), name:"certificationType", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newTask), name:"newTasksss", object: nil)
+        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newMessage(_:)), name:"newMessage", object: nil)
+        //
+        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.sendTaskType(_:)), name:"sendTaskType", object: nil)
+        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.acceptTaskType(_:)), name:"acceptTaskType", object: nil)
+        //
+        //         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.buyOrderType(_:)), name:"buyOrderType", object: nil)
+        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.businessOrderType(_:)), name:"businessOrderType", object: nil)
+        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.loginFromOther), name:"loginFromOther", object: nil)
+        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.certificationType(_:)), name:"certificationType", object: nil)
         
         
         
         
-//        self.mapView.addSubview(BeingBackMyPositonBtn)
-    
+        //        self.mapView.addSubview(BeingBackMyPositonBtn)
+        
     }
     
     func postMyaddress(){
@@ -204,74 +204,74 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         if ud.objectForKey("userid") != nil {
             mainHelper.GetWorkingState(ud.objectForKey("userid") as! String) { (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
-                if !success{
-                    alert("数据加载出错", delegate: self)
-                    return
-                }
-                print(response! as! String)
-                
-                
-                if response as! String == "1"{
-                    let ud = NSUserDefaults.standardUserDefaults()
-                    var subLocality = String()
-                    var longitude = String()
-                    var latitude = String()
-                    var isworking = String()
-                    var cutyName = String()
-                    isworking = "1"
-                    
-                    let strrr = String( ud.objectForKey("subLocality")! as! String)
+                    if !success{
+                        alert("数据加载出错", delegate: self)
+                        return
+                    }
+                    print(response! as! String)
                     
                     
-                    if ud.objectForKey("subLocality") != nil && strrr != "0" && ud.objectForKey("streetName") != nil && ud.objectForKey("streetName") as! String != ""{
-                        subLocality = ud.objectForKey("subLocality") as! String
-                        cutyName = subLocality + (ud.objectForKey("streetName") as! String)
+                    if response as! String == "1"{
+                        let ud = NSUserDefaults.standardUserDefaults()
+                        var subLocality = String()
+                        var longitude = String()
+                        var latitude = String()
+                        var isworking = String()
+                        var cutyName = String()
+                        isworking = "1"
                         
-                        //            cutyName = ud.objectForKey("subLocality") as! String
-                    }
-                    if ud.objectForKey("longitude") != nil {
-                        longitude = ud.objectForKey("longitude") as! String
-                    }
-                    if ud.objectForKey("latitude") != nil {
-                        latitude = ud.objectForKey("latitude") as! String
-                    }
-                    
-                    
-                    if ud.objectForKey("userid") != nil {
-                        self.mainHelper.BeginWorking(ud.objectForKey("userid") as! String, address: cutyName, longitude: longitude, latitude: latitude, isworking: isworking) { (success, response) in
-                            dispatch_async(dispatch_get_main_queue(), {
-                            if !success {
-                                alert("数据加载出错", delegate: self)
-                                return
-                            }
-                            })
+                        let strrr = String( ud.objectForKey("subLocality")! as! String)
+                        
+                        
+                        if ud.objectForKey("subLocality") != nil && strrr != "0" && ud.objectForKey("streetName") != nil && ud.objectForKey("streetName") as! String != ""{
+                            subLocality = ud.objectForKey("subLocality") as! String
+                            cutyName = subLocality + (ud.objectForKey("streetName") as! String)
                             
+                            //            cutyName = ud.objectForKey("subLocality") as! String
                         }
+                        if ud.objectForKey("longitude") != nil {
+                            longitude = ud.objectForKey("longitude") as! String
+                        }
+                        if ud.objectForKey("latitude") != nil {
+                            latitude = ud.objectForKey("latitude") as! String
+                        }
+                        
+                        
+                        if ud.objectForKey("userid") != nil {
+                            self.mainHelper.BeginWorking(ud.objectForKey("userid") as! String, address: cutyName, longitude: longitude, latitude: latitude, isworking: isworking) { (success, response) in
+                                dispatch_async(dispatch_get_main_queue(), {
+                                    if !success {
+                                        alert("数据加载出错", delegate: self)
+                                        return
+                                    }
+                                })
+                                
+                            }
+                        }
+                        
+                        
+                    }else{
+                        
                     }
-                    
-                    
-                }else{
-                    
-                }
                 })
                 
-               
+                
             }
             
         }
-
+        
     }
     
     
     func getMyName(notification:NSNotification){
         let name = notification.object?.valueForKey("name") as? String
         self.selectCity(name!)
-//        NSNotificationCenter.defaultCenter().removeObserver(self, name: "NotificationIdentifier", object: nil)
-//        NSNotificationCenter.defaultCenter().removeObserver(self)
+        //        NSNotificationCenter.defaultCenter().removeObserver(self, name: "NotificationIdentifier", object: nil)
+        //        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func newTask(){
-//        self.GetData()
+        //        self.GetData()
         
         if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
             let alertController = UIAlertController(title: "系统提示",
@@ -297,7 +297,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             self.tabBarController?.selectedIndex = 0
             let vc = WoBangPageViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-//            self.window.rootViewController = vc
+            //            self.window.rootViewController = vc
         }
         
         
@@ -328,7 +328,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             nameLab.text = nameArr[i]
             topView.addSubview(nameLab)
         }
-
+        
     }
     
     
@@ -341,7 +341,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         
         
-       
+        
         if btn.tag == 0 {
             
             if loginSign == 0 {
@@ -356,33 +356,33 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 {
                     
                     
-                
-                let alertController = UIAlertController(title: "系统提示",
-                                                        message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
-                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-                let okAction = UIAlertAction(title: "确定", style: .Default,
-                                             handler: { action in
-                                                
-
-                                                self.tabBarController?.selectedIndex = 1
-                                                
-                })
-                alertController.addAction(cancelAction)
-                alertController.addAction(okAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
-                return
-                
-
+                    
+                    let alertController = UIAlertController(title: "系统提示",
+                                                            message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                    let okAction = UIAlertAction(title: "确定", style: .Default,
+                                                 handler: { action in
+                                                    
+                                                    
+                                                    self.tabBarController?.selectedIndex = 1
+                                                    
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    return
+                    
+                    
                     
                 }
             }
-
             
-                
-                
-                
-                let vc = CommitOrderViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
+            
+            
+            
+            
+            let vc = CommitOrderViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
             
             
         }else if btn.tag == 1{
@@ -431,9 +431,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         print(city)
         self.city = city
         self.backView.removeFromSuperview()
-//        self.backMHView.removeFromSuperview()
+        //        self.backMHView.removeFromSuperview()
         
-//        let cityNsstring = city as NSString
+        //        let cityNsstring = city as NSString
         var count = Int()
         let myArray1 = NSMutableArray()
         for a in city.characters{
@@ -476,79 +476,79 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         let flog = searcher.geoCode(geoCodeSearchOption)
         print(flog)
         
-//        mainHelper.checkCity(quName) { (success, response) in
-//            print(response)
-//            if !success{
-////                
-//                self.backMHView.frame = CGRectMake(0, 0, WIDTH, self.view.bounds.height+15)
-//                self.backMHView.backgroundColor = UIColor.grayColor()
-//                self.backMHView.alpha = 0.5
-//                UIApplication.sharedApplication().keyWindow!.addSubview(self.backMHView)
-//                
-//                self.backView.frame = CGRectMake(50,280, WIDTH-100, 150)
-//                self.backView.backgroundColor = UIColor.whiteColor()
-//                self.backView.layer.masksToBounds = true
-//                self.backView.layer.cornerRadius = 8
-//                
-//                let label11 = UILabel.init(frame: CGRectMake(0, 0, WIDTH-100, 30))
-//                label11.backgroundColor = UIColor.whiteColor()
-//                label11.text = "当前城市未开通51帮同城服务"
-//                label11.textColor = COLOR
-//                label11.textAlignment = NSTextAlignment.Center
-//                self.backView.addSubview(label11)
-//                
-//                let button11 = UIButton.init(frame: CGRectMake(0, 30, WIDTH-100, 50))
-//                button11.backgroundColor = UIColor.whiteColor()
-//                var titleStr = String()
-//                titleStr = "请拨打400-0608-856"
-//                let str = NSMutableAttributedString.init(string: titleStr)
-//                str.addAttribute(NSForegroundColorAttributeName, value:COLOR, range: NSMakeRange(0,3))
-//                str.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
-//                //            str.addAttribute(NSUnderlineStyleAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
-//                button11.setAttributedTitle(str, forState: UIControlState.Normal)
-//                
-//                
-//                //            button11.setTitleColor(COLOR, forState: UIControlState.Normal)
-//                button11.addTarget(self, action: #selector(self.phoneCall), forControlEvents: UIControlEvents.TouchUpInside)
-//                self.backView.addSubview(button11)
-//                let label22 = UILabel.init(frame: CGRectMake(0, 80, WIDTH-100, 30))
-//                label22.backgroundColor = UIColor.whiteColor()
-//                label22.text = "申请开通或代理"
-//                label22.textColor = COLOR
-//                label22.textAlignment = NSTextAlignment.Center
-//                self.backView.addSubview(label22)
-//                
-//                let backbutton = UIButton.init(frame: CGRectMake((WIDTH-100)/2, 110, (WIDTH-100)/2, 40))
-//                
-//                backbutton.backgroundColor = UIColor.whiteColor()
-//                backbutton.setTitle("返回城市选择", forState: UIControlState.Normal)
-//                backbutton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-//                backbutton.addTarget(self, action: #selector(self.backCityVc), forControlEvents: UIControlEvents.TouchUpInside)
-//                self.backView.addSubview(backbutton)
-//                
-//                UIApplication.sharedApplication().keyWindow!.addSubview(self.backView)
-//            }else{
-//                self.backView.removeFromSuperview()
-//                self.backMHView.removeFromSuperview()
-//            }
-//        }
-//        if (city != "北京"||city != "烟台"||city != "上海"||city != "深圳"||city != "广州") {
-//            
-//            
-//            
-//        }
+        //        mainHelper.checkCity(quName) { (success, response) in
+        //            print(response)
+        //            if !success{
+        ////
+        //                self.backMHView.frame = CGRectMake(0, 0, WIDTH, self.view.bounds.height+15)
+        //                self.backMHView.backgroundColor = UIColor.grayColor()
+        //                self.backMHView.alpha = 0.5
+        //                UIApplication.sharedApplication().keyWindow!.addSubview(self.backMHView)
+        //
+        //                self.backView.frame = CGRectMake(50,280, WIDTH-100, 150)
+        //                self.backView.backgroundColor = UIColor.whiteColor()
+        //                self.backView.layer.masksToBounds = true
+        //                self.backView.layer.cornerRadius = 8
+        //
+        //                let label11 = UILabel.init(frame: CGRectMake(0, 0, WIDTH-100, 30))
+        //                label11.backgroundColor = UIColor.whiteColor()
+        //                label11.text = "当前城市未开通51帮同城服务"
+        //                label11.textColor = COLOR
+        //                label11.textAlignment = NSTextAlignment.Center
+        //                self.backView.addSubview(label11)
+        //
+        //                let button11 = UIButton.init(frame: CGRectMake(0, 30, WIDTH-100, 50))
+        //                button11.backgroundColor = UIColor.whiteColor()
+        //                var titleStr = String()
+        //                titleStr = "请拨打400-0608-856"
+        //                let str = NSMutableAttributedString.init(string: titleStr)
+        //                str.addAttribute(NSForegroundColorAttributeName, value:COLOR, range: NSMakeRange(0,3))
+        //                str.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
+        //                //            str.addAttribute(NSUnderlineStyleAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
+        //                button11.setAttributedTitle(str, forState: UIControlState.Normal)
+        //
+        //
+        //                //            button11.setTitleColor(COLOR, forState: UIControlState.Normal)
+        //                button11.addTarget(self, action: #selector(self.phoneCall), forControlEvents: UIControlEvents.TouchUpInside)
+        //                self.backView.addSubview(button11)
+        //                let label22 = UILabel.init(frame: CGRectMake(0, 80, WIDTH-100, 30))
+        //                label22.backgroundColor = UIColor.whiteColor()
+        //                label22.text = "申请开通或代理"
+        //                label22.textColor = COLOR
+        //                label22.textAlignment = NSTextAlignment.Center
+        //                self.backView.addSubview(label22)
+        //
+        //                let backbutton = UIButton.init(frame: CGRectMake((WIDTH-100)/2, 110, (WIDTH-100)/2, 40))
+        //
+        //                backbutton.backgroundColor = UIColor.whiteColor()
+        //                backbutton.setTitle("返回城市选择", forState: UIControlState.Normal)
+        //                backbutton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        //                backbutton.addTarget(self, action: #selector(self.backCityVc), forControlEvents: UIControlEvents.TouchUpInside)
+        //                self.backView.addSubview(backbutton)
+        //
+        //                UIApplication.sharedApplication().keyWindow!.addSubview(self.backView)
+        //            }else{
+        //                self.backView.removeFromSuperview()
+        //                self.backMHView.removeFromSuperview()
+        //            }
+        //        }
+        //        if (city != "北京"||city != "烟台"||city != "上海"||city != "深圳"||city != "广州") {
+        //
+        //
+        //
+        //        }
     }
     
     func phoneCall(){
         
-//        backMHView.removeFromSuperview()
+        //        backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
         UIApplication.sharedApplication().openURL(NSURL.init(string: "tel://400-0608-856")!)
     }
     
     func backCityVc(){
-       location.setTitle("定位", forState: UIControlState.Normal)
-//        backMHView.removeFromSuperview()
+        location.setTitle("定位", forState: UIControlState.Normal)
+        //        backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
         
         cityController = CityViewController(nibName: "CityViewController", bundle: nil)
@@ -566,12 +566,12 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             self.tabBarController?.selectedIndex = 3
             
         }else{
-           
-        
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("FriendView")
-        self.navigationController?.pushViewController(vc, animated: true)
-        vc.title = "认证帮"
+            
+            
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("FriendView")
+            self.navigationController?.pushViewController(vc, animated: true)
+            vc.title = "认证帮"
         }
     }
     
@@ -585,7 +585,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     func getWeiZhi(){
         var cityname = String()
         if userLocationCenter.objectForKey("cityName") != nil {
-             cityname = userLocationCenter.objectForKey("cityName") as! String
+            cityname = userLocationCenter.objectForKey("cityName") as! String
         }
         print(cityname)
         
@@ -593,7 +593,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         mainHelper.GetRzbList (cityname,sort:"" ,type: "", handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
-                   
+                    
                     return
                 }
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
@@ -615,22 +615,22 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                     }
                     
                     
-//
+                    //
                 }
-//                self.mapView.addAnnotations(self.biaoZhuArray as [AnyObject])
+                //                self.mapView.addAnnotations(self.biaoZhuArray as [AnyObject])
                 
             })
             })
-
+        
     }
     
     
     
-//    
+    //
     func mapView(mapView: BMKMapView!, viewForAnnotation annotation: BMKAnnotation!) -> BMKAnnotationView! {
         if annotation .isEqual(pointAnmation) {
             let newAnnotationView = BMKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "myAnnotations")
-//            newAnnotationView.image = UIImage.init(named: "girl")
+            //            newAnnotationView.image = UIImage.init(named: "girl")
             newAnnotationView.annotation = annotation
             return newAnnotationView
         }else{
@@ -644,7 +644,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         
     }
-
+    
     
     
     /***********************百度地图******************************/
@@ -662,12 +662,12 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         mapView.setRegion(showRegion, animated: true)
         
         
-//
+        //
     }
     //设置百度地图
     func setBMKMpaview()
     {
-    
+        
         mapView.frame = CGRectMake(0, 100, UIScreen.mainScreen().bounds.size.width+10, UIScreen.mainScreen().bounds.size.height - 100)
         mapView.showsUserLocation = true
         mapView.zoomLevel = 19
@@ -676,7 +676,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         mapView.trafficEnabled = true
         
         getWeiZhi()
-//        mapView.updateLocationData
+        //        mapView.updateLocationData
         scrollView.addSubview(mapView)
         
         
@@ -686,8 +686,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     func moveToUser(){
         
-//        print(self.savedLocation.location)
-//        print(self.savedLocation.location.coordinate)
+        //        print(self.savedLocation.location)
+        //        print(self.savedLocation.location.coordinate)
         if self.savedLocation != self.flagLocation {
             mapView.updateLocationData(self.savedLocation)
             mapView.setCenterCoordinate(self.savedLocation.location.coordinate, animated: true)
@@ -769,7 +769,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         
     }
-
+    
     
     func mapView(mapView: BMKMapView!, regionDidChangeAnimated animated: Bool)
     {
@@ -810,7 +810,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         MainViewController.userLocationForChange = userLocation.location
         if(userLocation.location != nil)
         {
-        WillShowName(userLocation.location.coordinate.latitude, longtitude: userLocation.location.coordinate.longitude)
+            WillShowName(userLocation.location.coordinate.latitude, longtitude: userLocation.location.coordinate.longitude)
             showRegion.center = userLocation.location.coordinate
             showRegion.span.latitudeDelta = 0.05
             showRegion.span.longitudeDelta = 0.05
@@ -818,7 +818,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             mapView.updateLocationData(userLocation)
             self.savedLocation = userLocation
             
-//            print(userLocation.title)
+            //            print(userLocation.title)
             pointAnmation.coordinate = userLocation.location.coordinate
             pointAnmation.title = userLocation.title
             print(userLocation.title)
@@ -835,13 +835,13 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 userLocationCenter.setObject(userLocation.title, forKey: "myAddress")
                 
             }
-//            print(userLocation.)
+            //            print(userLocation.)
             
             
-        locationService.stopUserLocationService()
-        print("用户的位置已经更新")
+            locationService.stopUserLocationService()
+            print("用户的位置已经更新")
         }
-       
+        
     }
     
     
@@ -873,7 +873,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         print(result.address)
         print(result.description)
         mapView.selectAnnotation(pointAnmation, animated: true)
-//        self.WillShowName(result.location.longitude, longtitude: result.location.latitude)
+        //        self.WillShowName(result.location.longitude, longtitude: result.location.latitude)
     }
     
     //MARK: - BMKGeoCodeSearchDelegate
@@ -894,53 +894,53 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 MainViewController.BMKname =  dingWeiStr+streetNameStr
                 MainViewController.city = (result.poiList[0] as! BMKPoiInfo).city
                 
-//                print(dingWeiStr)
-//                print(result.addressDetail.district)
+                //                print(dingWeiStr)
+                //                print(result.addressDetail.district)
                 if (isDingwei) {
-                    
+                    userLocationCenter.setObject(dingWeiStr+streetNameStr, forKey: "UserLocation")
                     userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
                     if userLocationCenter.objectForKey("quName") == nil {
                         userLocationCenter.setObject(result.addressDetail.district, forKey: "quName")
-                   
-                    
-                    let alertController = UIAlertController(title: "系统提示",
-                                                            message: "亲，您当前定位城市为"+self.dingWeiStr+"，是否选择当前城市？", preferredStyle: .Alert)
-                    let cancelAction = UIAlertAction(title: "选择其他", style: .Cancel, handler: { action in
-                    
-                        self.cityController = CityViewController(nibName: "CityViewController", bundle: nil)
-                        self.cityController.delegate = self
-                        self.navigationController?.pushViewController(self.cityController, animated: true)
                         
-                        self.cityController.title = "定位"
-                    
-                    })
-                    let okAction = UIAlertAction(title: "确定", style: .Default,
-                                                 handler: { action in
-                                                    
-//                                                    
-//                                                    if self.userLocationCenter.objectForKey("quName") == nil{
+                        
+                        let alertController = UIAlertController(title: "系统提示",
+                                                                message: "亲，您当前定位城市为"+self.dingWeiStr+"，是否选择当前城市？", preferredStyle: .Alert)
+                        let cancelAction = UIAlertAction(title: "选择其他", style: .Cancel, handler: { action in
+                            
+                            self.cityController = CityViewController(nibName: "CityViewController", bundle: nil)
+                            self.cityController.delegate = self
+                            self.navigationController?.pushViewController(self.cityController, animated: true)
+                            
+                            self.cityController.title = "定位"
+                            
+                        })
+                        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                                     handler: { action in
+                                                        
+                                                        //
+                                                        //                                                    if self.userLocationCenter.objectForKey("quName") == nil{
                                                         self.location.setTitle(self.userLocationCenter.objectForKey("quName") as? String, forState: UIControlState.Normal)
-//                                                    }
-                                                    
-                    })
-                    alertController.addAction(cancelAction)
-                    alertController.addAction(okAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                     }
+                                                        //                                                    }
+                                                        
+                        })
+                        alertController.addAction(cancelAction)
+                        alertController.addAction(okAction)
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    }
                     
                     
                     
                     
-//                    print(self.dingWeiStr)
+                    //                    print(self.dingWeiStr)
                     userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
-//                    print(self.streetNameStr)
+                    //                    print(self.streetNameStr)
                     postMyaddress()
                     isDingwei = false
                 }
                 address = MainViewController.BMKname
-//                print(result.addressDetail.city)
-//                print(result.addressDetail.streetName)
-//                print(result.addressDetail.district)
+                //                print(result.addressDetail.city)
+                //                print(result.addressDetail.streetName)
+                //                print(result.addressDetail.district)
                 
                 pointAnmation.coordinate = mapView.region.center
                 pointAnmation.title = (result.poiList[0] as! BMKPoiInfo).name
@@ -950,34 +950,34 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 
                 
             }
-
+            
         }
         
-//        createPointAnmation(MainViewController.userLocationForChange)
-//          address = MainViewController.BMKname
+        //        createPointAnmation(MainViewController.userLocationForChange)
+        //          address = MainViewController.BMKname
     }
     
     
     
-//    func addPointAnnotation() {
-//        
-//            
-//            let ary1:NSArray = ["31.222771","39.915 ","31.229003"]
-//            let ary2:NSArray = ["121.490317","116.404","121.448224"]
-//            
-//            var coor: CLLocationCoordinate2D = CLLocationCoordinate2D.init()
-//        
-//            for i in 0 ..< ary1.count {
-//                
-//                pointAnmation = BMKPointAnnotation.init() //必须放在循环里初始化
-//                coor.latitude  = ary1[i].doubleValue
-//                coor.longitude = ary2[i].doubleValue
-//                pointAnmation.coordinate = coor
-//                mapView.addAnnotation(pointAnmation)
-//                
-//            }
-//    }
+    //    func addPointAnnotation() {
+    //        
+    //            
+    //            let ary1:NSArray = ["31.222771","39.915 ","31.229003"]
+    //            let ary2:NSArray = ["121.490317","116.404","121.448224"]
+    //            
+    //            var coor: CLLocationCoordinate2D = CLLocationCoordinate2D.init()
+    //        
+    //            for i in 0 ..< ary1.count {
+    //                
+    //                pointAnmation = BMKPointAnnotation.init() //必须放在循环里初始化
+    //                coor.latitude  = ary1[i].doubleValue
+    //                coor.longitude = ary2[i].doubleValue
+    //                pointAnmation.coordinate = coor
+    //                mapView.addAnnotation(pointAnmation)
+    //                
+    //            }
+    //    }
     
-
+    
     
 }
