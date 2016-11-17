@@ -87,8 +87,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         btn.backgroundColor = COLOR
         btn.addTarget(self, action: #selector(self.pay), forControlEvents: .TouchUpInside)
-//        bottom.addSubview(button)
-//        bottom.addSubview(selectBtn)
+        //        bottom.addSubview(button)
+        //        bottom.addSubview(selectBtn)
         bottom.addSubview(btn)
         
         let headerView =  NSBundle.mainBundle().loadNibNamed("PayHeaderCell", owner: nil, options: nil).first as? PayHeaderCell
@@ -149,18 +149,18 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             return
         }else if self.payMode == "支付宝"{
             //支付宝支付
-//            let userDufault = NSUserDefaults.standardUserDefaults()
-           
+            //            let userDufault = NSUserDefaults.standardUserDefaults()
+            
             //            if (userDufault.objectForKey("ordernumber") == nil) {
             //                print("0000000000")
-//            let dateFormatter = NSDateFormatter()
-//            dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
-//            let dateStr = dateFormatter.stringFromDate(NSDate())
+            //            let dateFormatter = NSDateFormatter()
+            //            dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+            //            let dateStr = dateFormatter.stringFromDate(NSDate())
             if  self.numForGoodS.characters.count < 0{
                 alert("订单错误", delegate: self)
                 return
             }
-//            orderNum  = self.numForGoodS
+            //            orderNum  = self.numForGoodS
             
             
             //            }else{
@@ -187,7 +187,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             order.partner = partner;
             order.sellerID = seller;
             order.outTradeNO = orderNum ; //订单ID（由商家自行制定）
-//            order.outTradeNO = "154553456456"
+            //            order.outTradeNO = "154553456456"
             if self.subject == "" {
                 order.subject = "商品标题"
             }else{
@@ -245,9 +245,9 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 //                    }
                 //                })
                 
-//                let dic = ["isRenwu":self.isRenwu,"numForGoodS":self.numForGoodS];
+                //                let dic = ["isRenwu":self.isRenwu,"numForGoodS":self.numForGoodS];
                 //            发送通知
-//                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.payback(_:)), name:"payBack", object: nil)
+                //                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.payback(_:)), name:"payBack", object: nil)
                 
                 let user = NSUserDefaults.standardUserDefaults()
                 if (isRenwu) {
@@ -255,7 +255,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 }else{
                     user.setObject("bookDan",forKey:"comeFromWechat")
                 }
-
+                
                 AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme) { (dic)-> Void in
                     
                     print(dic)
@@ -289,10 +289,10 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                             })
                         }
                     }
-
                     
-//                    let vc = MyBookDan()
-//                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+                    //                    let vc = MyBookDan()
+                    //                    self.navigationController?.pushViewController(vc, animated: true)
                     
                     
                 }
@@ -316,10 +316,10 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 return
             }
             aa.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum,isRenwu:self.isRenwu);
-//            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
+            //            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
             
-//            let vc = MyBookDan()
-//            self.navigationController?.pushViewController(vc, animated: true)
+            //            let vc = MyBookDan()
+            //            self.navigationController?.pushViewController(vc, animated: true)
             
             //            //随机数
             //            let orderNO   = CommonUtil.genOutTradNo()
@@ -481,10 +481,10 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
-//                self.tabBarController?.selectedIndex = 3
-//                let vc = MyFaDan()
-//                vc.sign = 1
-//                self.navigationController?.pushViewController(vc, animated: true)
+                //                self.tabBarController?.selectedIndex = 3
+                //                let vc = MyFaDan()
+                //                vc.sign = 1
+                //                self.navigationController?.pushViewController(vc, animated: true)
             })
         }else{
             self.mainhelper.upALPState("1_"+numForGoodS, state: "2", type: "2", handle: { (success, response) in
@@ -492,13 +492,13 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
-//                self.tabBarController?.selectedIndex = 3
-//                let vc = MyBookDan()
-//                self.navigationController?.pushViewController(vc, animated: true)
+                //                self.tabBarController?.selectedIndex = 3
+                //                let vc = MyBookDan()
+                //                self.navigationController?.pushViewController(vc, animated: true)
             })
         }
-//        let vc = OrderDetailViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
+        //        let vc = OrderDetailViewController()
+        //        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func nextView(){
@@ -512,8 +512,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
-//                self.tabBarController?.selectedIndex = 0
-//                self.tabBarController?.selectedIndex = 3
+                //                self.tabBarController?.selectedIndex = 0
+                //                self.tabBarController?.selectedIndex = 3
                 let vc = MyFaDan()
                 vc.sign = 1
                 self.navigationController?.pushViewController(vc, animated: true)
@@ -524,16 +524,16 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                     alert("支付未成功，如有疑问请联系客服", delegate: self)
                 }
                 hud.hide(true)
-//                self.tabBarController?.selectedIndex = 3
+                //                self.tabBarController?.selectedIndex = 3
                 let vc = MyBookDan()
                 self.navigationController?.pushViewController(vc, animated: true)
             })
         }
         
-
         
-//        let vc = OrderDetailViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
+        
+        //        let vc = OrderDetailViewController()
+        //        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
@@ -756,7 +756,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     //        return 100
     //    }
     //    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //        
+    //
     //        let headerView =  NSBundle.mainBundle().loadNibNamed("PayHeaderCell", owner: nil, options: nil).first as? PayHeaderCell
     //        view.backgroundColor = RGREY
     //        return headerView

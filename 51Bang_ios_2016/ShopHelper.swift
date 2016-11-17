@@ -13,15 +13,15 @@ class ShopHelper: NSObject {
     
     func getGoodsList(handle:ResponseBlock){
         let url = Bang_URL_Header+"getshoppinglist"
-//        let param = [
-//            "id":"0"
-//        ];
+        //        let param = [
+        //            "id":"0"
+        //        ];
         let ud = NSUserDefaults.standardUserDefaults()
         var cityName = String()
         if (ud.objectForKey("quName") != nil) {
             cityName = ud.objectForKey("quName") as! String
         }
-
+        
         Alamofire.request(.GET, url, parameters: ["city":cityName]).response { request, response, json, error in
             print(request)
             if(error != nil){
@@ -49,8 +49,8 @@ class ShopHelper: NSObject {
     
     //发布特卖
     func upLoadTeMaiMessage(userid:NSString,type:NSString,goodsname:NSString,oprice:NSString,price:NSString,desc:NSString,photoArray:NSArray,unit:NSString,longitude:NSString,latitude:NSString,address:NSString,delivery:String, handle:ResponseBlock){
-//        print(goodsname)
-//        print(photoArray)
+        //        print(goodsname)
+        //        print(photoArray)
         let userLocationCenter = NSUserDefaults.standardUserDefaults()
         var UserLatitude = String()
         var UserLongitude = String()
@@ -73,7 +73,7 @@ class ShopHelper: NSObject {
                 photoUrl.appendString(photoArray[i] as! String)
                 photoUrl.appendString(",")
             }
-
+            
         }
         print(photoUrl)
         let param = [
@@ -183,7 +183,7 @@ class ShopHelper: NSObject {
     
     //微信支付订单生成
     func getWeixinDingdan(appid:String,mch_id:String,device_info:String,nonce_str:String,sign:String,body:String,detail:String,attach:String,out_trade_no:String,fee_type:String,total_fee:Int,spbill_create_ip:String,time_start:String,time_expire:String,goods_tag:String,notify_url:String,trade_type:String,limit_pay:String, handle:ResponseBlock){
-
+        
         let url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
         
         let param = [
@@ -227,7 +227,7 @@ class ShopHelper: NSObject {
             print(data["return_msg"]?.UTF8String)
             
             do{
-               let data11 = try NSJSONSerialization.JSONObjectWithData(json!, options:NSJSONReadingOptions.MutableLeaves)
+                let data11 = try NSJSONSerialization.JSONObjectWithData(json!, options:NSJSONReadingOptions.MutableLeaves)
                 print(data11)
             }catch{
                 
@@ -256,7 +256,7 @@ class ShopHelper: NSObject {
             
         }
     }
-
+    
     //收藏商品
     
     func favorite(userid:NSString,type:NSString,goodsid:NSString,title:NSString,desc:NSString,handle:ResponseBlock){
@@ -268,8 +268,8 @@ class ShopHelper: NSObject {
             "type":type,
             "title":title,
             "description":desc,
-           
-        ];
+            
+            ];
         
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)
@@ -292,10 +292,10 @@ class ShopHelper: NSObject {
             }
             
         }
-    
+        
     }
     
-     func cancelFavoritefunc(userid:NSString,type:NSString,goodsid:NSString,handle:ResponseBlock){
+    func cancelFavoritefunc(userid:NSString,type:NSString,goodsid:NSString,handle:ResponseBlock){
         let url = Bang_URL_Header+"cancelfavorite"
         let param = [
             
@@ -303,7 +303,7 @@ class ShopHelper: NSObject {
             "goodsid":goodsid,
             "type":type
             
-            ];
+        ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)
             if(error != nil){
@@ -325,8 +325,8 @@ class ShopHelper: NSObject {
             }
             
         }
-
-    
+        
+        
     }
     
     //获取我的发布
@@ -350,7 +350,7 @@ class ShopHelper: NSObject {
                 print("---")
                 //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-//                    print(result.datas)
+                    //                    print(result.datas)
                     handle(success: true, response: result.datas)
                     
                 }else{
@@ -363,7 +363,7 @@ class ShopHelper: NSObject {
         
         
     }
-
+    
     //下架
     func XiaJia(id:NSString,isShangjia:String,handle:ResponseBlock){
         var url = String()
@@ -399,15 +399,15 @@ class ShopHelper: NSObject {
             }
             
         }
-
-    
+        
+        
     }
     //删除
     func deleteOrder(id:NSString,handle:ResponseBlock){
         var url = String()
         url = Bang_URL_Header+"DeleteGoods"
         
-            let param = [
+        let param = [
             
             "id":id
             
@@ -436,8 +436,8 @@ class ShopHelper: NSObject {
         
         
     }
-
     
-
-
+    
+    
+    
 }
