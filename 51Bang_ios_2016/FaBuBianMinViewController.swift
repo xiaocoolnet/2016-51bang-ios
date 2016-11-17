@@ -768,15 +768,15 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         var latitude = String()
         
         let ud = NSUserDefaults.standardUserDefaults()
-        if ud.objectForKey("subLocality") != nil && ud.objectForKey("quName") != nil && ud.objectForKey("streetName") != nil {
-            adress2 = ud.objectForKey("subLocality") as! String + (ud.objectForKey("quName") as! String) + (ud.objectForKey("streetName") as! String)
+        if ud.objectForKey("RealTimeLocation") != nil {
+            adress2 = ud.objectForKey("RealTimeLocation") as! String
         }
         
-        if ud.objectForKey("longitude") != nil {
-            longitude = ud.objectForKey("longitude") as! String
+        if ud.objectForKey("RealTimelongitude") != nil {
+            longitude = ud.objectForKey("RealTimelongitude") as! String
         }
-        if ud.objectForKey("latitude") != nil {
-            latitude = ud.objectForKey("latitude") as! String
+        if ud.objectForKey("RealTimelatitude") != nil {
+            latitude = ud.objectForKey("RealTimelatitude") as! String
         }
 //        userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
 //        userLocationCenter.setObject(result.addressDetail.district, forKey: "quName")

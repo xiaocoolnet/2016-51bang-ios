@@ -886,7 +886,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 
                 self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
                 self.streetNameStr = (result.poiList[0] as! BMKPoiInfo).name
-                
+                userLocationCenter.setObject(dingWeiStr+streetNameStr, forKey: "RealTimeLocation")
+                userLocationCenter.setObject(String(result.location.latitude), forKey: "RealTimelatitude")
+                userLocationCenter.setObject(String(result.location.longitude), forKey: "RealTimelongitude")
                 CommitOrderViewController.FirstLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
                 LocationViewController.firstAddress = dingWeiStr+streetNameStr
                 CommitOrderViewController.SecondLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)

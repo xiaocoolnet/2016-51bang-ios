@@ -10,7 +10,7 @@
 #import "messModel.h"
 #import "modelFrame.h"
 #import "CustomTableViewCell.h"
-#import "MainHelper.swift"
+//#import "MainHelper.swift"
 #import <AFNetworking/AFNetworking.h>
 #import <UIKit/UIKit.h>
 //#import "51Bang_ios_2016-Swift.h"

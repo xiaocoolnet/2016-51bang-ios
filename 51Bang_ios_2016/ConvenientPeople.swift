@@ -388,7 +388,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     
     func deletemyfabu(sender:UIButton){
-        //        print(self.info?.phone)
+//                print(sender.tag-1000)
         if loginSign == 0 {
             
             alert("请先登录", delegate: self)
@@ -409,13 +409,23 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 if !success{
                     return
                 }
-                self.dataSource2.removeObject(self.dataSource2[sender.tag-1000] as! TCHDInfo)
+                 self.dataSource2.removeObject(self.dataSource2[sender.tag-1000] as! TCHDInfo)
+                    
+                    if sender.tag-1000<7{
+                        
+                        self.convenienceTable.reloadData()
+                        alert("内容已删除", delegate: self)
+                    }else{
+                        
+                        
+                        let myindexPaths = NSIndexPath.init(forRow:
+                            sender.tag-1000, inSection: 0)
+                        self.convenienceTable.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
+                        self.convenienceTable.reloadData()
+                        alert("内容已删除", delegate: self)
+                    }
                 
-                let myindexPaths = NSIndexPath.init(forRow:
-                    sender.tag-1000, inSection: 0)
-                self.convenienceTable.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
-                self.convenienceTable.reloadData()
-                 alert("内容已删除", delegate: self)
+                
                 })
             })
                                                 
