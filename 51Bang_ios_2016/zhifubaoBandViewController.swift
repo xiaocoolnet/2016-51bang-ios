@@ -163,10 +163,15 @@ class zhifubaoBandViewController: UIViewController {
     {
         
         let userData = NSUserDefaults.standardUserDefaults()
-        let phoneNum = userData.objectForKey("phone") as! String
-        let temp1 = (phoneNum as NSString).substringWithRange(NSMakeRange(0, 4))
-        let temp2 = (phoneNum as NSString).substringWithRange(NSMakeRange(7, 4))
-        return "您当前绑定的手机号码：" + temp1 + "****" + temp2
+        if userData.objectForKey("phone") != nil {
+            let phoneNum = userData.objectForKey("phone") as! String
+            let temp1 = (phoneNum as NSString).substringWithRange(NSMakeRange(0, 4))
+            let temp2 = (phoneNum as NSString).substringWithRange(NSMakeRange(7, 4))
+            return "您当前绑定的手机号码：" + temp1 + "****" + temp2
+        }else{
+            return "获取手机号失败"
+        }
+        
     }
     
     
@@ -249,13 +254,19 @@ class zhifubaoBandViewController: UIViewController {
     
     func getPhoneVerifyAction()
     {
-        
+        getPhoneVerityBtn.userInteractionEnabled = false
         print("开始发送")
         let userData = NSUserDefaults.standardUserDefaults()
-        let phoneNum = userData.objectForKey("phone") as! String
-        let getphoneMessage = BankUpLoad()
-        getphoneMessage.requestMessage(phoneNum)
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.timego), userInfo: nil, repeats: true)
+        if userData.objectForKey("phone") != nil {
+            let phoneNum = userData.objectForKey("phone") as! String
+            let getphoneMessage = BankUpLoad()
+            getphoneMessage.requestMessage(phoneNum)
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.timego), userInfo: nil, repeats: true)
+        }else{
+            alert("获取手机号失败", delegate: self)
+            getPhoneVerityBtn.userInteractionEnabled = true
+        }
+        
     }
     
     

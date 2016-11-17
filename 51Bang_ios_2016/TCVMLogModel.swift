@@ -26,6 +26,7 @@ class TCVMLogModel: NSObject {
         let paramDic = ["phone":phoneNum,"password":password,"registrationID":registrationID,"devicestate":"1"]
         
         requestManager?.GET(url, parameters: paramDic, success: { (task, obj) in
+            print(task.currentRequest?.URL)
             let result = TCUserInfoModel(JSONDecoder(obj!))
             if result.status == "success"{
                 print(result.data)
@@ -37,6 +38,7 @@ class TCVMLogModel: NSObject {
 //            handle(success: true, response: result.data)
             
             }, failure: { (task, error) in
+                print(task)
             handle(success: false, response: "请求失败")
         })
         

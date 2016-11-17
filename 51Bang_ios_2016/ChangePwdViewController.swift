@@ -227,10 +227,12 @@ class ChangePwdViewController: UIViewController {
     // MARK: - 点击事件
     
     func getCheckNum() {
+        checkNumBtn.userInteractionEnabled = false
         //  获取验证码
         //  1.判断手机号是否为空
         if phoneNumFiled.text!.isEmpty {
-            //alert("请输入手机号", delegate: self)
+            alert("请输入手机号", delegate: self)
+            checkNumBtn.userInteractionEnabled = true
             return
         }
         //  2.通过上传url获取验证码（检测手机是否已经注册）
@@ -241,11 +243,13 @@ class ChangePwdViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue(), {
                 if success {
                     //  2.1成功,验证码传到手机,执行倒计时操作
+                    self.checkNumBtn.userInteractionEnabled = false
                     TimeManager.shareManager.begainTimerWithKey("forget", timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
                     self.changeVM?.sendMobileCodeWithPhoneNumber(self.phoneNumFiled.text!)
                 }else{
                     //  2.2失败,手机号没有注册
-                    //alert("手机没有注册", delegate: self)
+                    self.checkNumBtn.userInteractionEnabled = true
+                    alert("手机没有注册", delegate: self)
                 }
             })
             })
@@ -315,13 +319,13 @@ class ChangePwdViewController: UIViewController {
             dispatch_async(dispatch_get_main_queue(), {
                 
                 if success {
-                    //alert("修改成功", delegate: self)
+                    alert("修改成功", delegate: self)
                     print("修改成功")
                     self.navigationController?.popViewControllerAnimated(true)
                 }else{
                     let string = response as! String
                     print(string)
-                    //alert(string, delegate: self)
+                    alert(string, delegate: self)
                 }
             })
             })

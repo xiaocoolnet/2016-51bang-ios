@@ -617,7 +617,12 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         
         
-        
+        for index in 0...self.photoNameArr.count-1 {
+            if index>8 {
+                self.photoNameArr.removeObjectAtIndex(index)
+            }
+        }
+
         
         
         mainHelper.upLoadOrder(userid, title: self.taskTitle, description: self.taskDescription, address:address , longitude: longitude, latitude: latitude, saddress:saddress,slongitude: slongitude, slatitude: slatitude, expirydate: expirydate, price: price, type: type, sound: self.sound, picurl: self.photoNameArr,soundtime:String(self.countTime), handle: { (success, response) in

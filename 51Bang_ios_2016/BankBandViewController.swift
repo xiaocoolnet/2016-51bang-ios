@@ -264,10 +264,16 @@ class BankBandViewController: UIViewController {
         getPhoneVerityBtn.userInteractionEnabled = false
         print("开始发送")
         let userData = NSUserDefaults.standardUserDefaults()
-        let phoneNum = userData.objectForKey("phone") as! String
-        let getphoneMessage = BankUpLoad()
-        getphoneMessage.requestMessage(phoneNum)
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.timego), userInfo: nil, repeats: true)
+        if userData.objectForKey("phone") != nil {
+            let phoneNum = userData.objectForKey("phone") as! String
+            let getphoneMessage = BankUpLoad()
+            getphoneMessage.requestMessage(phoneNum)
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.timego), userInfo: nil, repeats: true)
+        }else{
+            alert("获取手机号失败", delegate: self)
+            getPhoneVerityBtn.userInteractionEnabled = true
+        }
+        
     }
     
     

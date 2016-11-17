@@ -218,17 +218,19 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
     
     //获取验证码
     @IBAction func getIdentifyingAction(sender: AnyObject) {
+        self.getIDButton.userInteractionEnabled = false
         if phoneNumber.text!.isEmpty {
             SVProgressHUD.showErrorWithStatus("请输入手机号！")
+            self.getIDButton.userInteractionEnabled = true
             return
         }
         logVM?.comfirmPhoneHasRegister(phoneNumber.text!, handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             if success {
                     SVProgressHUD.showErrorWithStatus("手机已注册")
+                self.getIDButton.userInteractionEnabled = true
             }else{
                  self.getIDButton.backgroundColor = UIColor.lightGrayColor()
-                self.getIDButton.userInteractionEnabled = false
                 TimeManager.shareManager.begainTimerWithKey(self.GET_ID_KEY, timeInterval: 30, process: self.processHandle!, finish: self.finishHandle!)
                 self.logVM?.sendMobileCodeWithPhoneNumber(self.phoneNumber.text!)
             }
@@ -295,7 +297,7 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         }
         
         if isAgree != true {
-            SVProgressHUD.showErrorWithStatus("请同意协议!")
+            SVProgressHUD.showErrorWithStatus("同意协议才可以完成注册!")
             return
         }
         var referral = String()
@@ -309,11 +311,12 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
         logVM?.register(phoneNumber.text!, password: passwordNumber.text!, code: identifyNumber.text!, avatar: avatarImageName, name: "",sex: String(sex), cardid: "", addr:"",referral:referral, handle: { [unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if success {
-                    SVProgressHUD.showSuccessWithStatus("注册成功")
+                    alert("注册成功！", delegate: self)
                     self.navigationController?.popViewControllerAnimated(true)
                     
                 }else{
-                    SVProgressHUD.showErrorWithStatus(response as! String)
+                    
+                    alert(response as! String, delegate: self)
                 }
             })
         })

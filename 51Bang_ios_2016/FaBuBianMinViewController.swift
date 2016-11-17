@@ -675,8 +675,8 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let result = Http(JSONDecoder(data))
-                    print(result.status)
-                    print(result.data)
+//                    print(result.status)
+//                    print(result.data)
                     if result.status != nil {
                         dispatch_async(dispatch_get_main_queue(), {
                             if result.status! == "success"{
@@ -795,6 +795,12 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
         print(userid)
         print(self.photoNameArr)
+        for index in 0...self.photoNameArr.count-1 {
+            if index>8 {
+                self.photoNameArr.removeObjectAtIndex(index)
+            }
+        }
+
         mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime),address2:adress2,longitude:longitude,latitude:latitude) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             print(response)
