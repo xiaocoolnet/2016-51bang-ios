@@ -607,7 +607,6 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         bottom_title.text = "分享到"
         bottom.addSubview(bottom_title)
         bottom_title.textAlignment = NSTextAlignment.Center
-        
         btn1.frame = CGRectMake(WIDTH / 5, bottom_title.frame.size.height, WIDTH / 5, WIDTH / 5)
         btn1.setImage(UIImage.init(named: "ic_weixin-1"), forState: UIControlState.Normal)
         btn1.tag = 1

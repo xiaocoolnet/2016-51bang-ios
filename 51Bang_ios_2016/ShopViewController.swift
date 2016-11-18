@@ -44,7 +44,6 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.navigationController?.navigationBar.hidden = false
         
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "特卖"

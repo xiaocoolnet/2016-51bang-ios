@@ -88,6 +88,7 @@ class ConveniceCell: UITableViewCell{
         contenLabel.text = myinfo.content
         
         
+        
         backView.backgroundColor = UIColor.whiteColor()
         backView.sd_layout()
             .widthIs(WIDTH+2)
