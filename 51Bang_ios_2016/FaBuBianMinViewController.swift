@@ -492,6 +492,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
         self.photoArray.removeAllObjects()
+        self.photoNameArr.removeAllObjects()
         for imagess in photos {
             photoArray.addObject(imagess)
         }
@@ -619,7 +620,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func pushPhotos(){
         let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid")as! String
+        var userid = String()
+        if ud.objectForKey("userid") != nil{
+            userid = ud.objectForKey("userid")as! String
+        }
+        
         
         
         var isRecord = false
@@ -706,10 +711,10 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
         
         if self.photoArray.count != 0 {
-            for ima in photoArray {
+            for image in photoArray {
                 
                 //                let representation =  ima.asset.defaultRepresentation()
-                let image = ima
+//                let image = ima
                 let dataPhoto:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
                 var myImagess = UIImage()
                 myImagess = UIImage.init(data: dataPhoto)!
@@ -787,17 +792,19 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         print("发表评论")
         
         let textView = self.view.viewWithTag(1)as! PlaceholderTextView
-        print(textView.text)
+//        print(textView.text)
         
 //        let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
         let userPhone = ud.objectForKey("phone")as! String
         
-        print(userid)
-        print(self.photoNameArr)
-        for index in 0...self.photoNameArr.count-1 {
-            if index>8 {
-                self.photoNameArr.removeObjectAtIndex(index)
+//        print(userid)
+//        print(self.photoNameArr)
+        if self.photoNameArr.count > 0{
+            for index in 0...self.photoNameArr.count-1 {
+                if index>8 {
+                    self.photoNameArr.removeObjectAtIndex(index)
+                }
             }
         }
 

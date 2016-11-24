@@ -315,8 +315,11 @@ class TCRegisterViewController: UIViewController,UIActionSheetDelegate,UIImagePi
                     self.navigationController?.popViewControllerAnimated(true)
                     
                 }else{
+                    if response?.isKindOfClass(NSString) == true {
+                         alert(response as! String, delegate: self)
+                    }
                     
-                    alert(response as! String, delegate: self)
+                   
                 }
             })
         })

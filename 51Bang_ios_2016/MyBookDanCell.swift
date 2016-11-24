@@ -92,7 +92,7 @@ class MyBookDanCell: UITableViewCell {
             Btn.setTitle("待付款", forState: UIControlState.Normal)
             Btn1.setTitle("取消订单", forState: UIControlState.Normal)
 //            Btn.addTarget(self, action: #selector(MyBookDanCell.Comment(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        }else if Data.state == "2"{
+        }else if Data.state == "2" && Data.delivery == "送货上门"{
 //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待发货"
             Btn.setTitle("已支付", forState: UIControlState.Normal)
@@ -110,7 +110,7 @@ class MyBookDanCell: UITableViewCell {
             Btn1.hidden = true
             Btn.setTitle("已完成", forState: UIControlState.Normal)
             Btn.setTitleColor(COLOR, forState: UIControlState.Normal)
-        }else if Data.state == "3"{
+        }else if Data.state == "3" || (Data.state == "2" && Data.delivery != "送货上门"){
             //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待消费"
             Btn1.setTitle("取消订单", forState: UIControlState.Normal)

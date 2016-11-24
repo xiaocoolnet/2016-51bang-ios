@@ -137,7 +137,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             
             
         }
-        print(self.dingWeiStr)
+//        print(self.dingWeiStr)
         
         //        if (isDingwei) {
         //
@@ -282,9 +282,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
-                                            self.tabBarController?.selectedIndex = 0
-                                            let vc = WoBangPageViewController()
-                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            self.tabBarController?.selectedIndex = 1
+//                                            let vc = WoBangPageViewController()
+//                                            self.navigationController?.pushViewController(vc, animated: true)
                                             
                                             
                                             
@@ -294,9 +294,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             alertController.addAction(okAction)
             self.presentViewController(alertController, animated: true, completion: nil)
         }else{
-            self.tabBarController?.selectedIndex = 0
-            let vc = WoBangPageViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.tabBarController?.selectedIndex = 1
+//            let vc = WoBangPageViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
             //            self.window.rootViewController = vc
         }
         
@@ -597,7 +597,9 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                     return
                 }
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
-                
+                if self.rzbDataSource == nil{
+                    return
+                }
                 for RZB in self.rzbDataSource!{
                     let biaozhu = BMKPointAnnotation()
                     

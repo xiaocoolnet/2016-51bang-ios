@@ -261,7 +261,10 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     func footerRefresh(){
         print(self.beginmid)
         if dataSource2.count > 0  {
-            beginmid = (dataSource2.lastObject as! TCHDInfo).mid!
+            if dataSource2.lastObject?.isKindOfClass(TCHDInfo) == true {
+                beginmid = (dataSource2.lastObject as! TCHDInfo).mid!
+            }
+            
         }
         var myID:Int = Int(beginmid)!
         myID = myID - 5

@@ -245,6 +245,7 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
         self.photoArray.removeAllObjects()
+        self.photoNameArr.removeAllObjects()
         for imagess in photos {
             photoArray.addObject(imagess)
         }
@@ -261,39 +262,39 @@ class OrderCommentViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     //上传图片的协议与代理方法
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        self.addCollectionViewPicture()
-        let data = UIImageJPEGRepresentation((info[UIImagePickerControllerEditedImage] as? UIImage)!, 0.1)!
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyyMMddHHmmss"
-        let dateStr = dateFormatter.stringFromDate(NSDate())
-        let imageName = "avatar" + dateStr
-        
-        //上传图片
-        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
-            dispatch_async(dispatch_get_main_queue(), {
-                
-                let result = Http(JSONDecoder(data))
-                if result.status != nil {
-                    dispatch_async(dispatch_get_main_queue(), {
-                        if result.status! == "success"{
-                            print("....................\(result.data)")
-                            self.photoNameArr.addObject(result.data!)
-                            
-                        }else{
-                            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-                            hud.mode = MBProgressHUDMode.Text;
-                            hud.labelText = "图片上传失败"
-                            hud.margin = 10.0
-                            hud.removeFromSuperViewOnHide = true
-                            hud.hide(true, afterDelay: 1)
-                        }
-                    })
-                }
-            })
-        }
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+//        self.addCollectionViewPicture()
+//        let data = UIImageJPEGRepresentation((info[UIImagePickerControllerEditedImage] as? UIImage)!, 0.1)!
+//        let dateFormatter = NSDateFormatter()
+//        dateFormatter.dateFormat = "yyyyMMddHHmmss"
+//        let dateStr = dateFormatter.stringFromDate(NSDate())
+//        let imageName = "avatar" + dateStr
+//        
+//        //上传图片
+//        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
+//            dispatch_async(dispatch_get_main_queue(), {
+//                
+//                let result = Http(JSONDecoder(data))
+//                if result.status != nil {
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                        if result.status! == "success"{
+//                            print("....................\(result.data)")
+//                            self.photoNameArr.addObject(result.data!)
+//                            
+//                        }else{
+//                            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+//                            hud.mode = MBProgressHUDMode.Text;
+//                            hud.labelText = "图片上传失败"
+//                            hud.margin = 10.0
+//                            hud.removeFromSuperViewOnHide = true
+//                            hud.hide(true, afterDelay: 1)
+//                        }
+//                    })
+//                }
+//            })
+//        }
+//        self.dismissViewControllerAnimated(true, completion: nil)
+//    }
     //MARK:创建图片视图
     func addCollectionViewPicture(){
         

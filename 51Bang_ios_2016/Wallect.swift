@@ -7,12 +7,17 @@
 //
 
 import Foundation
+import MBProgressHUD
 class Wallect: UIViewController {
     private let statuFrame = UIApplication.sharedApplication().statusBarFrame
     private let TopView = UIView()
     private let SecondView = UIView()
     private let thirdView = UIView()
     private let leftMoney = UILabel()
+    let label2 = UILabel()
+    let label4 = UILabel()
+    let label6 = UILabel()
+    let label8 = UILabel()
     let mainHelper = TCVMLogModel()
     var info = walletInfo()
     var dataSource = NSMutableArray()
@@ -20,32 +25,72 @@ class Wallect: UIViewController {
     var scrollerAll = UIScrollView()
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBar.hidden = true
+        self.getData()
+        
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
 //        self.title = "钱包"
-        self.getData()
+        
+        
         scrollerAll = UIScrollView.init(frame: CGRectMake(0, -20, WIDTH, HEIGHT+20))
         scrollerAll.contentSize = CGSize(width: WIDTH, height: scrollerAll.height+100)
         self.view.addSubview(scrollerAll)
+        self.setTopView()
+        self.setSecondView()
+        self.setThirdView()
     }
     
     func getData(){
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.mode = .Text
+        hud.labelText = "正在努力加载"
         let ud = NSUserDefaults.standardUserDefaults()
         let uid = ud.objectForKey("userid")as!String
         print(uid)
         mainHelper.getQianBaoData(uid) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
+            hud.hide(true)
             let myinfo1:walletInfo = response as! walletInfo
+                if !success{
+                    alert("请求失败", delegate: self)
+                    return
+                }
             self.info = response as! walletInfo
-            print(myinfo1)
+//            print(myinfo1)
             self.dataSource.addObject(myinfo1)
-            print(self.info.allincome)
-            print(self.info.alltasks)
-            self.setTopView()
-            self.setSecondView()
-            self.setThirdView()
+            if self.info.availablemoney == nil {
+                self.leftMoney.text = "0.00"
+            }else{
+                self.leftMoney.text = self.info.availablemoney
+            }
+                if self.info.monthtasks != nil{
+                    self.label2.text = self.info.monthtasks
+                }else{
+                    self.label2.text = "0"
+                }
+                if self.info.alltasks != nil{
+                    self.label6.text = self.info.alltasks
+                }else{
+                    self.label6.text = "0"
+                }
+            
+            
+            if self.info.monthincome != nil{
+                self.label4.text = self.info.monthincome
+            }else{
+                self.label4.text = "0.00"
+            }
+            if self.info.allincome != nil {
+                self.label8.text = self.info.allincome
+            }else{
+                self.label8.text = "0.00"
+            }
+            
+           
             })
         }
     
@@ -103,12 +148,12 @@ class Wallect: UIViewController {
         SecondView.backgroundColor = UIColor.whiteColor()
         let label1 = UILabel.init(frame: CGRectMake(10+20, 10, 100, 20))
         label1.text = "本月接单数"
-        let label2 = UILabel.init(frame: CGRectMake(10+20, 30, 100,30))
+        label2.frame = CGRectMake(10+20, 30, 100,30)
         print(info.monthtasks)
         label2.text = info.monthtasks
         let label3 = UILabel.init(frame: CGRectMake(200, 10, 100, 20))
         label3.text = "本月收入"
-        let label4 = UILabel.init(frame: CGRectMake(200,30, 100, 30))
+        label4.frame = CGRectMake(200,30, 100, 30)
         print(info.monthincome)
         if info.monthincome != nil{
             label4.text = info.monthincome
@@ -119,11 +164,11 @@ class Wallect: UIViewController {
         line.backgroundColor = RGREY
         let label5 = UILabel.init(frame: CGRectMake(10+20, 61, 100, 20))
         label5.text = "总单数"
-        let label6 = UILabel.init(frame: CGRectMake(10+20, 81, 100,30))
+        label6.frame =  CGRectMake(10+20, 81, 100,30)
         label6.text = info.alltasks
         let label7 = UILabel.init(frame: CGRectMake(200, 61, 100, 20))
         label7.text = "总收入"
-        let label8 = UILabel.init(frame: CGRectMake(200,81, 100, 30))
+        label8.frame = CGRectMake(200,81, 100, 30)
         if info.allincome != nil {
             label8.text = info.allincome
         }else{

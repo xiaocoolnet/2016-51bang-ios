@@ -528,11 +528,14 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             }
             
         }
-        for index in 0...self.photoNameArr.count-1 {
-            if index>8 {
-                self.photoNameArr.removeObjectAtIndex(index)
+        if self.photoNameArr.count > 0{
+            for index in 0...self.photoNameArr.count-1 {
+                if index>8 {
+                    self.photoNameArr.removeObjectAtIndex(index)
+                }
             }
         }
+        
         
         if (self.myDatas?.count>0&&isEditsss == true){
             shopHelper.reLoadTeMaiMessage(userid, type: type1, goodsname:self.mytextView.text!, oprice: oprice.text! as String, price: price.text! as String, desc: textView.text, unit: "",longitude:myLongitude,latitude:myLatitude,address:address1,delivery:typeLabelStr) { (success, response) in
@@ -1185,6 +1188,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
         self.photoArray.removeAllObjects()
+        self.photoNameArr.removeAllObjects()
         for imagess in photos {
             photoArray.addObject(imagess)
         }

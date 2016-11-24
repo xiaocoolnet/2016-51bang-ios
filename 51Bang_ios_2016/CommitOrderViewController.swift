@@ -300,10 +300,13 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                     return
                 }
                 hud.hide(true)
-                print(response)
-                self.dataSource = response as? Array<SkillModel> ?? []
-                print(self.dataSource)
-                print(self.dataSource.count)
+//                print(response)
+                if (response?.isKindOfClass(NSArray) == true){
+                    self.dataSource = response as? Array<SkillModel> ?? []
+
+                }
+                //                print(self.dataSource)
+//                print(self.dataSource.count)
                 self.createTableViewHeaderView()
 
             })
@@ -617,9 +620,11 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         
         
-        for index in 0...self.photoNameArr.count-1 {
-            if index>8 {
-                self.photoNameArr.removeObjectAtIndex(index)
+        if self.photoNameArr.count > 0{
+            for index in 0...self.photoNameArr.count-1 {
+                if index>8 {
+                    self.photoNameArr.removeObjectAtIndex(index)
+                }
             }
         }
 
@@ -989,6 +994,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func imagePickerController(picker: TZImagePickerController!, didFinishPickingPhotos photos: [UIImage]!, sourceAssets assets: [AnyObject]!, isSelectOriginalPhoto: Bool, infos: [[NSObject : AnyObject]]!) {
         self.photoArray.removeAllObjects()
+        self.photoNameArr.removeAllObjects()
         for imagess in photos {
             photoArray.addObject(imagess)
         }

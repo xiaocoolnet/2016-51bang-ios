@@ -53,18 +53,22 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     hud.hide(true)
+                    alert("暂无数据", delegate: self)
                     return
                 }
                 hud.hide(true)
-                print(response)
-                self.dataSource = response as? Array<GoodsInfo> ?? []
-                print(self.dataSource)
-                print(self.dataSource?.count)
-                print(self.dataSource![0].id)
-                print(self.dataSource![0].price)
-                print(self.dataSource![0].oprice)
-                print(self.dataSource![0].delivery)
-                print(self.dataSource![0].address)
+//                print(response)
+                    if response != nil {
+                        self.dataSource = response as? Array<GoodsInfo> ?? []
+                    }
+                
+//                print(self.dataSource)
+//                print(self.dataSource?.count)
+//                print(self.dataSource![0].id)
+//                print(self.dataSource![0].price)
+//                print(self.dataSource![0].oprice)
+//                print(self.dataSource![0].delivery)
+//                print(self.dataSource![0].address)
                 
                 self.myTableView.reloadData()
                 })
@@ -77,6 +81,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         self.myTableView.delegate = self
         self.myTableView.dataSource = self
+        self.myTableView.tableFooterView = UIView()
         myTableView.backgroundColor = RGREY
         self.myTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         myTableView.registerNib(UINib(nibName: "MyFabuTableViewCell",bundle: nil), forCellReuseIdentifier: "MyFabuTableViewCell")

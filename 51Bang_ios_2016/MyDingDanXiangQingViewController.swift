@@ -149,7 +149,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
         if self.info.state == "1" && !isSigle{
             self.view.addSubview(view)
         }
-        if self.info.state == "2" && isSigle {
+        if self.info.state == "2" && isSigle && self.info.delivery == "送货上门"{
             submit.setTitle("已发货", forState:UIControlState.Normal)
             self.view.addSubview(view)
         }

@@ -50,10 +50,13 @@ class SkillselectViewController: UIViewController,skillProrocol {
                 }
                
                 hud.hide(true)
-                print(response)
-                self.dataSource = response as? Array<SkillModel> ?? []
-                print(self.dataSource)
-                print(self.dataSource.count)
+//                print(response)
+                if (response?.isKindOfClass(NSArray)) == true{
+                    self.dataSource = response as? Array<SkillModel> ?? []
+                }
+                
+//                print(self.dataSource)
+//                print(self.dataSource.count)
                 
                 if self.ischangged{
                      self.GetData1()
