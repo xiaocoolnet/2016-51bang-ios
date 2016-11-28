@@ -115,7 +115,7 @@ class MyBookDanCell: UITableViewCell {
             Statue.text = "待消费"
             Btn1.setTitle("取消订单", forState: UIControlState.Normal)
             Btn.setTitle("已支付", forState: UIControlState.Normal)
-            Btn1.hidden = true
+//            Btn1.hidden = true
         }else if Data.state == "5"{
                 Statue.text = "已评价"
                 Btn.setTitle("已评价", forState: UIControlState.Normal)

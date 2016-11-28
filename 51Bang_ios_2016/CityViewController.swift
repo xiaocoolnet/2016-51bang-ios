@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CityViewControllerDelegate{
-    func selectCity(city:String);
+    func selectCity(city:String,quname:String);
 }
 
 class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,LocationManagerDelegate {
@@ -46,6 +46,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     //最近访问城市数据
     var dataHistoryCitys:SpecifyArray!;
     let keyHistory = "keyHistory";
+    let quName = NSMutableArray()
     
     
     override func viewDidLoad() {
@@ -141,6 +142,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                             let  quname = (cityname1dic.objectForKey(cityname2dic)) as! NSArray
                             for quName in quname {
                                 mycityNmmeAndQu.addObject((cityname2dic as! String)+(quName as! String))
+                                quName.addObject(quName as! String)
 //                                print(mycityNmmeAndQu)
                             }
                         }
@@ -167,7 +169,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
      将选中城市名称返回并关闭当前页面
      - parameter city: 城市名称
      */
-    private func selectCity(city:String){
+    private func selectCity(city:String,quname:String){
         if city == "正在获取..." {
             return
         }
@@ -176,7 +178,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             
             dataHistoryCitys.addObject(city);
             NSUserDefaults.standardUserDefaults().setObject(dataHistoryCitys.getaArray(), forKey: keyHistory);
-            self.delegate!.selectCity(city);
+            self.delegate!.selectCity(city,quname: quname);
             self.navigationController?.popViewControllerAnimated(true)
             //            self.dismissViewControllerAnimated(true , completion: { () -> Void in
             //            })
@@ -358,6 +360,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             
             if table != self.tableview {
                cityName = self.searchCityArray.objectAtIndex(indexPath.row) as! String;
+                
                 let dic = ["cityName":cityName]
                 
                 NSNotificationCenter.defaultCenter().postNotificationName("changeCityStr", object: dic)
@@ -380,9 +383,11 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         }else{
             if(self.delegate != nil ){
                 var cityName:String = "";
+                var quName1:String = "";
                 if(table != self.tableview){
                     cityName = self.searchCityArray.objectAtIndex(indexPath.row) as! String;
-                    self.selectCity(cityName);
+                    quName1 = self.quName.objectAtIndex(indexPath.row) as! String;
+                    self.selectCity(cityName,quname: quName1);
                 }else{
                     let citynameVC = CityNameViewController()
                     citynameVC.title = "城市选择"

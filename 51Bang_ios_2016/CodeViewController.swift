@@ -59,14 +59,18 @@ class CodeViewController: UIViewController,UITextFieldDelegate {
     
     func yanZheng(){
         
+        button.userInteractionEnabled = false
+        
         let user = NSUserDefaults.standardUserDefaults()
         let userid1 = user.objectForKey("userid") as! String
         mainhelper.getVerifyShoppingCode(userid1, code: textfile.text!) { (success, response) in
             if !success{
                 alert("卷码错误！", delegate: self)
+                self.button.userInteractionEnabled = true
                 return
             }
             alert("卷码验证成功", delegate: self)
+            self.button.userInteractionEnabled = true
 //            SVProgressHUD.showSuccessWithStatus("卷码验证成功")
             let vc = MyBookDan()
             vc.isNotSigle = true

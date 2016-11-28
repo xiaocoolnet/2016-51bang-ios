@@ -73,7 +73,7 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
                 self.navigationController?.popToViewController(b!, animated: true)
             }else{
                 let cityStr = self.mycityStr+(self.mydataSource[indexPath.row] as! String)
-                let dic = ["name":cityStr];
+                let dic = ["name":cityStr,"quname":self.mydataSource[indexPath.row] as! String];
                 //            发送通知
                 NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: dic)
                 let a = self.navigationController?.viewControllers[0]

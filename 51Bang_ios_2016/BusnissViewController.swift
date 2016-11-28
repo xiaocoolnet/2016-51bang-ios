@@ -105,7 +105,10 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     hud.hide(true)
 //                    print(response)
                     //                  Http(JSONDecoder(data))
-                    self.goodsInfo = response as! GoodsInfo2
+                    if response?.isKindOfClass(GoodsInfo2) == true{
+                        self.goodsInfo = response as! GoodsInfo2
+                    }
+                    
 //                    print(self.goodsInfo)
 //                    print(self.goodsInfo.id)
 //                    print(self.goodsInfo.price)

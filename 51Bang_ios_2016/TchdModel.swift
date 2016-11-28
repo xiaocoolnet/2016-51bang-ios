@@ -26,7 +26,7 @@ class TchdModel: NSObject {
                 //                print(childs)
                 //                print(SkillModel(childs))
                 datas.append(TCHDInfo(childs))
-                print(datas)
+//                print(datas)
                 //                    array.append(SkillModel(childs))
             }
         }else{

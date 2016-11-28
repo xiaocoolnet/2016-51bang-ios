@@ -265,7 +265,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     func getMyName(notification:NSNotification){
         let name = notification.object?.valueForKey("name") as? String
-        self.selectCity(name!)
+        let quname = notification.object?.valueForKey("quname") as? String
+        self.selectCity(name!,quname:quname!)
         //        NSNotificationCenter.defaultCenter().removeObserver(self, name: "NotificationIdentifier", object: nil)
         //        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
@@ -427,9 +428,10 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         cityController.title = "定位"
     }
-    func selectCity(city: String) {
+    func selectCity(city: String,quname:String) {
         print(city)
         self.city = city
+        
         self.backView.removeFromSuperview()
         //        self.backMHView.removeFromSuperview()
         
@@ -456,25 +458,56 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             quCount = quCount + 1
         }
         if myArray1.count>1 {
-            quName = quName.substringFromIndex(quName.startIndex.advancedBy((myArray1[0] as! Int)+1))
-            cutyName = (city as NSString).substringToIndex((count+1+(myArray1[0] as! Int)+1))
-            print(cutyName)
-            userLocationCenter.setObject(cutyName, forKey: "cityName")
+            if city == "重庆市万州区" {
+                
+            }else{
+                quName = quName.substringFromIndex(quName.startIndex.advancedBy((myArray1[0] as! Int)+1))
+                cutyName = (city as NSString).substringToIndex((count+1+(myArray1[0] as! Int)+1))
+                print(cutyName)
+                userLocationCenter.setObject(cutyName, forKey: "cityName")
+            }
+            
+            
         }
         print(cutyName)
         print(quName)
+        let cityname1 = (city as NSString).substringToIndex(city.characters.count - quName.characters.count)
         
-        userLocationCenter.setObject(quName, forKey: "quName")
+        print(cityname1)
         
-        location.setTitle(quName, forState: UIControlState.Normal)
-        location.sizeToFit()
-        let searcher = BMKGeoCodeSearch()
-        searcher.delegate = self
-        let geoCodeSearchOption = BMKGeoCodeSearchOption()
-        geoCodeSearchOption.city = cutyName
-        geoCodeSearchOption.address = quName
-        let flog = searcher.geoCode(geoCodeSearchOption)
-        print(flog)
+        
+        if quname == ""{
+            userLocationCenter.setObject(quName, forKey: "quName")
+            
+            location.setTitle(quName, forState: UIControlState.Normal)
+            location.sizeToFit()
+            let searcher = BMKGeoCodeSearch()
+            searcher.delegate = self
+            let geoCodeSearchOption = BMKGeoCodeSearchOption()
+            geoCodeSearchOption.city = cutyName
+            geoCodeSearchOption.address = quName
+            let flog = searcher.geoCode(geoCodeSearchOption)
+            print(flog)
+            
+        }else{
+            cutyName = cityname1
+            quName = quname
+            userLocationCenter.setObject(quname, forKey: "quName")
+            
+            location.setTitle(quname, forState: UIControlState.Normal)
+            location.sizeToFit()
+            let searcher = BMKGeoCodeSearch()
+            searcher.delegate = self
+            let geoCodeSearchOption = BMKGeoCodeSearchOption()
+            geoCodeSearchOption.city = cutyName
+            geoCodeSearchOption.address = quname
+            let flog = searcher.geoCode(geoCodeSearchOption)
+            userLocationCenter.setObject(cityname1, forKey: "cityName")
+            print(flog)
+        }
+        
+        
+       
         
         //        mainHelper.checkCity(quName) { (success, response) in
         //            print(response)
@@ -698,7 +731,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             return
         }
         
-        if userLocationCenter.objectForKey("subLocality") != nil && userLocationCenter.objectForKey("subLocality") as! String != "0"{
+        if userLocationCenter.objectForKey("subLocality") != nil && userLocationCenter.objectForKey("subLocality") as! String != "0"&&userLocationCenter.objectForKey("quName") != nil{
             userLocationCenter.setObject(userLocationCenter.objectForKey("subLocality") as! String, forKey: "cityName")
             
             let strr = userLocationCenter.objectForKey("subLocality") as! String
@@ -710,22 +743,22 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 }
                 count = count + 1
             }
-            cutyName = strr.substringToIndex(strr.startIndex.advancedBy(count+1))
+            cutyName = (strr as NSString).substringFromIndex(strr.characters.count-quName.characters.count)
             userLocationCenter.setObject(cutyName, forKey: "cityName")
             
-            quName = strr.substringFromIndex(strr.startIndex.advancedBy(count+1))
-            let myArray1 = NSMutableArray()
-            var quCount = Int()
-            for a in quName.characters{
-                if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
-                    myArray1.addObject(quCount)
-                }
-                
-                quCount = quCount + 1
-            }
-            if myArray1.count>1 {
-                quName = quName.substringFromIndex(quName.startIndex.advancedBy((myArray1[0] as! Int)+1))
-            }
+            quName = userLocationCenter.objectForKey("quName") as! String
+//            let myArray1 = NSMutableArray()
+//            var quCount = Int()
+//            for a in quName.characters{
+//                if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
+//                    myArray1.addObject(quCount)
+//                }
+//                
+//                quCount = quCount + 1
+//            }
+//            if myArray1.count>1 {
+//                quName = quName.substringFromIndex(quName.startIndex.advancedBy((myArray1[0] as! Int)+1))
+//            }
             self.mapView.removeAnnotations(self.biaoZhuArray as [AnyObject])
             self.getWeiZhi()
         }
@@ -888,7 +921,14 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 
                 self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
                 self.streetNameStr = (result.poiList[0] as! BMKPoiInfo).name
-                userLocationCenter.setObject(dingWeiStr+streetNameStr, forKey: "RealTimeLocation")
+                print(dingWeiStr)
+                print(result.location.latitude)
+                if self.city != ""{
+                    userLocationCenter.setObject(self.city+streetNameStr, forKey: "RealTimeLocation")
+                }else{
+                    userLocationCenter.setObject(self.dingWeiStr+streetNameStr, forKey: "RealTimeLocation")
+                }
+                
                 userLocationCenter.setObject(String(result.location.latitude), forKey: "RealTimelatitude")
                 userLocationCenter.setObject(String(result.location.longitude), forKey: "RealTimelongitude")
                 CommitOrderViewController.FirstLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)

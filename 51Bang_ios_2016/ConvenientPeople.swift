@@ -301,7 +301,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         if(self.dataSource2.count > 0){
             return ((self.dataSource2.count)+1)
         }else{
-            return 0
+            return 1
             
         }
     }

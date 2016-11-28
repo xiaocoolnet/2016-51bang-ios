@@ -795,8 +795,15 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
 //        print(textView.text)
         
 //        let ud = NSUserDefaults.standardUserDefaults()
-        let userid = ud.objectForKey("userid")as! String
-        let userPhone = ud.objectForKey("phone")as! String
+        var userid = String()
+        var userPhone = String()
+        if ud.objectForKey("userid") != nil{
+            userid = ud.objectForKey("userid")as! String
+        }
+        if ud.objectForKey("phone") != nil {
+            userPhone = ud.objectForKey("phone")as! String
+        }
+        
         
 //        print(userid)
 //        print(self.photoNameArr)
