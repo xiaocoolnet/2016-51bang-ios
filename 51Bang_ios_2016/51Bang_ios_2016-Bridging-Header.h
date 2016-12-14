@@ -59,6 +59,8 @@
 #import "JPUSHService.h"
 #import <Bugtags/Bugtags.h>
 
+#import "SDPhotoBrowser.h"//图片放大缩小
+
 //#import <UserNotifications/UserNotifications.h>
 //#import "MainHelper.swift"
 

@@ -47,8 +47,10 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     var pageControl = UIPageControl()
     var current = CLLocation()
     override func viewWillAppear(animated: Bool) {
+        myPhotoArray.removeAllObjects()
         getData()
         getIsfavorite()
+        
         self.view.backgroundColor = RGREY
         self.title="特卖详情"
         self.tabBarController?.tabBar.hidden = true
@@ -107,6 +109,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     //                  Http(JSONDecoder(data))
                     if response?.isKindOfClass(GoodsInfo2) == true{
                         self.goodsInfo = response as! GoodsInfo2
+                        self.dataSource = self.goodsInfo.commentlist
                     }
                     
 //                    print(self.goodsInfo)
@@ -500,10 +503,14 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
     
     func lookImage(sender:UIButton) {
         
+        
+       
+        
         let myVC = LookPhotoVC()
         myVC.hidesBottomBarWhenPushed = true
         myVC.myPhotoArray =  myPhotoArray
-        print(myPhotoArray)
+        myVC.pic = goodsInfo.pic
+//        print(myPhotoArray)
         myVC.title = "查看图片"
         myVC.count = sender.tag
         self.navigationController?.pushViewController(myVC, animated: true)

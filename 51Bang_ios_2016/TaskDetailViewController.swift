@@ -27,7 +27,9 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(taskInfo)
+//        print(taskInfo)
+        let vc = MineViewController()
+        vc.Checktoubao()
         self.dataSource = self.taskInfo.commentlist
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.backgroundColor = RGREY
@@ -375,6 +377,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         let myVC = LookPhotoVC()
         myVC.hidesBottomBarWhenPushed = true
         myVC.myPhotoArray =  myPhotoArray
+        myVC.pic = self.taskInfo.pic!
         myVC.count = indexPath.item
         myVC.title = "查看图片"
         self.navigationController?.pushViewController(myVC, animated: true)
@@ -466,28 +469,68 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         }
         
         
-        let vc = MineViewController()
-        vc.Checktoubao()
-//        let ud = NSUserDefaults.standardUserDefaults()
-        if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
-            
-            let alertController = UIAlertController(title: "系统提示",
-                                                    message: "请先投保在抢单，是否去投保？", preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-            let okAction = UIAlertAction(title: "确定", style: .Default,
-                                         handler: { action in
-                                            
-                                            print(ud.objectForKey("baoxiangrenzheng") as! String)
-                                            let vc2 = MyInsure()
-                                            self.navigationController?.pushViewController(vc2, animated: true)
-                                            
-                                            
-            })
-            alertController.addAction(cancelAction)
-            alertController.addAction(okAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
-            return
+        if(ud.objectForKey("ss") != nil){
+            if(ud.objectForKey("ss") as! String == "no"){
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "是否去实名认证？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                                             handler: { action in
+                                                let vc = CertificationViewController()
+                                                self.navigationController?.pushViewController(vc, animated: true)
+                                                
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                return
+                
+            }else{
+                if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
+                    
+                    let alertController = UIAlertController(title: "系统提示",
+                                                            message: "请先投保在抢单，是否去投保？", preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                    let okAction = UIAlertAction(title: "确定", style: .Default,
+                                                 handler: { action in
+                                                    
+                                                    print(ud.objectForKey("baoxiangrenzheng") as! String)
+                                                    let vc2 = MyInsure()
+                                                    self.navigationController?.pushViewController(vc2, animated: true)
+                                                    
+                                                    
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    return
+                }
+            }
         }
+        
+        
+       
+//        let ud = NSUserDefaults.standardUserDefaults()
+//        if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
+//            
+//            let alertController = UIAlertController(title: "系统提示",
+//                                                    message: "请先投保在抢单，是否去投保？", preferredStyle: .Alert)
+//            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+//            let okAction = UIAlertAction(title: "确定", style: .Default,
+//                                         handler: { action in
+//                                            
+//                                            print(ud.objectForKey("baoxiangrenzheng") as! String)
+//                                            let vc2 = MyInsure()
+//                                            self.navigationController?.pushViewController(vc2, animated: true)
+//                                            
+//                                            
+//            })
+//            alertController.addAction(cancelAction)
+//            alertController.addAction(okAction)
+//            self.presentViewController(alertController, animated: true, completion: nil)
+//            return
+//        }
         
         btn.enabled = false
         print("抢单")

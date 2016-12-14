@@ -48,6 +48,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
     override func viewWillAppear(animated: Bool) {
         myTableView.reloadData()
         self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.hidden = false
         //        scrollView.hidden = true
         if( BankSelectVc.banName != "")
         {
@@ -70,6 +71,10 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         
         self.view.backgroundColor = RGREY
         
+        self.title = "身份认证"
+        myTableView.hidden = false
+        scrollView.hidden = true
+        
         setScrolView()
         setPayWay()
         setTextField()
@@ -78,7 +83,7 @@ class CertificationViewController: UIViewController,UITableViewDelegate,UITableV
         setFooter()
         
         firmWay()
-        myTableView = UITableView.init(frame: CGRectMake(0, 43, WIDTH, HEIGHT-49-45), style: UITableViewStyle.Grouped)
+        myTableView = UITableView.init(frame: CGRectMake(0, 0, WIDTH, HEIGHT-49), style: UITableViewStyle.Grouped)
         self.view.addSubview(myTableView)
         myTableView.backgroundColor = RGREY
         myTableView.delegate = self

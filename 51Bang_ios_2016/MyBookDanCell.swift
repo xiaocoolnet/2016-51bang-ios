@@ -110,7 +110,7 @@ class MyBookDanCell: UITableViewCell {
             Btn1.hidden = true
             Btn.setTitle("已完成", forState: UIControlState.Normal)
             Btn.setTitleColor(COLOR, forState: UIControlState.Normal)
-        }else if Data.state == "3" || (Data.state == "2" && Data.delivery != "送货上门"){
+        }else if (Data.state == "3" && Data.delivery != "送货上门") || (Data.state == "2" && Data.delivery != "送货上门"){
             //            Btn.frame = CGRectMake(WIDTH - 50, tipLabel.frame.origin.y + 30, 55, 30)
             Statue.text = "待消费"
             Btn1.setTitle("取消订单", forState: UIControlState.Normal)
@@ -124,6 +124,15 @@ class MyBookDanCell: UITableViewCell {
             
 
         
+        }else if Data.state == "3" && Data.delivery == "送货上门"{
+            Statue.text = "已发货"
+            Btn.setTitle("已发货", forState: UIControlState.Normal)
+            Btn1.setTitle("确认收货", forState: UIControlState.Normal)
+            Btn.userInteractionEnabled = false
+//            Btn1.hidden = true
+            
+            
+            
         }
         if self.isSigle {
             Btn.enabled = false

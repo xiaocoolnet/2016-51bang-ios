@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-//let Bang_Open_Header = "http://www.my51bang.com/"
-let Bang_Open_Header = "http://bang.xiaocool.net/"
+let Bang_Open_Header = "http://www.my51bang.com/"
+//let Bang_Open_Header = "http://bang.xiaocool.net/"
 
 let Bang_URL_Header = Bang_Open_Header+"index.php?g=apps&m=index&a="
 let Bang_Image_Header = Bang_Open_Header+"uploads/images/"

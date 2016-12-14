@@ -112,7 +112,7 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                      hud.hide(true)
                     return
                 }
-               
+                hud.hide(true)
                 print(response)
                 self.myTableView.mj_header.endRefreshing()
                 self.dataSource = response as? Array<GoodsInfo> ?? []

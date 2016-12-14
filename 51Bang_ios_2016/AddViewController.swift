@@ -457,7 +457,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         print(self.mytextView.text!.characters.count)
         if self.mytextView.text!.characters.count > 35{
-            alert("商品名称不差过35个字", delegate: self)
+            alert("商品名称不超过35个字", delegate: self)
             self.hud1.hidden = true
             self.btn.enabled = true
             return
@@ -599,7 +599,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         textView.layer.cornerRadius = 4.0
         //        textView.layer.borderColor = kTextBorderColor.CGColor
         textView.layer.borderWidth = 0
-        textView.placeholder = "  禁止发布黄、赌，毒，违反国家法律的言论及图片"
+        textView.placeholder = "  说说您的商品描述吧...（禁止发布二维码）"
         if self.myDatas?.count>0{
             textView.text = self.myDatas![0].description
         }
@@ -1342,6 +1342,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         myVC.hidesBottomBarWhenPushed = true
        
         myVC.myPhotoArray =  self.photoArray
+        
         myVC.title = "查看图片"
         myVC.count = sender.tag
         print(sender.tag)

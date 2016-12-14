@@ -17,7 +17,7 @@ extension CertificationViewController{
         buttonfirm1.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         buttonfirm1.backgroundColor = UIColor.whiteColor()
         buttonfirm1.setTitleColor(COLOR, forState: UIControlState.Normal)
-        self.view.addSubview(buttonfirm1)
+//        self.view.addSubview(buttonfirm1)
         buttonfirm1.addTarget(self, action: #selector(action1), forControlEvents: UIControlEvents.TouchUpInside)
         
         buttonfirm2.frame = CGRectMake(WIDTH / 2, 0, WIDTH / 2, 43)
@@ -25,11 +25,11 @@ extension CertificationViewController{
         buttonfirm2.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
         buttonfirm2.backgroundColor = UIColor.whiteColor()
         buttonfirm2.addTarget(self, action: #selector(action2), forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(buttonfirm2)
+//        self.view.addSubview(buttonfirm2)
         
         labelfirm2 = UILabel.init(frame: CGRectMake(0, 40, WIDTH/2, 3))
         labelfirm2.backgroundColor = COLOR
-        self.view.addSubview(labelfirm2)
+//        self.view.addSubview(labelfirm2)
         
         
     }

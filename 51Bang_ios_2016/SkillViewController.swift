@@ -58,7 +58,25 @@ class SkillViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     return
                 }
                 print(response)
-                self.dataSource = response as? Array<SkillModel> ?? []
+            if response != nil{
+                if (response?.isKindOfClass(NSArray)) == true{
+                    if (response as! NSArray).count>0{
+                        if ((response as! NSArray)[0]).isKindOfClass(SkillModel){
+                            self.dataSource = response as? Array<SkillModel> ?? []
+                        }else{
+                            alert("加载错误", delegate: self)
+                        }
+                        
+                    }else{
+                        alert("加载错误", delegate: self)
+                    }
+                    
+                }else{
+                    alert("加载错误", delegate: self)
+                }
+            }else{
+                alert("加载错误", delegate: self)
+            }
                 print(self.dataSource)
                 print(self.dataSource!.count)
                 let num = self.dataSource!.count

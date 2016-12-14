@@ -28,9 +28,17 @@ class SkillselectViewController: UIViewController,skillProrocol {
     var ischangged = Bool()
     var btn = UIButton()
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.navigationBar.hidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.hidden = false
+        let vc = MineViewController()
+        vc.Checktoubao()
         GetData()
         self.view.backgroundColor = RGREY
         // Do any additional setup after loading the view.
@@ -51,9 +59,27 @@ class SkillselectViewController: UIViewController,skillProrocol {
                
                 hud.hide(true)
 //                print(response)
-                if (response?.isKindOfClass(NSArray)) == true{
-                    self.dataSource = response as? Array<SkillModel> ?? []
+                if response != nil{
+                    if (response?.isKindOfClass(NSArray)) == true{
+                        if (response as! NSArray).count>0{
+                            if ((response as! NSArray)[0]).isKindOfClass(SkillModel){
+                                self.dataSource = response as? Array<SkillModel> ?? []
+                            }else{
+                               alert("加载错误", delegate: self)
+                            }
+                            
+                        }else{
+                           alert("加载错误", delegate: self)
+                        }
+                        
+                    }else{
+                        alert("加载错误", delegate: self)
+                    }
+                }else{
+                    alert("加载错误", delegate: self)
                 }
+                
+                
                 
 //                print(self.dataSource)
 //                print(self.dataSource.count)
@@ -162,7 +188,12 @@ class SkillselectViewController: UIViewController,skillProrocol {
        
         btn = UIButton(frame: CGRectMake(15, 300, WIDTH-30, 50))
         btn.layer.cornerRadius = 8
-        btn.setTitle("确认提交", forState: .Normal)
+        if  self.ischangged {
+            btn.setTitle("确认提交", forState: .Normal)
+        }else{
+            btn.setTitle("下一步", forState: .Normal)
+        }
+//        btn.setTitle("确认提交", forState: .Normal)
         btn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         btn.backgroundColor = COLOR
         btn.addTarget(self, action: #selector(self.nextToView), forControlEvents: .TouchUpInside)
@@ -384,8 +415,16 @@ class SkillselectViewController: UIViewController,skillProrocol {
                         let ud = NSUserDefaults.standardUserDefaults()
                         //                        ud.setObject("no", forKey: "ss")
                         ud.synchronize()
-                        //self.navigationController?.pushViewController(homepage, animated: true)
-                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        
+                        if ud.objectForKey("baoxiangrenzheng") != nil{
+                            if ud.objectForKey("baoxiangrenzheng") as! String == "yes" {
+                                self.navigationController?.popToRootViewControllerAnimated(true)
+                            }else{
+                                let vc = MyInsure()
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                        }
+                        
                     }else{
                         hud1.hide(true)
                         self.btn.userInteractionEnabled = true

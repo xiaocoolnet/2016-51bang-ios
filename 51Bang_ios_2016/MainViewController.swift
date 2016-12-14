@@ -351,32 +351,32 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 return
                 
             }
-            let ud = NSUserDefaults.standardUserDefaults()
-            if ud.objectForKey("ss") != nil{
-                if(ud.objectForKey("ss") as! String == "no")
-                {
-                    
-                    
-                    
-                    let alertController = UIAlertController(title: "系统提示",
-                                                            message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
-                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-                    let okAction = UIAlertAction(title: "确定", style: .Default,
-                                                 handler: { action in
-                                                    
-                                                    
-                                                    self.tabBarController?.selectedIndex = 1
-                                                    
-                    })
-                    alertController.addAction(cancelAction)
-                    alertController.addAction(okAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                    return
-                    
-                    
-                    
-                }
-            }
+//            let ud = NSUserDefaults.standardUserDefaults()
+//            if ud.objectForKey("ss") != nil{
+//                if(ud.objectForKey("ss") as! String == "no")
+//                {
+//                    
+//                    
+//                    
+//                    let alertController = UIAlertController(title: "系统提示",
+//                                                            message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
+//                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+//                    let okAction = UIAlertAction(title: "确定", style: .Default,
+//                                                 handler: { action in
+//                                                    
+//                                                    
+//                                                    self.tabBarController?.selectedIndex = 1
+//                                                    
+//                    })
+//                    alertController.addAction(cancelAction)
+//                    alertController.addAction(okAction)
+//                    self.presentViewController(alertController, animated: true, completion: nil)
+//                    return
+//                    
+//                    
+//                    
+//                }
+//            }
             
             
             
@@ -387,29 +387,29 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             
             
         }else if btn.tag == 1{
-            let ud = NSUserDefaults.standardUserDefaults()
-            if ud.objectForKey("ss") != nil{
-                if(ud.objectForKey("ss") as! String == "no")
-                {
-                    
-                    
-                    
-                    let alertController = UIAlertController(title: "系统提示",
-                                                            message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
-                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-                    let okAction = UIAlertAction(title: "确定", style: .Default,
-                                                 handler: { action in
-                                                    
-                                                    self.tabBarController?.selectedIndex = 1
-                                                    
-                    })
-                    alertController.addAction(cancelAction)
-                    alertController.addAction(okAction)
-                    self.presentViewController(alertController, animated: true, completion: nil)
-                    return
-                    
-                }
-            }
+//            let ud = NSUserDefaults.standardUserDefaults()
+//            if ud.objectForKey("ss") != nil{
+//                if(ud.objectForKey("ss") as! String == "no")
+//                {
+//                    
+//                    
+//                    
+//                    let alertController = UIAlertController(title: "系统提示",
+//                                                            message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
+//                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+//                    let okAction = UIAlertAction(title: "确定", style: .Default,
+//                                                 handler: { action in
+//                                                    
+//                                                    self.tabBarController?.selectedIndex = 1
+//                                                    
+//                    })
+//                    alertController.addAction(cancelAction)
+//                    alertController.addAction(okAction)
+//                    self.presentViewController(alertController, animated: true, completion: nil)
+//                    return
+//                    
+//                }
+//            }
             self.tabBarController?.selectedIndex = 1
             
         }else{

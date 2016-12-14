@@ -332,6 +332,7 @@ class ConveniceCell: UITableViewCell{
         let myVC = LookPhotoVC()
          myVC.hidesBottomBarWhenPushed = true
         myVC.myPhotoArray =  myPhotoArray
+        myVC.pic1 = info!.pic
         myVC.title = "查看图片"
         myVC.count = sender.tag
         print(sender.tag)

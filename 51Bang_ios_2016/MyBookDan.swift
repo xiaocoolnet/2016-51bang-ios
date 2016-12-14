@@ -187,7 +187,11 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     func getAllData(){
         let ud = NSUserDefaults.standardUserDefaults()
-        let uid = ud.objectForKey("userid")as! String
+        
+        var uid = String()
+        if ud.objectForKey("userid") != nil {
+            uid = ud.objectForKey("userid")as! String
+        }
         mainHelper.getMyOrder(uid, state: "0,1,2,3,4,5,6,7,8,9,10",type:self.isNotSigle) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             print(response)
@@ -421,8 +425,17 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                 if self.isNotSigle{
                     cell.Btn1.hidden = true
                 }
+                
                 cell.Btn1.tag = 300 + indexPath.row
-                cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                
+                if self.AllDataSource![indexPath.row].delivery == "送货上门" &&  self.AllDataSource![indexPath.row].state == "3"{
+                    cell.Btn1.addTarget(self, action: #selector(self.querenFahuo(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                    
+                }else{
+                    cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                }
+                
+                
                 if self.AllDataSource![indexPath.row].state == "1" {
                     cell.Btn.tag = 100 + indexPath.row
                     cell.Btn.addTarget(self, action: #selector(self.payMeony(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -467,7 +480,13 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                     cell.Btn1.hidden = true
                 }
                 cell.Btn1.tag = 400 + indexPath.row
-                cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                
+                if self.AllDataSource![indexPath.row].delivery == "送货上门" &&  self.AllDataSource![indexPath.row].state == "3"{
+                    cell.Btn1.addTarget(self, action: #selector(self.querenFahuo(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                    
+                }else{
+                    cell.Btn1.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                }
                 
                 cell.Btn.tag = indexPath.row
 //                cell.Btn.addTarget(self, action: #selector(self.Cancel(_:)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -540,8 +559,72 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         }
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
+    func querenFahuo(sender:UIButton)
+    {
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "您确定已经收到货了？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        
+                                        
+                                        //                let ud = NSUserDefaults.standardUserDefaults()
+                                        //                let userid = ud.objectForKey("userid")as! String
+                                        if self.sign == 0{
+                                            self.mainHelper.gaiBianDingdan(self.AllDataSource![sender.tag - 300].order_num!, state: "4") { (success, response) in
+                                                dispatch_async(dispatch_get_main_queue(), {
+                                                    if !success {
+                                                        alert("确认收货失败请重试", delegate: self)
+                                                        return
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    }
+                                                })
+                                            }
+                                            
+                                            
+                                            
+                                        }else if self.sign == 1{
+                                            self.mainHelper.gaiBianDingdan(self.DFKDataSource![sender.tag - 600].order_num!, state: "4") { (success, response) in
+                                                dispatch_async(dispatch_get_main_queue(), {
+                                                    if !success {
+                                                        alert("确认收货失败请重试", delegate: self)
+                                                        return
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    }
+                                                })
+                                            }
+                                            
+                                        }else if self.sign == 2{
+                                            self.mainHelper.gaiBianDingdan(self.DXFDataSource![sender.tag - 400].order_num!, state: "4") { (success, response) in
+                                                dispatch_async(dispatch_get_main_queue(), {
+                                                    if !success {
+                                                        alert("订单取消失败请重试", delegate: self)
+                                                        return
+                                                        
+                                                        
+                                                        
+                                                        
+                                                    }
+                                                })
+                                            }
+                                            
+                                        }
+                                        
+                                        self.headerRefresh()
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+    }
     func Cancel(sender:UIButton)
     {
         

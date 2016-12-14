@@ -94,8 +94,7 @@
     [packageParams setObject: orderNO      forKey:@"out_trade_no"];//商户订单号
     [packageParams setObject: orderIP      forKey:@"spbill_create_ip"];//发器支付的机器ip
     [packageParams setObject: orderPrice   forKey:@"total_fee"];       //订单金额，单位为分
-    
-    
+        
     /***************************************************  统一下单，获取到prepay_id     ********************************************************************/
     NSString * prePayID = [self getPrePayId:packageParams];
     

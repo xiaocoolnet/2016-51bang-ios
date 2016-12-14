@@ -147,7 +147,7 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
             headerView.button2.backgroundColor = UIColor.lightGrayColor()
             headerView.button3.backgroundColor = COLOR
             headerView.button4.backgroundColor = UIColor.lightGrayColor()
-            button.hidden = true
+            button.hidden = false
         case "4":
             headerView.frame = CGRectMake(0, 0, WIDTH, 130)
             headerView.button1.backgroundColor = UIColor.lightGrayColor()

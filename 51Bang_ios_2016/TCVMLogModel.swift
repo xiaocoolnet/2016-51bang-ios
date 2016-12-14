@@ -90,7 +90,11 @@ class TCVMLogModel: NSObject {
         let url = Bang_URL_Header+"SendMobileCode"
         let paramDic = ["phone":phoneNumber]
         requestManager?.GET(url, parameters: paramDic, success: { (task, obj) in
-            }, failure: { (task, error) in})
+            alert("发送失败，请重试", delegate: self)
+            }, failure: { (task, error) in
+        alert("发送失败，请重试", delegate: self)
+        
+        })
     }
     //注册
     func register(phone:String,password:String,

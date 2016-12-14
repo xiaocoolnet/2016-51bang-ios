@@ -177,7 +177,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         textView.layer.cornerRadius = 4.0
         //        textView.layer.borderColor = kTextBorderColor.CGColor
         textView.layer.borderWidth = 0
-        textView.placeholder = "禁止发布黄、赌，毒，违反国家法律的言论及图片"
+        textView.placeholder = "禁止发布二维码、黄、赌、毒，违反国家法律的言论及图片，所有信息均用户提供，真假需自辩 "
         let button = UIButton.init(frame: CGRectMake(20, textView.frame.size.height-30, 30, 30))
         button.setImage(UIImage(named: "ic_tupian"), forState: UIControlState.Normal)
         button.layer.borderColor = UIColor.grayColor().CGColor

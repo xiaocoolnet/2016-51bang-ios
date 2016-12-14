@@ -244,11 +244,11 @@ class BankBandViewController: UIViewController {
         let uploadFunction = BankUpLoad()
         if( ViewTag == 1)
         {
-            var userid = String()
-            if userData.objectForKey("userid") != nil {
-                userid = userData.objectForKey("userid")as! String
-            }
-            uploadFunction.baoMessageRequest( userid , name: nameTextField.text!, card:certifyField.text! , alipay: baoNumber.text!, phone: phoneNum, code: phoneVerify.text!, Targert: self, pushVc: vc)
+//            var userid = String()
+//            if userData.objectForKey("userid") != nil {
+//                userid = userData.objectForKey("userid")as! String
+//            }
+           uploadFunction.bankMessageUpload( nameTextField.text! , idCard: certifyField.text! , bankName: BankSelectVc.banName , bankNum: baoNumber.text!, Phone: phoneNum, Code: phoneVerify.text! , Target: self,pushVc: vc )
             
         }else{
             uploadFunction.bankMessageUpload( nameTextField.text! , idCard: certifyField.text! , bankName: BankSelectVc.banName , bankNum: baoNumber.text!, Phone: phoneNum, Code: phoneVerify.text! , Target: self,pushVc: vc )

@@ -44,29 +44,29 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         if (ud.objectForKey("quName") != nil) {
             self.cityName = ud.objectForKey("quName") as! String
         }
-        if(ud.objectForKey("ss") != nil){
+//        if(ud.objectForKey("ss") != nil){
         
             
-        if(ud.objectForKey("ss") as! String == "yes")
-            
-        {
+//        if(ud.objectForKey("ss") as! String == "yes")
+//            
+//        {
             certiBtn.userInteractionEnabled = false
             certiBtn.hidden = true
             certifyImage.hidden = true
             self.myTableView.hidden = false
             self.title = "抢单"
-            self.backView.hidden = false
-            
-            }
-        else{
-            certiBtn.userInteractionEnabled = true
-            certiBtn.hidden = false
-            certifyImage.hidden = false
-            self.myTableView.hidden = true
             self.backView.hidden = true
-            self.title = "认证"
-            }
-        }
+            
+//            }
+//        else{
+//            certiBtn.userInteractionEnabled = true
+//            certiBtn.hidden = false
+//            certifyImage.hidden = false
+//            self.myTableView.hidden = true
+//            self.backView.hidden = true
+//            self.title = "认证"
+//            }
+//        }
         
 //        let mybackView = UIView.init(frame: CGRectMake(0, -HEIGHT+100, WIDTH, HEIGHT*2+100))
 //        self.view.addSubview(mybackView)
@@ -108,6 +108,8 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let vc = MineViewController()
+        vc.Checktoubao()
         
         let ud = NSUserDefaults.standardUserDefaults()
         if (ud.objectForKey("quName") != nil) {
@@ -255,7 +257,19 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         if self.sign == 0 {
             if(ud.objectForKey("ss") != nil){
                 if(ud.objectForKey("ss") as! String == "no"){
-                    alert("请先实名认证", delegate: self)
+                    let alertController = UIAlertController(title: "系统提示",
+                                                            message: "是否去实名认证？", preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                    let okAction = UIAlertAction(title: "确定", style: .Default,
+                                                 handler: { action in
+                                                    let vc = CertificationViewController()
+                                                    self.navigationController?.pushViewController(vc, animated: true)
+                                                    
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+
                     return
                     
                 }else{
@@ -419,8 +433,21 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                 //                    self.navigationController?.pushViewController(vc, animated: true)
                 //                    self.hidesBottomBarWhenPushed = false
                 //                    return
-                alert("请先进行实名认证", delegate: self)
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "是否去实名认证？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                                             handler: { action in
+                                                let vc = CertificationViewController()
+                                                self.navigationController?.pushViewController(vc, animated: true)
+                                                
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
                 return
+
                 
             }
         }
@@ -827,28 +854,49 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         }
         
         
-        let vc = MineViewController()
-        vc.Checktoubao()
         
-        if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
-            
-            let alertController = UIAlertController(title: "系统提示",
-                                                    message: "请先投保在抢单，是否去投保？", preferredStyle: .Alert)
-            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-            let okAction = UIAlertAction(title: "确定", style: .Default,
-                                         handler: { action in
-                                            
-                                            print(ud.objectForKey("baoxiangrenzheng") as! String)
-                                            let vc2 = MyInsure()
-                                            self.navigationController?.pushViewController(vc2, animated: true)
-                                            
-                                            
-            })
-            alertController.addAction(cancelAction)
-            alertController.addAction(okAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
-            return
+        
+        if(ud.objectForKey("ss") != nil){
+            if(ud.objectForKey("ss") as! String == "no"){
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "是否去实名认证？", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                let okAction = UIAlertAction(title: "确定", style: .Default,
+                                             handler: { action in
+                                                let vc = CertificationViewController()
+                                                self.navigationController?.pushViewController(vc, animated: true)
+                                                
+                })
+                alertController.addAction(cancelAction)
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true, completion: nil)
+                
+                return
+                
+            }else{
+                if (ud.objectForKey("baoxiangrenzheng") != nil && ud.objectForKey("baoxiangrenzheng") as! String == "no") {
+                    
+                    let alertController = UIAlertController(title: "系统提示",
+                                                            message: "请先投保在抢单，是否去投保？", preferredStyle: .Alert)
+                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                    let okAction = UIAlertAction(title: "确定", style: .Default,
+                                                 handler: { action in
+                                                    
+                                                    print(ud.objectForKey("baoxiangrenzheng") as! String)
+                                                    let vc2 = MyInsure()
+                                                    self.navigationController?.pushViewController(vc2, animated: true)
+                                                    
+                                                    
+                    })
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(okAction)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    return
+                }
+            }
         }
+        
+        
         
         (self.myTableView.viewWithTag(sender.tag)as! UIButton).enabled = false
         
