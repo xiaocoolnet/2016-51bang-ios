@@ -242,9 +242,7 @@ class myAddressViewController: UIViewController,UITableViewDelegate,UITableViewD
     
     func removeCell(){
         
-        //        let indexPath = NSIndexPath.init(forRow: self.row, inSection: 0)
-        //        let cell = myTableView.cellForRowAtIndexPath(indexPath)
-        //http://bang.xiaocool.net/index.php?g=apps&m=index&a=DeleteAddress&addressid=4&userid=127
+        
         
         let info = self.dataSource![self.row] 
         mainHelper.deleteAddress(self.userid as String, addressid: info.id!) { (success, response) in

@@ -65,13 +65,13 @@
     
     if (frameModel.myself) {
         
-        NSURL *a = [NSURL URLWithString: [NSString stringWithFormat:@"%s%@", "http://bang.xiaocool.net/uploads/images/",self.selfPhoto]];
+        NSURL *a = [NSURL URLWithString: [NSString stringWithFormat:@"%s%@", "http://www.my51bang.com/uploads/images/",self.selfPhoto]];
     
         [imageView sd_setImageWithURL:a placeholderImage:[UIImage imageNamed:@"girl"]options:SDWebImageRetryFailed];
     }else{
         
         
-        NSURL *a = [NSURL URLWithString: [NSString stringWithFormat:@"%s%@", "http://bang.xiaocool.net/uploads/images/",self.otherPhoto]];
+        NSURL *a = [NSURL URLWithString: [NSString stringWithFormat:@"%s%@", "http://www.my51bang.com/uploads/images/",self.otherPhoto]];
         
         [imageView sd_setImageWithURL:a placeholderImage:[UIImage imageNamed:@"girl"]
          options:SDWebImageRetryFailed];

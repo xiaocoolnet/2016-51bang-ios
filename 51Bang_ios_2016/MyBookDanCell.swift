@@ -14,7 +14,7 @@ class MyBookDanCell: UITableViewCell {
     let  Price = UILabel()
     let  Statue = UILabel()
     let  Btn = UIButton()
-    let  Btn1 = UIButton()//取消订单按钮
+    let  Btn1 = UIBounceButton()//取消订单按钮
     let  headerImageBtn = UIButton()
     var idStr = String()
     var sign = Int()

@@ -140,10 +140,12 @@ class MenuViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if isShow{
             cell.delete.hidden = false
             cell.edit.hidden = false
+            cell.pingjiaLabel.hidden = true
 //            cell.distance.hidden = false
         }else{
             cell.delete.hidden = true
             cell.edit.hidden = true
+            cell.pingjiaLabel.hidden = false
         }
         cell.delete.tag = indexPath.row
         cell.delete.addTarget(self, action:#selector(self.onClick(_:)) , forControlEvents: UIControlEvents.TouchUpInside)

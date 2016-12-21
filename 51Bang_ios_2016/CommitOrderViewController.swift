@@ -440,41 +440,15 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         a = 0
         
         if mp3FilePath.absoluteString != "" {
-//            print(mp3FilePath.absoluteString)
+
             
             let data = NSData.init(contentsOfFile: self.mp3FilePath.path!)
-//            let fileURL = NSBundle.mainBundle().URLForResource("myselfRecord", withExtension: "mp3")
-            
-//            let data = NSData.init(contentsOfFile:fileURL?.path)
+
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
             let dateStr = dateFormatter.stringFromDate(NSDate())
             let imageName = "record" + dateStr + userid
-//            print(imageName)
-            
-//            mainHelper.postMp3(data!, handle: { (success, response) in
-//                if success{
-//                    self.sound = imageName
-//                    print("000000")
-//                }
-//            })
-            
-//            let uploadSound =  UPLoadSound()
-//            let model = UpLoadModel()
-//            model.data = data
-//            model.name = imageName
-//            uploadSound.upload([model], url: "http://bang.xiaocool.net/index.php?g=apps&m=index&a=uploadRecord", parmas: nil, uploadComplete: { (response) in
-//                print("0000000")
-//                self.sound = imageName
-//                self.hud1.hide(true)
-//                self.fabuAction()
-//                print(response)
-//                }, failed: {
-//                   print("1111111")
-//            })
-//            
-//            
-//            
+
             ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord", url:self.mp3FilePath,finish: { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
                     
@@ -488,7 +462,6 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                                 if a == self.photoArray.count||self.photoArray.count == 0{
                                     self.fabuAction()
                                 }
-//                                print("000000000000000000")
                                 
                             }else{
                                 let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -559,19 +532,6 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 
         
         
-        //上传订单  http://bang.xiaocool.net/index.php?g=apps&m=index&a=publishTask&userid=1&title=找人帮我送快递&description=我有一个非常重要的凯蒂,需要帮我送人&address=北京市朝阳区&longitude=121.39138199999999&latitude=12.888&expirydate=219312&price=100&type=2
-        print(self.cityName)
-        print(self.taskTitle)
-        print(self.taskDescription)
-        print(self.time)
-        print(self.salar)
-//        print(self.longitude as! String)
-        print(self.longitude)
-        print(String(self.longitude))
-        //经纬度需要查看
-        print(loginSign)
-        print(self.photoNameArr)
-       
         //需要登录
         if loginSign == 0 {
             
@@ -579,21 +539,9 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             
         }else{
             
-            //        http://bang.xiaocool.net/index.php?g=apps&m=index&a=getTaskListByCity&userid=1&city=烟台&longitude=121.39138199999999&latitude=37.539296999999998
-            
-//            if self.time == "请选择有效时间"||self.taskTitle == ""||self.taskDescription == ""||self.salar=="" {
-//                alert("请完善信息", delegate: self)
-//                return
-//            }
-//
-            print(self.time)
+                print(self.time)
             let address = ud.objectForKey("shangMenLocation")as!String
             print(address)
-//            self.getAddressWithString(address)
-//            print("---------")
-//            print(self.myLatitude)
-//            print(self.myLongitude)
-
             
             
            

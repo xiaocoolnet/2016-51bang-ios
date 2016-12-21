@@ -57,7 +57,7 @@ class BankUpLoad {
             if( result.status == "success" )
             {
                 print("上传银行卡资料成功")
-                Target.navigationController?.pushViewController(pushVc, animated: true)
+                Target.navigationController?.popViewControllerAnimated(true)
             }else{
             
                
@@ -138,7 +138,9 @@ class BankUpLoad {
                 print(Request)
                 if result.status == "success"{
                     print("支付宝资料上传成功")
-                     Targert.navigationController?.pushViewController(pushVc, animated: true)
+                    Targert.navigationController?.popViewControllerAnimated(true)
+//                    Targert.tabBarController?.selectedIndex = 0
+//                     Targert.navigationController?.pushViewController(pushVc, animated: true)
                 }else{
                     print("支付宝资料上传失败")
                 }

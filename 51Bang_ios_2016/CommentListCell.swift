@@ -51,15 +51,7 @@ class CommentListCell : UITableViewCell{
         //        if info.photo==nil {
         
         userImage.image = UIImage(named:"ic_moren")
-        //    }
-        //        else{
-        //            let photoUrl:String = "http://bang.xiaocool.net/uploads/images/"+info.photo!
-        //            print(photoUrl)
-        //            userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
-        //        }
-        
-        //        self.info = info
-        userName.sd_layout()
+                userName.sd_layout()
             .widthIs(100)
             .heightIs(25)
             .topEqualToView(userImage)

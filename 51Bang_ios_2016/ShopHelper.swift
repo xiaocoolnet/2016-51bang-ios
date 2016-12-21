@@ -332,7 +332,7 @@ class ShopHelper: NSObject {
     //获取我的发布
     
     func getMyFaBu(userid:NSString,handle:ResponseBlock){
-        //http://bang.xiaocool.net/index.php?g=apps&m=index&a=getMyshoppinglist
+        
         let url = Bang_URL_Header+"getMyshoppinglist"
         let param = [
             

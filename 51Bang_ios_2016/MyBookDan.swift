@@ -567,9 +567,6 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         let okAction = UIAlertAction(title: "确定", style: .Default,
                                      handler: { action in
                                         
-                                        
-                                        //                let ud = NSUserDefaults.standardUserDefaults()
-                                        //                let userid = ud.objectForKey("userid")as! String
                                         if self.sign == 0{
                                             self.mainHelper.gaiBianDingdan(self.AllDataSource![sender.tag - 300].order_num!, state: "4") { (success, response) in
                                                 dispatch_async(dispatch_get_main_queue(), {
@@ -586,19 +583,6 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                             
                                             
                                             
-                                        }else if self.sign == 1{
-                                            self.mainHelper.gaiBianDingdan(self.DFKDataSource![sender.tag - 600].order_num!, state: "4") { (success, response) in
-                                                dispatch_async(dispatch_get_main_queue(), {
-                                                    if !success {
-                                                        alert("确认收货失败请重试", delegate: self)
-                                                        return
-                                                        
-                                                        
-                                                        
-                                                        
-                                                    }
-                                                })
-                                            }
                                             
                                         }else if self.sign == 2{
                                             self.mainHelper.gaiBianDingdan(self.DXFDataSource![sender.tag - 400].order_num!, state: "4") { (success, response) in

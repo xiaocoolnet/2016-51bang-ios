@@ -55,7 +55,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.URL_Str = @"http://bang.xiaocool.net/";
+    self.URL_Str = Bang_Open_Header;
 //    self.URL_Str = @"http://www.my51bang.com/";
     [self someSet];
     
@@ -275,11 +275,7 @@
                 customCell.selfPhoto = url;
             }
             
-            //        NSString *url = [NSString stringWithFormat:@"http://bang.xiaocool.net/uploads/images/%@",photo];
-            
-            //        UIImage *image = [[UIImage alloc]init];
-            //        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-            //        image = [UIImage imageWithData:data];
+           
             
         }
     }

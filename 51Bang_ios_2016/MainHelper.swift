@@ -669,7 +669,7 @@
     
     func GetRzbList(cityname:String,sort:String, type:String, handle:ResponseBlock){
         
-        // url	String	"http://bang.xiaocool.net/index.php?g=apps&m=index&a=getAuthenticationUserList"
+        
         let url = Bang_URL_Header+"getAuthenticationUserList"
         let userLocationCenter = NSUserDefaults.standardUserDefaults()
         var latitude = String()

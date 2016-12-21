@@ -400,6 +400,7 @@
 		778F60C31DDAB4A1000D41EA /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */; };
 		77D0AA751DB7423F00FB5A52 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */; };
 		77D0AA761DB7423F00FB5A52 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */; };
+		77D381891E092FC400A1C2BF /* UIBounceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 77D381881E092FC400A1C2BF /* UIBounceButton.m */; };
 		77E2DCDF1DC7337B00CDC80A /* 自定义声音.caf in Resources */ = {isa = PBXBuildFile; fileRef = 77E2DCDE1DC7337B00CDC80A /* 自定义声音.caf */; };
 		77F525551DAA347C001B2DE3 /* AutoScrollLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */; };
 		816E0F001D388991000D7542 /* MineGetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816E0EFF1D388990000D7542 /* MineGetModel.swift */; };
@@ -1055,6 +1056,8 @@
 		778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
 		77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		77D381871E092FC400A1C2BF /* UIBounceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIBounceButton.h; sourceTree = "<group>"; };
+		77D381881E092FC400A1C2BF /* UIBounceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIBounceButton.m; sourceTree = "<group>"; };
 		77E2DCDE1DC7337B00CDC80A /* 自定义声音.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "自定义声音.caf"; sourceTree = "<group>"; };
 		77E4E3461DD2D09600AAA5A4 /* lame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lame.h; sourceTree = "<group>"; };
 		77F525541DAA347C001B2DE3 /* AutoScrollLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoScrollLabel.swift; sourceTree = "<group>"; };
@@ -1254,6 +1257,7 @@
 		0D10A6241D50AE550004903C /* ThirdPackage */ = {
 			isa = PBXGroup;
 			children = (
+				77D381861E092FC400A1C2BF /* UIBounceButton */,
 				773DF0FF1E012F0D00AC6F5C /* SDPhotoBrowser */,
 				77F525531DAA3464001B2DE3 /* AutoScrollLabel */,
 				77361B9E1D93970D003F96F5 /* BugTags */,
@@ -2293,6 +2297,15 @@
 			path = SDPhotoBrowser;
 			sourceTree = "<group>";
 		};
+		77D381861E092FC400A1C2BF /* UIBounceButton */ = {
+			isa = PBXGroup;
+			children = (
+				77D381871E092FC400A1C2BF /* UIBounceButton.h */,
+				77D381881E092FC400A1C2BF /* UIBounceButton.m */,
+			);
+			path = UIBounceButton;
+			sourceTree = "<group>";
+		};
 		77F525531DAA3464001B2DE3 /* AutoScrollLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3099,6 +3112,7 @@
 				1FD8C7DA1D48B410008BCE96 /* fadanDetailModel.swift in Sources */,
 				F2F189FC1D6D6BCA00843120 /* UIView+Layout.m in Sources */,
 				1F9B0E051D365A8600C7CA52 /* EditTableViewCell.swift in Sources */,
+				77D381891E092FC400A1C2BF /* UIBounceButton.m in Sources */,
 				F23C55971D6577000094E2B7 /* ZuberImageCell.swift in Sources */,
 				1F81FACD1D236EAD0085C404 /* LZXPickerView.m in Sources */,
 				189757C61D1629290083FE46 /* RedEnvelopeViewController.swift in Sources */,

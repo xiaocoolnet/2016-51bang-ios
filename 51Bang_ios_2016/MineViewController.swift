@@ -708,7 +708,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             warningStr = "顾客已付款，是否查看？"
             //       vc.sign = 3
         }else if ids == "4"{
-            warningStr = "顾客已经确认消费，是否查看？"
+            warningStr = "顾客已经确认消费/收货，是否查看？"
             //       vc.sign = 3
         }else if ids == "5"{
             warningStr = "顾客已经对您进行了评价，是否查看？"

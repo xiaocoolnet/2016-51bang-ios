@@ -63,7 +63,7 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
                 }
                 self.headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
                 self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
-                //http://bang.xiaocool.net/uploads/images/avatar_man.png
+               
                 self.headerView.setValueWithInfo(response as! RzbInfo)
                 self.view.addSubview(self.headerView)
                 self.dataSource = (response as! RzbInfo).skilllist
@@ -79,33 +79,16 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
             
             self.headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
             self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
-            //http://bang.xiaocool.net/uploads/images/avatar_man.png
+            
             self.headerView.setValueWithInfo(info!)
             self.view.addSubview(self.headerView)
             self.dataSource = info?.skilllist
-//            print(dataSource?.count)
-//            print(info?.skilllist[1].typename)
-//            print(info?.skilllist[0].typename)
-//            print(info?.skilllist[2].typename)
+
             self.createView()
   
         }
         
-        //        print(info?.skilllist[1].parent_typeid)
-//        
-//        skillHelper.getSkillList({[unowned self] (success, response) in
-//            dispatch_async(dispatch_get_main_queue(), {
-//                if !success {
-//                    return
-//                }
-//                print(response)
-//                self.dataSource = response as? Array<SkillModel> ?? []
-//                print(self.dataSource)
-//                self.createView()
-//            })
-//            })
-////        self.dataSource = info
-    }
+            }
     
     func createView(){
         self.createTableView()

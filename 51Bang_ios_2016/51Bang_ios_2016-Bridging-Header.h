@@ -58,6 +58,7 @@
 #import "ChetViewController.h"//聊天界面
 #import "JPUSHService.h"
 #import <Bugtags/Bugtags.h>
+#import "UIBounceButton.h"
 
 #import "SDPhotoBrowser.h"//图片放大缩小
 

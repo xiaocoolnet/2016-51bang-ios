@@ -21,6 +21,7 @@ class MyFabuTableViewCell: UITableViewCell {
     
     @IBOutlet weak var price: UILabel!
     
+    @IBOutlet weak var pingjiaLabel: UILabel!
     
     @IBOutlet weak var sell: UILabel!
     
@@ -47,6 +48,7 @@ class MyFabuTableViewCell: UITableViewCell {
         }else{
             distance.text = "未知"
         }
+        pingjiaLabel.text =  "评价\(goodsInfo.commentlist.count)条"
         
         if goodsInfo.goodsname != nil{
             self.title.text = goodsInfo.goodsname

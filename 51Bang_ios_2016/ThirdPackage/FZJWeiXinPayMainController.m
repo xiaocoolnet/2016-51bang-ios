@@ -89,7 +89,7 @@
     [packageParams setObject: noncestr     forKey:@"nonce_str"];   //随机串
     [packageParams setObject: orderType    forKey:@"trade_type"];  //支付类型，固定为APP
     [packageParams setObject: orderName    forKey:@"body"];        //订单描述，展示给用户
-    NSString * str = [NSString stringWithFormat:@"%@%@",@"http://bang.xiaocool.net/",@"api/returnwx/example/notify.php"];//[NSString stringWithFormat:@"%@",[payDic objectForKey:@"notify_url"]];
+    NSString * str = [NSString stringWithFormat:@"%@%@",@"http://www.my51bang.com/",@"api/returnwx/example/notify.php"];//[NSString stringWithFormat:@"%@",[payDic objectForKey:@"notify_url"]];
     [packageParams setObject: str  forKey:@"notify_url"];  //支付结果异步通知
     [packageParams setObject: orderNO      forKey:@"out_trade_no"];//商户订单号
     [packageParams setObject: orderIP      forKey:@"spbill_create_ip"];//发器支付的机器ip

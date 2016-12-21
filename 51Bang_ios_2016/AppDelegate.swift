@@ -443,98 +443,98 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             }
         }
         
-        if (JPUSHService.registrationID() != nil) {
-//            print(JPUSHService.registrationID())
-            
-            if (ud.objectForKey("userid") != nil) {
-                var userids = String()
-                if ud.objectForKey("userid") != nil{
-                    userids = ud.objectForKey("userid")as! String
-                }
-//                let userids = ud.objectForKey("userid") as! String
-                mainhelper.checkIslogin(userids, handle: { (success, response) in
-                    dispatch_async(dispatch_get_main_queue(), {
-                    if !success{
-                        let userDatas = NSUserDefaults.standardUserDefaults()
-                        //                    print(userDatas.objectForKey("userid"))
-                        userDatas.removeObjectForKey("userid")
-                        if userDatas.objectForKey("name") != nil {
-                            userDatas.removeObjectForKey("name")
-                        }
-                        
-                        if userDatas.objectForKey("photo") != nil {
-                            userDatas.removeObjectForKey("photo")
-                        }
-                        if userDatas.objectForKey("sex") != nil {
-                            userDatas.removeObjectForKey("sex")
-                        }
-                        
-                        if userDatas.objectForKey("pwd") != nil {
-                            userDatas.removeObjectForKey("pwd")
-                        }
-                        if userDatas.objectForKey("userphoto") != nil {
-                            userDatas.removeObjectForKey("userphoto")
-                        }
-                        
-                        if userDatas.objectForKey("ss") != nil {
-                            userDatas.removeObjectForKey("ss")
-                        }
-                        JPUSHService.setTags(nil, aliasInbackground: "99999999")
-                        loginSign = 0
-                        self.window?.rootViewController?.tabBarController?.selectedIndex = 3
-                        NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
-//                        UIApplication.sharedApplication().registerForRemoteNotifications()
-                                            self.window?.rootViewController!.tabBarController?.selectedIndex = 3
-                        if self.window?.rootViewController?.tabBarController?.selectedIndex == 3{
-                            self.window?.rootViewController?.tabBarController?.selectedIndex = 0
-                        }
-                    }
-                    else{
-                        let ud = NSUserDefaults.standardUserDefaults()
-                        if ud.objectForKey("registrationID") != nil{
-                            let registrationID = response as! String
-                            if (ud.objectForKey("registrationID") as! String) != registrationID{
-                                print(registrationID)
-                                let userDatas = NSUserDefaults.standardUserDefaults()
-                                //                    print(userDatas.objectForKey("userid"))
-                                userDatas.removeObjectForKey("userid")
-                                if userDatas.objectForKey("name") != nil {
-                                    userDatas.removeObjectForKey("name")
-                                }
-                                
-                                if userDatas.objectForKey("photo") != nil {
-                                    userDatas.removeObjectForKey("photo")
-                                }
-                                if userDatas.objectForKey("sex") != nil {
-                                    userDatas.removeObjectForKey("sex")
-                                }
-                                
-                                if userDatas.objectForKey("pwd") != nil {
-                                    userDatas.removeObjectForKey("pwd")
-                                }
-                                if userDatas.objectForKey("userphoto") != nil {
-                                    userDatas.removeObjectForKey("userphoto")
-                                }
-                                
-                                if userDatas.objectForKey("ss") != nil {
-                                    userDatas.removeObjectForKey("ss")
-                                }
-                                JPUSHService.setTags(nil, aliasInbackground: "99999999")
-                                loginSign = 0
-                                NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
-                                self.window?.rootViewController?.tabBarController?.selectedIndex = 3
-                                if self.window?.rootViewController?.tabBarController?.selectedIndex == 3{
-                                    self.window?.rootViewController?.tabBarController?.selectedIndex = 0
-                                }
-                            }
-                        }
-                        
-                    }
-                    })
-                })
-            }
-
-        }
+//        if (JPUSHService.registrationID() != nil) {
+////            print(JPUSHService.registrationID())
+//            
+//            if (ud.objectForKey("userid") != nil) {
+//                var userids = String()
+//                if ud.objectForKey("userid") != nil{
+//                    userids = ud.objectForKey("userid")as! String
+//                }
+////                let userids = ud.objectForKey("userid") as! String
+//                mainhelper.checkIslogin(userids, handle: { (success, response) in
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                    if !success{
+//                        let userDatas = NSUserDefaults.standardUserDefaults()
+//                        //                    print(userDatas.objectForKey("userid"))
+//                        userDatas.removeObjectForKey("userid")
+//                        if userDatas.objectForKey("name") != nil {
+//                            userDatas.removeObjectForKey("name")
+//                        }
+//                        
+//                        if userDatas.objectForKey("photo") != nil {
+//                            userDatas.removeObjectForKey("photo")
+//                        }
+//                        if userDatas.objectForKey("sex") != nil {
+//                            userDatas.removeObjectForKey("sex")
+//                        }
+//                        
+//                        if userDatas.objectForKey("pwd") != nil {
+//                            userDatas.removeObjectForKey("pwd")
+//                        }
+//                        if userDatas.objectForKey("userphoto") != nil {
+//                            userDatas.removeObjectForKey("userphoto")
+//                        }
+//                        
+//                        if userDatas.objectForKey("ss") != nil {
+//                            userDatas.removeObjectForKey("ss")
+//                        }
+//                        JPUSHService.setTags(nil, aliasInbackground: "99999999")
+//                        loginSign = 0
+//                        self.window?.rootViewController?.tabBarController?.selectedIndex = 3
+//                        NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
+////                        UIApplication.sharedApplication().registerForRemoteNotifications()
+//                                            self.window?.rootViewController!.tabBarController?.selectedIndex = 3
+//                        if self.window?.rootViewController?.tabBarController?.selectedIndex == 3{
+//                            self.window?.rootViewController?.tabBarController?.selectedIndex = 0
+//                        }
+//                    }
+//                    else{
+//                        let ud = NSUserDefaults.standardUserDefaults()
+//                        if ud.objectForKey("registrationID") != nil{
+//                            let registrationID = response as! String
+//                            if (ud.objectForKey("registrationID") as! String) != registrationID{
+//                                print(registrationID)
+//                                let userDatas = NSUserDefaults.standardUserDefaults()
+//                                //                    print(userDatas.objectForKey("userid"))
+//                                userDatas.removeObjectForKey("userid")
+//                                if userDatas.objectForKey("name") != nil {
+//                                    userDatas.removeObjectForKey("name")
+//                                }
+//                                
+//                                if userDatas.objectForKey("photo") != nil {
+//                                    userDatas.removeObjectForKey("photo")
+//                                }
+//                                if userDatas.objectForKey("sex") != nil {
+//                                    userDatas.removeObjectForKey("sex")
+//                                }
+//                                
+//                                if userDatas.objectForKey("pwd") != nil {
+//                                    userDatas.removeObjectForKey("pwd")
+//                                }
+//                                if userDatas.objectForKey("userphoto") != nil {
+//                                    userDatas.removeObjectForKey("userphoto")
+//                                }
+//                                
+//                                if userDatas.objectForKey("ss") != nil {
+//                                    userDatas.removeObjectForKey("ss")
+//                                }
+//                                JPUSHService.setTags(nil, aliasInbackground: "99999999")
+//                                loginSign = 0
+//                                NSNotificationCenter.defaultCenter().postNotificationName("getRegistrationID", object: nil)
+//                                self.window?.rootViewController?.tabBarController?.selectedIndex = 3
+//                                if self.window?.rootViewController?.tabBarController?.selectedIndex == 3{
+//                                    self.window?.rootViewController?.tabBarController?.selectedIndex = 0
+//                                }
+//                            }
+//                        }
+//                        
+//                    }
+//                    })
+//                })
+//            }
+//
+//        }
         
         
     }
