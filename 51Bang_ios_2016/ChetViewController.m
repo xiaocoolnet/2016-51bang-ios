@@ -19,8 +19,8 @@
 #define HEIGHTS [UIScreen mainScreen].bounds.size.height
 #define WIDTHS [UIScreen mainScreen].bounds.size.width
 
-#define Bang_Open_Header @"http://bang.xiaocool.net/"
-//#define Bang_Open_Header @"http://www.my51bang.com/"
+//#define Bang_Open_Header @"http://bang.xiaocool.net/"
+#define Bang_Open_Header @"http://www.my51bang.com/"
 
 @interface ChetViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 

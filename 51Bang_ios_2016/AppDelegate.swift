@@ -442,7 +442,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 ud.removeObjectForKey("comeFromWechat")
             }
         }
-        
+        //这里是检测是否需要再次登陆的地方，走接口发送设备吗到后台进行验证，客户需求暂时关闭
 //        if (JPUSHService.registrationID() != nil) {
 ////            print(JPUSHService.registrationID())
 //            
