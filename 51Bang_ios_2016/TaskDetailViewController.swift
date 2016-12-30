@@ -447,11 +447,13 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         
     func lookImage(sender:UIButton) {
         let myVC = LookPhotoVC()
+        myVC.hidesBottomBarWhenPushed = true
         myVC.myPhotoArray =  myPhotoArray
+        myVC.pic = self.taskInfo.pic!
         myVC.count = sender.tag
         myVC.title = "查看图片"
         self.navigationController?.pushViewController(myVC, animated: true)
-        
+        myVC.hidesBottomBarWhenPushed = false
         }
         
     
