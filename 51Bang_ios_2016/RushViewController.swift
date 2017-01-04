@@ -521,6 +521,12 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             self.headerRefresh()
             
         })
+        myTableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
+            print("MJ:(上拉加载)")
+            self.footerRefresh()
+            
+        })
+
 
         //        let bottom = UIView(frame: CGRectMake(0, 0, WIDTH/2, 120))
         let btn = UIButton(frame: CGRectMake(0, HEIGHT-110, WIDTH/2,50))
@@ -563,7 +569,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             let userid = ud.objectForKey("userid")as! String
             print(self.latitude)
             print(self.latitude)
-            mainHelper.getTaskList (userid,cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
+            mainHelper.getTaskList (userid,beginid:"0",cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
                         print(success)
@@ -599,7 +605,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             let ud = NSUserDefaults.standardUserDefaults()
             let userid = ud.objectForKey("userid")as! String
             
-            mainHelper.getTaskList (userid,cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
+            mainHelper.getTaskList (userid,beginid:"0",cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
                         print(success)
@@ -617,6 +623,49 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                     }
                     print(self.dataSource?.count)
 //                    self.createTableView()
+                    
+                    self.myTableView.reloadData()
+                    
+                })
+                
+                })
+        }
+        
+        
+    }
+    func footerRefresh(){
+        if loginSign == 0 {
+            self.tabBarController?.selectedIndex = 3
+        }else{
+            
+            let ud = NSUserDefaults.standardUserDefaults()
+            let userid = ud.objectForKey("userid")as! String
+            let  beginId = (self.dataSource![(self.dataSource?.count)!-1] as TaskInfo).id! as String
+            mainHelper.getTaskList (userid,beginid:beginId,cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if !success {
+                        print(success)
+                        self.myTableView.mj_footer.endRefreshing()
+                        return
+                    }
+                    print(response)
+                    
+                    let datass = response as? Array<TaskInfo> ?? []
+                    if datass.count < 1 {
+                        self.myTableView.mj_footer.endRefreshingWithNoMoreData()
+                        return
+                    }
+                    for datas in datass{
+                        self.dataSource?.append(datas)
+                    }
+                    self.myTableView.mj_footer.endRefreshing()
+                    print(self.dataSource)
+                    print(self.dataSource?.count)
+                    if self.dataSource?.count == 0{
+                        alert("暂无数据", delegate: self)
+                    }
+                    print(self.dataSource?.count)
+                    //                    self.createTableView()
                     
                     self.myTableView.reloadData()
                     

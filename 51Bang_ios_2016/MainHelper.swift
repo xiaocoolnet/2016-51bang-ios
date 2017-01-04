@@ -16,7 +16,7 @@
     var audioPlayer: AVAudioPlayer?
     
     
-    func getTaskList(userid:String,cityName:String,longitude:String,latitude:String,handle:ResponseBlock){
+    func getTaskList(userid:String,beginid:String,cityName:String,longitude:String,latitude:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"getTaskListByCity"
         //                let param = [
         //                    "userid":"1",
@@ -28,6 +28,7 @@
             
             "userid":userid,
             "city":cityName,
+            "beginid":beginid,
             "longitude":longitude,
             "latitude":latitude
             
@@ -667,7 +668,7 @@
     }
     
     
-    func GetRzbList(cityname:String,sort:String, type:String, handle:ResponseBlock){
+    func GetRzbList(cityname:String,beginid:String,sort:String, type:String, handle:ResponseBlock){
         
         
         let url = Bang_URL_Header+"getAuthenticationUserList"
@@ -678,7 +679,7 @@
             latitude = userLocationCenter.objectForKey("latitude") as! String
             longitude = userLocationCenter.objectForKey("longitude") as! String
         }
-        Alamofire.request(.GET, url, parameters: ["cityname":cityname,"sort":sort,"type":type,"latitude":latitude,"longitude":longitude]).response { request, response, json, error in
+        Alamofire.request(.GET, url, parameters: ["beginid":beginid,"cityname":cityname,"sort":sort,"type":type,"latitude":latitude,"longitude":longitude]).response { request, response, json, error in
             print(request)
             if(error != nil){
                 handle(success: false, response: error?.description)

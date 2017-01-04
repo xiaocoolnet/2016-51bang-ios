@@ -41,8 +41,13 @@ class ShopTableViewCell: UITableViewCell {
         }else{
             self.context.text = ""
         }
+        if goodsInfo.commentcount != nil{
+            self.comment.text = "评价\(goodsInfo.commentcount! as String)条"
+        }else{
+            self.comment.text = "评价0条"
+        }
         
-        self.comment.text = "评价\(goodsInfo.commentlist.count)条"
+        
         
         if goodsInfo.oprice != nil {
             self.title.text = goodsInfo.goodsname

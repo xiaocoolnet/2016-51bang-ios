@@ -106,7 +106,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
             let userid = ud.objectForKey("userid")as! String
             print(self.latitude)
             print(self.latitude)
-            mainHelper.getTaskList (userid,cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
+            mainHelper.getTaskList (userid,beginid:"-1",cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
                         print(success)
@@ -193,7 +193,7 @@ class WoBangPageViewController: UIViewController,UITableViewDelegate,UITableView
             let ud = NSUserDefaults.standardUserDefaults()
             let userid = ud.objectForKey("userid")as! String
 
-            mainHelper.getTaskList (userid,cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
+            mainHelper.getTaskList (userid,beginid: "-1",cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
                         print(success)

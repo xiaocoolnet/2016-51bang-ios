@@ -280,6 +280,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             self.convenienceTable.mj_footer.endRefreshing()
             if self.dataSource?.count == 0{
                 self.convenienceTable.mj_footer.endRefreshingWithNoMoreData()
+                return
             }
             for data in self.dataSource!{
                 

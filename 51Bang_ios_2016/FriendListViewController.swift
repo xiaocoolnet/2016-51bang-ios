@@ -1,4 +1,4 @@
-//
+ //
 //  FriendListViewController.swift
 //  51Bang_ios_2016
 //
@@ -66,6 +66,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             self.headerRefresh()
             
         })
+        myTableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
+            print("MJ:(上拉加载)")
+            self.footerRefresh()
+            
+        })
         
         self.view.backgroundColor = RGREY
         if isNextGrade {
@@ -73,7 +78,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             self.getNextGradeData()
             self.navigationController?.navigationBar.hidden = false
         }else{
-            self.GetData1(sort,types: self.types)
+            self.GetData1(sort,types: self.types,isBegin: true)
         }
         
         
@@ -122,7 +127,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     
     
-    func GetData1(sort:String,types:String){
+    func GetData1(sort:String,types:String,isBegin:Bool){
         
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
@@ -142,43 +147,91 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
 //        }
         
         
-        mainHelper.GetRzbList (cityname ,sort:sort,type:types, handle: {[unowned self](success, response) in
-            dispatch_async(dispatch_get_main_queue(), {
-                if !success {
-                    alert("暂无数据", delegate: self)
-                    self.myTableView.mj_header.endRefreshing()
-                    self.rzbDataSource = nil
-                    self.myTableView.reloadData()
-//                    self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
-////                    self.myTableView.delegate = self
-////                    self.myTableView.dataSource = self
-//                    self.myTableView.backgroundColor = RGREY
-//                    self.myTableView.tag = 0
-//                    
-//                    
-//                    self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
-//                    self.view.addSubview(self.myTableView)
+        if isBegin {
+            mainHelper.GetRzbList (cityname ,beginid:"0",sort:sort,type:types, handle: {[unowned self](success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if !success {
+                        alert("暂无数据", delegate: self)
+                        self.myTableView.mj_header.endRefreshing()
+                        self.rzbDataSource = nil
+                        self.myTableView.reloadData()
+                        //                    self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
+                        ////                    self.myTableView.delegate = self
+                        ////                    self.myTableView.dataSource = self
+                        //                    self.myTableView.backgroundColor = RGREY
+                        //                    self.myTableView.tag = 0
+                        //
+                        //
+                        //                    self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
+                        //                    self.view.addSubview(self.myTableView)
+                        hud.hide(true)
+                        return
+                    }
                     hud.hide(true)
-                    return
-                }
-                hud.hide(true)
-                self.myTableView.mj_header.endRefreshing()
-                self.rzbDataSource = response as? Array<RzbInfo> ?? []
-                print(self.rzbDataSource!.count)
-                
-                
-                self.myTableView.reloadData()
-                
-                if  types == "" && sort == "1"{
-                    self.GetData()
+                    self.myTableView.mj_header.endRefreshing()
+                    self.rzbDataSource = response as? Array<RzbInfo> ?? []
+                    print(self.rzbDataSource!.count)
                     
-                }
-             
-                
+                    
+                    self.myTableView.reloadData()
+                    
+                    if  types == "" && sort == "1"{
+                        self.GetData()
+                        
+                    }
+                    
+                    
+                    
+                    
+                })
+                })
+        }else{
+            
+            let beginids  = self.rzbDataSource![(self.rzbDataSource?.count)!-1].id as String
+            
+            mainHelper.GetRzbList (cityname ,beginid:beginids,sort:sort,type:types, handle: {[unowned self](success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if !success {
+                        self.myTableView.mj_footer.endRefreshing()
 
-                
-            })
-            })
+                        self.myTableView.reloadData()
+                      print(response as! String)
+                        if response as! String == "no data"{
+                            self.myTableView.mj_footer.endRefreshingWithNoMoreData()
+                            
+                        }
+                        hud.hide(true)
+                        return
+                    }
+                    hud.hide(true)
+                    self.myTableView.mj_footer.endRefreshing()
+                    let datasss = response as? Array<RzbInfo> ?? []
+                    if datasss.count < 1{
+                        self.myTableView.mj_footer.endRefreshingWithNoMoreData()
+                        return
+                    }
+                    for datas in datasss{
+                        self.rzbDataSource?.append(datas)
+                    }
+                    print(self.rzbDataSource!.count)
+                    
+                    
+                    self.myTableView.reloadData()
+                    
+                    if  types == "" && sort == "1"{
+                        self.GetData()
+                        
+                    }
+                    
+                    
+                    
+                    
+                })
+                })
+        }
+        
+        
+        
     }
     
     
@@ -422,7 +475,18 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         if isNextGrade{
             self.getNextGradeData()
         }else{
-            self.GetData1(sort,types: self.types)
+            self.GetData1(sort,types: self.types,isBegin: true)
+            self.headerView.label3.text = "全部"
+        }
+        
+    }
+    
+    func footerRefresh(){
+        
+        if isNextGrade{
+            self.getNextGradeData()
+        }else{
+            self.GetData1(sort,types: self.types,isBegin: false)
             self.headerView.label3.text = "全部"
         }
         
@@ -562,11 +626,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 cell?.label1.text = "全部分类"
                 
                 self.types = ""
-                self.GetData1(self.sort, types: self.types)
+                self.GetData1(self.sort, types: self.types,isBegin: true)
             }else{
                 cell?.label1.text = self.dataSource![indexPath.row-1].name
                 self.types = self.dataSource![indexPath.row-1].id!
-                self.GetData1(self.sort, types: self.types)
+                self.GetData1(self.sort, types: self.types,isBegin: true)
             }
             
         }else if tableView.tag == 2{
@@ -585,7 +649,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
 //            }else{
 //                self.sort  =  "3"
 //            }
-            self.GetData1(self.sort, types: self.types)
+            self.GetData1(self.sort, types: self.types,isBegin: true)
             
         }else{
             coverView.hidden = true
@@ -605,7 +669,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
               self.rzbDataSource = aa as? Array<RzbInfo>
                 self.myTableView.reloadData()
             }else if indexPath.row == 0 {
-                self.GetData1(sort,types: self.types)
+                self.GetData1(sort,types: self.types,isBegin: true)
                 
             }
             

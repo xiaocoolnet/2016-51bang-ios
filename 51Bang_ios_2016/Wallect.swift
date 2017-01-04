@@ -297,7 +297,7 @@ class Wallect: UIViewController {
     
     func TixianXiangJie(){
         let vc = JiaoChengViewController()
-        vc.sign = 2
+        vc.sign = 4
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

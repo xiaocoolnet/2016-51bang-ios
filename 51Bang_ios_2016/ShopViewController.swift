@@ -39,7 +39,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 //    var array = ["餐饮美食","休闲/娱乐/酒店","服饰/箱包","运动户外/休闲/健身","日用百货","培训机构/教育器材","汽车用品/买卖","二手买卖","家纺家饰/家装建材","美装日化/美容美发","代购进口产品","黄金珠宝","数码家电/安全防护/电工电气","印刷广告/包装市场/行政采购","照明/电子/五金工具/机械/仪器仪表","橡塑/精细/钢材","纺织、皮革市场","医药保健","货运/物流","食品/海鲜/果蔬/农产品/茶叶","婚纱摄影/个人写真","其他"]
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
-        self.GetData()
+//        self.GetData()
         self.tabBarController?.tabBar.hidden = false
         self.navigationController?.navigationBar.hidden = false
         
@@ -64,6 +64,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]
         
         isShow = false
+        self.GetData()
         
         // Do any additional setup after loading the view.
     }
@@ -75,7 +76,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         hud.mode = .Text
         hud.labelText = "正在努力加载"
         self.view.bringSubviewToFront(hud)
-        shopHelper.getGoodsList({[unowned self] (success, response) in
+        shopHelper.getGoodsList("0",handle:{[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     hud.hide(true)
@@ -113,6 +114,12 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
         })
         
+        myTableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
+            print("MJ:(上拉加载)")
+            self.footerRefresh()
+            
+        })
+        
         self.view.addSubview(myTableView)
 //
     }
@@ -123,7 +130,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         hud.mode = .Text
         hud.labelText = "正在努力加载"
         self.view.bringSubviewToFront(hud)
-        shopHelper.getGoodsList({[unowned self] (success, response) in
+        shopHelper.getGoodsList("0",handle:{[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
@@ -140,6 +147,40 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             })
             })
 
+    }
+    func footerRefresh(){
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.mode = .Text
+        hud.labelText = "正在努力加载"
+        self.view.bringSubviewToFront(hud)
+        let  beginId = (self.dataSource![(self.dataSource?.count)!-1] as GoodsInfo).id! as String
+        shopHelper.getGoodsList(beginId,handle:{[unowned self] (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if !success {
+                    self.myTableView.mj_footer.endRefreshing()
+                    hud.hide(true)
+                    return
+                }
+                hud.hide(true)
+                self.myTableView.mj_footer.endRefreshing()
+                if (response as? Array<GoodsInfo> ?? []).count<1{
+                    self.myTableView.mj_footer.endRefreshingWithNoMoreData()
+                    return
+                }
+                for datas in response as? Array<GoodsInfo> ?? []{
+                    self.dataSource?.append(datas)
+                }
+                
+                
+//                self.dataSource = self.dataSource?.append(response as? Array<GoodsInfo> ?? [])
+                
+                self.createTableView()
+                self.myTableView.reloadData()
+                
+            })
+            })
+        
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

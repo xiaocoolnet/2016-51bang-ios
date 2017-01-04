@@ -39,6 +39,10 @@ class JiaoChengViewController: UIViewController {
             self.title = "推荐人机制"
             self.url = NSURL(string:Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=9")!
             
+        }else if sign == 4{
+            self.title = "用户提现"
+            self.url = NSURL(string:Bang_Open_Header+"index.php?g=portal&m=article&a=index&id=3")!
+            
         }
         else{
             self.title = "关于51帮"
