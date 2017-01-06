@@ -631,7 +631,9 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                                     
                                                     
                                                     
-                                                }
+                                                }else{
+                                                     self.headerRefresh()
+                                                    }
                                                 })
                                         }
                                         
@@ -648,6 +650,7 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                                     
                                                     
                                                 }
+                                                     self.headerRefresh()
                                                 })
                                             }
 
@@ -662,12 +665,13 @@ class MyBookDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                                                     
                                                     
                                                 }
+                                                     self.headerRefresh()
                                                 })
                                             }
                                             
                                         }
                                         
-                                   self.headerRefresh()
+                                  
                                         
                                         
         })

@@ -48,7 +48,12 @@ class MyFabuTableViewCell: UITableViewCell {
         }else{
             distance.text = "未知"
         }
-        pingjiaLabel.text =  "评价\(goodsInfo.commentlist.count)条"
+        if goodsInfo.commentcount != nil{
+            pingjiaLabel.text =  "评价"+goodsInfo.commentcount!+"条"
+        }else{
+            pingjiaLabel.text =  "评价0条"
+        }
+        
         
         if goodsInfo.goodsname != nil{
             self.title.text = goodsInfo.goodsname

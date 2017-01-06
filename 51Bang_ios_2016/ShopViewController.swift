@@ -16,10 +16,11 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var myTableView = UITableView()
     let leftTypeButton = UIButton()//左侧全部分类按钮
     var showLogin = false
-    var type = String()
+//    var type = String()
+    var goodType = String()//商品分类
     let shopHelper = ShopHelper()
     var dataSource : Array<GoodsInfo>?
-    var dataSource2 =  NSMutableArray()
+//    var dataSource2 =  NSMutableArray()
     var myDic : Array<DicInfo>?
     let mainHelper = MainHelper()
     let leftTableView = UITableView()
@@ -64,19 +65,19 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]
         
         isShow = false
-        self.GetData()
+        self.GetData("0")
         
         // Do any additional setup after loading the view.
     }
     
-    func GetData(){
+    func GetData(type:String){
 
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.mode = .Text
         hud.labelText = "正在努力加载"
         self.view.bringSubviewToFront(hud)
-        shopHelper.getGoodsList("0",handle:{[unowned self] (success, response) in
+        shopHelper.getGoodsList("0",type:type,handle:{[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     hud.hide(true)
@@ -101,7 +102,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func createTableView(){
-        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64-49)
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.registerNib(UINib(nibName: "ShopTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
@@ -130,7 +131,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         hud.mode = .Text
         hud.labelText = "正在努力加载"
         self.view.bringSubviewToFront(hud)
-        shopHelper.getGoodsList("0",handle:{[unowned self] (success, response) in
+        shopHelper.getGoodsList("0",type: self.goodType,handle:{[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
@@ -155,7 +156,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         hud.labelText = "正在努力加载"
         self.view.bringSubviewToFront(hud)
         let  beginId = (self.dataSource![(self.dataSource?.count)!-1] as GoodsInfo).id! as String
-        shopHelper.getGoodsList(beginId,handle:{[unowned self] (success, response) in
+        shopHelper.getGoodsList(beginId,type: self.goodType,handle:{[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_footer.endRefreshing()
@@ -197,16 +198,13 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView.tag == 0 {
-            if type == "" {
-                if dataSource == nil{
-                    return 0
-                }else{
-                    return (dataSource?.count)!
-                }
-                
+            if dataSource == nil{
+                return 0
             }else{
-                return dataSource2.count
+                return (dataSource?.count)!
             }
+                
+           
         }else if tableView.tag == 1{
             if myDic == nil {
                 return 0
@@ -240,13 +238,10 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             cell.selectionStyle = .None
 //            print(self.dataSource![indexPath.row].price)
             //            if type == dataSource![indexPath.row].type {
-            if type == ""{
-                let goodsInfo = self.dataSource![indexPath.row]
-                cell.setValueWithModel(goodsInfo)
-            }else{
-                let goodsInfo = self.dataSource2[indexPath.row]
-                cell.setValueWithModel(goodsInfo as! GoodsInfo)
-            }
+            
+            let goodsInfo = self.dataSource![indexPath.row]
+            cell.setValueWithModel(goodsInfo)
+           
             //            }
             return cell
             
@@ -282,15 +277,11 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 //        print(indexPath.row)
         if tableView.tag == 0 {
             let next = BusnissViewController()
-            if type == ""{
+            
                 next.id = self.dataSource![indexPath.row].id!
 //                print(next.id)
                 next.dataSource = self.dataSource![indexPath.row].commentlist
-            }else{
-                next.id = (self.dataSource2[indexPath.row] as! GoodsInfo).id!
-                next.dataSource = (self.dataSource2[indexPath.row] as! GoodsInfo).commentlist
-//                print(next.id)
-            }
+            
             
             self.navigationController?.pushViewController(next, animated: true)
             //            next.title = "风景自助"
@@ -299,23 +290,20 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             leftTableView.removeFromSuperview()
             rightTableView.removeFromSuperview()
             if indexPath.row == 0{
-                self.type = ""
+                self.goodType = "0"
+                self.GetData(self.goodType)
                 isShow = false
                  self.leftTypeButton.setTitle("全部分类", forState: UIControlState.Normal)
             }else{
-                self.type = self.myDic![indexPath.row - 1].id!
+                self.goodType = self.myDic![indexPath.row - 1].id!
                 self.leftTypeButton.setTitle(self.myDic![indexPath.row - 1].name!, forState: UIControlState.Normal)
-                dataSource2.removeAllObjects()
-                for myInfo in self.dataSource! {
-                    if self.type == myInfo.type {
-                        
-                        self.dataSource2.addObject(myInfo)
-                    }
-                    isShow = false
-                    //                self.dataSource = self.dataSource2
-                    self.myTableView.reloadData()
+                
+                self.GetData(self.goodType)
+                isShow = false
+                //                self.dataSource = self.dataSource2
+                self.myTableView.reloadData()
                     
-                }
+                
             }
             
             

@@ -397,6 +397,7 @@
 		7754A3BC1DBF5E3100C06FBA /* 发单超时.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B81DBF5E3100C06FBA /* 发单超时.caf */; };
 		7754A3BD1DBF5E3100C06FBA /* 购买了商品.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */; };
 		7754A3BE1DBF5E3100C06FBA /* 抢单取消.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */; };
+		77594D911E1E2669000628A1 /* 发单声音.caf in Resources */ = {isa = PBXBuildFile; fileRef = 77594D901E1E2669000628A1 /* 发单声音.caf */; };
 		778F60C31DDAB4A1000D41EA /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */; };
 		77D0AA751DB7423F00FB5A52 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */; };
 		77D0AA761DB7423F00FB5A52 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */; };
@@ -1052,6 +1053,7 @@
 		7754A3B81DBF5E3100C06FBA /* 发单超时.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "发单超时.caf"; sourceTree = "<group>"; };
 		7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "购买了商品.caf"; sourceTree = "<group>"; };
 		7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "抢单取消.caf"; sourceTree = "<group>"; };
+		77594D901E1E2669000628A1 /* 发单声音.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "发单声音.caf"; sourceTree = "<group>"; };
 		778F60C01DDAB168000D41EA /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
 		77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -1688,6 +1690,7 @@
 		18D8811E1D151D820067218F = {
 			isa = PBXGroup;
 			children = (
+				77594D901E1E2669000628A1 /* 发单声音.caf */,
 				77E2DCDE1DC7337B00CDC80A /* 自定义声音.caf */,
 				7754A3B71DBF5E3100C06FBA /* 被抢单.caf */,
 				7754A3B81DBF5E3100C06FBA /* 发单超时.caf */,
@@ -2747,6 +2750,7 @@
 				189757D81D163A0A0083FE46 /* IdentityTableViewCell.xib in Resources */,
 				0DD511041D51D16E00FE88C2 /* btn_unselected.png in Resources */,
 				77E2DCDF1DC7337B00CDC80A /* 自定义声音.caf in Resources */,
+				77594D911E1E2669000628A1 /* 发单声音.caf in Resources */,
 				1F9B0DFA1D363FD700C7CA52 /* EditInfoViewController.xib in Resources */,
 				1F0DF1881D2B4E1000D45390 /* ConvenienceTableViewCell.xib in Resources */,
 				1F81FACF1D2371410085C404 /* area.plist in Resources */,
