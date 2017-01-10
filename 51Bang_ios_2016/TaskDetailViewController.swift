@@ -46,7 +46,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         if qiangdanBut{
             btn.hidden = true
         }else {
-            btn.hidden = false
+            btn.hidden = true//隐藏掉，过期的单子还是会被抢
         }
         if self.taskInfo.state != "1" {
             btn.hidden = true

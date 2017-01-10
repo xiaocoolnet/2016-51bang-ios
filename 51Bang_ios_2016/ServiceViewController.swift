@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDataSource {
 
@@ -71,10 +72,14 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
                         }
                     }
                 }
-                
-                let string = String(format: "%.2f" , pathNum/1024/1024)
-            
-                alert("已清除"+string  + "M缓存", delegate: self)
+                let tmpSize = SDImageCache.sharedImageCache().getDiskCount()
+                let a = NSInteger(tmpSize)
+                let b = NSInteger(pathNum)/1000
+                let string = String(format: "%.2f" , a+b)
+                SDImageCache.sharedImageCache().clearDisk()
+                print(tmpSize)
+                print(a+b)
+                alert("已清除"+string  + "KB缓存", delegate: self)
             }else if indexPath.row == 4{
                 
                 

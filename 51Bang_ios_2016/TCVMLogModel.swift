@@ -115,7 +115,7 @@ class TCVMLogModel: NSObject {
 //                print(result.datas)
                 handle(success: true, response: result.data)
             }else{
-                handle(success: true, response: result.errorData)
+                handle(success: false, response: result.errorData)
                 print(result.data)
             }
             

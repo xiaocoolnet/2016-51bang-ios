@@ -377,7 +377,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyy:MM:dd:HH:mm:ss.SSS"
             let dateStr = dateFormatter.stringFromDate(NSDate())
-            let imageName = "avatar" + dateStr + String(a) + String(arc4random() % 10000) + userid
+            let imageName = "shopavatar" + dateStr + String(a) + String(arc4random() % 10000) + userid
             print(imageName)
             
             //上传图片

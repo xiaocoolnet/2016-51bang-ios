@@ -623,7 +623,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         print(cityname)
         
         
-        mainHelper.GetRzbList (cityname,beginid: "-1",sort:"" ,type: "", handle: {[unowned self](success, response) in
+        mainHelper.GetHomeRzbList (cityname,beginid: "-1",sort:"" ,type: "", handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     

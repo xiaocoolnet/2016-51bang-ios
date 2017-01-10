@@ -51,7 +51,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         isShow3 = false
         self.types = ""
         self.sort = "1"
-        self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
+        self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375)
         self.myTableView.delegate = self
         self.myTableView.dataSource = self
         self.myTableView.backgroundColor = RGREY
@@ -63,7 +63,14 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
 //        isworking = "0"
         self.myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
-            self.headerRefresh()
+            
+            if self.isNextGrade {
+                self.createrTableViewUI()
+                self.getNextGradeData("0")
+                self.navigationController?.navigationBar.hidden = false
+            }else{
+                self.headerRefresh()
+            }
             
         })
         myTableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
@@ -75,7 +82,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         self.view.backgroundColor = RGREY
         if isNextGrade {
             self.createrTableViewUI()
-            self.getNextGradeData()
+            self.getNextGradeData("0")
             self.navigationController?.navigationBar.hidden = false
         }else{
             self.GetData1(sort,types: self.types,isBegin: true)
@@ -91,7 +98,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     
     
-    func getNextGradeData(){
+    func getNextGradeData(beginid:String){
         let ud = NSUserDefaults.standardUserDefaults()
         var useridstr = String()
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -100,11 +107,12 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         if ud.objectForKey("userid") != nil {
             useridstr = ud.objectForKey("userid") as! String
         }
-        mainHelper.GetNextGrade(useridstr) { (success, response) in
+        mainHelper.GetNextGrade(useridstr,beginid:beginid) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
-                    alert("暂无数据", delegate: self)
+//                    alert("暂无数据", delegate: self)
                     self.myTableView.mj_header.endRefreshing()
+                    self.myTableView.mj_footer.endRefreshing()
                     self.rzbDataSource = nil
                     self.myTableView.reloadData()
                     hud.hide(true)
@@ -112,11 +120,26 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                     
                 }
                 hud.hide(true)
-                self.myTableView.mj_header.endRefreshing()
-                self.rzbDataSource = response as? Array<RzbInfo> ?? []
-                if self.rzbDataSource?.count == 0{
-                     alert("暂无数据", delegate: self)
+                
+                if beginid == "0"{
+                    self.rzbDataSource = response as? Array<RzbInfo> ?? []
+                    if self.rzbDataSource?.count == 0{
+                        alert("暂无数据", delegate: self)
+                    }
+                    self.myTableView.mj_header.endRefreshing()
+                }else{
+                    let datasss = response as? Array<RzbInfo> ?? []
+                    if datasss.count < 1{
+                        self.myTableView.mj_footer.endRefreshingWithNoMoreData()
+                        return
+                    }
+                    for datas in datasss{
+                        self.rzbDataSource?.append(datas)
+                    }
+                    self.myTableView.mj_footer.endRefreshing()
                 }
+                
+                
                 print(self.rzbDataSource!.count)
                 
                 
@@ -192,6 +215,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             mainHelper.GetRzbList (cityname ,beginid:beginids,sort:sort,type:types, handle: {[unowned self](success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
+                        
                         self.myTableView.mj_footer.endRefreshing()
 
                         self.myTableView.reloadData()
@@ -213,7 +237,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                     for datas in datasss{
                         self.rzbDataSource?.append(datas)
                     }
-                    print(self.rzbDataSource!.count)
+//                    print(self.rzbDataSource!.count)
                     
                     
                     self.myTableView.reloadData()
@@ -473,7 +497,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     func headerRefresh(){
         
         if isNextGrade{
-            self.getNextGradeData()
+            self.getNextGradeData("0")
         }else{
             self.GetData1(sort,types: self.types,isBegin: true)
             self.headerView.label3.text = "全部"
@@ -484,7 +508,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     func footerRefresh(){
         
         if isNextGrade{
-            self.getNextGradeData()
+            self.getNextGradeData(self.rzbDataSource![(self.rzbDataSource?.count)!-1].id)
         }else{
             self.GetData1(sort,types: self.types,isBegin: false)
             self.headerView.label3.text = "全部"

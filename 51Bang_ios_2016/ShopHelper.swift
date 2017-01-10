@@ -24,10 +24,11 @@ class ShopHelper: NSObject {
         
         Alamofire.request(.GET, url, parameters: ["beginid":beginid,"city":cityName,"type":type]).response { request, response, json, error in
             print(request)
+            let result = GoodsModel(JSONDecoder(json!))
             if(error != nil){
-                handle(success: false, response: error?.description)
+                handle(success: false, response: result.errorData)
             }else{
-                let result = GoodsModel(JSONDecoder(json!))
+                
 //                print("---")
 //                print(result)
 //                print("---")

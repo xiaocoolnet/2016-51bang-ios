@@ -703,10 +703,48 @@
         
         
     }
+    
+    
+    func GetHomeRzbList(cityname:String,beginid:String,sort:String, type:String, handle:ResponseBlock){
+        
+        
+        let url = Bang_URL_Header+"HomegetAuthenticationUserList"
+        let userLocationCenter = NSUserDefaults.standardUserDefaults()
+        var latitude = String()
+        var longitude = String()
+        if userLocationCenter.objectForKey("latitude") != nil && userLocationCenter.objectForKey("longitude") != nil{
+            latitude = userLocationCenter.objectForKey("latitude") as! String
+            longitude = userLocationCenter.objectForKey("longitude") as! String
+        }
+        Alamofire.request(.GET, url, parameters: ["cityname":cityname]).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = RzbModel(JSONDecoder(json!))
+                print("---")
+                print(result)
+                print("---")
+                //let status = SkillListModel(JSONDecoder(json!))
+                if(result.status == "success"){
+                    print(result.datas)
+                    handle(success: true, response: result.datas)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+        
+    }
     //获取我的下级推广客户
-    func GetNextGrade(userid:NSString,handle:ResponseBlock){
+    func GetNextGrade(userid:NSString,beginid:String, handle:ResponseBlock){
         let url = Bang_URL_Header+"getMyIntroduceList"
         let param = [
+            "beginid":beginid,
             "userid":userid
         ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in

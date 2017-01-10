@@ -491,7 +491,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
             let dateStr = dateFormatter.stringFromDate(NSDate())
-            let imageName = "avatar" + dateStr + userid + String(arc4random())
+            let imageName = "taskavatar" + dateStr + userid + String(arc4random())
             print(imageName)
             
             //上传图片

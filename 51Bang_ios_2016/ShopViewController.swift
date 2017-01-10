@@ -159,9 +159,16 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         shopHelper.getGoodsList(beginId,type: self.goodType,handle:{[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
-                    self.myTableView.mj_footer.endRefreshing()
-                    hud.hide(true)
-                    return
+                    if response as! String == "no data"{
+                        self.myTableView.mj_footer.endRefreshingWithNoMoreData()
+                        hud.hide(true)
+                        return
+                    }else{
+                        self.myTableView.mj_footer.endRefreshing()
+                        hud.hide(true)
+                        return
+                    }
+                    
                 }
                 hud.hide(true)
                 self.myTableView.mj_footer.endRefreshing()
