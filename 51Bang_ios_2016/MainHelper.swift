@@ -709,13 +709,13 @@
         
         
         let url = Bang_URL_Header+"HomegetAuthenticationUserList"
-        let userLocationCenter = NSUserDefaults.standardUserDefaults()
-        var latitude = String()
-        var longitude = String()
-        if userLocationCenter.objectForKey("latitude") != nil && userLocationCenter.objectForKey("longitude") != nil{
-            latitude = userLocationCenter.objectForKey("latitude") as! String
-            longitude = userLocationCenter.objectForKey("longitude") as! String
-        }
+//        let userLocationCenter = NSUserDefaults.standardUserDefaults()
+////        var latitude = String()
+////        var longitude = String()
+//        if userLocationCenter.objectForKey("latitude") != nil && userLocationCenter.objectForKey("longitude") != nil{
+//            latitude = userLocationCenter.objectForKey("latitude") as! String
+//            longitude = userLocationCenter.objectForKey("longitude") as! String
+//        }
         Alamofire.request(.GET, url, parameters: ["cityname":cityname]).response { request, response, json, error in
             print(request)
             if(error != nil){

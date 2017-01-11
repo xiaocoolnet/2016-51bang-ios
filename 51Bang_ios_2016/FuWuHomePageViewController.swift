@@ -28,7 +28,7 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
         self.tabBarController?.tabBar.hidden = true
 //        self.navigationController?.title = "服务主页"
         self.title = "认证帮详情"
-        if info != nil {
+        if info?.commentlist.count > 0  {
             self.dataSource4 = self.info!.commentlist
         }
         
@@ -53,8 +53,11 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
     func GetData(){
         
         
-        if self.isUserid {
+//        if self.isUserid {
 //            print(self.userid)
+        if userid == "" {
+            userid = (info?.id)!
+        }
             skillHelper.getAuthenticationInfoByUserId(self.userid, handle: { (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                 if !success{
@@ -74,19 +77,19 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.createView()
                 })
             })
-        }else{
-//            HEIGHT
-            
-            self.headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
-            self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
-            
-            self.headerView.setValueWithInfo(info!)
-            self.view.addSubview(self.headerView)
-            self.dataSource = info?.skilllist
-
-            self.createView()
-  
-        }
+//        }else{
+////            HEIGHT
+//            
+//            self.headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
+//            self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
+//            
+//            self.headerView.setValueWithInfo(info!)
+//            self.view.addSubview(self.headerView)
+//            self.dataSource = info?.skilllist
+//
+//            self.createView()
+//  
+//        }
         
             }
     
