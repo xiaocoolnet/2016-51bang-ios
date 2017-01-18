@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 import MJRefresh
-class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate,ViewControllerDelegate {
+class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate,ViewControllerDelegate,UISearchBarDelegate {
     
 //    @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var fenLeiType: UIBarButtonItem!
@@ -37,10 +37,18 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let rightArr5 = ["饮食养生","调息养生","运动养生","保健养生","道家养生","大众养生","中医养生"]
     let rightArr6 = ["全部","足疗按摩","运动健身","KTV","其他养生保健","游乐园","其他游乐活动"]
     var rightKind:Array<[String]>?
+    
+    var searchBar = UISearchBar.init(frame: CGRectMake(0, 0, WIDTH, 50))
+    let searchHistoryTableview = UITableView()
+    var userLocationCenter = NSUserDefaults.standardUserDefaults()
+    var searchHistory = NSMutableArray()
+    var keyword = String()
+    
 //    var array = ["餐饮美食","休闲/娱乐/酒店","服饰/箱包","运动户外/休闲/健身","日用百货","培训机构/教育器材","汽车用品/买卖","二手买卖","家纺家饰/家装建材","美装日化/美容美发","代购进口产品","黄金珠宝","数码家电/安全防护/电工电气","印刷广告/包装市场/行政采购","照明/电子/五金工具/机械/仪器仪表","橡塑/精细/钢材","纺织、皮革市场","医药保健","货运/物流","食品/海鲜/果蔬/农产品/茶叶","婚纱摄影/个人写真","其他"]
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
 //        self.GetData()
+        self.keyword = ""
         self.tabBarController?.tabBar.hidden = false
         self.navigationController?.navigationBar.hidden = false
         
@@ -50,34 +58,43 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.title = "特卖"
         self.view.backgroundColor = UIColor.whiteColor()
         
+        let leftTypeView = UIView.init(frame: CGRectMake(0, 0, 150, 40))
+        
         leftTypeButton.backgroundColor = COLOR
         leftTypeButton.frame = CGRectMake(0, 0, 100, 40)
-        leftTypeButton.setTitle("全部分类", forState:UIControlState.Normal)
+        leftTypeButton.setTitle("分类", forState:UIControlState.Normal)
         leftTypeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         //        leftTypeButton.titleLabel?.textAlignment = .Left
         leftTypeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         leftTypeButton.addTarget(self, action: #selector(self.goToMenu), forControlEvents: UIControlEvents.TouchUpInside)
+        leftTypeView.addSubview(leftTypeButton)
+        
+        let findButton = UIButton.init(frame: CGRectMake(leftTypeButton.width, 0, 50, 40))
+        findButton.setImage(UIImage(named: "ic_sousuo"), forState: .Normal)
+        findButton.addTarget(self, action: #selector(self.findButtonAction), forControlEvents: .TouchUpInside)
+//        leftTypeView.addSubview(findButton)
+        
         //        self.fenLeiType.customView = leftTypeButton
-        let aaa = UIBarButtonItem.init(customView: leftTypeButton)
+        let aaa = UIBarButtonItem.init(customView: leftTypeView)
         self.navigationItem.leftBarButtonItem = aaa
         
         self.createTableView()
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]
         
         isShow = false
-        self.GetData("0")
+        self.GetData("0",keyword: self.keyword)
         
         // Do any additional setup after loading the view.
     }
     
-    func GetData(type:String){
+    func GetData(type:String,keyword:String){
 
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.mode = .Text
         hud.labelText = "正在努力加载"
         self.view.bringSubviewToFront(hud)
-        shopHelper.getGoodsList("0",type:type,handle:{[unowned self] (success, response) in
+        shopHelper.getGoodsList("0",type:type,keyword:keyword,handle:{[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     hud.hide(true)
@@ -111,13 +128,13 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myTableView.separatorStyle = .None
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
-            self.headerRefresh()
+            self.headerRefresh(self.keyword)
             
         })
         
         myTableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { () -> Void in
             print("MJ:(上拉加载)")
-            self.footerRefresh()
+            self.footerRefresh(self.keyword)
             
         })
         
@@ -125,13 +142,13 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 //
     }
     
-    func headerRefresh(){
+    func headerRefresh(keyword:String){
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.mode = .Text
         hud.labelText = "正在努力加载"
         self.view.bringSubviewToFront(hud)
-        shopHelper.getGoodsList("0",type: self.goodType,handle:{[unowned self] (success, response) in
+        shopHelper.getGoodsList("0",type: self.goodType,keyword:keyword,handle:{[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     self.myTableView.mj_header.endRefreshing()
@@ -149,14 +166,18 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             })
 
     }
-    func footerRefresh(){
+    func footerRefresh(keyword:String){
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.mode = .Text
         hud.labelText = "正在努力加载"
         self.view.bringSubviewToFront(hud)
-        let  beginId = (self.dataSource![(self.dataSource?.count)!-1] as GoodsInfo).id! as String
-        shopHelper.getGoodsList(beginId,type: self.goodType,handle:{[unowned self] (success, response) in
+        var  beginId = String()
+        if self.dataSource!.count > 0{
+             beginId = (self.dataSource![(self.dataSource?.count)!-1] as GoodsInfo).id! as String
+        }
+       
+        shopHelper.getGoodsList(beginId,type: self.goodType,keyword:keyword,handle:{[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     if response as! String == "no data"{
@@ -192,6 +213,9 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if tableView == self.searchHistoryTableview{
+            return 30
+        }
         if tableView.tag == 0 {
             return 80
         }else if tableView.tag == 1{
@@ -204,6 +228,9 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == self.searchHistoryTableview{
+            return self.searchHistory.count
+        }
         if tableView.tag == 0 {
             if dataSource == nil{
                 return 0
@@ -226,6 +253,13 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if tableView == self.searchHistoryTableview {
+            let cell = PublicTableViewCell.init(style: .Default)
+            cell.textLabel?.font = UIFont.systemFontOfSize(12)
+            cell.textLabel?.textColor = UIColor(red: 149/255.0, green: 149/255.0, blue: 149/255.0, alpha: 1)
+            cell.textLabel?.text = self.searchHistory[self.searchHistory.count-1-indexPath.row] as? String
+            return cell
+        }
         if tableView.tag == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)as!ShopTableViewCell
             
@@ -281,6 +315,14 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        
+        if tableView == self.searchHistoryTableview {
+            self.searchHistoryTableview.hidden = true
+            searchBar.resignFirstResponder()
+            self.searchBar.removeFromSuperview()
+            self.GetData(self.goodType, keyword: self.searchHistory[indexPath.row] as! String)
+        }
+        
 //        print(indexPath.row)
         if tableView.tag == 0 {
             let next = BusnissViewController()
@@ -298,14 +340,15 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             rightTableView.removeFromSuperview()
             if indexPath.row == 0{
                 self.goodType = "0"
-                self.GetData(self.goodType)
+                self.GetData(self.goodType,keyword: self.keyword)
                 isShow = false
-                 self.leftTypeButton.setTitle("全部分类", forState: UIControlState.Normal)
+                 self.leftTypeButton.setTitle("分类", forState: UIControlState.Normal)
             }else{
                 self.goodType = self.myDic![indexPath.row - 1].id!
                 self.leftTypeButton.setTitle(self.myDic![indexPath.row - 1].name!, forState: UIControlState.Normal)
-                
-                self.GetData(self.goodType)
+                self.keyword = ""
+                self.GetData(self.goodType,keyword: self.keyword)
+                self.myTableView.mj_footer.beginRefreshing()
                 isShow = false
                 //                self.dataSource = self.dataSource2
                 self.myTableView.reloadData()
@@ -355,7 +398,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         
     }
-    
+    //MARK:ACTION
     @IBAction func goToMenu(sender: AnyObject) {
         print("菜单")
         mainHelper.getDicList("3",handle: {[unowned self] (success, response) in
@@ -445,6 +488,51 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 //        self.navigationController?.pushViewController(vc, animated: true)
         
     }
+    //搜索
+    func setSearchBar()
+    {
+        
+        searchBar.showsCancelButton = true
+        searchBar.barStyle = .Default
+        searchBar.delegate = self
+        searchBar.barTintColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
+        searchBar.placeholder = "输入商家名、商品名       "
+        for views in searchBar.subviews[0].subviews {
+            if views.isKindOfClass(NSClassFromString("UINavigationButton")!) {
+                (views as! UIButton).setTitle("取消", forState: .Normal)
+                (views as! UIButton).titleLabel?.font = UIFont.systemFontOfSize(13)
+                (views as! UIButton).setTitleColor(UIColor(red: 98/255.0, green: 98/255.0, blue: 98/255.0, alpha: 1), forState: .Normal)
+            }
+        }
+        let searchBarSearchField = searchBar.valueForKey("_searchField") as! UITextField
+        searchBarSearchField.font = UIFont.systemFontOfSize(13)
+        //        (searchBar.valueForKey("_searchField") as! UITextField).textAlignment = .Left
+        searchBarSearchField.setValue(UIFont.systemFontOfSize(13), forKeyPath: "_placeholderLabel.font")
+        searchBarSearchField.returnKeyType = .Search
+        //        searchBarSearchField.delegate = self
+        //        (searchBar.valueForKey("_searchField") as! UITextField).layer.masksToBounds = true
+        //        (searchBar.valueForKey("_searchField") as! UITextField).layer.cornerRadius = (searchBar.valueForKey("_searchField") as! UITextField).frame.size.height
+        self.view.addSubview(searchBar)
+        
+    }
+    
+    func findButtonAction(){
+        setSearchBar()
+        searchHistoryTableview.frame = CGRectMake(0, searchBar.height, WIDTH, HEIGHT-searchBar.height)
+        searchHistoryTableview.delegate = self
+        searchHistoryTableview.dataSource = self
+        searchHistoryTableview.backgroundColor = UIColor.whiteColor()
+        searchHistoryTableview.separatorStyle = .None
+        searchHistoryTableview.registerClass(PublicTableViewCell.self, forCellReuseIdentifier: "PublicTableViewCell")
+//        searchHistoryTableview.hidden = true
+        let headerLabel = UILabel.init(frame: CGRectMake(0, 0, WIDTH, 35))
+        headerLabel.text = "搜索历史"
+        headerLabel.textAlignment = .Left
+        headerLabel.font = UIFont.systemFontOfSize(13)
+        self.searchHistoryTableview.tableHeaderView = headerLabel
+        self.view.addSubview(searchHistoryTableview)
+    }
+    
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         if !viewController.isKindOfClass(MineViewController.self){
             
@@ -465,6 +553,43 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     func viewcontrollerDesmiss(){
         showLogin = false
+    }
+    
+    //MARK: -UISarchBarDelegate
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        if userLocationCenter.objectForKey("SearchFieldHistory") != nil{
+            self.searchHistory = userLocationCenter.objectForKey("SearchFieldHistory") as! NSMutableArray
+            
+        }
+        searchHistoryTableview.hidden = false
+        searchHistoryTableview.reloadData()
+//        NSLOG("将要开始编辑")
+        
+    }
+    //取消按钮点击事件
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        self.searchBar.resignFirstResponder()
+        searchHistoryTableview.hidden = true
+        self.searchBar.removeFromSuperview()
+        
+    }
+    
+    //MARK:uitextfiledDelegate搜索点击事件
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        
+        self.searchBar.resignFirstResponder()
+        searchHistoryTableview.hidden = true
+        if (searchBar.valueForKey("_searchField") as! UITextField).text?.characters.count>0{
+            let str = (searchBar.valueForKey("_searchField") as! UITextField).text!
+            let newArray = NSMutableArray.init(array: self.searchHistory)
+            newArray.addObject(str)
+            if self.searchHistory.count > 5{
+                self.searchHistory.removeObjectAtIndex(0)
+            }
+            self.userLocationCenter.setObject(newArray, forKey: "SearchFieldHistory")
+            self.GetData("0", keyword: str)
+        }
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

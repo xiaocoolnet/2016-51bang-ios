@@ -11,7 +11,7 @@ import Alamofire
 
 class ShopHelper: NSObject {
     
-    func getGoodsList(beginid:String,type:String,handle:ResponseBlock){
+    func getGoodsList(beginid:String,type:String,keyword:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"getshoppinglist"
         //        let param = [
         //            "id":"0"
@@ -22,7 +22,7 @@ class ShopHelper: NSObject {
             cityName = ud.objectForKey("quName") as! String
         }
         
-        Alamofire.request(.GET, url, parameters: ["beginid":beginid,"city":cityName,"type":type]).response { request, response, json, error in
+        Alamofire.request(.GET, url, parameters: ["beginid":beginid,"city":cityName,"type":type,"keyword":keyword]).response { request, response, json, error in
             print(request)
             let result = GoodsModel(JSONDecoder(json!))
             if(error != nil){

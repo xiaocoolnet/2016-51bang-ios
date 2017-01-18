@@ -47,6 +47,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     var dataHistoryCitys:SpecifyArray!;
     let keyHistory = "keyHistory";
     let quName = NSMutableArray()
+    let mycityNmmeAndQu = NSMutableArray()
     
     
     override func viewDidLoad() {
@@ -131,7 +132,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         }
         
         //判断是否清空数据
-        let mycityNmmeAndQu = NSMutableArray()
+        
             if(searchString!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 0){
             for city in self.dict.allValues {
                 let mycity = city as! NSDictionary
@@ -140,9 +141,10 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                         for cityname2dic in cityname1dic.allKeys {
                             
                             let  quname = (cityname1dic.objectForKey(cityname2dic)) as! NSArray
-                            for quName in quname {
-                                mycityNmmeAndQu.addObject((cityname2dic as! String)+(quName as! String))
-                                quName.addObject(quName as! String)
+                            for quNames in quname {
+                                mycityNmmeAndQu.addObject((cityname2dic as! String)+(quNames as! String))
+//                                print(quName)
+                                quName.addObject(quNames as! String)
 //                                print(mycityNmmeAndQu)
                             }
                         }
@@ -151,6 +153,8 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                 
             }
             let array:NSArray = mycityNmmeAndQu;
+                
+                
             let result:NSArray = ZYPinYinSearch.searchWithOriginalArray(array as [AnyObject], andSearchText: searchString, andSearchByPropertyName: "");
             self.searchCityArray = result.sortedArrayUsingSelector(#selector(NSNumber.compare(_:)));
         }else{ //清空数据
@@ -381,12 +385,14 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             
             
         }else{
+            
             if(self.delegate != nil ){
                 var cityName:String = "";
                 var quName1:String = "";
                 if(table != self.tableview){
                     cityName = self.searchCityArray.objectAtIndex(indexPath.row) as! String;
-                    quName1 = self.quName.objectAtIndex(indexPath.row) as! String;
+                    self.searchCityArray.indexOfObject(cityName)
+                    quName1 = self.quName.objectAtIndex(self.mycityNmmeAndQu.indexOfObject(cityName)) as! String;
                     self.selectCity(cityName,quname: quName1);
                 }else{
                     let citynameVC = CityNameViewController()

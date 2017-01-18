@@ -130,9 +130,9 @@ class RzbInfo: JSONJoy {
             }
         }
         
-        if decoder["evaluatelist"].array != nil {
+        if decoder["commentlist"].array != nil {
 //            print(childs)
-            for childs: JSONDecoder in decoder["evaluatelist"].array!{
+            for childs: JSONDecoder in decoder["commentlist"].array!{
                 self.commentlist.append(commentlistInfo(childs))
             }
         }

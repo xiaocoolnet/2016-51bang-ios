@@ -293,7 +293,7 @@ class MyDingDanXiangQingViewController: UIViewController ,UITableViewDelegate,UI
                 deleteButton.setImage(UIImage(named: "ic_jian-lv"), forState: UIControlState.Normal)
                 //                textField.leftView = deleteButton
                 //                textField.rightView = addButton
-                cell.name.removeFromSuperview()
+                cell.name.hidden = true
                 cell.addSubview(textField)
                 textField.userInteractionEnabled = false
                 if self.info.state == "100" {//暂时不考虑对订单进行修改

@@ -30,11 +30,12 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     var countTime = Int()
     
     var timeLabel = UILabel()
+    
     let recordSetting = [AVSampleRateKey : NSNumber(float: Float(44100.0)),//声音采样率
         AVFormatIDKey : NSNumber(int: Int32(kAudioFormatLinearPCM)),//编码格式
         AVNumberOfChannelsKey : NSNumber(int: 2),//采集音轨
         AVEncoderAudioQualityKey : NSNumber(int: Int32(AVAudioQuality.High.rawValue)),//音频质量
-        AVLinearPCMBitDepthKey: NSNumber(int: 2)
+//        AVLinearPCMBitDepthKey: NSNumber(int: 2)
     ]
 
     
@@ -203,6 +204,9 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         firstTag = 0
         secondTag = 0
         searcher.delegate = nil
+        self.audioPlayer = nil
+//        self.audioSession = nil
+        self.audioRecorder = nil
     }
     
     //照片多选代理实现
@@ -506,11 +510,11 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                                 self.photoNameArr.addObject(result.data!)
                                 print(a)
                                 print(self.photoArray.count)
-                                
+                                 a = a+1
                                 if a == self.photoArray.count-1 && isRecord == true{
                                     self.fabuAction()
                                 }
-                                a = a+1
+                               
 
                             }else{
                                 let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -698,7 +702,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         //        button.addGestureRecognizer(gesture)
         button.addTarget(self, action: #selector(self.goToCamera1(_:)), forControlEvents: .TouchUpInside)
         textView.addSubview(button)
-//        textView.addSubview(yinPin)//语音录制按钮
+        textView.addSubview(yinPin)//语音录制按钮
         yinPin.addTarget(self, action: #selector(self.startRecord), forControlEvents: .TouchUpInside)
 //        textView.addSubview(shiPin)
         let bottomView = UIView.init(frame: CGRectMake(0, textView.frame.size.height+textView.frame.origin.y, WIDTH, 10))
@@ -755,7 +759,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         mp3FilePath = NSURL.init(string: NSTemporaryDirectory().stringByAppendingString("myselfRecord.mp3"))!
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-            AudioWrapper.audioPCMtoMP3(self.recordUrl.absoluteString, self.mp3FilePath.absoluteString)
+            self.mp3FilePath = NSURL.init(string: AudioWrapper.audioPCMtoMP3(self.recordUrl.absoluteString, self.mp3FilePath.absoluteString))!
             
         }
         audioFileSavePath = mp3FilePath;
@@ -864,9 +868,9 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 try self.audioPlayer = AVAudioPlayer.init(contentsOfURL: self.mp3FilePath)
             }
             
-            if (recordUrl.absoluteString != "") {
-                try self.audioPlayer = AVAudioPlayer.init(contentsOfURL: self.recordUrl)
-            }
+//            if (recordUrl.absoluteString != "") {
+//                try self.audioPlayer = AVAudioPlayer.init(contentsOfURL: self.recordUrl)
+//            }
             audioPlayer!.prepareToPlay()
             audioPlayer!.volume = 1;
             audioPlayer!.play()
@@ -886,7 +890,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         recordTime -= 1
         if recordTime<0{
             timer2.invalidate()
-            recordTime = 0
+            recordTime = self.countTime
         }
         
         boFangButton.setTitle(String(self.recordTime)+"\"", forState: UIControlState.Normal)

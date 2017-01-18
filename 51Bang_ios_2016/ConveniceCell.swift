@@ -290,8 +290,13 @@ class ConveniceCell: UITableViewCell{
             }
             
             boFangButton.backgroundColor = UIColor.clearColor()
-            boFangButton.setTitle(" 点击播放", forState: UIControlState.Normal)
-            boFangButton.setBackgroundImage(UIImage(named: "ic_yinpinbeijing"), forState: UIControlState.Normal)
+            if info.soundtime != nil&&info.soundtime != ""{
+                boFangButton.setTitle((info.soundtime! as String + "\""), forState: UIControlState.Normal)
+            }else{
+                boFangButton.setTitle("0" + "\"", forState: UIControlState.Normal)
+            }
+            
+            boFangButton.setBackgroundImage(UIImage(named: "ic_yuyino3"), forState: UIControlState.Normal)
             boFangButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
             
             boFangButton.layer.masksToBounds = true

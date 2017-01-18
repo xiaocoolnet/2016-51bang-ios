@@ -227,7 +227,8 @@
             "sound":sound,
             "type":type,
             "price":price,
-            "picurl":photoUrl
+            "picurl":photoUrl,
+            "soundtime":soundtime
         ];
         //        let param1 = [
         //
@@ -668,7 +669,7 @@
     }
     
     
-    func GetRzbList(cityname:String,beginid:String,sort:String, type:String, handle:ResponseBlock){
+    func GetRzbList(cityname:String,beginid:String,sort:String, type:String,isOnLine:String, handle:ResponseBlock){
         
         
         let url = Bang_URL_Header+"getAuthenticationUserList"
@@ -679,7 +680,7 @@
             latitude = userLocationCenter.objectForKey("latitude") as! String
             longitude = userLocationCenter.objectForKey("longitude") as! String
         }
-        Alamofire.request(.GET, url, parameters: ["beginid":beginid,"cityname":cityname,"sort":sort,"type":type,"latitude":latitude,"longitude":longitude]).response { request, response, json, error in
+        Alamofire.request(.GET, url, parameters: ["beginid":beginid,"cityname":cityname,"sort":sort,"type":type,"online":isOnLine,"latitude":latitude,"longitude":longitude]).response { request, response, json, error in
             print(request)
             if(error != nil){
                 handle(success: false, response: error?.description)

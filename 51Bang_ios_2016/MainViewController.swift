@@ -921,8 +921,6 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 
                 self.dingWeiStr = result.addressDetail.city + result.addressDetail.district
                 self.streetNameStr = (result.poiList[0] as! BMKPoiInfo).name
-                print(dingWeiStr)
-                print(result.location.latitude)
                 if self.city != ""{
                     userLocationCenter.setObject(self.city+streetNameStr, forKey: "RealTimeLocation")
                 }else{
@@ -941,6 +939,26 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 //                print(dingWeiStr)
                 //                print(result.addressDetail.district)
                 if (isDingwei) {
+                    print(self.dingWeiStr+self.streetNameStr)
+                    if userLocationCenter.objectForKey("userid") != nil {
+                        mainHelper.GetWorkingState(userLocationCenter.objectForKey("userid") as! String) { (success, response) in
+                            if success{
+                              if response as! String == "1"{
+                                self.mainHelper.BeginWorking(self.userLocationCenter.objectForKey("userid") as! String, address: self.dingWeiStr+self.streetNameStr, longitude: String(result.location.longitude), latitude: String(result.location.latitude), isworking: "1") { (success, response) in
+                                    
+                                    
+                                    
+                                }
+                                }
+                                
+                            }
+                        }
+                        
+                }
+                    
+                    
+                    
+                    
                     userLocationCenter.setObject(dingWeiStr+streetNameStr, forKey: "UserLocation")
                     userLocationCenter.setObject(self.dingWeiStr, forKey: "subLocality")
                     if userLocationCenter.objectForKey("quName") == nil {

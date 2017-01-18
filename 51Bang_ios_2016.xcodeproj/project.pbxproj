@@ -398,6 +398,7 @@
 		7754A3BD1DBF5E3100C06FBA /* 购买了商品.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */; };
 		7754A3BE1DBF5E3100C06FBA /* 抢单取消.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */; };
 		77594D911E1E2669000628A1 /* 发单声音.caf in Resources */ = {isa = PBXBuildFile; fileRef = 77594D901E1E2669000628A1 /* 发单声音.caf */; };
+		776610711E2DB23700A9A0B2 /* PublicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776610701E2DB23700A9A0B2 /* PublicTableViewCell.swift */; };
 		778F60C31DDAB4A1000D41EA /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */; };
 		77D0AA751DB7423F00FB5A52 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */; };
 		77D0AA761DB7423F00FB5A52 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77D0AA741DB7423F00FB5A52 /* AboutViewController.xib */; };
@@ -1054,6 +1055,7 @@
 		7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "购买了商品.caf"; sourceTree = "<group>"; };
 		7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "抢单取消.caf"; sourceTree = "<group>"; };
 		77594D901E1E2669000628A1 /* 发单声音.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "发单声音.caf"; sourceTree = "<group>"; };
+		776610701E2DB23700A9A0B2 /* PublicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicTableViewCell.swift; sourceTree = "<group>"; };
 		778F60C01DDAB168000D41EA /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
 		77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -1764,6 +1766,7 @@
 		18D8815A1D1526CF0067218F /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				776610701E2DB23700A9A0B2 /* PublicTableViewCell.swift */,
 				1FC7E2671D24FD0100DA748B /* ConnectModel.h */,
 				1FC7E2681D24FD0100DA748B /* ConnectModel.m */,
 				184053B11D15301F008A2BAB /* Http.swift */,
@@ -3009,6 +3012,7 @@
 				188D4C641D168F6B005334D2 /* SevenTableViewCell.swift in Sources */,
 				1F9AEF711D3909060009B007 /* MyFabuTableViewCell.swift in Sources */,
 				1FACE76B1D2FAFA20005282E /* RenZhengBangTableViewCell.swift in Sources */,
+				776610711E2DB23700A9A0B2 /* PublicTableViewCell.swift in Sources */,
 				1FE121FE1D220D5300C0BE0B /* SkillModel.swift in Sources */,
 				1F9B0DDE1D35DEDB00C7CA52 /* LoginPwdTableViewCell.swift in Sources */,
 				188D4C581D168867005334D2 /* ThreeTableViewCell.swift in Sources */,

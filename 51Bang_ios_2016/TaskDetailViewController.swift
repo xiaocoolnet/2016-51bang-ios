@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource,UICollectionViewDelegate {
     let myTableView = UITableView()
@@ -19,6 +20,19 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     var soundName = NSURL()
     var btn = UIButton()
     var qiangdanBut=Bool()
+    
+    var player = AVPlayer()
+    
+    var imageView = UIImageView()
+    
+    var timer1 = NSTimer()
+    
+    var timesCount = Int()
+    
+    var audioSession = AVAudioSession()
+    
+
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = true
@@ -30,6 +44,9 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
 //        print(taskInfo)
         let vc = MineViewController()
         vc.Checktoubao()
+        
+       
+        
         self.dataSource = self.taskInfo.commentlist
         myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.backgroundColor = RGREY
@@ -84,16 +101,16 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
         if indexPath.row == 0 {
             return 80
         }else if indexPath.row == 3{
-            print(taskInfo.record)
+            print(taskInfo.sound)
             print(taskInfo.pic?.count)
-            if taskInfo.record == "" || taskInfo.record == nil {
+            if taskInfo.sound == "" || taskInfo.sound == nil {
                 
                 let a = CGFloat(Int((taskInfo.pic!.count+2)/3)) * ((WIDTH-5) / 3 + 10)
                 print(a)
                 return a
                 
             }else{
-                let a = (60 + CGFloat(Int((taskInfo.pic!.count+2)/3)) * (WIDTH-60)/3)
+                let a = (60 + CGFloat(Int((taskInfo.pic!.count+2)/3)) * (WIDTH-5)/3)
                 print(a)
 //                var a = CGFloat()
                 
@@ -198,20 +215,26 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
                 picHeight = WIDTH
             }
             var boFangButton = UIButton()
-            if self.taskInfo.record != nil && self.taskInfo.record != "" {
-                print(self.taskInfo.record)
+            if self.taskInfo.sound != nil && self.taskInfo.sound != "" {
+                print(self.taskInfo.sound)
                 
                 if self.taskInfo.pic!.count>0 {
                     boFangButton = UIButton.init(frame: CGRectMake(20,
                         5 + picHeight+20,114, 30))
                 }else{
                     boFangButton = UIButton.init(frame: CGRectMake(20,
-                        80 + 5,114, 30))
+                        20 + 5,114, 30))
                 }
                 
                 boFangButton.backgroundColor = UIColor.clearColor()
-                boFangButton.setTitle(" 点击播放", forState: UIControlState.Normal)
-                boFangButton.setBackgroundImage(UIImage(named: "ic_yinpinbeijing"), forState: UIControlState.Normal)
+                
+                if taskInfo.soundtime != nil{
+                    boFangButton.setTitle((taskInfo.soundtime! as String + "\""), forState: UIControlState.Normal)
+                }else{
+                    boFangButton.setTitle("0" + "\"", forState: UIControlState.Normal)
+                }
+                boFangButton.addTarget(self, action: #selector(self.boFangButtonActions(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                boFangButton.setBackgroundImage(UIImage(named: "ic_yuyino3"), forState: UIControlState.Normal)
                 boFangButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
                 
                 boFangButton.layer.masksToBounds = true
@@ -342,16 +365,56 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     
-    func boFangButtonActions(){
-        
-        mainHelper.downloadRecond(self.taskInfo.record!){ (success, response) in
-            if !success{
-                alert("加载语音失败", delegate: self)
-                return
-            }
-            let str = response
-            print(str)
+    func boFangButtonActions(sender:UIButton){
+        audioSession = AVAudioSession.sharedInstance()
+        do{
+            //            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
+            try audioSession.setActive(true)
+        }catch{
+            
         }
+        
+        timer1.invalidate()
+        if taskInfo.soundtime != nil && taskInfo.soundtime != ""{
+            timesCount =  Int(taskInfo.soundtime!)! + 1
+        }else{
+            timesCount =  1
+        }
+        
+        
+        
+        imageView.removeFromSuperview()
+        //        player.
+        
+        imageView = UIImageView.init(frame: CGRectMake(0, 0, sender.width, sender.height))
+        imageView.animationImages =  [UIImage(named:"ic_yuyino1")!,UIImage(named:"ic_yuyino2")!,UIImage(named:"ic_yuyino3")!]
+        imageView.animationDuration = 1
+        imageView.animationRepeatCount = 0
+        imageView.userInteractionEnabled = false
+        imageView.backgroundColor = UIColor.clearColor()
+        sender.addSubview(imageView)
+        imageView.startAnimating()
+        
+        let item = AVPlayerItem.init(URL:NSURL.init(string: Bang_Image_Header + (taskInfo.sound!))!)
+        
+        player = AVPlayer.init(playerItem: item)
+        player.volume = 1
+        player.allowsExternalPlayback = true
+        player.play()
+        
+        timer1 = NSTimer.scheduledTimerWithTimeInterval(1,
+                                                        target:self,selector:#selector(self.recordTimeTick),
+                                                        userInfo:nil,repeats:true)
+        
+//        mainHelper.downloadRecond(self.taskInfo.record!){ (success, response) in
+//            if !success{
+//                alert("加载语音失败", delegate: self)
+//                return
+//            }
+//            let str = response
+//            print(str)
+//        }
 
         
 //        print("0000")
@@ -365,6 +428,14 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
 //        }
         
         
+    }
+    
+    func recordTimeTick(){
+        timesCount = timesCount - 1
+        if timesCount < 0{
+            imageView.removeFromSuperview()
+            timer1.invalidate()
+        }
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

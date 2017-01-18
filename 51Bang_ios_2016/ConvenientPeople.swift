@@ -9,6 +9,7 @@
 import UIKit
 import MBProgressHUD
 import MJRefresh
+import AVFoundation
 
 class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate,pushDelegate {
     //----------
@@ -31,6 +32,16 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     let FMArr = ["百世汇通","韵达快递","中通快递","申通快递","天天快递","圆通快递","顺丰速运","全峰快递","宅急送","EMS"]
     let FMArr1 = ["baishihuitong","yundakuaidi","zhongtongkuaidi","shentongkuaidi","tiantiankuaidi","yuantongkuaidi","shunfengkuaidi","quanfengkuaidi","zhaijisong","ems"]
     
+    var player = AVPlayer.init()
+    
+    var imageView = UIImageView()
+    
+    var timer1 = NSTimer()
+    
+    var timesCount = Int()
+    
+    var audioSession = AVAudioSession.sharedInstance()
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         if !ConvenientPeople.isFresh {
@@ -48,13 +59,24 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     override func viewDidAppear(animated: Bool) {
 //        self.tabBarController?.tabBar.hidden = false
     }
-    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(true)
+        
+    }
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         setConvenienceTable()
+        audioSession = AVAudioSession.sharedInstance()
+        do{
+            //            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
+            try audioSession.setActive(true)
+        }catch{
+            
+        }
         self.view.backgroundColor = UIColor.whiteColor()
         self.title="便民圈"
         self.convenienceTable.mj_header.beginRefreshing()
@@ -586,15 +608,80 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     
     func boFangButtonActions(sender:UIButton){
+        player.pause()
+        //开启扬声器
         
-        mainHelper.downloadRecond((self.dataSource2[sender.tag] as! TCHDInfo).record!){ (success, response) in
-            if !success{
-                alert("加载语音失败", delegate: self)
-                return
-            }
-//            let str = response
-            
-//            print(response)
+        
+
+        
+        timer1.invalidate()
+        if (self.dataSource2[sender.tag] as! TCHDInfo).soundtime != ""&&(self.dataSource2[sender.tag] as! TCHDInfo).soundtime != nil
+        {
+           timesCount =  Int((self.dataSource2[sender.tag] as! TCHDInfo).soundtime!)! + 1
+        }else{
+            timesCount = 1
+        }
+        
+        
+        print(timesCount)
+        
+        imageView.removeFromSuperview()
+//        player.
+        
+        imageView = UIImageView.init(frame: CGRectMake(0, 0, sender.width, sender.height))
+        imageView.animationImages =  [UIImage(named:"ic_yuyino1")!,UIImage(named:"ic_yuyino2")!,UIImage(named:"ic_yuyino3")!]
+        imageView.animationDuration = 1
+        imageView.animationRepeatCount = 0
+        imageView.userInteractionEnabled = false
+        imageView.backgroundColor = UIColor.clearColor()
+        sender.addSubview(imageView)
+        imageView.startAnimating()
+        
+        let item = AVPlayerItem.init(URL:NSURL.init(string: Bang_Image_Header + (self.dataSource2[sender.tag] as! TCHDInfo).record!)!)
+//        //监控状态属性，注意AVPlayer也有一个status属性，通过监控它的status也可以获得播放状态
+//        item.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: nil)
+//        //监控网络加载情况属性
+//        item.addObserver(self, forKeyPath: "loadedTimeRanges", options: NSKeyValueObservingOptions.New, context: nil)
+//        //监听播放的区域缓存是否为空
+//        item.addObserver(self, forKeyPath: "playbackBufferEmpty", options: NSKeyValueObservingOptions.New, context: nil)
+//        //缓存可以播放的时候调用
+//        item.addObserver(self, forKeyPath: "playbackLikelyToKeepUp", options: NSKeyValueObservingOptions.New, context: nil)
+        player = AVPlayer.init(playerItem: item)
+        player.volume = 1
+        print()
+        player.play()
+        
+        timer1 = NSTimer.scheduledTimerWithTimeInterval(1,
+                                                        target:self,selector:#selector(self.recordTimeTick),
+                                                        userInfo:nil,repeats:true)
+        
+//        mainHelper.downloadRecond((self.dataSource2[sender.tag] as! TCHDInfo).record!){ (success, response) in
+//            if !success{
+//                alert("加载语音失败", delegate: self)
+//                return
+//            }
+////            let str = response
+//            
+////            print(response)
+//        }
+    }
+    
+//    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+//        if keyPath == "status"{
+////            AVPlayerItemStatus
+//            let status = change!["new"]?.intValue
+//            print(status)
+//        }else if keyPath == "loadedTimeRanges"{
+//            
+//        }
+//        
+//    }
+    
+    func recordTimeTick(){
+        timesCount = timesCount - 1
+        if timesCount < 0{
+            imageView.removeFromSuperview()
+            timer1.invalidate()
         }
     }
     

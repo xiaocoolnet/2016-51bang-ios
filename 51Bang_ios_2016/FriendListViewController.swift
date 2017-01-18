@@ -34,6 +34,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     var tchdDataSource:Array<TCHDInfo>?
     var rzbDataSource : Array<RzbInfo>?
     var dataSource3 : Array<chatInfo>?
+    var onLine = String()
 //    let middleArr = ["服务最多","离我最近"]
     let middleArr = ["服务最多","评分最多","离我最近"]
     let rightArr = ["全部","在线"]
@@ -51,6 +52,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         isShow3 = false
         self.types = ""
         self.sort = "1"
+        self.onLine = "0"
         self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375)
         self.myTableView.delegate = self
         self.myTableView.dataSource = self
@@ -85,7 +87,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             self.getNextGradeData("0")
             self.navigationController?.navigationBar.hidden = false
         }else{
-            self.GetData1(sort,types: self.types,isBegin: true)
+            self.GetData1(sort,types: self.types,isBegin: true,isOnLine: self.onLine)
         }
         
         
@@ -150,7 +152,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     }
     
     
-    func GetData1(sort:String,types:String,isBegin:Bool){
+    func GetData1(sort:String,types:String,isBegin:Bool,isOnLine:String){
         
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
@@ -171,7 +173,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         
         
         if isBegin {
-            mainHelper.GetRzbList (cityname ,beginid:"0",sort:sort,type:types, handle: {[unowned self](success, response) in
+            mainHelper.GetRzbList (cityname ,beginid:"0",sort:sort,type:types,isOnLine:isOnLine, handle: {[unowned self](success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
                         alert("暂无数据", delegate: self)
@@ -212,7 +214,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             
             let beginids  = self.rzbDataSource![(self.rzbDataSource?.count)!-1].id as String
             
-            mainHelper.GetRzbList (cityname ,beginid:beginids,sort:sort,type:types, handle: {[unowned self](success, response) in
+            mainHelper.GetRzbList (cityname ,beginid:beginids,sort:sort,type:types,isOnLine: isOnLine,handle: {[unowned self](success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
                         
@@ -499,7 +501,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         if isNextGrade{
             self.getNextGradeData("0")
         }else{
-            self.GetData1(sort,types: self.types,isBegin: true)
+            self.GetData1(sort,types: self.types,isBegin: true,isOnLine: self.onLine)
             self.headerView.label3.text = "全部"
         }
         
@@ -510,7 +512,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         if isNextGrade{
             self.getNextGradeData(self.rzbDataSource![(self.rzbDataSource?.count)!-1].id)
         }else{
-            self.GetData1(sort,types: self.types,isBegin: false)
+            self.GetData1(sort,types: self.types,isBegin: false,isOnLine: self.onLine)
             self.headerView.label3.text = "全部"
         }
         
@@ -650,11 +652,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 cell?.label1.text = "全部分类"
                 
                 self.types = ""
-                self.GetData1(self.sort, types: self.types,isBegin: true)
+                self.GetData1(self.sort, types: self.types,isBegin: true,isOnLine: self.onLine)
             }else{
                 cell?.label1.text = self.dataSource![indexPath.row-1].name
                 self.types = self.dataSource![indexPath.row-1].id!
-                self.GetData1(self.sort, types: self.types,isBegin: true)
+                self.GetData1(self.sort, types: self.types,isBegin: true,isOnLine: self.onLine)
             }
             
         }else if tableView.tag == 2{
@@ -673,7 +675,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
 //            }else{
 //                self.sort  =  "3"
 //            }
-            self.GetData1(self.sort, types: self.types,isBegin: true)
+            self.GetData1(self.sort, types: self.types,isBegin: true,isOnLine: self.onLine)
             
         }else{
             coverView.hidden = true
@@ -681,19 +683,13 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             isShow3 = false
             let view = self.view.viewWithTag(5)as? RenZhengBangHeaderViewCell
             view?.label3.text = rightArr[indexPath.row]
-            let myDatass = NSMutableArray()
             if indexPath.row == 1 {
-                for data in self.rzbDataSource! {
-                    if data.isworking as String == "1" {
-                        myDatass.addObject(data)
-                    }
-                }
-                
-                let aa = myDatass as Array
-              self.rzbDataSource = aa as? Array<RzbInfo>
+                self.onLine = "1"
+                self.GetData1(sort,types: self.types,isBegin: true,isOnLine: self.onLine)
                 self.myTableView.reloadData()
             }else if indexPath.row == 0 {
-                self.GetData1(sort,types: self.types,isBegin: true)
+                self.onLine = "0"
+                self.GetData1(sort,types: self.types,isBegin: true,isOnLine: self.onLine)
                 
             }
             

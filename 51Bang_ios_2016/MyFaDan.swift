@@ -141,7 +141,10 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
                 print(response)
 //                self.dataSource?.removeAll()
 //                 self.mTable.mj_header.endRefreshing()
-                self.dataSource = response as? Array<TaskInfo> ?? []
+                if ((response?.isKindOfClass(NSArray)) != nil){
+                    self.dataSource = response as? Array<TaskInfo> ?? []
+                }
+                
                 self.Data = self.dataSource!
 //                self.GetYWCData("4")
                 self.createTableView()

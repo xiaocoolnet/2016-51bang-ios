@@ -14,6 +14,7 @@ import Alamofire
 var type = Int()
 class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,AVAudioRecorderDelegate,UITextFieldDelegate,UITextViewDelegate,TZImagePickerControllerDelegate{
     var isRecord = Bool()
+    var textView = PlaceholderTextView()
     
     var timer:NSTimer!
     var timer1:NSTimer!
@@ -34,8 +35,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     var recordTime = Int()
     var countTime = Int()
     
+    
+    
     var timeLabel = UILabel()
     var hud1 = MBProgressHUD()
+    var hud3 = MBProgressHUD()
     
     var sound  = NSString()
     let headerView = UIView()
@@ -52,11 +56,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     //    var audioPlayer:AVAudioPlayer!
     let timeButton = UIButton()
     ////定义音频的编码参数，这部分比较重要，决定录制音频文件的格式、音质、容量大小等，建议采用AAC的编码方式
-    let recordSetting = [AVSampleRateKey : NSNumber(float: Float(8000)),//声音采样率
+    let recordSetting = [AVSampleRateKey : NSNumber(float: Float(44100.0)),//声音采样率
         AVFormatIDKey : NSNumber(int: Int32(kAudioFormatLinearPCM)),//编码格式
         AVNumberOfChannelsKey : NSNumber(int: 2),//采集音轨
         AVEncoderAudioQualityKey : NSNumber(int: Int32(AVAudioQuality.High.rawValue)),//音频质量
-//        AVLinearPCMBitDepthKey: NSNumber(int: 2)
+//        AVLinearPCMBitDepthKey: NSNumber(int: 8)
     ]
     
     func keyboardWillShow(note:NSNotification){
@@ -100,7 +104,12 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
         self.createTextView()
         //        time()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "发布", style: UIBarButtonItemStyle.Done, target: self, action: #selector(self.fabu))
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "发布", style: UIBarButtonItemStyle.Done, target: self, action: #selector(self.fabu))
+        let fabuButton = UIBounceButton.init()
+        fabuButton.frame = CGRectMake(0, 0, 50, 40)
+        fabuButton.setTitle("发布", forState: .Normal)
+        fabuButton.addTarget(self, action: #selector(self.fabu), forControlEvents: .TouchUpInside)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: fabuButton)
         //
         //        let audioSession = AVAudioSession.sharedInstance()
         //        do {
@@ -126,6 +135,8 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         super.viewDidDisappear(animated)
         TimeManager.shareManager.taskDic[GET_ID_KEY]?.FHandle = nil
         TimeManager.shareManager.taskDic[GET_ID_KEY]?.PHandle = nil
+        self.audioRecorder = nil
+        self.audioPlayer = nil
     }
     
     //    func passPhotos(selected:[ZuberImage]){
@@ -168,7 +179,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     func createTextView(){
         headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*220/375)
         //        headerView.backgroundColor = UIColor.greenColor()
-        let textView = PlaceholderTextView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH*200/375))
+        textView = PlaceholderTextView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH*200/375))
         textView.tag = 1
         textView.backgroundColor = UIColor.whiteColor()
         textView.delegate = self
@@ -196,7 +207,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         shiPin.setImage(UIImage(named: "ic_shipin"), forState: UIControlState.Normal)
         
         textView.addSubview(button)
-//        textView.addSubview(yinPin)//语音录制按钮
+        textView.addSubview(yinPin)//语音录制按钮
         //        textView.addSubview(shiPin)
         let line = UILabel.init(frame: CGRectMake(0, button.frame.size.height+button.frame.origin.y+10, WIDTH, 1))
         line.backgroundColor = RGREY
@@ -215,7 +226,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     //录音
     func startRecord(){
-        
+        self.textView.resignFirstResponder()
         self.backMHView.frame = CGRectMake(0, 0, WIDTH, self.view.bounds.height+64)
         self.backMHView.backgroundColor = UIColor.grayColor()
         self.backMHView.alpha = 0.8
@@ -300,13 +311,14 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func overRecord(){
         
-        mp3FilePath = NSURL.init(string: NSTemporaryDirectory().stringByAppendingString("myselfRecord.MP3"))!
+        mp3FilePath = NSURL.init(string: NSTemporaryDirectory().stringByAppendingString("bianminmyselfRecord.mp3"))!
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             self.mp3FilePath = NSURL.init(string: AudioWrapper.audioPCMtoMP3(self.recordUrl.absoluteString, self.mp3FilePath.absoluteString))!
             
         }
         audioFileSavePath = mp3FilePath;
+        print(mp3FilePath)
         //        let alert2 = UIAlertView.init(title: "mp3转化成功！", message: nil, delegate: self, cancelButtonTitle: "确定")
         //        alert2.show()
         self.backMHView.removeFromSuperview()
@@ -436,7 +448,8 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         recordTime -= 1
         if recordTime<0{
             timer2.invalidate()
-            recordTime = 0
+            recordTime = self.countTime
+            self.audioPlayer!.stop()
         }
         boFangButton.setTitle(String(self.recordTime)+"\"", forState: UIControlState.Normal)
         }
@@ -619,6 +632,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     //    }
     
     func pushPhotos(){
+        hud3 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud3.animationType = .Zoom
+        hud3.mode = .Text
+        hud3.labelText = "正在努力加载"
+        self.view.bringSubviewToFront(hud3)
         let ud = NSUserDefaults.standardUserDefaults()
         var userid = String()
         if ud.objectForKey("userid") != nil{
@@ -629,15 +647,15 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
         var isRecord = false
         
-        var a = Int()
-        a = 0
+        var aaaaaaa = Int()
+        aaaaaaa = 0
         if mp3FilePath.absoluteString == "" {
             isRecord = true
         }
         if mp3FilePath.absoluteString != "" {
             print(mp3FilePath.absoluteString)
             
-            let data = NSData.init(contentsOfFile: self.recordUrl.path!)
+            let data = NSData.init(contentsOfFile: self.mp3FilePath.path!)
             
 //            let fileManager = NSFileManager.defaultManager()
 //            
@@ -664,7 +682,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "ddHHmmssSSS"
             let dateStr = dateFormatter.stringFromDate(NSDate())
-            let imageName = "record" + dateStr +  userid + String(Int(arc4random()%10000)+1)
+            let imageName = "bianminrecord" + dateStr +  userid + String(Int(arc4random()%10000)+1)
 //            self.sound = imageName
 //            self.fabuAction()
             
@@ -680,19 +698,16 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     let result = Http(JSONDecoder(data))
-//                    print(result.status)
-//                    print(result.data)
                     if result.status != nil {
                         dispatch_async(dispatch_get_main_queue(), {
                             if result.status! == "success"{
                                 isRecord = true
                                 self.sound = result.data!
                                 print(self.sound)
-                                if a == self.photoArray.count-1||self.photoArray.count == 0{
+                                if aaaaaaa == self.photoArray.count||self.photoArray.count == 0{
                                     self.fabuAction()
                                 }
                                 print("000000000000000000")
-                                //                                self.hud1.hide(true)
                                 
                             }else{
                                 let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -723,7 +738,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                 let dateFormatter = NSDateFormatter()
                 dateFormatter.dateFormat = "MMddHHmmssSSS"
                 let dateStr = dateFormatter.stringFromDate(NSDate())
-                let imageName = "avatar" + dateStr + String(a) + userid + String(Int(arc4random()%10000)+1)
+                let imageName = "avatar" + dateStr + String(aaaaaaa) + userid + String(Int(arc4random()%10000)+1)
                 print(imageName)
                 
                 //上传图片
@@ -736,13 +751,13 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                             dispatch_async(dispatch_get_main_queue(), {
                                 if result.status! == "success"{
                                     self.photoNameArr.addObject(result.data!)
-                                    print(a)
+                                    print(aaaaaaa)
                                     print(self.photoArray.count)
-                                    
-                                    if a == self.photoArray.count-1 && isRecord == true{
+                                    aaaaaaa = aaaaaaa+1
+                                    if aaaaaaa == self.photoArray.count && isRecord == true{
                                         self.fabuAction()
                                     }
-                                    a = a+1
+                                    
                                     
                                 }else{
                                     let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
@@ -820,9 +835,10 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             print(response)
             if !success{
                 alert("亲，请拨打4000608856申请VIP客户才能多发哦😀", delegate: self)
-                
+                self.hud3.hide(true)
                 return
             }
+                self.hud3.hide(true)
 //            self.hud1.hide(true)
            
             //                let aletView = UIAlertView.init(title: "提示", message:"发布成功", delegate: self, cancelButtonTitle: "确定")
