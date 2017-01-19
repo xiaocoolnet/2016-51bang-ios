@@ -65,7 +65,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
 //        isworking = "0"
         self.myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
-            
+            self.myTableView.mj_footer.endRefreshing()
             if self.isNextGrade {
                 self.createrTableViewUI()
                 self.getNextGradeData("0")
@@ -200,7 +200,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                     
                     self.myTableView.reloadData()
                     
-                    if  types == "" && sort == "1"{
+                    if  types == "" && sort == "1"&&isOnLine == "0"{
                         self.GetData()
                         
                     }
@@ -244,7 +244,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                     
                     self.myTableView.reloadData()
                     
-                    if  types == "" && sort == "1"{
+                    if  types == "" && sort == "1"&&isOnLine == "0"{
                         self.GetData()
                         
                     }
@@ -502,7 +502,12 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             self.getNextGradeData("0")
         }else{
             self.GetData1(sort,types: self.types,isBegin: true,isOnLine: self.onLine)
-            self.headerView.label3.text = "全部"
+            if self.onLine == "1"{
+                self.headerView.label3.text = "在线"
+            }else{
+                self.headerView.label3.text = "全部"
+            }
+            
         }
         
     }
@@ -513,7 +518,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             self.getNextGradeData(self.rzbDataSource![(self.rzbDataSource?.count)!-1].id)
         }else{
             self.GetData1(sort,types: self.types,isBegin: false,isOnLine: self.onLine)
-            self.headerView.label3.text = "全部"
+            if self.onLine == "1"{
+                self.headerView.label3.text = "在线"
+            }else{
+                self.headerView.label3.text = "全部"
+            }
         }
         
     }
@@ -632,6 +641,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        self.myTableView.mj_footer.endRefreshing()
         
         tableView.separatorStyle = .None
         if tableView.tag == 0 {

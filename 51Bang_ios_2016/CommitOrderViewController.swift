@@ -99,6 +99,8 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     var distanceLabel = UILabel()
     var skillNum = Int()
     var selectedIndex = Int()
+    var a = Int()
+    var isRecord = false
     
     
     
@@ -434,13 +436,13 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             self.fabuAction()
             return
         }
-        var isRecord = false
+        isRecord = false
         if mp3FilePath.absoluteString == "" {
             isRecord = true
         }
         
         
-        var a = Int()
+       
         a = 0
         
         if mp3FilePath.absoluteString != "" {
@@ -461,9 +463,9 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                     if result.status != nil {
                         dispatch_async(dispatch_get_main_queue(), {
                             if result.status! == "success"{
-                                isRecord = true
+                                self.isRecord = true
                                 self.sound = result.data!
-                                if a == self.photoArray.count||self.photoArray.count == 0{
+                                if self.a == self.photoArray.count||self.photoArray.count == 0{
                                     self.fabuAction()
                                 }
                                 
@@ -482,54 +484,57 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 })
         }
         
+        self.upImage()
         
-        for ima in photoArray {
-            
-            let image = ima
-            let dataPhoto:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
-            
-            var myImagess = UIImage()
-            myImagess = UIImage.init(data: dataPhoto)!
-            
-            let data = UIImageJPEGRepresentation(myImagess, 0.1)!
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyyMMddHHmmss"
-            let dateStr = dateFormatter.stringFromDate(NSDate())
-            let imageName = "taskavatar" + dateStr + userid + String(arc4random())
-            print(imageName)
-            
-            //上传图片
-            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    let result = Http(JSONDecoder(data))
-                    print(result.status)
-                    if result.status != nil {
-                        dispatch_async(dispatch_get_main_queue(), {
-                            if result.status! == "success"{
-                                self.photoNameArr.addObject(result.data!)
-                                print(a)
-                                print(self.photoArray.count)
-                                 a = a+1
-                                if a == self.photoArray.count-1 && isRecord == true{
-                                    self.fabuAction()
-                                }
-                               
-
-                            }else{
-                                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-                                hud.mode = MBProgressHUDMode.Text;
-                                //                            hud.labelText = "图片上传失败"
-                                hud.margin = 10.0
-                                hud.removeFromSuperViewOnHide = true
-                                hud.hide(true, afterDelay: 1)
-                                self.hud1.hide(true)
-                            }
-                        })
-                    }
-                })
-            }
-        }
+        
+//        for ima in photoArray {
+//            
+//            let image = ima
+//            let dataPhoto:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
+//            
+//            var myImagess = UIImage()
+//            myImagess = UIImage.init(data: dataPhoto)!
+//            
+//            let data = UIImageJPEGRepresentation(myImagess, 0.1)!
+//            let dateFormatter = NSDateFormatter()
+//            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+//            let dateStr = dateFormatter.stringFromDate(NSDate())
+//            let imageName = "taskavatar" + dateStr + userid + String(arc4random())
+//            print(imageName)
+//            self.photoNameArr.addObject(imageName+".png")
+//            //上传图片
+//            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    
+//                    let result = Http(JSONDecoder(data))
+//                    print(result.status)
+//                    if result.status != nil {
+//                        dispatch_async(dispatch_get_main_queue(), {
+//                            if result.status! == "success"{
+////                                self.photoNameArr.addObject(result.data!)
+////                                print(a)
+//                                print(self.photoArray.count)
+//                                 a = a+1
+//                                if a == self.photoArray.count && isRecord == true{
+//                                    self.fabuAction()
+//                                }
+//                               
+//
+//                            }else{
+//                                self.photoNameArr.removeLastObject()
+//                                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+//                                hud.mode = MBProgressHUDMode.Text;
+//                                //                            hud.labelText = "图片上传失败"
+//                                hud.margin = 10.0
+//                                hud.removeFromSuperViewOnHide = true
+//                                hud.hide(true, afterDelay: 1)
+//                                self.hud1.hide(true)
+//                            }
+//                        })
+//                    }
+//                })
+//            }
+//        }
         
         
 
@@ -552,6 +557,64 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         }
    
     }
+    
+    func upImage(){
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+        userid = ud.objectForKey("userid")as! String
+        
+        let dataPhoto:NSData = UIImageJPEGRepresentation(self.photoArray[a] as! UIImage, 1.0)!
+        
+        var myImagess = UIImage()
+        myImagess = UIImage.init(data: dataPhoto)!
+        
+        let data = UIImageJPEGRepresentation(myImagess, 0.1)!
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyyMMddHHmmss"
+        let dateStr = dateFormatter.stringFromDate(NSDate())
+        let imageName = "taskavatar" + dateStr + userid + String(arc4random())
+        print(imageName)
+//        self.photoNameArr.addObject(imageName+".png")
+        //上传图片
+        ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
+            dispatch_async(dispatch_get_main_queue(), {
+                
+                let result = Http(JSONDecoder(data))
+                print(result.status)
+                if result.status != nil {
+                    dispatch_async(dispatch_get_main_queue(), {
+                        if result.status! == "success"{
+                            self.photoNameArr.addObject(result.data!)
+                            //                                print(a)
+                            print(self.photoArray.count)
+                            self.a = self.a+1
+                            if self.a == self.photoArray.count && self.isRecord == true{
+                                self.fabuAction()
+                            }else{
+                                self.upImage()
+                            }
+                            
+                            
+                        }else{
+                            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                            hud.mode = MBProgressHUDMode.Text;
+                            //                            hud.labelText = "图片上传失败"
+                            hud.margin = 10.0
+                            hud.removeFromSuperViewOnHide = true
+                            hud.hide(true, afterDelay: 1)
+                            self.hud1.hide(true)
+                        }
+                    })
+                }
+            })
+        }
+    }
+    }
+    
+    
+    
     //上传任务
     func fabuAction(){
         

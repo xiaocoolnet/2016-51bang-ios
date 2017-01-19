@@ -37,6 +37,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     
+    var aaaaaaa = Int()
+    var isRecords = false
+    
+    
+    
     var timeLabel = UILabel()
     var hud1 = MBProgressHUD()
     var hud3 = MBProgressHUD()
@@ -645,12 +650,12 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
         
         
-        var isRecord = false
+        isRecords = false
         
         var aaaaaaa = Int()
         aaaaaaa = 0
         if mp3FilePath.absoluteString == "" {
-            isRecord = true
+            isRecords = true
         }
         if mp3FilePath.absoluteString != "" {
             print(mp3FilePath.absoluteString)
@@ -701,7 +706,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                     if result.status != nil {
                         dispatch_async(dispatch_get_main_queue(), {
                             if result.status! == "success"{
-                                isRecord = true
+                                self.isRecords = true
                                 self.sound = result.data!
                                 print(self.sound)
                                 if aaaaaaa == self.photoArray.count||self.photoArray.count == 0{
@@ -725,61 +730,123 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         
         
-        if self.photoArray.count != 0 {
-            for image in photoArray {
-                
-                //                let representation =  ima.asset.defaultRepresentation()
-//                let image = ima
-                let dataPhoto:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
-                var myImagess = UIImage()
-                myImagess = UIImage.init(data: dataPhoto)!
-                
-                let data = UIImageJPEGRepresentation(myImagess, 0.1)!
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "MMddHHmmssSSS"
-                let dateStr = dateFormatter.stringFromDate(NSDate())
-                let imageName = "avatar" + dateStr + String(aaaaaaa) + userid + String(Int(arc4random()%10000)+1)
-                print(imageName)
-                
-                //上传图片
-                ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
-                    dispatch_async(dispatch_get_main_queue(), {
-                        
-                        let result = Http(JSONDecoder(data))
-                        print(result.status)
-                        if result.status != nil {
-                            dispatch_async(dispatch_get_main_queue(), {
-                                if result.status! == "success"{
-                                    self.photoNameArr.addObject(result.data!)
-                                    print(aaaaaaa)
-                                    print(self.photoArray.count)
-                                    aaaaaaa = aaaaaaa+1
-                                    if aaaaaaa == self.photoArray.count && isRecord == true{
-                                        self.fabuAction()
-                                    }
-                                    
-                                    
-                                }else{
-                                    let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-                                    hud.mode = MBProgressHUDMode.Text;
-                                    hud.labelText = "图片上传失败"
-                                    hud.margin = 10.0
-                                    hud.removeFromSuperViewOnHide = true
-                                    hud.hide(true, afterDelay: 1)
-                                    self.hud1.hide(true)
-                                }
-                            })
-                        }
-                    })
-                    
-                }
-                
-            }
-        }
+        self.upImage()
+        
+//        if self.photoArray.count != 0 {
+//            for image in photoArray {
+//                
+//                //                let representation =  ima.asset.defaultRepresentation()
+////                let image = ima
+//                let dataPhoto:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
+//                var myImagess = UIImage()
+//                myImagess = UIImage.init(data: dataPhoto)!
+//                
+//                let data = UIImageJPEGRepresentation(myImagess, 0.1)!
+//                let dateFormatter = NSDateFormatter()
+//                dateFormatter.dateFormat = "MMddHHmmssSSS"
+//                let dateStr = dateFormatter.stringFromDate(NSDate())
+//                let imageName = "avatar" + dateStr + String(aaaaaaa) + userid + String(Int(arc4random()%10000)+1)
+//                print(imageName)
+//                self.photoNameArr.addObject(imageName+".png")
+//                
+//                //上传图片
+//                ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
+//                    dispatch_async(dispatch_get_main_queue(), {
+//                        
+//                        let result = Http(JSONDecoder(data))
+//                        print(result.status)
+//                        if result.status != nil {
+//                            dispatch_async(dispatch_get_main_queue(), {
+//                                if result.status! == "success"{
+//                                    
+//                                    print(aaaaaaa)
+//                                    print(self.photoArray.count)
+//                                    aaaaaaa = aaaaaaa+1
+//                                    if aaaaaaa == self.photoArray.count && isRecords == true{
+//                                        self.fabuAction()
+//                                    }
+//                                    
+//                                    
+//                                }else{
+//                                    self.photoNameArr.removeLastObject()
+//                                    let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+//                                    hud.mode = MBProgressHUDMode.Text;
+//                                    hud.labelText = "图片上传失败"
+//                                    hud.margin = 10.0
+//                                    hud.removeFromSuperViewOnHide = true
+//                                    hud.hide(true, afterDelay: 1)
+//                                    self.hud1.hide(true)
+//                                }
+//                            })
+//                        }
+//                    })
+//                    
+//                }
+//                
+//            }
+//        }
         
         
         
     }
+    
+    
+    
+    func upImage(){
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid")as! String
+            
+            let dataPhoto:NSData = UIImageJPEGRepresentation(self.photoArray[aaaaaaa] as! UIImage, 1.0)!
+            
+            var myImagess = UIImage()
+            myImagess = UIImage.init(data: dataPhoto)!
+            
+            let data = UIImageJPEGRepresentation(myImagess, 0.1)!
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+            let dateStr = dateFormatter.stringFromDate(NSDate())
+            let imageName = "taskavatar" + dateStr + userid + String(arc4random())
+            print(imageName)
+            //        self.photoNameArr.addObject(imageName+".png")
+            //上传图片
+            ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    let result = Http(JSONDecoder(data))
+                    print(result.status)
+                    if result.status != nil {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            if result.status! == "success"{
+                                self.photoNameArr.addObject(result.data!)
+                                //                                print(a)
+                                print(self.photoArray.count)
+                                self.aaaaaaa = self.aaaaaaa+1
+                                if self.aaaaaaa == self.photoArray.count && self.isRecords == true{
+                                    self.fabuAction()
+                                }else{
+                                    self.upImage()
+                                }
+                                
+                                
+                            }else{
+                                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                                hud.mode = MBProgressHUDMode.Text;
+                                //                            hud.labelText = "图片上传失败"
+                                hud.margin = 10.0
+                                hud.removeFromSuperViewOnHide = true
+                                hud.hide(true, afterDelay: 1)
+                                self.hud1.hide(true)
+                            }
+                        })
+                    }
+                })
+            }
+        }
+    }
+
     
     func fabuAction() {
         
@@ -829,12 +896,13 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                 }
             }
         }
+        print(self.photoNameArr)
 
         mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime),address2:adress2,longitude:longitude,latitude:latitude) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             print(response)
             if !success{
-                alert("亲，请拨打4000608856申请VIP客户才能多发哦😀", delegate: self)
+                alert((response as! String), delegate: self)
                 self.hud3.hide(true)
                 return
             }

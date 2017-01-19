@@ -34,10 +34,19 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
 
     
     override func viewWillAppear(animated: Bool) {
+        audioSession = AVAudioSession.sharedInstance()
+        do{
+            //            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
+            try audioSession.setActive(true)
+        }catch{
+            
+        }
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = true
         self.navigationController?.navigationBar.hidden = false
-            }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -366,14 +375,7 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
     
     
     func boFangButtonActions(sender:UIButton){
-        audioSession = AVAudioSession.sharedInstance()
-        do{
-            //            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
-            try audioSession.setActive(true)
-        }catch{
-            
-        }
+        
         
         timer1.invalidate()
         if taskInfo.soundtime != nil && taskInfo.soundtime != ""{

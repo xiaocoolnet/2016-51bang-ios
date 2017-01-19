@@ -57,6 +57,14 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
     }
     override func viewDidAppear(animated: Bool) {
+        audioSession = AVAudioSession.sharedInstance()
+        do{
+            //            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
+            try audioSession.setActive(true)
+        }catch{
+            
+        }
 //        self.tabBarController?.tabBar.hidden = false
     }
     override func viewDidDisappear(animated: Bool) {
@@ -69,14 +77,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         super.viewDidLoad()
         setConvenienceTable()
-        audioSession = AVAudioSession.sharedInstance()
-        do{
-            //            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
-            try audioSession.setActive(true)
-        }catch{
-            
-        }
+        
         self.view.backgroundColor = UIColor.whiteColor()
         self.title="便民圈"
         self.convenienceTable.mj_header.beginRefreshing()
