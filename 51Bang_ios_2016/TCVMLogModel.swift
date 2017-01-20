@@ -107,7 +107,8 @@ class TCVMLogModel: NSObject {
         
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
-            let result = Http(JSONDecoder(response!))
+            print(json)
+            let result = Http(JSONDecoder(json!))
             print(result)
             print(result.data)
             print(result.status)
