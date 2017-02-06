@@ -903,10 +903,10 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         pointAnmation.coordinate = result.location
         pointAnmation.title = result.address
         mapView.addAnnotation(pointAnmation)
-        print(result.location.latitude)
-        print(result.location.longitude)
-        print(result.address)
-        print(result.description)
+//        print(result.location.latitude)
+//        print(result.location.longitude)
+//        print(result.address)
+//        print(result.description)
         mapView.selectAnnotation(pointAnmation, animated: true)
         //        self.WillShowName(result.location.longitude, longtitude: result.location.latitude)
     }

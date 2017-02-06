@@ -537,6 +537,8 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
             let info : RzbInfo?
             info = self.rzbDataSource![indexPath.row]
 //            var meter1 = Double()
+            
+            
 //
             let ut =  NSUserDefaults.standardUserDefaults()
             
@@ -560,7 +562,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                 cell.distance.hidden = true
             }
             
-            
+            if isNextGrade {
+                cell.distance.hidden = true
+            }else{
+                cell.distance.hidden = false
+            }
             
             
             //tableView.separatorStyle = .None

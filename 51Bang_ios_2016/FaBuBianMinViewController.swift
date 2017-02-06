@@ -855,8 +855,8 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         var latitude = String()
         
         let ud = NSUserDefaults.standardUserDefaults()
-        if ud.objectForKey("RealTimeLocation") != nil {
-            adress2 = ud.objectForKey("RealTimeLocation") as! String
+        if ud.objectForKey("cityName") != nil && ud.objectForKey("quName") != nil{
+            adress2 = (ud.objectForKey("cityName") as! String) + (ud.objectForKey("quName") as! String)
         }
         
         if ud.objectForKey("RealTimelongitude") != nil {

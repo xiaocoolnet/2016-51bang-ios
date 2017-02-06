@@ -300,7 +300,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             //微信支付
             print("微信支付")
             print(subject)
-            let aa = FZJWeiXinPayMainController()
+            let weChatPay = FZJWeiXinPayMainController()
             print(String(price))
             print(body.length)
             if body.length == 0 || body.length>30{
@@ -314,7 +314,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("订单错误", delegate: self)
                 return
             }
-            aa.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum,isRenwu:self.isRenwu);
+            weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum,isRenwu:self.isRenwu);
             //            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
             
             //            let vc = MyBookDan()
