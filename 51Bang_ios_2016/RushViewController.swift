@@ -217,9 +217,10 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         
         let vc = MineViewController()
         vc.Checktoubao()
+        
         let type = CLLocationManager.authorizationStatus()
         
-        if !CLLocationManager.locationServicesEnabled() || type == CLAuthorizationStatus.Denied{
+        if type == CLAuthorizationStatus.Denied{
             alert("请打开定位", delegate: self)
             return
         }
@@ -295,8 +296,8 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         }
         
         
-        print(longitude)
-        print(latitude)
+//        print(longitude)
+//        print(latitude)
         
         
         if ud.objectForKey("userid") != nil {
@@ -317,7 +318,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         }
        
         
-        print(self.sign)
+//        print(self.sign)
         
 //        print(btn.selected)
 //        if btn.selected == true {
@@ -351,7 +352,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                     return
                 }
                 hud.hide(true)
-                print(response)
+//                print(response)
                 self.dataSource1 = response as! SkillModel
                 if self.dataSource1.skilllist.count<1{
                     UIView.animateWithDuration(0.4, animations: {
@@ -555,7 +556,7 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
     
     func GetData(){
         
-        print(loginSign)
+//        print(loginSign)
         if loginSign == 0 {
             
             self.tabBarController?.selectedIndex = 3
@@ -572,21 +573,21 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             mainHelper.getTaskList (userid,beginid:"0",cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
-                        print(success)
+//                        print(success)
                         return
                         //                        alert("暂无数据", delegate: self)
                     }
                     hud.hide(true)
-                    print(response)
+//                    print(response)
                     self.dataSource?.removeAll()
                     
                     self.dataSource = response as? Array<TaskInfo> ?? []
-                    print(self.dataSource)
-                    print(self.dataSource?.count)
+//                    print(self.dataSource)
+//                    print(self.dataSource?.count)
                     if self.dataSource?.count == 0{
                         alert("暂无数据", delegate: self)
                     }
-                    print(self.dataSource?.count)
+//                    print(self.dataSource?.count)
                     
                     //                self.ClistdataSource = response as? ClistList ?? []
                     self.myTableView.reloadData()
@@ -612,16 +613,16 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                         self.myTableView.mj_header.endRefreshing()
                         return
                     }
-                    print(response)
+//                    print(response)
                     self.dataSource?.removeAll()
                     self.dataSource = response as? Array<TaskInfo> ?? []
                     self.myTableView.mj_header.endRefreshing()
-                    print(self.dataSource)
-                    print(self.dataSource?.count)
+//                    print(self.dataSource)
+//                    print(self.dataSource?.count)
                     if self.dataSource?.count == 0{
                         alert("暂无数据", delegate: self)
                     }
-                    print(self.dataSource?.count)
+//                    print(self.dataSource?.count)
 //                    self.createTableView()
                     
                     self.myTableView.reloadData()
@@ -644,11 +645,11 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             mainHelper.getTaskList (userid,beginid:beginId,cityName: self.cityName,longitude: self.longitude,latitude: self.latitude,handle: {[unowned self] (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                     if !success {
-                        print(success)
+//                        print(success)
                         self.myTableView.mj_footer.endRefreshing()
                         return
                     }
-                    print(response)
+//                    print(response)
                     
                     let datass = response as? Array<TaskInfo> ?? []
                     if datass.count < 1 {
@@ -659,12 +660,12 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
                         self.dataSource?.append(datas)
                     }
                     self.myTableView.mj_footer.endRefreshing()
-                    print(self.dataSource)
-                    print(self.dataSource?.count)
+//                    print(self.dataSource)
+//                    print(self.dataSource?.count)
                     if self.dataSource?.count == 0{
                         alert("暂无数据", delegate: self)
                     }
-                    print(self.dataSource?.count)
+//                    print(self.dataSource?.count)
                     //                    self.createTableView()
                     
                     self.myTableView.reloadData()

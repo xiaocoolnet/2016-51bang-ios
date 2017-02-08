@@ -850,13 +850,40 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func fabuAction() {
         
+        let type = CLLocationManager.authorizationStatus()
+        
+        if !CLLocationManager.locationServicesEnabled() || type == CLAuthorizationStatus.Denied{
+        
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "未打开定位，去打开？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+            let url = NSURL.init(string: UIApplicationOpenSettingsURLString)
+                                        if UIApplication.sharedApplication().canOpenURL(url!){
+                                            UIApplication.sharedApplication().openURL(url!)
+                                        }
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+        return
+        }
+        
         var adress2 = String()
+        adress2 = ""
         var longitude = String()
         var latitude = String()
         
         let ud = NSUserDefaults.standardUserDefaults()
         if ud.objectForKey("cityName") != nil && ud.objectForKey("quName") != nil{
             adress2 = (ud.objectForKey("cityName") as! String) + (ud.objectForKey("quName") as! String)
+        }
+        if adress2 == ""{
+            alert("请在首页面左上角选择您所在地区", delegate: self)
+            return
         }
         
         if ud.objectForKey("RealTimelongitude") != nil {
