@@ -273,6 +273,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             self.dataSource = response as? Array<TCHDInfo> ?? []
             self.convenienceTable.mj_header.endRefreshing()
             for data in self.dataSource!{
+                data.isOpen = false
                 self.dataSource2.addObject(data)
             }
             self.convenienceTable.reloadData()
@@ -306,7 +307,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 return
             }
             for data in self.dataSource!{
-                
+                data.isOpen = false
                 self.dataSource2.addObject(data)
             }
             
@@ -361,12 +362,9 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 cell?.selectionStyle = .None
                 return cell!
             }else{
-                
-                
-                print( self.dataSource2 )
                 if(self.dataSource2.count > 0 )
                 {
-//                    print((dataSource2[indexPath.row-1] as! TCHDInfo).record)
+                    print((dataSource2[indexPath.row-1] as! TCHDInfo).isOpen)
                     self.boFangButton.removeFromSuperview()
                     let cell = ConveniceCell.init(info: self.dataSource2[indexPath.row-1] as! TCHDInfo )
                     //                    if self.dataSource![indexPath.row-1].record != nil || self.dataSource![indexPath.row-1].record != "" {
@@ -382,7 +380,10 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     cell.phone.tag = indexPath.row-1+100
                     cell.phone.addTarget(self, action: #selector(self.callPhone(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                     cell.messageButton.tag = indexPath.row-1
-                    
+                    cell.openButton.tag = 10000+indexPath.row-1
+                    cell.openButton.addTarget(self, action: #selector(self.openButtonAction(_:)), forControlEvents: .TouchUpInside)
+                    cell.closeButton.tag = 100000+indexPath.row-1
+                    cell.closeButton.addTarget(self, action: #selector(self.closeButtonAction(_:)), forControlEvents: .TouchUpInside)
                     let user = NSUserDefaults.standardUserDefaults()
                     var userid = String()
                     if user.objectForKey("userid") != nil {
@@ -593,7 +594,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 
             }
             
-            print(dat)
+//            print(dat)
             vc.datasource2 = NSArray.init(array: dat) as Array
             self.navigationController?.pushViewController(vc, animated: true)
            
@@ -720,19 +721,30 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 
                 let piccount = (dataSource2[indexPath.row-1] as! TCHDInfo).pic.count
                 
-                let height = calculateHeight( str!, size: 15, width: WIDTH - 20 )
+                var height = calculateHeight( str!, size: 15, width: WIDTH - 20 )
                 
+                if height>95{
+                    if (dataSource2[indexPath.row-1] as! TCHDInfo).isOpen == false{
+                        height = 120
+                    }else{
+                        height = height+30
+                    }
+                }
                 var picHeight:CGFloat = 0
-                
-                switch (piccount-1) / 3 {
-                case 0:
-                    picHeight = WIDTH / 3
-                case 1:
-                    picHeight = (WIDTH) / 3 * 2
-                case 2:
-                    picHeight = (WIDTH) / 3 * 3
-                default:
-                    picHeight = WIDTH
+                if piccount == 1{
+                    picHeight = WIDTH-120
+                }else{
+                    switch (piccount-1) / 3 {
+                    case 0:
+                        picHeight = (WIDTH-60) / 3
+                    case 1:
+                        picHeight = (WIDTH-60) / 3 * 2
+                    case 2:
+                        picHeight = (WIDTH-60) / 3 * 3
+                    default:
+                        picHeight = WIDTH-60
+                    }
+
                 }
                 
                 if( piccount == 0 )
@@ -754,6 +766,20 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         
     }
+    
+    func openButtonAction(sender:UIButton){
+        
+        (self.dataSource2[sender.tag-10000] as! TCHDInfo).isOpen = true
+        print((self.dataSource2[sender.tag-10000] as! TCHDInfo).isOpen)
+        self.convenienceTable.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: sender.tag-10000+1, inSection: 0)], withRowAnimation:.None)
+    }
+    func closeButtonAction(sender:UIButton){
+        
+        (self.dataSource2[sender.tag-100000] as! TCHDInfo).isOpen = false
+        print((self.dataSource2[sender.tag-100000] as! TCHDInfo).isOpen)
+        self.convenienceTable.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: sender.tag-100000+1, inSection: 0)], withRowAnimation:.None)
+    }
+
     
     
 }

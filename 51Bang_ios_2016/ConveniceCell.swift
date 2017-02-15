@@ -25,6 +25,10 @@ class ConveniceCell: UITableViewCell{
     var deletebutton = UIButton()
     var accountnumberButton = UIButton()
     var predicate = NSPredicate()
+    var openButton = UIButton()
+    var openButtonBackView = UIView()
+    var closeButton = UIButton()
+    
     //    var phoneStr = String()
     
     var contenLabel = UILabel()
@@ -201,13 +205,7 @@ class ConveniceCell: UITableViewCell{
         accountnumberButton.setImage(UIImage.init(named: "ic_jubao"), forState: UIControlState.Normal)
         
         
-        contenLabel.sd_layout()
-            .leftSpaceToView(self,10)
-            .rightSpaceToView(self,10)
-            .topSpaceToView(userImage,10)
-            .autoHeightRatio(0)
-        contenLabel.text = info.content
-        contenLabel.font = UIFont.systemFontOfSize(15)
+        
         
 //        var regex:String?
 //        regex = "^((13[0-9])|(15[^4,\\D]) |(17[0,0-9])|(18[0,0-9]))\\d{8}$"
@@ -236,18 +234,25 @@ class ConveniceCell: UITableViewCell{
             
             imview.sd_setImageWithURL(NSURL(string:url), placeholderImage: UIImage(named: "01.png"))
             
-//            imview.contentMode = .Redraw
-            switch imcount / 3 {
-            case 0:
-                imview.frame = CGRectMake( CGFloat( imcount ) * (WIDTH-5) / 3 + 5  , ( CGFloat (imcount / 3) ) * (WIDTH-5) / 3, (WIDTH) / 3 - 5 , WIDTH / 3 )
-            case 1:
-                imview.frame = CGRectMake( CGFloat( imcount-3) * (WIDTH-5) / 3 + 5  , ( CGFloat (imcount / 3) ) * (WIDTH-5) / 3 + 5, (WIDTH) / 3 - 5 , WIDTH / 3 )
-            case 2:
-                imview.frame = CGRectMake( CGFloat( imcount-6 ) * (WIDTH-5) / 3 + 5  , ( CGFloat (imcount / 3) ) * (WIDTH-5) / 3 + 10, (WIDTH) / 3 - 5 , WIDTH / 3 )
-            default:
-                return
+            if info.pic.count == 1{
+                imview.frame = CGRectMake( 60 , 10, (WIDTH-120) , (WIDTH-120))
+                imview.contentMode = .ScaleAspectFit
+            }else{
+                switch imcount / 3 {
+                case 0:
+                    imview.frame = CGRectMake( CGFloat( imcount ) * (WIDTH-60) / 3 + 40  , ( CGFloat (imcount / 3) ) * (WIDTH-60) / 3+15, (WIDTH) / 3 - 30 , WIDTH / 3-30)
+                case 1:
+                    imview.frame = CGRectMake( CGFloat( imcount-3) * (WIDTH-60) / 3 + 40  , ( CGFloat (imcount / 3) ) * (WIDTH-60) / 3+15 , (WIDTH) / 3 - 30 , WIDTH / 3-30 )
+                case 2:
+                    imview.frame = CGRectMake( CGFloat( imcount-6 ) * (WIDTH-60) / 3 + 40  , ( CGFloat (imcount / 3) ) * (WIDTH-60) / 3 + 15, (WIDTH) / 3 - 30 , WIDTH / 3 - 30 )
+                default:
+                    return
+                }
+
             }
-            let backButton = UIButton()
+            
+//            imview.contentMode = .Redraw
+                        let backButton = UIButton()
             backButton.frame = imview.frame
 //            backButton.backgroundColor = UIColor.redColor()
             backButton.frame.origin.y = imview.frame.origin.y
@@ -263,19 +268,87 @@ class ConveniceCell: UITableViewCell{
             imcount += 1
             myPhotoArray.addObject(imview)
         }
+        imshow.backgroundColor = UIColor.whiteColor()
+        if info.pic.count == 1{
+            picHeight = WIDTH-120
+        }else{
+            switch (info.pic.count+2) / 3 {
+                
+            case 0:
+                picHeight = 0
+            case 1:
+                picHeight = (WIDTH-80) / 3
+            case 2:
+                picHeight = (WIDTH-80) / 3 * 2
+            default:
+                picHeight = WIDTH-80
+            }
+        }
         
-        print(info.pic.count)
         
-        switch (info.pic.count+2) / 3 {
+        var str = String()
+        contenLabel.text = info.content
+        contenLabel.font = UIFont.systemFontOfSize(15)
+        if contenLabel.text != nil {
+            str = contenLabel.text!
+        }else{
+            str = ""
+        }
+        var testHeight = calculateHeight( str, size: 15, width: WIDTH - 20)
+        print(testHeight)
+        if testHeight>95{
+            if info.isOpen! == false{
+                testHeight = 90 + 30
+                openButtonBackView.frame = CGRectMake(0, 90+70, WIDTH, 30)
+                openButtonBackView.backgroundColor = UIColor.whiteColor()
+                openButton.frame = CGRectMake(20, 0, 60, 30)
+                let str1 = NSMutableAttributedString.init(string: "全文")
+                str1.addAttribute(NSUnderlineStyleAttributeName, value: 0x01, range: NSRange.init(location: 0, length: str1.length))
+                str1.addAttribute(NSForegroundColorAttributeName, value: COLOR, range: NSRange.init(location: 0, length: str1.length))
+                openButton.setAttributedTitle(str1, forState: .Normal)
+                openButton.setTitleColor(COLOR, forState: .Normal)
+                openButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+                openButtonBackView.addSubview(openButton)
+                self.addSubview(openButtonBackView)
+                contenLabel.sd_layout()
+                    .leftSpaceToView(self,10)
+                    .widthIs(WIDTH-20)
+//                    .autoHeightRatio(0)
+                    .topSpaceToView(userImage,10)
+                    .heightIs(90)
+                contenLabel.numberOfLines = 0
+                contenLabel.lineBreakMode = .ByWordWrapping
+                contenLabel.text = info.content
+                contenLabel.font = UIFont.systemFontOfSize(15)
+            }else{
+                contenLabel.sd_layout()
+                    .leftSpaceToView(self,10)
+                    .rightSpaceToView(self,10)
+                    .topSpaceToView(userImage,10)
+                    .autoHeightRatio(0)
+                contenLabel.text = info.content
+                contenLabel.font = UIFont.systemFontOfSize(15)
+                testHeight = calculateHeight( str, size: 15, width: WIDTH - 20)+40
+                closeButton.frame = CGRectMake(WIDTH-70, testHeight+35, 40, 30)
+                let str1 = NSMutableAttributedString.init(string: "收起")
+                str1.addAttribute(NSUnderlineStyleAttributeName, value: 0x01, range: NSRange.init(location: 0, length: str1.length))
+                str1.addAttribute(NSForegroundColorAttributeName, value: COLOR, range: NSRange.init(location: 0, length: str1.length))
+                closeButton.setAttributedTitle(str1, forState: .Normal)
+
+                closeButton.setTitle("收起", forState: .Normal)
+                closeButton.setTitleColor(COLOR, forState: .Normal)
+                closeButton.titleLabel?.font = UIFont.systemFontOfSize(15)
+                self.addSubview(closeButton)
+            }
             
-        case 0:
-            picHeight = 0
-        case 1:
-            picHeight = WIDTH / 3
-        case 2:
-            picHeight = WIDTH / 3 * 2
-        default:
-            picHeight = WIDTH
+        }else{
+            contenLabel.sd_layout()
+                .leftSpaceToView(self,10)
+                .rightSpaceToView(self,10)
+                .topSpaceToView(userImage,10)
+                .autoHeightRatio(0)
+            contenLabel.text = info.content
+            contenLabel.font = UIFont.systemFontOfSize(15)
         }
         
         if self.info!.record != nil && self.info!.record != "" {
@@ -283,10 +356,10 @@ class ConveniceCell: UITableViewCell{
             
             if self.info?.pic.count>0 {
                 boFangButton = UIButton.init(frame: CGRectMake(20,
-                    calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + picHeight+20,114, 30))
+                    testHeight + picHeight+20,114, 30))
             }else{
                 boFangButton = UIButton.init(frame: CGRectMake(20,
-                    80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20)-60,114, 30))
+                    80 + testHeight-60,114, 30))
             }
             
             boFangButton.backgroundColor = UIColor.clearColor()
@@ -307,16 +380,11 @@ class ConveniceCell: UITableViewCell{
             boFangButton.layer.shadowOffset = CGSizeMake(20.0, 20.0)
             boFangButton.layer.shadowOpacity = 0.7
             imshow.addSubview(boFangButton)
-            imshow.frame = CGRectMake(0, 80 + calculateHeight( contenLabel.text!, size: 15, width: WIDTH - 20) + 15, WIDTH, picHeight+80)
+            imshow.frame = CGRectMake(0, 70 + testHeight , WIDTH, picHeight+80)
             
         }else{
-            var str = String()
-            if contenLabel.text != nil {
-                str = contenLabel.text!
-            }else{
-                str = ""
-            }
-            imshow.frame = CGRectMake(0, 80 + calculateHeight( str, size: 15, width: WIDTH - 20) + 15 , WIDTH, picHeight)
+            
+            imshow.frame = CGRectMake(0, 70 + testHeight , WIDTH, picHeight)
         }
         
 //        if self.info?.pic.count>0 {

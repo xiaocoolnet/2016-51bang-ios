@@ -73,6 +73,7 @@ class TCHDInfo: JSONJoy {
     var record:String?
     var soundtime :String?
     var phone : String?
+    var isOpen :Bool?
     
     
     var pic:[PicInfo]
