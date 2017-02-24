@@ -54,6 +54,8 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
         self.title = "特卖"
         self.view.backgroundColor = UIColor.whiteColor()
@@ -72,9 +74,9 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let findButton = UIButton.init(frame: CGRectMake(leftTypeButton.width, 0, 50, 40))
         findButton.setImage(UIImage(named: "ic_sousuo"), forState: .Normal)
         findButton.addTarget(self, action: #selector(self.findButtonAction), forControlEvents: .TouchUpInside)
-//        leftTypeView.addSubview(findButton)
+        leftTypeView.addSubview(findButton)
         
-        //        self.fenLeiType.customView = leftTypeButton
+//         self.fenLeiType.customView = leftTypeButton
         let aaa = UIBarButtonItem.init(customView: leftTypeView)
         self.navigationItem.leftBarButtonItem = aaa
         
@@ -126,6 +128,8 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         myTableView.rowHeight = WIDTH*80/375
         myTableView.tag = 0
         myTableView.separatorStyle = .None
+        
+        
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
             self.headerRefresh(self.keyword)
@@ -324,7 +328,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         
 //        print(indexPath.row)
-        if tableView.tag == 0 {
+        if tableView == myTableView {
             let next = BusnissViewController()
             
                 next.id = self.dataSource![indexPath.row].id!
@@ -502,6 +506,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 (views as! UIButton).setTitle("取消", forState: .Normal)
                 (views as! UIButton).titleLabel?.font = UIFont.systemFontOfSize(13)
                 (views as! UIButton).setTitleColor(UIColor(red: 98/255.0, green: 98/255.0, blue: 98/255.0, alpha: 1), forState: .Normal)
+                (views as! UIButton).addTarget(self, action: #selector(self.searchBarCancelButtonAction), forControlEvents: .TouchUpInside)
             }
         }
         let searchBarSearchField = searchBar.valueForKey("_searchField") as! UITextField
@@ -517,7 +522,9 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func findButtonAction(){
+        self.searchBar.becomeFirstResponder()
         setSearchBar()
+        searchHistoryTableview.hidden = false
         searchHistoryTableview.frame = CGRectMake(0, searchBar.height, WIDTH, HEIGHT-searchBar.height)
         searchHistoryTableview.delegate = self
         searchHistoryTableview.dataSource = self
@@ -567,11 +574,12 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
     }
     //取消按钮点击事件
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    
+    func searchBarCancelButtonAction(){
         self.searchBar.resignFirstResponder()
         searchHistoryTableview.hidden = true
         self.searchBar.removeFromSuperview()
-        
+        self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
     }
     
     //MARK:uitextfiledDelegate搜索点击事件
@@ -580,15 +588,17 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.searchBar.resignFirstResponder()
         searchHistoryTableview.hidden = true
         if (searchBar.valueForKey("_searchField") as! UITextField).text?.characters.count>0{
-            let str = (searchBar.valueForKey("_searchField") as! UITextField).text!
+            var str = (searchBar.valueForKey("_searchField") as! UITextField).text!
+            str = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
             let newArray = NSMutableArray.init(array: self.searchHistory)
             newArray.addObject(str)
             if self.searchHistory.count > 5{
-                self.searchHistory.removeObjectAtIndex(0)
+                newArray.removeObjectAtIndex(0)
             }
             self.userLocationCenter.setObject(newArray, forKey: "SearchFieldHistory")
             self.GetData("0", keyword: str)
         }
+        self.myTableView.frame = CGRectMake(0, 50, WIDTH, HEIGHT-64-50)
         
     }
     override func didReceiveMemoryWarning() {

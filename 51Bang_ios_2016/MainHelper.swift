@@ -447,7 +447,7 @@
 //        return pathUrl
     }
     //发布便民信息
-    func upLoadMessage(userid:NSString,phone:String,type:NSString,title:NSString,content:NSString,photoArray:NSArray,sound:NSString,soundtime:String,address2:String,longitude:String,latitude:String, handle:ResponseBlock){
+    func upLoadMessage(userid:NSString,phone:String,type:NSString,title:NSString,content:NSString,photoArray:NSArray,sound:NSString,soundtime:String,address2:String,longitude:String,latitude:String, video:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"addbbsposts"
         let photoUrl = NSMutableString()
         for i in 0..<photoArray.count {
@@ -476,7 +476,8 @@
             "phone":phone,
             "address":address2,
             "longitude":longitude,
-            "latitude":latitude
+            "latitude":latitude,
+            "video":video
         ];
         
 //        Alamofire.upload(<#T##URLRequest: URLRequestConvertible##URLRequestConvertible#>, data: <#T##NSData#>)
@@ -627,7 +628,7 @@
     
     
     
-    func GetTchdList(type:NSString,beginid:NSString,handle:ResponseBlock){
+    func GetTchdList(type:NSString,beginid:NSString,keyWord:String,handle:ResponseBlock){
         let ud = NSUserDefaults.standardUserDefaults()
         var cityName = String()
         
@@ -640,7 +641,8 @@
             
             "type":type,
             "beginid":beginid,
-            "city":cityName
+            "city":cityName,
+            "keyword":keyWord
         ];
         
         

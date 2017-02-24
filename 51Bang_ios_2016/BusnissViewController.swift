@@ -105,21 +105,11 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     return
                 }else{
                     hud.hide(true)
-//                    print(response)
-                    //                  Http(JSONDecoder(data))
                     if response?.isKindOfClass(GoodsInfo2) == true{
                         self.goodsInfo = response as! GoodsInfo2
                         self.dataSource = self.goodsInfo.commentlist
                     }
                     
-//                    print(self.goodsInfo)
-//                    print(self.goodsInfo.id)
-//                    print(self.goodsInfo.price)
-//                    print(self.goodsInfo.pic)
-//                    print(self.goodsInfo.goodsname)
-//                    print(self.goodsInfo.address)
-//                    print(self.goodsInfo.longitude)
-//                    print(self.goodsInfo.latitude)
                     self.viewDidLoad()
                     self.myTableView.reloadData()
                 }
@@ -290,28 +280,7 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
         super.viewDidLoad()
         //        isFavorite = false
         self.view.backgroundColor = RGREY
-        //        getData()
-//        self.dataSource = self.goodsInfo.commentlist
-        //        let ud = NSUserDefaults.standardUserDefaults()
-        //        let userid = ud.objectForKey("userid")as! String
-        
-        //        mainHelper.getDingDanDetail(userid,handle:{[unowned self] (success, response) in
-        //            dispatch_async(dispatch_get_main_queue(), {
-        //                if !success {
-        //                    return
-        //                }
-        //                print(response)
-        //                self.dataSource?.removeAll()
-        //                print(self.dataSource?.count)
-        //                self.dataSource = response as? Array<GoodsInfo2> ?? []
-        //                print(self.dataSource)
-        //                print(self.dataSource?.count)
-        //
-        //
-        //            })
-        //
-        //            })
-        
+              
         
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: true)
         //        self.getAddress()
@@ -386,18 +355,16 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             headerView.price.text = "¥"
         }
         if goodsInfo.description !=  nil{
-            //            if goodsInfo.description.characters.count > 60 {
-            //
-            //              let newDescription = (goodsInfo.description as NSString).substringToIndex(60)
-            //              headerView.desciption.text = newDescription
-            //            }
             headerView.desciption.text = goodsInfo.description
             //            headerView.desciption.adjustsFontSizeToFitWidth = true
             let height = calculateHeight(goodsInfo.description!, size: 16, width:WIDTH-16)
             print(height)
             headerView.desciptionHeight.constant = height+10
             headerView.desciption.frame.size.height = height+10
+            headerView.copyLabel.frame = headerView.desciption.frame
+            headerView.copyLabel.text = headerView.desciption.text
             headerView.frame.size.height = 275 + height+10
+            
         }else{
             headerView.desciption.text = ""
             headerView.desciption.removeFromSuperview()

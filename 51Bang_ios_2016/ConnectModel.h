@@ -16,7 +16,10 @@ typedef void(^ConnectBlock)(NSData * resultData);
 // 上传图片
 + (void)uploadWithImageName:(NSString *)name imageData:(NSData *)imageData URL:(NSString *)url finish:(ConnectBlock)block;
 
-// 上传视频
+// 上传语音
 + (void)uploadWithVideoName:(NSString *)name imageData:(NSData *)imageData URL:(NSString *)url url:(NSURL *)url1 finish:(ConnectBlock)block;
+
+// 上传语音
++ (void)uploadWithMp4Name:(NSString *)name imageData:(NSData *)imageData URL:(NSString *)url url:(NSURL *)url1 finish:(ConnectBlock)block;
 
 @end

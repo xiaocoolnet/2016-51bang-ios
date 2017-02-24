@@ -11,7 +11,7 @@ import MBProgressHUD
 import MJRefresh
 import AVFoundation
 
-class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate,pushDelegate {
+class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate,pushDelegate ,UISearchResultsUpdating{
     //----------
     var idleImages:NSMutableArray = []
     var refreshingImages:NSMutableArray = []
@@ -41,11 +41,25 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     var timesCount = Int()
     
     var audioSession = AVAudioSession.sharedInstance()
+    var sc = UISearchController()
+    
+    
+    var keyword = String()
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        
+        sc = UISearchController(searchResultsController: nil)
+        sc.hidesNavigationBarDuringPresentation = false
+        
+        convenienceTable.tableHeaderView = sc.searchBar
+        sc.searchResultsUpdater = self
+        sc.dimsBackgroundDuringPresentation = false
+        
+        sc.searchBar.placeholder = "输入搜索内容"
+        sc.searchBar.searchBarStyle = .Minimal
         if !ConvenientPeople.isFresh {
-            getData()
+            getData(self.keyword)
             headerRefresh()
             
             
@@ -57,6 +71,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
     }
     override func viewDidAppear(animated: Bool) {
+        
+        
         audioSession = AVAudioSession.sharedInstance()
         do{
             //            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
@@ -69,7 +85,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
-        
+        self.sc.active = false
+        self.sc.searchBar.removeFromSuperview()
     }
     
     
@@ -77,21 +94,25 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         super.viewDidLoad()
         setConvenienceTable()
-        
         self.view.backgroundColor = UIColor.whiteColor()
         self.title="便民圈"
         self.convenienceTable.mj_header.beginRefreshing()
-        //        let headerView = NSBundle.mainBundle().loadNibNamed("ConvenienceHeaderViewCell", owner: nil, options: nil).first as? ConvenienceHeaderViewCell
-        //        //       headerView!.choose.addTarger()
-        //        headerView!.choose.addTarget(self, action: #selector(self.choseFM), forControlEvents:UIControlEvents.TouchUpInside)
-        //        headerView!.jiantou.addTarget(self, action: #selector(self.choseFM), forControlEvents: UIControlEvents.TouchUpInside)
-        //        headerView!.query.backgroundColor = COLOR
-        //        headerView?.query.addTarget(self, action: #selector(query(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        //        headerView?.tag = 5
-        //        convenienceTable.tableHeaderView = headerView
+       
         createRightNavi()
         
         
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        sc.searchBar.resignFirstResponder()
+    }
+    
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        if var textToSearch = sc.searchBar.text {
+            textToSearch = textToSearch.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+            self.getData(textToSearch)
+        }
     }
     
     func pushVC(myVC:UIViewController) {
@@ -163,8 +184,14 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         let myWebView = UIWebView()
         myWebView.backgroundColor = GREY
+            
         myWebView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
-        myWebView.loadRequest(NSURLRequest(URL: NSURL(string:"http://m.kuaidi100.com/index_all.html?type="+FMArr1[myindexRow]+"&postid="+"")!))
+            if btn.tag == 300{
+                myWebView.loadRequest(NSURLRequest(URL: NSURL(string:"http://m.kuaidi100.com/index_all.html?type="+FMArr1[myindexRow]+"&postid="+"")!))
+            }else{
+                 myWebView.loadRequest(NSURLRequest(URL: NSURL(string:"http://m.weizhang8.cn")!))
+            }
+        
         myWebView.delegate = self
         LogisticsVC.view.addSubview(myWebView)
         
@@ -203,12 +230,12 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     
     
-    func getData(){
+    func getData(keyWord:String){
         
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.labelText = "正在努力加载"
-        mainHelper.GetTchdList("1", beginid: beginmid) { (success, response) in
+        mainHelper.GetTchdList("1", beginid: beginmid,keyWord: keyWord) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 hud.hide(true)
@@ -216,20 +243,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                 return
             }
             hud.hide(true)
-            print(response)
             self.dataSource = response as? Array<TCHDInfo> ?? []
-            print("---------------------------")
-//            print(self.dataSource![0].mid)
-//            print(self.dataSource![1].mid)
-//            print(self.dataSource![2].mid)
-//            print(self.dataSource![3].mid)
-//            print(self.dataSource![4].mid)
-            print("---------------------------")
-//            print(self.dataSource?.count)
-//            print(self.dataSource)
-//            print(self.dataSource![0].pic)
-//            print(self.dataSource![0].record)
-            
+                
             self.convenienceTable.reloadData()
             })
         }
@@ -239,9 +254,9 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func setConvenienceTable()
     {
-        //        convenienceTable.frame = CGRectMake(0, 0, WIDTH, self.view.frame.height - (self.tabBarController?.tabBar.frame.size.height)! - (self.navigationController?.navigationBar.frame.size.height)! - UIApplication.sharedApplication().statusBarFrame.height )
         
-        convenienceTable.frame = CGRectMake(0, 0, WIDTH, HEIGHT - (self.navigationController?.navigationBar.frame.size.height)!)
+        
+        convenienceTable.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         convenienceTable.delegate = self
         convenienceTable.dataSource = self
         convenienceTable.separatorStyle = .None
@@ -262,7 +277,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     
     func headerRefresh(){
-        mainHelper.GetTchdList("1", beginid: "0") { (success, response) in
+        self.keyword = ""
+        mainHelper.GetTchdList("1", beginid: "0",keyWord: self.keyword) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 self.convenienceTable.mj_header.endRefreshing()
@@ -294,7 +310,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         myID = myID - 5
         self.beginmid = String(myID)
         print(beginmid)
-        mainHelper.GetTchdList("1", beginid: beginmid) { (success, response) in
+        mainHelper.GetTchdList("1", beginid: beginmid,keyWord: self.keyword) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 self.convenienceTable.mj_footer.endRefreshing()
@@ -333,24 +349,27 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            //            headerView = (NSBundle.mainBundle().loadNibNamed("ConvenienceHeaderViewCell", owner: nil, options: nil).first as? ConvenienceHeaderViewCell)!
-            //            //       headerView!.choose.addTarger()
-            //            headerView.choose.addTarget(self, action: #selector(self.choseFM), forControlEvents:UIControlEvents.TouchUpInside)
-            //            headerView.jiantou.addTarget(self, action: #selector(self.choseFM), forControlEvents: UIControlEvents.TouchUpInside)
-            //            headerView.query.backgroundColor = COLOR
-            //            headerView.query.addTarget(self, action: #selector(query(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            //            headerView.tag = 5
-            //            return headerView
             let cell = UITableViewCell()
-            let queryButton = UIButton.init(frame: CGRectMake(5, 5, WIDTH - 10,34))
+            let queryButton = UIButton.init(frame: CGRectMake(5, 5, (WIDTH - 30)/2,34))
             queryButton.backgroundColor = COLOR
             queryButton.addTarget(self, action: #selector(query(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            queryButton.setTitle("点击此处可进行快递查询", forState: UIControlState.Normal)
+            queryButton.setTitle("快递查询", forState: UIControlState.Normal)
             queryButton.layer.borderColor = COLOR.CGColor
+            queryButton.tag = 300
             queryButton.layer.borderWidth = 1.0
             queryButton.layer.cornerRadius = 5
             queryButton.layer.masksToBounds = true
             cell.addSubview(queryButton)
+            let violationButton = UIButton.init(frame: CGRectMake(WIDTH/2+10, 5, (WIDTH - 30)/2,34))
+            violationButton.backgroundColor = COLOR
+            violationButton.addTarget(self, action: #selector(query(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            violationButton.setTitle("违章查询", forState: UIControlState.Normal)
+            violationButton.layer.borderColor = COLOR.CGColor
+            violationButton.layer.borderWidth = 1.0
+            violationButton.layer.cornerRadius = 5
+            violationButton.tag = 301
+            violationButton.layer.masksToBounds = true
+            cell.addSubview(violationButton)
             return cell
             
         }else{

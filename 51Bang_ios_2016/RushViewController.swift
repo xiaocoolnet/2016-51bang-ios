@@ -159,6 +159,8 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
         self.jiahaoView.layer.borderColor = COLOR.CGColor
         self.jiahaoView.layer.borderWidth = 1
         
+        
+        
         // Do any additional setup after loading the view.
     }
     

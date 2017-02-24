@@ -10,6 +10,8 @@ import UIKit
 import MBProgressHUD
 import AVFoundation
 import Alamofire
+import AVKit
+import AFNetworking
 
 var type = Int()
 class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,AVAudioRecorderDelegate,UITextFieldDelegate,UITextViewDelegate,TZImagePickerControllerDelegate{
@@ -35,6 +37,10 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     var recordTime = Int()
     var countTime = Int()
     
+    var mp4Url:NSURL!
+    var mp4BackImage = UIImage()
+    var isShipin = Bool()
+    var Mp4VideoName = String()
     
     
     var aaaaaaa = Int()
@@ -100,35 +106,19 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         myTableViw.dataSource = self
         myTableViw.backgroundColor = RGREY
         myTableViw.registerNib(UINib(nibName: "LianXiDianHuaTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
-        //myTableViw.registerNib(UINib(nibName: "LianXiDianHuaTableViewCell",bundle: nil), forCellWithReuseIdentifier: "cell")
-        //myTableViw.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+       
         let view = UIView()
         self.myTableViw.tableFooterView = view
         self.myTableViw.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
         self.view.addSubview(myTableViw)
         
         self.createTextView()
-        //        time()
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "发布", style: UIBarButtonItemStyle.Done, target: self, action: #selector(self.fabu))
         let fabuButton = UIBounceButton.init()
         fabuButton.frame = CGRectMake(0, 0, 50, 40)
         fabuButton.setTitle("发布", forState: .Normal)
         fabuButton.addTarget(self, action: #selector(self.fabu), forControlEvents: .TouchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: fabuButton)
-        //
-        //        let audioSession = AVAudioSession.sharedInstance()
-        //        do {
-        //            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-        //            try audioRecorder = AVAudioRecorder(URL: self.directoryURL()!,
-        //                                                settings: recordSettings)//初始化实例
-        //            audioRecorder.prepareToRecord()//准备录音
-        //        } catch {
-        //        }
-        //        TimeManager.shareManager.taskDic[GET_ID_KEY]?.FHandle = finishHandle
-        //        TimeManager.shareManager.taskDic[GET_ID_KEY]?.PHandle = processHandle
-        //
-        //
-        ////         Do any additional setup after loading the view.
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -144,24 +134,6 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         self.audioPlayer = nil
     }
     
-    //    func passPhotos(selected:[ZuberImage]){
-    //        photoArray = selected
-    //        print(selected)
-    //        self.addCollectionViewPicture()
-    ////        if selected.count>0 {
-    ////
-    ////            photoPushButton.frame = CGRectMake(WIDTH/2-40, self.collectionV!.height+WIDTH*210/375+20, 80, 40)
-    ////            photoPushButton.backgroundColor = COLOR
-    ////            photoPushButton.layer.masksToBounds = true
-    ////            photoPushButton.layer.cornerRadius = 5
-    ////            photoPushButton.setTitle("上传图片", forState: UIControlState.Normal)
-    ////            photoPushButton.addTarget(self, action: #selector(self.pushPhotoAction), forControlEvents: UIControlEvents.TouchUpInside)
-    ////            self.headerView.addSubview(photoPushButton)
-    ////            self.headerView.height = self.collectionV!.height+WIDTH*210/375+80
-    ////            self.myTableViw.tableHeaderView = self.headerView
-    ////        }
-    //
-    //    }
     
     func directoryURL() -> NSURL? {
         //定义并构建一个url来保存音频，音频文件名为ddMMyyyyHHmmss.caf
@@ -213,21 +185,44 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
         textView.addSubview(button)
         textView.addSubview(yinPin)//语音录制按钮
-        //        textView.addSubview(shiPin)
+                textView.addSubview(shiPin)
         let line = UILabel.init(frame: CGRectMake(0, button.frame.size.height+button.frame.origin.y+10, WIDTH, 1))
         line.backgroundColor = RGREY
-        //        let JINGGAOLabel = UILabel()
-        //        JINGGAOLabel.frame = CGRectMake(0, WIDTH*200/375, WIDTH, 20)
-        //        JINGGAOLabel.text = "禁止发布黄、赌，毒，违反国家法律的言论及图片"
-        //        JINGGAOLabel.backgroundColor = GREY
-        //        JINGGAOLabel.textColor = UIColor.redColor()
-        //        self.headerView.addSubview(JINGGAOLabel)
+        shiPin.addTarget(self, action: #selector(self.startShiPin), forControlEvents: .TouchUpInside)
         headerView.addSubview(textView)
         //        headerView.addSubview(line)
         self.myTableViw.tableHeaderView = headerView
         //        myTableViw.tableHeaderView = textView
         //        self.view.addSubview(textView)
     }
+    
+    func startShiPin(){
+        
+        let vc = IWVideoRecordingController()
+        vc.myFunc = {(editedText,images) ->Void in
+            self.mp4Url = editedText
+            self.mp4BackImage = images
+            if self.isShipin{
+                self.photoArray.insertObject(self.mp4BackImage, atIndex: self.photoArray.count-1)
+            }else{
+                self.photoArray.addObject(self.mp4BackImage)
+            }
+            
+            self.isShipin = true
+            self.addCollectionViewPicture()
+            if self.mp3FilePath.absoluteString != ""{
+                self.boFangButton.frame = CGRectMake(20, self.collectionV!.height+WIDTH*210/375+20,114 , 30)
+                self.headerView.height = self.collectionV!.height+WIDTH*210/375+70
+                self.myTableViw.tableHeaderView = self.headerView
+            }
+            
+        }
+        self.presentViewController(vc, animated: true) {
+            
+        }
+    }
+    
+    
     
     //录音
     func startRecord(){
@@ -514,6 +509,9 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         for imagess in photos {
             photoArray.addObject(imagess)
         }
+        if isShipin{
+            photoArray.addObject(self.mp4BackImage)
+        }
         self.addCollectionViewPicture()
         if self.mp3FilePath.absoluteString != ""{
         boFangButton.removeFromSuperview()
@@ -546,18 +544,9 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     func goToCamera(btn:UIButton){
         let imagePickerVc = TZImagePickerController.init(maxImagesCount: 9, delegate:self)
         
-        //        let VC1 =  ViewController1()
-        //        VC1.photoDelegate = self
-        self.presentViewController(imagePickerVc, animated: true, completion: nil)
+               self.presentViewController(imagePickerVc, animated: true, completion: nil)
         
-        //        print("上传图片")
-        //        print(btn.tag)
-        //        let imagePicker = UIImagePickerController();
-        //        imagePicker.delegate = self
-        //        imagePicker.allowsEditing = true
-        //        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-        //        self.presentViewController(imagePicker, animated: true, completion: nil)
-    }
+           }
     //上传图片的协议与代理方法
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         //        let image = info[UIImagePickerControllerEditedImage]as! UIImage
@@ -600,7 +589,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         //设置每一个item大小
         
         flowl.itemSize = CGSizeMake((WIDTH-60)/3, (WIDTH-60)/3)
-        //        flowl.sectionInset = UIEdgeInsetsMake(<#T##top: CGFloat##CGFloat#>, <#T##left: CGFloat##CGFloat#>, <#T##bottom: CGFloat##CGFloat#>, <#T##right: CGFloat##CGFloat#>)
+        
         flowl.sectionInset = UIEdgeInsetsMake(10, 10, 5, 10)
         flowl.minimumInteritemSpacing = 10
         flowl.minimumLineSpacing = 10
@@ -625,17 +614,6 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
     }
     
-    //    func pushPhotoAction(){
-    //        print(photoArray.count)
-    //
-    //
-    //            timer = NSTimer.scheduledTimerWithTimeInterval(1.2,
-    //                                                           target:self,selector:#selector(self.pushPhotos),
-    //                                                           userInfo:nil,repeats:true)
-    //
-    //
-    //    }
-    
     func pushPhotos(){
         hud3 = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud3.animationType = .Zoom
@@ -656,49 +634,20 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         aaaaaaa = 0
         if mp3FilePath.absoluteString == "" {
             isRecords = true
+            self.upImage()
+            return
         }
         if mp3FilePath.absoluteString != "" {
             print(mp3FilePath.absoluteString)
             
             let data = NSData.init(contentsOfFile: self.mp3FilePath.path!)
             
-//            let fileManager = NSFileManager.defaultManager()
-//            
-//            let data1 = fileManager.contentsAtPath(self.mp3FilePath.path!)
-            
-            
-//            Alamofire.upload(.POST, "http://httpbin.org/post", file: self.mp3FilePath)
-            
-//            Alamofire.upload(.POST, Bang_URL_Header+"uploadRecord", file: self.mp3FilePath)
-            
-//            Alamofire.upload(.GET, Bang_URL_Header+"uploadRecord", data: data!)
-//                .progress { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
-//                    print(totalBytesWritten)
-//                }
-//                .responseJSON(completionHandler: { (json) in
-//                    print(json)
-//                    //                    print(error)
-//                    
-//                })
-            
-            
-            
             
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = "ddHHmmssSSS"
             let dateStr = dateFormatter.stringFromDate(NSDate())
             let imageName = "bianminrecord" + dateStr +  userid + String(Int(arc4random()%10000)+1)
-//            self.sound = imageName
-//            self.fabuAction()
             
-            
-            
-            
-            
-            
-            
-            
-            print(imageName)
             ConnectModel.uploadWithVideoName(imageName, imageData: data, URL: Bang_URL_Header+"uploadRecord", url:self.mp3FilePath, finish: { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
                     
@@ -711,6 +660,8 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                                 print(self.sound)
                                 if aaaaaaa == self.photoArray.count||self.photoArray.count == 0{
                                     self.fabuAction()
+                                }else{
+                                    self.upImage()
                                 }
                                 print("000000000000000000")
                                 
@@ -722,6 +673,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                                 hud.removeFromSuperViewOnHide = true
                                 hud.hide(true, afterDelay: 1)
                                 self.hud1.hide(true)
+                                self.upImage()
                             }
                         })
                     }
@@ -730,7 +682,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         
         
-        self.upImage()
+        
         
 //        if self.photoArray.count != 0 {
 //            for image in photoArray {
@@ -790,10 +742,78 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
     }
     
+    func uploadMp4(){
+        
+        if !isShipin{
+            self.fabuAction()
+            return
+        }
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        var userid = String()
+        if ud.objectForKey("userid") != nil{
+            userid = ud.objectForKey("userid")as! String
+        }
+        
+//        let data = NSData.init(contentsOfFile: self.mp4Url.path!)
+        let data = NSData.init(contentsOfURL: self.mp4Url)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "ddHHmmssSSS"
+        let dateStr = dateFormatter.stringFromDate(NSDate())
+        let Mp4Name = "bianminVideo" + dateStr +  userid + String(Int(arc4random()%10000)+1)
+//        
+//        Alamofire.upload(.POST, Bang_URL_Header+"uploadRecord", file: self.mp4Url)
+//        .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
+//            print(bytesWritten)
+//        }
+//        .responseJSON { (response) in
+//            print(response)
+//        }
+        
+        
+        let request =  AFHTTPRequestSerializer().multipartFormRequestWithMethod("POST", URLString: Bang_URL_Header+"uploadRecord", parameters:["name":"upfile"], constructingBodyWithBlock: { (formData) in
+            formData.appendPartWithFileData(data!, name: "upfile", fileName: "\(Mp4Name).mp4", mimeType: "video/mp4")
+            }, error: nil)
+        let manager = AFURLSessionManager(sessionConfiguration: NSURLSessionConfiguration.defaultSessionConfiguration())
+        let uploadTask = manager.uploadTaskWithStreamedRequest(request, progress: { (progress) in
+            dispatch_async(dispatch_get_main_queue(), {() -> Void in
+                print("正在上传.......\(progress)")
+            })
+            }, completionHandler: { (response, responseObject, error) in
+                if (error != nil) {
+                    print(error)
+                    alert("视频上传失败", delegate: self)
+                    return
+                }else{
+                    print("response========")
+                    print(response)
+                    print("responseObject========")
+                    let r = responseObject as! NSDictionary
+                    self.Mp4VideoName = r["data"]! as! String
+                    self.fabuAction()
+                    print(r["data"])
+                    print(r["status"])
+                }
+        })
+        uploadTask.resume()
+
+    }
+    
     
     
     func upImage(){
         
+        if isShipin{
+            if self.photoArray.count == 1{
+                self.uploadMp4()
+                return
+            }
+        }else{
+            if self.photoArray.count == 0{
+                self.uploadMp4()
+                return
+            }
+        }
         let ud = NSUserDefaults.standardUserDefaults()
         var userid = String()
         if ud.objectForKey("userid") != nil {
@@ -825,7 +845,12 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                                 print(self.photoArray.count)
                                 self.aaaaaaa = self.aaaaaaa+1
                                 if self.aaaaaaa == self.photoArray.count && self.isRecords == true{
-                                    self.fabuAction()
+                                    if self.isShipin{
+                                        self.uploadMp4()
+                                    }else{
+                                        self.fabuAction()
+                                    }
+                                    
                                 }else{
                                     self.upImage()
                                 }
@@ -834,11 +859,12 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                             }else{
                                 let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
                                 hud.mode = MBProgressHUDMode.Text;
-                                //                            hud.labelText = "图片上传失败"
+                                hud.labelText = "图片上传失败"
                                 hud.margin = 10.0
                                 hud.removeFromSuperViewOnHide = true
                                 hud.hide(true, afterDelay: 1)
                                 self.hud1.hide(true)
+                                self.upImage()
                             }
                         })
                     }
@@ -925,7 +951,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         print(self.photoNameArr)
 
-        mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime),address2:adress2,longitude:longitude,latitude:latitude) { (success, response) in
+        mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime),address2:adress2,longitude:longitude,latitude:latitude,video :self.Mp4VideoName) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             print(response)
             if !success{
@@ -975,9 +1001,6 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             cell.myButton.setTitle(String(audioPlayer!.duration), forState: UIControlState.Normal)
             cell.myButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
             cell.myButton.frame = CGRectMake(0, 0, cell.frame.size.width, 30)
-            //            cell.button.frame.size.height = 30
-            //            cell.myButton.backgroundColor = UIColor.redColor()
-            //            cell.button.center = cell.center
             cell.frame.size.height = 35
         }
         let button = UIButton.init(frame: CGRectMake(cell.frame.size.width-20, 0, 20, 20))
@@ -985,20 +1008,43 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         button.tag = indexPath.row
         button.addTarget(self, action: #selector(self.deleteImage(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.addSubview(button)
+        if isShipin{
+            if indexPath.item == self.photoArray.count-1{
+               
+               cell.button.setImage(UIImage(named: "ic_bofang1"), forState: .Normal)
+            }else{
+                cell.button.setImage(UIImage(named: ""), forState: .Normal)
+            }
+        }else{
+            cell.button.setImage(UIImage(named: ""), forState: .Normal)
+        }
+        
         //        cell.myImage.addSubview(button)
         return cell
     }
     
+    func MP4bofangButtonAction(){
+        if let urls = self.mp4Url {
+            let player = AVPlayer(URL: urls)
+            let playerController = AVPlayerViewController()
+            playerController.player = player
+            self.presentViewController(playerController, animated: true, completion: nil)
+        }
+    }
+    
     func lookPhotos(sender:UIButton)  {
+        
+        if isShipin{
+            if sender.tag == self.photoArray.count-1{
+                self.MP4bofangButtonAction()
+                return
+            }
+        }
         
         let lookPhotosImageView = UIImageView()
         lookPhotosImageView.backgroundColor = UIColor.whiteColor()
         lookPhotosImageView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         
-        //        let imageBuffer = UnsafeMutablePointer<UInt8>.alloc(Int(representation.size()))
-        //        let bufferSize = representation.getBytes(imageBuffer, fromOffset: Int64(0),
-        //                                                 length: Int(representation.size()), error: nil)
-        //        let data:NSData =  NSData(bytesNoCopy:imageBuffer ,length:bufferSize, freeWhenDone:true)
         let image = self.photoArray[sender.tag]
         let data:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
         var myImagess = UIImage()
@@ -1054,7 +1100,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
 //        hud1.animationType = .Zoom
 //        hud1.labelText = "正在努力加载"
         print(mp3FilePath.absoluteString)
-        if (self.photoArray.count == 0) && (mp3FilePath.absoluteString == "" ){
+        if (self.photoArray.count == 0) && (mp3FilePath.absoluteString == "" ) && !self.isShipin{
             self.fabuAction()
         }else {
             self.pushPhotos()
@@ -1072,7 +1118,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     //删除照片
     func deleteImage(btn:UIButton){
-        print(btn.tag)
+        if self.isShipin{
+            if btn.tag == self.photoArray.count-1{
+                self.isShipin = false
+            }
+        }
         self.photoArray.removeObjectAtIndex(btn.tag)
         self.collectionV?.reloadData()
         if self.photoArray.count%3 == 0&&self.photoArray.count>1  {
@@ -1080,6 +1130,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             self.collectionV?.height = (self.collectionV?.height)! - (WIDTH-60)/3
             self.headerView.frame = CGRectMake(0, 0, WIDTH, (self.headerView.height - (WIDTH-60)/3))
             self.myTableViw.tableHeaderView = self.headerView
+            self.boFangButton.frame = CGRectMake(20, collectionV!.height+WIDTH*210/375+20,114 , 30)
             //            })
             
         }

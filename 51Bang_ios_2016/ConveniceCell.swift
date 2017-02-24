@@ -31,7 +31,7 @@ class ConveniceCell: UITableViewCell{
     
     //    var phoneStr = String()
     
-    var contenLabel = UILabel()
+    var contenLabel = CopyLabel()
     var picHeight:CGFloat = 0
     var image1 : UIImageView?
     var image2 : UIImageView?

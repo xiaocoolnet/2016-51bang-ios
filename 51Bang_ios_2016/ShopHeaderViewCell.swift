@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShopHeaderViewCell: UITableViewCell {
+class ShopHeaderViewCell: UITableViewCell,UITextViewDelegate {
 
     
     @IBOutlet weak var headerImage: UIImageView!
@@ -18,6 +18,8 @@ class ShopHeaderViewCell: UITableViewCell {
     @IBOutlet weak var desciptionHeight: NSLayoutConstraint!
     
     @IBOutlet weak var price: UILabel!
+    
+    let copyLabel = CopyLabel()
     
     
 //    @IBOutlet weak var back: UIButton!
@@ -30,9 +32,16 @@ class ShopHeaderViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         desciption.userInteractionEnabled = false
+//        copyLabel.frame = desciption.frame
+        
+        copyLabel.backgroundColor = UIColor.clearColor()
+        copyLabel.textColor = UIColor.clearColor()
+        self.addSubview(copyLabel)
 
         // Initialization code
     }
+    
+    
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

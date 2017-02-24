@@ -30,7 +30,7 @@
             <connections>
                 <outlet property="myButton" destination="WMi-UB-CLp" id="3iJ-KR-wjP"/>
             </connections>
-            <point key="canvasLocation" x="595" y="437.5"/>
+            <point key="canvasLocation" x="376" y="218.5"/>
         </collectionViewCell>
     </objects>
     <resources>

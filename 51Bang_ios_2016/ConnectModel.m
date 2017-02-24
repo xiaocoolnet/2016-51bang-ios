@@ -32,6 +32,14 @@
     p.myBolck = block;
     [p startFormConnectWithVideoName:name URL:url url:url1 imageData:imageData];
 }
+
+
++ (void)uploadWithMp4Name:(NSString *)name imageData:(NSData *)imageData URL:(NSString *)url url:(NSURL *)url1 finish:(ConnectBlock)block
+{
+    ConnectModel * p = [[ConnectModel alloc] init];
+    p.myBolck = block;
+    [p startFormConnectWithMp4Name:name URL:url Mp4Data:imageData];
+}
 - (void)startFormConnectWithImageName:(NSString *)name URL:(NSString *)defaulturl imageData:(NSData *)imageData
 {
     
@@ -55,33 +63,6 @@
 }
 - (void)startFormConnectWithVideoName:(NSString *)name URL:(NSString *)defaulturl url:(NSURL *)url1 imageData:(NSData *)imageData
 {
-//    //会话管理对象
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    //设置返回数据的格式
-//    //2.上传文件
-//    NSDictionary *dict = @{@"username":@"1234"};
-////    NSString *url = @"1235466";
-//    
-//    [manager POST:defaulturl parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-//        //上传文件参数
-////        UIImage *image = [UIImage imageNamed:@"4.png"];
-////        NSData *data = UIImagePNGRepresentation(image);
-//        //这个就是参数
-////        [formData appendPartWithFileData:imageData name:@"file" fileName:[NSString stringWithFormat:@"%@.%@",name,@"mp3"] mimeType:@"audio/MP3"];
-//       
-//        [formData appendPartWithFileURL:url1 name:[NSString stringWithFormat:@"%@.%@",name,@"mp3"] error:nil];
-//    } progress:^(NSProgress * _Nonnull uploadProgress) {
-//        //打印上传进度
-//        NSLog(@"%lf",1.0 * uploadProgress.completedUnitCount / uploadProgress.totalUnitCount);
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"请求成功");
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"请求失败");
-//    }];
-    
-    
-    
-    
     
     NSURL * url = [NSURL URLWithString:defaulturl];
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
@@ -108,27 +89,27 @@
 //    p.myBolck = block;
 //    [p startFormConnectWithVideoName:name URL:url imageData:imageData];
 //}
-//- (void)startFormConnectWithImageName:(NSString *)name URL:(NSString *)defaulturl imageData:(NSData *)imageData
-//{
-//    
-//    NSURL * url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", PICURL, defaulturl]];
-//    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
-//    [request setHTTPMethod:@"POST"];
-//    NSString *formLine = @"--0xKhTmLbOuNdArY-44DF1AB4-7622-4163-948C-8A1FEADDBF27";
-//    NSMutableString *value = [NSMutableString stringWithFormat:@"%@\r\n", formLine];
-////    [value appendFormat:@"Content-Disposition: form-data;\r\n"];
-//    [value appendFormat:@"Content-Disposition: form-data; name=\"upfile\"; filename=\"%@.png\"\r\n", name];
-//        //声明上传文件的格式
-//    [value appendFormat:@"Content-Type: image/*\r\n\r\n"];
-//    NSMutableData *data = [NSMutableData dataWithData:[value dataUsingEncoding:NSUTF8StringEncoding]];
-//    [data appendData:imageData];
-//    [data appendData:[[NSString stringWithFormat:@"\r\n%@--", formLine] dataUsingEncoding:NSUTF8StringEncoding]];
-////    NSLog(@"value ====== %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-//    [request setHTTPBody:data];
-//    NSString *content=[[NSString alloc]initWithFormat:@"multipart/form-data; boundary=%@",@"0xKhTmLbOuNdArY-44DF1AB4-7622-4163-948C-8A1FEADDBF27"];
-//    [request setValue:content forHTTPHeaderField:@"Content-Type"];
-//    [NSURLConnection connectionWithRequest:request delegate:self];
-//}
+- (void)startFormConnectWithMp4Name:(NSString *)name URL:(NSString *)defaulturl Mp4Data:(NSData *)Mp4Data
+{
+    
+    NSURL * url = [NSURL URLWithString:defaulturl];
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *formLine = @"--0xKhTmLbOuNdArY-44DF1AB4-7622-4163-948C-8A1FEADDBF27";
+    NSMutableString *value = [NSMutableString stringWithFormat:@"%@\r\n", formLine];
+//    [value appendFormat:@"Content-Disposition: form-data;\r\n"];
+    [value appendFormat:@"Content-Disposition: form-data; name=\"upfile\"; filename=\"%@.mp4\"\r\n", name];
+        //声明上传文件的格式
+    [value appendFormat:@"Content-Type: mp4/*\r\n\r\n"];
+    NSMutableData *data = [NSMutableData dataWithData:[value dataUsingEncoding:NSUTF8StringEncoding]];
+    [data appendData:Mp4Data];
+    [data appendData:[[NSString stringWithFormat:@"\r\n%@--", formLine] dataUsingEncoding:NSUTF8StringEncoding]];
+//    NSLog(@"value ====== %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    [request setHTTPBody:data];
+    NSString *content=[[NSString alloc]initWithFormat:@"multipart/form-data; boundary=%@",@"0xKhTmLbOuNdArY-44DF1AB4-7622-4163-948C-8A1FEADDBF27"];
+    [request setValue:content forHTTPHeaderField:@"Content-Type"];
+    [NSURLConnection connectionWithRequest:request delegate:self];
+}
 //- (void)startFormConnectWithVideoName:(NSString *)name URL:(NSString *)defaulturl imageData:(NSData *)imageData
 //{
 //    

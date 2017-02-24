@@ -10,6 +10,7 @@ import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var bofangButton: UIButton!
     
     @IBOutlet weak var button: UIButton!
 //    @IBOutlet weak var myImage: UIImageView!

@@ -34,7 +34,7 @@ class SameCityViewController: UIViewController,UITableViewDelegate,UITableViewDa
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.labelText = "正在努力加载"
-        mainHelper.GetTchdList("1",beginid: "0") { (success, response) in
+        mainHelper.GetTchdList("1",beginid: "0",keyWord: "") { (success, response) in
             if !success {
                 return
             }
