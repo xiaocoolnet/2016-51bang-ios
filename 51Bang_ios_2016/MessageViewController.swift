@@ -59,8 +59,6 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
             hud.hidden = true
             self.dataSource = response as? Array<chatListInfo> ?? []
             self.createTableView()
-            print(self.dataSource)
-            print(self.dataSource.count)
             self.myTableView.reloadData()
             })
         }

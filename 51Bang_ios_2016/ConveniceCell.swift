@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 protocol pushDelegate{
     func pushVC(myVC:UIViewController)
@@ -28,6 +29,10 @@ class ConveniceCell: UITableViewCell{
     var openButton = UIButton()
     var openButtonBackView = UIView()
     var closeButton = UIButton()
+    var boFangMp4Button = UIButton()
+    var targets = UIViewController()
+    
+    var lineView = UIView()
     
     //    var phoneStr = String()
     
@@ -46,7 +51,16 @@ class ConveniceCell: UITableViewCell{
     let imshow = UIView()
     init (myinfo:commentlistInfo){
          super.init(style: UITableViewCellStyle.Default , reuseIdentifier: "resucell")
-        self.sd_addSubviews([userImage,userName,timeLabel,contenLabel,backView])
+        self.sd_addSubviews([userImage,userName,timeLabel,contenLabel,backView,lineView])
+        
+        lineView.backgroundColor = LGBackColor
+        lineView.sd_layout()//添加约束
+            .widthIs(WIDTH)
+            .heightIs(1)
+            .leftSpaceToView(self,0)
+            .bottomSpaceToView(self,0)
+        
+        
         userImage.frame = CGRectMake(10, 10, 50, 50)
         userImage.layer.masksToBounds = true
         userImage.cornerRadius = 25
@@ -137,12 +151,20 @@ class ConveniceCell: UITableViewCell{
         
         super.init(style: UITableViewCellStyle.Default , reuseIdentifier: "resucell")
         
-        self.sd_addSubviews([userImage,userName,timeLabel,messageButton,phone,deletebutton,accountnumberButton,contenLabel,imshow])
+        self.sd_addSubviews([userImage,userName,timeLabel,messageButton,phone,deletebutton,accountnumberButton,contenLabel,imshow,lineView])
         
         userImage.frame = CGRectMake(10, 10, 50, 50)
         userImage.layer.masksToBounds = true
         userImage.cornerRadius = 25
         userImage.backgroundColor = UIColor.redColor()
+        
+        
+        lineView.backgroundColor = LGBackColor
+        lineView.sd_layout()//添加约束
+            .widthIs(WIDTH)
+            .heightIs(1)
+            .leftSpaceToView(self,0)
+            .bottomSpaceToView(self,0)
         
         if info.photo==nil {
             userImage.image = UIImage(named:"ic_moren")
@@ -151,6 +173,7 @@ class ConveniceCell: UITableViewCell{
             print(photoUrl)
             userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
         }
+        
         
         
         self.info = info
@@ -227,6 +250,7 @@ class ConveniceCell: UITableViewCell{
                 break
             }
             
+            
             let url = Bang_Image_Header+info.pic[imcount].pictureurl!
             
             print(url)
@@ -249,6 +273,19 @@ class ConveniceCell: UITableViewCell{
                     return
                 }
 
+            }
+            if imcount == info.pic.count-1 && info.video != nil && info.video != ""{
+                
+                self.boFangMp4Button.addTarget(self, action: #selector(self.boFangMp4ButtonAction), forControlEvents: .TouchUpInside)
+                if info.pic.count == 1{
+                    self.boFangMp4Button.frame = CGRectMake((WIDTH-120)/2-30, (WIDTH-120)/2-30, 60, 60)
+                    self.boFangMp4Button.setImage(UIImage(named:"ic_bofang1" ), forState: .Normal)
+                }else{
+                    self.boFangMp4Button.frame = CGRectMake((WIDTH / 3-30)/2-12, (WIDTH / 3-30)/2-12, 24, 24)
+                    self.boFangMp4Button.setImage(UIImage(named:"ic_bofang" ), forState: .Normal)
+                }
+                
+                imview.addSubview(self.boFangMp4Button)
             }
             
 //            imview.contentMode = .Redraw
@@ -402,6 +439,16 @@ class ConveniceCell: UITableViewCell{
     }
     func lookImage(sender:UIButton) {
         
+        if sender.tag == info!.pic.count-1 && info!.video != nil && info!.video != ""{
+            if let urls = NSURL.init(string: Bang_Image_Header+(info?.video!)! ){
+                let player = AVPlayer(URL: urls)
+                let playerController = AVPlayerViewController()
+                playerController.player = player
+                targets.presentViewController(playerController, animated: true, completion: nil)
+            }
+            return
+        }
+        
         let myVC = LookPhotoVC()
          myVC.hidesBottomBarWhenPushed = true
         myVC.myPhotoArray =  myPhotoArray
@@ -412,8 +459,16 @@ class ConveniceCell: UITableViewCell{
         myDelegate!.pushVC(myVC)
          myVC.hidesBottomBarWhenPushed = false
         
+        
     }
-    
+    func boFangMp4ButtonAction(){
+        if let urls = NSURL.init(string: Bang_Image_Header+(info?.video!)! ){
+            let player = AVPlayer(URL: urls)
+            let playerController = AVPlayerViewController()
+            playerController.player = player
+            targets.presentViewController(playerController, animated: true, completion: nil)
+        }
+    }
     
     
     

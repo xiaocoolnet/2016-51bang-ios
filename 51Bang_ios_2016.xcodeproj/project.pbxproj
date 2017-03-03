@@ -401,6 +401,9 @@
 		7754A3BE1DBF5E3100C06FBA /* 抢单取消.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */; };
 		77561D6F1E5E8151001594E9 /* CopyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77561D6E1E5E8151001594E9 /* CopyLabel.swift */; };
 		77594D911E1E2669000628A1 /* 发单声音.caf in Resources */ = {isa = PBXBuildFile; fileRef = 77594D901E1E2669000628A1 /* 发单声音.caf */; };
+		77648AB31E6507870023566A /* PublicTableViewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77648AB21E6507870023566A /* PublicTableViewsViewController.swift */; };
+		77648AB91E656DB80023566A /* MyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77648AB81E656DB80023566A /* MyMessageViewController.swift */; };
+		77648ABB1E656E750023566A /* MyMessageChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77648ABA1E656E750023566A /* MyMessageChildViewController.swift */; };
 		776610711E2DB23700A9A0B2 /* PublicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 776610701E2DB23700A9A0B2 /* PublicTableViewCell.swift */; };
 		778F60C31DDAB4A1000D41EA /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */; };
 		77D0AA751DB7423F00FB5A52 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D0AA731DB7423F00FB5A52 /* AboutViewController.swift */; };
@@ -1061,6 +1064,9 @@
 		7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "抢单取消.caf"; sourceTree = "<group>"; };
 		77561D6E1E5E8151001594E9 /* CopyLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyLabel.swift; sourceTree = "<group>"; };
 		77594D901E1E2669000628A1 /* 发单声音.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "发单声音.caf"; sourceTree = "<group>"; };
+		77648AB21E6507870023566A /* PublicTableViewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicTableViewsViewController.swift; sourceTree = "<group>"; };
+		77648AB81E656DB80023566A /* MyMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMessageViewController.swift; sourceTree = "<group>"; };
+		77648ABA1E656E750023566A /* MyMessageChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMessageChildViewController.swift; sourceTree = "<group>"; };
 		776610701E2DB23700A9A0B2 /* PublicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicTableViewCell.swift; sourceTree = "<group>"; };
 		778F60C01DDAB168000D41EA /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		778F60C21DDAB4A1000D41EA /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
@@ -1643,6 +1649,8 @@
 				A442639F1D92964F00F9DFB6 /* BankBandViewController.swift */,
 				A44263A11D92AFD800F9DFB6 /* CashGetViewController.swift */,
 				A4504C0F1D93B8A80039764D /* WalletDetail3ViewController.swift */,
+				77648AB81E656DB80023566A /* MyMessageViewController.swift */,
+				77648ABA1E656E750023566A /* MyMessageChildViewController.swift */,
 			);
 			name = "买家";
 			sourceTree = "<group>";
@@ -1918,6 +1926,7 @@
 				1FE4FA471D46066F009B6752 /* LocationTwoViewController.swift */,
 				1FE1D6AD1D4AE5C7006F6CC7 /* SkillSubitemViewController.swift */,
 				0DEBD5611D5C78BB008B7279 /* BankUpLoad.swift */,
+				77648AB21E6507870023566A /* PublicTableViewsViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -3096,6 +3105,7 @@
 				0DD511111D51D16E00FE88C2 /* ZLBigImageCell.m in Sources */,
 				1FE1D6B61D4B80C9006F6CC7 /* AddAddressViewController.swift in Sources */,
 				F24745261D6D51CF00870363 /* SGAssetModel.m in Sources */,
+				77648AB31E6507870023566A /* PublicTableViewsViewController.swift in Sources */,
 				0DD511131D51D16E00FE88C2 /* ZLNoAuthorityViewController.m in Sources */,
 				1F9B0E001D36491200C7CA52 /* TCMoreInfoHelper.swift in Sources */,
 				F2EEFA111D814318008FD274 /* ChetViewController.m in Sources */,
@@ -3227,6 +3237,7 @@
 				184053B41D15301F008A2BAB /* Http.swift in Sources */,
 				A44263A21D92AFD800F9DFB6 /* CashGetViewController.swift in Sources */,
 				77D0AA751DB7423F00FB5A52 /* AboutViewController.swift in Sources */,
+				77648ABB1E656E750023566A /* MyMessageChildViewController.swift in Sources */,
 				1FF073C01D30CAA80074C477 /* QuanBuFenLeiTableViewCell.swift in Sources */,
 				1FF43B5D1D2A0B7F00091F79 /* SiteTableViewCell.swift in Sources */,
 				F2EEFA1D1D81455B008FD274 /* Foundation+Log.m in Sources */,
@@ -3258,6 +3269,7 @@
 				1F0DF18B1D2B5D5F00D45390 /* ConvenienceHeaderViewCell.swift in Sources */,
 				1FFE54191D2C9166000891EB /* PayMethodTableViewCell.swift in Sources */,
 				A4504C101D93B8A80039764D /* WalletDetail3ViewController.swift in Sources */,
+				77648AB91E656DB80023566A /* MyMessageViewController.swift in Sources */,
 				F253E6DD1D7D496A009D2AF5 /* CityNameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

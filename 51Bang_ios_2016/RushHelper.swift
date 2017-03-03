@@ -95,10 +95,13 @@ class RushHelper: NSObject {
     }
     
     
-    func getAuthenticationInfoByUserId(userid:String, handle:ResponseBlock){
+    func getAuthenticationInfoByUserId(userid:String,longitude:String,latitude:String ,handle:ResponseBlock){
         let url = Bang_URL_Header+"getAuthenticationInfoByUserId"
         let param = [
-            "userid":userid
+            "userid":userid,
+            "longitude":longitude,
+            "latitude":latitude
+            
         ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)

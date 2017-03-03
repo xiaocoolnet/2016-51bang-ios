@@ -153,6 +153,7 @@ class chatListInfo: JSONJoy {
     var my_nickname:String?
     var other_face:String?
     var other_nickname:String?
+    var noreadcount:String?
     init(){
         
     }
@@ -170,7 +171,7 @@ class chatListInfo: JSONJoy {
         my_nickname = decoder["my_nickname"].string
         other_face = decoder["other_face"].string
         other_nickname = decoder["other_nickname"].string
-        
+        noreadcount = decoder["noreadcount"].string
         
     }
     

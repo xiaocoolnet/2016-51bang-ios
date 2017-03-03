@@ -121,6 +121,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     var firstTag = 0
     var secondTag = 0
     let textView = PlaceholderTextView()
+    var iszhuanxiang = Bool()
     
     
     override func viewDidLoad() {
@@ -131,9 +132,13 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         print(self.cityName)
         print(self.latitude)
         print(self.longitude)
-        self.GetData()
+        if !self.iszhuanxiang{
+            self.GetData()
+            self.createTableViewHeaderView()
+        }
+        
         self.createTableView()
-        self.createTableViewHeaderView()
+       
         location.delegate = self
         shangmen.delegate = self
         distanceLabel.text = "距离 " + "0.1Km"
@@ -701,41 +706,52 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     //MARK: 创建头视图
     func createTableViewHeaderView(){
         print(self.dataSource.count)
-        let startMargin = (WIDTH - 4 * (WIDTH*80/375) ) / 5
+        if iszhuanxiang{
+            headerView.frame = CGRectMake(0, 0, WIDTH, 250-WIDTH*165/375)
+        }else{
+            headerView.frame = CGRectMake(0, 0, WIDTH, 250)
+            let startMargin = (WIDTH - 4 * (WIDTH*80/375) ) / 5
             
-         headerView.frame = CGRectMake(0, 0, WIDTH, 250)
-//        view.backgroundColor = UIColor.grayColor()
-        let myTableViwWidth = self.myTableView.frame.size.width
-        let margin:CGFloat = (myTableViwWidth-CGFloat(self.totalloc) * WIDTH*95/375)/(CGFloat(self.totalloc)+1);
-        print(margin)
-        for i in 0..<self.dataSource.count{
-            let row:Int = i / totalloc;//行号
-            //1/3=0,2/3=0,3/3=1;
-            let loc:Int = i % totalloc;//列号
-            let appviewx:CGFloat = margin+(margin+myTableViwWidth/CGFloat(self.totalloc))*CGFloat(loc)
-            let appviewy:CGFloat = margin+(margin+WIDTH*40/375) * CGFloat(row)
-            let btn = UIButton()
-            btn.tag = i+500
-            btn.addTarget(self, action: #selector(self.onCLick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-//            btn.backgroundColor = UIColor.redColor()
             
-            btn.frame = CGRectMake(appviewx + startMargin, appviewy+10, WIDTH*80/375, WIDTH*30/375)
-            btn.layer.cornerRadius = WIDTH*10/375
-            btn.layer.borderWidth = 1
-            btn.layer.borderColor = COLOR.CGColor
-            btn.setTitleColor(COLOR, forState: UIControlState.Normal)
-            
-            let label = UILabel.init(frame: CGRectMake(0, 0, btn.frame.width, btn.frame.height))
-            let model = self.dataSource[i]
-            label.text = model.name
-//            label.text = array[i]
-            label.textColor = COLOR
-            label.textAlignment = .Center
-            btn.addSubview(label)
-            headerView.addSubview(btn)
-            
+            //        view.backgroundColor = UIColor.grayColor()
+            let myTableViwWidth = self.myTableView.frame.size.width
+            let margin:CGFloat = (myTableViwWidth-CGFloat(self.totalloc) * WIDTH*95/375)/(CGFloat(self.totalloc)+1);
+            print(margin)
+            for i in 0..<self.dataSource.count{
+                let row:Int = i / totalloc;//行号
+                //1/3=0,2/3=0,3/3=1;
+                let loc:Int = i % totalloc;//列号
+                let appviewx:CGFloat = margin+(margin+myTableViwWidth/CGFloat(self.totalloc))*CGFloat(loc)
+                let appviewy:CGFloat = margin+(margin+WIDTH*40/375) * CGFloat(row)
+                let btn = UIButton()
+                btn.tag = i+500
+                btn.addTarget(self, action: #selector(self.onCLick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                //            btn.backgroundColor = UIColor.redColor()
+                
+                btn.frame = CGRectMake(appviewx + startMargin, appviewy+10, WIDTH*80/375, WIDTH*30/375)
+                btn.layer.cornerRadius = WIDTH*10/375
+                btn.layer.borderWidth = 1
+                btn.layer.borderColor = COLOR.CGColor
+                btn.setTitleColor(COLOR, forState: UIControlState.Normal)
+                
+                let label = UILabel.init(frame: CGRectMake(0, 0, btn.frame.width, btn.frame.height))
+                let model = self.dataSource[i]
+                label.text = model.name
+                //            label.text = array[i]
+                label.textColor = COLOR
+                label.textAlignment = .Center
+                btn.addSubview(label)
+                headerView.addSubview(btn)
+                
+            }
         }
-        textView.frame = CGRectMake(0, WIDTH*165/375, WIDTH, 180)
+        
+        if iszhuanxiang{
+            textView.frame = CGRectMake(0, 0, WIDTH, 180)
+        }else{
+            textView.frame = CGRectMake(0, WIDTH*165/375, WIDTH, 180)
+        }
+        
         textView.tag = 45
         textView.backgroundColor = UIColor.whiteColor()
         textView.delegate = self

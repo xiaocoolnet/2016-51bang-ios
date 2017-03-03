@@ -46,6 +46,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     var keyword = String()
     
+    var countsLabel = UILabel()
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
@@ -81,6 +83,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         }catch{
             
         }
+        self.getcountMessage()
 //        self.tabBarController?.tabBar.hidden = false
     }
     override func viewDidDisappear(animated: Bool) {
@@ -101,6 +104,9 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         createRightNavi()
         
         
+        
+        
+        
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -111,7 +117,8 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         if var textToSearch = sc.searchBar.text {
             textToSearch = textToSearch.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-            self.getData(textToSearch)
+            self.keyword = textToSearch
+            self.headerRefresh()
         }
     }
     
@@ -125,14 +132,46 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     
     func createRightNavi(){
         
+        let rightbackview = UIView.init(frame: CGRectMake(0, 0, 100, 50))
+        
+        
+        
         let button = UIButton()
-        button.frame = CGRectMake(0, 0, 40, 20)
-        //        button.backgroundColor = UIColor.redColor()
+        button.frame = CGRectMake(60, 15, 40, 20)
         button.setTitle("发布", forState: UIControlState.Normal)
         button.addTarget(self, action: #selector(self.nextView), forControlEvents: UIControlEvents.TouchUpInside)
-        let item = UIBarButtonItem(customView:button)
+        rightbackview.addSubview(button)
+        
+        let button1 = UIButton()
+        button1.frame = CGRectMake(0, 15, 40, 20)
+        button1.setTitle("消息", forState: UIControlState.Normal)
+        button1.addTarget(self, action: #selector(self.messageButton), forControlEvents: UIControlEvents.TouchUpInside)
+        rightbackview.addSubview(button1)
+        
+        countsLabel.frame =  CGRectMake(30, 10, 18, 18)
+        countsLabel.backgroundColor = UIColor.redColor()
+        countsLabel.text = "0"
+        
+        countsLabel.textAlignment = .Center
+        countsLabel.textColor = UIColor.whiteColor()
+        countsLabel.font = UIFont.systemFontOfSize(11)
+//        countsLabel.sizeToFit()
+        countsLabel.layer.masksToBounds = true
+        countsLabel.center = CGPointMake(36, 15)
+        countsLabel.layer.cornerRadius = 9
+        
+        countsLabel.hidden = true
+        rightbackview.addSubview(countsLabel)
+        
+        
+        let item = UIBarButtonItem(customView:rightbackview)
         self.navigationItem.rightBarButtonItem = item
         
+    }
+    
+    func messageButton(){
+        let vc = MessageViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK:跳转发布页
@@ -226,7 +265,34 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
     }
     
-    
+    func getcountMessage(){
+        let ud = NSUserDefaults.standardUserDefaults()
+        var useridstr = String()
+        if ud.objectForKey("userid") != nil {
+            useridstr = ud.objectForKey("userid") as! String
+        }
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+        mainHelper.xcGetChatnoReadCount(useridstr) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if success{
+                    self.countsLabel.hidden = false
+                    self.countsLabel.text = response as? String
+                    let counts = Int(response as! String)
+                    if counts>99{
+                        self.countsLabel.text = "99+"
+                        self.countsLabel.frame = CGRectMake(30, 10, 22, 22)
+                        self.countsLabel.layer.cornerRadius = 11
+                    }
+                    hud.hide(true)
+                }else{
+                    self.countsLabel.hidden = true
+                    hud.hide(true)
+                }
+            })
+        }
+    }
     
     
     
@@ -264,6 +330,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         convenienceTable.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
+            self.keyword = ""
             self.headerRefresh()
             
         })
@@ -277,7 +344,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
     }
     
     func headerRefresh(){
-        self.keyword = ""
+        getcountMessage()
         mainHelper.GetTchdList("1", beginid: "0",keyWord: self.keyword) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
             if !success {
@@ -386,6 +453,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     print((dataSource2[indexPath.row-1] as! TCHDInfo).isOpen)
                     self.boFangButton.removeFromSuperview()
                     let cell = ConveniceCell.init(info: self.dataSource2[indexPath.row-1] as! TCHDInfo )
+                    cell.targets = self
                     //                    if self.dataSource![indexPath.row-1].record != nil || self.dataSource![indexPath.row-1].record != "" {
                     //
                     //

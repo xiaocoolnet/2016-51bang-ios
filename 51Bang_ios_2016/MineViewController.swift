@@ -43,8 +43,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let top = UIView()
     let myTableView = UITableView()
     let foot:[String] = ["我是买家","我是卖家","",""]
-    let team:[String] = ["我的发单","我的订单","我的发布","我的收藏","卷码验证","分享二维码","商户订单"]
-    let teamImg:[String] = ["ic_wodefadan","ic_youhuiquan","ic_wodefabu","ic_wodedingdan","wodeshoucang","ic_weizhi拷贝2","ic_fenxiang","ic_youhuiquan"]
+    let team:[String] = ["我的发单","我的订单","我的发布","我的收藏","卷码验证","分享二维码","商户订单","我发布的消息"]
+    let teamImg:[String] = ["ic_wodefadan","ic_youhuiquan","ic_wodefabu","ic_wodedingdan","wodeshoucang","ic_weizhi拷贝2","ic_fenxiang","ic_youhuiquan","ic_wodefadan"]
     
     let busness:[String] = ["我的接单","我的投保","我的地址"]
     let busnissImg:[String] = ["ic_wodejiedan","ic_woyaotoubao","ic_weizhi拷贝2"]
@@ -1041,14 +1041,6 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(faDan, animated: true)
                 self.hidesBottomBarWhenPushed = false
-                //            case 1:
-                //
-                //                let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                //                let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("2View")
-                //                vc.title = "我的优惠券"
-                //                self.hidesBottomBarWhenPushed = true
-                //                self.navigationController?.pushViewController(vc, animated: true)
-            //                self.hidesBottomBarWhenPushed = false
             case 1:
                 let bookDanVc = MyBookDan()
                 self.badgeView4.hidden = true
@@ -1097,6 +1089,13 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
 ////                self.navigationController?.pushViewController(bao, animated: true)
 //                alert("程序员正在玩命开发中", delegate: self)
 //                self.hidesBottomBarWhenPushed = false
+                
+            case 7:
+                let VC = MyMessageViewController()
+                self.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(VC, animated: true)
+                 self.hidesBottomBarWhenPushed = false
+                break
             default:
                 print("不合法")
             }

@@ -479,12 +479,22 @@ static CGFloat TZScreenScale;
         [[PHImageManager defaultManager] requestPlayerItemForVideo:asset options:nil resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
             if (completion) completion(playerItem,info);
         }];
+        
     } else if ([asset isKindOfClass:[ALAsset class]]) {
         ALAsset *alAsset = (ALAsset *)asset;
         ALAssetRepresentation *defaultRepresentation = [alAsset defaultRepresentation];
         NSString *uti = [defaultRepresentation UTI];
         NSURL *videoURL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
+        
+        
         AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:videoURL];
+//        //自己添加的扩展，视频不能超过15秒
+//        AVURLAsset * asset = [AVURLAsset assetWithURL:videoURL];
+//        CMTime   time = [asset duration];
+//        int seconds = ceil(time.value/time.timescale);
+//        if (seconds>15){
+//            completion(playerItem,nil);
+//        }
         if (completion && playerItem) completion(playerItem,nil);
     }
 }

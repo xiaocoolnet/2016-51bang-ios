@@ -14,7 +14,7 @@ import AVKit
 import AFNetworking
 
 var type = Int()
-class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,AVAudioRecorderDelegate,UITextFieldDelegate,UITextViewDelegate,TZImagePickerControllerDelegate{
+class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,AVAudioRecorderDelegate,UITextFieldDelegate,UITextViewDelegate,TZImagePickerControllerDelegate,UIWebViewDelegate{
     var isRecord = Bool()
     var textView = PlaceholderTextView()
     
@@ -60,6 +60,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     var collectionV:UICollectionView?
     let photoNameArr = NSMutableArray()
     let mainHelper = MainHelper()
+    var backurls : AdvertiselistModel?
     private let GET_ID_KEY = "record"
     var processHandle:TimerHandle?
     var finishHandle:TimerHandle?
@@ -192,18 +193,69 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         headerView.addSubview(textView)
         //        headerView.addSubview(line)
         self.myTableViw.tableHeaderView = headerView
+        
+        self.getadvertisement()
+        
+        
         //        myTableViw.tableHeaderView = textView
         //        self.view.addSubview(textView)
     }
     
+    func getadvertisement(){
+        mainHelper.Getslidelist("1") { (success, response) in
+            if success{
+                dispatch_async(dispatch_get_main_queue(), {
+                    let urls = Bang_Open_Header+(response as! Array<AdvertiselistModel>)[0].slide_pic!
+                    self.backurls = (response as! Array<AdvertiselistModel>)[0]
+                    let footbackView = UIView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH))
+                    let footImageView = UIImageView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH))
+                    footImageView.sd_setImageWithURL(NSURL.init(string:urls), placeholderImage: UIImage(named: "01.png"))
+                    footImageView.contentMode = .ScaleAspectFit
+                    let buttons = UIButton.init(frame: footImageView.frame)
+                    buttons.backgroundColor = UIColor.clearColor()
+                    buttons.addTarget(self, action: #selector(self.ButtonsAction), forControlEvents: .TouchUpInside)
+                    footbackView.addSubview(footImageView)
+                    footbackView.addSubview(buttons)
+                    self.myTableViw.tableFooterView = footbackView
+                })
+            }
+        }
+    }
+    
+    func ButtonsAction(){
+        let vc = UIViewController()
+        vc.view.backgroundColor = UIColor.brownColor()
+        vc.title = backurls?.slide_name
+        let webView = UIWebView()
+        webView.backgroundColor = GREY
+        webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        let url = NSURL(string:"http://"+(backurls?.slide_url)!)
+        print(url)
+        if url != nil{
+            webView.loadRequest(NSURLRequest(URL:url!))
+        }else{
+            return
+        }
+        
+        webView.delegate = self
+        vc.view.addSubview(webView)
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
+    
     func startShiPin(){
+        if self.photoArray == 9 && !isShipin{
+            alert("图片与视频最多上传9张/个", delegate: self)
+            return
+        }
         
         let vc = IWVideoRecordingController()
         vc.myFunc = {(editedText,images) ->Void in
             self.mp4Url = editedText
             self.mp4BackImage = images
             if self.isShipin{
-                self.photoArray.insertObject(self.mp4BackImage, atIndex: self.photoArray.count-1)
+                self.photoArray.replaceObjectAtIndex(self.photoArray.count-1, withObject: self.mp4BackImage)
             }else{
                 self.photoArray.addObject(self.mp4BackImage)
             }
@@ -541,10 +593,69 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
     }
     
-    func goToCamera(btn:UIButton){
-        let imagePickerVc = TZImagePickerController.init(maxImagesCount: 9, delegate:self)
+    
+    func imagePickerController(picker: TZImagePickerController!, didFinishPickingVideo coverImage: UIImage!, sourceAssets asset: AnyObject!) {
+        PHImageManager.defaultManager().requestAVAssetForVideo(asset as! PHAsset, options: nil) { (urlass, audioMix, info) in
+            dispatch_async(dispatch_get_main_queue(), {
+                print( (urlass as! AVURLAsset).URL)
+                
+                self.mp4Url = (urlass as! AVURLAsset).URL
+                self.mp4BackImage = coverImage
+                if self.isShipin{
+                    
+                    self.photoArray.replaceObjectAtIndex(self.photoArray.count-1, withObject: self.mp4BackImage)
+                    
+                    
+                }else{
+                    self.photoArray.addObject(self.mp4BackImage)
+                }
+                
+                self.isShipin = true
+                self.addCollectionViewPicture()
+                if self.mp3FilePath.absoluteString != ""{
+                    self.boFangButton.frame = CGRectMake(20, self.collectionV!.height+WIDTH*210/375+20,114 , 30)
+                    self.headerView.height = self.collectionV!.height+WIDTH*210/375+70
+                    self.myTableViw.tableHeaderView = self.headerView
+                }
+
+            })
+            
+        }
         
-               self.presentViewController(imagePickerVc, animated: true, completion: nil)
+        
+        
+//        if asset.isKindOfClass(PHAsset){
+//           PHImageManager.defaultManager().requestPlayerItemForVideo(asset, options: nil, resultHandler: { (playerItem, info) in
+//            (playerItem as AVPlayerItem)
+//           })
+//        }
+//        if ([asset isKindOfClass:[PHAsset class]]) {
+//            [[PHImageManager defaultManager] requestPlayerItemForVideo:asset options:nil resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
+//                if (completion) completion(playerItem,info);
+//                }];
+//        } else if ([asset isKindOfClass:[ALAsset class]]) {
+//            ALAsset *alAsset = (ALAsset *)asset;
+//            ALAssetRepresentation *defaultRepresentation = [alAsset defaultRepresentation];
+//            NSString *uti = [defaultRepresentation UTI];
+//            NSURL *videoURL = [[asset valueForProperty:ALAssetPropertyURLs] valueForKey:uti];
+//            AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:videoURL];
+//            if (completion && playerItem) completion(playerItem,nil);
+//        }
+}
+
+    func goToCamera(btn:UIButton){
+        if isShipin{
+            let imagePickerVc = TZImagePickerController.init(maxImagesCount: 8, delegate:self)
+            imagePickerVc.allowPickingOriginalPhoto = false
+            
+            self.presentViewController(imagePickerVc, animated: true, completion: nil)
+        }else{
+            let imagePickerVc = TZImagePickerController.init(maxImagesCount: 9, delegate:self)
+            imagePickerVc.allowPickingOriginalPhoto = false
+            
+            self.presentViewController(imagePickerVc, animated: true, completion: nil)
+        }
+        
         
            }
     //上传图片的协议与代理方法
@@ -748,6 +859,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             self.fabuAction()
             return
         }
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.mode = .Text
+        hud.labelText = "正在努力加载"
+        self.view.bringSubviewToFront(hud)
         
         let ud = NSUserDefaults.standardUserDefaults()
         var userid = String()
@@ -782,17 +898,17 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             }, completionHandler: { (response, responseObject, error) in
                 if (error != nil) {
                     print(error)
+                    hud.hide(true)
                     alert("视频上传失败", delegate: self)
+                    self.photoNameArr.removeLastObject()
                     return
                 }else{
-                    print("response========")
-                    print(response)
-                    print("responseObject========")
+                    hud.hide(true)
+                   
                     let r = responseObject as! NSDictionary
                     self.Mp4VideoName = r["data"]! as! String
                     self.fabuAction()
-                    print(r["data"])
-                    print(r["status"])
+                   
                 }
         })
         uploadTask.resume()
@@ -804,10 +920,10 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     func upImage(){
         
         if isShipin{
-            if self.photoArray.count == 1{
-                self.uploadMp4()
-                return
-            }
+//            if self.photoArray.count == 1{
+//                self.uploadMp4()
+//                return
+//            }
         }else{
             if self.photoArray.count == 0{
                 self.uploadMp4()
@@ -924,7 +1040,6 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
 //        userLocationCenter.setObject(self.streetNameStr, forKey: "streetName")
         
         
-        print("发表评论")
         
         let textView = self.view.viewWithTag(1)as! PlaceholderTextView
 //        print(textView.text)
@@ -955,21 +1070,67 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             dispatch_async(dispatch_get_main_queue(), {
             print(response)
             if !success{
-                alert((response as! String), delegate: self)
+               
+                alert("发布失败！请检查您的网络", delegate: self)
+                
+                
+                
+//                alert((response as! String), delegate: self)
                 self.hud3.hide(true)
                 return
-            }
-                self.hud3.hide(true)
-//            self.hud1.hide(true)
+            }else{
+                if (response as! messageBackInfo).status == "-2"{
+                    let alertController1 = UIAlertController(title: "系统提示",
+                        message: "您的免费发布次数已用完，是否购买更多？", preferredStyle: .Alert)
+                    let cancelAction1 = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+                    let okAction1 = UIAlertAction(title: "确定", style: .Default,
+                        handler: { action in
+                            let vc = PayViewController()
+                            
+                            let ud = NSUserDefaults.standardUserDefaults()
+                            var userid = String()
+                            if ud.objectForKey("userid") != nil {
+                                userid = ud.objectForKey("userid") as! String
+                            }
+                            let dateFormatter = NSDateFormatter()
+                            dateFormatter.dateFormat = "yyyyMMddHHmmss"
+                            let dateStr = dateFormatter.stringFromDate(NSDate())
+                            let numForGoodS =  dateStr + userid + String(arc4random()) + "_M" + (response as! messageBackInfo).id!
+                            userid = ud.objectForKey("userid")as! String
+                            
+                            
+                            vc.numForGoodS = numForGoodS
+                            vc.isMessage = true
+                            self.mainHelper.GetMessagePrice(userid, handle: { (success, response) in
+                                if success{
+                                    
+                                    let price1 = Double(response as! String)
+                                    if price1 != nil{
+                                        vc.price = Double(response as! String)!
+                                    }
+                                    vc.subject = "同城发布购买"
+                                    
+                                    vc.body = "同城发布购买"
+                                    
+                                    
+                                    self.navigationController?.pushViewController(vc, animated: true)
+                                }
+                            })
+                            
+                            
+                            
+                    })
+                    alertController1.addAction(cancelAction1)
+                    alertController1.addAction(okAction1)
+                    self.presentViewController(alertController1, animated: true, completion: nil)
+                }else{
+                    self.hud3.hide(true)
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+                }
            
-            //                let aletView = UIAlertView.init(title: "提示", message:"发布成功", delegate: self, cancelButtonTitle: "确定")
-            //                aletView.show()
-            self.navigationController?.popViewControllerAnimated(true)
             })
         }
-        
-//        self.navigationController?.popViewControllerAnimated(true)
-        
         
     }
     

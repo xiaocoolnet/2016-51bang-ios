@@ -18,6 +18,10 @@ let Bang_Image_Header = Bang_Open_Header+"uploads/images/"
 typealias TimerHandle = (timeInterVal:Int)->Void
 
 
+
+let LGBackColor = UIColor(red: 239/255.0, green: 239/255.0, blue: 239/255.0, alpha: 1)
+
+
 //计时器类
 class TimeManager{
     var taskDic = Dictionary<String,TimeTask>()
@@ -105,7 +109,9 @@ class RegularExpression{
 
 //  提示框
 func alert(message:String,delegate:AnyObject){
-    let alert = UIAlertView(title: "提示", message: message, delegate: delegate, cancelButtonTitle: "确定")
+    
+    var alert = UIAlertView()
+    alert = UIAlertView(title: "提示", message: message, delegate: delegate, cancelButtonTitle: "确定")
     alert.show()
 }
 

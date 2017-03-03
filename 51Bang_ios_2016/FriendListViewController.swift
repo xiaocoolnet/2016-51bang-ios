@@ -43,6 +43,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = true
         myTableView.userInteractionEnabled = true
+        
     }
     
     override func viewDidLoad() {
@@ -94,10 +95,59 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         //        let view = UIView.init(frame: CGRectMake(0, 0, <#T##width: CGFloat##CGFloat#>, <#T##height: CGFloat##CGFloat#>))
         self.view.backgroundColor = UIColor.whiteColor()
 //           self.GetData()
+        if isNextGrade{
+            self.getCountHeader()
+            
+        }
         
         
         // Do any additional setup after loading the view.
     }
+    
+    func getCountHeader(){
+        
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        var useridstr = String()
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+        if ud.objectForKey("userid") != nil {
+            useridstr = ud.objectForKey("userid") as! String
+        }
+        mainHelper.getMyIntroduceCount(useridstr) { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                
+            
+            if success{
+                hud.hide(true)
+                 var str1 = NSMutableAttributedString.init()
+                if response != nil{
+                    let count = response as! String
+                    str1 = NSMutableAttributedString.init(string: "总人数："+count)
+                    
+                }else{
+                    let count = "0"
+                    str1 = NSMutableAttributedString.init(string: "总人数："+count)
+                }
+                
+                let countsLabel = UILabel.init(frame: CGRectMake(0, 0, 100, 20))
+                countsLabel.textColor = UIColor.whiteColor()
+                countsLabel.font = UIFont.systemFontOfSize(13)
+                countsLabel.textAlignment = .Right
+                
+                str1.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range: NSRange.init(location: 0, length: 4))
+                str1.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: NSRange.init(location: 4, length: str1.length-4))
+                countsLabel.attributedText = str1
+                
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: countsLabel)
+               
+            }else{
+                hud.hide(true)
+            }
+            })
+            }
+        }
     
     
     func getNextGradeData(beginid:String){
@@ -122,6 +172,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                     
                 }
                 hud.hide(true)
+                
                 
                 if beginid == "0"{
                     self.rzbDataSource = response as? Array<RzbInfo> ?? []
@@ -159,6 +210,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
         hud.labelText = "正在努力加载"
         
         
+        
         let userLocationCenter = NSUserDefaults.standardUserDefaults()
         var cityname = String()
 //        var latitude = String()
@@ -180,15 +232,7 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
                         self.myTableView.mj_header.endRefreshing()
                         self.rzbDataSource = nil
                         self.myTableView.reloadData()
-                        //                    self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-WIDTH*50/375-15)
-                        ////                    self.myTableView.delegate = self
-                        ////                    self.myTableView.dataSource = self
-                        //                    self.myTableView.backgroundColor = RGREY
-                        //                    self.myTableView.tag = 0
-                        //
-                        //
-                        //                    self.myTableView.registerNib(UINib(nibName: "RenZhengBangTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
-                        //                    self.view.addSubview(self.myTableView)
+                        
                         hud.hide(true)
                         return
                     }

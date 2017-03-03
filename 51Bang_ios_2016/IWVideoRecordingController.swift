@@ -146,11 +146,11 @@ AVCaptureFileOutputRecordingDelegate {
         stopButton.addTarget(self, action: #selector(onClickedEndButton(_:)), forControlEvents: .TouchUpInside)
         self.view.addSubview(stopButton)
         
-        self.boFangButton.frame = CGRectMake(WIDTH/2-24, HEIGHT/2-24, 48, 48)
-        self.boFangButton.setImage(UIImage(named: "ic_bofang"), forState: .Normal)
+        self.boFangButton.frame = CGRectMake(WIDTH/2-24, HEIGHT/2-24, 60, 60)
+        self.boFangButton.setImage(UIImage(named: "ic_bofang1"), forState: .Normal)
         self.boFangButton.addTarget(self, action: #selector(self.boFangButtonAction), forControlEvents: .TouchUpInside)
         self.view.addSubview(self.boFangButton)
-        self.boFangButton.backgroundColor = UIColor.redColor()
+//        self.boFangButton.backgroundColor = UIColor.redColor()
         self.addBoFangButton(false)
         
     }

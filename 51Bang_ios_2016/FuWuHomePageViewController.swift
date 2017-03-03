@@ -10,6 +10,8 @@ import UIKit
 
 class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    var ismainCome = Bool()
+    
     //    let myTableView = UITableView()
     var dataSource : Array<SkilllistModel>?
     var dataSource4 : Array<commentlistInfo>?
@@ -37,17 +39,41 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
 //        print(self.info!.commentlist)
         
         self.GetData()
+        
         // Do any additional setup after loading the view.
     }
     
     
     func createTableView(){
         myTableView.frame = CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+12))
+        
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.tableFooterView = UIView()
         self.view.addSubview(myTableView)
+//        if self.ismainCome {
+//            myTableView.frame = CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+12-40))
+//            
+//            let footBackView = UIView.init(frame: CGRectMake(0, HEIGHT-40-64, WIDTH, 40))
+//            footBackView.backgroundColor = UIColor.whiteColor()
+//            self.view.addSubview(footBackView)
+//            let gogoButton = UIButton.init(frame: CGRectMake(WIDTH-80, 0, 80, 40))
+//            gogoButton.backgroundColor = UIColor.orangeColor()
+//            gogoButton.setTitle("立即下单", forState: .Normal)
+//            gogoButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+//            gogoButton.titleLabel?.font = UIFont.systemFontOfSize(14)
+//            gogoButton.addTarget(self, action: #selector(self.gogoButtonAction), forControlEvents: .TouchUpInside)
+//            footBackView.addSubview(gogoButton)
+//        }
+        
 //        myTableView.backgroundColor
+    }
+    
+    
+    func gogoButtonAction(){
+        let vc = CommitOrderViewController()
+        vc.iszhuanxiang = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func GetData(){
@@ -58,7 +84,7 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
         if userid == "" {
             userid = (info?.id)!
         }
-            skillHelper.getAuthenticationInfoByUserId(self.userid, handle: { (success, response) in
+        skillHelper.getAuthenticationInfoByUserId(self.userid,longitude:"",latitude: "", handle: { (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                 if !success{
                     alert("数据加载错误", delegate: self)

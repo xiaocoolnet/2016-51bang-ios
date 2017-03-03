@@ -13,6 +13,7 @@
 #import "TZAssetModel.h"
 #import "TZImagePickerController.h"
 #import "TZPhotoPreviewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface TZVideoPlayerController () {
     AVPlayer *_player;
@@ -38,6 +39,7 @@
     [[TZImageManager manager] getPhotoWithAsset:_model.asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
         _cover = photo;
     }];
+    
     [[TZImageManager manager] getVideoWithAsset:_model.asset completion:^(AVPlayerItem *playerItem, NSDictionary *info) {
         dispatch_async(dispatch_get_main_queue(), ^{
             _player = [AVPlayer playerWithPlayerItem:playerItem];
@@ -48,9 +50,20 @@
             [self configPlayButton];
             [self configBottomToolBar];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayerAndShowNaviBar) name:AVPlayerItemDidPlayToEndTimeNotification object:_player.currentItem];
+            
+            
         });
+        
     }];
+    
+    
+    
+    
+    
+    
 }
+
+
 
 /// Show progress，do it next time / 给播放器添加进度更新,下次加上
 -(void)addProgressObserver{
@@ -80,6 +93,7 @@
     _toolBar.backgroundColor = [UIColor colorWithRed:rgb green:rgb blue:rgb alpha:1.0];
     _toolBar.alpha = 0.7;
     
+    
     _okButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _okButton.frame = CGRectMake(self.view.tz_width - 44 - 12, 0, 44, 44);
     _okButton.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -88,7 +102,9 @@
     TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;
     [_okButton setTitleColor:imagePickerVc.oKButtonTitleColorNormal forState:UIControlStateNormal];
     
+
     [_toolBar addSubview:_okButton];
+    
     [self.view addSubview:_toolBar];
 }
 

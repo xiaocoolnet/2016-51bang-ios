@@ -39,13 +39,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = TaskModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
-                if(result.status == "success"){
-                    print(result.datas)
-                    print(result.datas.count)
+            if(result.status == "success"){
                     handle(success: true, response: result.datas)
                     
                     
@@ -72,13 +66,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = DicModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.datas)
-                    print(result.datas.count)
                     handle(success: true, response: result.datas)
                     
                     
@@ -107,13 +95,13 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+
+
+
+
                 if(result.status == "success"){
-//                    print(result.datas)
-//                    print(result.datas.count)
+
+
                     handle(success: true, response: result.data)
                     
                     
@@ -143,13 +131,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = WorkingStateModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-//                    print(result.datas)
-//                    print(result.datas.count)
                     handle(success: true, response: result.data)
                     
                     
@@ -180,13 +162,36 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = WorkingStateModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    //                    print(result.datas)
-                    //                    print(result.datas.count)
+                    handle(success: true, response: result.data)
+                    
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    
+    func Getslidelist(typeid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"getslidelist"
+        let param1 = [
+            
+            "typeid":typeid
+            
+        ];
+        Alamofire.request(.GET, url, parameters: param1).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = AdvertisementModel(JSONDecoder(json!))
+
+                if(result.status == "success"){
+
                     handle(success: true, response: result.data)
                     
                     
@@ -230,28 +235,17 @@
             "picurl":photoUrl,
             "soundtime":soundtime
         ];
-        //        let param1 = [
-        //
-        //            "userid":userid,
-        //            "title":title,
-        //            "description":description,
-        //            "address":address,
-        //            "longitude":longitude,
-        //            "latitude":latitude,
-        //            "price":price
-        //        ];
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)
             if(error != nil){
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+
+               
                 if(result.status == "success"){
-                    print(result.data)
+                    
+                    
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -296,12 +290,9 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+
                 if(result.status == "success"){
-                    print(result.data)
+
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -314,141 +305,11 @@
     }
     
     
-//    func downloadImage(recordName:String) ->NSData{
-//        
-//        let url = Bang_Image_Header+recordName
-//        let destination = Alamofire.Request.suggestedDownloadDestination(
-//            directory: .DocumentDirectory, domain: .UserDomainMask)
-//        print(destination)
-//        var b = NSData()
-//        Alamofire.download(.GET, url, destination: destination)
-//            .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-//                let percent = totalBytesRead*100/totalBytesExpectedToRead
-//                print("已下载：\(totalBytesRead)  当前进度：\(percent)%")
-//            }
-//            .response { (request, response, _, error) in
-//                print(response)
-//                let fileManager = NSFileManager.defaultManager()
-//                let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
-//                    inDomains: .UserDomainMask)[0]
-//                let pathComponent = response!.suggestedFilename
-//                let pathUrl = directoryURL.URLByAppendingPathComponent(pathComponent!)
-//                
-//                print(pathUrl)
-//                let a = UIImage.init(contentsOfFile: pathUrl.path!)
-//                 b = UIImageJPEGRepresentation(a!, 1)!
-//                let userData = NSUserDefaults.standardUserDefaults()
-//                userData.setObject(b, forKey: "userphoto")
-//                
-////                print(b)
-////                do{
-////                    self.audioSession = AVAudioSession.sharedInstance()
-////                    try self.audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-////                    try self.audioSession.setActive(true)
-////                    self.audioPlayer = try AVAudioPlayer.init(contentsOfURL:pathUrl)
-////                    self.audioPlayer!.prepareToPlay()
-////                    //                    self.audioPlayer!.numberOfLoops = -1
-////                    self.audioPlayer!.volume = 1;
-////                    self.audioPlayer!.play()
-////                }catch{
-////                    print("1233444")
-////                }
-//        }
-////        print("00000")
-//        return b
-//    }
-//    
-    
-    //语音下载
-    func downloadRecond(recordName:String, handles:DownMP3Block) {
-        
-        let url = Bang_Image_Header+recordName
-        let destination = Alamofire.Request.suggestedDownloadDestination(
-            directory: .DocumentDirectory, domain: .UserDomainMask)
-        print(destination)
-        
-        let directoryURL = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        
-        
-        let fileManager = NSFileManager.defaultManager()
-//        let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
-//                                                        inDomains: .UserDomainMask)[0]
-//        let pathComponent = recordName.suggestedFilename
-        
-        let pathUrl = directoryURL.stringByAppendingString("/" + recordName)
-        let b = NSURL.init(fileURLWithPath: pathUrl, isDirectory: true)
-       
 
-//        if fileManager.fileExistsAtPath(pathUrl) {
-//            handles(success: true, response: pathUrl)
-//            return
-//        }
-        Alamofire.download(.GET, url) {
-            temporaryURL, response in
-            let fileManager = NSFileManager.defaultManager()
-            let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
-                                                            inDomains: .UserDomainMask)[0]
-            let pathComponent = response.suggestedFilename
-            
-            let a = directoryURL.URLByAppendingPathComponent(pathComponent!)
-            print(a)
-            
-//            dispatch_async(dispatch_get_main_queue(), {
-//                let url = NSBundle.mainBundle().URLForResource("杨宗纬 - 空白格", withExtension: ".mp3")
-                
-                do{
-                    self.audioSession = AVAudioSession.sharedInstance()
-                    try self.audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-                    try self.audioSession.setActive(true)
-                    self.audioPlayer = try AVAudioPlayer.init(contentsOfURL:a)
-                    self.audioPlayer!.prepareToPlay()
-                    //                    self.audioPlayer!.numberOfLoops = -1
-                    self.audioPlayer!.volume = 1;
-                    self.audioPlayer!.play()
-                }catch{
-                   
-                    print("1233444")
-                }
-//            })
-            
-            
-            return directoryURL.URLByAppendingPathComponent(pathComponent!)
-        }
-        
-//        Alamofire.download(.GET, url, destination: destination)
-//            .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-//                let percent = totalBytesRead*100/totalBytesExpectedToRead
-//                print("已下载：\(totalBytesRead)  当前进度：\(percent)%")
-//            }
-//            .response { (request, response, _, error) in
-//                print(response)
-//                print(error)
-//                if error != nil{
-//                    handles(success: true, response: "失败")
-//                    return
-//                }
-//                handles(success: true, response: pathUrl)
-//                
-//                
-//                
-//                       }
-        
-//        var pathUrl = NSURL()
-        
-        
-//        Alamofire.download(.GET, url){ temporaryURL, response in
-//            let fileManager = NSFileManager.defaultManager()
-//            let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory,
-//                                                            inDomains: .UserDomainMask)[0]
-//            let pathComponent = response.suggestedFilename
-//            pathUrl = directoryURL.URLByAppendingPathComponent(pathComponent!)
-//            return directoryURL.URLByAppendingPathComponent(pathComponent!)
-//        }
-//        return pathUrl
-    }
     //发布便民信息
     func upLoadMessage(userid:NSString,phone:String,type:NSString,title:NSString,content:NSString,photoArray:NSArray,sound:NSString,soundtime:String,address2:String,longitude:String,latitude:String, video:String,handle:ResponseBlock){
-        let url = Bang_URL_Header+"addbbsposts"
+//        let url = Bang_URL_Header+"addbbsposts"
+        let url = Bang_URL_Header+"addbbsposts_new"
         let photoUrl = NSMutableString()
         for i in 0..<photoArray.count {
             if i == photoArray.count-1{
@@ -457,12 +318,6 @@
                 photoUrl.appendString(photoArray[i] as! String)
                 photoUrl.appendString(",")
             }
-            //            photoUrl.appendString(photoArray[i] as! String)
-            //            photoUrl.appendString(",")
-            //            if i==photoArray.count-1 {
-            ////                photoUrl.delete(",")
-            //                photoUrl.deleteCharactersInRange(NSRange.init(location: i, length: 1))
-            //            }
         }
         print(photoUrl)
         let param = [
@@ -480,7 +335,35 @@
             "video":video
         ];
         
-//        Alamofire.upload(<#T##URLRequest: URLRequestConvertible##URLRequestConvertible#>, data: <#T##NSData#>)
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = messageBack(JSONDecoder(json!))
+
+                if(result.status == "success"){
+
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    //发布便民信息
+    func GetMessagePrice(userid:NSString,handle:ResponseBlock){
+        //        let url = Bang_URL_Header+"addbbsposts"
+        let url = Bang_URL_Header+"GetMessagePrice"
+        let param = [
+            
+            "userid":userid
+        ];
         
         
         
@@ -490,12 +373,9 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+
                 if(result.status == "success"){
-                    print(result.data)
+
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -542,12 +422,9 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+
                 if(result.status == "success"){
-                    print(result.data)
+
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -575,12 +452,9 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+
                 if(result.status == "success"){
-                    print(result.data)
+
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -606,12 +480,9 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = TchdModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+
                 if(result.status == "success"){
-                    print(result.datas)
+
                     handle(success: true, response: result.datas)
                     
                 }else{
@@ -625,8 +496,40 @@
         }
         
     }
-    
-    
+    //获取未读消息数
+    func xcGetChatnoReadCount(userid:NSString,handle:ResponseBlock){
+        
+        
+        
+        let url = Bang_URL_Header+"xcGetChatnoReadCount"
+
+        
+        let param = [
+            "uid":userid
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+
+                
+                if(result.status == "success"){
+
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+    }
     
     func GetTchdList(type:NSString,beginid:NSString,keyWord:String,handle:ResponseBlock){
         let ud = NSUserDefaults.standardUserDefaults()
@@ -652,12 +555,44 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = TchdModel(JSONDecoder(json!))
-//                print("---")
-//                print(result)
-//                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+
                 if(result.status == "success"){
-//                    print(result.datas)
+
+                    handle(success: true, response: result.datas)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+    }
+    //获取我的便民圈
+    
+    func getbbspostlist(status:NSString,beginid:NSString,userid:String,handle:ResponseBlock){
+        
+        
+        let url = Bang_URL_Header+"getmybbspostlist"
+        
+        let param = [
+            
+            "status":status,
+            "beginid":beginid,
+            "userid":userid
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = TchdModel(JSONDecoder(json!))
+
+                if(result.status == "success"){
+
                     handle(success: true, response: result.datas)
                     
                 }else{
@@ -688,12 +623,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = RzbModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.datas)
                     handle(success: true, response: result.datas)
                     
                 }else{
@@ -712,25 +642,13 @@
         
         
         let url = Bang_URL_Header+"HomegetAuthenticationUserList"
-//        let userLocationCenter = NSUserDefaults.standardUserDefaults()
-////        var latitude = String()
-////        var longitude = String()
-//        if userLocationCenter.objectForKey("latitude") != nil && userLocationCenter.objectForKey("longitude") != nil{
-//            latitude = userLocationCenter.objectForKey("latitude") as! String
-//            longitude = userLocationCenter.objectForKey("longitude") as! String
-//        }
         Alamofire.request(.GET, url, parameters: ["cityname":cityname]).response { request, response, json, error in
             print(request)
             if(error != nil){
                 handle(success: false, response: error?.description)
             }else{
                 let result = RzbModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.datas)
                     handle(success: true, response: result.datas)
                     
                 }else{
@@ -756,17 +674,40 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = RzbModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+
                 if(result.status == "success"){
-                    print(result.datas)
-                    print(result.datas.count)
-                    
-                    
-                    
                     handle(success: true, response: result.datas)
+                    
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+        
+        
+    }
+    
+    //获取我的下级推广客户人数
+    func getMyIntroduceCount(userid:NSString, handle:ResponseBlock){
+        let url = Bang_URL_Header+"getMyIntroduceCount"
+        let param = [
+            "userid":userid
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                if(result.status == "success"){
+                    
+                    
+                    
+                    handle(success: true, response: result.data)
                     
                     
                 }else{
@@ -795,16 +736,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = TaskModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.datas)
-                    print(result.datas.count)
-                    
-                    
-                    
                     handle(success: true, response: result.datas)
                     
                     
@@ -832,13 +764,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = fadanDetailModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    //                    print(result.datas)
-                    //                    print(result.datas.count)
                     handle(success: true, response: result.data)
                     
                     
@@ -863,13 +789,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = fadanDetailModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    //                    print(result.datas)
-                    //                    print(result.datas.count)
                     handle(success: true, response: result.data)
                     
                     
@@ -897,13 +817,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.data)
-                    
                     handle(success: true, response: result.data)
                     
                     
@@ -931,13 +845,9 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = TaskModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
+               
+                
                 if(result.status == "success"){
-                    print(result.datas)
-                    print(result.datas.count)
                     handle(success: true, response: result.datas)
                     
                     
@@ -974,13 +884,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = MyOrderModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-//                    print(result.datas)
-//                    print(result.datas.count)
                     handle(success: true, response: result.datas)
                     
                     
@@ -1024,22 +928,14 @@
         ];
         
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
-            print(request)
-            print(error)
-            print(json)
-            if(1 != 1){
-//                handle(success: false, response: error?.description)
+                       if(1 != 1){
+
             }else{
-                print(JSONDecoder(json!).value)
+               
                 let result = ZHIFUfankui(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                print(result.status)
-                //let status = SkillListModel(JSONDecoder(json!))
+               
                 if(result.status == "success"){
-//                    print(result.datas)
-//                    print(result.datas.count)
+
                     handle(success: true, response: result.datas)
                     
                     
@@ -1079,18 +975,7 @@
   */
     func upLoadComment(userid:NSString,id:NSString,content:NSString,type:NSString,photo:NSString,usertype:String,score:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"SetEvaluate"
-        //        let photoUrl = NSMutableString()
-        //        for i in 0..<photo.count {
-        //            if i == photo.count-1{
-        //                photoUrl.appendString(photo[i] as! String)
-        //            }else{
-        //                photoUrl.appendString(photo[i] as! String)
-        //                photoUrl.appendString(",")
-        //            }
-        //
-        //        }
-        //        print(photoUrl)
-        let param = [
+                let param = [
             
             "userid":userid,
             "orderid":id,
@@ -1110,12 +995,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.data)
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -1141,12 +1021,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.data)
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -1175,12 +1050,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.data)
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -1203,15 +1073,11 @@
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
             let result = GoodsModel2(JSONDecoder(json!))
-            print(result)
-            print(result.data)
-            print(result.status)
+
             if result.status == "success"{
-                print(result.data)
                 handle(success: true, response: result.data)
             }else{
                 handle(success: false, response: result.data)
-                print(result.data)
                 
             }
             
@@ -1231,15 +1097,10 @@
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
             let result = favoriteModel(JSONDecoder(json!))
-            print(result)
-            print(result.data)
-            print(result.status!)
             if result.status == "success"{
-                print(result.data)
                 handle(success: true, response: result.data)
             }else{
                 handle(success: false, response: result.data)
-                print(result.data)
                 
             }
             
@@ -1269,12 +1130,8 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
                 
                 if(result.status == "success"){
-                    print(result.data)
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -1293,16 +1150,11 @@
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
             let result = chatListModel(JSONDecoder(json!))
-            print(result)
-//            print(result.datas)
-//            print(result.status!)
             if result.status == "success"{
-                print(result.data)
                 handle(success: true, response: result.datas)
             }else{
 //                alert(error, delegate: self)
                 handle(success: false, response: result.datas)
-                print(result.data)
                 
             }
             
@@ -1320,23 +1172,14 @@
         ]
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
-            print(response)
-//            let dictionary:NSDictionary = NSKeyedUnarchiver.unarchiveObjectWithData(json!)! as! NSDictionary
-//            print(dictionary)
-            let dogString:String = (NSString(data: json!, encoding: NSUTF8StringEncoding))! as String
-            print(dogString)
             
-//            let a = String.init(data: json!, encoding: NSStringEncoding)
             let result = chatModel(JSONDecoder(json!))
-            print(JSONDecoder(json!).array)
-            print(result)
-            print(result.status!)
             if result.status == "success"{
-                print(result.data)
+                
                 handle(success: true, response: result.datas)
             }else{
                 handle(success: false, response: result.datas)
-                print(result.data)
+                
                 
             }
             
@@ -1361,9 +1204,6 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = JuanmaModel(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
                 if(result.status == "success"){
                 
                     handle(success: true, response: result.datas)
@@ -1386,15 +1226,10 @@
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
             let result = GetMyApplyTastTotalModel(JSONDecoder(json!))
-            print(result)
-            print(result.data)
-            print(result.status)
             if result.status == "success"{
-                print(result.data)
                 handle(success: true, response: result.data)
             }else{
                 handle(success: false, response: result.data)
-                print(result.data)
                 
             }
             
@@ -1411,15 +1246,10 @@
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
             let result = GetUserBankModel(JSONDecoder(json!))
-            print(result)
-            print(result.data)
-            print(result.status)
             if result.status == "success"{
-                print(result.data)
                 handle(success: true, response: result.data)
             }else{
                 handle(success: false, response: result.data)
-                print(result.data)
                 
             }
             
@@ -1449,12 +1279,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                
                 if(result.status == "success"){
-                    print(result.data)
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -1492,11 +1317,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
                 if(result.status == "success"){
-                    print(result.data)
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -1523,12 +1344,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.data)
                     handle(success: true, response: result.data)
                     
                 }else{
@@ -1562,12 +1378,7 @@
                 handle(success: false, response: error?.description)
             }else{
                 let result = Http(JSONDecoder(json!))
-                print("---")
-                print(result)
-                print("---")
-                //let status = SkillListModel(JSONDecoder(json!))
                 if(result.status == "success"){
-                    print(result.data)
                     handle(success: true, response: result.data)
                     
                 }else{

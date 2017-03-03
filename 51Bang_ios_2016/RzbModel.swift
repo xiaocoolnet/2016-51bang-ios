@@ -75,7 +75,7 @@ class RzbInfo: JSONJoy {
     var orderNum:String
     var serviceCount:String
     var Ranking:String
-    
+    var distance :Int
     
     //    var photo:String
     //    var weixin:String
@@ -86,6 +86,7 @@ class RzbInfo: JSONJoy {
     var usertype:String
     var photo:String
     var isworking :String
+    var allcount:String
     var skilllist :[SkilllistModel]
     var commentlist:[commentlistInfo]
     
@@ -95,6 +96,8 @@ class RzbInfo: JSONJoy {
 //    }
     
     required init(_ decoder:JSONDecoder){
+        
+        distance = decoder["distance"].integer ?? 0
         name = decoder["name"].string ?? ""
         phone = decoder["phone"].string ?? ""
         id = decoder["id"].string ?? ""
@@ -118,6 +121,7 @@ class RzbInfo: JSONJoy {
         orderNum = decoder["orderNum"].string ?? ""
         serviceCount = decoder["serviceCount"].string ?? ""
         Ranking = decoder["Ranking"].string ?? ""
+        allcount = decoder["allcount"].string ?? ""
         skilllist = Array<SkilllistModel>()
         commentlist = Array<commentlistInfo>()
         if decoder["skilllist"].array != nil{

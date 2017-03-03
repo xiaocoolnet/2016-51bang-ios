@@ -25,6 +25,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     var isRenwu = Bool()
     let mainhelper = MainHelper()
     
+    var isMessage = Bool()
+    
     /**
      *  微信开放平台申请得到的 appid, 需要同时添加在 URL schema
      */
@@ -91,6 +93,18 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         //        bottom.addSubview(selectBtn)
         bottom.addSubview(btn)
         
+        if self.isMessage{
+            bottom.frame = CGRectMake(0, 0, WIDTH, 250)
+            let worningButton = UIButton.init(frame: CGRectMake(0, 150, WIDTH, 30))
+            worningButton.setTitle("如果需要办理套餐请拨打:4000608856", forState: .Normal)
+            worningButton.setTitleColor(COLOR, forState: .Normal)
+            worningButton.titleLabel?.font = UIFont.systemFontOfSize(13)
+            worningButton.backgroundColor = UIColor.clearColor()
+            worningButton.addTarget(self, action: #selector(self.worningButtonAction), forControlEvents: .TouchUpInside)
+            bottom.addSubview(worningButton)
+            
+        }
+        
         let headerView =  NSBundle.mainBundle().loadNibNamed("PayHeaderCell", owner: nil, options: nil).first as? PayHeaderCell
         print(self.xiaofei)
         if self.xiaofei == "" {
@@ -126,6 +140,23 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         self.navigationController?.pushViewController(vc, animated: true)
         
         
+    }
+    
+    func worningButtonAction(){
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "是否要拨打电话4000608856？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        
+                                        let url1 = NSURL(string: "tel://4000608856")
+                                        UIApplication.sharedApplication().openURL(url1!)
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     
@@ -427,7 +458,10 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         }else{
             alert("钱包支付", delegate: self)
         }
-        
+        if isMessage{
+            let vc =  ConvenientPeople()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         
         
     }

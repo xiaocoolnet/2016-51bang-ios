@@ -324,6 +324,7 @@ static CGSize AssetGridThumbnailSize;
     }
     cell.model = model;
     
+    
     __weak typeof(cell) weakCell = cell;
     __weak typeof(self) weakSelf = self;
     __weak typeof(_numberImageView.layer) weakLayer = _numberImageView.layer;
@@ -358,6 +359,9 @@ static CGSize AssetGridThumbnailSize;
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     // take a photo / 去拍照
+    
+    
+    
     TZImagePickerController *tzImagePickerVc = (TZImagePickerController *)self.navigationController;
     if (((tzImagePickerVc.sortAscendingByModificationDate && indexPath.row >= _models.count) || (!tzImagePickerVc.sortAscendingByModificationDate && indexPath.row == 0)) && _showTakePhotoBtn)  {
         [self takePhoto]; return;
@@ -368,6 +372,26 @@ static CGSize AssetGridThumbnailSize;
         index = indexPath.row - 1;
     }
     TZAssetModel *model = _models[index];
+    
+    NSString * s1 =  [model.timeLength substringFromIndex:2];
+    NSString * s = [model.timeLength substringToIndex:1];
+    int fen = s.intValue;
+    int miao = s1.intValue;
+    if (fen > 0){
+        
+        TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;
+        [imagePickerVc showAlertWithTitle:@"所选视频时长不能超过15秒"];
+        return;
+            }
+    
+    if (miao > 15){
+        TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;
+        [imagePickerVc showAlertWithTitle:@"所选视频时长不能超过15秒"];
+        return;
+    }
+
+    
+    
     if (model.type == TZAssetModelMediaTypeVideo) {
         if (tzImagePickerVc.selectedModels.count > 0) {
             TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;

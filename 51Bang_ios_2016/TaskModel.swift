@@ -38,8 +38,6 @@ class TaskModel: NSObject {
 class WorkingStateModel: NSObject {
     var status:String?
     var data: String?
-    //    var datas ＝ Array<GoodsList>()
-//    var datas = Array<TaskInfo>()
     var errorData:String?
     override init(){
     }
@@ -47,18 +45,58 @@ class WorkingStateModel: NSObject {
         
         status = decoder["status"].string
         if status == "success" {
-//            for childs: JSONDecoder in decoder["data"].array!{
-//                //                print(childs)
-//                //                print(SkillModel(childs))
-//                datas.append(TaskInfo(childs))
-//                print(datas)
-//                //                    array.append(SkillModel(childs))
-//            }
             data = decoder["data"].string
         }else{
             errorData = decoder["data"].string
         }
         
+    }
+}
+class AdvertisementModel: NSObject {
+    var status:String?
+    var data: Array<AdvertiselistModel> = []
+    var errorData:String?
+    override init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success" {
+            for childs: JSONDecoder in decoder["data"].array!{
+                data.append(AdvertiselistModel(childs))
+            }
+            
+            
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+    }
+}
+
+class AdvertiselistModel: NSObject {
+    var slide_id:String?
+    var slide_cid:String?
+    var slide_name:String?
+    var slide_pic:String?
+    var slide_url:String?
+    var slide_des:String?
+    var slide_content:String?
+    var slide_status:String?
+    var listorder:String?
+    
+    required init(_ decoder: JSONDecoder){
+        
+        slide_id = decoder["slide_id"].string
+        slide_cid = decoder["slide_cid"].string
+        slide_cid = decoder["id"].string
+        slide_name = decoder["slide_name"].string
+        slide_pic = decoder["slide_pic"].string
+        slide_url = decoder["slide_url"].string
+        slide_des = decoder["slide_des"].string
+        slide_content = decoder["slide_content"].string
+        slide_status = decoder["slide_status"].string
+        listorder = decoder["listorder"].string
     }
 }
 
@@ -78,8 +116,6 @@ class DicModel: NSObject {
                 //                print(childs)
                 //                print(SkillModel(childs))
                 datas.append(DicInfo(childs))
-                print(datas)
-                //                    array.append(SkillModel(childs))
             }
             
         }else{
@@ -140,6 +176,18 @@ class TaskList: JSONJoy {
     }
     
 }
+
+class messageBackInfo: JSONJoy {
+    
+    var status:String?
+    var id : String?
+    required init(_ decoder: JSONDecoder){
+        id = decoder["id"].string
+        status = decoder["status"].string
+    }
+    
+}
+
 
 class TaskInfo: JSONJoy {
     

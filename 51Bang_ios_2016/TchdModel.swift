@@ -74,6 +74,7 @@ class TCHDInfo: JSONJoy {
     var soundtime :String?
     var phone : String?
     var isOpen :Bool?
+    var video:String?
     
     
     var pic:[PicInfo]
@@ -94,6 +95,7 @@ class TCHDInfo: JSONJoy {
         soundtime = decoder["soundtime"].string
         pic = Array<PicInfo>()
         phone = decoder["phone"].string
+        video = decoder["video"].string
         if decoder["pic"].array != nil {
             for childs: JSONDecoder in decoder["pic"].array!{
                 self.pic.append(PicInfo(childs))

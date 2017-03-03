@@ -132,6 +132,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
+            self.keyword = ""
             self.headerRefresh(self.keyword)
             
         })
@@ -147,6 +148,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func headerRefresh(keyword:String){
+       
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.mode = .Text
@@ -324,7 +326,8 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.searchHistoryTableview.hidden = true
             searchBar.resignFirstResponder()
             self.searchBar.removeFromSuperview()
-            self.GetData(self.goodType, keyword: self.searchHistory[indexPath.row] as! String)
+            self.GetData(self.goodType, keyword: (self.searchHistory[self.searchHistory.count-1-indexPath.row] as? String)!)
+            self.keyword = (self.searchHistory[self.searchHistory.count-1-indexPath.row] as? String)!
         }
         
 //        print(indexPath.row)
@@ -597,6 +600,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
             self.userLocationCenter.setObject(newArray, forKey: "SearchFieldHistory")
             self.GetData("0", keyword: str)
+            self.keyword = str
         }
         self.myTableView.frame = CGRectMake(0, 50, WIDTH, HEIGHT-64-50)
         

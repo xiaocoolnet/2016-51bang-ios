@@ -27,3 +27,24 @@ class Http: JSONJoy{
         
     }
 }
+
+class messageBack: JSONJoy{
+    var status:String?
+    var data:messageBackInfo?
+    var errorData:String?
+    
+    init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success"{
+            data = messageBackInfo(decoder["data"])
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+        
+    }
+}
+

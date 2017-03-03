@@ -14,9 +14,18 @@ import CoreLocation
 var address:String  = ""
 class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCodeSearchDelegate,BMKLocationServiceDelegate,BMKMapViewDelegate{
     
+    var count2 = 0
+    var paopaoInfo : Array<RzbInfo> = []
+    var dataSource3 :Array<chatInfo> = []
+    let skillHelper = RushHelper()
+    var infoMore : RzbInfo?
+    let infoInmoreButton = UIButton.init(frame: CGRectMake(0, 0, WIDTH-60, 100))
+    
+    var countSelected = -1
+    
     var dataSource2 : Array<chatInfo>?
     var rzbDataSource : Array<RzbInfo>?
-    var biaoZhuArray = NSMutableArray()
+    var biaoZhuArray:Array<BMKPointAnnotation> = []
     var cutyName = String()
     var quName = String()
     let mainHelper = MainHelper()
@@ -57,13 +66,13 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     // 用户位置经纬度信息（及时）
     var savedLocation = BMKUserLocation()
     var flagLocation = BMKUserLocation()//价格flag标记，记录变化
+    var infoBackView = RenZhengBangTableViewCell()
     
     
     
     var userLocationCenter = NSUserDefaults.standardUserDefaults()
     override func viewWillAppear(animated: Bool) {
-        
-        
+        super.viewWillAppear(true)
         if self.userLocationCenter.objectForKey("quName") != nil{
             self.location.setTitle(self.userLocationCenter.objectForKey("quName") as? String, forState: UIControlState.Normal)
         }
@@ -82,13 +91,13 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         setBMKMpaview()
         createTopView()
         scrollView.scrollEnabled = false
-        let button = UIButton.init(type: UIButtonType.Custom)
-        button.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
-        button.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
-        button.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
-        self.BeingBackMyPositonBtn = button
+//        let button = UIButton.init(type: UIButtonType.Custom)
+//        button.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
+//        button.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
+//        button.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
+//        self.BeingBackMyPositonBtn = button
         CheckRenzheng()
-        super.viewWillAppear(true)
+        
         self.tabBarController?.tabBar.hidden = false
         self.navigationController?.navigationBar.hidden = false
         geocodeSearch.delegate = self
@@ -103,7 +112,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         geoCodeSearchOption.city = cutyName
         geoCodeSearchOption.address = quName
         let flog = searcher.geoCode(geoCodeSearchOption)
-        print(flog)
+        
         //        self.mapView.removeFromSuperview()
         //        setBMKMpaview()
         
@@ -117,22 +126,38 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         //        self.view.addSubview(self.annoImage)
         
         let buttons = UIButton.init(type: UIButtonType.Custom)
-        buttons.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
+        buttons.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 250, 30, 30)
         buttons.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
         buttons.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
         self.BeingBackMyPositonBtn = buttons
         UIApplication.sharedApplication().keyWindow!.addSubview(self.BeingBackMyPositonBtn)
         
+        self.infoBackView = NSBundle.mainBundle().loadNibNamed("RenZhengBangTableViewCell", owner: nil, options: nil).first as! RenZhengBangTableViewCell
+        self.infoBackView.frame = CGRectMake(0, HEIGHT, WIDTH, 175)
+       
         
-        
+        UIApplication.sharedApplication().keyWindow!.addSubview(self.infoBackView)
+
+        infoInmoreButton.backgroundColor = UIColor.clearColor()
+        infoInmoreButton.addTarget(self, action: #selector(self.infoInmoreButtonAction(_:)), forControlEvents: .TouchUpInside)
+        self.infoBackView.addSubview(infoInmoreButton)
         
         
     }
     
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.count2 = 0
+        self.paopaoInfo.removeAll()
+        self.biaoZhuArray.removeAll()
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         
-        print(String(MainViewController.userLocationForChange.coordinate.latitude))
+        
+        
+        
         if (userLocationCenter.objectForKey("myAddress") == nil) {
             
             
@@ -155,6 +180,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         //        self.backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
         self.BeingBackMyPositonBtn.removeFromSuperview()
+        self.infoBackView.removeFromSuperview()
         
         
     }
@@ -208,7 +234,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                         alert("数据加载出错", delegate: self)
                         return
                     }
-                    print(response! as! String)
+                    
                     
                     
                     if response as! String == "1"{
@@ -351,33 +377,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 return
                 
             }
-//            let ud = NSUserDefaults.standardUserDefaults()
-//            if ud.objectForKey("ss") != nil{
-//                if(ud.objectForKey("ss") as! String == "no")
-//                {
-//                    
-//                    
-//                    
-//                    let alertController = UIAlertController(title: "系统提示",
-//                                                            message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
-//                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-//                    let okAction = UIAlertAction(title: "确定", style: .Default,
-//                                                 handler: { action in
-//                                                    
-//                                                    
-//                                                    self.tabBarController?.selectedIndex = 1
-//                                                    
-//                    })
-//                    alertController.addAction(cancelAction)
-//                    alertController.addAction(okAction)
-//                    self.presentViewController(alertController, animated: true, completion: nil)
-//                    return
-//                    
-//                    
-//                    
-//                }
-//            }
-            
+
             
             
             
@@ -509,68 +509,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
        
         
-        //        mainHelper.checkCity(quName) { (success, response) in
-        //            print(response)
-        //            if !success{
-        ////
-        //                self.backMHView.frame = CGRectMake(0, 0, WIDTH, self.view.bounds.height+15)
-        //                self.backMHView.backgroundColor = UIColor.grayColor()
-        //                self.backMHView.alpha = 0.5
-        //                UIApplication.sharedApplication().keyWindow!.addSubview(self.backMHView)
-        //
-        //                self.backView.frame = CGRectMake(50,280, WIDTH-100, 150)
-        //                self.backView.backgroundColor = UIColor.whiteColor()
-        //                self.backView.layer.masksToBounds = true
-        //                self.backView.layer.cornerRadius = 8
-        //
-        //                let label11 = UILabel.init(frame: CGRectMake(0, 0, WIDTH-100, 30))
-        //                label11.backgroundColor = UIColor.whiteColor()
-        //                label11.text = "当前城市未开通51帮同城服务"
-        //                label11.textColor = COLOR
-        //                label11.textAlignment = NSTextAlignment.Center
-        //                self.backView.addSubview(label11)
-        //
-        //                let button11 = UIButton.init(frame: CGRectMake(0, 30, WIDTH-100, 50))
-        //                button11.backgroundColor = UIColor.whiteColor()
-        //                var titleStr = String()
-        //                titleStr = "请拨打400-0608-856"
-        //                let str = NSMutableAttributedString.init(string: titleStr)
-        //                str.addAttribute(NSForegroundColorAttributeName, value:COLOR, range: NSMakeRange(0,3))
-        //                str.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
-        //                //            str.addAttribute(NSUnderlineStyleAttributeName, value: UIColor.blackColor(), range: NSMakeRange(3,12))
-        //                button11.setAttributedTitle(str, forState: UIControlState.Normal)
-        //
-        //
-        //                //            button11.setTitleColor(COLOR, forState: UIControlState.Normal)
-        //                button11.addTarget(self, action: #selector(self.phoneCall), forControlEvents: UIControlEvents.TouchUpInside)
-        //                self.backView.addSubview(button11)
-        //                let label22 = UILabel.init(frame: CGRectMake(0, 80, WIDTH-100, 30))
-        //                label22.backgroundColor = UIColor.whiteColor()
-        //                label22.text = "申请开通或代理"
-        //                label22.textColor = COLOR
-        //                label22.textAlignment = NSTextAlignment.Center
-        //                self.backView.addSubview(label22)
-        //
-        //                let backbutton = UIButton.init(frame: CGRectMake((WIDTH-100)/2, 110, (WIDTH-100)/2, 40))
-        //
-        //                backbutton.backgroundColor = UIColor.whiteColor()
-        //                backbutton.setTitle("返回城市选择", forState: UIControlState.Normal)
-        //                backbutton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        //                backbutton.addTarget(self, action: #selector(self.backCityVc), forControlEvents: UIControlEvents.TouchUpInside)
-        //                self.backView.addSubview(backbutton)
-        //
-        //                UIApplication.sharedApplication().keyWindow!.addSubview(self.backView)
-        //            }else{
-        //                self.backView.removeFromSuperview()
-        //                self.backMHView.removeFromSuperview()
-        //            }
-        //        }
-        //        if (city != "北京"||city != "烟台"||city != "上海"||city != "深圳"||city != "广州") {
-        //
-        //
-        //
-        //        }
-    }
+           }
     
     func phoneCall(){
         
@@ -633,6 +572,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 if self.rzbDataSource == nil{
                     return
                 }
+                var counts = NSInteger()
+                counts = 0
                 for RZB in self.rzbDataSource!{
                     let biaozhu = BMKPointAnnotation()
                     
@@ -645,19 +586,23 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                         biaozhu.coordinate.longitude = CLLocationDegrees(RZB.longitude)!
                     }
                     if RZB.isworking as String == "1"{
-                        self.mapView.addAnnotation(biaozhu)
-                        self.biaoZhuArray.addObject(biaozhu)
+                        self.biaoZhuArray.append(biaozhu)
+                        self.mapView.selectAnnotation(biaozhu, animated: true)
+                        
+                        self.paopaoInfo.append(RZB)
+//                        self.mapView.addAnnotation(biaozhu)
                     }
-                    
+                    counts+=1
                     
                     //
                 }
-                //                self.mapView.addAnnotations(self.biaoZhuArray as [AnyObject])
+                self.mapView.addAnnotations(self.biaoZhuArray)
                 
             })
             })
         
     }
+    
     
     
     
@@ -669,14 +614,114 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             newAnnotationView.annotation = annotation
             return newAnnotationView
         }else{
+            
             let newAnnotationView = BMKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "myAnnotation")
             //        newAnnotationView.animatesDrop = true
+            let photoUrl:String = Bang_Open_Header+"uploads/images/"+self.paopaoInfo[count2].photo
+//            print(paopaoInfo[count2].id)
+//            print(photoUrl)
+            let button = UIButton.init(frame: CGRectMake(0, 0, 42, 42))
+//            button.center = CGPointMake(33.5, 30)
+            button.sd_setImageWithURL(NSURL(string:photoUrl), forState: .Normal, placeholderImage: UIImage(named: "ic_moren"))
+            button.layer.masksToBounds = true
+            button.layer.borderColor = UIColor.whiteColor().CGColor
+            button.layer.borderWidth = 2
+            button.tag = self.count2+600
+            button.addTarget(self, action: #selector(self.showServerInfo(_:)), forControlEvents: .TouchUpInside)
+            button.layer.cornerRadius = 21
+            button.backgroundColor = UIColor.redColor()
             
-            newAnnotationView.annotation = annotation
-            newAnnotationView.image = UIImage.init(named: "蓝色小人")
+//            newAnnotationView.annotation = annotation
+//            newAnnotationView.canShowCallout = true
+//            newAnnotationView.setSelected(true, animated: true)
+//            newAnnotationView.selected = true
+//            newAnnotationView.paopaoView = BMKActionPaopaoView.init(customView: button)
+            newAnnotationView.frame = CGRectMake(0, 0, 67, 67)
+            newAnnotationView.contentMode = .Center
+            newAnnotationView.backgroundColor = UIColor.clearColor()
+            newAnnotationView.addSubview(button)
+            newAnnotationView.centerOffset = CGPointMake(0, -33)
+            newAnnotationView.image = UIImage(named: "ic_shuidi")
+            
+            
+            
+//            let imageview = UIImageView()
+//
+//            imageview.sd_setImageWithURL(NSURL.init(string: photoUrl), placeholderImage: UIImage(named: "蓝色小人"))
+//            newAnnotationView.image = 
+            self.count2+=1
             return newAnnotationView
         }
         
+        
+    }
+    
+    
+    func showServerInfo(sender:UIButton){
+        
+        
+        if sender.tag == self.countSelected{
+            UIView.animateWithDuration(0.2, animations: {
+                self.infoBackView.frame = CGRectMake(0, HEIGHT-43-175, WIDTH, 175)
+            })
+            return
+        }
+        sender.frame = CGRectMake(-5, 0, 52, 52)
+        sender.layer.cornerRadius = 26
+        sender.layer.borderColor = UIColor.orangeColor().CGColor
+        
+        if self.countSelected != -1{
+            mapView.viewWithTag(self.countSelected)?.frame = CGRectMake(0, 0, 42, 42)
+            mapView.viewWithTag(self.countSelected)?.layer.borderColor = UIColor.whiteColor().CGColor
+            mapView.viewWithTag(self.countSelected)?.layer.cornerRadius = 21
+
+        }
+        self.countSelected = sender.tag
+        print(sender.tag-600)
+        let ud = NSUserDefaults.standardUserDefaults()
+        let longitude1 = ud.objectForKey("longitude")
+        let latitude1 = ud.objectForKey("latitude")
+        if longitude1 != nil&&latitude1 != nil{
+            skillHelper.getAuthenticationInfoByUserId(self.paopaoInfo[sender.tag-600].id,longitude:longitude1 as! String,latitude:latitude1 as! String, handle: { (success, response) in
+            dispatch_async(dispatch_get_main_queue(), {
+                if success{
+                    self.infoMore = response as! RzbInfo!
+                    self.showInfo(response as! RzbInfo!)
+                    self.infoBackView.hidden = false
+                    self.infoBackView.weizhiButton.addTarget(self, action: #selector(self.dingWeiAction(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                    
+                    self.infoBackView.message.addTarget(self, action: #selector(self.message(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                }else{
+                    alert("数据加载出错", delegate: self)
+                }
+                
+            })
+        })
+        }
+        UIView.animateWithDuration(0.2) { 
+            self.infoBackView.frame = CGRectMake(0, HEIGHT-43-175, WIDTH, 175)
+        }
+        
+        
+        
+        
+        
+    }
+    
+    func showInfo(info:RzbInfo){
+        
+        self.infoBackView.setValueWithInfo(self.infoMore!)
+        if self.infoMore!.distance != 0{
+            let dis = Double(self.infoMore!.distance)
+            if dis>999999{
+                self.infoBackView.distance.text = "999+km"
+            }else{
+                self.infoBackView.distance.text = (String(format:"%.2f",dis/1000))+"km"
+                print(String(format:"%.2f",dis/1000))
+            }
+        }else{
+             self.infoBackView.distance.text = "0km"
+        }
         
     }
     
@@ -721,8 +766,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     func moveToUser(){
         
-        //        print(self.savedLocation.location)
-        //        print(self.savedLocation.location.coordinate)
+        locationService.startUserLocationService()
+        
         if self.savedLocation != self.flagLocation {
             mapView.updateLocationData(self.savedLocation)
             mapView.setCenterCoordinate(self.savedLocation.location.coordinate, animated: true)
@@ -730,39 +775,6 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             alert("请打开定位功能", delegate: self)
             return
         }
-        
-        if userLocationCenter.objectForKey("subLocality") != nil && userLocationCenter.objectForKey("subLocality") as! String != "0"&&userLocationCenter.objectForKey("quName") != nil{
-            userLocationCenter.setObject(userLocationCenter.objectForKey("subLocality") as! String, forKey: "cityName")
-            
-            let strr = userLocationCenter.objectForKey("subLocality") as! String
-            
-            var count = Int()
-            for a in strr.characters{
-                if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
-                    break
-                }
-                count = count + 1
-            }
-            cutyName = (strr as NSString).substringFromIndex(strr.characters.count-quName.characters.count)
-            userLocationCenter.setObject(cutyName, forKey: "cityName")
-            
-            quName = userLocationCenter.objectForKey("quName") as! String
-//            let myArray1 = NSMutableArray()
-//            var quCount = Int()
-//            for a in quName.characters{
-//                if a == "市" || a == "盟" || a == "旗" || a == "县" || a == "州" || a == "区"{
-//                    myArray1.addObject(quCount)
-//                }
-//                
-//                quCount = quCount + 1
-//            }
-//            if myArray1.count>1 {
-//                quName = quName.substringFromIndex(quName.startIndex.advancedBy((myArray1[0] as! Int)+1))
-//            }
-            self.mapView.removeAnnotations(self.biaoZhuArray as [AnyObject])
-            self.getWeiZhi()
-        }
-        
         
         
         
@@ -779,7 +791,6 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         let reverseGeocodeSearchOption = BMKReverseGeoCodeOption()
         reverseGeocodeSearchOption.reverseGeoPoint = CLLocationCoordinate2DMake(latitude,longtitude)
         
-        print(latitude,longtitude)
         let flag = geocodeSearch.reverseGeoCode(reverseGeocodeSearchOption)
         if flag {
             print("反geo 检索发送成功")
@@ -808,6 +819,10 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     func mapView(mapView: BMKMapView!, regionDidChangeAnimated animated: Bool)
     {
+        
+        UIView.animateWithDuration(0.2) { 
+            self.infoBackView.frame = CGRectMake(0, HEIGHT, WIDTH, 175)
+        }
         
         let point :CGPoint = CGPointMake( self.mapView.frame.size.width * 0.5, self.mapView.frame.size.height * 0.5)
         let location = self.mapView.convertPoint(point, toCoordinateFromView: self.mapView)
@@ -856,14 +871,12 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             //            print(userLocation.title)
             pointAnmation.coordinate = userLocation.location.coordinate
             pointAnmation.title = userLocation.title
-            print(userLocation.title)
+            
             
             mapView.addAnnotation(pointAnmation)
             
             mapView.selectAnnotation(pointAnmation, animated: true)
             isDingwei = true
-            print(userLocation.location.coordinate.latitude)
-            print(userLocation.location.coordinate.longitude)
             userLocationCenter.setObject(String(userLocation.location.coordinate.latitude), forKey: "latitude")
             userLocationCenter.setObject(String(userLocation.location.coordinate.longitude), forKey: "longitude")
             if userLocation.title != nil {
@@ -903,10 +916,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         pointAnmation.coordinate = result.location
         pointAnmation.title = result.address
         mapView.addAnnotation(pointAnmation)
-//        print(result.location.latitude)
-//        print(result.location.longitude)
-//        print(result.address)
-//        print(result.description)
+
         mapView.selectAnnotation(pointAnmation, animated: true)
         //        self.WillShowName(result.location.longitude, longtitude: result.location.latitude)
     }
@@ -939,7 +949,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 //                print(dingWeiStr)
                 //                print(result.addressDetail.district)
                 if (isDingwei) {
-                    print(self.dingWeiStr+self.streetNameStr)
+                    
                     if userLocationCenter.objectForKey("userid") != nil {
                         mainHelper.GetWorkingState(userLocationCenter.objectForKey("userid") as! String) { (success, response) in
                             if success{
@@ -1015,31 +1025,140 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             
         }
         
-        //        createPointAnmation(MainViewController.userLocationForChange)
-        //          address = MainViewController.BMKname
     }
     
     
     
-    //    func addPointAnnotation() {
-    //        
-    //            
-    //            let ary1:NSArray = ["31.222771","39.915 ","31.229003"]
-    //            let ary2:NSArray = ["121.490317","116.404","121.448224"]
-    //            
-    //            var coor: CLLocationCoordinate2D = CLLocationCoordinate2D.init()
-    //        
-    //            for i in 0 ..< ary1.count {
-    //                
-    //                pointAnmation = BMKPointAnnotation.init() //必须放在循环里初始化
-    //                coor.latitude  = ary1[i].doubleValue
-    //                coor.longitude = ary2[i].doubleValue
-    //                pointAnmation.coordinate = coor
-    //                mapView.addAnnotation(pointAnmation)
-    //                
-    //            }
-    //    }
+    func dingWeiAction(sender:UIButton)  {
+        let opt = BMKOpenDrivingRouteOption()
+        opt.appScheme = "a51bang://a51bang"
+        let start = BMKPlanNode()
+        var coor1 = CLLocationCoordinate2D.init()
+        let ud = NSUserDefaults.standardUserDefaults()
+        let longitude = ud.objectForKey("longitude")
+        let latitude = ud.objectForKey("latitude")
+        let address = ud.objectForKey("myAddress")
+        
+        if latitude != nil && longitude != nil{
+            coor1.latitude = CLLocationDegrees(latitude as! String)!
+            coor1.longitude = CLLocationDegrees(longitude as! String)!
+        }else{
+            alert("请打开定位", delegate: self)
+            return
+        }
+        //指定起点名称
+        if address != nil {
+            start.name = address as! String
+        }else{
+            alert("请打开定位", delegate: self)
+            return
+        }
+        //            start.name = self.info.address!
+        start.pt = coor1
+        //指定起点
+        opt.startPoint = start
+        
+        
+        //初始化终点节点
+        let end = BMKPlanNode.init()
+        
+        var coor2 = CLLocationCoordinate2D.init()
+        if  self.infoMore!.latitude != "" && self.infoMore!.longitude != ""{
+            coor2.latitude = CLLocationDegrees(self.infoMore!.latitude as String)!
+            coor2.longitude = CLLocationDegrees(self.infoMore!.longitude as String)!
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        end.pt = coor2
+        //指定终点名称
+        if self.infoMore!.address != "" {
+            end.name = self.infoMore!.address
+        }else{
+            alert("地址不能为空", delegate: self)
+            return
+        }
+        
+        opt.endPoint = end
+        
+        
+        BMKOpenRoute.openBaiduMapDrivingRoute(opt)
+    }
     
+    func message(sender:UIButton){
+//        myTableView.userInteractionEnabled = false
+        let vc = ChetViewController()
+        vc.receive_uid = self.infoMore!.id
+        vc.titleTop = self.infoMore!.name
+        let ud = NSUserDefaults.standardUserDefaults()
+        let userid = ud.objectForKey("userid")as! String
+        if userid == self.infoMore!.id{
+//            myTableView.userInteractionEnabled = true
+            alert("请不要和自己说话", delegate: self)
+        }else{
+            mainHelper.getChatMessage(userid, receive_uid: self.infoMore!.id) { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if !success {
+                        alert("加载错误", delegate: self)
+                        return
+                    }
+                    let dat = NSMutableArray()
+                    self.dataSource3 = response as? Array<chatInfo> ?? []
+                    if self.dataSource3.count != 0{
+                        for num in 0...self.dataSource3.count-1{
+                            let dic = NSMutableDictionary()
+                            dic.setObject(self.dataSource3[num].id!, forKey: "id")
+                            dic.setObject(self.dataSource3[num].send_uid!, forKey: "send_uid")
+                            dic.setObject(self.dataSource3[num].receive_uid!, forKey: "receive_uid")
+                            dic.setObject(self.dataSource3[num].content!, forKey: "content")
+                            dic.setObject(self.dataSource3[num].status!, forKey: "status")
+                            dic.setObject(self.dataSource3[num].create_time!, forKey: "create_time")
+                            if self.dataSource3[num].send_face != nil{
+                                dic.setObject(self.dataSource3[num].send_face!, forKey: "send_face")
+                            }
+                            
+                            if self.dataSource3[num].send_nickname != nil{
+                                dic.setObject(self.dataSource3[num].send_nickname!, forKey: "send_nickname")
+                            }
+                            
+                            if self.dataSource3[num].receive_face != nil{
+                                dic.setObject(self.dataSource3[num].receive_face!, forKey: "receive_face")
+                            }
+                            
+                            if self.dataSource3[num].receive_nickname != nil{
+                                dic.setObject(self.dataSource3[num].receive_nickname!, forKey: "receive_nickname")
+                            }
+                            
+                            
+                            dat.addObject(dic)
+                            
+                            //                vc.datasource2.addObject(dic)
+                            
+                        }
+                        
+                        vc.datasource2 = NSArray.init(array: dat) as Array
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }else{
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                })
+                
+            }
+            
+        }
+        
+    }
+    func infoInmoreButtonAction(sender:UIButton){
+        if self.infoMore != nil{
+            let vc = FuWuHomePageViewController()
+            vc.ismainCome = true
+            vc.info = self.infoMore
+            self.navigationController?.pushViewController(vc, animated: true)
+        }else{
+            alert("慢点点人家，人家还在加载", delegate: self)
+        }
+        
+    }
     
     
 }

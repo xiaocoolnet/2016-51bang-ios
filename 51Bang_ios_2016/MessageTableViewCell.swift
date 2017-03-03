@@ -15,6 +15,8 @@ class MessageTableViewCell: UITableViewCell {
     @IBOutlet weak var content: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
+    
+    var countsLabel = UILabel()
     override func awakeFromNib() {
         super.awakeFromNib()
         self.line.backgroundColor = RGREY
@@ -22,6 +24,30 @@ class MessageTableViewCell: UITableViewCell {
     }
 
     func setValueWithInfo(info:chatListInfo){
+        
+        countsLabel.frame = CGRectMake(WIDTH-30, 35, 18, 18)
+        countsLabel.backgroundColor = UIColor.redColor()
+        countsLabel.textAlignment = .Center
+        countsLabel.textColor = UIColor.whiteColor()
+        countsLabel.font = UIFont.systemFontOfSize(11)
+        countsLabel.layer.masksToBounds = true
+        countsLabel.layer.cornerRadius = 9
+        if info.noreadcount != nil&&info.noreadcount != "0"&&info.noreadcount != ""{
+            self.countsLabel.hidden = false
+            self.countsLabel.text = info.noreadcount!
+            let counts = Int(info.noreadcount!)
+            if counts>99{
+                self.countsLabel.text = "99+"
+                self.countsLabel.frame = CGRectMake(WIDTH-30, 35, 25, 18)
+                self.countsLabel.layer.cornerRadius = 9
+            }
+        }else{
+            self.countsLabel.hidden = true
+        }
+        
+        self.addSubview(self.countsLabel)
+        
+        
         if info.other_nickname != nil {
             self.title.text = info.other_nickname
         }else{
