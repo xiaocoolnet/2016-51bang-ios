@@ -36,6 +36,36 @@ class TchdModel: NSObject {
     }
     
 }
+
+
+
+class ADVListdModel: NSObject {
+    
+    var status:String?
+    var data: JSONDecoder?
+    
+    var datas = Array<AdVlistInfo>()
+    var errorData:String?
+    override init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        
+        status = decoder["status"].string
+        if status == "success" {
+            for childs: JSONDecoder in decoder["data"].array!{
+                //                print(childs)
+                //                print(SkillModel(childs))
+                datas.append(AdVlistInfo(childs))
+                //                print(datas)
+                //                    array.append(SkillModel(childs))
+            }
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+    }
+    
+}
 //class TCHDList: JSONJoy {
 //    var status:String?
 //    var objectlist: [TCHDInfo]
@@ -188,6 +218,48 @@ class commentlistInfo:JSONJoy{
         photo = decoder["photo"].string
         score = decoder["score"].string
         
+    }
+    
+}
+
+
+class AdVlistInfo:JSONJoy{
+    var slide_id :String?
+    var content:String?
+    var create_time:String?
+    var name:String?
+    var userid :String?
+    var photo :String?
+    var score :String?
+    var realname:String?
+    var begintime:String?
+    var endtime:String?
+    var slide_status:String?
+    var price:String?
+    var slide_pic:String?
+    var slide_url:String?
+    
+    
+    //    var pictureurl:String?
+    init(){
+        
+    }
+    required init(_ decoder: JSONDecoder){
+        
+        content = decoder["content"].string
+        create_time = decoder["create_time"].string
+        name = decoder["username"].string
+        realname = decoder["realname"].string
+        slide_id = decoder["slide_id"].string
+        userid = decoder["userid"].string
+        photo = decoder["photo"].string
+        score = decoder["score"].string
+        begintime = decoder["begintime"].string
+        endtime = decoder["endtime"].string
+        slide_status = decoder["slide_status"].string
+        price = decoder["price"].string
+        slide_pic = decoder["slide_pic"].string
+        slide_url = decoder["slide_url"].string
     }
     
 }

@@ -59,8 +59,6 @@ class ServiceViewController: UIViewController ,UITableViewDelegate,UITableViewDa
                 }catch{
                     
                 }
-                print(dic)
-                print(fileArray)
                 if fileArray.count>0 {
                     for path in fileArray {
                         do{

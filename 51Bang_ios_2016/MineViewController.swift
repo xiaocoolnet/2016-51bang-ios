@@ -43,7 +43,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     let top = UIView()
     let myTableView = UITableView()
     let foot:[String] = ["我是买家","我是卖家","",""]
-    let team:[String] = ["我的发单","我的订单","我的发布","我的收藏","卷码验证","分享二维码","商户订单","我发布的消息"]
+    let team:[String] = ["我的发单","我的订单","我的发布","我的收藏","卷码验证","分享二维码","商户订单","我发布的消息","我的广告发布"]
     let teamImg:[String] = ["ic_wodefadan","ic_youhuiquan","ic_wodefabu","ic_wodedingdan","wodeshoucang","ic_weizhi拷贝2","ic_fenxiang","ic_youhuiquan","ic_wodefadan"]
     
     let busness:[String] = ["我的接单","我的投保","我的地址"]
@@ -1095,6 +1095,12 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 self.hidesBottomBarWhenPushed = true
                 self.navigationController?.pushViewController(VC, animated: true)
                  self.hidesBottomBarWhenPushed = false
+                break
+            case 8:
+                let VC = MyAdvertisementPublishViewController()
+                self.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(VC, animated: true)
+                self.hidesBottomBarWhenPushed = false
                 break
             default:
                 print("不合法")

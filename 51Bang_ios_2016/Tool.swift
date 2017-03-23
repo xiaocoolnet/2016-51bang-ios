@@ -124,6 +124,40 @@ func calculateHeight(string:String,size:CGFloat,width:  CGFloat) -> CGFloat {
     return boundingRect.height
 }
 
+func stringToTimeStampWithyyyymmdd(stringTime:String)->String {
+    
+    let dfmatter = NSDateFormatter()
+    dfmatter.dateFormat="yyyy-MM-dd"
+    let date = dfmatter.dateFromString(stringTime)
+    
+    let dateStamp:NSTimeInterval = date!.timeIntervalSince1970
+    
+    return String(format:"%.0f",dateStamp)
+    
+}
+
+//MARK:---TimeMAXMIN
+func DateSection(nowdata:NSDate,selectDays:Int)->NSDate{
+    
+    
+    let oneDay = NSTimeInterval(24*60*60*1)
+    
+    let date1 = NSDate.init(timeInterval: oneDay*NSTimeInterval(selectDays), sinceDate: nowdata)
+    
+//    let theDate = NSDate.init(timeIntervalSinceNow: oneDay*NSTimeInterval(selectDays))
+    
+    
+//    let dateFormatter = NSDateFormatter.init()
+//    //设定时间格式,这里可以设置成自己需要的格式
+//    dateFormatter.dateFormat = "yyyy-MM-dd"
+//    let calendar = NSCalendar.init(calendarIdentifier:NSCalendarIdentifierGregorian)
+//    let adcomps = NSDateComponents.init()
+//    adcomps.setValue(selectDays, forComponent: .Day)
+//    adcomps.setValue(selectDays, forComponent: .Month)
+//    let newdate = calendar?.dateByAddingComponents(adcomps, toDate: nowdata, options: .WrapComponents)
+    return date1
+}
+
 func stringToTimeStamp(stringTime:String)->String {
     
     let dfmatter = NSDateFormatter()

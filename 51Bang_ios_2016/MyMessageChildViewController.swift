@@ -12,7 +12,7 @@ import MBProgressHUD
 import MJRefresh
 import AVFoundation
 
-class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,pushDelegate {
 
     var convenienceTable = UITableView()
     var beginmid = "0"
@@ -153,6 +153,7 @@ class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITable
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.boFangButton.addTarget(self, action: #selector(self.boFangButtonActions(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         cell.boFangButton.tag = indexPath.row
+        cell.myDelegate = self
         if status == "-2"{
             let payButton = UIButton.init(frame: CGRectMake(WIDTH-100, 10, 80, 25))
             payButton.setTitle("去支付", forState: .Normal)
@@ -220,6 +221,11 @@ class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITable
         }else{
             return 75 + picHeight + height + 20
         }
+    }
+    
+    
+    func pushVC(myVC:UIViewController){
+        self.navigationController?.pushViewController(myVC, animated: true)
     }
     
     

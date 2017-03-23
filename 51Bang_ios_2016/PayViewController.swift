@@ -54,6 +54,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.goOrderList), name:"goOrderList", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.goRenwuList), name:"goRenwuList", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.gomessage), name:"gomessage", object: nil)
         
         isAgree = false
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.nextView),
@@ -124,12 +125,24 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     
     func goOrderList(){
         let bookVC = MyBookDan()
-        self.navigationController?.pushViewController(bookVC, animated: true)
+        let array = [self.navigationController!.viewControllers[0],bookVC]
+        
+        
+        self.navigationController?.setViewControllers(array, animated: true)
     }
     func goRenwuList(){
-        let bookVC = MyFaDan()
-        self.navigationController?.pushViewController(bookVC, animated: true)
         
+        let bookVC = MyFaDan()
+        let array = [self.navigationController!.viewControllers[0],bookVC]
+        self.navigationController?.setViewControllers(array, animated: true)
+        
+    }
+    func gomessage(){
+        
+        self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: false)
+        
+//        let bookVC = MyMessageViewController()
+//        self.navigationController?.pushViewController(bookVC, animated: true)
     }
     
     
@@ -205,19 +218,22 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let seller = "743564391@qq.com";
             
             //私钥
-            //            let privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAK4a3fO2l5Jn82ywtsBmWCKUDz/J0KKqmEXgu2VjO98dMjN7C+eO48kmhEe7JFpwVYZ9+tuO3TsSDonJ1DOsxVY/341/zYr8tV3SPjhChPTObAswUXznQ8qChIP8sCLdakw/YnlxnOvJneztmg++bIlMIGZUZy17rMKCgHTloJ7LAgMBAAECgYBv/RIlUJ7AaqL2l9iFe49Xdps0cbEE4OyfjgWcGq+JPTNsT8qBgLTeTyspJKQmlDk/EEvK7GM7OsslMDCRqKEpYGqgMJDZGYwanUc/gP4PNarsYY9J7yckRNMoUL2X8ROatiHLv2gHhaQ8zqQf0xG9/9uz+RG9KBiOhQzhEb7DmQJBAN40brXMEJdqqAxQ/de80M1vhgSu5nG+d/ztF2JHG/00DlUGu4AWypPL/6Xys5/GaWWCX3/XawZSHeias9NHdS0CQQDIlalKdsuFKSmrtH24hc/fYOp2VsWFUmMSDBzcizytT+zVKs1CBUbk5R7Pg/PS5iyeqYR6fbvs0HuArkD/f87XAkAQPLqeVEQeHHAdPkneWvDTIkQj0XgLdcSk2dpslw+niAdIFU7cRE4XUL/kq4COu1v2S/mYiPBMLPH8jll3pfAdAkAwhGLKbCmWL/qwWZv/Qf6h3WNY9Gwab28fMmbYwaUPlsGGXi//xB79xp3JO/WCEcLBLeepaThHc7YrzfpS0qtJAkEArxp4t06xxjWRKHpZdDFdtzpEdYg0sIDRhfepVCKxI496HRlrlo+7WipncI4Pm5fJIvm0IXbTlmlIVJx8EYKPPA=="
-            
-            //            let privateKey = "MIICXgIBAAKBgQC6z/0IcNsxiPOubH3XyvTAi7q5FSMegZuab4YFdPD9HgJhTUd1lwomyKIWTSRWuIg8LKvuJ0Yj+0JTJJaSocYfD4C6D83uYQ+bgeuD+GZiFeZ+9DyxGP2TPSYL5jIUFCiFmj+Y1KxfADeEpST4Rb2pRUufUHjhZyQav7+Ns1QOtQIDAQABAoGBAIVPDMLsPg7QKwxqUTcflp6cV6fh5IjNdmuzb9EPDTWjJ5Gl4vuPx+e7PqdpbygPUPCX9Czji9L7Zu4L6wNCPC0OvnQCkzelYKtmrb8+DJ39eGIjefZG/KGnvvDZOjU6zcsHVP/8HAUo23bG2ViymFdZ8D0VsygXqaz2uxzzS62VAkEA7ueVjL+eQcQYkUtwF5/B7v7mCdTijuZhaLpCVFW+PRdpjky+RCyMoWh6j07UK3d5DPyLi+TXg79F5zO4HTwUOwJBAMguJQ8mO5/htlgG/mTXT1nABz/PN2jXpOPZTSVk5vtQr1P1T1FQQz0A8+zQZr4lwAN0aM5TeBc48ugUs3yi6c8CQQCmJqPIpn+fB416hzenBnGvENHV5pvGfI0kc92rn5JWFJFR6SeubDlGDE6omk9PB6FFmeJHYdlNBFrOaBbVJjJ/AkEAkG4i1PRb7rZW7tpU8AMdQH85e8ORkfaNBMxDSiisM0V6ytPin6OOb9RhKksO5kCscpGqELvOmMrBD8vn2JRepwJAaTbiqbURGNgmGReO+sxMRBX3Gesdll9L158mHLUyPhZynLIhQYJfy4JsQj8jUc5xdZnonmvPz6oP6NSiuFwNwA=="
+
             
             let privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAM2arVc/DULOrVn5VVdkALDETOa1sznxviFaDD/+bZJI+3C7ls1HVZzKNCj7uwKKk02fRnLU70twRMifdhbIwEpqIFQLZW2HXbbif9+74BhetsQiQ/kyzRAhWEqeppNv/KTCtPM5d99S74diQuHHIH0cz4g7Xy9i/9RH8oS315bDAgMBAAECgYEAqpiO/3dXn3kxqRgS0aIuWH1oeX2GKqwE4FOBGpAXhmt8BfwAkm9//8pfISpN7zvgIWXo5Fr9+pA64mQ9bYZA1YDMLxcebn6uRqXZGoa0iZmx0n8/JpTw9L9A0Jt2HBJltrW5vsHqwOkjNL3sPxeeLOnNT9kVRSpp2gRFQuqZPoECQQDvYBpPUOeQ9KC1nouv3ngXOZg0Pw/vJbxaQWwqCAjN/l2m6sBjU6lP2dVB6QSVbD4V6rNABX63PW69uo8V5e1jAkEA2+ImfhcdSM1zS3QnKeyNd0HCKNvXXWXhjnAZ22pHI7tApIexsa/IlbQYNGbL14ZyRD6jq64P2FPwxt4hHUcfIQJAbSBdviz+9GlhXorh2ZJNIyFhjuf05qxIWskae2rgQLCmlzLL9DwuorWG8B4/tbL79tfhUd1vcC/0bVBAbNY+SwJACG2SrCKWrMOzN6EsHx9CDOAoYQiMKLhO/PavBwn70BLNV4Eb/oOOXK6afuexyIEOwC7mdx4k3VXaVMUO3+BqAQJAeMQtg/QEDZJb+frQLOlElYpsUS/J+bASiHHb6j0UTgUYfEtC34oJDd5lX1ZkiaQV5lnGUT8T0da+bzomkZ5xSA=="
             
-            //let privateKey = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAL9MUaZqnb8XrhMxURZmhnhPN8JsgWURnAkOoqdiZZZl6IqXyhWqldFTCACDZt/j8gcfCt7PFTjshD13i+jm1VoRexEntVU1cn5qQ06lnCEOmBDQX1VEP1lzpYYqvbWiUtqzLxDloVpkgArlrzJB0mScwNE1AaChZ1i01ULH+uB1AgMBAAECgYAL15SiYa08PCIJjB8B7PzcC8Ne5Mqp0ApBwUcuZ3f0dICNu9HFv5agq6wuI/RFXd4ItNI+csFUkcep6nGdzFResIWzcyrSypHN8o8Cue2Yov5yjA7Fu4MEjTsy/hI9ch78GP+bfA4Ovx9Z+e1BWMMhgoNoBPoxgg1zld54sC5N7QJBAO7nVEOY+6q8n6tLTEmQHGjxJWpWyairYf40UV4n2aJrlJMCeuWXnKrsC5lUYvYljTpB+eEg2AQZ8ADKGzdfFCMCQQDM/N2V6V3vIRveJKqnPiXNBYlfAk/FLVxXW90yux6MVrI36y7aBGPbpXhO3TjMj1spZP/QbPaJTU4+a4mVFtaHAkEAjnwbrqFcYA1VsYUcP7eaqiBA73ZJmbZ1oHY1nVFpJMzC9RcCk1JkVzCnDlDdIO9ulrNoxBOhoniRwvbHWrPzPwJAbr2Iw+0f5wje8kKiwtkLONht3xrzl1UrFrK1LCv0k+JeQ2FVnUhT3hxlg0112uTzXciHfsTu5zwRMh2MZTPCTwJBAMXMksxezoK4wPEscWwEwzEJRB7bklVEMpcOf4QR90HQAFRH4bDffISI4RUc8I8FLMCGdDzkNFoI4LdwE9hGeZI="
+           
             print(orderNum)
             let order = Order()
             order.appID = "2016083001821606"
             order.partner = partner;
             order.sellerID = seller;
-            order.outTradeNO = orderNum ; //订单ID（由商家自行制定）
+             //订单ID（由商家自行制定）
+            if isMessage{
+                order.outTradeNO = self.numForGoodS
+            }else{
+                order.outTradeNO = orderNum ;
+            }
             //            order.outTradeNO = "154553456456"
             if self.subject == "" {
                 order.subject = "商品标题"
@@ -251,39 +267,17 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let signedString = signer.signString(orderSpec);
             if signedString != nil {
                 let orderString = "\(orderSpec)&sign=\"\(signedString)\"&sign_type=\"RSA\"";
-                //                AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme, callback: { (resultDic)->Void in
-                //                    print("reslut = \(resultDic)");
-                //                    if let Alipayjson = resultDic as? NSDictionary{
-                //                        let resultStatus = Alipayjson.valueForKey("resultStatus") as! String
-                //                        if resultStatus == "9000"{
-                //                            print("OK")
-                //                            let vc = OrderDetailViewController()
-                //                            self.navigationController?.pushViewController(vc, animated: true)
-                //                        }else if resultStatus == "8000" {
-                //                            print("正在处理中")
-                //                            self.navigationController?.popViewControllerAnimated(true)
-                //                        }else if resultStatus == "4000" {
-                //                            print("订单支付失败");
-                //                            self.navigationController?.popViewControllerAnimated(true)
-                //                        }else if resultStatus == "6001" {
-                //                            print("用户中途取消")
-                //                            self.navigationController?.popViewControllerAnimated(true)
-                //                        }else if resultStatus == "6002" {
-                //                            print("网络连接出错")
-                //                            self.navigationController?.popViewControllerAnimated(true)
-                //                        }
-                //                    }
-                //                })
                 
-                //                let dic = ["isRenwu":self.isRenwu,"numForGoodS":self.numForGoodS];
-                //            发送通知
-                //                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.payback(_:)), name:"payBack", object: nil)
                 
                 let user = NSUserDefaults.standardUserDefaults()
                 if (isRenwu) {
                     user.setObject("renwuBook",forKey:"comeFromWechat")
                 }else{
                     user.setObject("bookDan",forKey:"comeFromWechat")
+                }
+                
+                if isMessage{
+                    user.setObject("message",forKey:"comeFromWechat")
                 }
                 
                 AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme) { (dic)-> Void in
@@ -345,116 +339,19 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("订单错误", delegate: self)
                 return
             }
-            weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum,isRenwu:self.isRenwu);
-            //            aa.testStart("1" ,orderName: body as String,numOfGoods:self.numForGoodS);
             
-            //            let vc = MyBookDan()
-            //            self.navigationController?.pushViewController(vc, animated: true)
+            if isMessage{
+                
+                weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS,isRenwu:3);
+            }else{
+                if isRenwu{
+                     weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum,isRenwu:1);
+                }else{
+                     weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum,isRenwu:2);
+                }
+               
+            }
             
-            //            //随机数
-            //            let orderNO   = CommonUtil.genOutTradNo()
-            //            //随机数串
-            //            let noncestr  = CommonUtil.genNonceStr()
-            //            //ip地址
-            //            let addressIP = CommonUtil.getIPAddress(true)
-            //            //回调地址
-            //            let urlStr = "http://www.weixin.qq.com/wxpay/pay.php"
-            //
-            //            let genTimeStamp = CommonUtil.genTimeStamp() + "51bang"
-            //
-            //
-            //
-            //
-            //
-            //
-            //            //声称签名
-            //            let signParams = NSMutableDictionary()
-            //            signParams.setObject(WXAppId as String, forKey: "appid")
-            //            signParams.setObject(WXPartnerId as String, forKey: "mch_id")
-            //            signParams.setObject(noncestr as String, forKey: "nonce_str")
-            //            signParams.setObject(body as String, forKey: "body")
-            //            signParams.setObject(subject as String, forKey: "detail")
-            //            signParams.setObject(genTimeStamp as String, forKey: "attach")
-            //            signParams.setObject(String(price), forKey: "total_fee")
-            //            signParams.setObject(addressIP as String, forKey: "spbill_create_ip")
-            //            signParams.setObject(urlStr as String, forKey: "notify_url")
-            //            signParams.setObject("APP", forKey: "trade_type")
-            ////            signParams.setObject(WXAPIKey as String, forKey: "key")
-            //            var str1 = NSString()
-            ////            let array = NSMutableArray()
-            //            for key in signParams.allKeys {
-            //
-            //                str1 = str1 as String + String(key as! String) + "=" + String(signParams.valueForKey(key as! String)) + "&"
-            //            }
-            //            print(str1)
-            //
-            //
-            //            let sign1 = CommonUtil.genSign(signParams as [NSObject : AnyObject])
-            //
-            ////            print(sign1)
-            ////            let sign = CommonUtil.md5(sign1)
-            //
-            //            let xmlData = XMLHelper()
-            //            let url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
-            //
-            //
-            //            let  aa = xmlData.genPackage(NSMutableDictionary(dictionary: signParams))
-            //
-            //            let data = xmlData.httpSend(url, method: "POST", data: aa)
-            //            xmlData.startParse(data)
-            //            let dict = xmlData.getDict()
-            //            print(dict)
-            //
-            //            if dict != nil{
-            //                let retcode = dict.objectForKey("retcode") as! NSString
-            //
-            //                if retcode.intValue == 0{
-            //                    let stamp = dict.objectForKey("timestamp") as! NSString
-            //
-            //
-            //                    //调起微信支付
-            //                    let req = PayReq.init()
-            //                    req.partnerId = dict.objectForKey("partnerid") as! String
-            //                    req.prepayId = dict.objectForKey("prepayid") as! String
-            //                    req.nonceStr = dict.objectForKey("noncestr") as! String
-            //                    req.timeStamp = UInt32(stamp as String)!
-            //                    req.package = dict.objectForKey("package") as! String
-            //                    req.sign = dict.objectForKey("sign") as! String
-            //
-            //                    WXApi.sendReq(req)
-            //                    //日志输出
-            //
-            //
-            //                }else{
-            //
-            //                }
-            //            }else{
-            //
-            //            }
-            //
-            //
-            //            shopHelper.getWeixinDingdan(WXAppId, mch_id: WXPartnerId, device_info: "", nonce_str: orderNO, sign: sign1, body: body as String, detail:subject as String, attach: "", out_trade_no: genTimeStamp, fee_type: "", total_fee: price, spbill_create_ip: addressIP, time_start: "", time_expire: "", goods_tag: "", notify_url: urlStr, trade_type: "trade_type", limit_pay: "", handle: { (success, response) in
-            //
-            //
-            //
-            //            })
-            //
-            //
-            //            let payred = PayReq.init()
-            //            payred.partnerId = WXPartnerId as NSString as String
-            //            payred.prepayId = "wx201608251458218270593b310274371597"
-            //            payred.nonceStr = "0dabdecff46177f8e214fd1facdeb72d"
-            //
-            
-            
-            
-            //            WXApi.registerApp:"wxd930ea5d5a258f4f" withDescription:"demo 2.0"
-            //
-            //
-            //            self.getWeChatPayWithOrderName("我的订单", price: "1")
-            //              self.payForWechat()
-            //              let req = payRequsestHandler
-            //              req.payForWechat()
         }else{
             alert("钱包支付", delegate: self)
         }

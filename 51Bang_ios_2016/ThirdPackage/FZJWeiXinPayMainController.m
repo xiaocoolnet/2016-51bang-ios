@@ -49,7 +49,7 @@
     [self.view addSubview:testBtn];
     
 }
--(void)testStart:(NSString*)price orderName:(NSString*)orderName numOfGoods:(NSString*)numOfGoods isRenwu:(BOOL) isRenwu{
+-(void)testStart:(NSString*)price orderName:(NSString*)orderName numOfGoods:(NSString*)numOfGoods isRenwu:(int)isRenwu{
     //    https://pay.weixin.qq.com/wiki/doc/api/app.php?chapter=9_1
     
 /**************************************************** 订单信息 *******************************************************************/
@@ -145,10 +145,12 @@
         [alertView show];
     }else{
         NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-        if (isRenwu) {
+        if (isRenwu == 1) {
             [user setObject:@"renwuBook" forKey:@"comeFromWechat"];
-        }else{
+        }else if (isRenwu == 2){
             [user setObject:@"bookDan" forKey:@"comeFromWechat"];
+        }else{
+            [user setObject:@"message" forKey:@"comeFromWechat"];
         }
         
         

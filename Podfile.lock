@@ -20,6 +20,8 @@ PODS:
   - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.10)
   - PagingMenuController (0.7.9)
+  - SDCycleScrollView (1.65):
+    - SDWebImage (~> 3.7)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
@@ -35,6 +37,7 @@ DEPENDENCIES:
   - MBProgressHUD (= 0.9.2)
   - MJRefresh (= 3.1.10)
   - PagingMenuController (~> 0.7.6)
+  - SDCycleScrollView (~> 1.64)
   - SDWebImage
   - SVProgressHUD (= 1.1.3)
   - TPKeyboardAvoiding (= 1.3)
@@ -48,11 +51,12 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: bb72948c985914b0b5cecac573a2c69a8915fb02
   PagingMenuController: 619ab0852545e0619fcfa8672f10f39f8d10de1f
+  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   TPKeyboardAvoiding: a5138f318c06fb3e151f886e18ce4a72695d9cbe
   ZLPhotoBrowser: f0c01ea435582fb33fca56feccac40bdcdeb799e
 
-PODFILE CHECKSUM: 3624f9aa5a8db215a0377ced911760f6bdcc26f9
+PODFILE CHECKSUM: a1b00889ef7d5d1822cf248230de9bbd198afd5b
 
 COCOAPODS: 1.1.1

@@ -371,6 +371,8 @@ class AffirmOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func goToBuy(){
         
+        
+        
         let textview  = self.myTableView.viewWithTag(10) as!UITextField
         textview.resignFirstResponder()
         

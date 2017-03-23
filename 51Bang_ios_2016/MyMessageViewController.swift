@@ -30,8 +30,8 @@ class MyMessageViewController: UIViewController {
         options.menuHeight = 40
         options.menuItemMode = .Underline(height: 2, color: COLOR, horizontalPadding: 0, verticalPadding: 0)
         options.selectedTextColor = COLOR
-        options.selectedFont = UIFont.systemFontOfSize(13)
-        options.font = UIFont.systemFontOfSize(13)
+        options.selectedFont = UIFont.systemFontOfSize(14)
+        options.font = UIFont.systemFontOfSize(14)
         options.menuItemMargin = 3
         options.menuDisplayMode = .SegmentedControl
         let pagingMenuController = PagingMenuController(viewControllers: viewControllers, options: options)
@@ -40,6 +40,12 @@ class MyMessageViewController: UIViewController {
         self.view.addSubview(pagingMenuController.view)
         pagingMenuController.didMoveToParentViewController(self)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.hidden = false
+        self.tabBarController?.tabBar.hidden = true
     }
 
     override func didReceiveMemoryWarning() {

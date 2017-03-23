@@ -61,6 +61,9 @@
 #import "UIBounceButton.h"
 
 #import "SDPhotoBrowser.h"//图片放大缩小
+#import "SDCycleScrollView.h"//轮播图
+
+#import "GKImagePicker.h"//图片剪辑
 
 //#import <UserNotifications/UserNotifications.h>
 //#import "MainHelper.swift"

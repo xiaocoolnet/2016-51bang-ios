@@ -280,10 +280,18 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
                     self.countsLabel.hidden = false
                     self.countsLabel.text = response as? String
                     let counts = Int(response as! String)
-                    if counts>99{
-                        self.countsLabel.text = "99+"
-                        self.countsLabel.frame = CGRectMake(30, 10, 22, 22)
-                        self.countsLabel.layer.cornerRadius = 11
+                    if counts != nil{
+                        if counts>99{
+                            self.countsLabel.text = "99+"
+                            self.countsLabel.frame = CGRectMake(30, 10, 22, 22)
+                            self.countsLabel.layer.cornerRadius = 11
+                            UIApplication.sharedApplication().applicationIconBadgeNumber = 99
+                        }else if 0 < counts&&counts<99{
+                            UIApplication.sharedApplication().applicationIconBadgeNumber = counts!
+                        }else{
+                            UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+                        }
+
                     }
                     hud.hide(true)
                 }else{
@@ -622,6 +630,9 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
             }
         }
     }
+    
+    
+    
     func messageButtonAction(sender:UIButton) {
         convenienceTable.userInteractionEnabled = false
         if loginSign == 0 {

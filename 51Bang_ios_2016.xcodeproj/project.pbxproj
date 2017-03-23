@@ -385,10 +385,20 @@
 		1FFE54221D2CDCAF000891EB /* PayHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FFE54201D2CDCAF000891EB /* PayHeaderCell.xib */; };
 		1FFE54241D2D1E34000891EB /* MainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFE54231D2D1E34000891EB /* MainHelper.swift */; };
 		1FFE54261D2D1F6B000891EB /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFE54251D2D1F6B000891EB /* TaskModel.swift */; };
-		77361BA41D939791003F96F5 /* Bugtags.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 77361BA01D939791003F96F5 /* Bugtags.bundle */; };
-		77361BA51D939791003F96F5 /* Bugtags.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77361BA11D939791003F96F5 /* Bugtags.framework */; };
-		77361BA61D939791003F96F5 /* Bugtags.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 77361BA21D939791003F96F5 /* Bugtags.podspec */; };
-		77361BA71D939791003F96F5 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 77361BA31D939791003F96F5 /* README.md */; };
+		7709E6711E834CB0008C384E /* MyAdvertisementPublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7709E6701E834CB0008C384E /* MyAdvertisementPublishViewController.swift */; };
+		7709E6731E835150008C384E /* MyAdvertisementPublishListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7709E6721E835150008C384E /* MyAdvertisementPublishListViewController.swift */; };
+		7709E6751E835649008C384E /* MyAdvertisementPublishListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7709E6741E835649008C384E /* MyAdvertisementPublishListTableViewCell.swift */; };
+		7709E68A1E839CF1008C384E /* GoAdvertisementPublishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7709E6891E839CF1008C384E /* GoAdvertisementPublishViewController.swift */; };
+		7709E6981E83C920008C384E /* GKCropBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7709E68D1E83C920008C384E /* GKCropBorderView.m */; };
+		7709E6991E83C920008C384E /* GKImageCropOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7709E68F1E83C920008C384E /* GKImageCropOverlayView.m */; };
+		7709E69A1E83C920008C384E /* GKImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7709E6911E83C920008C384E /* GKImageCropView.m */; };
+		7709E69B1E83C920008C384E /* GKImageCropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7709E6931E83C920008C384E /* GKImageCropViewController.m */; };
+		7709E69C1E83C920008C384E /* GKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7709E6951E83C920008C384E /* GKImagePicker.m */; };
+		7709E69D1E83C920008C384E /* GKResizeableCropOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7709E6971E83C920008C384E /* GKResizeableCropOverlayView.m */; };
+		772BE67E1E71420F005FB875 /* Bugtags.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 772BE67A1E71420F005FB875 /* Bugtags.bundle */; };
+		772BE67F1E71420F005FB875 /* Bugtags.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 772BE67B1E71420F005FB875 /* Bugtags.framework */; };
+		772BE6801E71420F005FB875 /* Bugtags.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 772BE67C1E71420F005FB875 /* Bugtags.podspec */; };
+		772BE6811E71420F005FB875 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 772BE67D1E71420F005FB875 /* README.md */; };
 		773DF1071E012F0D00AC6F5C /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 773DF1011E012F0D00AC6F5C /* SDBrowserImageView.m */; };
 		773DF1081E012F0D00AC6F5C /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 773DF1031E012F0D00AC6F5C /* SDPhotoBrowser.m */; };
 		773DF1091E012F0D00AC6F5C /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 773DF1061E012F0D00AC6F5C /* SDWaitingView.m */; };
@@ -1044,10 +1054,26 @@
 		1FFE54231D2D1E34000891EB /* MainHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainHelper.swift; sourceTree = "<group>"; };
 		1FFE54251D2D1F6B000891EB /* TaskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		591108C65AE6727C545701B1 /* Pods_51Bang_ios_2016UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_51Bang_ios_2016UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		77361BA01D939791003F96F5 /* Bugtags.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Bugtags.bundle; sourceTree = "<group>"; };
-		77361BA11D939791003F96F5 /* Bugtags.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugtags.framework; sourceTree = "<group>"; };
-		77361BA21D939791003F96F5 /* Bugtags.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bugtags.podspec; sourceTree = "<group>"; };
-		77361BA31D939791003F96F5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7709E6701E834CB0008C384E /* MyAdvertisementPublishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAdvertisementPublishViewController.swift; sourceTree = "<group>"; };
+		7709E6721E835150008C384E /* MyAdvertisementPublishListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAdvertisementPublishListViewController.swift; sourceTree = "<group>"; };
+		7709E6741E835649008C384E /* MyAdvertisementPublishListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyAdvertisementPublishListTableViewCell.swift; sourceTree = "<group>"; };
+		7709E6891E839CF1008C384E /* GoAdvertisementPublishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoAdvertisementPublishViewController.swift; sourceTree = "<group>"; };
+		7709E68C1E83C920008C384E /* GKCropBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKCropBorderView.h; sourceTree = "<group>"; };
+		7709E68D1E83C920008C384E /* GKCropBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKCropBorderView.m; sourceTree = "<group>"; };
+		7709E68E1E83C920008C384E /* GKImageCropOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImageCropOverlayView.h; sourceTree = "<group>"; };
+		7709E68F1E83C920008C384E /* GKImageCropOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImageCropOverlayView.m; sourceTree = "<group>"; };
+		7709E6901E83C920008C384E /* GKImageCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImageCropView.h; sourceTree = "<group>"; };
+		7709E6911E83C920008C384E /* GKImageCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImageCropView.m; sourceTree = "<group>"; };
+		7709E6921E83C920008C384E /* GKImageCropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImageCropViewController.h; sourceTree = "<group>"; };
+		7709E6931E83C920008C384E /* GKImageCropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImageCropViewController.m; sourceTree = "<group>"; };
+		7709E6941E83C920008C384E /* GKImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImagePicker.h; sourceTree = "<group>"; };
+		7709E6951E83C920008C384E /* GKImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImagePicker.m; sourceTree = "<group>"; };
+		7709E6961E83C920008C384E /* GKResizeableCropOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKResizeableCropOverlayView.h; sourceTree = "<group>"; };
+		7709E6971E83C920008C384E /* GKResizeableCropOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKResizeableCropOverlayView.m; sourceTree = "<group>"; };
+		772BE67A1E71420F005FB875 /* Bugtags.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Bugtags.bundle; sourceTree = "<group>"; };
+		772BE67B1E71420F005FB875 /* Bugtags.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugtags.framework; sourceTree = "<group>"; };
+		772BE67C1E71420F005FB875 /* Bugtags.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Bugtags.podspec; sourceTree = "<group>"; };
+		772BE67D1E71420F005FB875 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		773DF1001E012F0D00AC6F5C /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
 		773DF1011E012F0D00AC6F5C /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
 		773DF1021E012F0D00AC6F5C /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
@@ -1213,8 +1239,8 @@
 				F23A219C1D8957E700DDB3AB /* CoreFoundation.framework in Frameworks */,
 				0D10A6231D50A6D50004903C /* TPKeyboardAvoiding.framework in Frameworks */,
 				1F7D5A261D4A072D00536BD1 /* JavaScriptCore.framework in Frameworks */,
-				77361BA51D939791003F96F5 /* Bugtags.framework in Frameworks */,
 				1F7D5A241D4A071F00536BD1 /* libstdc++.tbd in Frameworks */,
+				772BE67F1E71420F005FB875 /* Bugtags.framework in Frameworks */,
 				1F7D5A221D4A070500536BD1 /* libicucore.tbd in Frameworks */,
 				1F7D5A0E1D4A033600536BD1 /* ShareSDKInterfaceAdapter.framework in Frameworks */,
 				1F1F5F931D337D34005616DD /* libsqlite3.tbd in Frameworks */,
@@ -1273,6 +1299,7 @@
 		0D10A6241D50AE550004903C /* ThirdPackage */ = {
 			isa = PBXGroup;
 			children = (
+				7709E68B1E83C920008C384E /* GKClasses */,
 				77507B6B1E5EE4A000D2064A /* 视频录制 */,
 				77D381861E092FC400A1C2BF /* UIBounceButton */,
 				773DF0FF1E012F0D00AC6F5C /* SDPhotoBrowser */,
@@ -1436,6 +1463,7 @@
 				1FE1D6B01D4B6D13006F6CC7 /* MyAddressTableViewCell.xib */,
 				1F05CCF11D4C8DE80054E1A0 /* XiaoFeiTableViewCell.swift */,
 				1F05CCF21D4C8DE80054E1A0 /* XiaoFeiTableViewCell.xib */,
+				7709E6741E835649008C384E /* MyAdvertisementPublishListTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1476,6 +1504,9 @@
 				1F9B0DF81D363FD700C7CA52 /* EditInfoViewController.xib */,
 				1F9B0E131D36691700C7CA52 /* ChangePwdViewController.swift */,
 				1F83AE051D40FA200031975C /* ChangePhoneController.swift */,
+				7709E6701E834CB0008C384E /* MyAdvertisementPublishViewController.swift */,
+				7709E6721E835150008C384E /* MyAdvertisementPublishListViewController.swift */,
+				7709E6891E839CF1008C384E /* GoAdvertisementPublishViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -2287,22 +2318,42 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7709E68B1E83C920008C384E /* GKClasses */ = {
+			isa = PBXGroup;
+			children = (
+				7709E68C1E83C920008C384E /* GKCropBorderView.h */,
+				7709E68D1E83C920008C384E /* GKCropBorderView.m */,
+				7709E68E1E83C920008C384E /* GKImageCropOverlayView.h */,
+				7709E68F1E83C920008C384E /* GKImageCropOverlayView.m */,
+				7709E6901E83C920008C384E /* GKImageCropView.h */,
+				7709E6911E83C920008C384E /* GKImageCropView.m */,
+				7709E6921E83C920008C384E /* GKImageCropViewController.h */,
+				7709E6931E83C920008C384E /* GKImageCropViewController.m */,
+				7709E6941E83C920008C384E /* GKImagePicker.h */,
+				7709E6951E83C920008C384E /* GKImagePicker.m */,
+				7709E6961E83C920008C384E /* GKResizeableCropOverlayView.h */,
+				7709E6971E83C920008C384E /* GKResizeableCropOverlayView.m */,
+			);
+			path = GKClasses;
+			sourceTree = "<group>";
+		};
 		77361B9E1D93970D003F96F5 /* BugTags */ = {
 			isa = PBXGroup;
 			children = (
-				77361B9F1D939791003F96F5 /* Bugtags-iOS-1.3.1 */,
+				77361B9F1D939791003F96F5 /* Bugtags-iOS-2.2.1 */,
 			);
 			name = BugTags;
 			sourceTree = "<group>";
 		};
-		77361B9F1D939791003F96F5 /* Bugtags-iOS-1.3.1 */ = {
+		77361B9F1D939791003F96F5 /* Bugtags-iOS-2.2.1 */ = {
 			isa = PBXGroup;
 			children = (
-				77361BA01D939791003F96F5 /* Bugtags.bundle */,
-				77361BA11D939791003F96F5 /* Bugtags.framework */,
-				77361BA21D939791003F96F5 /* Bugtags.podspec */,
-				77361BA31D939791003F96F5 /* README.md */,
+				772BE67A1E71420F005FB875 /* Bugtags.bundle */,
+				772BE67B1E71420F005FB875 /* Bugtags.framework */,
+				772BE67C1E71420F005FB875 /* Bugtags.podspec */,
+				772BE67D1E71420F005FB875 /* README.md */,
 			);
+			name = "Bugtags-iOS-2.2.1";
 			path = "Bugtags-iOS-1.3.1";
 			sourceTree = "<group>";
 		};
@@ -2675,6 +2726,7 @@
 				1FE1220A1D227B4F00C0BE0B /* OrderTableViewCell.xib in Resources */,
 				1F9B0E0E1D36604700C7CA52 /* EditTableViewCell2.xib in Resources */,
 				1FAD5E4F1D3F7B6900C4F98F /* myOrderLocationTableViewCell.xib in Resources */,
+				772BE67E1E71420F005FB875 /* Bugtags.bundle in Resources */,
 				1F7D5A1A1D4A033600536BD1 /* WeiboSDK.bundle in Resources */,
 				1FF43B5E1D2A0B7F00091F79 /* SiteTableViewCell.xib in Resources */,
 				189757E01D1665A40083FE46 /* DrivingLicenseTableViewCell.xib in Resources */,
@@ -2687,9 +2739,9 @@
 				1FE489301D48AF3800D2E684 /* fadanDetailTableViewCell.xib in Resources */,
 				1FECB3F11D3CE19900588A8D /* SoundCollectionViewCell.xib in Resources */,
 				1FE1D6B21D4B6D14006F6CC7 /* MyAddressTableViewCell.xib in Resources */,
-				77361BA61D939791003F96F5 /* Bugtags.podspec in Resources */,
 				1FDA70811D3E3CF300822D18 /* OrderDetailAlertTableViewCell.xib in Resources */,
 				0DD510FF1D51D16E00FE88C2 /* btn_original_circle@2x.png in Resources */,
+				772BE6801E71420F005FB875 /* Bugtags.podspec in Resources */,
 				F25289BB1D6AE16700B8E6DC /* LICENSE in Resources */,
 				188D4C691D169068005334D2 /* PetTableViewCell.xib in Resources */,
 				189CFB811D1580B700B29001 /* MineTableViewCell.xib in Resources */,
@@ -2790,7 +2842,6 @@
 				0DD5110F1D51D16E00FE88C2 /* ZLThumbnailViewController.xib in Resources */,
 				1FF43B721D2A558A00091F79 /* FabuTableViewCell1.xib in Resources */,
 				1F5545911D2E5F7300B90013 /* PhotoCollectionViewCell.xib in Resources */,
-				77361BA41D939791003F96F5 /* Bugtags.bundle in Resources */,
 				1FDA70711D3E109A00822D18 /* OrderRWTableViewCell.xib in Resources */,
 				18D5961B1D17F06400BDBCD6 /* SectionView.xib in Resources */,
 				188D4C6D1D1691D4005334D2 /* MarriageTableViewCell.xib in Resources */,
@@ -3036,10 +3087,12 @@
 				0DF6CC6A1D5DD9D100B82FC5 /* ExtensionCertification.swift in Sources */,
 				1FE4FA481D46066F009B6752 /* LocationTwoViewController.swift in Sources */,
 				189757C41D16290D0083FE46 /* CartViewController.swift in Sources */,
+				772BE6811E71420F005FB875 /* README.md in Sources */,
 				188D4C641D168F6B005334D2 /* SevenTableViewCell.swift in Sources */,
 				1F9AEF711D3909060009B007 /* MyFabuTableViewCell.swift in Sources */,
 				1FACE76B1D2FAFA20005282E /* RenZhengBangTableViewCell.swift in Sources */,
 				776610711E2DB23700A9A0B2 /* PublicTableViewCell.swift in Sources */,
+				7709E6991E83C920008C384E /* GKImageCropOverlayView.m in Sources */,
 				1FE121FE1D220D5300C0BE0B /* SkillModel.swift in Sources */,
 				1F9B0DDE1D35DEDB00C7CA52 /* LoginPwdTableViewCell.swift in Sources */,
 				188D4C581D168867005334D2 /* ThreeTableViewCell.swift in Sources */,
@@ -3081,7 +3134,6 @@
 				1FFE54241D2D1E34000891EB /* MainHelper.swift in Sources */,
 				1FACE75C1D2F50770005282E /* MD5DataSigner.m in Sources */,
 				1FD8C7FC1D4930FC008BCE96 /* MyOrderModel.swift in Sources */,
-				77361BA71D939791003F96F5 /* README.md in Sources */,
 				F2F189F81D6D6BCA00843120 /* TZPhotoPickerController.m in Sources */,
 				1FACE75D1D2F50770005282E /* NSDataEx.m in Sources */,
 				0DEBD5601D5C258C008B7279 /* ExtensionCommitViewController.swift in Sources */,
@@ -3097,8 +3149,10 @@
 				F23A21951D87AC0200DDB3AB /* CodeViewController.swift in Sources */,
 				18D596391D17F08E00BDBCD6 /* PinYinForObjc.m in Sources */,
 				1FD8C7EA1D48FD98008BCE96 /* myAddressViewController.swift in Sources */,
+				7709E6751E835649008C384E /* MyAdvertisementPublishListTableViewCell.swift in Sources */,
 				0DAA4C6C1D6192E000901EEB /* ConveniceCell.swift in Sources */,
 				1FF43B7D1D2A587B00091F79 /* FabuTableViewCell4.swift in Sources */,
+				7709E6981E83C920008C384E /* GKCropBorderView.m in Sources */,
 				1FD8C7E81D48FB38008BCE96 /* JiaoChengViewController.swift in Sources */,
 				1FECB3F81D3CFDE800588A8D /* MyTaskTableViewCell2.swift in Sources */,
 				0DEFF3C71D60280400BC7BF1 /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
@@ -3139,9 +3193,11 @@
 				1FE4FA411D45B213009B6752 /* LogisticsHeaderCell.swift in Sources */,
 				F2075A751D6FF20B00BF45E9 /* FZJWeiXinPayMainController.m in Sources */,
 				1F9B0DED1D36184C00C7CA52 /* TCLoginViewController.swift in Sources */,
+				7709E69D1E83C920008C384E /* GKResizeableCropOverlayView.m in Sources */,
 				189757ED1D1685D70083FE46 /* TwoTableViewCell.swift in Sources */,
 				A44263A01D92964F00F9DFB6 /* BankBandViewController.swift in Sources */,
 				1FDA70701D3E109A00822D18 /* OrderRWTableViewCell.swift in Sources */,
+				7709E69B1E83C920008C384E /* GKImageCropViewController.m in Sources */,
 				189757B91D1625110083FE46 /* AddViewController.swift in Sources */,
 				1F0DF18E1D2B954C00D45390 /* WoBangViewController.swift in Sources */,
 				18D596381D17F08E00BDBCD6 /* PinyinFormatter.m in Sources */,
@@ -3157,6 +3213,7 @@
 				1FD128961D26197100DE9D74 /* MyPoint.m in Sources */,
 				18D596341D17F08E00BDBCD6 /* ChineseInclude.m in Sources */,
 				F2F189F51D6D6BCA00843120 /* TZImageManager.m in Sources */,
+				7709E69C1E83C920008C384E /* GKImagePicker.m in Sources */,
 				18D596361D17F08E00BDBCD6 /* HanyuPinyinOutputFormat.m in Sources */,
 				1F0DF1921D2BA0B400D45390 /* TaskDetailViewController.swift in Sources */,
 				189CFB871D1593AC00B29001 /* CertificationViewController.swift in Sources */,
@@ -3167,6 +3224,7 @@
 				1F5545861D2E4BF100B90013 /* FaBuBianMinViewController.swift in Sources */,
 				18D8812B1D151D820067218F /* AppDelegate.swift in Sources */,
 				189757CE1D162A530083FE46 /* ServiceViewController.swift in Sources */,
+				7709E69A1E83C920008C384E /* GKImageCropView.m in Sources */,
 				184053B61D15301F008A2BAB /* JSONJoy.swift in Sources */,
 				819778221D3CF68C00CB5BC0 /* MyFaDanFinshCell.swift in Sources */,
 				77561D6F1E5E8151001594E9 /* CopyLabel.swift in Sources */,
@@ -3182,6 +3240,7 @@
 				1FACE7671D2FA3DE0005282E /* LianXiDianHuaTableViewCell.swift in Sources */,
 				A4F8E8CE1D7D8F0500D0B4FF /* MessageButtonActionViewController.swift in Sources */,
 				F2F189FA1D6D6BCA00843120 /* TZPhotoPreviewController.m in Sources */,
+				7709E6711E834CB0008C384E /* MyAdvertisementPublishViewController.swift in Sources */,
 				F247452C1D6D51CF00870363 /* SGTip.m in Sources */,
 				1FDA706D1D3DF8B800822D18 /* OrderDetailViewController.swift in Sources */,
 				1F0DF1841D2B4AB500D45390 /* SameCityViewController.swift in Sources */,
@@ -3224,6 +3283,7 @@
 				189CFB851D15929C00B29001 /* FriendListViewController.swift in Sources */,
 				184053B51D15301F008A2BAB /* Httpresult.swift in Sources */,
 				F23C55961D6577000094E2B7 /* ViewController1.swift in Sources */,
+				7709E68A1E839CF1008C384E /* GoAdvertisementPublishViewController.swift in Sources */,
 				1FE1D6B11D4B6D13006F6CC7 /* MyAddressTableViewCell.swift in Sources */,
 				1F9B0DDA1D35DDAF00C7CA52 /* LoginPhoneTableViewCell.swift in Sources */,
 				81FD72021D3E3E190020890A /* MyReveiveDanCell.swift in Sources */,
@@ -3246,6 +3306,7 @@
 				1FD8C7E31D48E7FD008BCE96 /* YwcTableViewCell.swift in Sources */,
 				1FECB3F01D3CE19900588A8D /* SoundCollectionViewCell.swift in Sources */,
 				F2F189F41D6D6BCA00843120 /* TZAssetModel.m in Sources */,
+				7709E6731E835150008C384E /* MyAdvertisementPublishListViewController.swift in Sources */,
 				0DEFF3CC1D606D6000BC7BF1 /* BugView.swift in Sources */,
 				F20624851D74440200B795F5 /* UpLoadModel.m in Sources */,
 				1F0DF1951D2BA1EA00D45390 /* TaskDetailTableViewCell1.swift in Sources */,
@@ -3423,6 +3484,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3454,6 +3516,7 @@
 					"$(SRCROOT)/openssl",
 					"$(SRCROOT)/Util",
 					"$(SRCROOT)/mp3lame-for-iOS-master",
+					"${PODS_ROOT}/**",
 				);
 				INFOPLIST_FILE = 51Bang_ios_2016/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3515,6 +3578,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3546,6 +3610,7 @@
 					"$(SRCROOT)/openssl",
 					"$(SRCROOT)/Util",
 					"$(SRCROOT)/mp3lame-for-iOS-master",
+					"${PODS_ROOT}/**",
 				);
 				INFOPLIST_FILE = 51Bang_ios_2016/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

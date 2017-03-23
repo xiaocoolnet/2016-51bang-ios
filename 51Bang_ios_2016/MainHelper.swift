@@ -605,6 +605,41 @@
         
     }
     
+    //获取我的广告发布
+    func getMyAdlist(status:NSString,beginid:NSString,userid:String,handle:ResponseBlock){
+        
+        
+        let url = Bang_URL_Header+"getMyAdlist"
+        
+        let param = [
+            
+            "status":status,
+            "beginid":beginid,
+            "userid":userid
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = ADVListdModel(JSONDecoder(json!))
+                
+                if(result.status == "success"){
+                    
+                    handle(success: true, response: result.datas)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
     
     func GetRzbList(cityname:String,beginid:String,sort:String, type:String,isOnLine:String, handle:ResponseBlock){
         

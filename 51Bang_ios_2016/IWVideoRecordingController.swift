@@ -61,6 +61,8 @@ AVCaptureFileOutputRecordingDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         //  录制视频基本设置
         setupAVFoundationSettings()
         
@@ -69,7 +71,6 @@ AVCaptureFileOutputRecordingDelegate {
         setupHeaderView()
         
         
-
     }
     
     override func viewWillAppear(animated: Bool) {

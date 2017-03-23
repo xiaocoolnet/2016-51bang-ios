@@ -292,8 +292,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 }
             }
             
-//            print(strr["alert"])
-            
             
         }
         
@@ -429,7 +427,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 //    }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        
         print(application)
         let ud = NSUserDefaults.standardUserDefaults()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
@@ -437,9 +434,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             if ud.objectForKey("comeFromWechat") as! String == "bookDan" {
                NSNotificationCenter.defaultCenter().postNotificationName("goOrderList", object: nil)
                 ud.removeObjectForKey("comeFromWechat")
-            }else{
+            }else if ud.objectForKey("comeFromWechat") as! String == "renwuBook"{
                 NSNotificationCenter.defaultCenter().postNotificationName("goRenwuList", object: nil)
                 ud.removeObjectForKey("comeFromWechat")
+            }else if ud.objectForKey("comeFromWechat") as! String == "message"{
+                NSNotificationCenter.defaultCenter().postNotificationName("gomessage", object: nil)
+                ud.removeObjectForKey("comeFromWechat")
+                
             }
         }
         //这里是检测是否需要再次登陆的地方，走接口发送设备吗到后台进行验证，客户需求暂时关闭

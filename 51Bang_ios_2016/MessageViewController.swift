@@ -161,6 +161,19 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
             dispatch_async(dispatch_get_main_queue(), {
             if !success {
                 alert("加载错误", delegate: self)
+                if self.dataSource[indexPath.row].noreadcount != nil&&self.dataSource[indexPath.row].noreadcount != "0"&&self.dataSource[indexPath.row].noreadcount != ""{
+                    let counts = Int(self.dataSource[indexPath.row].noreadcount!)
+                    if counts != nil{
+                        let iconNum
+                          =  UIApplication.sharedApplication().applicationIconBadgeNumber-counts!
+                        if iconNum>0{
+                            UIApplication.sharedApplication().applicationIconBadgeNumber = iconNum
+                        }else{
+                            UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+                        }
+                    }
+                }
+                
                 return
             }
             let dat = NSMutableArray()

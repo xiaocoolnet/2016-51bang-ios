@@ -34,6 +34,9 @@ class ConveniceCell: UITableViewCell{
     
     var lineView = UIView()
     
+    
+    var audioSession = AVAudioSession.sharedInstance()
+    
     //    var phoneStr = String()
     
     var contenLabel = CopyLabel()
@@ -462,6 +465,16 @@ class ConveniceCell: UITableViewCell{
         
     }
     func boFangMp4ButtonAction(){
+        
+        
+        audioSession = AVAudioSession.sharedInstance()
+        do{
+            //            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
+            try audioSession.setActive(true)
+        }catch{
+            
+        }
         if let urls = NSURL.init(string: Bang_Image_Header+(info?.video!)! ){
             let player = AVPlayer(URL: urls)
             let playerController = AVPlayerViewController()

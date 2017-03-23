@@ -207,20 +207,6 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newTask), name:"newTasksss", object: nil)
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newMessage(_:)), name:"newMessage", object: nil)
-        //
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.sendTaskType(_:)), name:"sendTaskType", object: nil)
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.acceptTaskType(_:)), name:"acceptTaskType", object: nil)
-        //
-        //         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.buyOrderType(_:)), name:"buyOrderType", object: nil)
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.businessOrderType(_:)), name:"businessOrderType", object: nil)
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.loginFromOther), name:"loginFromOther", object: nil)
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.certificationType(_:)), name:"certificationType", object: nil)
-        
-        
-        
-        
-        //        self.mapView.addSubview(BeingBackMyPositonBtn)
         
     }
     
@@ -387,29 +373,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             
             
         }else if btn.tag == 1{
-//            let ud = NSUserDefaults.standardUserDefaults()
-//            if ud.objectForKey("ss") != nil{
-//                if(ud.objectForKey("ss") as! String == "no")
-//                {
-//                    
-//                    
-//                    
-//                    let alertController = UIAlertController(title: "系统提示",
-//                                                            message: "亲，您还没实名认证，是否去认证？", preferredStyle: .Alert)
-//                    let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
-//                    let okAction = UIAlertAction(title: "确定", style: .Default,
-//                                                 handler: { action in
-//                                                    
-//                                                    self.tabBarController?.selectedIndex = 1
-//                                                    
-//                    })
-//                    alertController.addAction(cancelAction)
-//                    alertController.addAction(okAction)
-//                    self.presentViewController(alertController, animated: true, completion: nil)
-//                    return
-//                    
-//                }
-//            }
+
             self.tabBarController?.selectedIndex = 1
             
         }else{
@@ -618,10 +582,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             let newAnnotationView = BMKPinAnnotationView.init(annotation: annotation, reuseIdentifier: "myAnnotation")
             //        newAnnotationView.animatesDrop = true
             let photoUrl:String = Bang_Open_Header+"uploads/images/"+self.paopaoInfo[count2].photo
-//            print(paopaoInfo[count2].id)
-//            print(photoUrl)
             let button = UIButton.init(frame: CGRectMake(0, 0, 42, 42))
-//            button.center = CGPointMake(33.5, 30)
             button.sd_setImageWithURL(NSURL(string:photoUrl), forState: .Normal, placeholderImage: UIImage(named: "ic_moren"))
             button.layer.masksToBounds = true
             button.layer.borderColor = UIColor.whiteColor().CGColor
@@ -631,11 +592,6 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             button.layer.cornerRadius = 21
             button.backgroundColor = UIColor.redColor()
             
-//            newAnnotationView.annotation = annotation
-//            newAnnotationView.canShowCallout = true
-//            newAnnotationView.setSelected(true, animated: true)
-//            newAnnotationView.selected = true
-//            newAnnotationView.paopaoView = BMKActionPaopaoView.init(customView: button)
             newAnnotationView.frame = CGRectMake(0, 0, 67, 67)
             newAnnotationView.contentMode = .Center
             newAnnotationView.backgroundColor = UIColor.clearColor()
@@ -644,11 +600,6 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             newAnnotationView.image = UIImage(named: "ic_shuidi")
             
             
-            
-//            let imageview = UIImageView()
-//
-//            imageview.sd_setImageWithURL(NSURL.init(string: photoUrl), placeholderImage: UIImage(named: "蓝色小人"))
-//            newAnnotationView.image = 
             self.count2+=1
             return newAnnotationView
         }
