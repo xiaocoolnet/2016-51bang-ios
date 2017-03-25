@@ -19,6 +19,7 @@ class MyAdvertisementPublishListTableViewCell: UITableViewCell {
     var urlLabel = UIButton()
     var timeContent = UILabel()
     var payButton = UIButton()
+    var deletebutton = UIButton()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +27,7 @@ class MyAdvertisementPublishListTableViewCell: UITableViewCell {
     }
     init(myinfo:AdVlistInfo){
          super.init(style: UITableViewCellStyle.Default , reuseIdentifier: "myAdList")
-         self.sd_addSubviews([userImage,userName,timeLabel,lineView,imageContentView,moneyLabel,urlLabel,timeContent,payButton])
+         self.sd_addSubviews([userImage,userName,timeLabel,lineView,imageContentView,moneyLabel,urlLabel,timeContent,payButton,deletebutton])
         
         lineView.backgroundColor = LGBackColor
         lineView.sd_layout()//添加约束
@@ -93,7 +94,7 @@ class MyAdvertisementPublishListTableViewCell: UITableViewCell {
         .leftSpaceToView(self,30)
         .topSpaceToView(userImage,10)
         if myinfo.slide_pic != nil{
-            imageContentView.sd_setImageWithURL(NSURL.init(string: Bang_Open_Header+myinfo.slide_pic!), placeholderImage: UIImage(named: ""))
+            imageContentView.sd_setImageWithURL(NSURL.init(string: Bang_Image_Header+myinfo.slide_pic!), placeholderImage: UIImage(named: ""))
         }
         
         
@@ -111,14 +112,23 @@ class MyAdvertisementPublishListTableViewCell: UITableViewCell {
         
         moneyLabel.sd_layout()
         .heightIs(30)
-        .widthIs(100)
+        .widthIs(200)
         .topSpaceToView(urlLabel,10)
         .rightSpaceToView(self,30)
+        moneyLabel.textAlignment = .Right
+        
+        deletebutton.sd_layout()
+            .widthIs(35)
+            .heightIs(35)
+            .rightSpaceToView(payButton,0)
+            .topSpaceToView(self,5)
+        deletebutton.setImage(UIImage.init(named: "ic_delete"), forState: UIControlState.Normal)
         
         if myinfo.price != nil{
             moneyLabel.text = "总价：" + myinfo.price!+"元"
         }
         moneyLabel.textColor = UIColor.blackColor()
+        moneyLabel.font = UIFont.systemFontOfSize(14)
         
         
         timeContent.sd_layout()

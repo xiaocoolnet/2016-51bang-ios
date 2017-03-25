@@ -10,7 +10,7 @@ import UIKit
 import MBProgressHUD
 import MJRefresh
 
-class MyAdvertisementPublishListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class MyAdvertisementPublishListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIWebViewDelegate {
 
     var status = String()
     let mytableView = UITableView()
@@ -40,10 +40,16 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
         
         self.view.addSubview(self.mytableView)
 
-        self.mytableView.mj_header.beginRefreshing()
+//        self.mytableView.mj_header.beginRefreshing()
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.mytableView.mj_header.beginRefreshing()
+        self.tabBarController?.tabBar.hidden = true
     }
     
     
@@ -54,9 +60,13 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
         if ud.objectForKey("userid") != nil {
             userid = ud.objectForKey("userid") as! String
         }
-        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
         mainHelper.getMyAdlist(self.status, beginid: "0",userid: userid) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
+                
+                hud.hide(true)
                 if !success {
                     self.mytableView.mj_header.endRefreshing()
                     return
@@ -80,20 +90,26 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
         if ud.objectForKey("userid") != nil {
             userid = ud.objectForKey("userid") as! String
         }
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
+        
         self.beginmid = (self.dataSource.last?.slide_id)!
         print(beginmid)
         mainHelper.getbbspostlist(self.status, beginid: beginmid,userid:userid ) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
+                hud.hide(true)
                 if !success {
                     self.mytableView.mj_footer.endRefreshing()
                     return
                 }
-                self.dataSource = self.dataSource + (response as? Array<AdVlistInfo> ?? [])
-                self.mytableView.mj_footer.endRefreshing()
-                if self.dataSource.count == 0{
+                if (response as? Array<AdVlistInfo> ?? []).count == 0{
                     self.mytableView.mj_footer.endRefreshingWithNoMoreData()
                     return
                 }
+                self.dataSource = self.dataSource + (response as? Array<AdVlistInfo> ?? [])
+                self.mytableView.mj_footer.endRefreshing()
+                
                 
                 self.mytableView.reloadData()
             })
@@ -114,9 +130,16 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cell = MyAdvertisementPublishListTableViewCell.init(myinfo: self.dataSource[indexPath.row])
         cell.selectionStyle = .None
+        
+        cell.urlLabel.addTarget(self, action: #selector(self.goUrlAction(_:)), forControlEvents: .TouchUpInside)
+        cell.urlLabel.tag = indexPath.row+100
         if self.status=="1"{
             cell.payButton.hidden = true
+            cell.deletebutton.hidden = true
         }else{
+            cell.deletebutton.hidden = false
+            cell.deletebutton.tag = indexPath.row
+            cell.deletebutton.addTarget(self, action: #selector(self.deletebuttonAction(_:)), forControlEvents: .TouchUpInside)
             cell.payButton.hidden = false
             cell.payButton.tag = indexPath.row
             cell.payButton.addTarget(self, action: #selector(self.payButtonAction(_:)), forControlEvents: .TouchUpInside)
@@ -125,7 +148,92 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
     }
     
     func payButtonAction(sender:UIButton){
+        let vc = PayViewController()
+        vc.isGuanggao = true
+        let ud = NSUserDefaults.standardUserDefaults()
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid") as! String
+        }
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "ddHHmmss"
+        let dateStr = dateFormatter.stringFromDate(NSDate())
+        if self.dataSource[sender.tag].order_num != nil{
+            let numForGoodS =  dateStr + userid  + "_"+self.dataSource[sender.tag].order_num!
+            vc.numForGoodS = numForGoodS
+        }
+        if self.dataSource[sender.tag].price != nil{
+            let price1 = Double(self.dataSource[sender.tag].price!)
+            if price1 != nil{
+                vc.price = 0.01
+//                vc.price = Double(self.dataSource[sender.tag].price!)
+            }
+        }
         
+        
+        vc.subject = "广告发布购买"
+        
+        vc.body = "广告发布购买"
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func deletebuttonAction(sender:UIButton){
+        let ud = NSUserDefaults.standardUserDefaults()
+        var userid = String()
+        if ud.objectForKey("userid") != nil {
+            userid = ud.objectForKey("userid") as! String
+        }
+        
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "确定要删除广告？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        self.mainHelper.DeleteMyAD(userid, id: self.dataSource[sender.tag].slide_id!) { (success, response) in
+                                            if success{
+                                                let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                                                hud.mode = MBProgressHUDMode.Text;
+                                                hud.labelText = "删除成功"
+                                                hud.margin = 10.0
+                                                hud.yOffset = Float(HEIGHT/2-80)
+                                                hud.labelFont = UIFont.systemFontOfSize(14)
+                                                hud.hide(true, afterDelay: 1.5)
+                                                self.mytableView.deleteRowsAtIndexPaths([NSIndexPath.init(forRow: sender.tag, inSection: 0)], withRowAnimation: .Left)
+                                                self.mytableView.reloadData()
+                                            }
+                                        }
+                          
+                                        
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+        
+    }
+    
+    func goUrlAction(sender:UIButton){
+        let vc = PublicWebViewVC()
+        vc.view.backgroundColor = UIColor.brownColor()
+        if self.dataSource[sender.tag-100].slide_name != nil{
+            vc.title = self.dataSource[sender.tag-100].slide_name
+        }
+        
+        
+        if self.dataSource[sender.tag-100].slide_url != nil{
+            let url = NSURL(string:"http://"+(self.dataSource[sender.tag-100].slide_url)!)
+            if url != nil{
+                vc.url = url!
+            }else{
+                return
+            }
+        }
+        
+        
+       
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     override func didReceiveMemoryWarning() {

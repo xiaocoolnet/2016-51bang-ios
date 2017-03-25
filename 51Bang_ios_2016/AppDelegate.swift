@@ -441,6 +441,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 NSNotificationCenter.defaultCenter().postNotificationName("gomessage", object: nil)
                 ud.removeObjectForKey("comeFromWechat")
                 
+            }else if ud.objectForKey("comeFromWechat") as! String == "guanggao"{
+                NSNotificationCenter.defaultCenter().postNotificationName("guanggao", object: nil)
+                ud.removeObjectForKey("comeFromWechat")
+                
             }
         }
         //这里是检测是否需要再次登陆的地方，走接口发送设备吗到后台进行验证，客户需求暂时关闭

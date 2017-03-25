@@ -146,7 +146,7 @@ class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = ConveniceCell.init(info: self.dataSource2[indexPath.row] as! TCHDInfo )
         cell.targets = self
-        cell.deletebutton.hidden = true
+//        cell.deletebutton.hidden = false
         cell.messageButton.hidden = true
         cell.phone.hidden = true
         cell.accountnumberButton.hidden = true
@@ -155,7 +155,7 @@ class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITable
         cell.boFangButton.tag = indexPath.row
         cell.myDelegate = self
         if status == "-2"{
-            let payButton = UIButton.init(frame: CGRectMake(WIDTH-100, 10, 80, 25))
+            let payButton = UIButton.init(frame: CGRectMake(WIDTH-70, 15, 60, 25))
             payButton.setTitle("去支付", forState: .Normal)
             payButton.setTitleColor( UIColor.orangeColor(), forState: .Normal)
             payButton.layer.masksToBounds = true
@@ -167,6 +167,10 @@ class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITable
             payButton.addTarget(self, action: #selector(self.payButton(_:)), forControlEvents: .TouchUpInside)
             cell.addSubview(payButton)
         }
+        
+        cell.deletebutton.hidden = false
+        cell.deletebutton.addTarget(self, action: #selector(self.deletemyfabu(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        cell.deletebutton.tag = indexPath.row+1000
         return cell
     }
     
@@ -226,6 +230,57 @@ class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITable
     
     func pushVC(myVC:UIViewController){
         self.navigationController?.pushViewController(myVC, animated: true)
+    }
+    
+    func deletemyfabu(sender:UIButton){
+        //                print(sender.tag-1000)
+        if loginSign == 0 {
+            
+            alert("请先登录", delegate: self)
+            
+        }else{
+            
+            let alertController = UIAlertController(title: "系统提示",
+                                                    message: "确定要删除发布信息？", preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+            let okAction = UIAlertAction(title: "确定", style: .Default,
+                                         handler: { action in
+                                            
+                                            let user = NSUserDefaults.standardUserDefaults()
+                                            let userid = user.objectForKey("userid") as! String
+                                            let mainhelper = MainHelper()
+                                            mainhelper.Deletebbspost(userid, id: (self.dataSource2[sender.tag-1000] as! TCHDInfo).mid!, handle: { (success, response) in
+                                                dispatch_async(dispatch_get_main_queue(), {
+                                                    if !success{
+                                                        return
+                                                    }
+                                                    self.dataSource2.removeObject(self.dataSource2[sender.tag-1000] as! TCHDInfo)
+                                                    
+                                                    if sender.tag-1000<7{
+                                                        
+                                                        self.convenienceTable.reloadData()
+                                                        alert("内容已删除", delegate: self)
+                                                    }else{
+                                                        
+                                                        
+                                                        let myindexPaths = NSIndexPath.init(forRow:
+                                                            sender.tag-1000, inSection: 0)
+                                                        self.convenienceTable.deleteRowsAtIndexPaths([myindexPaths], withRowAnimation: UITableViewRowAnimation.Right)
+                                                        self.convenienceTable.reloadData()
+                                                        alert("内容已删除", delegate: self)
+                                                    }
+                                                    
+                                                    
+                                                })
+                                            })
+                                            
+                                            
+            })
+            alertController.addAction(cancelAction)
+            alertController.addAction(okAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+        }
     }
     
     
@@ -292,7 +347,7 @@ class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITable
         vc.numForGoodS = numForGoodS
         vc.isMessage = true
         
-        self.mainHelper.GetMessagePrice(userid, handle: { (success, response) in
+        self.mainHelper.GetMessagePrice("0",userid:userid, handle: { (success, response) in
             if success{
                 
                 let price1 = Double(response as! String)

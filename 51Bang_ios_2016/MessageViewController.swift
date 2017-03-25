@@ -65,7 +65,7 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
     }
         
     func createTableView(){
-        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
+        myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         myTableView.delegate = self
         myTableView.dataSource = self
 
@@ -159,8 +159,8 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
         
         mainhelper.getChatMessage(userid, receive_uid: receive_uid) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
-            if !success {
-                alert("加载错误", delegate: self)
+            if success {
+                
                 if self.dataSource[indexPath.row].noreadcount != nil&&self.dataSource[indexPath.row].noreadcount != "0"&&self.dataSource[indexPath.row].noreadcount != ""{
                     let counts = Int(self.dataSource[indexPath.row].noreadcount!)
                     if counts != nil{
@@ -174,6 +174,9 @@ class MessageViewController: UIViewController,UITableViewDelegate,UITableViewDat
                     }
                 }
                 
+                
+            }else{
+                alert("加载错误", delegate: self)
                 return
             }
             let dat = NSMutableArray()

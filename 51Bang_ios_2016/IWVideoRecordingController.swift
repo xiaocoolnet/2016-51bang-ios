@@ -88,7 +88,7 @@ AVCaptureFileOutputRecordingDelegate {
     //  MARK: - Private Methods
     func setupAVFoundationSettings() {
         camera = cameraWithPosition(AVCaptureDevicePosition.Back)
-        
+        fileOut.movieFragmentInterval = kCMTimeInvalid
         //  设置视频清晰度
         captureSession.sessionPreset = AVCaptureSessionPreset640x480
         

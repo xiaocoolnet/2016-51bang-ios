@@ -209,39 +209,35 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
         var imageurlarray = Array<String>()
         
-        mainHelper.Getslidelist("1") { (success, response) in
+        mainHelper.getslidelist_new("1") { (success, response) in
             if success{
                 dispatch_async(dispatch_get_main_queue(), {
 //                    let urls = Bang_Open_Header+(response as! Array<AdvertiselistModel>)[0].slide_pic!
                     for imageurl in (response as! Array<AdvertiselistModel>){
+                        if imageurl.slide_pic != nil{
+                            imageurlarray.append(Bang_Image_Header+imageurl.slide_pic!)
+                            self.urlArray.append(imageurl)
+                        }
                         
-                        imageurlarray.append(Bang_Open_Header+imageurl.slide_pic!)
-                        self.urlArray.append(imageurl)
+                    }
+                    
+                    if self.urlArray.count<1{
+                        return
                     }
                     let footbackView = UIView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH))
                     
-                    let myImageScroolView = SDCycleScrollView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH), delegate: self, placeholderImage: UIImage(named: "01"))
+                    let myImageScroolView = SDCycleScrollView.init(frame: CGRectMake(0, 20, WIDTH, WIDTH/2), delegate: self, placeholderImage: UIImage(named: "01"))
                     myImageScroolView.bannerImageViewContentMode = .ScaleAspectFit
                     myImageScroolView.autoScrollTimeInterval = 2
                     
                     myImageScroolView.imageURLStringsGroup = imageurlarray
-                    self.view.addSubview(myImageScroolView)
+//                    self.view.addSubview(myImageScroolView)
                     
                     
                     footbackView.addSubview(myImageScroolView)
                     self.myTableViw.tableFooterView = footbackView
                     
-//                    self.backurls = (response as! Array<AdvertiselistModel>)[0]
-//                    
-//                    let footImageView = UIImageView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH))
-//                    footImageView.sd_setImageWithURL(NSURL.init(string:urls), placeholderImage: UIImage(named: "01.png"))
-//                    footImageView.contentMode = .ScaleAspectFit
-//                    let buttons = UIButton.init(frame: footImageView.frame)
-//                    buttons.backgroundColor = UIColor.clearColor()
-//                    buttons.addTarget(self, action: #selector(self.ButtonsAction), forControlEvents: .TouchUpInside)
-//                    footbackView.addSubview(footImageView)
-//                    footbackView.addSubview(buttons)
-//                    self.myTableViw.tableFooterView = footbackView
+
                 })
             }
         }
@@ -301,16 +297,24 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     func cycleScrollView(cycleScrollView: SDCycleScrollView!, didSelectItemAtIndex index: Int) {
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.brownColor()
-        vc.title = urlArray[index].slide_name
+        if urlArray[index].slide_name != nil{
+            vc.title = urlArray[index].slide_name
+        }
+        
         let webView = UIWebView()
         webView.backgroundColor = GREY
-        webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT)
-        let url = NSURL(string:"http://"+(urlArray[index].slide_url)!)
-        if url != nil{
-            webView.loadRequest(NSURLRequest(URL:url!))
+        webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
+        if urlArray[index].slide_url != nil{
+            let url = NSURL(string:"http://"+(urlArray[index].slide_url)!)
+            if url != nil{
+                webView.loadRequest(NSURLRequest(URL:url!))
+            }else{
+                return
+            }
         }else{
             return
         }
+        
         
         webView.delegate = self
         vc.view.addSubview(webView)
@@ -696,6 +700,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         }else{
             let imagePickerVc = TZImagePickerController.init(maxImagesCount: 9, delegate:self)
             imagePickerVc.allowPickingOriginalPhoto = false
+//            imagePickerVc.allowPickingImage = false
             
             self.presentViewController(imagePickerVc, animated: true, completion: nil)
         }
@@ -838,60 +843,6 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         
         
         
-        
-//        if self.photoArray.count != 0 {
-//            for image in photoArray {
-//                
-//                //                let representation =  ima.asset.defaultRepresentation()
-////                let image = ima
-//                let dataPhoto:NSData = UIImageJPEGRepresentation(image as! UIImage, 1.0)!
-//                var myImagess = UIImage()
-//                myImagess = UIImage.init(data: dataPhoto)!
-//                
-//                let data = UIImageJPEGRepresentation(myImagess, 0.1)!
-//                let dateFormatter = NSDateFormatter()
-//                dateFormatter.dateFormat = "MMddHHmmssSSS"
-//                let dateStr = dateFormatter.stringFromDate(NSDate())
-//                let imageName = "avatar" + dateStr + String(aaaaaaa) + userid + String(Int(arc4random()%10000)+1)
-//                print(imageName)
-//                self.photoNameArr.addObject(imageName+".png")
-//                
-//                //上传图片
-//                ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
-//                    dispatch_async(dispatch_get_main_queue(), {
-//                        
-//                        let result = Http(JSONDecoder(data))
-//                        print(result.status)
-//                        if result.status != nil {
-//                            dispatch_async(dispatch_get_main_queue(), {
-//                                if result.status! == "success"{
-//                                    
-//                                    print(aaaaaaa)
-//                                    print(self.photoArray.count)
-//                                    aaaaaaa = aaaaaaa+1
-//                                    if aaaaaaa == self.photoArray.count && isRecords == true{
-//                                        self.fabuAction()
-//                                    }
-//                                    
-//                                    
-//                                }else{
-//                                    self.photoNameArr.removeLastObject()
-//                                    let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-//                                    hud.mode = MBProgressHUDMode.Text;
-//                                    hud.labelText = "图片上传失败"
-//                                    hud.margin = 10.0
-//                                    hud.removeFromSuperViewOnHide = true
-//                                    hud.hide(true, afterDelay: 1)
-//                                    self.hud1.hide(true)
-//                                }
-//                            })
-//                        }
-//                    })
-//                    
-//                }
-//                
-//            }
-//        }
         
         
         
@@ -1183,7 +1134,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                             
                             vc.numForGoodS = numForGoodS
                             vc.isMessage = true
-                            self.mainHelper.GetMessagePrice(userid, handle: { (success, response) in
+                            self.mainHelper.GetMessagePrice("0",userid:userid ,handle: { (success, response) in
                                 if success{
                                     
                                     let price1 = Double(response as! String)
@@ -1274,7 +1225,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         audioSession = AVAudioSession.sharedInstance()
         do{
             
-            try audioSession.setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
             try audioSession.setActive(true)
         }catch{
             
@@ -1284,6 +1235,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             let player = AVPlayer(URL: urls)
             let playerController = AVPlayerViewController()
             playerController.player = player
+            
             self.presentViewController(playerController, animated: true, completion: nil)
         }
     }

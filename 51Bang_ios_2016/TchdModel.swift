@@ -53,11 +53,40 @@ class ADVListdModel: NSObject {
         status = decoder["status"].string
         if status == "success" {
             for childs: JSONDecoder in decoder["data"].array!{
-                //                print(childs)
-                //                print(SkillModel(childs))
+                
                 datas.append(AdVlistInfo(childs))
-                //                print(datas)
-                //                    array.append(SkillModel(childs))
+                
+            }
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+    }
+    
+}
+
+class ADVresultdModel: NSObject {
+    
+    var status:String?
+    var data: JSONDecoder?
+    
+    var datas = Array<Array<String>>()
+    var errorData:String?
+    override init(){
+    }
+    required init(_ decoder:JSONDecoder){
+        var counts = 0
+        status = decoder["status"].string
+        if status == "success" {
+            for childs: JSONDecoder in decoder["data"].array!{
+                datas.append([])
+                
+                for childs2: JSONDecoder in childs.array!{
+                   datas[counts].append(childs2.string!)
+                }
+                
+               counts = counts+1
+                
             }
         }else{
             errorData = decoder["data"].string
@@ -238,6 +267,8 @@ class AdVlistInfo:JSONJoy{
     var price:String?
     var slide_pic:String?
     var slide_url:String?
+    var order_num:String?
+    var slide_name:String?
     
     
     //    var pictureurl:String?
@@ -260,6 +291,8 @@ class AdVlistInfo:JSONJoy{
         price = decoder["price"].string
         slide_pic = decoder["slide_pic"].string
         slide_url = decoder["slide_url"].string
+        order_num = decoder["order_num"].string
+        slide_name = decoder["slide_name"].string
     }
     
 }

@@ -405,12 +405,16 @@
 		773F21CF1DB627F800A90160 /* FuWuHomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */; };
 		77507B6E1E5EE4C500D2064A /* IWManagerVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507B6C1E5EE4C500D2064A /* IWManagerVideosViewController.swift */; };
 		77507B6F1E5EE4C500D2064A /* IWVideoRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507B6D1E5EE4C500D2064A /* IWVideoRecordingController.swift */; };
+		7753FC9B1E8606B80012A3FD /* PublicWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7753FC9A1E8606B80012A3FD /* PublicWebViewVC.swift */; };
 		7754A3BB1DBF5E3100C06FBA /* 被抢单.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B71DBF5E3100C06FBA /* 被抢单.caf */; };
 		7754A3BC1DBF5E3100C06FBA /* 发单超时.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B81DBF5E3100C06FBA /* 发单超时.caf */; };
 		7754A3BD1DBF5E3100C06FBA /* 购买了商品.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */; };
 		7754A3BE1DBF5E3100C06FBA /* 抢单取消.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */; };
 		77561D6F1E5E8151001594E9 /* CopyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77561D6E1E5E8151001594E9 /* CopyLabel.swift */; };
 		77594D911E1E2669000628A1 /* 发单声音.caf in Resources */ = {isa = PBXBuildFile; fileRef = 77594D901E1E2669000628A1 /* 发单声音.caf */; };
+		775CA1241E86182D0060CAE8 /* AliImageReshapeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 775CA11F1E86182D0060CAE8 /* AliImageReshapeController.m */; };
+		775CA1251E86182D0060CAE8 /* ALiImageShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 775CA1211E86182D0060CAE8 /* ALiImageShapeView.m */; };
+		775CA1261E86182D0060CAE8 /* UIImage+ALi.m in Sources */ = {isa = PBXBuildFile; fileRef = 775CA1231E86182D0060CAE8 /* UIImage+ALi.m */; };
 		77648AB31E6507870023566A /* PublicTableViewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77648AB21E6507870023566A /* PublicTableViewsViewController.swift */; };
 		77648AB91E656DB80023566A /* MyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77648AB81E656DB80023566A /* MyMessageViewController.swift */; };
 		77648ABB1E656E750023566A /* MyMessageChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77648ABA1E656E750023566A /* MyMessageChildViewController.swift */; };
@@ -1084,12 +1088,19 @@
 		773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FuWuHomePageTableViewCell.xib; sourceTree = "<group>"; };
 		77507B6C1E5EE4C500D2064A /* IWManagerVideosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWManagerVideosViewController.swift; sourceTree = "<group>"; };
 		77507B6D1E5EE4C500D2064A /* IWVideoRecordingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWVideoRecordingController.swift; sourceTree = "<group>"; };
+		7753FC9A1E8606B80012A3FD /* PublicWebViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicWebViewVC.swift; sourceTree = "<group>"; };
 		7754A3B71DBF5E3100C06FBA /* 被抢单.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "被抢单.caf"; sourceTree = "<group>"; };
 		7754A3B81DBF5E3100C06FBA /* 发单超时.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "发单超时.caf"; sourceTree = "<group>"; };
 		7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "购买了商品.caf"; sourceTree = "<group>"; };
 		7754A3BA1DBF5E3100C06FBA /* 抢单取消.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "抢单取消.caf"; sourceTree = "<group>"; };
 		77561D6E1E5E8151001594E9 /* CopyLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyLabel.swift; sourceTree = "<group>"; };
 		77594D901E1E2669000628A1 /* 发单声音.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "发单声音.caf"; sourceTree = "<group>"; };
+		775CA11E1E86182D0060CAE8 /* AliImageReshapeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliImageReshapeController.h; sourceTree = "<group>"; };
+		775CA11F1E86182D0060CAE8 /* AliImageReshapeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliImageReshapeController.m; sourceTree = "<group>"; };
+		775CA1201E86182D0060CAE8 /* ALiImageShapeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALiImageShapeView.h; sourceTree = "<group>"; };
+		775CA1211E86182D0060CAE8 /* ALiImageShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALiImageShapeView.m; sourceTree = "<group>"; };
+		775CA1221E86182D0060CAE8 /* UIImage+ALi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ALi.h"; sourceTree = "<group>"; };
+		775CA1231E86182D0060CAE8 /* UIImage+ALi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ALi.m"; sourceTree = "<group>"; };
 		77648AB21E6507870023566A /* PublicTableViewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicTableViewsViewController.swift; sourceTree = "<group>"; };
 		77648AB81E656DB80023566A /* MyMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMessageViewController.swift; sourceTree = "<group>"; };
 		77648ABA1E656E750023566A /* MyMessageChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMessageChildViewController.swift; sourceTree = "<group>"; };
@@ -1299,6 +1310,7 @@
 		0D10A6241D50AE550004903C /* ThirdPackage */ = {
 			isa = PBXGroup;
 			children = (
+				775CA11D1E86182D0060CAE8 /* ALiImageReshape */,
 				7709E68B1E83C920008C384E /* GKClasses */,
 				77507B6B1E5EE4A000D2064A /* 视频录制 */,
 				77D381861E092FC400A1C2BF /* UIBounceButton */,
@@ -1822,6 +1834,7 @@
 				18D8815B1D1527200067218F /* File.swift */,
 				1FE121FB1D220B7800C0BE0B /* Tool.swift */,
 				77561D6E1E5E8151001594E9 /* CopyLabel.swift */,
+				7753FC9A1E8606B80012A3FD /* PublicWebViewVC.swift */,
 			);
 			name = Tool;
 			sourceTree = "<group>";
@@ -2378,6 +2391,19 @@
 				77507B6D1E5EE4C500D2064A /* IWVideoRecordingController.swift */,
 			);
 			name = "视频录制";
+			sourceTree = "<group>";
+		};
+		775CA11D1E86182D0060CAE8 /* ALiImageReshape */ = {
+			isa = PBXGroup;
+			children = (
+				775CA11E1E86182D0060CAE8 /* AliImageReshapeController.h */,
+				775CA11F1E86182D0060CAE8 /* AliImageReshapeController.m */,
+				775CA1201E86182D0060CAE8 /* ALiImageShapeView.h */,
+				775CA1211E86182D0060CAE8 /* ALiImageShapeView.m */,
+				775CA1221E86182D0060CAE8 /* UIImage+ALi.h */,
+				775CA1231E86182D0060CAE8 /* UIImage+ALi.m */,
+			);
+			path = ALiImageReshape;
 			sourceTree = "<group>";
 		};
 		77D381861E092FC400A1C2BF /* UIBounceButton */ = {
@@ -3198,6 +3224,7 @@
 				A44263A01D92964F00F9DFB6 /* BankBandViewController.swift in Sources */,
 				1FDA70701D3E109A00822D18 /* OrderRWTableViewCell.swift in Sources */,
 				7709E69B1E83C920008C384E /* GKImageCropViewController.m in Sources */,
+				775CA1261E86182D0060CAE8 /* UIImage+ALi.m in Sources */,
 				189757B91D1625110083FE46 /* AddViewController.swift in Sources */,
 				1F0DF18E1D2B954C00D45390 /* WoBangViewController.swift in Sources */,
 				18D596381D17F08E00BDBCD6 /* PinyinFormatter.m in Sources */,
@@ -3262,6 +3289,7 @@
 				F247452A1D6D51CF00870363 /* SGImagePickerController.m in Sources */,
 				1FDD24001D41FA0200DDC8F4 /* ApiXml.mm in Sources */,
 				1F9B0DEA1D35EA0800C7CA52 /* TCUserInfo.swift in Sources */,
+				7753FC9B1E8606B80012A3FD /* PublicWebViewVC.swift in Sources */,
 				1FB42E8E1D351E0700611E1C /* TchdModel.swift in Sources */,
 				0DD5111A1D51D16E00FE88C2 /* ZLShowBigImgViewController.m in Sources */,
 				1F1F5F891D334690005616DD /* GDataXMLNode.m in Sources */,
@@ -3293,6 +3321,7 @@
 				189757E91D16794C0083FE46 /* OneTableViewCell.swift in Sources */,
 				1FF43B621D2A149A00091F79 /* ShopHeaderView.swift in Sources */,
 				0DD511161D51D16E00FE88C2 /* ZLPhotoBrowserCell.m in Sources */,
+				775CA1251E86182D0060CAE8 /* ALiImageShapeView.m in Sources */,
 				0DEFF3C01D60250000BC7BF1 /* MyCollectionViewCell.swift in Sources */,
 				184053B41D15301F008A2BAB /* Http.swift in Sources */,
 				A44263A21D92AFD800F9DFB6 /* CashGetViewController.swift in Sources */,
@@ -3328,6 +3357,7 @@
 				77507B6E1E5EE4C500D2064A /* IWManagerVideosViewController.swift in Sources */,
 				F23C55991D65774E0094E2B7 /* ZuberImage.swift in Sources */,
 				1F0DF18B1D2B5D5F00D45390 /* ConvenienceHeaderViewCell.swift in Sources */,
+				775CA1241E86182D0060CAE8 /* AliImageReshapeController.m in Sources */,
 				1FFE54191D2C9166000891EB /* PayMethodTableViewCell.swift in Sources */,
 				A4504C101D93B8A80039764D /* WalletDetail3ViewController.swift in Sources */,
 				77648AB91E656DB80023566A /* MyMessageViewController.swift in Sources */,

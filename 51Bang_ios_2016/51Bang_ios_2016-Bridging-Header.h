@@ -64,6 +64,7 @@
 #import "SDCycleScrollView.h"//轮播图
 
 #import "GKImagePicker.h"//图片剪辑
+#import "AliImageReshapeController.h"//图片剪辑
 
 //#import <UserNotifications/UserNotifications.h>
 //#import "MainHelper.swift"

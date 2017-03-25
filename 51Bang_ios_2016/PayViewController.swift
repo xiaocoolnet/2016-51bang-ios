@@ -26,6 +26,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     let mainhelper = MainHelper()
     
     var isMessage = Bool()
+    var isGuanggao = Bool()
     
     /**
      *  微信开放平台申请得到的 appid, 需要同时添加在 URL schema
@@ -55,6 +56,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.goOrderList), name:"goOrderList", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.goRenwuList), name:"goRenwuList", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.gomessage), name:"gomessage", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.guanggao), name:"guanggao", object: nil)
         
         isAgree = false
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.nextView),
@@ -143,6 +145,11 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
 //        let bookVC = MyMessageViewController()
 //        self.navigationController?.pushViewController(bookVC, animated: true)
+    }
+    func guanggao(){
+        let bookVC = MyAdvertisementPublishViewController()
+        let array = [self.navigationController!.viewControllers[0],bookVC]
+        self.navigationController?.setViewControllers(array, animated: true)
     }
     
     
@@ -234,6 +241,11 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             }else{
                 order.outTradeNO = orderNum ;
             }
+            if isGuanggao{
+                order.outTradeNO = self.numForGoodS
+            }else{
+                order.outTradeNO = orderNum ;
+            }
             //            order.outTradeNO = "154553456456"
             if self.subject == "" {
                 order.subject = "商品标题"
@@ -278,6 +290,9 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 
                 if isMessage{
                     user.setObject("message",forKey:"comeFromWechat")
+                }
+                if isGuanggao{
+                    user.setObject("guanggao",forKey:"comeFromWechat")
                 }
                 
                 AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme) { (dic)-> Void in
@@ -343,7 +358,10 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             if isMessage{
                 
                 weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS,isRenwu:3);
-            }else{
+            }else if isGuanggao{
+                weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS,isRenwu:3);
+            }
+            else{
                 if isRenwu{
                      weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum,isRenwu:1);
                 }else{

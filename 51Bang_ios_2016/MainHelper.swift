@@ -176,8 +176,8 @@
     }
     
     
-    func Getslidelist(typeid:String,handle:ResponseBlock){
-        let url = Bang_URL_Header+"getslidelist"
+    func getslidelist_new(typeid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"getslidelist_new"
         let param1 = [
             
             "typeid":typeid
@@ -356,36 +356,36 @@
         }
     }
     
-    //发布便民信息
-    func GetMessagePrice(userid:NSString,handle:ResponseBlock){
-        //        let url = Bang_URL_Header+"addbbsposts"
-        let url = Bang_URL_Header+"GetMessagePrice"
-        let param = [
-            
-            "userid":userid
-        ];
-        
-        
-        
-        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
-            print(request)
-            if(error != nil){
-                handle(success: false, response: error?.description)
-            }else{
-                let result = Http(JSONDecoder(json!))
-
-                if(result.status == "success"){
-
-                    handle(success: true, response: result.data)
-                    
-                }else{
-                    handle(success: false, response: result.errorData)
-                    
-                }
-            }
-            
-        }
-    }
+//    //发布便民信息
+//    func GetMessagePrice(userid:NSString,handle:ResponseBlock){
+//        //        let url = Bang_URL_Header+"addbbsposts"
+//        let url = Bang_URL_Header+"GetMessagePrice"
+//        let param = [
+//            
+//            "userid":userid
+//        ];
+//        
+//        
+//        
+//        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+//            print(request)
+//            if(error != nil){
+//                handle(success: false, response: error?.description)
+//            }else{
+//                let result = Http(JSONDecoder(json!))
+//
+//                if(result.status == "success"){
+//
+//                    handle(success: true, response: result.data)
+//                    
+//                }else{
+//                    handle(success: false, response: result.errorData)
+//                    
+//                }
+//            }
+//            
+//        }
+//    }
     //发布评论
     func upLoadevaluate(userid:NSString,type:NSString,id:NSString,content:NSString,photoArray:NSArray,photo:UIImage,handle:ResponseBlock){
         let url = Bang_URL_Header+"SetComment"
@@ -629,6 +629,173 @@
                 if(result.status == "success"){
                     
                     handle(success: true, response: result.datas)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
+    //获取我的广告发布单价
+    //type(0:便民圈单条信息，1轮播广告位1，2轮播广告位2，3轮播广告位3)
+    func GetMessagePrice(type:NSString,userid:String,handle:ResponseBlock){
+        
+        
+        let url = Bang_URL_Header+"GetMessagePrice"
+        
+        let param = [
+            
+            "type":type,
+            
+            "userid":userid
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                
+                if(result.status == "success"){
+                    
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
+    
+    //获取我的广告发布是否可用
+    func CheckADIsCanPublish(type:NSString,userid:String,day:Array<String>, handle:ResponseBlock){
+        var cityName = String()
+        let ud = NSUserDefaults.standardUserDefaults()
+        let url = Bang_URL_Header+"CheckADIsCanPublish"
+        if (ud.objectForKey("quName") != nil) {
+            cityName = ud.objectForKey("quName") as! String
+        }
+        var count1 = 0
+        var dayStr = String()
+        for str in day {
+            if count1 == day.count-1{
+                dayStr = dayStr+stringToTimeStampWithyyyymmdd(str)
+            }else{
+                dayStr = dayStr+stringToTimeStampWithyyyymmdd(str)+","
+            }
+           count1 = count1+1
+        }
+        
+
+        let param = [
+            
+            "type":type,
+            "city":cityName,
+            "day":dayStr,
+            "userid":userid
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = ADVresultdModel(JSONDecoder(json!))
+                
+                if(result.status == "success"){
+                    
+                    handle(success: true, response: result.datas)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
+    
+    //广告发布
+    func PublishAD(type:NSString,userid:String,photo:String,urls:String,begintime:String,endtime:String,price:String,slide_name:String, handle:ResponseBlock){
+
+        let url = Bang_URL_Header+"PublishAD"
+
+        
+        
+        let param = [
+            
+            "type":type,
+            "photo":photo,
+            "url":urls,
+            "begintime":begintime,
+            "endtime":endtime,
+            "price":price,
+            "slide_name":slide_name,
+            "userid":userid
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                
+                if(result.status == "success"){
+                    
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
+    
+    //删除我发布的广告
+    
+    func DeleteMyAD(userid:String,id:String, handle:ResponseBlock){
+        
+        let url = Bang_URL_Header+"DeleteMyAD"
+        
+        
+        
+        let param = [
+            
+            
+            "id":id,
+            "userid":userid
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                
+                if(result.status == "success"){
+                    
+                    handle(success: true, response: result.data)
                     
                 }else{
                     handle(success: false, response: result.errorData)

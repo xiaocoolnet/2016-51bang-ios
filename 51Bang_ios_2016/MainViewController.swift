@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import MBProgressHUD
 
 
 var address:String  = ""
@@ -524,10 +525,13 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             cityname = userLocationCenter.objectForKey("cityName") as! String
         }
         print(cityname)
-        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
         
         mainHelper.GetHomeRzbList (cityname,beginid: "-1",sort:"" ,type: "", handle: {[unowned self](success, response) in
             dispatch_async(dispatch_get_main_queue(), {
+                hud.hide(true)
                 if !success {
                     
                     return
@@ -627,14 +631,20 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
             mapView.viewWithTag(self.countSelected)?.layer.cornerRadius = 21
 
         }
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.labelText = "正在努力加载"
         self.countSelected = sender.tag
         print(sender.tag-600)
         let ud = NSUserDefaults.standardUserDefaults()
         let longitude1 = ud.objectForKey("longitude")
         let latitude1 = ud.objectForKey("latitude")
         if longitude1 != nil&&latitude1 != nil{
-            skillHelper.getAuthenticationInfoByUserId(self.paopaoInfo[sender.tag-600].id,longitude:longitude1 as! String,latitude:latitude1 as! String, handle: { (success, response) in
+            
+            
+        skillHelper.getAuthenticationInfoByUserId(self.paopaoInfo[sender.tag-600].id,longitude:longitude1 as! String,latitude:latitude1 as! String, handle: { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
+                hud.hide(true)
                 if success{
                     self.infoMore = response as! RzbInfo!
                     self.showInfo(response as! RzbInfo!)

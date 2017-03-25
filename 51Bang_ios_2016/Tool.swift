@@ -107,6 +107,12 @@ class RegularExpression{
     }}
 
 
+//非空判断
+func stringIsNotNil(str:AnyObject?)->AnyObject{
+    return str != nil ? str!:""
+}
+
+
 //  提示框
 func alert(message:String,delegate:AnyObject){
     
