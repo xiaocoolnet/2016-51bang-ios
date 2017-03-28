@@ -226,13 +226,21 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                     }
                     let footbackView = UIView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH))
                     
-                    let myImageScroolView = SDCycleScrollView.init(frame: CGRectMake(0, 20, WIDTH, WIDTH/2), delegate: self, placeholderImage: UIImage(named: "01"))
+                    let myImageScroolView = SDCycleScrollView.init(frame: CGRectMake(0, 40, WIDTH, WIDTH), delegate: self, placeholderImage: UIImage(named: "01"))
                     myImageScroolView.bannerImageViewContentMode = .ScaleAspectFit
                     myImageScroolView.autoScrollTimeInterval = 2
                     
                     myImageScroolView.imageURLStringsGroup = imageurlarray
 //                    self.view.addSubview(myImageScroolView)
                     
+                    let gofabuButton = UIButton.init(frame: CGRectMake(WIDTH-200, 10, 200, 20))
+                    let str = NSMutableAttributedString.init(string: "我也要发布属于自己的广告")
+                    str.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(13), range: NSRange.init(location: 0, length: str.length))
+                    str.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSRange.init(location: 0, length: str.length))
+                    str.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: NSRange.init(location: 0, length: str.length))
+                    gofabuButton.setAttributedTitle(str, forState: .Normal)
+                    gofabuButton.addTarget(self, action: #selector(self.gofabuButtonAction), forControlEvents: .TouchUpInside)
+                    footbackView.addSubview(gofabuButton)
                     
                     footbackView.addSubview(myImageScroolView)
                     self.myTableViw.tableFooterView = footbackView
@@ -241,6 +249,11 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                 })
             }
         }
+    }
+    
+    func gofabuButtonAction(){
+        let vc = GoAdvertisementPublishViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -297,14 +310,14 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     func cycleScrollView(cycleScrollView: SDCycleScrollView!, didSelectItemAtIndex index: Int) {
         let vc = UIViewController()
         vc.view.backgroundColor = UIColor.brownColor()
-        if urlArray[index].slide_name != nil{
+        if urlArray[index].slide_name != nil&&urlArray[index].slide_name != ""{
             vc.title = urlArray[index].slide_name
         }
         
         let webView = UIWebView()
         webView.backgroundColor = GREY
         webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
-        if urlArray[index].slide_url != nil{
+        if urlArray[index].slide_url != nil&&urlArray[index].slide_url != ""{
             let url = NSURL(string:"http://"+(urlArray[index].slide_url)!)
             if url != nil{
                 webView.loadRequest(NSURLRequest(URL:url!))

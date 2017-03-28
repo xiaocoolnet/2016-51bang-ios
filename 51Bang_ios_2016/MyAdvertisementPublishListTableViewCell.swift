@@ -90,7 +90,7 @@ class MyAdvertisementPublishListTableViewCell: UITableViewCell {
         
         imageContentView.sd_layout()
         .widthIs(WIDTH-60)
-        .heightIs(WIDTH/2-30)
+        .heightIs(WIDTH-60)
         .leftSpaceToView(self,30)
         .topSpaceToView(userImage,10)
         if myinfo.slide_pic != nil{

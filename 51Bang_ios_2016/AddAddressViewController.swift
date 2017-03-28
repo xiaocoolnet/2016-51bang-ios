@@ -18,6 +18,7 @@ class AddAddressViewController: UIViewController,UITextFieldDelegate {
     var sign = Int(0)
     let addressLabe = UILabel()
     let textView = UITextField()
+    var sarchModel:BMKPoiInfo?
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -89,12 +90,21 @@ class AddAddressViewController: UIViewController,UITextFieldDelegate {
     }
     
     func goCitySelect(){
-        cityController = CityViewController(nibName: "CityViewController", bundle: nil)
-//        cityController.delegate = self
-        cityController.isNotDingwei = true
-        self.navigationController?.pushViewController(cityController, animated: true)
         
-        cityController.title = "省份选择"
+        
+        let homeCareViewController = MapSelectViewController()
+        homeCareViewController.mapBlock = {(mapInfo) ->Void in
+            self.sarchModel = mapInfo
+            self.addressLabe.text = mapInfo.city+mapInfo.name
+        }
+        self.navigationController?.pushViewController(homeCareViewController, animated: true)
+        
+//        cityController = CityViewController(nibName: "CityViewController", bundle: nil)
+////        cityController.delegate = self
+//        cityController.isNotDingwei = true
+//        self.navigationController?.pushViewController(cityController, animated: true)
+//        
+//        cityController.title = "省份选择"
     }
 
     func addAddress(){

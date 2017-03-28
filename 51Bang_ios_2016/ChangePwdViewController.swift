@@ -141,7 +141,7 @@ class ChangePwdViewController: UIViewController {
         
         passWordLabel = UILabel()
         passWordLabel.frame = CGRectMake(20, 15, 70, 30)
-        passWordLabel.text = "输入密码"
+        passWordLabel.text = "设置密码"
         passWordLabel.font = UIFont.systemFontOfSize(16)
         passWordView.addSubview(passWordLabel)
         

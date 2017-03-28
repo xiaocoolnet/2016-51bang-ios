@@ -178,8 +178,14 @@
     
     func getslidelist_new(typeid:String,handle:ResponseBlock){
         let url = Bang_URL_Header+"getslidelist_new"
+        let ud = NSUserDefaults.standardUserDefaults()
+        var cityid = String()
+        if ud.objectForKey("cityid") != nil {
+            cityid = ud.objectForKey("cityid")as! String
+        }
+
         let param1 = [
-            
+            "cityid":cityid,
             "typeid":typeid
             
         ];
@@ -685,6 +691,11 @@
         if (ud.objectForKey("quName") != nil) {
             cityName = ud.objectForKey("quName") as! String
         }
+        var cityid = String()
+        if ud.objectForKey("cityid") != nil {
+            cityid = ud.objectForKey("cityid")as! String
+        }
+        
         var count1 = 0
         var dayStr = String()
         for str in day {
@@ -702,7 +713,8 @@
             "type":type,
             "city":cityName,
             "day":dayStr,
-            "userid":userid
+            "userid":userid,
+            "cityid":cityid
         ];
         
         
@@ -732,7 +744,11 @@
     func PublishAD(type:NSString,userid:String,photo:String,urls:String,begintime:String,endtime:String,price:String,slide_name:String, handle:ResponseBlock){
 
         let url = Bang_URL_Header+"PublishAD"
-
+        let ud = NSUserDefaults.standardUserDefaults()
+        var cityid = String()
+        if ud.objectForKey("cityid") != nil {
+            cityid = ud.objectForKey("cityid")as! String
+        }
         
         
         let param = [
@@ -743,6 +759,45 @@
             "begintime":begintime,
             "endtime":endtime,
             "price":price,
+            "slide_name":slide_name,
+            "userid":userid,
+            "cityid":cityid
+        ];
+        
+        
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                
+                if(result.status == "success"){
+                    
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
+    //广告更新
+    func UpdateAD(id:NSString,userid:String,photo:String,urls:String,slide_name:String, handle:ResponseBlock){
+        
+        let url = Bang_URL_Header+"UpdateAD"
+        
+        
+        
+        let param = [
+            
+            "id":id,
+            "photo":photo,
+            "url":urls,
             "slide_name":slide_name,
             "userid":userid
         ];
@@ -1440,6 +1495,27 @@
         
         
     }
+    
+    //获取城市列表
+    func GetCityList(handle:ResponseBlock){
+        let url = Bang_URL_Header+"GetCityList"
+        
+        Alamofire.request(.GET, url, parameters: nil).response { request, response, json, error in
+            print(request)
+            let result = cityModel(JSONDecoder(json!))
+            if result.status == "success"{
+                handle(success: true, response: result.datas)
+            }else{
+                handle(success: false, response: result.errorData)
+                
+            }
+            
+            
+        }
+        
+        
+    }
+    
 
     //获取绑定用户银行、支付宝信息
     func getUserBank(userid:String,handle:ResponseBlock){

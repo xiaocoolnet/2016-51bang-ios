@@ -223,6 +223,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("acceptTaskType", object: dic)
             }else
+                if userInfo["key"] as! String == "advertisementRecall" {
+                    NSNotificationCenter.defaultCenter().postNotificationName("advertisementRecall", object: nil)
+                }else
             if userInfo["key"] as! String == "buyOrderType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("buyOrderType", object: dic)

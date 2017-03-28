@@ -53,6 +53,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         print(self.subject)
         print(self.body)
         
+        self.navigationItem.hidesBackButton = true
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.goOrderList), name:"goOrderList", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.goRenwuList), name:"goRenwuList", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.gomessage), name:"gomessage", object: nil)
@@ -73,7 +75,7 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.registerNib(UINib(nibName: "PayMethodTableViewCell",bundle: nil), forCellReuseIdentifier: "paycell")
-        let bottom = UIView(frame: CGRectMake(0, 0, WIDTH, 150))
+        let bottom = UIView(frame: CGRectMake(0, 0, WIDTH, 220))
         let label = UILabel.init(frame: CGRectMake(0, 10, 160, 22))
         label.text = "我同意《用户者服务协议》"
         label.textColor = UIColor.grayColor()
@@ -95,6 +97,15 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         //        bottom.addSubview(button)
         //        bottom.addSubview(selectBtn)
         bottom.addSubview(btn)
+        let btnCanel = UIButton(frame: CGRectMake(15, 150, WIDTH-30, 50))
+        btnCanel.layer.cornerRadius = 8
+        btnCanel.setTitle("取消支付", forState: .Normal)
+        btnCanel.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        btnCanel.backgroundColor = COLOR
+        btnCanel.addTarget(self, action: #selector(self.canelPay), forControlEvents: .TouchUpInside)
+        //        bottom.addSubview(button)
+        //        bottom.addSubview(selectBtn)
+        bottom.addSubview(btnCanel)
         
         if self.isMessage{
             bottom.frame = CGRectMake(0, 0, WIDTH, 250)
@@ -177,6 +188,31 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func canelPay(){
+        if isRenwu{
+            let bookVC = MyFaDan()
+            let array = [self.navigationController!.viewControllers[0],bookVC]
+            self.navigationController?.setViewControllers(array, animated: true)
+        }else{
+            if isMessage{
+                self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: false)
+            }else{
+                if isGuanggao{
+                    let bookVC = MyAdvertisementPublishViewController()
+                    let array = [self.navigationController!.viewControllers[0],bookVC]
+                    self.navigationController?.setViewControllers(array, animated: true)
+
+                }else{
+                    let bookVC = MyBookDan()
+                    let array = [self.navigationController!.viewControllers[0],bookVC]
+                    
+                    
+                    self.navigationController?.setViewControllers(array, animated: true)
+                }
+            }
+        }
     }
     
     
@@ -281,19 +317,25 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 let orderString = "\(orderSpec)&sign=\"\(signedString)\"&sign_type=\"RSA\"";
                 
                 
+//                let user = NSUserDefaults.standardUserDefaults()
                 let user = NSUserDefaults.standardUserDefaults()
-                if (isRenwu) {
+                if (self.isRenwu) {
                     user.setObject("renwuBook",forKey:"comeFromWechat")
                 }else{
-                    user.setObject("bookDan",forKey:"comeFromWechat")
+                    if self.isMessage{
+                        user.setObject("message",forKey:"comeFromWechat")
+                    }else{
+                        if self.isGuanggao{
+                            user.setObject("guanggao",forKey:"comeFromWechat")
+                        }else{
+                            user.setObject("bookDan",forKey:"comeFromWechat")
+                        }
+                        
+                    }
+                    
                 }
+
                 
-                if isMessage{
-                    user.setObject("message",forKey:"comeFromWechat")
-                }
-                if isGuanggao{
-                    user.setObject("guanggao",forKey:"comeFromWechat")
-                }
                 
                 AlipaySDK.defaultService().payOrder(orderString, fromScheme: appScheme) { (dic)-> Void in
                     
@@ -321,10 +363,26 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                                 if !success{
 //                                    alert("支付未成功，如有疑问请联系客服", delegate: self)
                                 }
-                                hud.hide(true)
-                                //                self.tabBarController?.selectedIndex = 3
-                                let vc = MyBookDan()
-                                self.navigationController?.pushViewController(vc, animated: true)
+                                
+                                
+                                
+                                if (self.isRenwu) {
+                                    self.goRenwuList()
+                                }else{
+                                    if self.isMessage{
+                                        self.gomessage()
+                                    }else{
+                                        if self.isGuanggao{
+                                            self.guanggao()
+                                        }else{
+                                            self.goOrderList()
+                                        }
+                                        
+                                    }
+                                    
+                                }
+
+                                
                             })
                         }
                     }
@@ -354,14 +412,17 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
                 alert("订单错误", delegate: self)
                 return
             }
+            if isGuanggao{
+                weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS,isRenwu:4);
+                return
+            }
             
             if isMessage{
                 
                 weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS,isRenwu:3);
             }else if isGuanggao{
                 weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:self.numForGoodS,isRenwu:3);
-            }
-            else{
+            }else{
                 if isRenwu{
                      weChatPay.testStart(String(Int(price*100)) ,orderName: body as String,numOfGoods:orderNum,isRenwu:1);
                 }else{
@@ -545,14 +606,14 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             signParams.setObject(prePayid as String, forKey: "prepayid")
             signParams.setObject(orderName, forKey: "body")
             signParams.setObject("Sign=WXPay", forKey: "package")
-            print("------")
-            print(WXAppId)
-            print(WXPartnerId)
-            print(noncestr)
-            print(timeStamp)
-            print(prePayid)
-            print(orderName)
-            print("----")
+//            print("------")
+//            print(WXAppId)
+//            print(WXPartnerId)
+//            print(noncestr)
+//            print(timeStamp)
+//            print(prePayid)
+//            print(orderName)
+//            print("----")
             
             
             

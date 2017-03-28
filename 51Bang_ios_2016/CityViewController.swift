@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CityViewControllerDelegate{
-    func selectCity(city:String,quname:String);
+    func selectCity(info:NSDictionary);
 }
 
 class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate,LocationManagerDelegate {
@@ -18,17 +18,26 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     @IBOutlet var searchDC: UISearchDisplayController!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableview: UITableView!
+    let mainhelper = MainHelper()
     
     //是否是定位按钮过来
     var isNotDingwei = Bool()
+    
+    var dingweiCity : String?
+    var dingweiCityID : String?
+    
+    var golocationForUser = CLLocationCoordinate2D.init()
+    var goQuName = String()
     
     /** 回调接口*/
     var delegate:CityViewControllerDelegate?;
     
     //城市数据库
-    var dict:NSMutableDictionary!;
+    var dict:Array<cityInfo>!;
     //所有城市名称
     var cityArray:NSMutableArray!;
+    //所有城市id
+    var cityIdArray:Array<String>!=[""];
     //所有城市拼音首字母
     var citySpell:NSMutableArray!;
     //所有城市拼音首字母
@@ -46,7 +55,12 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     //最近访问城市数据
     var dataHistoryCitys:SpecifyArray!;
     let keyHistory = "keyHistory";
+    let keyHistoryInfo = "keyHistoryInfo";
+    var HistoryInfo:[NSDictionary] = []
+    var History:[AnyObject] = []
     let quName = NSMutableArray()
+    let quIDArray = NSMutableArray()
+    var seachDic = NSMutableDictionary()
     let mycityNmmeAndQu = NSMutableArray()
     
     
@@ -89,36 +103,76 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         locationManager = LocationManager();
         locationManager.delegate = self;
         locationManager.startLocationCity();
+        
+        mainhelper.checkCity(self.dingweiCity!) { (success, response) in
+            if success{
+                self.dingweiCityID = response as? String
+            }else{
+                self.dingweiCityID = ""
+            }
+        }
+        
         //获取最近放问城市
-        var object = NSUserDefaults.standardUserDefaults().arrayForKey(keyHistory);
+        let object = NSUserDefaults.standardUserDefaults().arrayForKey(keyHistory);
+        let objectInfo = NSUserDefaults.standardUserDefaults().objectForKey(keyHistoryInfo)
+        if objectInfo != nil{
+            
+            if objectInfo!.count>2{
+                History.removeAtIndex(0)
+                
+            }
+            HistoryInfo = objectInfo as! [NSDictionary]
+        }
+        debugPrint(HistoryInfo)
         if(object == nil){
-            self.dataHistoryCitys.addObject("北京");
+            self.dataHistoryCitys.addObject("北京市");
         }else{
+            History = object!
+            if History.count>2{
+                History.removeAtIndex(0)
+                
+            }
+            print(History)
             
-            self.dataHistoryCitys.addArray(object!);
-            object?.removeLast()
-            
+            self.dataHistoryCitys.addArray([History[0]]);
         }
         
         self.historyCitys = self.dataHistoryCitys.getaArray() as! [String];
-        
-        let path = NSBundle.mainBundle().pathForResource("area副本", ofType: "plist");
-        self.dict = NSMutableDictionary(contentsOfFile: path!);
-//        let key:NSArray = self.dict.allKeys;
-//        self.citySpell.addObjectsFromArray(key.sortedArrayUsingSelector(#selector(NSNumber.compare(_:))));
+//        
+//        let path = NSBundle.mainBundle().pathForResource("area副本", ofType: "plist");
+//        self.dict = NSMutableDictionary(contentsOfFile: path!);
+        mainhelper.GetCityList { (success, response) in
+            if success{
+                self.dict = response as! Array<cityInfo>
+                print(response)
+                for oneArr in self.dict{
+                    self.cityArray.addObject(oneArr.name);
+//                    print(oneArr.haschild!)
+//                    for cityName in oneArr.childlist! {
+//                        print(cityName.name)
+////                        if cityName.childlist == nil||cityName.childlist?.count<1{
+////                            self.cityArray.addObject(oneArr.name);
+////                            self.cityIdArray.append(oneArr.cityid);
+////                            
+////                        }else{
+////                            self.cityArray.addObject(cityName.name);
+////                            self.cityIdArray.append(cityName.cityid);
+////                        }
+//                        
+//                        
+//                    }
+                    
+                }
+                self.tableview.reloadData()
+            }
+        }
+
         self.sectionCitySpell = NSMutableArray();
         self.sectionCitySpell.addObjectsFromArray(["定位城市","最近访问城市","省份列表"]);
-//        self.sectionCitySpell.addObjectsFromArray(self.citySpell as [AnyObject]);
-        let allValue:NSArray = self.dict.allValues;
+//        let allValue:NSArray = self.dict.allValues;
         
         
-        for oneArr in allValue{
-            for cityName in (oneArr as! NSDictionary).allKeys {
-                self.cityArray.addObject(cityName);
-//                print(cityName)
-            }
-            
-        }
+        
         
     }
     
@@ -134,21 +188,36 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         //判断是否清空数据
         
             if(searchString!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) > 0){
-            for city in self.dict.allValues {
-                let mycity = city as! NSDictionary
-                for citynames in mycity.allValues {
-                    for cityname1dic in citynames.allValues {
-                        for cityname2dic in cityname1dic.allKeys {
+            for city in self.dict {
+                let mycity = city
+                for citynames in mycity.childlist! {
+                    if citynames.childlist == nil||citynames.childlist?.count<1{
+                        mycityNmmeAndQu.addObject(city.name+citynames.name)
+                        quName.addObject(citynames.name)
+                        quIDArray.addObject(citynames.cityid)
+                        seachDic.setValue([citynames.name,citynames.latitude,citynames.longitude,citynames.cityid], forKey: city.name+citynames.name)
+                        
+                    }else{
+                        for quname1dic in citynames.childlist! {
+                            mycityNmmeAndQu.addObject(citynames.name+quname1dic.name)
+                            quName.addObject(quname1dic.name)
+                            quIDArray.addObject(quname1dic.cityid)
                             
-                            let  quname = (cityname1dic.objectForKey(cityname2dic)) as! NSArray
-                            for quNames in quname {
-                                mycityNmmeAndQu.addObject((cityname2dic as! String)+(quNames as! String))
-//                                print(quName)
-                                quName.addObject(quNames as! String)
-//                                print(mycityNmmeAndQu)
-                            }
+                            seachDic.setValue([quname1dic.name,quname1dic.latitude,quname1dic.longitude,quname1dic.cityid], forKey: citynames.name+quname1dic.name)
                         }
                     }
+                    
+//                        for cityname2dic in cityname1dic.childlist! {
+//                            
+//                            let  quname = (cityname1dic.objectForKey(cityname2dic)) as! NSArray
+//                            for quNames in quname {
+//                                mycityNmmeAndQu.addObject((cityname2dic as! String)+(quNames as! String))
+////                                print(quName)
+//                                quName.addObject(quNames as! String)
+////                                print(mycityNmmeAndQu)
+//                            }
+//                        }
+                    
                 }
                 
             }
@@ -165,24 +234,61 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     
     func getMyName(notification:NSNotification){
         let name = notification.object?.valueForKey("name") as? String
+        print(notification.object)
         dataHistoryCitys.addObject(name!);
-        NSUserDefaults.standardUserDefaults().setObject(dataHistoryCitys.getaArray(), forKey: keyHistory);
+        self.History.append((notification.object as! NSDictionary).objectForKey("name")!)
+        self.HistoryInfo.append(notification.object as! NSDictionary)
+        if self.History.count>2{
+            self.History.removeFirst()
+        }
+        if self.HistoryInfo.count>2{
+            self.HistoryInfo.removeFirst()
+        }
+        
+        NSUserDefaults.standardUserDefaults().setObject(self.History, forKey: keyHistory);
+        NSUserDefaults.standardUserDefaults().setObject(self.HistoryInfo, forKey: keyHistoryInfo);
     }
     
     /**
      将选中城市名称返回并关闭当前页面
      - parameter city: 城市名称
      */
-    private func selectCity(city:String,quname:String){
-        if city == "正在获取..." {
+    private func selectCity(dic:NSDictionary){
+        if dic.objectForKey("name") == nil{
+            return
+        }
+        if dic.objectForKey("name") as! String == "正在获取..." {
             return
         }
         
         if(self.delegate != nil){
             
-            dataHistoryCitys.addObject(city);
-            NSUserDefaults.standardUserDefaults().setObject(dataHistoryCitys.getaArray(), forKey: keyHistory);
-            self.delegate!.selectCity(city,quname: quname);
+            dataHistoryCitys.addObject(dic.objectForKey("name") as! String);
+            if dataHistoryCitys.getaArray().count>0{
+                 self.History.append(dataHistoryCitys.getaArray()[0])
+            }else{
+                 self.History.append("正在获取...")
+            }
+            
+           
+            self.HistoryInfo.append(dic)
+            if self.History.count>2{
+                self.History.removeFirst()
+            }
+            if self.HistoryInfo.count>2{
+                self.HistoryInfo.removeFirst()
+            }
+            
+            NSUserDefaults.standardUserDefaults().setObject(self.History, forKey: keyHistory);
+            NSUserDefaults.standardUserDefaults().setObject(self.HistoryInfo, forKey: keyHistoryInfo);
+            
+            
+//            NSUserDefaults.standardUserDefaults().setObject(dic, forKey: keyHistoryInfo);
+//            NSUserDefaults.standardUserDefaults().setObject(dataHistoryCitys.getaArray(), forKey: keyHistory);
+//            let dic = NSMutableDictionary()
+//            dic.setValue(city, forKey: "cityname")
+//            dic.setValue(quname, forKey: "quname")
+            self.delegate!.selectCity(dic);
             self.navigationController?.popViewControllerAnimated(true)
             //            self.dismissViewControllerAnimated(true , completion: { () -> Void in
             //            })
@@ -284,42 +390,50 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             //添加数据
             switch(section){
             case 0: //定位城市
-                let ud = NSUserDefaults.standardUserDefaults()
-                if ud.objectForKey("subLocality") == nil || ud.objectForKey("subLocality") as! String == "0" {
-                    let th = ""
-//                    print(<#T##items: Any...##Any#>)
-                    if th.isEmpty {
-                        cellHead!.addData([self.cityName+th], city: selectCity)
-                        cellHead!.reloadData();
-                    }else{
-                        cityName = ""
-                        cellHead!.addData([self.cityName+th], city: selectCity)
-                        cellHead!.reloadData();
-                        
-                    }
-
+                
+                if self.dingweiCity == nil||self.dingweiCity == ""{
+                    cellHead!.addData(["正在获取..."], city: selectCity)
+                    cellHead!.reloadData();
                 }else{
-                    var th = String()
-                    if ud.objectForKey("subLocality") != nil && ud.objectForKey("subLocality") as! String != "0" {
-                        th = ud.objectForKey("subLocality")as! String
-                    }
-                    
-                    if th.isEmpty {
-                        cellHead!.addData([self.cityName+th], city: selectCity)
-                        cellHead!.reloadData();
-                    }else{
-                        cityName = ""
-                        cellHead!.addData([self.cityName+th], city: selectCity)
-                        cellHead!.reloadData();
-                        
-                    }
+                    cellHead!.addData([dingweiCity!], city: selectCity)
+                    cellHead!.reloadData();
                 }
+//                let ud = NSUserDefaults.standardUserDefaults()
+//                if ud.objectForKey("subLocality") == nil || ud.objectForKey("subLocality") as! String == "0" {
+//                    let th = ""
+////                    print(<#T##items: Any...##Any#>)
+//                    if th.isEmpty {
+//                        cellHead!.addData([dingweiCity!], city: selectCity)
+//                        cellHead!.reloadData();
+//                    }else{
+//                        cityName = ""
+//                        cellHead!.addData([dingweiCity!], city: selectCity)
+//                        cellHead!.reloadData();
+//                        
+//                    }
+//
+//                }else{
+//                    var th = String()
+//                    if ud.objectForKey("subLocality") != nil && ud.objectForKey("subLocality") as! String != "0" {
+//                        th = ud.objectForKey("subLocality")as! String
+//                    }
+//                    
+//                    if th.isEmpty {
+//                        cellHead!.addData([dingweiCity!], city: selectCity)
+//                        cellHead!.reloadData();
+//                    }else{
+//                        cityName = ""
+//                        cellHead!.addData([dingweiCity!], city: selectCity)
+//                        cellHead!.reloadData();
+//                        
+//                    }
+//                }
                 
                 break;
             case 1: // 最近使用城市
                 
                 
-                if historyCitys[0] == "北京" {
+                if historyCitys[0] == "北京市" {
                     cellHead!.addData(["北京市朝阳区"], city: selectCity);
                 }else{
                     cellHead!.addData(historyCitys, city: selectCity);
@@ -332,7 +446,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             default:
                 break;
             }
-            
+            cellHead?.selectionStyle = .None
             return cellHead!;
             
         }
@@ -348,11 +462,11 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
 //        var key:NSString = "";
         if(self.tableview.isEqual(table)){
 //            key = self.sectionCitySpell.objectAtIndex(indexPath.section) as! NSString;
-            cell!.setData(self.cityArray.objectAtIndex(indexPath.row) as! String);
+            cell!.setData(self.cityArray[indexPath.row] as! String)
         }else{
-            cell!.setData(self.searchCityArray.objectAtIndex(indexPath.row) as! String);
+            cell!.setData(self.searchCityArray[indexPath.row] as! String);
         }
-        
+        cell?.selectionStyle = .None
         return cell!;
     }
     
@@ -360,10 +474,32 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
     
     func tableView(table: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        if table == self.tableview{
+            if indexPath.section == 0{
+                let dic = NSMutableDictionary()
+                dic.setValue(self.dingweiCity, forKey: "name")
+                dic.setValue(self.goQuName, forKey: "quname")
+                dic.setValue(String(self.golocationForUser.latitude), forKey: "latitude")
+                dic.setValue(self.dingweiCityID, forKey: "cityid")
+                dic.setValue(String(self.golocationForUser.longitude), forKey: "longitude")
+                self.selectCity(dic);
+                return
+            }else if indexPath.section == 1{
+                if self.HistoryInfo.count != 0{
+                    self.selectCity((self.HistoryInfo[0]) );
+                }
+                
+                return
+            }
+            
+        }
+        
+        
+        
         if isNotDingwei {
             
             if table != self.tableview {
-               cityName = self.searchCityArray.objectAtIndex(indexPath.row) as! String;
+               cityName = self.searchCityArray[indexPath.row] as! String;
                 
                 let dic = ["cityName":cityName]
                 
@@ -373,15 +509,20 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                 self.navigationController?.popViewControllerAnimated(true)
                 return
             }else{
-                let citynameVC = CityNameViewController()
-                citynameVC.title = "城市选择"
-                citynameVC.isDingwei = true
-                citynameVC.myinfo = self.dict.allValues[indexPath.row].allValues[0] as! NSDictionary
                 
-                citynameVC.isNotDingwei = self.isNotDingwei
-                navigationController?.pushViewController(citynameVC, animated: true)
-                return
-            }
+                if self.dict[indexPath.row].childlist != nil&&self.dict[indexPath.row].childlist?.count != 0{
+                    let citynameVC = CityNameViewController()
+                    citynameVC.title = "城市选择"
+                    citynameVC.isDingwei = true
+                    citynameVC.myinfo = self.dict[indexPath.row].childlist!
+                    citynameVC.mycityStr = self.dict[indexPath.row].name!
+                    
+                    citynameVC.isNotDingwei = self.isNotDingwei
+                    navigationController?.pushViewController(citynameVC, animated: true)
+                    return
+
+                }
+        }
             
             
         }else{
@@ -390,17 +531,47 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                 var cityName:String = "";
                 var quName1:String = "";
                 if(table != self.tableview){
-                    cityName = self.searchCityArray.objectAtIndex(indexPath.row) as! String;
-                    self.searchCityArray.indexOfObject(cityName)
-                    quName1 = self.quName.objectAtIndex(self.mycityNmmeAndQu.indexOfObject(cityName)) as! String;
-                    self.selectCity(cityName,quname: quName1);
-                }else{
-                    let citynameVC = CityNameViewController()
-                    citynameVC.title = "城市选择"
-                    citynameVC.isNotDingwei = self.isNotDingwei
-                    citynameVC.myinfo = self.dict.allValues[indexPath.row].allValues[0] as! NSDictionary
+                    cityName = self.searchCityArray[indexPath.row] as! String;
+                    quName1 = (self.seachDic.objectForKey(cityName) as! Array)[0] as String
+                    debugPrint(self.seachDic.objectForKey(cityName))
+                    let dic = NSMutableDictionary()
+                    dic.setValue(cityName, forKey: "name")
+                    dic.setValue(quName1, forKey: "quname")
+                    dic.setValue((self.seachDic.objectForKey(cityName) as! Array)[1] as String, forKey: "latitude")
+                    dic.setValue((self.seachDic.objectForKey(cityName) as! Array)[2] as String, forKey: "longitude")
+                    dic.setValue((self.seachDic.objectForKey(cityName) as! Array)[3] as String, forKey: "cityid")
                     
-                    self.navigationController?.pushViewController(citynameVC, animated: true)
+                    self.History.append(cityName)
+                    self.HistoryInfo.append(dic)
+                    if self.History.count>2{
+                        self.History.removeFirst()
+                        
+                    }
+                    if self.HistoryInfo.count>2{
+                        self.HistoryInfo.removeFirst()
+                    }
+                    
+                    NSUserDefaults.standardUserDefaults().setObject(self.History, forKey: keyHistory);
+                    NSUserDefaults.standardUserDefaults().setObject(self.HistoryInfo, forKey: keyHistoryInfo);
+                    
+//                    NSUserDefaults.standardUserDefaults().setObject([cityName], forKey: keyHistory);
+//                    NSUserDefaults.standardUserDefaults().setObject(dic, forKey: keyHistoryInfo);
+                    self.selectCity(dic);
+                }else{
+                    
+                    
+                    if self.dict[indexPath.row].childlist != nil&&self.dict[indexPath.row].childlist?.count != 0{
+                        let citynameVC = CityNameViewController()
+                        citynameVC.title = "城市选择"
+                        citynameVC.isNotDingwei = self.isNotDingwei
+                        citynameVC.myinfo = self.dict[indexPath.row].childlist!
+                        citynameVC.mycityStr = self.dict[indexPath.row].name!
+                        
+                        self.navigationController?.pushViewController(citynameVC, animated: true)
+                    }
+
+                    
+                    
                 }
                 //
             }

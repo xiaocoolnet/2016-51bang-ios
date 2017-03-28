@@ -188,6 +188,8 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.sendTaskType(_:)), name:"sendTaskType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.acceptTaskType(_:)), name:"acceptTaskType", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.advertisementRecall(_:)), name:"advertisementRecall", object: nil)
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.buyOrderType(_:)), name:"buyOrderType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.businessOrderType(_:)), name:"businessOrderType", object: nil)
@@ -538,6 +540,23 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.tabBarController?.selectedIndex = 3
             self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    func advertisementRecall(notification:NSNotification){
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "您的广告发布内容不合格，是否重新编辑上传？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction.init(title: "取消", style: .Default, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        
+                                        let VC = MyAdvertisementPublishViewController()
+                                        let array = [self.navigationController!.viewControllers[0],VC]
+                                        self.navigationController?.setViewControllers(array, animated: true)
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     

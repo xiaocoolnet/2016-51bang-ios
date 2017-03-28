@@ -9,6 +9,7 @@
 import UIKit
 import MBProgressHUD
 import MJRefresh
+import Alamofire
 class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITabBarControllerDelegate,ViewControllerDelegate,UISearchBarDelegate {
     
 //    @IBOutlet weak var myTableView: UITableView!
@@ -41,15 +42,20 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     var searchBar = UISearchBar.init(frame: CGRectMake(0, 0, WIDTH, 50))
     let searchHistoryTableview = UITableView()
     var userLocationCenter = NSUserDefaults.standardUserDefaults()
-    var searchHistory = NSMutableArray()
-    var keyword = String()
+    var searchHistory : Array<String> = []
+    var keyword = ""
     
 //    var array = ["餐饮美食","休闲/娱乐/酒店","服饰/箱包","运动户外/休闲/健身","日用百货","培训机构/教育器材","汽车用品/买卖","二手买卖","家纺家饰/家装建材","美装日化/美容美发","代购进口产品","黄金珠宝","数码家电/安全防护/电工电气","印刷广告/包装市场/行政采购","照明/电子/五金工具/机械/仪器仪表","橡塑/精细/钢材","纺织、皮革市场","医药保健","货运/物流","食品/海鲜/果蔬/农产品/茶叶","婚纱摄影/个人写真","其他"]
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(true)
 //        self.GetData()
-        self.keyword = ""
-        self.tabBarController?.tabBar.hidden = false
+//        self.keyword = ""
+        if self.keyword == ""{
+            self.tabBarController?.tabBar.hidden = false
+        }else{
+            self.tabBarController?.tabBar.hidden = true
+        }
+        
         self.navigationController?.navigationBar.hidden = false
         
     }
@@ -57,28 +63,35 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         
         super.viewDidLoad()
-        self.title = "特卖"
+        
         self.view.backgroundColor = UIColor.whiteColor()
         
-        let leftTypeView = UIView.init(frame: CGRectMake(0, 0, 150, 40))
+        if self.keyword == ""{
+            self.title = "特卖"
+            let leftTypeView = UIView.init(frame: CGRectMake(0, 0, 150, 40))
+            self.tabBarController?.tabBar.hidden = false
+            leftTypeButton.backgroundColor = COLOR
+            leftTypeButton.frame = CGRectMake(0, 0, 100, 40)
+            leftTypeButton.setTitle("分类", forState:UIControlState.Normal)
+            leftTypeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+            //        leftTypeButton.titleLabel?.textAlignment = .Left
+            leftTypeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+            leftTypeButton.addTarget(self, action: #selector(self.goToMenu), forControlEvents: UIControlEvents.TouchUpInside)
+            leftTypeView.addSubview(leftTypeButton)
+            
+            let findButton = UIButton.init(frame: CGRectMake(leftTypeButton.width, 0, 50, 40))
+            findButton.setImage(UIImage(named: "ic_sousuo"), forState: .Normal)
+            findButton.addTarget(self, action: #selector(self.findButtonAction), forControlEvents: .TouchUpInside)
+            leftTypeView.addSubview(findButton)
+            
+            //         self.fenLeiType.customView = leftTypeButton
+            let aaa = UIBarButtonItem.init(customView: leftTypeView)
+            self.navigationItem.leftBarButtonItem = aaa
+        }else{
+            self.tabBarController?.tabBar.hidden = true
+            self.title = "特卖搜索结果"
+        }
         
-        leftTypeButton.backgroundColor = COLOR
-        leftTypeButton.frame = CGRectMake(0, 0, 100, 40)
-        leftTypeButton.setTitle("分类", forState:UIControlState.Normal)
-        leftTypeButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        //        leftTypeButton.titleLabel?.textAlignment = .Left
-        leftTypeButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        leftTypeButton.addTarget(self, action: #selector(self.goToMenu), forControlEvents: UIControlEvents.TouchUpInside)
-        leftTypeView.addSubview(leftTypeButton)
-        
-        let findButton = UIButton.init(frame: CGRectMake(leftTypeButton.width, 0, 50, 40))
-        findButton.setImage(UIImage(named: "ic_sousuo"), forState: .Normal)
-        findButton.addTarget(self, action: #selector(self.findButtonAction), forControlEvents: .TouchUpInside)
-        leftTypeView.addSubview(findButton)
-        
-//         self.fenLeiType.customView = leftTypeButton
-        let aaa = UIBarButtonItem.init(customView: leftTypeView)
-        self.navigationItem.leftBarButtonItem = aaa
         
         self.createTableView()
         rightKind = [rightArr0,rightArr2,rightArr,rightArr4,rightArr1,rightArr5,rightArr6]
@@ -132,7 +145,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         myTableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
-            self.keyword = ""
+//            self.keyword = ""
             self.headerRefresh(self.keyword)
             
         })
@@ -179,7 +192,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         hud.labelText = "正在努力加载"
         self.view.bringSubviewToFront(hud)
         var  beginId = String()
-        if self.dataSource!.count > 0{
+        if self.self.dataSource != nil&&self.dataSource!.count > 0{
              beginId = (self.dataSource![(self.dataSource?.count)!-1] as GoodsInfo).id! as String
         }
        
@@ -326,8 +339,13 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.searchHistoryTableview.hidden = true
             searchBar.resignFirstResponder()
             self.searchBar.removeFromSuperview()
-            self.GetData(self.goodType, keyword: (self.searchHistory[self.searchHistory.count-1-indexPath.row] as? String)!)
-            self.keyword = (self.searchHistory[self.searchHistory.count-1-indexPath.row] as? String)!
+//            self.GetData(self.goodType, keyword: (self.searchHistory[self.searchHistory.count-1-indexPath.row] ))
+//            self.keyword = (self.searchHistory[self.searchHistory.count-1-indexPath.row] )
+            let vc = ShopViewController()
+            vc.keyword = (self.searchHistory[self.searchHistory.count-1-indexPath.row] )
+            self.navigationController?.pushViewController(vc, animated: true)
+            self.searchBar.removeFromSuperview()
+            self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         }
         
 //        print(indexPath.row)
@@ -353,7 +371,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }else{
                 self.goodType = self.myDic![indexPath.row - 1].id!
                 self.leftTypeButton.setTitle(self.myDic![indexPath.row - 1].name!, forState: UIControlState.Normal)
-                self.keyword = ""
+//                self.keyword = ""
                 self.GetData(self.goodType,keyword: self.keyword)
                 self.myTableView.mj_footer.beginRefreshing()
                 isShow = false
@@ -472,27 +490,42 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.tabBarController?.selectedIndex = 3
             
         }else{
-            let ud = NSUserDefaults.standardUserDefaults()
             
-            if(ud.objectForKey("ss") as! String == "no")
+            let checkUrl = Bang_URL_Header + "CheckHadAuthentication"
+            if( NSUserDefaults.standardUserDefaults().objectForKey("userid") == nil)
             {
-                let vc  = WobangRenZhengController()
-                self.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(vc, animated: true)
-                self.hidesBottomBarWhenPushed = false
                 return
-                
             }
-            //            let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-            //            let vc : UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("AddView")
-            let vc = AddViewController()
-            vc.title = "特卖发布"
-//            vc.array = self.myDic!
-            self.navigationController?.pushViewController(vc, animated: true)
-            //            vc.title = "特卖发布"
+            let id = NSUserDefaults.standardUserDefaults().objectForKey("userid") as! String
+            let param = ["userid":id]
+            Alamofire.request(.GET, checkUrl, parameters: param ).response{
+                
+                request, response , json , error in
+                
+                let ud = NSUserDefaults.standardUserDefaults()
+                
+                
+                let result = Http(JSONDecoder(json!))
+                if result.status == "success"{
+                    print("已经认证")
+                    ud .setObject("yes", forKey: "ss")
+                    MainViewController.renZhengStatue = 1
+                    let vc = AddViewController()
+                    vc.title = "特卖发布"
+                    //            vc.array = self.myDic!
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+                }else{
+                    ud .setObject("no", forKey: "ss")
+                    print("未进行认证")
+                    MainViewController.renZhengStatue = 0
+                    let vc  = WobangRenZhengController()
+                    self.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    self.hidesBottomBarWhenPushed = false
+                }
+            }
         }
-//        let vc = OrderCommentViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     //搜索
@@ -568,7 +601,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     //MARK: -UISarchBarDelegate
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
         if userLocationCenter.objectForKey("SearchFieldHistory") != nil{
-            self.searchHistory = userLocationCenter.objectForKey("SearchFieldHistory") as! NSMutableArray
+            self.searchHistory = userLocationCenter.objectForKey("SearchFieldHistory") as! Array
             
         }
         searchHistoryTableview.hidden = false
@@ -593,16 +626,21 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if (searchBar.valueForKey("_searchField") as! UITextField).text?.characters.count>0{
             var str = (searchBar.valueForKey("_searchField") as! UITextField).text!
             str = str.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-            let newArray = NSMutableArray.init(array: self.searchHistory)
-            newArray.addObject(str)
+            var newArray:Array<String> =  self.searchHistory
+            newArray.append(str)
             if self.searchHistory.count > 5{
-                newArray.removeObjectAtIndex(0)
+                newArray.removeAtIndex(0)
             }
             self.userLocationCenter.setObject(newArray, forKey: "SearchFieldHistory")
-            self.GetData("0", keyword: str)
-            self.keyword = str
+//            self.GetData("0", keyword: str)
+            let vc = ShopViewController()
+            vc.keyword = str
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+//            self.keyword = str
         }
-        self.myTableView.frame = CGRectMake(0, 50, WIDTH, HEIGHT-64-50)
+        self.searchBar.removeFromSuperview()
+        self.myTableView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         
     }
     override func didReceiveMemoryWarning() {

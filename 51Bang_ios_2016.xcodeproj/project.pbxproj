@@ -403,6 +403,7 @@
 		773DF1081E012F0D00AC6F5C /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 773DF1031E012F0D00AC6F5C /* SDPhotoBrowser.m */; };
 		773DF1091E012F0D00AC6F5C /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 773DF1061E012F0D00AC6F5C /* SDWaitingView.m */; };
 		773F21CF1DB627F800A90160 /* FuWuHomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */; };
+		774D3B411E8A020200AB3A13 /* MapSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774D3B401E8A020200AB3A13 /* MapSelectViewController.swift */; };
 		77507B6E1E5EE4C500D2064A /* IWManagerVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507B6C1E5EE4C500D2064A /* IWManagerVideosViewController.swift */; };
 		77507B6F1E5EE4C500D2064A /* IWVideoRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507B6D1E5EE4C500D2064A /* IWVideoRecordingController.swift */; };
 		7753FC9B1E8606B80012A3FD /* PublicWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7753FC9A1E8606B80012A3FD /* PublicWebViewVC.swift */; };
@@ -1086,6 +1087,7 @@
 		773DF1051E012F0D00AC6F5C /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
 		773DF1061E012F0D00AC6F5C /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
 		773F21CE1DB627F800A90160 /* FuWuHomePageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FuWuHomePageTableViewCell.xib; sourceTree = "<group>"; };
+		774D3B401E8A020200AB3A13 /* MapSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSelectViewController.swift; sourceTree = "<group>"; };
 		77507B6C1E5EE4C500D2064A /* IWManagerVideosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWManagerVideosViewController.swift; sourceTree = "<group>"; };
 		77507B6D1E5EE4C500D2064A /* IWVideoRecordingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWVideoRecordingController.swift; sourceTree = "<group>"; };
 		7753FC9A1E8606B80012A3FD /* PublicWebViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicWebViewVC.swift; sourceTree = "<group>"; };
@@ -1971,6 +1973,7 @@
 				1FE1D6AD1D4AE5C7006F6CC7 /* SkillSubitemViewController.swift */,
 				0DEBD5611D5C78BB008B7279 /* BankUpLoad.swift */,
 				77648AB21E6507870023566A /* PublicTableViewsViewController.swift */,
+				774D3B401E8A020200AB3A13 /* MapSelectViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -3064,6 +3067,7 @@
 				1F1F5F881D334690005616DD /* CommonUtil.m in Sources */,
 				81FD71F91D3E13D30020890A /* MyBookDan.swift in Sources */,
 				81FD72001D3E1E370020890A /* MyReceiveDan.swift in Sources */,
+				774D3B411E8A020200AB3A13 /* MapSelectViewController.swift in Sources */,
 				0D10A6311D50AE6D0004903C /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				F2EEFA1E1D81455B008FD274 /* messModel.m in Sources */,
 				0D10A62E1D50AE6D0004903C /* TPKeyboardAvoidingCollectionView.m in Sources */,

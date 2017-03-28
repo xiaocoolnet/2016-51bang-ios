@@ -149,8 +149,10 @@
             [user setObject:@"renwuBook" forKey:@"comeFromWechat"];
         }else if (isRenwu == 2){
             [user setObject:@"bookDan" forKey:@"comeFromWechat"];
-        }else{
+        }else if (isRenwu == 3){
             [user setObject:@"message" forKey:@"comeFromWechat"];
+        }else if (isRenwu == 4){
+            [user setObject:@"guanggao" forKey:@"comeFromWechat"];
         }
         
         

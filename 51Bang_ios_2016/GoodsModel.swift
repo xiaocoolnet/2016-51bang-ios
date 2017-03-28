@@ -320,6 +320,34 @@ class GetMyApplyTastTotalInfo: JSONJoy {
    }
 
 }
+class cityModel: JSONJoy {
+    var status:String?
+    var datas :Array<cityInfo>?
+    var errorData:String?
+    init(){
+//
+    }
+    required init(_ decoder:JSONDecoder){
+        datas = Array<cityInfo>()
+        status = decoder["status"].string
+        if status == "success"{
+            if decoder["data"].array != nil{
+                for data:JSONDecoder in decoder["data"].array!{
+                    datas?.append(cityInfo(data))
+                }
+            }
+//            print(datas)
+            
+        }else{
+            errorData = decoder["data"].string
+        }
+        
+        
+    }
+    
+}
+
+
 
 //提现 绑定判断
 class GetUserBankModel: JSONJoy {
@@ -357,6 +385,40 @@ class GetUserBankInfo: JSONJoy {
         alipay = decoder["alipay"].string
         bank = decoder["bank"].string
         bankno = decoder["bankno"].string
+        
+    }
+    
+}
+class cityInfo: JSONJoy {
+    var cityid:String!
+    var name:String!
+    var status:String!
+    var latitude:String!
+    var longitude:String!
+    var haschild:Int!
+    var childlist:Array<cityInfo>?
+    
+    
+    init(){
+//        childlist = Array<cityInfo>()
+    }
+    
+    required init(_ decoder: JSONDecoder){
+        childlist = Array<cityInfo>()
+        cityid = decoder["cityid"].string
+        name = decoder["name"].string
+        status = decoder["status"].string
+        latitude = decoder["latitude"].string
+        longitude = decoder["longitude"].string
+        haschild = decoder["haschild"].integer
+        if haschild != nil&&haschild == 1{
+            if decoder["childlist"].array != nil{
+                for data1 in decoder["childlist"].array! {
+                    childlist?.append(cityInfo(data1))
+                }
+            }
+            
+        }
         
     }
     

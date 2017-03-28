@@ -28,7 +28,7 @@ class PublicWebViewVC: UIViewController,UIWebViewDelegate {
         webView.backgroundColor = GREY
         webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
         webView.loadRequest(NSURLRequest(URL:url))
-        print(url.absoluteString)
+//        print(url.absoluteString)
         webView.delegate = self
         self.view.addSubview(webView)
     }

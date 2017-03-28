@@ -11,8 +11,8 @@ import UIKit
 
 
 class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewDataSource{
-    var myinfo = NSDictionary()
-    var mydataSource = NSMutableArray()
+    var myinfo = Array<cityInfo>()
+    var mydataSource = Array<cityInfo>()
     var mydataSourcequ = NSMutableArray()
     let myTableView = UITableView()
     var mycityStr = String()
@@ -26,14 +26,7 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
 //        self.title = "选择城市"
         self.view.backgroundColor = UIColor.grayColor()
         if !self.istwo {
-            for city in myinfo.allValues {
-                for ciyt1 in city.allKeys {
-                    let citynamee = ciyt1 as! String
-                    let cityvalue = city as! NSDictionary
-                    self.mydataSource.addObject(ciyt1)
-                    self.mydataSourcequ.addObject(cityvalue.objectForKey(citynamee)!)
-                }
-            }
+            self.mydataSource = self.myinfo
         }
         
         
@@ -50,39 +43,44 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
         return mydataSource.count
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if !self.istwo {
+        
+        if self.mydataSource[indexPath.row].childlist == nil||self.mydataSource[indexPath.row].childlist?.count<1||self.istwo{
+            
+            if isDingwei && self.isNotDingwei{
+                let cityStr = self.mycityStr+self.mydataSource[indexPath.row].name!
+                //                let dic = ["name":cityStr];
+                let dic = ["cityName":cityStr]
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("changeCityStr", object: dic)
+                let b = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-4]
+                //                let a = self.navigationController?.viewControllers[2]
+                self.navigationController?.popToViewController(b!, animated: true)
+            }else{
+                let cityStr = self.mycityStr+self.mydataSource[indexPath.row].name!
+                print(cityStr)
+//                print(self.mydataSource[indexPath.row].name!)
+                let dic = ["name":cityStr,"quname":self.mydataSource[indexPath.row].name,"cityid":self.mydataSource[indexPath.row].cityid,"latitude":self.mydataSource[indexPath.row].latitude,"longitude":self.mydataSource[indexPath.row].longitude];
+                //            发送通知
+                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: dic)
+                let a = self.navigationController?.viewControllers[0]
+                self.navigationController?.popToViewController(a!, animated: true)
+            }
+            
+        }else{
             let myVc = CityNameViewController()
             myVc.istwo = true
             myVc.isDingwei = true
             myVc.title = "县区选择"
             myVc.isNotDingwei = self.isNotDingwei
-            myVc.mycityStr = self.mydataSource[indexPath.row] as! String
-            myVc.mydataSource = self.mydataSourcequ[indexPath.row] as! NSMutableArray
+            myVc.mycityStr = self.mydataSource[indexPath.row].name!
+            myVc.mydataSource = self.myinfo[indexPath.row].childlist!
             self.navigationController?.pushViewController(myVc, animated: true)
-        }else{
-//           let mainVC =  MainViewController()
-//            print(self.mycityStr)
-            if isDingwei && self.isNotDingwei{
-                let cityStr = self.mycityStr+(self.mydataSource[indexPath.row] as! String)
-//                let dic = ["name":cityStr];
-                let dic = ["cityName":cityStr]
-                
-                NSNotificationCenter.defaultCenter().postNotificationName("changeCityStr", object: dic)
-                let b = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)!-4]
-//                let a = self.navigationController?.viewControllers[2]
-                self.navigationController?.popToViewController(b!, animated: true)
-            }else{
-                let cityStr = self.mycityStr+(self.mydataSource[indexPath.row] as! String)
-                let dic = ["name":cityStr,"quname":self.mydataSource[indexPath.row] as! String];
-                //            发送通知
-                NSNotificationCenter.defaultCenter().postNotificationName("NotificationIdentifier", object: dic)
-                let a = self.navigationController?.viewControllers[0]
-                self.navigationController?.popToViewController(a!, animated: true)
- 
-            }
-            
-            
         }
+        
+        
+            
+            
+        
         
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -100,7 +98,7 @@ class CityNameViewController: UIViewController ,UITableViewDelegate,UITableViewD
         }
         cell?.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         
-        cell!.setData(self.mydataSource[indexPath.row] as! String)
+        cell!.setData(self.mydataSource[indexPath.row].name)
         return cell!
     }
     

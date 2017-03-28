@@ -119,7 +119,7 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
     
     //MARK: ------UITableViewDelegate
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat{
-        return 350
+        return 350+WIDTH/2
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
     }
@@ -133,21 +133,35 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
         
         cell.urlLabel.addTarget(self, action: #selector(self.goUrlAction(_:)), forControlEvents: .TouchUpInside)
         cell.urlLabel.tag = indexPath.row+100
-        if self.status=="1"{
+        
+        
+        if stringIsNotNil(self.dataSource[indexPath.row].slide_status!) as! String=="1"{
             cell.payButton.hidden = true
             cell.deletebutton.hidden = true
-        }else{
+        }else if stringIsNotNil(self.dataSource[indexPath.row].slide_status!) as! String=="-2"{
             cell.deletebutton.hidden = false
             cell.deletebutton.tag = indexPath.row
             cell.deletebutton.addTarget(self, action: #selector(self.deletebuttonAction(_:)), forControlEvents: .TouchUpInside)
             cell.payButton.hidden = false
             cell.payButton.tag = indexPath.row
             cell.payButton.addTarget(self, action: #selector(self.payButtonAction(_:)), forControlEvents: .TouchUpInside)
+        }else if stringIsNotNil(self.dataSource[indexPath.row].slide_status!) as! String=="-3"{
+            cell.payButton.hidden = false
+            cell.deletebutton.hidden = false
+            cell.payButton.setTitle("编辑", forState: .Normal)
         }
         return cell
     }
     
     func payButtonAction(sender:UIButton){
+        
+        if stringIsNotNil(self.dataSource[sender.tag].slide_status!) as! String == "-3"{
+            let vc = GoAdvertisementPublishViewController()
+            vc.info = self.dataSource[sender.tag]
+            vc.isEdit = true
+            self.navigationController?.pushViewController(vc, animated: true)
+            return
+        }
         let vc = PayViewController()
         vc.isGuanggao = true
         let ud = NSUserDefaults.standardUserDefaults()

@@ -12,7 +12,7 @@ class TableViewHeadSectionCell: UITableViewCell,UICollectionViewDelegate,UIColle
     
     var delegate:CityViewControllerDelegate?;
     //回调函数
-    var action = {(str:String,quname:String) -> Void in
+    var action = {(dic:NSDictionary) -> Void in
 //       print(quname)
     }
     var qunames = String()
@@ -31,9 +31,10 @@ class TableViewHeadSectionCell: UITableViewCell,UICollectionViewDelegate,UIColle
 
     }
     
-    func addData(data:[String],city:(cityName:String,quname:String)->Void){
+    func addData(data:[String],city:(dic:NSDictionary)->Void){
         self.data = data;
         self.action = city;
+        collectionView.userInteractionEnabled = false
     }
     
     func reloadData(){
@@ -80,7 +81,7 @@ class TableViewHeadSectionCell: UITableViewCell,UICollectionViewDelegate,UIColle
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cityName:String = data[indexPath.row];
-        self.action(cityName,"");
+//        self.action(cityName,"");
       //  print(cityName);
     }
 

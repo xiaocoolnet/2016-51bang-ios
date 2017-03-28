@@ -11,6 +11,9 @@ import MBProgressHUD
 
 class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelegate ,UITextFieldDelegate,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,ALiImageReshapeDelegate,UIActionSheetDelegate{
     
+    var info = AdVlistInfo()
+    var isEdit = Bool()
+    
     let mainScrollView = UIScrollView()
     let addImageButton = UIButton()
     let selectImageView = UIImageView()
@@ -52,16 +55,43 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
         self.title = "广告发布"
         self.view.backgroundColor = UIColor.whiteColor()
         selectImageView.contentMode = .ScaleAspectFit
+        mainScrollView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
+        mainScrollView.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(mainScrollView)
+
         let rightButton = UIButton.init(frame: CGRectMake(0, 0, 40, 30))
-        rightButton.setTitle("发布", forState: .Normal)
+        if isEdit{
+            rightButton.setTitle("更新", forState: .Normal)
+        }else{
+            rightButton.setTitle("发布", forState: .Normal)
+        }
+        
         rightButton.titleLabel?.font = UIFont.systemFontOfSize(14)
         rightButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         rightButton.addTarget(self, action: #selector(self.rightButtonAction), forControlEvents: .TouchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: rightButton)
-        
         self.creatTimeStr()
-        self.creatUI()
-        self.getData()
+        
+       
+        if self.isEdit{
+            self.addImageButton.setTitle("添加/更改图片", forState: .Normal)
+            self.addImageButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            self.addImageButton.backgroundColor = COLOR
+            self.addImageButton.titleLabel?.font = UIFont.systemFontOfSize(14)
+            self.addImageButton.frame = CGRectMake(WIDTH/2-50, 20, 120, 30)
+            mainScrollView.addSubview(self.addImageButton)
+            self.addImageButton.addTarget(self, action: #selector(self.addImageButtonAction), forControlEvents: .TouchUpInside)
+            selectImageView.frame = CGRectMake(30, addImageButton.height+addImageButton.frame.origin.y+30, WIDTH-60, WIDTH-60)
+            selectImageView.contentMode = .ScaleAspectFit
+            mainScrollView.addSubview(selectImageView)
+            self.creatImageUI()
+            
+        }else{
+            self.creatUI()
+            self.getData()
+        }
+        
+        
         
 
         // Do any additional setup after loading the view.
@@ -98,10 +128,10 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
                             
                             if self.resultArray[index][1] == "1"{
                                 (self.mainScrollView.viewWithTag(100+index) as! UIButton).backgroundColor = UIColor.lightGrayColor()
-                                (self.mainScrollView.viewWithTag(100+index) as! UIButton).userInteractionEnabled = true
+//                                (self.mainScrollView.viewWithTag(100+index) as! UIButton).userInteractionEnabled = true
                             }else{
                                 (self.mainScrollView.viewWithTag(100+index) as! UIButton).backgroundColor = UIColor.darkGrayColor()
-                                (self.mainScrollView.viewWithTag(100+index) as! UIButton).userInteractionEnabled = false
+//                                (self.mainScrollView.viewWithTag(100+index) as! UIButton).userInteractionEnabled = false
                             }
                         }
                         
@@ -179,9 +209,6 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
     }
     
     func creatUI(){
-        mainScrollView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
-        mainScrollView.backgroundColor = UIColor.whiteColor()
-        self.view.addSubview(mainScrollView)
         
         
         let typeLabel = UILabel.init(frame: CGRectMake(10, 30, 60, 20))
@@ -216,7 +243,7 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
             
             timesButton.backgroundColor = UIColor.darkGrayColor()
             timesButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-            timesButton.userInteractionEnabled = false
+//            timesButton.userInteractionEnabled = false
 //            timesButton.setTitle(String(index), forState: .Normal)
             timesButton.tag = index+100
             timesButton.layer.masksToBounds = true
@@ -269,11 +296,16 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
     
     
     func creatImageUI(){
+        if self.selectedImage != nil {
+            selectImageView.image = self.selectedImage
+        }
+        if isEdit {
+             selectImageView.sd_setImageWithURL(NSURL.init(string: Bang_Image_Header+(stringIsNotNil(self.info.slide_pic) as! String)), placeholderImage: UIImage(named: "01"))
+        }
         
-        selectImageView.image = self.selectedImage
         
         if self.selectImageView.superview == nil{
-            selectImageView.frame = CGRectMake(30, addImageButton.height+addImageButton.frame.origin.y+30, WIDTH-60, WIDTH/2-30)
+            selectImageView.frame = CGRectMake(30, addImageButton.height+addImageButton.frame.origin.y+30, WIDTH-60, WIDTH-60)
             selectImageView.contentMode = .ScaleAspectFit
             mainScrollView.addSubview(selectImageView)
         }
@@ -292,6 +324,9 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
             self.urlTextFiled.delegate = self
             self.urlTextFiled.placeholder = "请填写您的跳转网址"
             self.urlTextFiled.setValue(UIFont.systemFontOfSize(13), forKeyPath: "_placeholderLabel.font")
+            if isEdit{
+                self.urlTextFiled.text = stringIsNotNil(self.info.slide_url) as? String
+            }
             
             mainScrollView.addSubview(self.urlTextFiled)
         }
@@ -310,6 +345,9 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
             self.advMainTextFiled.delegate = self
             self.advMainTextFiled.placeholder = "请填写您的广告主题（10字之内）"
             self.advMainTextFiled.setValue(UIFont.systemFontOfSize(13), forKeyPath: "_placeholderLabel.font")
+            if isEdit{
+                self.advMainTextFiled.text = stringIsNotNil(info.slide_name) as? String
+            }
             
             mainScrollView.addSubview(self.advMainTextFiled)
         }
@@ -333,6 +371,12 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
         }
     }
     func timesButtonAction(sender:UIButton){
+        
+        if sender.backgroundColor == UIColor.darkGrayColor(){
+            alert("该时间段广告位已被他人占领了，请选择其他的广告位或者时间吧", delegate: self)
+            return
+        }
+        
         if !sender.selected{
             endtimeStampArray = stringToTimeStampWithyyyymmdd((self.timeDic.objectForKey(String(sender.tag)) as! String))
             sender.backgroundColor = COLOR
@@ -439,7 +483,7 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
 //            self.creatImageUI()
             let vc = AliImageReshapeController()
             vc.sourceImage = image
-            vc.reshapeScale = 2
+            vc.reshapeScale = 1
             vc.delegate = self
             picker.pushViewController(vc, animated: true)
         }
@@ -500,43 +544,58 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
         if ud.objectForKey("userid") != nil {
             userid = ud.objectForKey("userid")as! String
         }
-        mainHelp.PublishAD(type, userid: userid, photo: self.selectedImageStr, urls: stringIsNotNil(self.urlTextFiled.text) as! String, begintime: self.begintimeStampArray!, endtime: self.endtimeStampArray!,price:self.money,slide_name:self.advMainTextFiled.text != nil ? self.advMainTextFiled.text!:"") { (success, response) in
-            if success{
-                let vc = PayViewController()
-                let ud = NSUserDefaults.standardUserDefaults()
-                var userid = String()
-                if ud.objectForKey("userid") != nil {
-                    userid = ud.objectForKey("userid") as! String
+        
+        if isEdit{
+            mainHelp.UpdateAD(stringIsNotNil(info.slide_id) as! String, userid: userid, photo: self.selectedImageStr, urls: stringIsNotNil(self.urlTextFiled.text) as! String, slide_name: stringIsNotNil(self.advMainTextFiled.text) as! String, handle: { (success, response) in
+                if success{
+                    alert("更新成功", delegate: self)
+                    self.navigationController?.popViewControllerAnimated(true)
                 }
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = "ddHHmmss"
-                let dateStr = dateFormatter.stringFromDate(NSDate())
-                let numForGoodS =  dateStr + userid  + "_A" + (response as! String)
-                vc.numForGoodS = numForGoodS
-                vc.isGuanggao = true
-                let price1 = Double(self.money)
-                if price1 != nil{
-                    vc.price = 0.01
+            })
+        }else{
+            mainHelp.PublishAD(type, userid: userid, photo: self.selectedImageStr, urls: stringIsNotNil(self.urlTextFiled.text) as! String, begintime: self.begintimeStampArray!, endtime: self.endtimeStampArray!,price:self.money,slide_name:self.advMainTextFiled.text != nil ? self.advMainTextFiled.text!:"") { (success, response) in
+                if success{
+                    let vc = PayViewController()
+                    let ud = NSUserDefaults.standardUserDefaults()
+                    var userid = String()
+                    if ud.objectForKey("userid") != nil {
+                        userid = ud.objectForKey("userid") as! String
+                    }
+                    let dateFormatter = NSDateFormatter()
+                    dateFormatter.dateFormat = "ddHHmmss"
+                    let dateStr = dateFormatter.stringFromDate(NSDate())
+                    let numForGoodS =  dateStr + userid  + "_" + (response as! String)
+                    vc.numForGoodS = numForGoodS
+                    vc.isGuanggao = true
+                    let price1 = Double(self.money)
+                    if price1 != nil{
+                        vc.price = 0.01
+                    }
+                    vc.subject = "广告发布购买"
+                    
+                    vc.body = "广告发布购买"
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
-                vc.subject = "广告发布购买"
-                
-                vc.body = "广告发布购买"
-                self.navigationController?.pushViewController(vc, animated: true)
             }
+
         }
+        
     }
 
     //MARK:GKImagePickerDelegate
     func imagePicker(imagePicker: GKImagePicker!, pickedImage image: UIImage!) {
         
         self.selectedImage = image
-        self.creatImageUI()
+        if !isEdit{
+            self.creatImageUI()
+        }
+        
         self.imagePicker.imagePickerController.dismissViewControllerAnimated(true, completion: nil)
     }
     //UItextFiledDeleggate
     func textFieldDidBeginEditing(textField: UITextField) {
         mainScrollView.contentSize = CGSizeMake(WIDTH, HEIGHT)
-        mainScrollView.contentOffset = CGPointMake(0,260)
+        mainScrollView.contentOffset = CGPointMake(0,450)
         mainScrollView.delegate = self
         
     }
