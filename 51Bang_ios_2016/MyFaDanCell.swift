@@ -85,6 +85,8 @@ class MyFaDanCell: UITableViewCell {
             setBottomDan("已上门")
         }else if model.state! == "4"{
             setBottomDan("等待付款")
+        }else if model.state! == "-1"{
+            setBottomDan("已取消")
         }
         print(model.time)
         if model.time != nil {
@@ -230,6 +232,9 @@ class MyFaDanCell: UITableViewCell {
         }else{
             Tip.text = "支付已托管"
         }
+        if modell.state == "-1"{
+            Tip.text = "已退款"
+        }
         
         
         Tip.textColor = UIColor.orangeColor()
@@ -249,6 +254,9 @@ class MyFaDanCell: UITableViewCell {
             }
         }else{
             payBtn.setTitle("确认付款", forState: UIControlState.Normal)
+        }
+        if modell.state == "-1"{
+            payBtn.hidden = true
         }
         
         

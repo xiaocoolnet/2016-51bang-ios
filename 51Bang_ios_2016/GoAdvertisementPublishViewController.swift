@@ -84,6 +84,9 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
             selectImageView.frame = CGRectMake(30, addImageButton.height+addImageButton.frame.origin.y+30, WIDTH-60, WIDTH-60)
             selectImageView.contentMode = .ScaleAspectFit
             mainScrollView.addSubview(selectImageView)
+            if isEdit {
+                selectImageView.sd_setImageWithURL(NSURL.init(string: Bang_Image_Header+(stringIsNotNil(self.info.slide_pic) as! String)), placeholderImage: UIImage(named: "01"))
+            }
             self.creatImageUI()
             
         }else{
@@ -199,7 +202,7 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
                 timeStr1 = String(self.icurDYear)+"-"+String(self.icurMonth)+"-"+String(sumDayOfMonth)
                 timeStr3 = String(self.icurDYear+1)+"-"+"01"+"-20"
             }
-            timeday1 = sumDayOfMonth-self.icurDay
+            timeday1 = sumDayOfMonth-self.icurDay+1
             timeday2 = 10
             timeday3 = 10
         }
@@ -299,9 +302,7 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
         if self.selectedImage != nil {
             selectImageView.image = self.selectedImage
         }
-        if isEdit {
-             selectImageView.sd_setImageWithURL(NSURL.init(string: Bang_Image_Header+(stringIsNotNil(self.info.slide_pic) as! String)), placeholderImage: UIImage(named: "01"))
-        }
+        
         
         
         if self.selectImageView.superview == nil{
@@ -501,10 +502,13 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
 //            alert("请填写网址", delegate: self)
 //            return
 //        }
-        if self.endtimeStampArray == nil||self.begintimeStampArray == nil{
-            alert("请选择广告时间段", delegate: self)
-            return
+        if !isEdit{
+            if self.endtimeStampArray == nil||self.begintimeStampArray == nil{
+                alert("请选择广告时间段", delegate: self)
+                return
+            }
         }
+        
         
         
         
@@ -518,16 +522,23 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
             let dateStr = dateFormatter.stringFromDate(NSDate())
             let imageName = "guanggao" + dateStr + userid + String(arc4random())
             
+            let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+            hud.animationType = .Zoom
+            hud.mode = .Text
+            hud.labelText = "正在努力加载"
+            self.view.bringSubviewToFront(hud)
             
             ConnectModel.uploadWithImageName(imageName, imageData: data, URL: Bang_URL_Header+"uploadimg") { [unowned self] (data) in
                 dispatch_async(dispatch_get_main_queue(), {
-                    
+                    hud.hide(true)
                     let result = Http(JSONDecoder(data))
                     if result.status != nil {
                         if result.status! == "success"{
                             self.selectedImageStr = result.data!
                             
                             self.goPay()
+                        }else{
+                            
                         }
                         
                     }
@@ -544,9 +555,14 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
         if ud.objectForKey("userid") != nil {
             userid = ud.objectForKey("userid")as! String
         }
-        
+        let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        hud.animationType = .Zoom
+        hud.mode = .Text
+        hud.labelText = "正在努力加载"
+        self.view.bringSubviewToFront(hud)
         if isEdit{
             mainHelp.UpdateAD(stringIsNotNil(info.slide_id) as! String, userid: userid, photo: self.selectedImageStr, urls: stringIsNotNil(self.urlTextFiled.text) as! String, slide_name: stringIsNotNil(self.advMainTextFiled.text) as! String, handle: { (success, response) in
+                hud.hide(true)
                 if success{
                     alert("更新成功", delegate: self)
                     self.navigationController?.popViewControllerAnimated(true)
@@ -554,6 +570,7 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
             })
         }else{
             mainHelp.PublishAD(type, userid: userid, photo: self.selectedImageStr, urls: stringIsNotNil(self.urlTextFiled.text) as! String, begintime: self.begintimeStampArray!, endtime: self.endtimeStampArray!,price:self.money,slide_name:self.advMainTextFiled.text != nil ? self.advMainTextFiled.text!:"") { (success, response) in
+                hud.hide(true)                
                 if success{
                     let vc = PayViewController()
                     let ud = NSUserDefaults.standardUserDefaults()
@@ -594,8 +611,14 @@ class GoAdvertisementPublishViewController: UIViewController,GKImagePickerDelega
     }
     //UItextFiledDeleggate
     func textFieldDidBeginEditing(textField: UITextField) {
-        mainScrollView.contentSize = CGSizeMake(WIDTH, HEIGHT)
-        mainScrollView.contentOffset = CGPointMake(0,450)
+        if isEdit{
+            mainScrollView.contentSize = CGSizeMake(WIDTH, HEIGHT)
+            mainScrollView.contentOffset = CGPointMake(0,200)
+        }else{
+            mainScrollView.contentSize = CGSizeMake(WIDTH, HEIGHT)
+            mainScrollView.contentOffset = CGPointMake(0,480)
+        }
+        
         mainScrollView.delegate = self
         
     }

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -17,6 +18,16 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="背景" translatesAutoresizingMaskIntoConstraints="NO" id="mh2-5s-Mhw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="117"/>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFp-mL-II1">
+                        <rect key="frame" x="192" y="81" width="128" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="128" id="2hV-I5-ScE"/>
+                            <constraint firstAttribute="height" constant="30" id="LVD-AI-H2V"/>
+                        </constraints>
+                        <state key="normal" title="保险认证通过" backgroundImage="背景-服务中">
+                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务次数" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBA-bZ-5Co">
                         <rect key="frame" x="42" y="122" width="63" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -55,8 +66,8 @@
                             <constraint firstAttribute="width" constant="1" id="bYy-XT-Tc3"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="用户名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuQ-hH-U5z">
-                        <rect key="frame" x="92" y="23" width="126" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuQ-hH-U5z">
+                        <rect key="frame" x="94" y="23" width="68" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -68,8 +79,15 @@
                             <constraint firstAttribute="width" constant="70" id="2Pc-qS-Qtx"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8r9-wq-Kyt" customClass="AutoScrollLabel" customModule="_1Bang_ios_2016" customModuleProvider="target">
+                        <rect key="frame" x="92" y="52" width="145" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="16q-4D-E28"/>
+                            <constraint firstAttribute="width" constant="145" id="qwN-Ga-kkc"/>
+                        </constraints>
+                    </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSa-by-V6v">
-                        <rect key="frame" x="245" y="43" width="75" height="30"/>
+                        <rect key="frame" x="245" y="47" width="75" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="75" id="Vvt-76-SbE"/>
                         </constraints>
@@ -77,13 +95,6 @@
                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8r9-wq-Kyt" customClass="AutoScrollLabel" customModule="_1Bang_ios_2016" customModuleProvider="target">
-                        <rect key="frame" x="92" y="61" width="145" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="16q-4D-E28"/>
-                            <constraint firstAttribute="width" constant="145" id="qwN-Ga-kkc"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="0mp-xI-ksm" secondAttribute="bottom" constant="5" id="2Yn-xs-rfB"/>
@@ -91,8 +102,9 @@
                     <constraint firstItem="0mp-xI-ksm" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="6hB-MC-eW5"/>
                     <constraint firstItem="wDu-dW-Bbv" firstAttribute="top" secondItem="5vL-zG-CWm" secondAttribute="bottom" constant="4" id="DD8-bj-h3Y"/>
                     <constraint firstItem="5vL-zG-CWm" firstAttribute="top" secondItem="UBA-bZ-5Co" secondAttribute="top" id="E5D-Vh-xUK"/>
+                    <constraint firstItem="TFp-mL-II1" firstAttribute="top" secondItem="8r9-wq-Kyt" secondAttribute="bottom" constant="4" id="Hs2-Y5-wGr"/>
                     <constraint firstItem="5vL-zG-CWm" firstAttribute="width" secondItem="UBA-bZ-5Co" secondAttribute="width" id="IrR-cT-mUZ"/>
-                    <constraint firstItem="8r9-wq-Kyt" firstAttribute="top" secondItem="WuQ-hH-U5z" secondAttribute="bottom" constant="17" id="JF3-es-1I4"/>
+                    <constraint firstItem="8r9-wq-Kyt" firstAttribute="top" secondItem="WuQ-hH-U5z" secondAttribute="bottom" constant="8" id="JF3-es-1I4"/>
                     <constraint firstItem="wDu-dW-Bbv" firstAttribute="width" secondItem="UBA-bZ-5Co" secondAttribute="width" id="K0S-k3-Cd5"/>
                     <constraint firstItem="0GT-vq-SID" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="23" id="Oj2-ax-QkS"/>
                     <constraint firstItem="0mp-xI-ksm" firstAttribute="leading" secondItem="Vpr-vS-Bvw" secondAttribute="trailing" constant="55" id="Ozt-Gg-DP0"/>
@@ -100,7 +112,8 @@
                     <constraint firstAttribute="bottom" secondItem="mh2-5s-Mhw" secondAttribute="bottom" id="Xc2-Gs-CfK"/>
                     <constraint firstItem="0mp-xI-ksm" firstAttribute="top" secondItem="mh2-5s-Mhw" secondAttribute="bottom" constant="5" id="YD5-rs-pQ8"/>
                     <constraint firstItem="0mp-xI-ksm" firstAttribute="leading" secondItem="UBA-bZ-5Co" secondAttribute="trailing" constant="55" id="YeZ-E0-38x"/>
-                    <constraint firstItem="nSa-by-V6v" firstAttribute="centerY" secondItem="0GT-vq-SID" secondAttribute="centerY" id="bRv-kl-HkP"/>
+                    <constraint firstItem="nSa-by-V6v" firstAttribute="centerY" secondItem="0GT-vq-SID" secondAttribute="centerY" constant="4" id="bRv-kl-HkP"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="TFp-mL-II1" secondAttribute="trailing" constant="-8" id="cjE-SB-gL5"/>
                     <constraint firstItem="WuQ-hH-U5z" firstAttribute="leading" secondItem="0GT-vq-SID" secondAttribute="trailing" constant="10" id="fNg-Cg-FwA"/>
                     <constraint firstItem="0GT-vq-SID" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="ieR-4F-UU7"/>
                     <constraint firstItem="WuQ-hH-U5z" firstAttribute="top" secondItem="0GT-vq-SID" secondAttribute="top" id="jYi-pX-KQC"/>
@@ -124,6 +137,7 @@
                 </variation>
             </tableViewCellContentView>
             <connections>
+                <outlet property="baoxianState" destination="TFp-mL-II1" id="enP-mt-gOb"/>
                 <outlet property="city" destination="8r9-wq-Kyt" id="ARS-uT-S2W"/>
                 <outlet property="fuwuNum" destination="Vpr-vS-Bvw" id="DWY-Pw-LwV"/>
                 <outlet property="iconImage" destination="0GT-vq-SID" id="QF2-oL-g8K"/>
@@ -132,7 +146,7 @@
                 <outlet property="rankingLabel" destination="wDu-dW-Bbv" id="OO6-KE-B97"/>
                 <outlet property="serviceStatus" destination="nSa-by-V6v" id="TvN-ru-A3o"/>
             </connections>
-            <point key="canvasLocation" x="661" y="520"/>
+            <point key="canvasLocation" x="636" y="376"/>
         </tableViewCell>
     </objects>
     <resources>

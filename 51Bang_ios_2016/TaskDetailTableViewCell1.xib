@@ -81,7 +81,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="01" width="2560" height="1600"/>
+        <image name="01" width="160" height="125"/>
         <image name="ic_dianhua-xiao" width="20" height="20"/>
         <image name="ic_xiaoxi-xiao" width="20" height="19"/>
     </resources>

@@ -407,6 +407,10 @@
 		77507B6E1E5EE4C500D2064A /* IWManagerVideosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507B6C1E5EE4C500D2064A /* IWManagerVideosViewController.swift */; };
 		77507B6F1E5EE4C500D2064A /* IWVideoRecordingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77507B6D1E5EE4C500D2064A /* IWVideoRecordingController.swift */; };
 		7753FC9B1E8606B80012A3FD /* PublicWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7753FC9A1E8606B80012A3FD /* PublicWebViewVC.swift */; };
+		77545BD61E8C8C4E007237FF /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77545BD21E8C8C4E007237FF /* MenuItemView.swift */; };
+		77545BD71E8C8C4E007237FF /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77545BD31E8C8C4E007237FF /* MenuView.swift */; };
+		77545BD81E8C8C4E007237FF /* PagingMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77545BD41E8C8C4E007237FF /* PagingMenuController.swift */; };
+		77545BD91E8C8C4E007237FF /* PagingMenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77545BD51E8C8C4E007237FF /* PagingMenuOptions.swift */; };
 		7754A3BB1DBF5E3100C06FBA /* 被抢单.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B71DBF5E3100C06FBA /* 被抢单.caf */; };
 		7754A3BC1DBF5E3100C06FBA /* 发单超时.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B81DBF5E3100C06FBA /* 发单超时.caf */; };
 		7754A3BD1DBF5E3100C06FBA /* 购买了商品.caf in Resources */ = {isa = PBXBuildFile; fileRef = 7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */; };
@@ -416,6 +420,7 @@
 		775CA1241E86182D0060CAE8 /* AliImageReshapeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 775CA11F1E86182D0060CAE8 /* AliImageReshapeController.m */; };
 		775CA1251E86182D0060CAE8 /* ALiImageShapeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 775CA1211E86182D0060CAE8 /* ALiImageShapeView.m */; };
 		775CA1261E86182D0060CAE8 /* UIImage+ALi.m in Sources */ = {isa = PBXBuildFile; fileRef = 775CA1231E86182D0060CAE8 /* UIImage+ALi.m */; };
+		7763268C1E98B40900F5FA6B /* LaunchIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7763268B1E98B40900F5FA6B /* LaunchIntroductionView.m */; };
 		77648AB31E6507870023566A /* PublicTableViewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77648AB21E6507870023566A /* PublicTableViewsViewController.swift */; };
 		77648AB91E656DB80023566A /* MyMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77648AB81E656DB80023566A /* MyMessageViewController.swift */; };
 		77648ABB1E656E750023566A /* MyMessageChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77648ABA1E656E750023566A /* MyMessageChildViewController.swift */; };
@@ -1091,6 +1096,10 @@
 		77507B6C1E5EE4C500D2064A /* IWManagerVideosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWManagerVideosViewController.swift; sourceTree = "<group>"; };
 		77507B6D1E5EE4C500D2064A /* IWVideoRecordingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IWVideoRecordingController.swift; sourceTree = "<group>"; };
 		7753FC9A1E8606B80012A3FD /* PublicWebViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicWebViewVC.swift; sourceTree = "<group>"; };
+		77545BD21E8C8C4E007237FF /* MenuItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
+		77545BD31E8C8C4E007237FF /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		77545BD41E8C8C4E007237FF /* PagingMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuController.swift; sourceTree = "<group>"; };
+		77545BD51E8C8C4E007237FF /* PagingMenuOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuOptions.swift; sourceTree = "<group>"; };
 		7754A3B71DBF5E3100C06FBA /* 被抢单.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "被抢单.caf"; sourceTree = "<group>"; };
 		7754A3B81DBF5E3100C06FBA /* 发单超时.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "发单超时.caf"; sourceTree = "<group>"; };
 		7754A3B91DBF5E3100C06FBA /* 购买了商品.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "购买了商品.caf"; sourceTree = "<group>"; };
@@ -1103,6 +1112,8 @@
 		775CA1211E86182D0060CAE8 /* ALiImageShapeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALiImageShapeView.m; sourceTree = "<group>"; };
 		775CA1221E86182D0060CAE8 /* UIImage+ALi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ALi.h"; sourceTree = "<group>"; };
 		775CA1231E86182D0060CAE8 /* UIImage+ALi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ALi.m"; sourceTree = "<group>"; };
+		7763268A1E98B40900F5FA6B /* LaunchIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchIntroductionView.h; sourceTree = "<group>"; };
+		7763268B1E98B40900F5FA6B /* LaunchIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchIntroductionView.m; sourceTree = "<group>"; };
 		77648AB21E6507870023566A /* PublicTableViewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublicTableViewsViewController.swift; sourceTree = "<group>"; };
 		77648AB81E656DB80023566A /* MyMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMessageViewController.swift; sourceTree = "<group>"; };
 		77648ABA1E656E750023566A /* MyMessageChildViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMessageChildViewController.swift; sourceTree = "<group>"; };
@@ -1312,6 +1323,8 @@
 		0D10A6241D50AE550004903C /* ThirdPackage */ = {
 			isa = PBXGroup;
 			children = (
+				776326891E98B40900F5FA6B /* LaunchIntroduction */,
+				77545BC31E8C8BFB007237FF /* PagingMenuController */,
 				775CA11D1E86182D0060CAE8 /* ALiImageReshape */,
 				7709E68B1E83C920008C384E /* GKClasses */,
 				77507B6B1E5EE4A000D2064A /* 视频录制 */,
@@ -2396,6 +2409,17 @@
 			name = "视频录制";
 			sourceTree = "<group>";
 		};
+		77545BC31E8C8BFB007237FF /* PagingMenuController */ = {
+			isa = PBXGroup;
+			children = (
+				77545BD21E8C8C4E007237FF /* MenuItemView.swift */,
+				77545BD31E8C8C4E007237FF /* MenuView.swift */,
+				77545BD41E8C8C4E007237FF /* PagingMenuController.swift */,
+				77545BD51E8C8C4E007237FF /* PagingMenuOptions.swift */,
+			);
+			path = PagingMenuController;
+			sourceTree = "<group>";
+		};
 		775CA11D1E86182D0060CAE8 /* ALiImageReshape */ = {
 			isa = PBXGroup;
 			children = (
@@ -2407,6 +2431,15 @@
 				775CA1231E86182D0060CAE8 /* UIImage+ALi.m */,
 			);
 			path = ALiImageReshape;
+			sourceTree = "<group>";
+		};
+		776326891E98B40900F5FA6B /* LaunchIntroduction */ = {
+			isa = PBXGroup;
+			children = (
+				7763268A1E98B40900F5FA6B /* LaunchIntroductionView.h */,
+				7763268B1E98B40900F5FA6B /* LaunchIntroductionView.m */,
+			);
+			path = LaunchIntroduction;
 			sourceTree = "<group>";
 		};
 		77D381861E092FC400A1C2BF /* UIBounceButton */ = {
@@ -3059,6 +3092,7 @@
 				1FD8C7EE1D49123B008BCE96 /* WallectDetailViewController.swift in Sources */,
 				1FE4892A1D489E3400D2E684 /* MessageDetailViewController.swift in Sources */,
 				1FE1D6AE1D4AE5C7006F6CC7 /* SkillSubitemViewController.swift in Sources */,
+				77545BD91E8C8C4E007237FF /* PagingMenuOptions.swift in Sources */,
 				1FE34CAB1D27A778008D44C8 /* UploadContractViewController.swift in Sources */,
 				8190BAAC1D38E97C00468D4D /* sexView.swift in Sources */,
 				8190BAA81D38D26700468D4D /* NickNameView.swift in Sources */,
@@ -3111,6 +3145,7 @@
 				A4410F161D98F3E000C999FC /* SkillselectViewController.swift in Sources */,
 				F247452B1D6D51CF00870363 /* SGPhotoBrowser.m in Sources */,
 				1FC544BF1D373C3000493BD5 /* CollectionTableViewCell.swift in Sources */,
+				77545BD71E8C8C4E007237FF /* MenuView.swift in Sources */,
 				1F7D5A121D4A033600536BD1 /* README.md in Sources */,
 				F2F189F91D6D6BCA00843120 /* TZPhotoPreviewCell.m in Sources */,
 				818071621D40F3FE00FBB2DB /* Wallect.swift in Sources */,
@@ -3218,6 +3253,7 @@
 				189757DF1D1665A40083FE46 /* DrivingLicenseTableViewCell.swift in Sources */,
 				1FF073CA1D30E7370074C477 /* FuWuHomePageTableViewCell.swift in Sources */,
 				8190BAAE1D38EBE400468D4D /* SexCell.swift in Sources */,
+				77545BD61E8C8C4E007237FF /* MenuItemView.swift in Sources */,
 				1F9B0DE81D35E9F900C7CA52 /* TCUserInfoModel.swift in Sources */,
 				1F9B0E171D36765D00C7CA52 /* LoginHeaderCell.swift in Sources */,
 				1FE4FA411D45B213009B6752 /* LogisticsHeaderCell.swift in Sources */,
@@ -3231,6 +3267,7 @@
 				775CA1261E86182D0060CAE8 /* UIImage+ALi.m in Sources */,
 				189757B91D1625110083FE46 /* AddViewController.swift in Sources */,
 				1F0DF18E1D2B954C00D45390 /* WoBangViewController.swift in Sources */,
+				77545BD81E8C8C4E007237FF /* PagingMenuController.swift in Sources */,
 				18D596381D17F08E00BDBCD6 /* PinyinFormatter.m in Sources */,
 				1FD8C7DA1D48B410008BCE96 /* fadanDetailModel.swift in Sources */,
 				F2F189FC1D6D6BCA00843120 /* UIView+Layout.m in Sources */,
@@ -3291,6 +3328,7 @@
 				0DD511141D51D16E00FE88C2 /* ZLPhotoActionSheet.m in Sources */,
 				81FD71FB1D3E14120020890A /* MyBookDanCell.swift in Sources */,
 				F247452A1D6D51CF00870363 /* SGImagePickerController.m in Sources */,
+				7763268C1E98B40900F5FA6B /* LaunchIntroductionView.m in Sources */,
 				1FDD24001D41FA0200DDC8F4 /* ApiXml.mm in Sources */,
 				1F9B0DEA1D35EA0800C7CA52 /* TCUserInfo.swift in Sources */,
 				7753FC9B1E8606B80012A3FD /* PublicWebViewVC.swift in Sources */,

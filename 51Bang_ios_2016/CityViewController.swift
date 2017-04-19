@@ -100,11 +100,11 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
      */
     private func getCityData(){
         //获取当前城市
-        locationManager = LocationManager();
-        locationManager.delegate = self;
-        locationManager.startLocationCity();
+//        locationManager = LocationManager();
+//        locationManager.delegate = self;
+//        locationManager.startLocationCity();
         
-        mainhelper.checkCity(self.dingweiCity!) { (success, response) in
+        mainhelper.checkCity(self.goQuName) { (success, response) in
             if success{
                 self.dingweiCityID = response as? String
             }else{
@@ -114,25 +114,29 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
         
         //获取最近放问城市
         let object = NSUserDefaults.standardUserDefaults().arrayForKey(keyHistory);
-        let objectInfo = NSUserDefaults.standardUserDefaults().objectForKey(keyHistoryInfo)
+        let objectInfo = NSUserDefaults.standardUserDefaults().objectForKey(keyHistoryInfo) as? Array<NSDictionary>
+        
         if objectInfo != nil{
-            
+            debugPrint(objectInfo)
             if objectInfo!.count>2{
-                History.removeAtIndex(0)
+               HistoryInfo = [objectInfo![(objectInfo?.count)!-2],(objectInfo?.last)!]
                 
+            }else{
+                HistoryInfo = objectInfo!
             }
-            HistoryInfo = objectInfo as! [NSDictionary]
+            
         }
-        debugPrint(HistoryInfo)
+        
         if(object == nil){
-            self.dataHistoryCitys.addObject("北京市");
+            self.dataHistoryCitys.addObject("暂无");
         }else{
+            debugPrint(History)
             History = object!
             if History.count>2{
-                History.removeAtIndex(0)
+                
+                History = [History[History.count-2],History.last!]
                 
             }
-            print(History)
             
             self.dataHistoryCitys.addArray([History[0]]);
         }
@@ -245,8 +249,8 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
             self.HistoryInfo.removeFirst()
         }
         
-        NSUserDefaults.standardUserDefaults().setObject(self.History, forKey: keyHistory);
-        NSUserDefaults.standardUserDefaults().setObject(self.HistoryInfo, forKey: keyHistoryInfo);
+//        NSUserDefaults.standardUserDefaults().setObject(self.History, forKey: keyHistory);
+//        NSUserDefaults.standardUserDefaults().setObject(self.HistoryInfo, forKey: keyHistoryInfo);
     }
     
     /**
@@ -279,8 +283,8 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                 self.HistoryInfo.removeFirst()
             }
             
-            NSUserDefaults.standardUserDefaults().setObject(self.History, forKey: keyHistory);
-            NSUserDefaults.standardUserDefaults().setObject(self.HistoryInfo, forKey: keyHistoryInfo);
+//            NSUserDefaults.standardUserDefaults().setObject(self.History, forKey: keyHistory);
+//            NSUserDefaults.standardUserDefaults().setObject(self.HistoryInfo, forKey: keyHistoryInfo);
             
             
 //            NSUserDefaults.standardUserDefaults().setObject(dic, forKey: keyHistoryInfo);
@@ -438,6 +442,7 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                 }else{
                     cellHead!.addData(historyCitys, city: selectCity);
                 }
+                cellHead!.reloadData();
                 
                 print(historyCitys)
                 print(selectCity)
@@ -551,8 +556,8 @@ class CityViewController: UIViewController,UISearchDisplayDelegate,UITableViewDe
                         self.HistoryInfo.removeFirst()
                     }
                     
-                    NSUserDefaults.standardUserDefaults().setObject(self.History, forKey: keyHistory);
-                    NSUserDefaults.standardUserDefaults().setObject(self.HistoryInfo, forKey: keyHistoryInfo);
+//                    NSUserDefaults.standardUserDefaults().setObject(self.History, forKey: keyHistory);
+//                    NSUserDefaults.standardUserDefaults().setObject(self.HistoryInfo, forKey: keyHistoryInfo);
                     
 //                    NSUserDefaults.standardUserDefaults().setObject([cityName], forKey: keyHistory);
 //                    NSUserDefaults.standardUserDefaults().setObject(dic, forKey: keyHistoryInfo);

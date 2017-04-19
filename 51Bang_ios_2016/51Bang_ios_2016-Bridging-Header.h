@@ -66,6 +66,9 @@
 #import "GKImagePicker.h"//图片剪辑
 #import "AliImageReshapeController.h"//图片剪辑
 
+//第三方引导页
+#import "LaunchIntroductionView.h"
+
 //#import <UserNotifications/UserNotifications.h>
 //#import "MainHelper.swift"
 

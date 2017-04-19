@@ -68,9 +68,10 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
         headerView = NSBundle.mainBundle().loadNibNamed("faDanDetailHeaderTableViewCell", owner: nil, options: nil).first as! faDanDetailHeaderTableViewCell
         
         let view = UIView.init(frame: CGRectMake(0, 0, WIDTH, 50))
-        button = UIButton.init(frame: CGRectMake(WIDTH-60, 0, 50, 30))
+        button = UIButton.init(frame: CGRectMake(WIDTH-80, 0, 70, 30))
         //        button.backgroundColor = UIColor.redColor()
         button.setTitle("取消", forState: UIControlState.Normal)
+        button.setTitle("已取消", forState: UIControlState.Selected)
         button.addTarget(self, action: #selector(self.quxiao), forControlEvents: UIControlEvents.TouchUpInside)
         button.backgroundColor = COLOR
         view.addSubview(button)
@@ -105,6 +106,11 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
         if self.dataSource1.paytime != nil {
             headerView.fuwucishu.text = "服务"+(self.dataSource1.apply?.servicecount)!+"次"
         }
+        if dataSource1.state == nil{
+            alert("系统出现错误，请上报", delegate: self)
+            self.navigationController?.popViewControllerAnimated(true)
+            return
+        }
         
         switch dataSource1.state! as String {
         case "0":
@@ -114,9 +120,12 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
             headerView.button3.backgroundColor = UIColor.lightGrayColor()
             headerView.button4.backgroundColor = UIColor.lightGrayColor()
             button.hidden = false
+            button.selected = true
+            button.userInteractionEnabled = false
+            button.backgroundColor = GREY
 
-            alert("系统出现错误，请上报", delegate: self)
-            self.navigationController?.popViewControllerAnimated(true)
+//            alert("系统出现错误，请上报", delegate: self)
+//            self.navigationController?.popViewControllerAnimated(true)
         case "-1":
             headerView.frame = CGRectMake(0, 0, WIDTH, 75)
             headerView.button1.backgroundColor = COLOR
@@ -124,9 +133,11 @@ class FaDanDetailViewController: UIViewController,UITableViewDelegate,UITableVie
             headerView.button3.backgroundColor = UIColor.lightGrayColor()
             headerView.button4.backgroundColor = UIColor.lightGrayColor()
             button.hidden = false
-            
-            alert("系统出现错误，请上报", delegate: self)
-            self.navigationController?.popViewControllerAnimated(true)
+            button.selected = true
+            button.userInteractionEnabled = false
+            button.backgroundColor = GREY
+//            alert("系统出现错误，请上报", delegate: self)
+//            self.navigationController?.popViewControllerAnimated(true)
         case "1":
             headerView.frame = CGRectMake(0, 0, WIDTH, 75)
             headerView.button1.backgroundColor = COLOR

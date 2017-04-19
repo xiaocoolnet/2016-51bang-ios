@@ -13,7 +13,7 @@ pod 'MBProgressHUD','0.9.2'
 pod 'libWeChatSDK', '1.7.1'
 pod 'ZLPhotoBrowser','1.0.7'
 pod 'BaiduMapKit','3.0.0'
-pod 'PagingMenuController','~>0.7.6'
+
 pod 'SDCycleScrollView','~> 1.64'
 
 use_frameworks!

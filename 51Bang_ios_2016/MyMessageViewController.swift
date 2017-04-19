@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import PagingMenuController
+
 
 class MyMessageViewController: UIViewController {
 

@@ -18,7 +18,7 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     var isRecord = Bool()
     var isMp4 = Bool()
     var textView = PlaceholderTextView()
-    var urlArray = Array<AdvertiselistModel>()
+    var urlArray : Array<AdvertiselistModel> = []
     
     var timer:NSTimer!
     var timer1:NSTimer!
@@ -109,7 +109,12 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
         myTableViw.dataSource = self
         myTableViw.backgroundColor = RGREY
         myTableViw.registerNib(UINib(nibName: "LianXiDianHuaTableViewCell",bundle: nil), forCellReuseIdentifier: "cell")
-       
+        
+        let textAdv = AdvertiselistModel()
+        textAdv.slide_cid = "no"
+        
+        
+        self.urlArray = [textAdv,textAdv,textAdv]
         let view = UIView()
         self.myTableViw.tableFooterView = view
         self.myTableViw.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
@@ -127,7 +132,8 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
 
-        
+        self.navigationController?.navigationBar.hidden = false
+        self.tabBarController?.tabBar.hidden = true
         self.hidesBottomBarWhenPushed = false
     }
     
@@ -207,16 +213,30 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
     
     func getadvertisement(){
         
-        var imageurlarray = Array<String>()
-        
+        var imageurlarray:Array<String> = [Bang_Image_Header+"taskavatar201704171039178123807710948",Bang_Image_Header+"taskavatar201704171039178123807710948",Bang_Image_Header+"taskavatar201704171039178123807710948"]
+        let footbackView = UIView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH))
         mainHelper.getslidelist_new("1") { (success, response) in
             if success{
                 dispatch_async(dispatch_get_main_queue(), {
 //                    let urls = Bang_Open_Header+(response as! Array<AdvertiselistModel>)[0].slide_pic!
-                    for imageurl in (response as! Array<AdvertiselistModel>){
+                    let imageUrlArray = response as? Array<AdvertiselistModel>
+                    if imageUrlArray == nil{
+                        return
+                    }
+                    for imageurl in imageUrlArray!{
                         if imageurl.slide_pic != nil{
-                            imageurlarray.append(Bang_Image_Header+imageurl.slide_pic!)
-                            self.urlArray.append(imageurl)
+                            if imageurl.slide_cid == "1"{
+                                imageurlarray[0] = Bang_Image_Header+imageurl.slide_pic!
+                                self.urlArray[0] = imageurl
+                            }else if imageurl.slide_cid == "2"{
+                                imageurlarray[1] = Bang_Image_Header+imageurl.slide_pic!
+                                self.urlArray[1] = imageurl
+                            }else if imageurl.slide_cid == "3"{
+                                imageurlarray[2] = Bang_Image_Header+imageurl.slide_pic!
+                                self.urlArray[2] = imageurl
+                            }
+
+                            
                         }
                         
                     }
@@ -224,23 +244,16 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                     if self.urlArray.count<1{
                         return
                     }
-                    let footbackView = UIView.init(frame: CGRectMake(0, 0, WIDTH, WIDTH))
                     
-                    let myImageScroolView = SDCycleScrollView.init(frame: CGRectMake(0, 40, WIDTH, WIDTH), delegate: self, placeholderImage: UIImage(named: "01"))
+                    
+                    let myImageScroolView = SDCycleScrollView.init(frame: CGRectMake(0, 40, WIDTH, WIDTH), delegate: self, placeholderImage: UIImage(named: "未标题-1 拷贝"))
                     myImageScroolView.bannerImageViewContentMode = .ScaleAspectFit
-                    myImageScroolView.autoScrollTimeInterval = 2
                     
+                    myImageScroolView.autoScrollTimeInterval = 2
                     myImageScroolView.imageURLStringsGroup = imageurlarray
 //                    self.view.addSubview(myImageScroolView)
                     
-                    let gofabuButton = UIButton.init(frame: CGRectMake(WIDTH-200, 10, 200, 20))
-                    let str = NSMutableAttributedString.init(string: "我也要发布属于自己的广告")
-                    str.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(13), range: NSRange.init(location: 0, length: str.length))
-                    str.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSRange.init(location: 0, length: str.length))
-                    str.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: NSRange.init(location: 0, length: str.length))
-                    gofabuButton.setAttributedTitle(str, forState: .Normal)
-                    gofabuButton.addTarget(self, action: #selector(self.gofabuButtonAction), forControlEvents: .TouchUpInside)
-                    footbackView.addSubview(gofabuButton)
+                    
                     
                     footbackView.addSubview(myImageScroolView)
                     self.myTableViw.tableFooterView = footbackView
@@ -249,6 +262,16 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                 })
             }
         }
+        let gofabuButton = UIButton.init(frame: CGRectMake(WIDTH-200, 10, 200, 20))
+        let str = NSMutableAttributedString.init(string: "我也要发布属于自己的广告")
+        str.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(13), range: NSRange.init(location: 0, length: str.length))
+        str.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSRange.init(location: 0, length: str.length))
+        str.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: NSRange.init(location: 0, length: str.length))
+        gofabuButton.setAttributedTitle(str, forState: .Normal)
+        gofabuButton.addTarget(self, action: #selector(self.gofabuButtonAction), forControlEvents: .TouchUpInside)
+        footbackView.addSubview(gofabuButton)
+        self.myTableViw.tableFooterView = footbackView
+
     }
     
     func gofabuButtonAction(){
@@ -308,30 +331,124 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
             }
     
     func cycleScrollView(cycleScrollView: SDCycleScrollView!, didSelectItemAtIndex index: Int) {
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.brownColor()
-        if urlArray[index].slide_name != nil&&urlArray[index].slide_name != ""{
-            vc.title = urlArray[index].slide_name
+        
+        if self.urlArray[index].slide_cid == "no"{
+         return
         }
         
-        let webView = UIWebView()
-        webView.backgroundColor = GREY
-        webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
-        if urlArray[index].slide_url != nil&&urlArray[index].slide_url != ""{
-            let url = NSURL(string:"http://"+(urlArray[index].slide_url)!)
-            if url != nil{
-                webView.loadRequest(NSURLRequest(URL:url!))
-            }else{
-                return
+        
+            if UIApplication.sharedApplication().applicationState == UIApplicationState.Active {
+                let alertController = UIAlertController(title: "系统提示",
+                                                        message: "请选择操作", preferredStyle: .Alert)
+                let cancelAction = UIAlertAction(title: "取消", style: .Default,  handler: { action in
+                    
+                })
+                let goOpenAction = UIAlertAction(title: "放大图片", style: .Default,  handler: { action in
+                    var selectIndex = index
+                    if self.urlArray[0].slide_cid == "no"{
+                        selectIndex = selectIndex - 1
+                    }
+                    if self.urlArray[1].slide_cid == "no"{
+                        if index > 1{
+                            selectIndex = selectIndex - 1
+                        }
+                        
+                    }
+                    let picdemo = PicInfo()
+                    picdemo.pictureurl = "no"
+                    var picurlArray:Array<PicInfo>=[picdemo,picdemo,picdemo]
+                    for urls in self.urlArray {
+                        if urls.slide_cid != nil{
+                            if urls.slide_cid == "1"{
+                                let pic = PicInfo()
+                                pic.pictureurl = urls.slide_pic
+                                picurlArray[0] = pic
+                            }else if urls.slide_cid == "2"{
+                                let pic = PicInfo()
+                                pic.pictureurl = urls.slide_pic
+                                picurlArray[1] = pic
+                            }else if urls.slide_cid == "3"{
+                                let pic = PicInfo()
+                                pic.pictureurl = urls.slide_pic
+                                picurlArray[2] = pic
+                            }
+                            
+                        }
+                    }
+                    //        print(picurlArray)
+                    var imageArray1 :Array<UIImage> = []
+                    var picurlArray2:Array<PicInfo> = []
+                    for urls2 in picurlArray {
+                        if urls2.pictureurl != "no"{
+                            picurlArray2.append(urls2)
+                            imageArray1.append(UIImage())
+                            print(urls2.pictureurl)
+                        }
+                    }
+                    
+                    
+                    let lookvc = LookPhotoVC()
+                    lookvc.count = selectIndex
+                    lookvc.pic1 = picurlArray2
+                    lookvc.isworning = true
+                    lookvc.urlArray = self.urlArray[index]
+                    lookvc.title = "查看图片"
+                    lookvc.myPhotoArray = imageArray1
+                    self.navigationController?.pushViewController(lookvc, animated: true)
+                })
+                let okAction = UIAlertAction(title: "打开广告网址", style: .Default,
+                                             handler: { action in
+                                                
+                                                let vc = UIViewController()
+                                                vc.view.backgroundColor = UIColor.brownColor()
+                                                if self.urlArray[index].slide_name != nil&&self.urlArray[index].slide_name != ""{
+                                                    vc.title = self.urlArray[index].slide_name
+                                                }
+                                                
+                                                let webView = UIWebView()
+                                                webView.backgroundColor = GREY
+                                                webView.frame = CGRectMake(0, 0, WIDTH, HEIGHT-64)
+                                                if self.urlArray[index].slide_url != nil&&self.urlArray[index].slide_url != ""{
+                                                    let url = NSURL(string:"http://"+(self.urlArray[index].slide_url)!)
+                                                    if url != nil{
+                                                        webView.loadRequest(NSURLRequest(URL:url!))
+                                                    }else{
+                                                        return
+                                                    }
+                                                }else{
+                                                    return
+                                                }
+                                                
+                                                
+                                                webView.delegate = self
+                                                vc.view.addSubview(webView)
+                                                self.navigationController?.pushViewController(vc, animated: true)
+                                                
+                                                
+                                                
+                })
+                
+                
+                if self.urlArray[index].slide_url != nil&&self.urlArray[index].slide_url != ""{
+                    let url = NSURL(string:"http://"+(self.urlArray[index].slide_url)!)
+                    if url != nil{
+                        alertController.addAction(okAction)
+                    }
+                }
+                alertController.addAction(goOpenAction)
+                alertController.addAction(cancelAction)
+                
+                
+                self.presentViewController(alertController, animated: true, completion: nil)
+                //            self.presentViewController(alertController, animated: true, completion: nil)
             }
-        }else{
-            return
-        }
+            
         
         
-        webView.delegate = self
-        vc.view.addSubview(webView)
-        self.navigationController?.pushViewController(vc, animated: true)
+        
+       
+        
+        
     }
     
     
@@ -1114,7 +1231,8 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
 
         mainHelper.upLoadMessage(userid,phone:userPhone, type: "1", title: textView.text, content: textView.text, photoArray: self.photoNameArr,sound:self.sound,soundtime:String(self.countTime),address2:adress2,longitude:longitude,latitude:latitude,video :self.Mp4VideoName) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
-            print(response)
+//            print(response)
+                
             if !success{
                
                 alert("发布失败！请检查您的网络", delegate: self)
@@ -1125,6 +1243,15 @@ class FaBuBianMinViewController: UIViewController,UITableViewDelegate,UITableVie
                 self.hud3.hide(true)
                 return
             }else{
+                if (response as! messageBackInfo).status == nil{
+                    alert("发布失败！请检查您的网络", delegate: self)
+                    
+                    self.fabuButton.userInteractionEnabled = true
+                    
+                    //                alert((response as! String), delegate: self)
+                    self.hud3.hide(true)
+                    return
+                }
                 if (response as! messageBackInfo).status == "-2"{
                     let alertController1 = UIAlertController(title: "系统提示",
                         message: "您的免费发布次数已用完，是否购买更多？", preferredStyle: .Alert)

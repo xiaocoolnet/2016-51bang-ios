@@ -85,11 +85,14 @@ class AdvertiselistModel: NSObject {
     var slide_status:String?
     var listorder:String?
     
+    override init(){
+        
+    }
+    
     required init(_ decoder: JSONDecoder){
         
         slide_id = decoder["slide_id"].string
         slide_cid = decoder["slide_cid"].string
-        slide_cid = decoder["id"].string
         slide_name = decoder["slide_name"].string
         slide_pic = decoder["slide_pic"].string
         slide_url = decoder["slide_url"].string
@@ -192,6 +195,7 @@ class messageBackInfo: JSONJoy {
 class TaskInfo: JSONJoy {
     
     var id:String?
+    var taskid:String?
     var order_num:String?
     var userid:String?
     var title:String?
@@ -226,6 +230,7 @@ class TaskInfo: JSONJoy {
     var record:String?
     var state :String?
     var type_parentname:String?
+    var ishire:String?
    
     
     init(){
@@ -236,6 +241,7 @@ class TaskInfo: JSONJoy {
     required init(_ decoder: JSONDecoder){
         
         id = decoder["id"].string
+        taskid = decoder["taskid"].string
         order_num = decoder["order_num"].string
         userid = decoder["userid"].string
         title = decoder["title"].string
@@ -266,6 +272,7 @@ class TaskInfo: JSONJoy {
         idcard = decoder["idcard"].string
         files = decoder["files"].string
         evaluate = decoder["evaluate"].string
+        ishire = decoder["ishire"].string
         type_parentname = decoder["type_parentname"].string
         commentlist = Array<commentlistInfo>()
 

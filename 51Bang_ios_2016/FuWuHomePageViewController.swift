@@ -39,39 +39,74 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
 //        print(self.info!.commentlist)
         
         self.GetData()
+        //MARK:消除导航栏与self.view之间的黑色分割线
+        self.navigationController!.navigationBar.translucent = false
+        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        self.navigationController!.navigationBar.shadowImage=UIImage()
         
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.hidden = true
+        self.navigationController?.navigationBar.hidden = false
     }
     
     
     func createTableView(){
-        myTableView.frame = CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+12))
+//        myTableView.frame = CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+12))
         
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.tableFooterView = UIView()
         self.view.addSubview(myTableView)
 //        if self.ismainCome {
-//            myTableView.frame = CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+12-40))
-//            
-//            let footBackView = UIView.init(frame: CGRectMake(0, HEIGHT-40-64, WIDTH, 40))
-//            footBackView.backgroundColor = UIColor.whiteColor()
-//            self.view.addSubview(footBackView)
-//            let gogoButton = UIButton.init(frame: CGRectMake(WIDTH-80, 0, 80, 40))
-//            gogoButton.backgroundColor = UIColor.orangeColor()
-//            gogoButton.setTitle("立即下单", forState: .Normal)
-//            gogoButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-//            gogoButton.titleLabel?.font = UIFont.systemFontOfSize(14)
-//            gogoButton.addTarget(self, action: #selector(self.gogoButtonAction), forControlEvents: .TouchUpInside)
-//            footBackView.addSubview(gogoButton)
+            myTableView.frame = CGRectMake(0, headerView.frame.size.height+headerView.frame.origin.y+10, WIDTH, HEIGHT-64-(headerView.frame.size.height+headerView.frame.origin.y+12-40))
+            
+            let footBackView = UIView.init(frame: CGRectMake(0, HEIGHT-40-64, WIDTH, 40))
+            footBackView.backgroundColor = UIColor.whiteColor()
+            self.view.addSubview(footBackView)
+            let gogoButton = UIButton.init(frame: CGRectMake(WIDTH-80, 0, 80, 40))
+            gogoButton.backgroundColor = UIColor.orangeColor()
+            gogoButton.setTitle("立即雇佣", forState: .Normal)
+            gogoButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+            gogoButton.titleLabel?.font = UIFont.systemFontOfSize(14)
+            gogoButton.addTarget(self, action: #selector(self.gogoButtonAction), forControlEvents: .TouchUpInside)
+            footBackView.addSubview(gogoButton)
 //        }
         
-//        myTableView.backgroundColor
     }
     
     
     func gogoButtonAction(){
+        
+        let ud = NSUserDefaults.standardUserDefaults()
+        if ud.objectForKey("userid") != nil&&ud.objectForKey("userid") as! String != ""{
+            if self.userid == ud.objectForKey("userid") as! String{
+                alert("请不要雇用自己！", delegate: self)
+                return
+            }
+        }
+        if self.info != nil&&self.info?.isworking != nil{
+            if self.info?.isworking == "0"{
+                alert("该服务者正在休息状态！", delegate: self)
+                return
+            }
+        }
+        if self.info != nil&&self.info?.isworking != nil{
+            if self.info?.insurancestatus != "1"{
+                alert("该服务者保险认证中或未认证！", delegate: self)
+                return
+            }
+        }
+        if self.dataSource?.count == 0{
+            alert("该服务者没有注册技能！", delegate: self)
+            return
+        }
+        
         let vc = CommitOrderViewController()
+        vc.skilllistDataSource = self.dataSource
+        vc.employeeid = self.userid
         vc.iszhuanxiang = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -79,21 +114,27 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
     func GetData(){
         
         
-//        if self.isUserid {
-//            print(self.userid)
+
         if userid == "" {
+            if info?.id == nil{
+                alert("数据错误", delegate: self)
+                return
+            }
             userid = (info?.id)!
         }
         skillHelper.getAuthenticationInfoByUserId(self.userid,longitude:"",latitude: "", handle: { (success, response) in
                 dispatch_async(dispatch_get_main_queue(), {
                 if !success{
-                    alert("数据加载错误", delegate: self)
+                    alert("数据加载错误或此用户不是服务者", delegate: self)
+                    self.navigationController?.popViewControllerAnimated(true)
                     return
                 }
                 self.headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
+                    self.headerView.targets = self
                 self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
                
                 self.headerView.setValueWithInfo(response as! RzbInfo)
+                self.info = response as? RzbInfo
                 self.view.addSubview(self.headerView)
                 self.dataSource = (response as! RzbInfo).skilllist
                 if self.dataSource4 == nil{
@@ -103,19 +144,7 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
                 self.createView()
                 })
             })
-//        }else{
-////            HEIGHT
-//            
-//            self.headerView =  NSBundle.mainBundle().loadNibNamed("FuWuHomePageTableViewCell", owner: nil, options: nil).first as! FuWuHomePageTableViewCell
-//            self.headerView.frame = CGRectMake(0, 0, WIDTH, WIDTH*200/375)
-//            
-//            self.headerView.setValueWithInfo(info!)
-//            self.view.addSubview(self.headerView)
-//            self.dataSource = info?.skilllist
-//
-//            self.createView()
-//  
-//        }
+
         
             }
     
@@ -131,24 +160,19 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
             let loc:Int = i % totalloc;//列号
             let appviewx:CGFloat = margin+(margin+WIDTH/CGFloat(self.totalloc))*CGFloat(loc)
             let appviewy:CGFloat = margin+(margin+WIDTH*40/375) * CGFloat(row)
-            let btn = UIButton()
-            //            btn.backgroundColor = UIColor.redColor()
-            btn.frame = CGRectMake(appviewx-CGFloat(loc-1)*4, appviewy, WIDTH*70/375, WIDTH*30/375)
-            btn.layer.cornerRadius = WIDTH*10/375
-            btn.layer.borderWidth = 1
-            
-            btn.layer.borderColor = UIColor.grayColor().CGColor
-            let label = UILabel.init(frame: CGRectMake(appviewx-CGFloat(loc-1)*4, appviewy, WIDTH*70/375, WIDTH*30/375))
+            let btn = UIButton.init(frame: CGRectMake(appviewx-CGFloat(loc-1)*4, appviewy, WIDTH*70/375, WIDTH*30/375))
             //            label.backgroundColor = UIColor.redColor()
-            label.text = self.dataSource![i].typename
-            label.textAlignment = .Center
-            label.layer.masksToBounds = true
-            label.layer.borderColor = COLOR.CGColor
-            label.layer.borderWidth = 1
-            label.layer.cornerRadius = 5
-            label.textColor = COLOR
-            //            view2.addSubview(btn)
-            view2.addSubview(label)
+            btn.setTitle(self.dataSource![i].typename, forState: .Normal)
+            //                btn.textAlignment = .Center
+            btn.layer.masksToBounds = true
+            btn.layer.borderColor = COLOR.CGColor
+            btn.layer.borderWidth = 1
+            btn.layer.cornerRadius = 5
+            btn.titleLabel?.font = UIFont.systemFontOfSize(12)
+            btn.setTitleColor(COLOR, forState: .Normal)
+            btn.tag = i
+            btn.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: .TouchUpInside)            //            view2.addSubview(btn)
+            view2.addSubview(btn)
             
             
         }
@@ -199,13 +223,6 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
         }else{
             if self.dataSource4?.count>0 {
                 let cell = ConveniceCell.init(myinfo: self.dataSource4![indexPath.row-1] )
-                //                print(self.dataSource![indexPath.row-3].add_time)
-                //                print(self.dataSource![indexPath.row-3].id)
-                //                print(self.dataSource![indexPath.row-3].content)
-                //                print(self.dataSource![indexPath.row-3].name)
-                //                print(self.dataSource![indexPath.row-3].userid)
-                //                print(self.dataSource![indexPath.row-3].photo)
-                //                print(self.dataSource![indexPath.row-2].add_time)
                 return cell
             }else{
                 let cell = UITableViewCell()
@@ -214,6 +231,43 @@ class FuWuHomePageViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             
         }
+    }
+    
+    //MARK:Action
+    func btnAction(sender:UIButton){
+        let ud = NSUserDefaults.standardUserDefaults()
+        if ud.objectForKey("userid") != nil&&ud.objectForKey("userid") as! String != ""{
+            if self.userid == ud.objectForKey("userid") as! String{
+                alert("请不要雇用自己！", delegate: self)
+                return
+            }
+        }
+        if self.info != nil&&self.info?.isworking != nil{
+            if self.info?.isworking == "0"{
+                alert("该服务者正在休息状态！", delegate: self)
+                return
+            }
+        }
+        if self.info != nil&&self.info?.isworking != nil{
+            if self.info?.insurancestatus != "1"{
+                alert("该服务者保险认证中或未认证！", delegate: self)
+                return
+            }
+        }
+        if self.dataSource?.count == 0{
+            alert("该服务者没有注册技能！", delegate: self)
+            return
+        }
+        
+        let vc = CommitOrderViewController()
+        vc.skilllistDataSource = self.dataSource
+        if self.dataSource![sender.tag].type != nil{
+             vc.selectedTypeid = self.dataSource![sender.tag].type!
+        }
+       
+        vc.employeeid = self.userid
+        vc.iszhuanxiang = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     

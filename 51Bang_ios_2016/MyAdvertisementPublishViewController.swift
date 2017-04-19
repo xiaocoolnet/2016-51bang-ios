@@ -7,10 +7,11 @@
 //
 
 import UIKit
-import PagingMenuController
+
 
 class MyAdvertisementPublishViewController: UIViewController {
 
+    var counts = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "我的广告发布"
@@ -34,6 +35,11 @@ class MyAdvertisementPublishViewController: UIViewController {
         options.menuItemMargin = 3
         options.menuDisplayMode = .SegmentedControl
         let pagingMenuController = PagingMenuController(viewControllers: viewControllers, options: options)
+        if counts != 0{
+            pagingMenuController.moveToMenuPage(1, animated: true)
+        }
+        
+        
         
         self.addChildViewController(pagingMenuController)
         self.view.addSubview(pagingMenuController.view)

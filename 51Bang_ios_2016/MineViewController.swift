@@ -80,7 +80,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if self.badgeView1.hidden && self.badgeView2.hidden && self.badgeView3.hidden && self.badgeView4.hidden && self.badgeView5.hidden{
             let view = self.tabBarController?.tabBar.viewWithTag(888)
             view?.removeFromSuperview()
-            UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+//            UIApplication.sharedApplication().applicationIconBadgeNumber = 0
         }
         
         
@@ -147,13 +147,20 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+               
+//        if infoDictionary["CFBundleVersion"]
+        
+        
         //检查是否登录过
         resignTongZhi()
         logVM = TCVMLogModel()
         top.frame = CGRectMake(0, -50, WIDTH, 100)
         //        top.backgroundColor = UIColor.redColor()
-        
+        0
         self.view.addSubview(top)
+        
+        
         
         myTableView.backgroundColor = RGREY
         myTableView.tag = 1
@@ -189,16 +196,22 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.sendTaskType(_:)), name:"sendTaskType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.acceptTaskType(_:)), name:"acceptTaskType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.advertisementRecall(_:)), name:"advertisementRecall", object: nil)
-        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.hireTaskType(_:)), name:"GetMyNoApplyHireTastCount", object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.buyOrderType(_:)), name:"buyOrderType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.businessOrderType(_:)), name:"businessOrderType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.loginFromOther), name:"loginFromOther", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.certificationType(_:)), name:"certificationType", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.CustomPushType(_:)), name:"CustomPushType", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.hireTaskType(_:)), name:"hireTaskType", object: nil)
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.prohibitVisit(_:)), name:"prohibitVisit", object: nil)
          NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.changeButton), name:"getRegistrationID", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.sendHireTaskType(_:)), name:"sendHireTaskType", object: nil)
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.TaskTimeOut(_:)), name:"TaskTimeOut", object: nil)
+        
+        
         
         
     }
@@ -281,7 +294,6 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         backView.addSubview(button1)
         backView.addSubview(label)
         backView.addSubview(register)
-        //        self.backView.addSubview(login)
         
         
     }
@@ -384,8 +396,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                                                 vc.datasource2 = NSArray.init(array: dat) as Array
                                                 vc.titleTop = self.dataSource2![0].receive_nickname!
                                                 vc.receive_uid = ids
-                                                self.tabBarController?.selectedIndex = 3
-                                                self.navigationController?.pushViewController(vc, animated: true)
+                                                    self.tabBarController?.selectedIndex = 3
+                                                    let array = [self.navigationController!.viewControllers[0],vc]
+                                                    self.navigationController?.setViewControllers(array, animated: true)
                                                 
                                            })
                                     }
@@ -523,9 +536,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             })
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
-                                            
                                             self.tabBarController?.selectedIndex = 3
-                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            let array = [self.navigationController!.viewControllers[0],vc]
+                                            self.navigationController?.setViewControllers(array, animated: true)
                                             
                                             
                                             
@@ -548,7 +561,7 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let cancelAction = UIAlertAction.init(title: "取消", style: .Default, handler: nil)
         let okAction = UIAlertAction(title: "确定", style: .Default,
                                      handler: { action in
-                                        
+                                        self.tabBarController?.selectedIndex = 3
                                         let VC = MyAdvertisementPublishViewController()
                                         let array = [self.navigationController!.viewControllers[0],VC]
                                         self.navigationController?.setViewControllers(array, animated: true)
@@ -619,9 +632,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             })
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
-                                            
                                             self.tabBarController?.selectedIndex = 3
-                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            let array = [self.navigationController!.viewControllers[0],vc]
+                                            self.navigationController?.setViewControllers(array, animated: true)
                                             
                                             
                                             
@@ -692,9 +705,9 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             })
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
-                                            
                                             self.tabBarController?.selectedIndex = 3
-                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            let array = [self.navigationController!.viewControllers[0],vc]
+                                            self.navigationController?.setViewControllers(array, animated: true)
                                             
                                             
                                             
@@ -770,8 +783,11 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let okAction = UIAlertAction(title: "确定", style: .Default,
                                          handler: { action in
                                             
+//                                            self.tabBarController?.selectedIndex = 3
+//                                            self.navigationController?.pushViewController(vc, animated: true)
                                             self.tabBarController?.selectedIndex = 3
-                                            self.navigationController?.pushViewController(vc, animated: true)
+                                            let array = [self.navigationController!.viewControllers[0],vc]
+                                            self.navigationController?.setViewControllers(array, animated: true)
                                             
                                             
                                             
@@ -883,6 +899,82 @@ class MineViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         alert(keyStr!, delegate: self)
     }
+    func hireTaskType(notification:NSNotification){
+//        let keyStr = notification.object?.valueForKey("name") as? String
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "您有雇佣订单，请进行处理！", preferredStyle: .Alert)
+        
+//        let cancelAction = UIAlertAction.init(title: "取消", style: .Default, handler: nil)
+        
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        self.tabBarController?.selectedIndex = 3
+                                        let bookVC = MyReceiveDan()
+                                        let array = [self.navigationController!.viewControllers[0],bookVC]
+                                        self.navigationController?.setViewControllers(array, animated: true)
+                                        
+                                        
+                                        
+                                        
+                                        
+        })
+//        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func sendHireTaskType(notification:NSNotification){
+        let keyStr = notification.object?.valueForKey("name") as? String
+        var message = String()
+        if keyStr == "1"{
+            message = "您的雇佣发单被接受，是否查看？"
+        }else if keyStr == "-1"{
+            message = "您的雇佣发单被拒绝，是否查看？"
+        }
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: message, preferredStyle: .Alert)
+        
+        let cancelAction = UIAlertAction.init(title: "取消", style: .Default, handler: nil)
+        
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        self.tabBarController?.selectedIndex = 3
+                                        let bookVC = MyFaDan()
+                                        let array = [self.navigationController!.viewControllers[0],bookVC]
+                                        self.navigationController?.setViewControllers(array, animated: true)
+                                        
+                                        
+                                        
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    func TaskTimeOut(notification:NSNotification){
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "您的任务单已超时取消！是否查看？", preferredStyle: .Alert)
+        
+        let cancelAction = UIAlertAction.init(title: "取消", style: .Default, handler: nil)
+        
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        self.tabBarController?.selectedIndex = 3
+                                        let bookVC = MyFaDan()
+                                        let array = [self.navigationController!.viewControllers[0],bookVC]
+                                        self.navigationController?.setViewControllers(array, animated: true)
+                                        
+                                        
+                                        
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     
     
     

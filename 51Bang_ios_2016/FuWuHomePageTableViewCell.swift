@@ -13,6 +13,7 @@ class FuWuHomePageTableViewCell: UITableViewCell {
     @IBOutlet weak var serviceStatus: UIButton!
     @IBOutlet weak var paimingNum: UILabel!
     
+    @IBOutlet weak var baoxianState: UIButton!
     @IBOutlet weak var rankingLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
     
@@ -20,6 +21,10 @@ class FuWuHomePageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var city: AutoScrollLabel!
     @IBOutlet weak var name: UILabel!
+    
+    var Photourl = String()
+    var targets = UIViewController()
+    var photoArray = NSMutableArray()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -27,6 +32,15 @@ class FuWuHomePageTableViewCell: UITableViewCell {
 
     
     func setValueWithInfo(info:RzbInfo){
+        
+        
+        if info.insurancestatus == "0" {
+            baoxianState.setTitle("保险未认证", forState: UIControlState.Normal)
+        }else if info.insurancestatus == "1" {
+            baoxianState.setTitle("保险已认证", forState: UIControlState.Normal)
+        }else if info.insurancestatus == "-1" {
+            baoxianState.setTitle("保险认证中", forState: UIControlState.Normal)
+        }
         
         if info.Ranking != "" {
             rankingLabel.text = info.Ranking
@@ -57,13 +71,32 @@ class FuWuHomePageTableViewCell: UITableViewCell {
             self.iconImage.image = UIImage(named: ("01"))
         }else{
             let photoUrl:String = Bang_Open_Header+"uploads/images/"+info.photo
+            Photourl = info.photo
             print(photoUrl)
             //http://bang.xiaocool.net./data/product_img/4.JPG
             //self.myimage.setImage("01"), forState: UIControlState.Normal)
             //        self.myimage.image =
-            self.iconImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "1.png"))
+            self.iconImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "1.png"), completed: { (image, error, type, url) in
+                self.photoArray.addObject(self.iconImage)
+            })
+//            self.iconImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "1.png"))
+            let backbutton = UIButton.init(frame:iconImage.frame )
+            backbutton.backgroundColor = UIColor.clearColor()
+            backbutton.addTarget(self, action: #selector(self.backButtonAction), forControlEvents: .TouchUpInside)
+            self.addSubview(backbutton)
         }
         
+    }
+    
+    func backButtonAction(){
+        let pic = PicInfo()
+        pic.pictureurl = Photourl
+        let lookvc = LookPhotoVC()
+        lookvc.count = 0
+        lookvc.pic1 = [pic]
+        lookvc.title = "查看图片"
+        lookvc.myPhotoArray = self.photoArray
+        targets.navigationController?.pushViewController(lookvc, animated: true)
     }
 
     

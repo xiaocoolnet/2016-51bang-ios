@@ -197,11 +197,10 @@ class TCVMLogModel: NSObject {
             print(result.data)
             print(result.status)
             if result.status == "success"{
-                print(result.data)
                 handle(success: true, response: result.data)
             }else{
-                alert(result.data!, delegate: self)
-                print(result.data)
+                handle(success: true, response: result.errorData)
+          
             }
             
             
@@ -291,11 +290,11 @@ class TCVMLogModel: NSObject {
         Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
             print(request)
             let result = Http(JSONDecoder(json!))
-            print("++++")
-            print(result)
-            print(result.data)
-            print(result.status)
-            print("++++")
+//            print("++++")
+//            print(result)
+//            print(result.data)
+//            print(result.status)
+//            print("++++")
             if result.status == "success"{
                 print(result.status)
                 handle(success: true, response: result.data)
@@ -308,6 +307,31 @@ class TCVMLogModel: NSObject {
             
         }
 
+    }
+    //雇佣取消订单
+    func CancelHireTask(ownerid:String,taskid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"CancelHireTask"
+        let paramDic = ["userid":ownerid,"taskid":taskid]
+        Alamofire.request(.GET, url, parameters: paramDic).response { request, response, json, error in
+            print(request)
+            let result = Http(JSONDecoder(json!))
+            //            print("++++")
+            //            print(result)
+            //            print(result.data)
+            //            print(result.status)
+            //            print("++++")
+            if result.status == "success"{
+                print(result.status)
+                handle(success: true, response: result.data)
+            }else{
+                handle(success: false, response: result.errorData)
+                //                alert(result.data!, delegate: self)
+                print(result.data)
+            }
+            
+            
+        }
+        
     }
     
     

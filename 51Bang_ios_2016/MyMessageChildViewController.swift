@@ -65,6 +65,11 @@ class MyMessageChildViewController: UIViewController,UITableViewDelegate,UITable
         self.view.addSubview(convenienceTable)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.convenienceTable.mj_header.beginRefreshing()
+    }
+    
     
     func headerRefresh(){
         

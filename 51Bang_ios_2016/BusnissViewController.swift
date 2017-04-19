@@ -183,15 +183,15 @@ class BusnissViewController: UIViewController,UITableViewDelegate,UITableViewDat
             }else{
                 let longitude = ud.objectForKey("longitude")as! String
                 let latitude = ud.objectForKey("latitude")as! String
-                let myLongitude = removeOptionWithString(longitude)
-                let myLatitude = removeOptionWithString(latitude)
-                self.current = CLLocation.init(latitude: CLLocationDegrees(myLatitude)!, longitude: CLLocationDegrees(myLongitude)!)
+//                let myLongitude = removeOptionWithString(longitude)
+//                let myLatitude = removeOptionWithString(latitude)
+                self.current = CLLocation.init(latitude: CLLocationDegrees(longitude)!, longitude: CLLocationDegrees(latitude)!)
             }
             //            let longitude = ud.objectForKey("longitude")as! String
             //            let latitude = ud.objectForKey("latitude")as! String
             
             
-            print(current)
+//            print(current)
             if goodsInfo.latitude != "0.0"&&goodsInfo.latitude != "" && goodsInfo.longitude != "0.0"&&goodsInfo.longitude != ""  && goodsInfo.latitude != nil&&goodsInfo.longitude != nil{
                 print(goodsInfo.latitude! as String,goodsInfo.longitude! as String,"00000000")
                 

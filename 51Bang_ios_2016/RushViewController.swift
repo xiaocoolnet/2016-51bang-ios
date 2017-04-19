@@ -737,7 +737,11 @@ class RushViewController: UIViewController,myDelegate ,UITableViewDelegate,UITab
             cell.snatchButton.enabled = false
         }
         
-        
+        if self.dataSource![indexPath.row].ishire == "1" {
+            cell.snatchButton.setTitle("已被抢", forState: UIControlState.Normal)
+            cell.snatchButton.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+            cell.snatchButton.enabled = false
+        }
         
         
         

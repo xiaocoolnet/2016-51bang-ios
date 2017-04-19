@@ -104,9 +104,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 
         
         
+        LaunchIntroductionView.sharedWithStoryboardName("Main", images: ["引导页模板-1","引导页模板-2","引导页模板-3"])
         
-        
-        
+//        LaunchIntroductionView.sharedWithImages(["引导页模板-1","引导页模板-2","引导页模板-3"], buttonImage: "bgLine", buttonFrame: CGRectMake(0, 0, 0, 0),isscrollOut:true)
         
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         
@@ -230,6 +230,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("buyOrderType", object: dic)
             }else
+                if userInfo["key"] as! String == "sendHireTaskType" {
+                    let dic = ["name":userInfo["v"]! as! String];
+                    NSNotificationCenter.defaultCenter().postNotificationName("sendHireTaskType", object: dic)
+                }else
             if userInfo["key"] as! String == "businessOrderType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("businessOrderType", object: dic)
@@ -250,6 +254,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
                 
                 
             }else
+                if userInfo["key"] as! String == "hireTaskType" {
+                    var dic = NSMutableDictionary()
+                    if userInfo["v"] != nil{
+                        dic = ["name":userInfo["v"]! as! String]
+                    }
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName("hireTaskType", object: dic)
+                }
+                else
+                    if userInfo["key"] as! String == "TaskTimeOut" {
+                        var dic = NSMutableDictionary()
+                        if userInfo["v"] != nil{
+                            dic = ["name":userInfo["v"]! as! String]
+                        }
+                        
+                        NSNotificationCenter.defaultCenter().postNotificationName("TaskTimeOut", object: dic)
+                    }else
             if userInfo["key"] as! String == "certificationType" {
                 let dic = ["name":userInfo["v"]! as! String];
                 NSNotificationCenter.defaultCenter().postNotificationName("certificationType", object: dic)
@@ -276,9 +297,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
             
             else{
                     
-                let dic = ["name":userInfo["key"]! as! String]
-                NSNotificationCenter.defaultCenter().postNotificationName("CustomPushType", object: dic)
-//                alert(userInfo["key"] as! String, delegate: self)
+                    if userInfo["aps"] != nil {
+                        let strr = userInfo["aps"] as! NSDictionary
+                        if strr["alert"] != nil {
+                            if !strr["alert"]!.isKindOfClass(NSString) {
+                                alert(strr["alert"]!["body"] as! String, delegate: self)
+                                return
+                            }else{
+                                alert(strr["alert"] as! String, delegate: self)
+                            }
+                            
+                        }
+                    }
             }
 
         }else{
@@ -430,7 +460,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 //    }
 
     func applicationDidBecomeActive(application: UIApplication) {
-        print(application)
+        UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+        let vc = ConvenientPeople()
+        vc.getcountMessage()
+        
+        
         let ud = NSUserDefaults.standardUserDefaults()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if ud.objectForKey("comeFromWechat") != nil {
@@ -543,6 +577,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UINavigationControllerDele
 //            }
 //
 //        }
+//         let ud = NSUserDefaults.standardUserDefaults()
+        if ud.objectForKey("userid") != nil{
+            self.mainhelper.GetMyNoApplyHireTastCount(ud.objectForKey("userid") as! String, handle: { (success, response) in
+                if success{
+                    let counts = response as! String
+                    if counts != "0"{
+                        NSNotificationCenter.defaultCenter().postNotificationName("GetMyNoApplyHireTastCount", object: nil)
+                        
+                    }
+                }
+            })
+        }
+        
+        
+        
         
         
     }

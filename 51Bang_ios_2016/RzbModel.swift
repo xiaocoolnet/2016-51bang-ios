@@ -87,6 +87,7 @@ class RzbInfo: JSONJoy {
     var photo:String
     var isworking :String
     var allcount:String
+    var insurancestatus:String
     var skilllist :[SkilllistModel]
     var commentlist:[commentlistInfo]
     
@@ -98,6 +99,7 @@ class RzbInfo: JSONJoy {
     required init(_ decoder:JSONDecoder){
         
         distance = decoder["distance"].integer ?? 0
+        insurancestatus = decoder["insurancestatus"].string ?? ""
         name = decoder["name"].string ?? ""
         phone = decoder["phone"].string ?? ""
         id = decoder["id"].string ?? ""

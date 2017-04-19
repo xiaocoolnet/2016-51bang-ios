@@ -559,7 +559,11 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
     func footerRefresh(){
         
         if isNextGrade{
-            self.getNextGradeData(self.rzbDataSource![(self.rzbDataSource?.count)!-1].id)
+            if self.rzbDataSource != nil && self.rzbDataSource?.count>1&&self.rzbDataSource![(self.rzbDataSource?.count)!-1].id != ""{
+                self.getNextGradeData(self.rzbDataSource![(self.rzbDataSource?.count)!-1].id)
+            }
+            
+            
         }else{
             self.GetData1(sort,types: self.types,isBegin: false,isOnLine: self.onLine)
             if self.onLine == "1"{
@@ -586,7 +590,9 @@ class FriendListViewController: UIViewController,UITableViewDataSource,UITableVi
 //
             let ut =  NSUserDefaults.standardUserDefaults()
             
-            if info!.latitude != "" && info!.longitude != "" && ut.objectForKey("latitude") != nil && ut.objectForKey("longitude") != nil {
+            if info!.latitude != "" && info!.longitude != "" && ut.objectForKey("latitude") != nil && ut.objectForKey("longitude") != nil && ut.objectForKey("latitude") as! String != "" && ut.objectForKey("longitude") as! String != ""{
+//                print(ut.objectForKey("latitude") as! String)
+//                print(ut.objectForKey("longitude") as! String)
                 
                 let current = CLLocation.init(latitude: CLLocationDegrees(info!.latitude)!, longitude: CLLocationDegrees(info!.longitude)!)
                 let before = CLLocation.init(latitude: CLLocationDegrees(ut.objectForKey("latitude") as! String)!, longitude: CLLocationDegrees(ut.objectForKey("longitude") as! String)!)

@@ -19,6 +19,7 @@ class MyAdvertisementPublishListTableViewCell: UITableViewCell {
     var urlLabel = UIButton()
     var timeContent = UILabel()
     var payButton = UIButton()
+    var editButton = UIButton()
     var deletebutton = UIButton()
 
     override func awakeFromNib() {
@@ -27,7 +28,7 @@ class MyAdvertisementPublishListTableViewCell: UITableViewCell {
     }
     init(myinfo:AdVlistInfo){
          super.init(style: UITableViewCellStyle.Default , reuseIdentifier: "myAdList")
-         self.sd_addSubviews([userImage,userName,timeLabel,lineView,imageContentView,moneyLabel,urlLabel,timeContent,payButton,deletebutton])
+         self.sd_addSubviews([userImage,userName,timeLabel,lineView,imageContentView,moneyLabel,urlLabel,timeContent,payButton,deletebutton,editButton])
         
         lineView.backgroundColor = LGBackColor
         lineView.sd_layout()//添加约束
@@ -88,13 +89,27 @@ class MyAdvertisementPublishListTableViewCell: UITableViewCell {
         payButton.layer.borderWidth = 1
         payButton.titleLabel?.font = UIFont.systemFontOfSize(13)
         
+        
+        editButton.sd_layout()
+            .rightSpaceToView(self,105)
+            .topEqualToView(userImage)
+            .widthIs(60)
+            .heightIs(25)
+        editButton.setTitle("编辑", forState: .Normal)
+        editButton.layer.masksToBounds = true
+        editButton.setTitleColor(UIColor.orangeColor(), forState: .Normal)
+        editButton.layer.cornerRadius = 5
+        editButton.layer.borderColor = UIColor.orangeColor().CGColor
+        editButton.layer.borderWidth = 1
+        editButton.titleLabel?.font = UIFont.systemFontOfSize(13)
+        
         imageContentView.sd_layout()
         .widthIs(WIDTH-60)
         .heightIs(WIDTH-60)
         .leftSpaceToView(self,30)
         .topSpaceToView(userImage,10)
         if myinfo.slide_pic != nil{
-            imageContentView.sd_setImageWithURL(NSURL.init(string: Bang_Image_Header+myinfo.slide_pic!), placeholderImage: UIImage(named: ""))
+            imageContentView.sd_setImageWithURL(NSURL.init(string: Bang_Image_Header+myinfo.slide_pic!), placeholderImage: UIImage(named: "01.png"))
         }
         
         

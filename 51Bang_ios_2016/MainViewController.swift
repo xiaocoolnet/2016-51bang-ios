@@ -51,7 +51,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     static var renZhengStatue = 0
     @IBOutlet var location: UIButton!
     @IBOutlet weak var topView: UIView!
-    let nameArr:[String] = ["帮我","抢单","便民圈"]
+    let nameArr:[String] = ["下单","抢单","便民圈"]
     let imageArr = ["ic_bangwo","ic_wobang","ic_tongchenghudong"]
     let anPoin = MKPointAnnotation.init()
     var loadtag = true
@@ -80,40 +80,13 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     var userLocationCenter = NSUserDefaults.standardUserDefaults()
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        
         if self.userLocationCenter.objectForKey("quName") != nil{
             self.location.setTitle(self.userLocationCenter.objectForKey("quName") as? String, forState: UIControlState.Normal)
         }
-        
-        
-        locationService = BMKLocationService()
-        locationService.delegate = self
-        locationService.startUserLocationService()
-        mapView = BMKMapView.init()
-        geocodeSearch = BMKGeoCodeSearch()
-        for view in self.topView.subviews {
-            view.removeFromSuperview()
-        }
-        //        self.topView.removeFromSuperview()
-        self.mapView.removeFromSuperview()
-        setBMKMpaview()
-        createTopView()
-        scrollView.scrollEnabled = false
-//        let button = UIButton.init(type: UIButtonType.Custom)
-//        button.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
-//        button.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
-//        button.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
-//        self.BeingBackMyPositonBtn = button
-        CheckRenzheng()
-        
         self.tabBarController?.tabBar.hidden = false
         self.navigationController?.navigationBar.hidden = false
-        geocodeSearch.delegate = self
-        //        locationService.delegate = self
-        mapView.viewWillAppear()
-        mapView.delegate = self
-        CommitOrderViewController.ReturnTagForView = 0
-        
-        self.selectCityFromCity(self.dingweiCityDic)
+//        self.selectCityFromCity(self.dingweiCityDic)
 //
         
 //
@@ -130,21 +103,25 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         //        self.view.addSubview(self.annoImage)
         
         let buttons = UIButton.init(type: UIButtonType.Custom)
-        buttons.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 250, 30, 30)
+        buttons.frame = CGRectMake(20, 100, 30, 30)
         buttons.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
         buttons.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
         self.BeingBackMyPositonBtn = buttons
-        UIApplication.sharedApplication().keyWindow!.addSubview(self.BeingBackMyPositonBtn)
+//        UIApplication.sharedApplication().keyWindow!.addSubview(self.BeingBackMyPositonBtn)
+        self.mapView.addSubview(self.BeingBackMyPositonBtn)
         
         self.infoBackView = NSBundle.mainBundle().loadNibNamed("RenZhengBangTableViewCell", owner: nil, options: nil).first as! RenZhengBangTableViewCell
         self.infoBackView.frame = CGRectMake(0, HEIGHT, WIDTH, 175)
-       
-        
         UIApplication.sharedApplication().keyWindow!.addSubview(self.infoBackView)
-
+        
         infoInmoreButton.backgroundColor = UIColor.clearColor()
         infoInmoreButton.addTarget(self, action: #selector(self.infoInmoreButtonAction(_:)), forControlEvents: .TouchUpInside)
         self.infoBackView.addSubview(infoInmoreButton)
+        
+        
+       getWeiZhi()
+        
+        
         
         
         
@@ -154,8 +131,10 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
         self.count2 = 0
+        self.mapView.removeAnnotations(self.biaoZhuArray)
         self.paopaoInfo.removeAll()
         self.biaoZhuArray.removeAll()
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -178,10 +157,10 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         //            userLocationCenter.setObject("0", forKey: "subLocality")
         //        }
         
-        geocodeSearch.delegate = nil
-        locationService.delegate = nil
+//        geocodeSearch.delegate = nil
+//        locationService.delegate = nil
         mapView.viewWillDisappear()
-        mapView.delegate = nil
+//        mapView.delegate = nil
         //        self.backMHView.removeFromSuperview()
         self.backView.removeFromSuperview()
         self.BeingBackMyPositonBtn.removeFromSuperview()
@@ -193,6 +172,24 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     override func viewDidLoad() {
         super.viewDidLoad()
         dingWeiStr = "0"
+        
+       
+        
+        locationService = BMKLocationService()
+        locationService.delegate = self
+        locationService.startUserLocationService()
+        let ud = NSUserDefaults.standardUserDefaults()
+            
+        if ud.objectForKey("removeInfo") == nil{
+            ud.removeObjectForKey("quName")
+            ud.removeObjectForKey("cityName")
+            ud.removeObjectForKey("cityid")
+            ud.setObject("1", forKey: "removeInfo")
+        }
+            
+        
+
+        
         
         let vc = MineViewController()
         vc.resignTongZhi()
@@ -212,6 +209,39 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.getMyName(_:)), name:"NotificationIdentifier", object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newTask), name:"newTasksss", object: nil)
+        
+        
+        
+        
+        
+       
+        
+        
+        
+        mapView = BMKMapView.init()
+        geocodeSearch = BMKGeoCodeSearch()
+        for view in self.topView.subviews {
+            view.removeFromSuperview()
+        }
+        //        self.topView.removeFromSuperview()
+        self.mapView.removeFromSuperview()
+        setBMKMpaview()
+        createTopView()
+        scrollView.scrollEnabled = false
+        //        let button = UIButton.init(type: UIButtonType.Custom)
+        //        button.frame = CGRectMake(20, UIScreen.mainScreen().bounds.size.height - 130, 30, 30)
+        //        button.setImage(UIImage(named: "sign.png"), forState: UIControlState.Normal)
+        //        button.addTarget(self, action: #selector(self.moveToUser), forControlEvents: UIControlEvents.TouchUpInside)
+        //        self.BeingBackMyPositonBtn = button
+        CheckRenzheng()
+        
+        
+        geocodeSearch.delegate = self
+        //        locationService.delegate = self
+        mapView.viewWillAppear()
+        mapView.delegate = self
+        CommitOrderViewController.ReturnTagForView = 0
+        
         
     }
     
@@ -405,10 +435,10 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     func selectCityFromCity(info:NSDictionary){
                 if info.objectForKey("latitude") != nil&&info.objectForKey("longitude") != nil&&info.objectForKey("latitude") as! String != ""&&info.objectForKey("longitude") as! String != ""{
             
-//            showRegion.center = CLLocation.init(latitude: CLLocationDegrees(info.objectForKey("latitude") as! String)!, longitude: CLLocationDegrees(info.objectForKey("longitude")as! String)!).coordinate
-//            showRegion.span.latitudeDelta = 0.02
-//            showRegion.span.longitudeDelta = 0.02
-//            mapView.setRegion(showRegion, animated: true)
+            showRegion.center = CLLocation.init(latitude: CLLocationDegrees(info.objectForKey("latitude") as! String)!, longitude: CLLocationDegrees(info.objectForKey("longitude")as! String)!).coordinate
+            showRegion.span.latitudeDelta = 0.02
+            showRegion.span.longitudeDelta = 0.02
+            mapView.setRegion(showRegion, animated: true)
              mapView.setCenterCoordinate(CLLocation.init(latitude: CLLocationDegrees(info.objectForKey("latitude") as! String)!, longitude: CLLocationDegrees(info.objectForKey("longitude")as! String)!).coordinate, animated: true)
                     
                     
@@ -430,10 +460,47 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
     
     func selectCity(info:NSDictionary) {
         
+        var objectInfo = NSUserDefaults.standardUserDefaults().objectForKey("keyHistoryInfo") as? Array<NSDictionary>
+        if objectInfo != nil{
+            if objectInfo!.count>2{
+                objectInfo = [objectInfo![(objectInfo?.count)!-2],(objectInfo?.last)!]
+                
+            }
+            objectInfo?.append(info)
+        }else{
+            objectInfo = [info]
+        }
+        
+        
+        
+        
+        
+        NSUserDefaults.standardUserDefaults().setObject(objectInfo, forKey: "keyHistoryInfo");
+        
+        
+        
+        
+        
         self.dingweiCityDic = info
         
         if info.objectForKey("name") != nil{
             userLocationCenter.setObject(info.objectForKey("name") as! String, forKey: "cityName")
+            
+            var object = NSUserDefaults.standardUserDefaults().arrayForKey("keyHistory")
+            debugPrint(object)
+            if(object != nil){
+                if object!.count>2{
+                    object = [object![(object?.count)!-2],(object?.last)!]
+                    
+                }
+                object?.append(info.objectForKey("name") as! String)
+            }else{
+                object = [info.objectForKey("name") as! String]
+            }
+            
+            
+            NSUserDefaults.standardUserDefaults().setObject(object, forKey: "keyHistory");
+            
         }
         if info.objectForKey("quname") != nil{
             userLocationCenter.setObject(info.objectForKey("quname") as! String, forKey: "quName")
@@ -448,7 +515,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         
         
-        
+        self.selectCityFromCity(info)
         
 //        print(city)
 ////        self.city = city
@@ -593,7 +660,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                     return
                 }
                 self.rzbDataSource = response as? Array<RzbInfo> ?? []
-                if self.rzbDataSource == nil{
+                if self.rzbDataSource == nil||self.rzbDataSource?.count == 0{
                     return
                 }
                 var counts = NSInteger()
@@ -769,12 +836,12 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
         
         mapView.frame = CGRectMake(0, 100, UIScreen.mainScreen().bounds.size.width+10, UIScreen.mainScreen().bounds.size.height - 100)
         mapView.showsUserLocation = true
-        mapView.zoomLevel = 19
+        mapView.zoomLevel = 18
         mapView.gesturesEnabled = true
         //交通实况
         mapView.trafficEnabled = true
         
-        getWeiZhi()
+        
         //        mapView.updateLocationData
         scrollView.addSubview(mapView)
         
@@ -960,6 +1027,8 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                 userLocationCenter.setObject(String(result.location.longitude), forKey: "RealTimelongitude")
                 CommitOrderViewController.FirstLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
                 LocationViewController.firstAddress = dingWeiStr+streetNameStr
+                CommitOrderViewController.firstString = dingWeiStr+streetNameStr
+                CommitOrderViewController.secondstring = dingWeiStr+streetNameStr
                 CommitOrderViewController.SecondLocation = CLLocation.init(latitude: result.location.latitude, longitude: result.location.longitude)
                 LocationViewController.secondAddress = dingWeiStr+streetNameStr
                 MainViewController.BMKname =  dingWeiStr+streetNameStr
@@ -1016,7 +1085,7 @@ class MainViewController: UIViewController,CityViewControllerDelegate,BMKGeoCode
                                                         self.userLocationCenter.setObject(result.addressDetail.district, forKey: "quName")
                                                         
                                                         
-                                                        self.mainhelper.checkCity(self.godingwei) { (success, response) in
+                                                        self.mainhelper.checkCity(result.addressDetail.district) { (success, response) in
                                                             if success{
                                                                 self.dingweiCityID = (response as? String)!
                                                             }else{

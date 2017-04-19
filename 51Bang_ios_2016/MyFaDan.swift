@@ -37,7 +37,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     var info = TaskInfo()
     var xiaofeiview = XiaoFeiTableViewCell()
 //    var dataSource2 : Array<TaskInfo>?
-    var sign = Int()
+    var sign = 1
     
     override func  viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -302,7 +302,7 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     {
         sign = 1
         self.dataSource1?.removeAll()
-        self.GetWWCData("1")
+        self.GetWWCData("1,-1")
         weiBtn.setTitleColor(COLOR, forState: UIControlState.Normal)
         finshBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         rushedBtn.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
@@ -441,25 +441,24 @@ class MyFaDan: UIViewController,UITableViewDelegate,UITableViewDataSource,UIText
     func goMyZhuye(sender:UIButton){
         let vc = FuWuHomePageViewController()
         vc.isUserid = true
-        print(self.dataSource![sender.tag-1000].apply!.userid)
-//        print(self.dataSource![sender.tag-1000].apply!.userid)
-        if self.dataSource![sender.tag-1000].apply!.userid != nil {
+        if self.dataSource![sender.tag-1000].apply!.userid != nil && self.dataSource![sender.tag-1000].apply!.userid != "" {
             vc.userid = self.dataSource![sender.tag-1000].apply!.userid!
-            
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
-        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     func GoZhuyeAction(sender:UIButton){
         let vc = FuWuHomePageViewController()
         vc.isUserid = true
         print(sender.tag-500)
         print(self.dataSource1![sender.tag-500].apply!.userid)
-        if self.dataSource1![sender.tag-500].apply!.userid != nil {
+        if self.dataSource1![sender.tag-500].apply!.userid != nil && self.dataSource![sender.tag-500].apply!.userid != ""{
             vc.userid = self.dataSource1![sender.tag-500].apply!.userid!
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
-        self.navigationController?.pushViewController(vc, animated: true)
+        
         
     }
     

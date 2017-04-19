@@ -24,6 +24,7 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     private let statuFrame = UIApplication.sharedApplication().statusBarFrame
     private var monthReceiveNum = "0"
     private var dayReceiveNum = "0"
+    var helper = TCVMLogModel()
     private let monthReceiveLabel = UILabel()
     private let dayReceiveLabel = UILabel()
     private var Datasource:[ReceveModel] = []
@@ -41,13 +42,16 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         self.navigationController?.navigationBar.hidden = true
         self.tabBarController?.tabBar.hidden = true
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.newTask), name:"newTasksss", object: nil)
+        self.mTable.mj_header.beginRefreshing()
 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = RGREY
         
-        self.getData()
+//        self.getData()
+        
+        self.createTableView()
         self.getData2()
         let da = ReceveModel()
         da.taskNum = "wyb123456"
@@ -119,7 +123,7 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
-        mainHelper.getMyGetOrder (userid,state: "-1,0,1,2,3,4,5",handle: {[unowned self] (success, response) in
+        mainHelper.getMyGetOrder (userid,state: "",handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                     return
@@ -127,9 +131,10 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
 //                self.dataSource1.removeAll()
                 self.dataSource1 = response as? Array<TaskInfo> ?? []
 //                self.dataSource = response as? Array<TaskInfo> ?? []
-                print(self.dataSource1?.count)
-                print(self.dataSource1)
-                self.createTableView()
+//                print(self.dataSource1?.count)
+//                print(self.dataSource1)
+                self.mTable.reloadData()
+                
 //                print(response)
 //                //                self.dataSource?.removeAll()
 //                self.dataSource = response as? Array<TaskInfo> ?? []
@@ -154,7 +159,8 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
                 return
             }
             self.dataSource2 = response as? GetMyApplyTastTotalInfo
-            self.createTableView()
+//            self.createTableView()
+            self.mTable.reloadData()
         }
     }
     
@@ -179,7 +185,7 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
         
         let ud = NSUserDefaults.standardUserDefaults()
         let userid = ud.objectForKey("userid")as! String
-        mainHelper.getMyGetOrder (userid,state: "-1,0,1,2,3,4,5",handle: {[unowned self] (success, response) in
+        mainHelper.getMyGetOrder (userid,state: "",handle: {[unowned self] (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 if !success {
                 self.mTable.mj_header.endRefreshing()
@@ -292,7 +298,12 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if dataSource1?.count > 0 {
-            return MyReceiveDanCell.init(Data: dataSource1![indexPath.row])
+            let cell = MyReceiveDanCell.init(Data: dataSource1![indexPath.row])
+            cell.delButton.tag = indexPath.row
+            cell.gobutton.tag = indexPath.row
+            cell.delButton.addTarget(self, action: #selector(self.delButtonAction(_:)), forControlEvents: .TouchUpInside)
+            cell.gobutton.addTarget(self, action: #selector(self.gobuttonAction(_:)), forControlEvents: .TouchUpInside)
+            return cell
         }else{
             let cell = UITableViewCell()
             return cell
@@ -301,6 +312,11 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if self.dataSource1![indexPath.row].ishire != nil&&self.dataSource1![indexPath.row].state != nil{
+            if self.dataSource1![indexPath.row].ishire! == "1" && self.dataSource1![indexPath.row].state! == "1"{
+                return 210
+            }
+        }
         return 170
     }
     
@@ -319,6 +335,79 @@ class MyReceiveDan: UIViewController ,UITableViewDelegate,UITableViewDataSource{
 //        self.navigationController?.pushViewController(vc, animated: true)
         
     }
+    
+    func delButtonAction(sender:UIButton){
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "确认不接受该任务？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Default,  handler: { action in
+            
+            
+            
+        })
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        
+                                        let ud = NSUserDefaults.standardUserDefaults()
+                                        let userid = ud.objectForKey("userid") as! String
+                                        self.helper.CancelHireTask(userid, taskid: self.dataSource1![sender.tag].taskid!) { (success, response) in
+                                            dispatch_async(dispatch_get_main_queue(), {
+                                                if success{
+                                                    alert("取消成功", delegate: self)
+                                                }else{
+                                                    alert("取消失败，请重试！", delegate: self)
+                                                }
+                                                self.getData()
+                                                self.getData2()
+                                                
+                                                
+                                            })
+                                        }
+                                        
+                                        
+                                        
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        delegate.window?.rootViewController!.presentViewController(alertController, animated: true, completion: nil)
+    }
+    func gobuttonAction(sender:UIButton){
+        let alertController = UIAlertController(title: "系统提示",
+                                                message: "您确定要接受该任务吗？", preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .Default,
+                                     handler: { action in
+                                        let ud = NSUserDefaults.standardUserDefaults()
+                                        var userid = String()
+                                        if ud.objectForKey("userid") != nil{
+                                            userid = ud.objectForKey("userid")as! String
+                                        }
+                                        self.mainHelper.ApplyHireTask(userid,taskid: self.dataSource1![sender.tag].taskid!, handle: { (success, response) in
+                                            dispatch_async(dispatch_get_main_queue(), {
+                                                if !success{
+                                                    alert("接单失败请重试", delegate: self)
+                                                    return
+                                                }else{
+                                                    alert("接单成功", delegate: self)
+                                                }
+                                                self.getData()
+                                                self.getData2()
+                                                
+                                            })
+                                        })
+                                        
+                                        
+                                        
+                                        
+                                        
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+
     
 //    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 //        if(section == 0)

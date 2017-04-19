@@ -80,6 +80,34 @@
     }
     
     
+    //获取用户未处理信息
+    func GetMyNoApplyHireTastCount(userid:String,handle:ResponseBlock){
+        let url = Bang_URL_Header+"GetMyNoApplyHireTastCount"
+        let param1 = [
+            
+            "userid":userid
+            
+        ];
+        Alamofire.request(.GET, url, parameters: param1).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                if(result.status == "success"){
+                    handle(success: true, response: result.data)
+                    
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    
     
     //检查是否需要重新登录
     func checkIslogin(userid:String,handle:ResponseBlock){
@@ -249,6 +277,60 @@
                 let result = Http(JSONDecoder(json!))
 
                
+                if(result.status == "success"){
+                    
+                    
+                    handle(success: true, response: result.data)
+                    
+                }else{
+                    //                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+    }
+    
+    
+    //发布雇佣任务
+    func publishHireTask(userid:String,title:String,description:String,address:String,longitude:String,latitude:String,saddress:String,slongitude:String,slatitude:String, expirydate:String,price:String,type:String,sound:String,picurl:NSArray,soundtime:String,employeeid:String, handle:ResponseBlock){
+        let url = Bang_URL_Header+"publishHireTask"
+        
+        let photoUrl = NSMutableString()
+        for i in 0..<picurl.count {
+            if i == picurl.count-1{
+                photoUrl.appendString(picurl[i] as! String)
+            }else{
+                photoUrl.appendString(picurl[i] as! String)
+                photoUrl.appendString(",")
+            }
+        }
+        let param = [
+            "userid":userid,
+            "title":title,
+            "description":description,
+            "address":address,
+            "saddress":saddress,
+            "longitude":longitude,
+            "latitude":latitude,
+            "slongitude":slongitude,
+            "slatitude":slatitude,
+            "expirydate":expirydate,
+            "sound":sound,
+            "type":type,
+            "price":price,
+            "picurl":photoUrl,
+            "soundtime":soundtime,
+            "employeeid":employeeid
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                
+                
                 if(result.status == "success"){
                     
                     
@@ -1067,6 +1149,35 @@
             "taskid":taskid,
             "longitude":longitude,
             "latitude":latitude
+        ];
+        Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
+            print(request)
+            if(error != nil){
+                handle(success: false, response: error?.description)
+            }else{
+                let result = Http(JSONDecoder(json!))
+                if(result.status == "success"){
+                    handle(success: true, response: result.data)
+                    
+                    
+                }else{
+                    handle(success: false, response: result.errorData)
+                    
+                }
+            }
+            
+        }
+        
+        
+    }
+    
+    //雇佣确认订单
+    func ApplyHireTask(userid:NSString,taskid:NSString,handle:ResponseBlock){
+        let url = Bang_URL_Header+"ApplyHireTask"
+        let param = [
+            "userid":userid,
+            "taskid":taskid
+            
         ];
         Alamofire.request(.GET, url, parameters: param).response { request, response, json, error in
             print(request)

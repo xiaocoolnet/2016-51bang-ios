@@ -8,8 +8,10 @@
 
 import UIKit
 
-class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,SDPhotoBrowserDelegate  {
+class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,SDPhotoBrowserDelegate,UIWebViewDelegate  {
     
+    var isworning = Bool()
+    var urlArray: AdvertiselistModel!
     var lookPhotosImageView = UIImageView()
     var myPhotoArray = NSArray()
     var count  =  Int()
@@ -21,6 +23,9 @@ class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
 //        print(myPhotoArray.count)
+        
+        
+        
         ConvenientPeople.isFresh = true
         let flowl = UICollectionViewFlowLayout.init()
         //设置每一个item大小
@@ -81,6 +86,9 @@ class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDat
             browser.delegate = self
             browser.vc = self
             browser.show()
+            
+            
+            
         }else{
             
             let cell = UICollectionViewCell.init(frame: CGRectMake(0, 0, WIDTH, HEIGHT))
@@ -117,7 +125,7 @@ class LookPhotoVC: UIViewController,UICollectionViewDelegate,UICollectionViewDat
         }
         
         
-        return imageView;
+        return nil;
     }
     
     func photoBrowser(browser: SDPhotoBrowser!, highQualityImageURLForIndex index: Int) -> NSURL! {

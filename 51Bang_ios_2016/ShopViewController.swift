@@ -57,6 +57,7 @@ class ShopViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         
         self.navigationController?.navigationBar.hidden = false
+//        self.myTableView.mj_header.beginRefreshing()
         
     }
     override func viewDidLoad() {

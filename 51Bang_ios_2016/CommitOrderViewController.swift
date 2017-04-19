@@ -14,6 +14,11 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     var infosss = Array<ClistInfo>()
     
     
+    var skilllistDataSource : Array<SkilllistModel>?
+    var employeeid = String()
+    var selectedTypeid = String()
+    
+    
     var timer1:NSTimer!
     var timer2:NSTimer!
     var deletebutton = UIButton()
@@ -28,6 +33,8 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     var audioRecorder: AVAudioRecorder?
     var recordTime = Int()
     var countTime = Int()
+    
+    var selectBtnArray = Array<UIButton>()
     
     var timeLabel = UILabel()
     
@@ -70,7 +77,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     let myTableView = TPKeyboardAvoidingTableView()
     var pickerView:UIPickerView!
     var datePicker:UIDatePicker!
-    let totalloc:Int = 4
+    var totalloc:Int = 4
     var taskTitle = String()
     var taskDescription = String()
     var salar = String()
@@ -78,7 +85,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     var photoArray:NSMutableArray = []
     var collectionV:UICollectionView?
     let photoNameArr = NSMutableArray()
-    let jiNengID = NSMutableArray()
+    var jiNengID = NSMutableArray()
     let array = ["跑腿","维修","家政","车辆","兼职","代办","宠物","丽人","婚恋","其他"]
     let array1 = ["按小时计费","按天计费","按月计费","按趟计费","按件计费","按重量计费"]
 //    var address = String()
@@ -129,14 +136,14 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         super.viewDidLoad()
         self.title = "帮我"
         self.view.backgroundColor = RGREY
-        print(self.cityName)
-        print(self.latitude)
-        print(self.longitude)
+//        print(self.cityName)
+//        print(self.latitude)
+//        print(self.longitude)
         if !self.iszhuanxiang{
             self.GetData()
-            self.createTableViewHeaderView()
+            
         }
-        
+        self.createTableViewHeaderView()
         self.createTableView()
        
         location.delegate = self
@@ -663,41 +670,77 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             }
         }
 
-        
-        
-        mainHelper.upLoadOrder(userid, title: self.taskTitle, description: self.taskDescription, address:address , longitude: longitude, latitude: latitude, saddress:saddress,slongitude: slongitude, slatitude: slatitude, expirydate: expirydate, price: price, type: type, sound: self.sound, picurl: self.photoNameArr,soundtime:String(self.countTime), handle: { (success, response) in
-            dispatch_async(dispatch_get_main_queue(), {
-            if !success{
-                self.hud1.hide(true)
-                alert("任务提交失败", delegate: self)
-                return
-            }
-            print(response!)
-            let userDefault = NSUserDefaults.standardUserDefaults()
-            userDefault.setObject(response!, forKey: "ordernumber")
-//            print("上传合同")
-            self.hud1.hide(true)
-            
-            let vc = PayViewController()
-            vc.isRenwu = true
-            vc.numForGoodS = response! as! String
-//            if self.salary == "" {
-//                vc.price = 0
-//            }else{
-//                vc.price = Double(self.salary)!
-//            }
-            vc.price = Double(self.price)!
-            vc.body = self.taskDescription
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-////            let vc = UploadContractViewController()
-//            vc.numofGoods = response! as! String
-//            vc.price = self.price
-//            vc.goodName = self.taskTitle
-//            self.navigationController?.pushViewController(vc, animated: true)
+        if iszhuanxiang{
+            mainHelper.publishHireTask(userid, title: self.taskTitle, description: self.taskDescription, address:address , longitude: longitude, latitude: latitude, saddress:saddress,slongitude: slongitude, slatitude: slatitude, expirydate: expirydate, price: price, type: type, sound: self.sound, picurl: self.photoNameArr,soundtime:String(self.countTime),employeeid:self.employeeid ,handle: { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if !success{
+                        self.hud1.hide(true)
+                        alert("任务提交失败", delegate: self)
+                        return
+                    }
+                    print(response!)
+                    let userDefault = NSUserDefaults.standardUserDefaults()
+                    userDefault.setObject(response!, forKey: "ordernumber")
+                    //            print("上传合同")
+                    self.hud1.hide(true)
+                    
+                    let vc = PayViewController()
+                    vc.isRenwu = true
+                    vc.numForGoodS = response! as! String
+                    //            if self.salary == "" {
+                    //                vc.price = 0
+                    //            }else{
+                    //                vc.price = Double(self.salary)!
+                    //            }
+                    vc.price = Double(self.price)!
+                    vc.body = self.taskDescription
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+                    ////            let vc = UploadContractViewController()
+                    //            vc.numofGoods = response! as! String
+                    //            vc.price = self.price
+                    //            vc.goodName = self.taskTitle
+                    //            self.navigationController?.pushViewController(vc, animated: true)
+                })
             })
-        })
-
+        }else{
+            mainHelper.upLoadOrder(userid, title: self.taskTitle, description: self.taskDescription, address:address , longitude: longitude, latitude: latitude, saddress:saddress,slongitude: slongitude, slatitude: slatitude, expirydate: expirydate, price: price, type: type, sound: self.sound, picurl: self.photoNameArr,soundtime:String(self.countTime), handle: { (success, response) in
+                dispatch_async(dispatch_get_main_queue(), {
+                    if !success{
+                        self.hud1.hide(true)
+                        alert("任务提交失败", delegate: self)
+                        return
+                    }
+                    print(response!)
+                    let userDefault = NSUserDefaults.standardUserDefaults()
+                    userDefault.setObject(response!, forKey: "ordernumber")
+                    //            print("上传合同")
+                    self.hud1.hide(true)
+                    
+                    let vc = PayViewController()
+                    vc.isRenwu = true
+                    vc.numForGoodS = response! as! String
+                    //            if self.salary == "" {
+                    //                vc.price = 0
+                    //            }else{
+                    //                vc.price = Double(self.salary)!
+                    //            }
+                    vc.price = Double(self.price)!
+                    vc.body = self.taskDescription
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    
+                    ////            let vc = UploadContractViewController()
+                    //            vc.numofGoods = response! as! String
+                    //            vc.price = self.price
+                    //            vc.goodName = self.taskTitle
+                    //            self.navigationController?.pushViewController(vc, animated: true)
+                })
+            })
+ 
+        }
+        
+        
+        
         
     }
     
@@ -706,9 +749,70 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
     //MARK: 创建头视图
     func createTableViewHeaderView(){
         print(self.dataSource.count)
+        var height1 = CGFloat()
         if iszhuanxiang{
-            headerView.frame = CGRectMake(0, 0, WIDTH, 250-WIDTH*165/375)
+//            headerView.frame = CGRectMake(0, 0, WIDTH, 250-WIDTH*165/375)
+            totalloc = 5
+            
+//            headerView.backgroundColor = UIColor.whiteColor()
+            let margin:CGFloat = (WIDTH-CGFloat(self.totalloc) * WIDTH*73/375)/(CGFloat(self.totalloc)+1);
+            print(margin)
+            for i in 0..<self.skilllistDataSource!.count{
+                let row:Int = i / totalloc;//行号
+                //1/3=0,2/3=0,3/3=1;
+                let loc:Int = i % totalloc;//列号
+                let appviewx:CGFloat = margin+(margin+WIDTH/CGFloat(totalloc))*CGFloat(loc)
+                let appviewy:CGFloat = margin+(margin+WIDTH*40/375) * CGFloat(row)
+//                let btn = UIButton()
+//                //            btn.backgroundColor = UIColor.redColor()
+//                btn.frame = CGRectMake(appviewx-CGFloat(loc-1)*4, appviewy, WIDTH*70/375, WIDTH*30/375)
+//                btn.layer.cornerRadius = WIDTH*10/375
+//                btn.layer.borderWidth = 1
+//                
+//                
+//                btn.layer.borderColor = UIColor.grayColor().CGColor
+                let btn = UIButton.init(frame: CGRectMake(appviewx-CGFloat(loc-1)*4, appviewy, WIDTH*70/375, WIDTH*30/375))
+                //            label.backgroundColor = UIColor.redColor()
+                btn.setTitle(self.skilllistDataSource![i].typename, forState: .Normal)
+//                btn.textAlignment = .Center
+                btn.layer.masksToBounds = true
+                btn.layer.borderColor = COLOR.CGColor
+                btn.layer.borderWidth = 1
+                btn.layer.cornerRadius = 5
+                btn.titleLabel?.font = UIFont.systemFontOfSize(12)
+                btn.setTitleColor(COLOR, forState: .Normal)
+                btn.setTitleColor(UIColor.whiteColor(), forState: .Selected)
+                btn.selected = false
+                btn.tag = i
+                btn.addTarget(self, action: #selector(self.btnAction(_:)), forControlEvents: .TouchUpInside)
+                if selectedTypeid != ""{
+                    if self.skilllistDataSource![i].type! == selectedTypeid{
+                        if self.skilllistDataSource![i].parent_typename != nil{
+                            self.taskDescription = self.skilllistDataSource![i].typename!
+                        }
+                        //            if self.skilllistDataSource![sender.tag].typename != nil{
+                        //                self.taskTitle = self.skilllistDataSource![sender.tag].typename!
+                        //            }
+                        if self.skilllistDataSource![i].type != nil{
+                            self.jiNengID = [self.skilllistDataSource![i].type!]
+                        }
+                        btn.selected = true
+                        btn.backgroundColor = COLOR
+                        self.selectBtnArray = [btn]
+                    }
+                }
+                
+                //            view2.addSubview(btn)
+                headerView.addSubview(btn)
+                
+                
+            }
+            //        self.view.addSubview(view2)
+            height1 = (CGFloat((self.skilllistDataSource?.count)!+4)/5)*(WIDTH*35/375 + 6)
+//            headerView.frame = CGRectMake(0, 0, WIDTH, height1)
+//            myTableView.tableHeaderView = view2
         }else{
+            totalloc = 4
             headerView.frame = CGRectMake(0, 0, WIDTH, 250)
             let startMargin = (WIDTH - 4 * (WIDTH*80/375) ) / 5
             
@@ -729,6 +833,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 //            btn.backgroundColor = UIColor.redColor()
                 
                 btn.frame = CGRectMake(appviewx + startMargin, appviewy+10, WIDTH*80/375, WIDTH*30/375)
+                btn.backgroundColor = UIColor.whiteColor()
                 btn.layer.cornerRadius = WIDTH*10/375
                 btn.layer.borderWidth = 1
                 btn.layer.borderColor = COLOR.CGColor
@@ -747,7 +852,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         
         if iszhuanxiang{
-            textView.frame = CGRectMake(0, 0, WIDTH, 180)
+            textView.frame = CGRectMake(0, height1, WIDTH, 180)
         }else{
             textView.frame = CGRectMake(0, WIDTH*165/375, WIDTH, 180)
         }
@@ -789,11 +894,42 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
         
         headerView.addSubview(textView)
         headerView.addSubview(bottomView)
-        headerView.frame.size.height = WIDTH*180/375+WIDTH*180/375+10
+        if !iszhuanxiang{
+            headerView.frame =  CGRectMake(0, 0, WIDTH, bottomView.frame.size.height+bottomView.frame.origin.y)
+        }else{
+            
+            headerView.frame =  CGRectMake(0, 0, WIDTH, bottomView.frame.size.height+bottomView.frame.origin.y)
+            
+        }
+        print(headerView.frame.size.height)
         
 //        view.backgroundColor = UIColor.redColor()
         self.myTableView.tableHeaderView = headerView
        
+    }
+    
+    func btnAction(sender:UIButton){
+        if sender.selected{
+            return
+        }else{
+            
+            if self.skilllistDataSource![sender.tag].parent_typename != nil{
+                self.taskDescription = self.skilllistDataSource![sender.tag].typename!
+            }
+//            if self.skilllistDataSource![sender.tag].typename != nil{
+//                self.taskTitle = self.skilllistDataSource![sender.tag].typename!
+//            }
+            if self.skilllistDataSource![sender.tag].type != nil{
+                self.jiNengID = [self.skilllistDataSource![sender.tag].type!]
+            }
+            if self.selectBtnArray.count>0{
+                self.selectBtnArray[0].backgroundColor = UIColor.whiteColor()
+                self.selectBtnArray[0].selected = false
+            }
+            sender.selected = true
+            sender.backgroundColor = COLOR
+            self.selectBtnArray = [sender]
+        }
     }
     
     func startRecord(){
@@ -1291,46 +1427,22 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             cell.locationButton.addTarget(self, action: #selector(self.dingwei(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             cell.selectionStyle = .None
             cell.textView.tag = 1
-//            if(CommitOrderViewController.firstString != cell.textView.text )
-//            {
-//            print("不同")
-//            
-//            }else if( CommitOrderViewController.firstString != "" )
-//            {
-//                cell.textView.text = CommitOrderViewController.firstString
-//            }else
-//            {
-//                
-//            cell.textView.text = cell.textView.text
-//                
-//            }
-//            if( CommitOrderViewController.ReturnTag != 2  )
-//            {
-//                
-//                
-//            if( CommitOrderViewController.firstString != cell.textView.text && cell.textView.text != MainViewController.BMKname && cell.textView.text.characters.count != 0)
-//            {
-//                cell.textView.text = cell.textView.text
-//            }else{
-//            
-//                cell.textView.text = MainViewController.BMKname
-//            }
-//            }else{
-//            
-//                
-//                
-//               cell.textView.text = CommitOrderViewController.firstString
-//                CommitOrderViewController.ReturnTag = 0
-//            
-//            }
+
             
             if( CommitOrderViewController.ReturnTagForView == 0)
             {
                 
-                cell.textView.text = MainViewController.BMKname
-                self.address = MainViewController.BMKname
-                self.latitude = String(MainViewController.userLocationForChange.coordinate.latitude)
-                self.longitude = String(MainViewController.userLocationForChange.coordinate.longitude)
+//                cell.textView.text = MainViewController.BMKname
+//                
+//                self.address = MainViewController.BMKname
+//                self.latitude = String(MainViewController.userLocationForChange.coordinate.latitude)
+//                self.longitude = String(MainViewController.userLocationForChange.coordinate.longitude)
+                
+                
+                 cell.textView.text = CommitOrderViewController.firstString
+                self.address = CommitOrderViewController.firstString
+                self.latitude = String(CommitOrderViewController.FirstLocation.coordinate.latitude)
+                self.longitude = String(CommitOrderViewController.FirstLocation.coordinate.longitude)
                 
             }else {
                 
@@ -1342,12 +1454,17 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 
                 }else{
                 
-                print(cell.textView.text)
-                cell.textView.text = cell.textView.text
-                    self.address = cell.textView.text
-                self.latitude = String(MainViewController.userLocationForChange.coordinate.latitude)
-                self.longitude = String(MainViewController.userLocationForChange.coordinate.longitude)
+//                print(cell.textView.text)
+//                cell.textView.text = MainViewController.BMKname
+//                    self.address = MainViewController.BMKname
+//                self.latitude = String(MainViewController.userLocationForChange.coordinate.latitude)
+//                self.longitude = String(MainViewController.userLocationForChange.coordinate.longitude)
                 
+                    cell.textView.text = CommitOrderViewController.firstString
+                    self.address = CommitOrderViewController.firstString
+                    self.latitude = String(CommitOrderViewController.FirstLocation.coordinate.latitude)
+                    self.longitude = String(CommitOrderViewController.FirstLocation.coordinate.longitude)
+                    
                 }
                 
                 
@@ -1404,11 +1521,18 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                 
                 CommitOrderViewController.ReturnTagForView = 2
             
-                cell.textView.text = MainViewController.BMKname
+//                cell.textView.text = MainViewController.BMKname
+//                
+//                self.saddress = MainViewController.BMKname
+//                self.slatitude = String(MainViewController.userLocationForChange.coordinate.latitude)
+//                self.slongitude = String(MainViewController.userLocationForChange.coordinate.longitude)
                 
-                self.saddress = MainViewController.BMKname
-                self.slatitude = String(MainViewController.userLocationForChange.coordinate.latitude)
-                self.slongitude = String(MainViewController.userLocationForChange.coordinate.longitude)
+                
+                
+                cell.textView.text = CommitOrderViewController.secondstring
+                self.address = CommitOrderViewController.firstString
+                self.latitude = String(CommitOrderViewController.SecondLocation.coordinate.latitude)
+                self.longitude = String(CommitOrderViewController.SecondLocation.coordinate.longitude)
             }else{
             
             
@@ -1422,10 +1546,15 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
                     
                     print(cell.textView.text)
                     
-                    cell.textView.text = cell.textView.text
-                    self.saddress = cell.textView.text
-                    self.slatitude = String(MainViewController.userLocationForChange.coordinate.latitude)
-                    self.slongitude = String(MainViewController.userLocationForChange.coordinate.longitude)
+//                    cell.textView.text = MainViewController.BMKname
+//                    self.saddress = MainViewController.BMKname
+//                    self.slatitude = String(MainViewController.userLocationForChange.coordinate.latitude)
+//                    self.slongitude = String(MainViewController.userLocationForChange.coordinate.longitude)
+                    
+                    cell.textView.text = CommitOrderViewController.secondstring
+                    self.address = CommitOrderViewController.firstString
+                    self.latitude = String(CommitOrderViewController.SecondLocation.coordinate.latitude)
+                    self.longitude = String(CommitOrderViewController.SecondLocation.coordinate.longitude)
                     
                 }
                 
@@ -1996,7 +2125,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
             
             for i in 0..<arr.count{
                 self.jiNengID.addObject(self.infosss[(arr[i]as! UIButton).tag].id!)
-                
+                self.taskDescription = self.infosss[(arr[i]as! UIButton).tag].name!
                 
             }
             
@@ -2006,7 +2135,7 @@ class CommitOrderViewController: UIViewController,UITableViewDelegate,UITableVie
 //                strrr = strrr + self.infosss[(str  as! UIButton).tag].name!
 //                
 //            }
-            self.taskDescription = self.dataSource[self.selectedIndex-500].name!
+            
 //            self.taskTitle = 
 //            print(strrr)
             

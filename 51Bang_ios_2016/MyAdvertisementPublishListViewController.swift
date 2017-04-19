@@ -93,9 +93,14 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
         let hud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         hud.animationType = .Zoom
         hud.labelText = "正在努力加载"
+        if self.dataSource.count>0&&self.dataSource.last != nil && self.dataSource.last?.slide_id != nil{
+            self.beginmid = (self.dataSource.last?.slide_id)!
+        }else{
+            self.mytableView.mj_footer.endRefreshingWithNoMoreData()
+            hud.hide(true)
+            return
+        }
         
-        self.beginmid = (self.dataSource.last?.slide_id)!
-        print(beginmid)
         mainHelper.getbbspostlist(self.status, beginid: beginmid,userid:userid ) { (success, response) in
             dispatch_async(dispatch_get_main_queue(), {
                 hud.hide(true)
@@ -133,6 +138,8 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
         
         cell.urlLabel.addTarget(self, action: #selector(self.goUrlAction(_:)), forControlEvents: .TouchUpInside)
         cell.urlLabel.tag = indexPath.row+100
+        cell.editButton.tag = indexPath.row
+        cell.editButton.addTarget(self, action: #selector(self.editButtonAction(_:)), forControlEvents: .TouchUpInside)
         
         
         if stringIsNotNil(self.dataSource[indexPath.row].slide_status!) as! String=="1"{
@@ -191,6 +198,14 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func editButtonAction(sender:UIButton){
+        let vc = GoAdvertisementPublishViewController()
+        vc.info = self.dataSource[sender.tag]
+        vc.isEdit = true
+        self.navigationController?.pushViewController(vc, animated: true)
+
+    }
+    
     func deletebuttonAction(sender:UIButton){
         let ud = NSUserDefaults.standardUserDefaults()
         var userid = String()
@@ -212,6 +227,7 @@ class MyAdvertisementPublishListViewController: UIViewController,UITableViewDele
                                                 hud.yOffset = Float(HEIGHT/2-80)
                                                 hud.labelFont = UIFont.systemFontOfSize(14)
                                                 hud.hide(true, afterDelay: 1.5)
+                                                self.dataSource.removeAtIndex(sender.tag)
                                                 self.mytableView.deleteRowsAtIndexPaths([NSIndexPath.init(forRow: sender.tag, inSection: 0)], withRowAnimation: .Left)
                                                 self.mytableView.reloadData()
                                             }

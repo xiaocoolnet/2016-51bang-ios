@@ -108,8 +108,8 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         bottom.addSubview(btnCanel)
         
         if self.isMessage{
-            bottom.frame = CGRectMake(0, 0, WIDTH, 250)
-            let worningButton = UIButton.init(frame: CGRectMake(0, 150, WIDTH, 30))
+            bottom.frame = CGRectMake(0, 0, WIDTH, 350)
+            let worningButton = UIButton.init(frame: CGRectMake(0, 250, WIDTH, 30))
             worningButton.setTitle("如果需要办理套餐请拨打:4000608856", forState: .Normal)
             worningButton.setTitleColor(COLOR, forState: .Normal)
             worningButton.titleLabel?.font = UIFont.systemFontOfSize(13)
@@ -152,13 +152,15 @@ class PayViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     func gomessage(){
         
-        self.navigationController?.popToViewController((self.navigationController?.viewControllers[1])!, animated: false)
-        
-//        let bookVC = MyMessageViewController()
-//        self.navigationController?.pushViewController(bookVC, animated: true)
+        let bookVC = ConvenientPeople()
+        bookVC.headerRefresh()
+        let array = [self.navigationController!.viewControllers[0],bookVC]
+        self.navigationController?.setViewControllers(array, animated: true)
+
     }
     func guanggao(){
         let bookVC = MyAdvertisementPublishViewController()
+        bookVC.counts = 1
         let array = [self.navigationController!.viewControllers[0],bookVC]
         self.navigationController?.setViewControllers(array, animated: true)
     }

@@ -12,6 +12,8 @@ class MyReceiveDanCell: UITableViewCell{
     let topView = UIView()
     let middleView = UIView()
     let bottomView = UIView()
+    let delButton = UIButton()
+    let gobutton = UIButton()
     
    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -31,7 +33,7 @@ class MyReceiveDanCell: UITableViewCell{
         self.addSubview(middleView)
         self.addSubview(bottomView)
         let view = UIView.init(frame: CGRectMake(0, 0, WIDTH, 2))
-        view.backgroundColor = COLOR
+        view.backgroundColor = GREY
         self.addSubview(view)
         
         let timLabel = UILabel.init(frame: CGRectMake(WIDTH - 100, 0, 95, 40))
@@ -114,9 +116,38 @@ class MyReceiveDanCell: UITableViewCell{
             ST.text = "已付款"
         }else if Data.state! == "-1"{
             ST.text = "已取消"
+        }else if Data.state! == "1"{
+            ST.text = "待确认"
+        }else if Data.state! == "-2"{
+            ST.text = "已取消"
         }
         ST.adjustsFontSizeToFitWidth = true
         bottomView.addSubview(ST)
+        
+        
+        
+        if Data.ishire != nil && Data.ishire! != ""{
+            if Data.ishire! == "1"&&Data.state! == "1"{
+                delButton.frame = CGRectMake(20,bottomView.height+bottomView.frame.origin.y + 10, WIDTH/2-50, 30)
+                delButton.backgroundColor = COLOR
+                delButton.setTitle("我不接单", forState: .Normal)
+                delButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                delButton.titleLabel?.font = UIFont.systemFontOfSize(14)
+                delButton.layer.masksToBounds = true
+                delButton.layer.cornerRadius = 5
+                
+                
+                gobutton.frame = CGRectMake(WIDTH/2+30,bottomView.height+bottomView.frame.origin.y + 10, WIDTH/2-50, 30)
+                gobutton.backgroundColor = COLOR
+                gobutton.setTitle("我要接单", forState: .Normal)
+                gobutton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+                gobutton.titleLabel?.font = UIFont.systemFontOfSize(14)
+                gobutton.layer.masksToBounds = true
+                gobutton.layer.cornerRadius = 5
+                self.addSubview(delButton)
+                self.addSubview(gobutton)
+            }
+        }
         
     }
     

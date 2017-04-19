@@ -373,6 +373,14 @@ class TaskDetailViewController: UIViewController,UITableViewDelegate,UITableView
 
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0{
+            let vc = FuWuHomePageViewController()
+            vc.isUserid = true
+            vc.userid = self.taskInfo.userid!
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     func boFangButtonActions(sender:UIButton){
         

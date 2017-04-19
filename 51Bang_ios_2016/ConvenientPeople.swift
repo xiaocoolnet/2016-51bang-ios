@@ -1,4 +1,4 @@
-//
+
 //  ConvenientPeople.swift
 //  51Bang_ios_2016
 //
@@ -61,7 +61,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         sc.searchBar.placeholder = "输入搜索内容"
         sc.searchBar.searchBarStyle = .Minimal
         if !ConvenientPeople.isFresh {
-            getData(self.keyword)
+//            getData(self.keyword)
             headerRefresh()
             
             
@@ -338,7 +338,7 @@ class ConvenientPeople: UIViewController,UITableViewDelegate,UITableViewDataSour
         
         convenienceTable.mj_header = MJRefreshNormalHeader(refreshingBlock: { () -> Void in
             print("MJ:(下拉刷新)")
-            self.keyword = ""
+//            self.keyword = ""
             self.headerRefresh()
             
         })

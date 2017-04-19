@@ -19,6 +19,7 @@ class ConveniceCell: UITableViewCell{
     let backView = UIView()
     var boFangButton = UIButton()
     var userImage = UIImageView()
+    var userImageBackButton = UIButton()
     var userName = UILabel()
     var timeLabel = UILabel()
     var messageButton = UIButton()
@@ -50,11 +51,14 @@ class ConveniceCell: UITableViewCell{
     var image7 : UIImageView?
     var image8: UIImageView?
     var image9 : UIImageView?
-    var info:TCHDInfo?
+    var info:TCHDInfo? = nil
+    var info1:commentlistInfo? = nil
+    var photoArray = NSMutableArray()
     let imshow = UIView()
     init (myinfo:commentlistInfo){
+        self.info1 = myinfo
          super.init(style: UITableViewCellStyle.Default , reuseIdentifier: "resucell")
-        self.sd_addSubviews([userImage,userName,timeLabel,contenLabel,backView,lineView])
+        self.sd_addSubviews([userImage,userName,timeLabel,contenLabel,backView,lineView,userImageBackButton])
         
         lineView.backgroundColor = LGBackColor
         lineView.sd_layout()//添加约束
@@ -73,8 +77,14 @@ class ConveniceCell: UITableViewCell{
         }else{
             let photoUrl:String = Bang_Open_Header+"uploads/images/"+myinfo.photo!
             print(photoUrl)
-            userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
+//            userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
+            userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"), completed: { (image, error, type, user) in
+                self.photoArray.addObject(self.userImage)
+            })
         }
+        userImageBackButton.frame = userImage.frame
+        userImageBackButton.backgroundColor = UIColor.clearColor()
+        userImageBackButton.addTarget(self, action: #selector(self.userImageBackButtonAction), forControlEvents: .TouchUpInside)
         userName.sd_layout()
             .widthIs(100)
             .heightIs(25)
@@ -154,13 +164,16 @@ class ConveniceCell: UITableViewCell{
         
         super.init(style: UITableViewCellStyle.Default , reuseIdentifier: "resucell")
         
-        self.sd_addSubviews([userImage,userName,timeLabel,messageButton,phone,deletebutton,accountnumberButton,contenLabel,imshow,lineView])
+        self.sd_addSubviews([userImage,userName,timeLabel,messageButton,phone,deletebutton,accountnumberButton,contenLabel,imshow,lineView,userImageBackButton])
         
         userImage.frame = CGRectMake(10, 10, 50, 50)
         userImage.layer.masksToBounds = true
         userImage.cornerRadius = 25
         userImage.backgroundColor = UIColor.redColor()
         
+        userImageBackButton.frame = userImage.frame
+        userImageBackButton.backgroundColor = UIColor.clearColor()
+        userImageBackButton.addTarget(self, action: #selector(self.userImageBackButtonAction), forControlEvents: .TouchUpInside)
         
         lineView.backgroundColor = LGBackColor
         lineView.sd_layout()//添加约束
@@ -173,8 +186,12 @@ class ConveniceCell: UITableViewCell{
             userImage.image = UIImage(named:"ic_moren")
         }else{
             let photoUrl:String = Bang_Open_Header+"uploads/images/"+info.photo!
-            print(photoUrl)
-            userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"))
+//            print(photoUrl)
+//            userImage.sd_setImageWithURL(<#T##url: NSURL!##NSURL!#>, placeholderImage: <#T##UIImage!#>, completed: <#T##SDWebImageCompletionBlock!##SDWebImageCompletionBlock!##(UIImage!, NSError!, SDImageCacheType, NSURL!) -> Void#>)
+            userImage.sd_setImageWithURL(NSURL(string:photoUrl), placeholderImage: UIImage(named: "ic_moren"), completed: { (image, error, type, user) in
+                self.photoArray.addObject(self.userImage)
+            })
+            
         }
         
         
@@ -483,7 +500,33 @@ class ConveniceCell: UITableViewCell{
         }
     }
     
-    
+    func userImageBackButtonAction(){
+        
+        let vc = FuWuHomePageViewController()
+        vc.isUserid = true
+        
+        if self.info != nil&&self.info?.userid != nil{
+            vc.userid = (self.info?.userid!)!
+            targets.navigationController?.pushViewController(vc, animated: true)
+        }else if self.info1 != nil && self.info1?.userid != nil{
+            vc.userid = (self.info1?.userid!)!
+            targets.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        
+//        
+//        if self.info != nil{
+//            let pic = PicInfo()
+//            pic.pictureurl = info?.photo
+//            let lookvc = LookPhotoVC()
+//            lookvc.count = 0
+//            lookvc.pic1 = [pic]
+//            lookvc.title = "查看图片"
+//            lookvc.myPhotoArray = self.photoArray
+//            targets.navigationController?.pushViewController(lookvc, animated: true)
+//        }
+       
+    }
     
     
     
